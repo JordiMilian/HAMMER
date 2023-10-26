@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class HitStop : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    bool waiting;
+    public void Stop(float StopSeconds)
     {
-        
+        if (waiting == false)
+        {
+            StartCoroutine(Wait(StopSeconds));
+        }
+    }
+    IEnumerator Wait(float StopSeconds)
+    {
+        waiting = true;
+        yield return new WaitForSecondsRealtime(0.01f);
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(StopSeconds);
+        Time.timeScale = 1;
+        waiting = false;
+    }
+    IEnumerator PreWait()
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        Time.timeScale = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

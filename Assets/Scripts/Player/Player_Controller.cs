@@ -12,6 +12,7 @@ public class Player_Controller : MonoBehaviour
     Player_HealthSystem _HealthSystem;
     Collider2D DamageCollider;
     TrailRenderer WeaponTrail;
+    HitStop hitStop;
 
     public float CurrentSpeed;
     public float BaseSpeed;
@@ -58,6 +59,7 @@ public class Player_Controller : MonoBehaviour
         DamageCollider = GameObject.Find("P_DamageCollider").GetComponent<Collider2D>();
         chargingSpeed = CurrentSpeed / 3;
         followMouse = GetComponentInChildren<Player_FollowMouse>();
+        hitStop = FindObjectOfType<HitStop>();
     }
 
 
@@ -160,6 +162,7 @@ public class Player_Controller : MonoBehaviour
         _HealthSystem.UpdateLife(Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentDamage);
         cameraShake.ShakeCamera(1, 0.1f);
         CurrentSpeed = 0;
+        hitStop.Stop(0.5f);
         Vector2 direction = (transform.position - Weapon.transform.position).normalized;
         _rigitbody.AddForce(direction * (Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentKnockBack), ForceMode2D.Impulse);
         yield return new WaitForSeconds(staggerTime);

@@ -18,6 +18,7 @@ public class Enemy01 : MonoBehaviour
     Enemy_FollowPlayer Enemy_FollowPlayer;
     Enemy_HealthSystem Enemy_HealthSystem;
     Enemy_AttacksProvider enemy_AttackProvider;
+    HitStop hitStop;
 
 
     public bool Attacking = false;
@@ -46,6 +47,8 @@ public class Enemy01 : MonoBehaviour
         Enemy_FollowPlayer = GetComponent<Enemy_FollowPlayer>();
         Enemy_HealthSystem = GetComponent<Enemy_HealthSystem>();
 
+        hitStop = FindObjectOfType<HitStop>();
+
     }
     public IEnumerator Attack(Enemy_AttacksProvider.EnemyAttack Attack)
     {
@@ -63,6 +66,8 @@ public class Enemy01 : MonoBehaviour
         Debug.Log("EnemyAttacked");
         Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.damage);
         Enemy_FollowPlayer.SlowSpeed();
+
+        hitStop.Stop(0.05f);
         //EnemyRigidBody.AddForce(transform.up *-1000);
         EnemyAnimator.SetTrigger("PushBack");
         yield return new WaitForSeconds(0.3f);

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Player_HealthSystem : MonoBehaviour
 {
+    ReloadSceneOnDeath reloadScene;
     public float MaxHealth;
     public float CurrentHealth;
     void Start()
     {
+        reloadScene = GetComponent<ReloadSceneOnDeath>();
         CurrentHealth = MaxHealth;
     }
 
@@ -17,7 +19,7 @@ public class Player_HealthSystem : MonoBehaviour
         CurrentHealth -= Damage;
         if (CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            reloadScene.ReloadScene();
         }
         if (CurrentHealth > MaxHealth) { CurrentHealth = MaxHealth; }
     }
