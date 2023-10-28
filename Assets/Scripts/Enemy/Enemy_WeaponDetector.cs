@@ -9,7 +9,6 @@ public class Enemy_WeaponDetector : MonoBehaviour
     void Start()
     {
         Enemy01 = GetComponentInParent<Enemy01>();
-        //Enemy01_Pivot = GetComponentInParent<Enemy01_Attack01_Collider>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -41,6 +41,8 @@ public class Player_Controller : MonoBehaviour
     public float DashCooldown;
   
     public bool receivingDamage = false;
+
+    public AnimationCurve Curve;
         
     void Start()
     {
@@ -92,13 +94,14 @@ public class Player_Controller : MonoBehaviour
             }
         }
         //DASH
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
+       /* if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
         {
             if (canDash == true) {
                 
                StartCoroutine(Dash());
             }
         }
+       */
         //While charging
         if (charging == true)
         {
@@ -158,16 +161,35 @@ public class Player_Controller : MonoBehaviour
    
     public IEnumerator ReceiveDamage(GameObject Weapon)
     {
+        Debug.Log("1");
         receivingDamage = true;
+        Debug.Log(Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentDamage);
+
         _HealthSystem.UpdateLife(Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentDamage);
+        Debug.Log("2");
         cameraShake.ShakeCamera(1, 0.1f);
         CurrentSpeed = 0;
-        hitStop.Stop(0.5f);
+        Debug.Log("3");
+        hitStop.Stop(0.3f);
         Vector2 direction = (transform.position - Weapon.transform.position).normalized;
+        Debug.Log("4");
         _rigitbody.AddForce(direction * (Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentKnockBack), ForceMode2D.Impulse);
         yield return new WaitForSeconds(staggerTime);
+        Debug.Log("5");
         CurrentSpeed = BaseSpeed;
         receivingDamage = false;
+        Debug.Log("6");
+    }
+    public IEnumerator OnParry()
+    {
+        hitStop.Stop(0.5f);
+        yield return null;
+    }
+    public IEnumerator OnHitEnemy()
+    {
+        cameraShake.ShakeCamera(1 * damage, 0.1f * damage);
+        StartCoroutine(HealDamage(1));
+        yield return null;
     }
     public IEnumerator HealDamage(float Heal)
     {

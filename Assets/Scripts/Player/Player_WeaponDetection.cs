@@ -18,13 +18,15 @@ public class Player_WeaponDetection : MonoBehaviour
         //Hit Enemy
         if (collision.tag == "Enemy_Hitbox")
         {
-            CameraShake.ShakeCamera(1*Player.damage, 0.1f*Player.damage);
+            StartCoroutine(Player.OnHitEnemy());
+            
             Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);
-            StartCoroutine(Player.HealDamage(1));
+            
         }
         //Parry
         if (collision.tag == "Enemy_Attack_hitbox")
         {
+            StartCoroutine(Player.OnParry());
             Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);
         }
     }

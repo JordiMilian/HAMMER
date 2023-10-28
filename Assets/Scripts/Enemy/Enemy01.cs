@@ -72,6 +72,7 @@ public class Enemy01 : MonoBehaviour
         EnemyAnimator.SetTrigger("PushBack");
         yield return new WaitForSeconds(0.3f);
         Enemy_FollowPlayer.ReturnSpeed();
+        Enemy_FollowPlayer.IsAgroo = true;
         
     }  
     public void HitShield()

@@ -26,6 +26,7 @@ public class CameraShake : MonoBehaviour
     void StopCamera()
     {
         CMVCx.m_AmplitudeGain = 0;
+        
     }
     private void Update()
     {

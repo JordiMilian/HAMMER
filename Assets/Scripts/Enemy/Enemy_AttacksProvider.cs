@@ -52,9 +52,9 @@ public class Enemy_AttacksProvider : MonoBehaviour
             {
                 OnLong_MaxRange += Enemy_Attacks[i].ProbabilityLong;
             }
-            Debug.Log("Max Long is: " + OnLong_MaxRange);
+            //Debug.Log("Max Long is: " + OnLong_MaxRange);
             float randomLongFloat = UnityEngine.Random.Range(0f, OnLong_MaxRange);
-            Debug.Log("Random Long is " + randomLongFloat);
+            //Debug.Log("Random Long is " + randomLongFloat);
 
             for (int i = 0; i < Enemy_Attacks.Length; i++)
             {
@@ -66,9 +66,10 @@ public class Enemy_AttacksProvider : MonoBehaviour
                 if (randomLongFloat > minim && randomLongFloat <= minim + Enemy_Attacks[i].ProbabilityLong)
                 {
                     StartCoroutine(enemy01.Attack(Enemy_Attacks[i]));
-                    Debug.Log(i + " succed Long chance");
+                    //Debug.Log(i + " succed Long chance");
                 }
-                else { Debug.Log(i + " failed Long chance"); }
+                else { //Debug.Log(i + " failed Long chance");
+                       }
             }
         }
         if (OnMidRange == true)
@@ -78,9 +79,9 @@ public class Enemy_AttacksProvider : MonoBehaviour
             {
                 OnMid_MaxRange += Enemy_Attacks[i].ProbabilityMid;
             }
-            Debug.Log("Max Mid is: " + OnMid_MaxRange);
+            //Debug.Log("Max Mid is: " + OnMid_MaxRange);
             float randomMidFloat = UnityEngine.Random.Range(0f, OnMid_MaxRange);
-            Debug.Log("Random Mid is " + randomMidFloat);
+            //Debug.Log("Random Mid is " + randomMidFloat);
 
             for (int i = 0; i < Enemy_Attacks.Length; i++)
             {
@@ -92,9 +93,10 @@ public class Enemy_AttacksProvider : MonoBehaviour
                 if (randomMidFloat > minim && randomMidFloat <= minim + Enemy_Attacks[i].ProbabilityMid)
                 {
                     StartCoroutine(enemy01.Attack(Enemy_Attacks[i]));
-                    Debug.Log(i + " succed Mid chance");
+                    //Debug.Log(i + " succed Mid chance");
                 }
-                else { Debug.Log(i + " failed Mid chance"); }
+                else { //Debug.Log(i + " failed Mid chance");
+                       }
             }
         }
         if (OnShortRange == true)
@@ -104,9 +106,9 @@ public class Enemy_AttacksProvider : MonoBehaviour
             {
                 OnShort_MaxRange += Enemy_Attacks[i].ProbabilityShort;
             }
-            Debug.Log("Max Short is: " + OnShort_MaxRange);
+            //Debug.Log("Max Short is: " + OnShort_MaxRange);
             float randomShortFloat = UnityEngine.Random.Range(0f, OnShort_MaxRange);
-            Debug.Log("Random Short is " + randomShortFloat);
+            //Debug.Log("Random Short is " + randomShortFloat);
 
             for (int i = 0; i < Enemy_Attacks.Length; i++)
             {
@@ -118,9 +120,10 @@ public class Enemy_AttacksProvider : MonoBehaviour
                 if (randomShortFloat > minim && randomShortFloat <= minim + Enemy_Attacks[i].ProbabilityShort)
                 {
                     StartCoroutine(enemy01.Attack(Enemy_Attacks[i]));
-                    Debug.Log(i + " succed Short chance");
+                    //Debug.Log(i + " succed Short chance");
                 }
-                else { Debug.Log(i + " failed Short chance"); }
+                else { //Debug.Log(i + " failed Short chance");
+                       }
             }
         }
     }
