@@ -23,6 +23,7 @@ public class Player_Controller : MonoBehaviour
     CameraShake cameraShake;
     public Collider2D WeaponCollider;
     Player_FollowMouse followMouse;
+    Player_Roll playerRoll;
     
     public float damage;
     public float damageMultiplier;
@@ -34,8 +35,8 @@ public class Player_Controller : MonoBehaviour
 
     public bool Attacking;
 
-    bool canDash;
-    bool isDashing;
+    
+    
     public float DashPower;
     public float DashTime;
     public float DashCooldown;
@@ -48,14 +49,15 @@ public class Player_Controller : MonoBehaviour
     {
         Player_Animator = GetComponent<Animator>();
         _HealthSystem = GetComponent<Player_HealthSystem>();
+        playerRoll = GetComponent<Player_Roll>();
        
         _rigitbody = GetComponent<Rigidbody2D>();
         damage = minDamage;
         charging = false;
         Attacking = false;
         CurrentSpeed = BaseSpeed;
-        canDash = true;
-        isDashing = false;
+       
+        
         cameraShake = GameObject.Find("CM vcam1").GetComponent<CameraShake>();
         WeaponTrail = GetComponentInChildren<TrailRenderer>();
         DamageCollider = GameObject.Find("P_DamageCollider").GetComponent<Collider2D>();
@@ -93,15 +95,6 @@ public class Player_Controller : MonoBehaviour
                 
             }
         }
-        //DASH
-       /* if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
-        {
-            if (canDash == true) {
-                
-               StartCoroutine(Dash());
-            }
-        }
-       */
         //While charging
         if (charging == true)
         {
@@ -118,7 +111,7 @@ public class Player_Controller : MonoBehaviour
     }
     void CheckWalking()
     {
-        if (isDashing == false)
+        if (playerRoll.isDashing == false)
         { 
             if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
             {
@@ -138,7 +131,7 @@ public class Player_Controller : MonoBehaviour
     public void Attack01()
     {
         Attacking = true;
-        canDash = false;
+        playerRoll.canDash = false;
         if (charging == true)
         {
             //Player_Animator.SetBool("Attack01_Release_Bool", false);
@@ -146,39 +139,25 @@ public class Player_Controller : MonoBehaviour
             Player_Animator.SetBool("Attack01_Charging", false);
         }
     }
-    IEnumerator Dash()
+    public IEnumerator ReceiveDamage(Enemy_AttackCollider attackCollider)
     {
-        canDash = false;
-        isDashing = true;
-        Player_Animator.SetTrigger("Roll");
-        _rigitbody.AddForce(new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical") ).normalized * DashPower);
-        yield return new WaitForSeconds(DashTime);
-        isDashing = false;
-        yield return new WaitForSeconds(DashCooldown);
-        canDash = true;
-
-    }
-   
-    public IEnumerator ReceiveDamage(GameObject Weapon)
-    {
-        Debug.Log("1");
+        
         receivingDamage = true;
-        Debug.Log(Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentDamage);
+       
 
-        _HealthSystem.UpdateLife(Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentDamage);
-        Debug.Log("2");
+        _HealthSystem.UpdateLife(attackCollider.Damage);
+       
         cameraShake.ShakeCamera(1, 0.1f);
         CurrentSpeed = 0;
-        Debug.Log("3");
+        
         hitStop.Stop(0.3f);
-        Vector2 direction = (transform.position - Weapon.transform.position).normalized;
-        Debug.Log("4");
-        _rigitbody.AddForce(direction * (Weapon.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentKnockBack), ForceMode2D.Impulse);
+        Vector2 direction = (transform.position - attackCollider.gameObject.transform.position).normalized;
+       ;
+        _rigitbody.AddForce(direction * (attackCollider.Knockback), ForceMode2D.Impulse);
         yield return new WaitForSeconds(staggerTime);
-        Debug.Log("5");
+       
         CurrentSpeed = BaseSpeed;
         receivingDamage = false;
-        Debug.Log("6");
     }
     public IEnumerator OnParry()
     {
@@ -227,7 +206,7 @@ public class Player_Controller : MonoBehaviour
     {
         if (Player_Animator.GetInteger("ComboCue") == 0)
         {
-            canDash = true;
+            playerRoll.canDash = true;
         }
     }
     public void HideTrail(){ WeaponTrail.enabled = false;}

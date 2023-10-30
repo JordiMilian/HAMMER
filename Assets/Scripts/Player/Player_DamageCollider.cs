@@ -16,8 +16,8 @@ public class Player_DamageCollider : MonoBehaviour
 
             if (playerController.receivingDamage == false)
             {
-                Debug.Log(collision.gameObject.GetComponent<Enemy_WeaponDetector>().Enemy01.CurrentDamage);
-                StartCoroutine(playerController.ReceiveDamage(collision.gameObject));
+                Debug.Log(collision.gameObject.GetComponent<Enemy_AttackCollider>().Enemy01.CurrentDamage);
+                StartCoroutine(playerController.ReceiveDamage(collision.gameObject.GetComponent<Enemy_AttackCollider>()));
             }
         }
     }

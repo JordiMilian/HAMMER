@@ -40,6 +40,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
             if (enemy01.Attacking == false)
             {
                 PickAvailableAttacks();
+                
             }
         }
     }

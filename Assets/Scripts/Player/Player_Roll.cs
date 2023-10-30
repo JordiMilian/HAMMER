@@ -7,11 +7,11 @@ public class Player_Roll : MonoBehaviour
 {
     Rigidbody2D rigidbody;
     Animator animator;
-    bool canDash = true;
-    bool isDashing;
+    public bool canDash = true;
+    public bool isDashing;
     [SerializeField] float RollTime;
-    public float RollMaxForce;
-    public float RollCooldown;
+    [SerializeField] float RollMaxForce;
+    [SerializeField] float RollCooldown;
 
     public AnimationCurve RollCurve;
 
@@ -46,7 +46,6 @@ public class Player_Roll : MonoBehaviour
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
             rigidbody.AddForce(Axis * RollMaxForce * weight* Time.deltaTime);
-            Debug.Log(Axis);
             yield return null;
         }
         isDashing = false;
