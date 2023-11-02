@@ -146,11 +146,11 @@ public class Player_Controller : MonoBehaviour
        
 
         _HealthSystem.UpdateLife(attackCollider.Damage);
-       
-        cameraShake.ShakeCamera(1, 0.1f);
+
+        cameraShake.ShakeCamera(1, 0.1f); ;
         CurrentSpeed = 0;
         
-        hitStop.Stop(0.3f);
+        hitStop.Stop(attackCollider.HitStop);
         Vector2 direction = (transform.position - attackCollider.gameObject.transform.position).normalized;
        ;
         _rigitbody.AddForce(direction * (attackCollider.Knockback), ForceMode2D.Impulse);

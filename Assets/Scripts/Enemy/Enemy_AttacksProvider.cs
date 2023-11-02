@@ -24,6 +24,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
         public float Damage;
         public float AnimationTime;
         public float KnockBack;
+        public float Hitstop;
         public string TriggerName;
         public int ProbabilityShort;
         public int ProbabilityMid;

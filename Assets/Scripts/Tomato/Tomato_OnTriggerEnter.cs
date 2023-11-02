@@ -15,7 +15,7 @@ public class Tomato_OnTriggerEnter : MonoBehaviour
         {
             controller.DestroyTomato();
         }
-        if (collision.tag == "Attack_Hitbox") 
+        if (collision.tag == "Attack_Hitbox" || collision.CompareTag("PlayerDamageCollider"))
         {
             controller.DestroyTomato();
         }

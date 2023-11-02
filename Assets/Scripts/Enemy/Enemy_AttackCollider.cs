@@ -6,9 +6,10 @@ public class Enemy_AttackCollider : MonoBehaviour
 {
     public float Damage;
     public float Knockback;
+    public float HitStop;
     [SerializeField] bool IsEnemyWeapon;
 
-    public Enemy01 Enemy01;
+    Enemy01 Enemy01;
     public GameObject VFX_DealDamage;
     void Start()
     {

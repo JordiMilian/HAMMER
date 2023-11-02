@@ -18,7 +18,7 @@ public class Enemy01 : MonoBehaviour
     Enemy_FollowPlayer Enemy_FollowPlayer;
     Enemy_HealthSystem Enemy_HealthSystem;
     Enemy_AttacksProvider enemy_AttackProvider;
-    Enemy_AttackCollider weaponDetector;
+    Enemy_AttackCollider attackCollider;
     HitStop hitStop;
 
 
@@ -49,15 +49,18 @@ public class Enemy01 : MonoBehaviour
         Enemy_HealthSystem = GetComponent<Enemy_HealthSystem>();
 
         hitStop = FindObjectOfType<HitStop>();
+        attackCollider = GetComponentInChildren<Enemy_AttackCollider>();
+        
 
     }
     public IEnumerator Attack(Enemy_AttacksProvider.EnemyAttack Attack)
     {
         Attacking = true;
         //CurrentDamage = Attack.Damage;
-        weaponDetector.Damage = Attack.Damage;
+        attackCollider.Damage = Attack.Damage;
         //CurrentKnockBack = Attack.KnockBack;
-        weaponDetector.Knockback = Attack.KnockBack;
+        attackCollider.Knockback = Attack.KnockBack;
+        attackCollider.HitStop = Attack.Hitstop;
         EnemyAnimator.SetTrigger(Attack.TriggerName);
         yield return new WaitForSeconds(Attack.AnimationTime);
         ResetAllTriggers();

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Player_Roll : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Player_Roll : MonoBehaviour
     [SerializeField] float RollTime;
     [SerializeField] float RollMaxForce;
     [SerializeField] float RollCooldown;
+    public VisualEffect GroundImpact;
 
     public AnimationCurve RollCurve;
 
@@ -37,6 +39,7 @@ public class Player_Roll : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        GroundImpact.Play();
         float time = 0;
         float weight = 0;
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
