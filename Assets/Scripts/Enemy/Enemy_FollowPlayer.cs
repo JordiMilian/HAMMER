@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Pathfinding;
 //using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Enemy_FollowPlayer : MonoBehaviour
@@ -27,20 +28,26 @@ public class Enemy_FollowPlayer : MonoBehaviour
     bool walking = false;
 
     public Transform RoamingCenter;
-    Vector2 CurrentRoamingTarget;
+    Vector2 CurrentRoamingVector;
+    //Transform CurrentRoamingTransform;
     Vector2 CurrentTurningTarget;
-    
 
+    AIDestinationSetter destinationSetter;
+    AIPath aiPath;
 
     void Start()
     {
+        aiPath = GetComponent<AIPath>();
+        aiPath.maxSpeed = BaseSpeed;
         Player = GameObject.Find("MainCharacter").transform;
         SlowSpeedF = BaseSpeed / 3;
         CurrentSpeed = BaseSpeed;
         CurrentRotationSpeed = BaseRotationSpeed;
+        
         Weapon_Pivot = FindGameObjectInChildWithTag(gameObject, "Weapon_Pivot").transform;
         InvokeRepeating("DecideWalk", Random.Range(0.5f,2), 2);
         InvokeRepeating("DecideTurn", 0.5f, 1.1f);
+        destinationSetter = GetComponent<AIDestinationSetter>();
     }
 
     
@@ -48,17 +55,17 @@ public class Enemy_FollowPlayer : MonoBehaviour
     {
         if(IsAgroo)
         {
-            transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, CurrentSpeed * Time.deltaTime);
+            destinationSetter.target = Player;
             LookAtPlayer();
         }
         if (IsAgroo == false)
         {
             if (walking == true)
             {
-                transform.position = Vector2.MoveTowards(transform.position, CurrentRoamingTarget, WalkingSpeed * Time.deltaTime);
-                LookAtRoamingPoint();
+                transform.position = Vector2.MoveTowards(transform.position, CurrentRoamingVector, WalkingSpeed * Time.deltaTime);
+                LookingAtRoamingPoint();
             }
-            else LookatRandomPoint();
+            else LookingatRandomPoint();
         }
       
         
@@ -67,7 +74,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.3f);
         Gizmos.DrawSphere(RoamingCenter.position, RoamingRadios);
-        Gizmos.DrawSphere(CurrentRoamingTarget, 0.1f);
+        Gizmos.DrawSphere(CurrentRoamingVector, 0.1f);
         Gizmos.DrawSphere(CurrentTurningTarget, 0.2f);
     }
     void DecideWalk()
@@ -75,7 +82,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
         float randomWalk = UnityEngine.Random.Range(0, 100);
         if (randomWalk <= ChanceToWalk) 
         {
-            CurrentRoamingTarget = Random.insideUnitCircle * RoamingRadios + new Vector2(RoamingCenter.transform.position.x, RoamingCenter.transform.position.y);
+            CurrentRoamingVector = Random.insideUnitCircle * RoamingRadios + new Vector2(RoamingCenter.transform.position.x, RoamingCenter.transform.position.y);
             walking = true;
         }
         if (randomWalk > ChanceToWalk) { walking = false; }
@@ -89,11 +96,11 @@ public class Enemy_FollowPlayer : MonoBehaviour
             CurrentTurningTarget = Random.insideUnitCircle * RoamingRadios + new Vector2(RoamingCenter.transform.position.x, RoamingCenter.transform.position.y);
         }
     }
-    void LookAtRoamingPoint()
+    void LookingAtRoamingPoint()
     {
-        transform.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, CurrentRoamingTarget - new Vector2(transform.position.x, transform.position.y), WalkingRotationSpeed * Time.deltaTime, 10));
+        transform.up = Vector3.RotateTowards(Weapon_Pivot.transform.up, CurrentRoamingVector - new Vector2(transform.position.x, transform.position.y), WalkingRotationSpeed * Time.deltaTime, 1);
     }
-    void LookatRandomPoint()
+    void LookingatRandomPoint()
     {
         transform.up = Vector3.RotateTowards(Weapon_Pivot.transform.up, CurrentTurningTarget - new Vector2(transform.position.x, transform.position.y), WalkingRotationSpeed * Time.deltaTime, 1);
     }
@@ -120,13 +127,13 @@ public class Enemy_FollowPlayer : MonoBehaviour
 
     public void SlowSpeed()
     {
-        CurrentSpeed = SlowSpeedF;
+        aiPath.maxSpeed = SlowSpeedF;
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.4f));
     }
     public void ReturnSpeed()
     {
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.4f));
-        CurrentSpeed = BaseSpeed;
+        aiPath.maxSpeed = BaseSpeed;
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)
     {
