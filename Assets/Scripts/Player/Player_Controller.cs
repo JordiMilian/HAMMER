@@ -173,7 +173,7 @@ public class Player_Controller : MonoBehaviour
     public IEnumerator HealDamage(float Heal)
     {
         _HealthSystem.UpdateLife(-Heal);
-        yield return new Null();
+        yield return null;
     }
 
     public void ShowCollider() { WeaponCollider.enabled = true; }

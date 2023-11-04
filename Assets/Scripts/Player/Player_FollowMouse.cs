@@ -17,16 +17,23 @@ public class Player_FollowMouse : MonoBehaviour
     public GameObject FocusIcon;
     bool IsFocusingEnemy;
     [SerializeField] float FocusMaxDistance;
-    
+
+    GameObject PlayerGO;
+    [SerializeField] GameObject BodySprite;
+    bool FlipOnce;
+
+
+
     List<GameObject> CurrentEnemies = new List<GameObject>();
 
 
     CinemachineTargetGroup cinemachineTarget;
     void Start()
     {
-        
+
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         Player = GetComponentInParent<Player_Controller>();
+        PlayerGO = Player.gameObject;
         CameraFocusTransform = GameObject.Find("CameraController").transform;
     }
     void Update()
@@ -38,7 +45,7 @@ public class Player_FollowMouse : MonoBehaviour
 
             EnemyFocus = ClosestEnemyToMouseInRange(FocusMaxDistance);
 
-            if(EnemyFocus == null)
+            if (EnemyFocus == null)
             {
                 OnLookAtMouse();
             }
@@ -54,12 +61,19 @@ public class Player_FollowMouse : MonoBehaviour
 
         if (IsFocusingEnemy == true) { LookingAtEnemy(); }
         else { LookingAtMouse(); }
+
+        
+    }
+    void flipSprite(GameObject objecto)
+    {
+        objecto.transform.localScale = new Vector2(objecto.transform.localScale.x * -1, objecto.transform.localScale.y);
+        FlipOnce = !FlipOnce;
     }
     GameObject ClosestEnemyToMouseInRange(float range)
     {
         Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         int u = 0;
-        
+
         List<GameObject> InrangeEnemies = new List<GameObject>();
         List<float> InrangeDistances = new List<float>();
 
@@ -70,7 +84,7 @@ public class Player_FollowMouse : MonoBehaviour
             if (Vector2.Distance(mousepos, CurrentEnemies[i].transform.position) < range)
             {
                 InrangeEnemies.Add(CurrentEnemies[i]);
-                InrangeDistances.Add( Vector2.Distance(mousepos, CurrentEnemies[i].transform.position));
+                InrangeDistances.Add(Vector2.Distance(mousepos, CurrentEnemies[i].transform.position));
                 u++;
             }
         }
@@ -86,7 +100,7 @@ public class Player_FollowMouse : MonoBehaviour
             }
         }
         return InrangeEnemies[minIndex];
-        
+
     }
     void OnLookAtMouse()
     {
@@ -104,14 +118,34 @@ public class Player_FollowMouse : MonoBehaviour
         cinemachineTarget.m_Targets[1].weight = 2;
     }
     void LookingAtMouse()
-    {     
+    {
         Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.up = (Vector3.RotateTowards(transform.up, mousePos - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
+
+        if (mousePos.x > PlayerGO.transform.position.x)
+        {
+            if (FlipOnce == false) flipSprite(BodySprite);
+
+        }
+        if (mousePos.x < PlayerGO.transform.position.x)
+        {
+            if (FlipOnce == true) flipSprite(BodySprite);
+        }
     }
     void LookingAtEnemy()
     {
         FocusIcon.transform.position = EnemyFocus.transform.position;
         transform.up = (Vector3.RotateTowards(transform.up, new Vector2(EnemyFocus.transform.position.x, EnemyFocus.transform.position.y) - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
-    }
         
+        if (EnemyFocus.transform.position.x > PlayerGO.transform.position.x)
+        {
+            if (FlipOnce == false) flipSprite(BodySprite);
+
+        }
+        if (EnemyFocus.transform.position.x < PlayerGO.transform.position.x)
+        {
+            if (FlipOnce == true) flipSprite(BodySprite);
+        }
+    }
+
 }
