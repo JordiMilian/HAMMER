@@ -13,6 +13,7 @@ public class Player_Controller : MonoBehaviour
     Collider2D DamageCollider;
     TrailRenderer WeaponTrail;
     HitStop hitStop;
+    [SerializeField] Player_Flash player_Flash;
 
     public float CurrentSpeed;
     public float BaseSpeed;
@@ -141,7 +142,7 @@ public class Player_Controller : MonoBehaviour
     }
     public IEnumerator ReceiveDamage(Enemy_AttackCollider attackCollider)
     {
-        
+        player_Flash.CallFlasher();
         receivingDamage = true;
        
 
