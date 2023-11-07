@@ -558,7 +558,7 @@ MonoBehaviour:
   - {x: 0.14793205, y: 0.011425018, z: 0}
   m_ShapePathHash: 464890517
   m_Mesh: {fileID: 0}
-  m_InstanceId: -23088
+  m_InstanceId: -1668
 --- !u!1 &1789056286559924351
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 6
   CurrentHealth: 0
+  deadBody: {fileID: 3025069177316709613, guid: 248fd0c2dc09e864187be6a45e555cb1, type: 3}
 --- !u!114 &1789056287592995889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,7 +887,7 @@ MonoBehaviour:
   - Damage: 5
     AnimationTime: 1.23
     KnockBack: 10
-    Hitstop: 0.5
+    Hitstop: 0.3
     TriggerName: Attack01
     ProbabilityShort: 50
     ProbabilityMid: 50
@@ -894,7 +895,7 @@ MonoBehaviour:
   - Damage: 3
     AnimationTime: 3.08
     KnockBack: 10
-    Hitstop: 0.3
+    Hitstop: 0.2
     TriggerName: Attack02
     ProbabilityShort: 50
     ProbabilityMid: 50
@@ -1122,7 +1123,7 @@ MonoBehaviour:
   m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000003fcc41c3
+  m_ApplyToSortingLayers: 00000000b1f4d9fe
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

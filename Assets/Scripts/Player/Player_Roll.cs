@@ -28,7 +28,7 @@ public class Player_Roll : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
         {
-            if (canDash == true)
+            if (canDash == true && (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0,0))
             {
                 StartCoroutine(Dash());
               

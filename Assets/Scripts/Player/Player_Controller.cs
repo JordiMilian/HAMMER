@@ -153,7 +153,6 @@ public class Player_Controller : MonoBehaviour
         
         hitStop.Stop(attackCollider.HitStop);
         Vector2 direction = (transform.position - attackCollider.gameObject.transform.position).normalized;
-       ;
         _rigitbody.AddForce(direction * (attackCollider.Knockback), ForceMode2D.Impulse);
         yield return new WaitForSeconds(staggerTime);
        
@@ -216,9 +215,13 @@ public class Player_Controller : MonoBehaviour
     public void ShowPlayerCollider() { DamageCollider.enabled = true; }
     public void AddForce(float force)
     {
-        
         _rigitbody.AddForce(followMouse.gameObject.transform.up * force);
     }
+    public void SlowDownSpeed(float slowspeed)
+    {
+        CurrentSpeed = slowspeed;
+    }
+    public void ReturnSpeed() { CurrentSpeed = BaseSpeed; }
 }
 
    
