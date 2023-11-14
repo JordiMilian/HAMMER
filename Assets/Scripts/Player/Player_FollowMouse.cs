@@ -12,7 +12,7 @@ public class Player_FollowMouse : MonoBehaviour
 
     public float FollowMouse_Speed = 0.08f;
     Player_Controller Player;
-    GameObject EnemyFocus;
+    GameObject FocusedEnemy;
     Transform CameraFocusTransform;
     public GameObject FocusIcon;
     bool IsFocusingEnemy;
@@ -22,6 +22,7 @@ public class Player_FollowMouse : MonoBehaviour
     [SerializeField] GameObject BodySprite;
     bool FlipOnce;
 
+    [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
 
 
     List<GameObject> CurrentEnemies = new List<GameObject>();
@@ -35,6 +36,7 @@ public class Player_FollowMouse : MonoBehaviour
         Player = GetComponentInParent<Player_Controller>();
         PlayerGO = Player.gameObject;
         CameraFocusTransform = GameObject.Find("CameraController").transform;
+        
     }
     void Update()
     {
@@ -43,9 +45,9 @@ public class Player_FollowMouse : MonoBehaviour
             CurrentEnemies.Clear();
             CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-            EnemyFocus = ClosestEnemyToMouseInRange(FocusMaxDistance);
+            FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
 
-            if (EnemyFocus == null)
+            if (FocusedEnemy == null)
             {
                 OnLookAtMouse();
             }
@@ -54,7 +56,7 @@ public class Player_FollowMouse : MonoBehaviour
                 OnLookAtEnemy();
             }
         }
-        if (EnemyFocus == null)
+        if (FocusedEnemy == null)
         {
             OnLookAtMouse();
         }
@@ -64,11 +66,7 @@ public class Player_FollowMouse : MonoBehaviour
 
         
     }
-    void flipSprite(GameObject objecto)
-    {
-        objecto.transform.localScale = new Vector2(objecto.transform.localScale.x * -1, objecto.transform.localScale.y);
-        FlipOnce = !FlipOnce;
-    }
+    
     GameObject ClosestEnemyToMouseInRange(float range)
     {
         Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -108,44 +106,35 @@ public class Player_FollowMouse : MonoBehaviour
         IsFocusingEnemy = false;
         cinemachineTarget.m_Targets[1].target = CameraFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
+
+        
     }
     void OnLookAtEnemy()
     {
         FocusIcon.GetComponent<SpriteRenderer>().enabled = true;
 
         IsFocusingEnemy = true;
-        cinemachineTarget.m_Targets[1].target = EnemyFocus.transform;
+        cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
         cinemachineTarget.m_Targets[1].weight = 2;
+
+        
     }
     void LookingAtMouse()
     {
         Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.up = (Vector3.RotateTowards(transform.up, mousePos - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
 
-        if (mousePos.x > PlayerGO.transform.position.x)
-        {
-            if (FlipOnce == false) flipSprite(BodySprite);
-
-        }
-        if (mousePos.x < PlayerGO.transform.position.x)
-        {
-            if (FlipOnce == true) flipSprite(BodySprite);
-        }
+        
+        spriteFliper.FocusVector = mousePos;
     }
     void LookingAtEnemy()
     {
-        FocusIcon.transform.position = EnemyFocus.transform.position;
-        transform.up = (Vector3.RotateTowards(transform.up, new Vector2(EnemyFocus.transform.position.x, EnemyFocus.transform.position.y) - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
-        
-        if (EnemyFocus.transform.position.x > PlayerGO.transform.position.x)
-        {
-            if (FlipOnce == false) flipSprite(BodySprite);
+        FocusIcon.transform.position = FocusedEnemy.transform.position;
+        transform.up = (Vector3.RotateTowards(transform.up, new Vector2(FocusedEnemy.transform.position.x, FocusedEnemy.transform.position.y) - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
 
-        }
-        if (EnemyFocus.transform.position.x < PlayerGO.transform.position.x)
-        {
-            if (FlipOnce == true) flipSprite(BodySprite);
-        }
+        
+        spriteFliper.FocusVector = FocusedEnemy.transform.position;
+
     }
 
 }

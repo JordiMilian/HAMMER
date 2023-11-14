@@ -29,6 +29,7 @@ public class Player_WeaponDetection : MonoBehaviour
             StartCoroutine(Player.OnParry());
             Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);
         }
+
         if(collision.CompareTag("Static_Attack_hitbox"))
         {
             Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);

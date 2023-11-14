@@ -12,8 +12,8 @@ public class Player_Controller : MonoBehaviour
     Player_HealthSystem _HealthSystem;
     Collider2D DamageCollider;
     TrailRenderer WeaponTrail;
-    HitStop hitStop;
-    [SerializeField] Player_Flash player_Flash;
+    [SerializeField] HitStop hitStop;
+    [SerializeField] Generic_Flash player_Flash;
 
     public float CurrentSpeed;
     public float BaseSpeed;
@@ -21,7 +21,7 @@ public class Player_Controller : MonoBehaviour
    
 
    
-    CameraShake cameraShake;
+    [SerializeField] CameraShake cameraShake;
     public Collider2D WeaponCollider;
     Player_FollowMouse followMouse;
     Player_Roll playerRoll;
@@ -59,12 +59,12 @@ public class Player_Controller : MonoBehaviour
         CurrentSpeed = BaseSpeed;
        
         
-        cameraShake = GameObject.Find("CM vcam1").GetComponent<CameraShake>();
         WeaponTrail = GetComponentInChildren<TrailRenderer>();
         DamageCollider = GameObject.Find("P_DamageCollider").GetComponent<Collider2D>();
         chargingSpeed = CurrentSpeed / 3;
         followMouse = GetComponentInChildren<Player_FollowMouse>();
-        hitStop = FindObjectOfType<HitStop>();
+       
+        player_Flash = GetComponent<Generic_Flash>();
     }
 
 
@@ -213,6 +213,8 @@ public class Player_Controller : MonoBehaviour
     public void ShowTrail(){ WeaponTrail.enabled = true;}
     public void HidePlayerCollider() { DamageCollider.enabled = false; }
     public void ShowPlayerCollider() { DamageCollider.enabled = true; }
+
+    //Refactor with Animation curve!!
     public void AddForce(float force)
     {
         _rigitbody.AddForce(followMouse.gameObject.transform.up * force);

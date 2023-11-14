@@ -20,6 +20,7 @@ public class Enemy01 : MonoBehaviour
     Enemy_AttacksProvider enemy_AttackProvider;
     Enemy_AttackCollider attackCollider;
     HitStop hitStop;
+    [SerializeField] Generic_Flash flasher;
 
 
     public bool Attacking = false;
@@ -50,7 +51,7 @@ public class Enemy01 : MonoBehaviour
 
         hitStop = FindObjectOfType<HitStop>();
         attackCollider = GetComponentInChildren<Enemy_AttackCollider>();
-        
+        flasher = GetComponent<Generic_Flash>();
 
     }
     public IEnumerator Attack(Enemy_AttacksProvider.EnemyAttack Attack)
@@ -69,8 +70,9 @@ public class Enemy01 : MonoBehaviour
     }
     public IEnumerator ReceiveDamage(GameObject Weapon)
     {
-        Debug.Log("EnemyAttacked");
+        
         Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.damage);
+        flasher.CallFlasher();
         Enemy_FollowPlayer.SlowSpeed();
 
         hitStop.Stop(0.05f);

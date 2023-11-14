@@ -40,10 +40,13 @@ public class Player_Roll : MonoBehaviour
         canDash = false;
         isDashing = true;
         GroundImpact.Play();
-        float time = 0;
-        float weight = 0;
+
+        
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
         animator.SetTrigger("Roll");
+
+        float time = 0;
+        float weight = 0;
         while (time < RollTime)
         {
             time = time + Time.deltaTime;

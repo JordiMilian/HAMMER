@@ -1077,6 +1077,7 @@ GameObject:
   - component: {fileID: 1074431122}
   - component: {fileID: 1074431123}
   - component: {fileID: 1074431124}
+  - component: {fileID: 6599003449324945294}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1119,6 +1120,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   WeaponCollider: {fileID: 7303004078809824583}
   EnemyAnimator: {fileID: 0}
+  flasher: {fileID: 0}
   Attacking: 0
 --- !u!58 &7303004079083592175
 CircleCollider2D:
@@ -1194,6 +1196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 12
   CurrentHealth: 0
+  deadBody: {fileID: 0}
 --- !u!114 &31665722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,6 +1329,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
+--- !u!114 &6599003449324945294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303004079083592177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashTime: 0.25
+  SpritesRoot: {fileID: 1778831400521651828}
 --- !u!1 &7303004079113355620
 GameObject:
   m_ObjectHideFlags: 0
