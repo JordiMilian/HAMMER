@@ -72,7 +72,7 @@ public class Player_Controller : MonoBehaviour
     {
          Move(); CheckWalking(); 
        
-        
+        /*
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (Attacking == false)
@@ -96,6 +96,7 @@ public class Player_Controller : MonoBehaviour
                 
             }
         }
+        */
         //While charging
         if (charging == true)
         {
