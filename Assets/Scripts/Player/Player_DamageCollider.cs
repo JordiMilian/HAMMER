@@ -13,11 +13,7 @@ public class Player_DamageCollider : MonoBehaviour
     {
         if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag("Enemy_Attack_hitbox"))
         {
-
-            if (playerController.receivingDamage == false)
-            {
-                StartCoroutine(playerController.ReceiveDamage(collision.gameObject.GetComponent<Enemy_AttackCollider>()));
-            }
+            playerController.ReceiveDamage(collision.gameObject.GetComponent<Enemy_AttackCollider>());
         }
     }
 }

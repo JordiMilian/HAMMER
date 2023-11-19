@@ -30,8 +30,7 @@ public class Player_Roll : MonoBehaviour
         {
             if (canDash == true && (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0,0))
             {
-                StartCoroutine(Dash());
-              
+                StartCoroutine(Dash()); 
             }
         }
     }

@@ -5,141 +5,75 @@ using UnityEngine;
 
 public class Player_ComboSystem_Simple : MonoBehaviour
 {
-    [SerializeField] float CheckIfHoldTime = 0.2f;
-    [SerializeField] float AttackTime = 1;
-    [SerializeField] float BaseDamage;
+    string Attack01_Charging = "Attack01_Charging";
+    string Attack02_Charging = "Attack02_Charging";
+    string Attack01_Release = "Attack01_Release";
+    string Attack02_Release = "Attack02_Release";
    
-    public int ComboCue;
-    string Attack01_Charging = "Attack01_Charging", Attack02_Charging = "Attack02_Charging", Attack01_Release = "Attack01_Release", Attack02_Release = "Attack02_Release";
-    private enum ComboState
-    {
-        Attackin01, Attackin02, NoAttacking, TotalRecovery01, TotalRecovery02, Charging01, Charging02, ActuallyCharging01, ActuallyCharging02,
-    }
-    [SerializeField] ComboState comboState = ComboState.NoAttacking;
+    private enum NextAttack { NextAttack01, NextAttack02,}
+    [SerializeField] NextAttack nextAttack = NextAttack.NextAttack01;
+    Player_ChargeAttack chargeAttack;
 
     Animator animator;
+    Player_Controller player;
+
+    
     void Start()
     {
         animator = GetComponent<Animator>();
+        player = GetComponent<Player_Controller>();
+        chargeAttack = GetComponent<Player_ChargeAttack>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Debug.Log(comboState);
-        if (ComboCue <= 2)
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            if (Input.GetKeyDown(KeyCode.N))
+            player.RestartDamage();
+
+            switch(nextAttack)
             {
-                ComboCue++;
-                StartCoroutine(CheckIfHold());
-                SetToCharge();
+                case NextAttack.NextAttack01:
+                    if (!animator.GetBool(Attack01_Charging))
+                    {
+                        animator.SetTrigger(Attack01_Charging); 
+                    }
+                    break;
+
+                case NextAttack.NextAttack02:
+                    if (!animator.GetBool(Attack02_Charging))
+                    {
+                        animator.SetTrigger(Attack02_Charging);
+                    }
+                    break;
             }
-
-            if (Input.GetKeyUp(KeyCode.N))
+        }
+        if(Input.GetKeyUp(KeyCode.M))
+        {
+            chargeAttack.isCharging = false;
+            switch (nextAttack)
             {
-                Debug.Log("Released");
-                SetToRelease();
+                case NextAttack.NextAttack01:
+                    if (!animator.GetBool(Attack01_Release))
+                    {
+                        animator.SetTrigger(Attack01_Release);
+                        nextAttack = NextAttack.NextAttack02;
+                    }
+                    break;
 
-            }  
-        }
-        
-
-    }
-    void SetToRelease()
-    {
-        switch (comboState)
-        {
-            case ComboState.ActuallyCharging01:
-                comboState = ComboState.Attackin01;
-                animator.SetBool(Attack01_Release, true);
-                
-                break;
-
-            case ComboState.ActuallyCharging02:
-                comboState = ComboState.Attackin02;
-                animator.SetBool(Attack02_Release, true);
-                
-                break;
-
-            case ComboState.Charging01:
-                comboState = ComboState.Attackin01;
-                animator.SetBool(Attack01_Release, true);
-               
-                break;
-
-            case ComboState.Charging02:
-                comboState = ComboState.Attackin02;
-                animator.SetBool(Attack02_Release, true);
-                
-                break;
-
-            default:
-                Debug.Log(comboState + "¿?¿");
-                break;
-        }
-    }
-    void SetToCharge()
-    {
-        switch (comboState)
-        {
-            default:
-                Debug.Log(comboState + "¿?");
-                break;
-            case ComboState.Attackin02:
-                comboState = ComboState.Charging01;
-                animator.SetBool(Attack01_Charging, true);
-
-                break;
-            case ComboState.Attackin01:
-                comboState = ComboState.Charging02;
-                animator.SetBool(Attack02_Charging, true);
-                break;
-            case ComboState.NoAttacking:
-                comboState = ComboState.Charging01;
-                animator.SetBool(Attack01_Charging, true);
-                break;
-        }
-    }
-    IEnumerator CheckIfHold()
-    {
-        float timer = 0;
-        while (Input.GetKey(KeyCode.N))
-        {
-            timer += Time.deltaTime;
-            if (timer > CheckIfHoldTime)
-            {
-                CheckCharging(); //Change to ActuallyCharging depending on which charge
+                case NextAttack.NextAttack02:
+                    if (!animator.GetBool(Attack02_Release))
+                    {
+                        animator.SetTrigger(Attack02_Release);
+                        nextAttack = NextAttack.NextAttack01;
+                    }
+                    break;
             }
-            yield return null;
         }
     }
-    void CheckCharging()
+    public void ComboOver()
     {
-        if (comboState == ComboState.Charging01) { comboState = ComboState.ActuallyCharging01; }
-        if (comboState == ComboState.Charging02) { comboState = ComboState.ActuallyCharging02; }
-    }
-    
-    public void EndAttack01()
-    {
-
-        animator.SetBool(Attack01_Release, false);
-        animator.SetBool(Attack01_Charging, false);
-        
-        ComboCue--;
-
-    }
-    public void EndAttack02()
-    {
-
-        animator.SetBool(Attack02_Release, false);
-        animator.SetBool(Attack02_Charging, false);
-        
-        ComboCue--;
-    }
-    public void ComboStateNoAttack()
-    {
-        comboState = ComboState.NoAttacking;
+        nextAttack = NextAttack.NextAttack01;
     }
    
 }

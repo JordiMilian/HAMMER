@@ -71,7 +71,7 @@ public class Enemy01 : MonoBehaviour
     public IEnumerator ReceiveDamage(GameObject Weapon)
     {
         
-        Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.damage);
+        Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.CurrentDamage);
         flasher.CallFlasher();
         Enemy_FollowPlayer.SlowSpeed();
 

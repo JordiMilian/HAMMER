@@ -10,108 +10,51 @@ public class Player_Controller : MonoBehaviour
     Rigidbody2D _rigitbody;
     Animator Player_Animator;
     Player_HealthSystem _HealthSystem;
-    Collider2D DamageCollider;
-    TrailRenderer WeaponTrail;
     [SerializeField] HitStop hitStop;
     [SerializeField] Generic_Flash player_Flash;
+    [SerializeField] CameraShake cameraShake;
+    [SerializeField] Collider2D WeaponCollider;
+    Player_Roll playerRoll;
 
     public float CurrentSpeed;
     public float BaseSpeed;
-    float chargingSpeed;
-   
-
-   
-    [SerializeField] CameraShake cameraShake;
-    public Collider2D WeaponCollider;
-    Player_FollowMouse followMouse;
-    Player_Roll playerRoll;
     
-    public float damage;
-    public float damageMultiplier;
-    public float maxDamage;
-    public float minDamage;
-    public bool charging;
-    public float Health;
-    public float staggerTime = 1;
-
-    public bool Attacking;
-
-    
-    
-    public float DashPower;
-    public float DashTime;
-    public float DashCooldown;
+    public float CurrentDamage;
+    public float BaseDamage;
   
-    public bool receivingDamage = false;
 
-    public AnimationCurve Curve;
+    [SerializeField] float staggerTime = 1;
+    bool receivingDamage;
+
+    [SerializeField] AnimationCurve Curve;
         
     void Start()
     {
         Player_Animator = GetComponent<Animator>();
         _HealthSystem = GetComponent<Player_HealthSystem>();
         playerRoll = GetComponent<Player_Roll>();
-       
         _rigitbody = GetComponent<Rigidbody2D>();
-        damage = minDamage;
-        charging = false;
-        Attacking = false;
-        CurrentSpeed = BaseSpeed;
-       
-        
-        WeaponTrail = GetComponentInChildren<TrailRenderer>();
-        DamageCollider = GameObject.Find("P_DamageCollider").GetComponent<Collider2D>();
-        chargingSpeed = CurrentSpeed / 3;
-        followMouse = GetComponentInChildren<Player_FollowMouse>();
-       
         player_Flash = GetComponent<Generic_Flash>();
-    }
+
+        CurrentDamage = BaseDamage;
+         CurrentSpeed = BaseSpeed;       
+      }
 
 
     void Update()
     {
-         Move(); CheckWalking(); 
+         Move();  
        
-        /*
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (Attacking == false)
-            { Attack01_Charge(); }
-            if (Attacking == true)
-            {
-                if (Player_Animator.GetInteger("ComboCue") <= 2)
-                {
-                    Player_Animator.SetInteger("ComboCue", Player_Animator.GetInteger("ComboCue")+1);
-                    if (Player_Animator.GetInteger("ComboCue") > 2) { Player_Animator.SetInteger("ComboCue", 2); }
-                }          
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            
-            if (charging == true)
-            {
-               
-                Player_Animator.SetBool("Attack01_Release", true);
-                
-            }
-        }
-        */
-        //While charging
-        if (charging == true)
-        {
-            damage = damage * damageMultiplier;
-            //_speed = chargingSpeed;
-            if (damage >= maxDamage) { Player_Animator.SetBool("Attack01_Release", true); }
-        }
+       
     }
     void Move()
     {
         var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
-        //_rigitbody.velocity = input.normalized * _speed;
         _rigitbody.AddForce(input.normalized*CurrentSpeed*Time.deltaTime *100);
+
+        WalkingAnimation();
     }
-    void CheckWalking()
+    void WalkingAnimation()
     {
         if (playerRoll.isDashing == false)
         { 
@@ -123,108 +66,43 @@ public class Player_Controller : MonoBehaviour
                    }
         }
     }
-    void Attack01_Charge()
+    public void ReceiveDamage(Enemy_AttackCollider attackCollider)
     {
-            damage = minDamage;
-            Player_Animator.SetBool("Attack01_Charging",true);
-            charging = true;
-            Player_Animator.SetInteger("ComboCue", Player_Animator.GetInteger("ComboCue") + 1);
-    }
-    public void Attack01()
-    {
-        Attacking = true;
-        playerRoll.canDash = false;
-        if (charging == true)
+        if(!receivingDamage)
         {
-            //Player_Animator.SetBool("Attack01_Release_Bool", false);
-            charging = false;
-            Player_Animator.SetBool("Attack01_Charging", false);
+            receivingDamage = true;
+
+             CurrentSpeed = 0;
+            _HealthSystem.UpdateLife(attackCollider.Damage);
+            cameraShake.ShakeCamera(1, 0.1f); ;
+            hitStop.Stop(attackCollider.HitStop);
+            player_Flash.CallFlasher();
+
+            Vector2 direction = (transform.position - attackCollider.gameObject.transform.position).normalized;
+            _rigitbody.AddForce(direction * (attackCollider.Knockback), ForceMode2D.Impulse);
+            StartCoroutine(InvulnerableAfterDamage());
+
         }
     }
-    public IEnumerator ReceiveDamage(Enemy_AttackCollider attackCollider)
+     IEnumerator InvulnerableAfterDamage()
     {
-        player_Flash.CallFlasher();
-        receivingDamage = true;
-       
 
-        _HealthSystem.UpdateLife(attackCollider.Damage);
-
-        cameraShake.ShakeCamera(1, 0.1f); ;
-        CurrentSpeed = 0;
-        
-        hitStop.Stop(attackCollider.HitStop);
-        Vector2 direction = (transform.position - attackCollider.gameObject.transform.position).normalized;
-        _rigitbody.AddForce(direction * (attackCollider.Knockback), ForceMode2D.Impulse);
         yield return new WaitForSeconds(staggerTime);
-       
         CurrentSpeed = BaseSpeed;
         receivingDamage = false;
     }
-    public IEnumerator OnParry()
+    public void OnParry()
     {
-        hitStop.Stop(0.5f);
-        yield return null;
+        hitStop.Stop(StopSeconds: 0.5f);
     }
-    public IEnumerator OnHitEnemy()
+    public void OnHitEnemy()
     {
-        cameraShake.ShakeCamera(1 * damage, 0.1f * damage);
-        StartCoroutine(HealDamage(1));
-        yield return null;
+        cameraShake.ShakeCamera(1 * CurrentDamage, 0.1f * CurrentDamage);
+        _HealthSystem.UpdateLife(-1);
+        
     }
-    public IEnumerator HealDamage(float Heal)
-    {
-        _HealthSystem.UpdateLife(-Heal);
-        yield return null;
-    }
-
-    public void ShowCollider() { WeaponCollider.enabled = true; }
-    public void HideCollider() { WeaponCollider.enabled = false; }
-
-    public void RemoveOneCombo()
-    {
-        if (Player_Animator.GetInteger("ComboCue") < 0)
-        {
-            Player_Animator.SetInteger("ComboCue", 0);
-        }
-        if (Player_Animator.GetInteger("ComboCue") > 2)
-        {
-            Player_Animator.SetInteger("ComboCue", 2);
-        }
-        if (Player_Animator.GetInteger("ComboCue") > 0)
-        {
-            Player_Animator.SetInteger("ComboCue", Player_Animator.GetInteger("ComboCue") - 1);
-            Attack01();
-        }
-
-    }
-    public void FinishAll()
-    {
-        Attacking = false;
-        Player_Animator.SetBool("Attack01_Release", false);
-
-    }
-    public void CanDash()
-    {
-        if (Player_Animator.GetInteger("ComboCue") == 0)
-        {
-            playerRoll.canDash = true;
-        }
-    }
-    public void HideTrail(){ WeaponTrail.enabled = false;}
-    public void ShowTrail(){ WeaponTrail.enabled = true;}
-    public void HidePlayerCollider() { DamageCollider.enabled = false; }
-    public void ShowPlayerCollider() { DamageCollider.enabled = true; }
-
-    //Refactor with Animation curve!!
-    public void AddForce(float force)
-    {
-        _rigitbody.AddForce(followMouse.gameObject.transform.up * force);
-    }
-    public void SlowDownSpeed(float slowspeed)
-    {
-        CurrentSpeed = slowspeed;
-    }
-    public void ReturnSpeed() { CurrentSpeed = BaseSpeed; }
+    public void RestartDamage() { CurrentDamage = BaseDamage; }
+    
 }
 
    

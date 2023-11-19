@@ -9,7 +9,6 @@ public class Player_WeaponDetection : MonoBehaviour
     public GameObject VFX_HitEnemy;
     void Start()
     {
-       CameraShake = GameObject.Find("CM vcam1").GetComponent<CameraShake>();
         Player = GameObject.Find("MainCharacter").GetComponent<Player_Controller>();
     }
 
@@ -18,7 +17,7 @@ public class Player_WeaponDetection : MonoBehaviour
         //Hit Enemy
         if (collision.tag == "Enemy_Hitbox")
         {
-            StartCoroutine(Player.OnHitEnemy());
+            Player.OnHitEnemy();
             
             Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);
             
@@ -26,7 +25,7 @@ public class Player_WeaponDetection : MonoBehaviour
         //Parry
         if (collision.tag == "Enemy_Attack_hitbox")
         {
-            StartCoroutine(Player.OnParry());
+            Player.OnParry();
             Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);
         }
 
