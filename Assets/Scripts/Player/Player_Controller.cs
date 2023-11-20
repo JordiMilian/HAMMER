@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 //using UnityEngine.Windows;
 
 public class Player_Controller : MonoBehaviour
@@ -15,6 +16,8 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] CameraShake cameraShake;
     [SerializeField] Collider2D WeaponCollider;
     Player_Roll playerRoll;
+
+    public InputSystem inputSystem;
 
     public float CurrentSpeed;
     public float BaseSpeed;
@@ -37,20 +40,21 @@ public class Player_Controller : MonoBehaviour
         player_Flash = GetComponent<Generic_Flash>();
 
         CurrentDamage = BaseDamage;
-         CurrentSpeed = BaseSpeed;       
+         CurrentSpeed = BaseSpeed;
       }
 
 
     void Update()
     {
-         Move();  
-       
-       
-    }
-    void Move()
-    {
         var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
-        _rigitbody.AddForce(input.normalized*CurrentSpeed*Time.deltaTime *100);
+        Move(input);
+       
+        
+    }
+    void Move(Vector2 vector2)
+    {
+        //var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
+        _rigitbody.AddForce(vector2.normalized*CurrentSpeed*Time.deltaTime *100);
 
         WalkingAnimation();
     }
@@ -63,7 +67,7 @@ public class Player_Controller : MonoBehaviour
                 Player_Animator.SetBool("Walking",true);
             }
             else { Player_Animator.SetBool("Walking", false);
-                   }
+            }
         }
     }
     public void ReceiveDamage(Enemy_AttackCollider attackCollider)

@@ -16,6 +16,11 @@ public class Player_ComboSystem_Simple : MonoBehaviour
 
     Animator animator;
     Player_Controller player;
+    Player_Roll playerRoll;
+
+    public bool IsAttackCanceled;
+    public bool canAttack;
+   
 
     
     void Start()
@@ -23,57 +28,101 @@ public class Player_ComboSystem_Simple : MonoBehaviour
         animator = GetComponent<Animator>();
         player = GetComponent<Player_Controller>();
         chargeAttack = GetComponent<Player_ChargeAttack>();
+        canAttack = true;
+        playerRoll = GetComponent<Player_Roll>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            player.RestartDamage();
+           
+                
 
-            switch(nextAttack)
-            {
-                case NextAttack.NextAttack01:
-                    if (!animator.GetBool(Attack01_Charging))
-                    {
-                        animator.SetTrigger(Attack01_Charging); 
-                    }
-                    break;
+                SetChargeTriggers();
 
-                case NextAttack.NextAttack02:
-                    if (!animator.GetBool(Attack02_Charging))
-                    {
-                        animator.SetTrigger(Attack02_Charging);
-                    }
-                    break;
-            }
-        }
+
+        }  
         if(Input.GetKeyUp(KeyCode.M))
         {
-            chargeAttack.isCharging = false;
-            switch (nextAttack)
+            if(!IsAttackCanceled)
             {
-                case NextAttack.NextAttack01:
-                    if (!animator.GetBool(Attack01_Release))
-                    {
-                        animator.SetTrigger(Attack01_Release);
-                        nextAttack = NextAttack.NextAttack02;
-                    }
-                    break;
+                if(canAttack)
+                {
+                    
+                    SetReleaseTriggers();
+                }
 
-                case NextAttack.NextAttack02:
-                    if (!animator.GetBool(Attack02_Release))
-                    {
-                        animator.SetTrigger(Attack02_Release);
-                        nextAttack = NextAttack.NextAttack01;
-                    }
-                    break;
+                if (!canAttack)
+                {
+                    StartCoroutine(WaitForCanAttackRelease());
+                }
             }
+           
         }
+    }
+    void SetChargeTriggers()
+    {
+        player.RestartDamage();
+        IsAttackCanceled = false;
+
+        switch (nextAttack)
+        {
+            case NextAttack.NextAttack01:
+                animator.SetTrigger(Attack01_Charging);
+                break;
+
+            case NextAttack.NextAttack02:
+                animator.SetTrigger(Attack02_Charging);
+                break;
+        }
+    }
+    void SetReleaseTriggers()
+    {
+        chargeAttack.isCharging = false;
+        playerRoll.canDash = false;
+        switch (nextAttack)
+        {
+            case NextAttack.NextAttack01:
+                if (!animator.GetBool(Attack01_Release))
+                {
+                    animator.SetTrigger(Attack01_Release);
+                    nextAttack = NextAttack.NextAttack02;
+                }
+                break;
+
+            case NextAttack.NextAttack02:
+                if (!animator.GetBool(Attack02_Release))
+                {
+                    animator.SetTrigger(Attack02_Release);
+                    nextAttack = NextAttack.NextAttack01;
+                }
+                break;
+        }
+    }
+    IEnumerator WaitForCanAttackCharge()
+    {
+        while (!canAttack)
+        {
+            yield return null;
+        }
+        SetChargeTriggers();
+    }
+    IEnumerator WaitForCanAttackRelease()
+    {
+        while (!canAttack)
+        {
+            yield return null;
+        }
+        SetReleaseTriggers();
     }
     public void ComboOver()
     {
         nextAttack = NextAttack.NextAttack01;
+    }
+    public void CanAttack()
+    {
+        canAttack = true;
     }
    
 }

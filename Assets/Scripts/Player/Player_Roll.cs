@@ -17,32 +17,53 @@ public class Player_Roll : MonoBehaviour
 
     public AnimationCurve RollCurve;
 
+    Player_ComboSystem_Simple comboSystem;
+
+    float holdTime;
+    bool InputIsHold;
+    bool InputIsTap;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        comboSystem = GetComponent<Player_ComboSystem_Simple>();
     }
 
     
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
         {
-            if (canDash == true && (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0,0))
+            switch (canDash)
             {
-                StartCoroutine(Dash()); 
+                case true:
+                    if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0, 0))
+                    {
+                        StartCoroutine(Dash());
+                    }
+                    break;
+                case false:
+                    StartCoroutine(WaitForCanDash());
+                    break;
+
             }
         }
     }
+
+    
     IEnumerator Dash()
     {
         canDash = false;
+        comboSystem.canAttack = false;
         isDashing = true;
+        comboSystem.IsAttackCanceled = true;
         GroundImpact.Play();
-
-        
-        Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
         animator.SetTrigger("Roll");
+
+
+        Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
 
         float time = 0;
         float weight = 0;
@@ -58,4 +79,17 @@ public class Player_Roll : MonoBehaviour
         canDash = true;
 
     }
+    IEnumerator WaitForCanDash()
+    {
+        while (!canDash) 
+        {
+            yield return null;
+        }
+        Debug.Log("once");
+        StartCoroutine(Dash());
+
+    }
+    public void EV_CantDash() { canDash = false; }
+    
+    public void EV_CanDash() { canDash = true; }
 }
