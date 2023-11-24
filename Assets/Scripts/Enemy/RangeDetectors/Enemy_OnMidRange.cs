@@ -12,7 +12,7 @@ public class Enemy_OnMidRange: MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player_SinglePointCollider")
         {
             attacksProvider.OnMidRange = true;
 
@@ -20,7 +20,7 @@ public class Enemy_OnMidRange: MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player_SinglePointCollider")
         {
             attacksProvider.OnMidRange = false;
         }

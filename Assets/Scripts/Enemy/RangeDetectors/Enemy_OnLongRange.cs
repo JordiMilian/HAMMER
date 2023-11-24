@@ -13,7 +13,7 @@ public class Enemy_OnLongRange : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player_SinglePointCollider")
         {
             attacksProvider.OnLongRange = true;
            
@@ -21,7 +21,7 @@ public class Enemy_OnLongRange : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player_SinglePointCollider")
         {
             attacksProvider.OnLongRange = false;
         }

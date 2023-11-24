@@ -9,6 +9,7 @@ public class Player_Roll : MonoBehaviour
     Rigidbody2D rigidbody;
     Animator animator;
     public bool canDash = true;
+    bool isWaitingDash;
     public bool isDashing;
     [SerializeField] float RollTime;
     [SerializeField] float RollMaxForce;
@@ -18,10 +19,6 @@ public class Player_Roll : MonoBehaviour
     public AnimationCurve RollCurve;
 
     Player_ComboSystem_Simple comboSystem;
-
-    float holdTime;
-    bool InputIsHold;
-    bool InputIsTap;
 
     void Start()
     {
@@ -45,7 +42,8 @@ public class Player_Roll : MonoBehaviour
                     }
                     break;
                 case false:
-                    StartCoroutine(WaitForCanDash());
+                    if(!isWaitingDash) { StartCoroutine(WaitForCanDash()); }
+                   
                     break;
 
             }
@@ -81,12 +79,14 @@ public class Player_Roll : MonoBehaviour
     }
     IEnumerator WaitForCanDash()
     {
+        isWaitingDash = true;
         while (!canDash) 
         {
             yield return null;
         }
-        Debug.Log("once");
+        isWaitingDash = true;
         StartCoroutine(Dash());
+        
 
     }
     public void EV_CantDash() { canDash = false; }

@@ -34,16 +34,11 @@ public class Player_ComboSystem_Simple : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-           
-                
-
                 SetChargeTriggers();
-
-
         }  
-        if(Input.GetKeyUp(KeyCode.M))
+        if(Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Mouse0))
         {
             if(!IsAttackCanceled)
             {

@@ -558,7 +558,7 @@ MonoBehaviour:
   - {x: 0.14793205, y: 0.011425018, z: 0}
   m_ShapePathHash: 464890517
   m_Mesh: {fileID: 0}
-  m_InstanceId: 53528
+  m_InstanceId: 49142
 --- !u!1 &1789056286559924351
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,9 +745,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1789056287592995892}
+  - component: {fileID: 1789056287592995889}
   - component: {fileID: 1789056287592995895}
   - component: {fileID: 1789056287592995894}
-  - component: {fileID: 1789056287592995889}
   - component: {fileID: 1789056287592995888}
   - component: {fileID: 1789056287592995893}
   - component: {fileID: 1789056287592995898}
@@ -779,6 +779,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789056287592995889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789056287592995891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd096ccc4aa7e854890edddf51491966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentDamage: 0
+  CurrentKnockBack: 0
+  Player: {fileID: 0}
+  WeaponCollider: {fileID: 1789056285857031706}
+  EnemyAnimator: {fileID: 0}
+  flasher: {fileID: 0}
+  Attacking: 0
 --- !u!114 &1789056287592995895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,25 +837,6 @@ MonoBehaviour:
   MaxHealth: 6
   CurrentHealth: 0
   deadBody: {fileID: 3025069177316709613, guid: 248fd0c2dc09e864187be6a45e555cb1, type: 3}
---- !u!114 &1789056287592995889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789056287592995891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd096ccc4aa7e854890edddf51491966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentDamage: 0
-  CurrentKnockBack: 0
-  Player: {fileID: 0}
-  WeaponCollider: {fileID: 1789056285857031706}
-  EnemyAnimator: {fileID: 0}
-  flasher: {fileID: 0}
-  Attacking: 0
 --- !u!58 &1789056287592995888
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
   - Damage: 5
     AnimationTime: 1.23
     KnockBack: 10
-    Hitstop: 0.3
+    Hitstop: 0.1
     TriggerName: Attack01
     ProbabilityShort: 50
     ProbabilityMid: 50
@@ -897,7 +897,7 @@ MonoBehaviour:
   - Damage: 3
     AnimationTime: 3.08
     KnockBack: 10
-    Hitstop: 0.2
+    Hitstop: 0.1
     TriggerName: Attack02
     ProbabilityShort: 50
     ProbabilityMid: 50
