@@ -20,6 +20,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
     Transform Weapon_Pivot;
 
     public bool IsAgroo = false;
+    bool isAgrooOnce;
     [SerializeField] float ChanceToWalk;
     [SerializeField] float ChanceToChangeDirection;
     [SerializeField] float WalkingSpeed;
@@ -27,16 +28,24 @@ public class Enemy_FollowPlayer : MonoBehaviour
     [SerializeField] float RoamingRadios = 2;
     bool walking = false;
 
-    public Transform RoamingCenter;
+
+    bool RoamingSpawned = false;
+     Transform RoamingCenter;
     Vector2 CurrentRoamingVector;
     //Transform CurrentRoamingTransform;
     Vector2 CurrentTurningTarget;
 
     AIDestinationSetter destinationSetter;
     AIPath aiPath;
+    Generic_FlipSpriteWithFocus spriteFliper;
 
     void Start()
     {
+        GameObject RoamingGO = new GameObject();
+        var roamingCenter = Instantiate(RoamingGO, transform.position, transform.rotation);
+        RoamingCenter = roamingCenter.transform;
+        RoamingSpawned = true;
+
         aiPath = GetComponent<AIPath>();
         aiPath.maxSpeed = BaseSpeed;
         Player = GameObject.Find("MainCharacter").transform;
@@ -48,6 +57,8 @@ public class Enemy_FollowPlayer : MonoBehaviour
         InvokeRepeating("DecideWalk", Random.Range(0.5f,2), 2);
         InvokeRepeating("DecideTurn", 0.5f, 1.1f);
         destinationSetter = GetComponent<AIDestinationSetter>();
+        spriteFliper = GetComponent<Generic_FlipSpriteWithFocus>();
+        spriteFliper.FocusVector = CurrentRoamingVector;
     }
 
     
@@ -55,12 +66,17 @@ public class Enemy_FollowPlayer : MonoBehaviour
     {
         if(IsAgroo)
         {
-            destinationSetter.target = Player;
+            if (!isAgrooOnce)
+            {
+                destinationSetter.target = Player;
+                isAgrooOnce = true;
+            }
+            spriteFliper.FocusVector = Player.transform.position;
             LookAtPlayer();
         }
-        if (IsAgroo == false)
+        if (!IsAgroo)
         {
-            if (walking == true)
+            if (walking)
             {
                 transform.position = Vector2.MoveTowards(transform.position, CurrentRoamingVector, WalkingSpeed * Time.deltaTime);
                 LookingAtRoamingPoint();
@@ -70,13 +86,17 @@ public class Enemy_FollowPlayer : MonoBehaviour
       
         
     }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1, 0, 0, 0.3f);
-        Gizmos.DrawSphere(RoamingCenter.position, RoamingRadios);
+        if(!RoamingSpawned) Gizmos.DrawSphere(transform.position, RoamingRadios);
+        if(RoamingSpawned) Gizmos.DrawSphere(RoamingCenter.position, RoamingRadios);
+
         Gizmos.DrawSphere(CurrentRoamingVector, 0.1f);
         Gizmos.DrawSphere(CurrentTurningTarget, 0.2f);
     }
+    
     void DecideWalk()
     {
         float randomWalk = UnityEngine.Random.Range(0, 100);
@@ -84,6 +104,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
         {
             CurrentRoamingVector = Random.insideUnitCircle * RoamingRadios + new Vector2(RoamingCenter.transform.position.x, RoamingCenter.transform.position.y);
             walking = true;
+            spriteFliper.FocusVector = CurrentRoamingVector;
         }
         if (randomWalk > ChanceToWalk) { walking = false; }
 

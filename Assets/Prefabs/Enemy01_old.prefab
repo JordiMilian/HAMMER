@@ -1079,7 +1079,7 @@ GameObject:
   - component: {fileID: 1074431124}
   - component: {fileID: 6599003449324945294}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy01_old
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1120,7 +1120,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   WeaponCollider: {fileID: 7303004078809824583}
   EnemyAnimator: {fileID: 0}
-  flasher: {fileID: 0}
   Attacking: 0
 --- !u!58 &7303004079083592175
 CircleCollider2D:
@@ -1181,7 +1180,6 @@ MonoBehaviour:
   WalkingSpeed: 1
   WalkingRotationSpeed: 0
   RoamingRadios: 4
-  RoamingCenter: {fileID: 0}
 --- !u!114 &1823480831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,7 +1211,7 @@ MonoBehaviour:
   - Damage: 5
     AnimationTime: 1.43
     KnockBack: 40
-    Hitstop: 0.3
+    Hitstop: 0.15
     TriggerName: Attack01
     ProbabilityShort: 30
     ProbabilityMid: 30
@@ -1221,7 +1219,7 @@ MonoBehaviour:
   - Damage: 5
     AnimationTime: 1.42
     KnockBack: 30
-    Hitstop: 0.3
+    Hitstop: 0.15
     TriggerName: Attack02
     ProbabilityShort: 80
     ProbabilityMid: 10
@@ -1237,7 +1235,7 @@ MonoBehaviour:
   - Damage: 7
     AnimationTime: 2.4
     KnockBack: 50
-    Hitstop: 0.5
+    Hitstop: 0.25
     TriggerName: Attack04
     ProbabilityShort: 0
     ProbabilityMid: 0

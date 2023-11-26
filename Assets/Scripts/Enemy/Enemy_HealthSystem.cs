@@ -18,9 +18,18 @@ public class Enemy_HealthSystem : MonoBehaviour
         CurrentHealth -= Damage;
         if (CurrentHealth <= 0)
         {
-            var DeadBody = Instantiate(deadBody, transform.position,Quaternion.Euler(0,0,0));
-            Destroy(gameObject);
+            if(deadBody != null) 
+            {
+                var DeadBody = Instantiate(deadBody, transform.position, Quaternion.Euler(0, 0, 0));
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
+            
+        
         if (CurrentHealth > MaxHealth)
         {
             CurrentHealth = MaxHealth;

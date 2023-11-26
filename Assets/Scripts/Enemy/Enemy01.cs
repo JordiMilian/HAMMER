@@ -20,7 +20,7 @@ public class Enemy01 : MonoBehaviour
     Enemy_AttacksProvider enemy_AttackProvider;
     Enemy_AttackCollider attackCollider;
     HitStop hitStop;
-    [SerializeField] Generic_Flash flasher;
+    Generic_Flash flasher;
 
 
     public bool Attacking = false;
