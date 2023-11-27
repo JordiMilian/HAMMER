@@ -12,6 +12,7 @@ public class EnemyDead_Controller : MonoBehaviour
     public float PushStrengh;
 
     [SerializeField] GameObject bloodExplosion;
+   
 
     void Start()
     {
@@ -26,6 +27,8 @@ public class EnemyDead_Controller : MonoBehaviour
     }
     private void Awake()
     {
+       
+        if (Random.value > 0.5f) { transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y); } 
         var BloodExplosion = Instantiate(bloodExplosion, transform.position, Quaternion.Euler(0, 0, 0));
         rigidbody = GetComponent<Rigidbody2D>();
         PlayerPosition = GameObject.Find("MainCharacter").transform;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy_AgrooDetection : MonoBehaviour
 {
     Enemy_FollowPlayer _followPlayer;
+    [SerializeField] Animator UIAnimator;
     private void Start()
     {
         _followPlayer = GetComponentInParent<Enemy_FollowPlayer>();
@@ -13,7 +14,13 @@ public class Enemy_AgrooDetection : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            _followPlayer.IsAgroo = true;
+            
+            if(!_followPlayer.IsAgroo)
+            {
+                UIAnimator.SetTrigger("AgrooAlert");
+                _followPlayer.IsAgroo = true;
+            }
+            
         }
     }
 }
