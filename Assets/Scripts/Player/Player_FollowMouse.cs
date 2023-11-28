@@ -14,7 +14,6 @@ public class Player_FollowMouse : MonoBehaviour
     Player_Controller Player;
     GameObject FocusedEnemy;
     Transform CameraFocusTransform;
-    public GameObject FocusIcon;
     bool IsFocusingEnemy;
     [SerializeField] float FocusMaxDistance;
 
@@ -44,6 +43,8 @@ public class Player_FollowMouse : MonoBehaviour
         {
             CurrentEnemies.Clear();
             CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+
+            if(FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
 
             FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
 
@@ -102,7 +103,7 @@ public class Player_FollowMouse : MonoBehaviour
     }
     void OnLookAtMouse()
     {
-        FocusIcon.GetComponent<SpriteRenderer>().enabled = false;
+       
         IsFocusingEnemy = false;
         cinemachineTarget.m_Targets[1].target = CameraFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
@@ -111,7 +112,8 @@ public class Player_FollowMouse : MonoBehaviour
     }
     void OnLookAtEnemy()
     {
-        FocusIcon.GetComponent<SpriteRenderer>().enabled = true;
+       
+        FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnFocus();
 
         IsFocusingEnemy = true;
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
@@ -129,7 +131,7 @@ public class Player_FollowMouse : MonoBehaviour
     }
     void LookingAtEnemy()
     {
-        FocusIcon.transform.position = FocusedEnemy.transform.position;
+       
         transform.up = (Vector3.RotateTowards(transform.up, new Vector2(FocusedEnemy.transform.position.x, FocusedEnemy.transform.position.y) - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
 
         

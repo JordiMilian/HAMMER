@@ -8,7 +8,9 @@ public class Enemy_HealthSystem : MonoBehaviour
     public float CurrentHealth;
     [SerializeField] GameObject deadBody;
     [SerializeField] GameObject deadHead;
-    void Start()
+    [SerializeField] GameObject BloodCristals;
+    [SerializeField] int AmountOfCristals;
+    void Start() 
     {
         CurrentHealth = MaxHealth;
     }
@@ -19,23 +21,27 @@ public class Enemy_HealthSystem : MonoBehaviour
         CurrentHealth -= Damage;
         if (CurrentHealth <= 0)
         {
-            if(deadBody != null && deadHead != null)
-            {
-                var DeadBody = Instantiate(deadBody, transform.position, Quaternion.Euler(0, 0, 0));
-                var DeadHead = Instantiate(deadHead, transform.position, Quaternion.Euler(0, 0, 0));
-                Destroy(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Death();
         }
-            
-        
         if (CurrentHealth > MaxHealth)
         {
             CurrentHealth = MaxHealth;
         }
+    }
+    void Death()
+    {
+        if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
+        if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
+        if(BloodCristals != null) 
+        { 
+            for(int i = 0; i< AmountOfCristals;i++)
+            {
+                Instantiate(BloodCristals, transform.position, Quaternion.identity);
+            }
+            
+        }
+
+        Destroy(gameObject);
     }
 
 }
