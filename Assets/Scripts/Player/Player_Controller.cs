@@ -97,7 +97,7 @@ public class Player_Controller : MonoBehaviour
     }
     public void OnParry()
     {
-        hitStop.Stop(StopSeconds: 0.5f);
+        hitStop.Stop(StopSeconds: 0.3f);
     }
     public void OnHitEnemy()
     {

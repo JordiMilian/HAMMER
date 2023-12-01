@@ -39,7 +39,7 @@ public class Player_FollowMouse : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(2))
         {
             CurrentEnemies.Clear();
             CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));

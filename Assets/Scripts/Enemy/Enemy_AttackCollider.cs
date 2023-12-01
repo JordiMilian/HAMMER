@@ -24,7 +24,7 @@ public class Enemy_AttackCollider : MonoBehaviour
     {
         if (IsEnemyWeapon)
         {
-            if (collision.tag == "Attack_Hitbox")
+            if (collision.tag == "ParryCollider")
             {
                 Enemy01.HitShield();
             }
