@@ -6,13 +6,15 @@ public class Enemy_HealthSystem : MonoBehaviour
 {
     public float MaxHealth;
     public float CurrentHealth;
+    [SerializeField] bool AutofillHealthOnStart = true;
     [SerializeField] GameObject deadBody;
     [SerializeField] GameObject deadHead;
     [SerializeField] GameObject BloodCristals;
     [SerializeField] int AmountOfCristals;
     void Start() 
     {
-        CurrentHealth = MaxHealth;
+        if (AutofillHealthOnStart) { CurrentHealth = MaxHealth; }
+       
     }
 
     

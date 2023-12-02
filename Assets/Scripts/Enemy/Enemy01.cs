@@ -41,7 +41,7 @@ public class Enemy01 : MonoBehaviour
         WeaponTrail = GetComponentInChildren<TrailRenderer>();
 
         ConstraintSource CameraConstrain = new ConstraintSource();
-        CameraConstrain.sourceTransform = GameObject.Find("Main Camera").transform;
+        CameraConstrain.sourceTransform = Camera.main.transform;
         CameraConstrain.weight = 1;
         SpritesConstraint = GetComponentInChildren<RotationConstraint>();
         SpritesConstraint.AddSource(CameraConstrain);
@@ -74,13 +74,13 @@ public class Enemy01 : MonoBehaviour
         Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.CurrentDamage);
         flasher.CallFlasher();
         Enemy_FollowPlayer.SlowSpeed();
-
+        Enemy_FollowPlayer.IsAgroo = true;
         hitStop.Stop(0.05f);
-        //EnemyRigidBody.AddForce(transform.up *-1000);
+       
         EnemyAnimator.SetTrigger("PushBack");
         yield return new WaitForSeconds(0.3f);
         Enemy_FollowPlayer.ReturnSpeed();
-        Enemy_FollowPlayer.IsAgroo = true;
+        
         
     }  
     public void HitShield()

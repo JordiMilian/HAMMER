@@ -60,7 +60,7 @@ public class Player_Controller : MonoBehaviour
     }
     void WalkingAnimation()
     {
-        if (playerRoll.isDashing == false)
+        if (!playerRoll.isDashing)
         { 
             if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
             {
