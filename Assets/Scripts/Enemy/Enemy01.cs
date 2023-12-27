@@ -73,13 +73,13 @@ public class Enemy01 : MonoBehaviour
         
         Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.CurrentDamage);
         flasher.CallFlasher();
-        Enemy_FollowPlayer.SlowSpeed();
+        Enemy_FollowPlayer.EV_SlowRotationSpeed();
         Enemy_FollowPlayer.IsAgroo = true;
         hitStop.Stop(0.05f);
        
         EnemyAnimator.SetTrigger("PushBack");
         yield return new WaitForSeconds(0.3f);
-        Enemy_FollowPlayer.ReturnSpeed();
+        Enemy_FollowPlayer.EV_ReturnRotationSpeed();
         
         
     }  
@@ -95,7 +95,7 @@ public class Enemy01 : MonoBehaviour
     public void Enemy_HideAttackCollider()
     {
         WeaponCollider.enabled = false;
-        Enemy_FollowPlayer.ReturnSpeed();
+        Enemy_FollowPlayer.EV_ReturnRotationSpeed();
     }
     public void EndHitShield()
     {

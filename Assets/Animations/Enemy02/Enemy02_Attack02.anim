@@ -1014,14 +1014,21 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.6166667
-    functionName: SlowSpeed
+  - time: 0.13333334
+    functionName: EV_SlowMovingSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9
+  - time: 0.6166667
+    functionName: EV_SlowRotationSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.93333334
     functionName: Enemy_ShowAttackCollider
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -1035,8 +1042,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.4166666
-    functionName: SlowSpeed
+  - time: 1.1333333
+    functionName: EV_ReturnRotationSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.45
+    functionName: EV_SlowRotationSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -1051,6 +1065,20 @@ AnimationClip:
     messageOptions: 0
   - time: 1.7166667
     functionName: Enemy_HideAttackCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.85
+    functionName: EV_ReturnRotationSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.0166667
+    functionName: EV_ReturnMovingSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

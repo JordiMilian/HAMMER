@@ -146,14 +146,21 @@ public class Enemy_FollowPlayer : MonoBehaviour
         transform.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - new Vector3(transform.position.x, transform.position.y), CurrentRotationSpeed * Time.deltaTime, 10));
     }
 
-    public void SlowSpeed()
+    public void EV_SlowRotationSpeed()
     {
-        aiPath.maxSpeed = SlowSpeedF;
+       
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.4f));
     }
-    public void ReturnSpeed()
+    public void EV_ReturnRotationSpeed()
     {
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.4f));
+    }
+    public void EV_SlowMovingSpeed() 
+    {
+        aiPath.maxSpeed = SlowSpeedF;
+    }
+    public void EV_ReturnMovingSpeed()
+    {
         aiPath.maxSpeed = BaseSpeed;
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)

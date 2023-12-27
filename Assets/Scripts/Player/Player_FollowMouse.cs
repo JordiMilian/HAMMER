@@ -10,7 +10,7 @@ using UnityEngine;
 public class Player_FollowMouse : MonoBehaviour
 {
 
-    public float FollowMouse_Speed = 0.08f;
+    public float FollowMouse_Speed = 8f;
     Player_Controller Player;
     GameObject FocusedEnemy;
     Transform CameraFocusTransform;
@@ -124,7 +124,7 @@ public class Player_FollowMouse : MonoBehaviour
     void LookingAtMouse()
     {
         Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.up = (Vector3.RotateTowards(transform.up, mousePos - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
+        transform.up = (Vector3.RotateTowards(transform.up, mousePos - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed*Time.deltaTime, 10f));
 
         
         spriteFliper.FocusVector = mousePos;

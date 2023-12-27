@@ -8,6 +8,7 @@ public class Player_WeaponDetection : MonoBehaviour
     public Player_Controller Player;
     public GameObject VFX_HitEnemy;
     [SerializeField] GameObject VFX_Blood;
+    [SerializeField] GameObject VFX_Parry;
     void Start()
     {
         Player = GameObject.Find("MainCharacter").GetComponent<Player_Controller>();
@@ -26,7 +27,7 @@ public class Player_WeaponDetection : MonoBehaviour
         if (collision.tag == "Enemy_Attack_hitbox")
         {
             Player.OnParry();
-            Instantiate(VFX_HitEnemy, collision.ClosestPoint(transform.position), Quaternion.identity);
+            Instantiate(VFX_Parry, collision.ClosestPoint(transform.position), Quaternion.identity);
             
         }
 
