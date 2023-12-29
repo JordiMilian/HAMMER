@@ -28,6 +28,8 @@ public class Enemy_FollowPlayer : MonoBehaviour
     [SerializeField] float RoamingRadios = 2;
     bool walking = false;
 
+    public Animator EnemyAnimator;
+
 
     bool RoamingSpawned = false;
      Transform RoamingCenter;
@@ -41,6 +43,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
 
     void Start()
     {
+        EnemyAnimator = GetComponent<Animator>();
         GameObject RoamingGO = new GameObject();
         var roamingCenter = Instantiate(RoamingGO, transform.position, transform.rotation);
         RoamingCenter = roamingCenter.transform;
@@ -68,6 +71,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
         {
             if (!isAgrooOnce)
             {
+                EnemyAnimator.SetBool("Walking", true);
                 destinationSetter.target = Player;
                 isAgrooOnce = true;
             }
@@ -82,9 +86,7 @@ public class Enemy_FollowPlayer : MonoBehaviour
                 LookingAtRoamingPoint();
             }
             else LookingatRandomPoint();
-        }
-      
-        
+        } 
     }
     
     private void OnDrawGizmos()
@@ -104,9 +106,10 @@ public class Enemy_FollowPlayer : MonoBehaviour
         {
             CurrentRoamingVector = Random.insideUnitCircle * RoamingRadios + new Vector2(RoamingCenter.transform.position.x, RoamingCenter.transform.position.y);
             walking = true;
+            EnemyAnimator.SetBool("Walking", true);
             spriteFliper.FocusVector = CurrentRoamingVector;
         }
-        if (randomWalk > ChanceToWalk) { walking = false; }
+        if (randomWalk > ChanceToWalk) { walking = false; EnemyAnimator.SetBool("Walking", false); }
 
     }
     void DecideTurn()

@@ -19,37 +19,78 @@ public class Player_Roll : MonoBehaviour
     public AnimationCurve RollCurve;
 
     Player_ComboSystem_Simple comboSystem;
+    Player_Controller playerController;
+
+    [SerializeField] float InputDelayTime = 0.5f;
+    float TimerDelay;
+    bool IsWaitingInputDelay;
+    bool isRunning = false;
+    [SerializeField] float RunningSpeed = 40;
+    [SerializeField] TrailRenderer rollTrail;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         comboSystem = GetComponent<Player_ComboSystem_Simple>();
+        playerController = GetComponent<Player_Controller>();
     }
 
     
     void Update()
     {
         
+        if (isRunning)
+        {
+            playerController.CurrentSpeed = RunningSpeed;
+        }
+        else { playerController.CurrentSpeed = playerController.BaseSpeed; }
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
         {
-            switch (canDash)
-            {
-                case true:
-                    if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0, 0))
-                    {
-                        StartCoroutine(Dash());
-                    }
-                    break;
-                case false:
-                    if(!isWaitingDash) { StartCoroutine(WaitForCanDash()); }
-                   
-                    break;
+            IsWaitingInputDelay = true;
+            TimerDelay = 0;
+        }
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
+        {
+            DelayInput();
+        }
+        
 
-            }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
+        {
+            isRunning = false;
+            if(IsWaitingInputDelay)
+            {
+                IsWaitingInputDelay = false;
+                switch (canDash)
+                {
+                    case true:
+                        if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0, 0))
+                        {
+                            StartCoroutine(Dash());
+                        }
+                        break;
+                    case false:
+                        if (!isWaitingDash) { StartCoroutine(WaitForCanDash()); }
+
+                        break;
+
+                }
+            } 
         }
     }
-
+    void DelayInput()
+    {
+        
+        TimerDelay += Time.deltaTime;
+       
+        if(TimerDelay > InputDelayTime)
+        {
+            IsWaitingInputDelay = false;
+            isRunning = true;
+        }
+    }
     
     IEnumerator Dash()
     {
@@ -92,4 +133,6 @@ public class Player_Roll : MonoBehaviour
     public void EV_CantDash() { canDash = false; }
     
     public void EV_CanDash() { canDash = true; }
+    public void EV_ShowRollTrail() { rollTrail.enabled = true; }
+    public void EV_HideRollTrail() { rollTrail.enabled = false; }
 }

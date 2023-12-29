@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,6 +22,8 @@ public class Player_Controller : MonoBehaviour
 
     public float CurrentSpeed;
     public float BaseSpeed;
+   
+    
     
     public float CurrentDamage;
     public float BaseDamage;
@@ -30,6 +33,8 @@ public class Player_Controller : MonoBehaviour
     bool receivingDamage;
 
     [SerializeField] AnimationCurve Curve;
+
+    public event EventHandler OnParriedEnemy;
         
     void Start()
     {
@@ -48,8 +53,6 @@ public class Player_Controller : MonoBehaviour
     {
         var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
         Move(input);
-       
-        
     }
     void Move(Vector2 vector2)
     {
@@ -97,7 +100,12 @@ public class Player_Controller : MonoBehaviour
     }
     public void OnParry()
     {
+       
         hitStop.Stop(StopSeconds: 0.3f);
+    }
+    void SpawnVFXTest()
+    {
+
     }
     public void OnHitEnemy()
     {
