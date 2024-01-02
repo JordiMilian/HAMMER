@@ -41,6 +41,8 @@ public class Enemy_FollowPlayer : MonoBehaviour
     AIPath aiPath;
     Generic_FlipSpriteWithFocus spriteFliper;
 
+    public bool doDrawGizmo;
+
     void Start()
     {
         EnemyAnimator = GetComponent<Animator>();
@@ -91,12 +93,16 @@ public class Enemy_FollowPlayer : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.3f);
-        if(!RoamingSpawned) Gizmos.DrawSphere(transform.position, RoamingRadios);
-        if(RoamingSpawned) Gizmos.DrawSphere(RoamingCenter.position, RoamingRadios);
+        if (doDrawGizmo)
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.3f);
+            if (!RoamingSpawned) Gizmos.DrawSphere(transform.position, RoamingRadios);
+            if (RoamingSpawned) Gizmos.DrawSphere(RoamingCenter.position, RoamingRadios);
 
-        Gizmos.DrawSphere(CurrentRoamingVector, 0.1f);
-        Gizmos.DrawSphere(CurrentTurningTarget, 0.2f);
+            Gizmos.DrawSphere(CurrentRoamingVector, 0.1f);
+            Gizmos.DrawSphere(CurrentTurningTarget, 0.2f);
+        }
+        
     }
     
     void DecideWalk()
