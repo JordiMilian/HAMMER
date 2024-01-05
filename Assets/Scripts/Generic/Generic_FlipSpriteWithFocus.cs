@@ -7,6 +7,9 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     bool FlipOnce;
     public Vector2 FocusVector;
     public GameObject SpriteObject;
+    float FlipDelay = 0.2f;
+    bool canFlip = true;
+    
     
     private void FixedUpdate()
     {
@@ -16,17 +19,32 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     {
         if (focus.x > gameObject.transform.position.x)
         {
-            if (FlipOnce == false) flipSprite(SpriteObject);
+            if (FlipOnce == false && canFlip)
+            {
+                flipSprite(SpriteObject);
+                StartCoroutine(FlipCooldown());
+            }
 
         }
         if (focus.x < gameObject.transform.position.x)
         {
-            if (FlipOnce == true) flipSprite(SpriteObject);
+            if (FlipOnce == true && canFlip)
+            {
+                flipSprite(SpriteObject);
+                StartCoroutine(FlipCooldown());
+            }
         }
     }
     void flipSprite(GameObject objecto)
     {
         objecto.transform.localScale = new Vector2(objecto.transform.localScale.x * -1, objecto.transform.localScale.y);
         FlipOnce = !FlipOnce;
+    }
+    IEnumerator FlipCooldown()
+    {
+        canFlip = false;
+        yield return new  WaitForSeconds(FlipDelay);
+        canFlip = true;
+        
     }
 }

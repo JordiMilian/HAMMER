@@ -136,7 +136,6 @@ public class Enemy_AttacksProvider : MonoBehaviour
     void Debuguer(string text)
     {
         if (ShowDebug) { Debug.Log(text); }
-       
     }
 
 }
