@@ -11,6 +11,7 @@ public class Player_AnimationEvents : MonoBehaviour
     [SerializeField] TrailRenderer WeaponTrail;
     [SerializeField] Collider2D DamageCollider;
     [SerializeField] Collider2D WeaponCollider;
+    [SerializeField] Collider2D WeaponParryCollider;
     void Start()
     {
         playerRoll = GetComponent<Player_Roll>();
@@ -36,4 +37,14 @@ public class Player_AnimationEvents : MonoBehaviour
         playerController.CurrentSpeed = slowspeed;
     }
     public void EV_ReturnSpeed() { playerController.CurrentSpeed = playerController.BaseSpeed; }
+    public void EV_ShowParryCollider()
+    {
+        WeaponParryCollider.enabled = true;
+        DamageCollider.enabled = false;
+    }
+    public void EV_HideParryColldier()
+    {
+        WeaponParryCollider.enabled = false;
+        DamageCollider.enabled = true;
+    }
 }

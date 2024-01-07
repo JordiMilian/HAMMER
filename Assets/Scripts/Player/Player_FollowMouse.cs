@@ -64,10 +64,7 @@ public class Player_FollowMouse : MonoBehaviour
 
         if (IsFocusingEnemy == true) { LookingAtEnemy(); }
         else { LookingAtMouse(); }
-
-        
     }
-    
     GameObject ClosestEnemyToMouseInRange(float range)
     {
         Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

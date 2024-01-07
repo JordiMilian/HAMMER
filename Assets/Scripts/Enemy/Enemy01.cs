@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
+using static Generic_DamageDetector;
 
 public class Enemy01 : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Enemy01 : MonoBehaviour
     Enemy_FollowPlayer Enemy_FollowPlayer;
     Enemy_HealthSystem Enemy_HealthSystem;
     Enemy_AttacksProvider enemy_AttackProvider;
-    Enemy_AttackCollider attackCollider;
+    Generic_DamageDealer attackCollider;
     HitStop hitStop;
     Generic_Flash flasher;
 
@@ -28,6 +29,8 @@ public class Enemy01 : MonoBehaviour
     TrailRenderer WeaponTrail;
     
     RotationConstraint SpritesConstraint;
+
+    [SerializeField] Generic_DamageDetector damageDetector;
 
     private void Start()
     {
@@ -50,9 +53,17 @@ public class Enemy01 : MonoBehaviour
         Enemy_HealthSystem = GetComponent<Enemy_HealthSystem>();
 
         hitStop = FindObjectOfType<HitStop>();
-        attackCollider = GetComponentInChildren<Enemy_AttackCollider>();
+        attackCollider = GetComponentInChildren<Generic_DamageDealer>();
         flasher = GetComponent<Generic_Flash>();
 
+    }
+    private void OnEnable()
+    {
+        damageDetector.OnReceiveDamage += ReceiveDamage;
+    }
+    private void OnDisable()
+    {
+        damageDetector.OnReceiveDamage -= ReceiveDamage;
     }
     public IEnumerator Attack(Enemy_AttacksProvider.EnemyAttack Attack)
     {
@@ -68,21 +79,23 @@ public class Enemy01 : MonoBehaviour
         Attacking = false;
 
     }
-    public IEnumerator ReceiveDamage(GameObject Weapon)
+    public void ReceiveDamage(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
     {
         
-        Enemy_HealthSystem.UpdateLife(Weapon.GetComponent<Player_WeaponDetection>().Player.CurrentDamage);
         flasher.CallFlasher();
         Enemy_FollowPlayer.EV_SlowRotationSpeed();
         Enemy_FollowPlayer.IsAgroo = true;
         hitStop.Stop(0.05f);
        
         EnemyAnimator.SetTrigger("PushBack");
-        yield return new WaitForSeconds(0.3f);
-        Enemy_FollowPlayer.EV_ReturnRotationSpeed();
-        
-        
+        StartCoroutine(WaitReceiveDamage());
+       
     }  
+    IEnumerator WaitReceiveDamage()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Enemy_FollowPlayer.EV_ReturnRotationSpeed();  
+    }
     public void HitShield()
     {
         EnemyAnimator.SetBool("HitShield", true);

@@ -7,7 +7,7 @@ public class HitStop : MonoBehaviour
     bool waiting;
     public void Stop(float StopSeconds)
     {
-        if (waiting == false)
+        if (!waiting)
         {
             StartCoroutine(Wait(StopSeconds));
         }

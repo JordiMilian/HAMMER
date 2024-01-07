@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Generic_DamageDetector;
+using static Player_ParryPerformer;
 //using UnityEngine.Windows;
 
 public class Player_Controller : MonoBehaviour
@@ -16,15 +18,16 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] Generic_Flash player_Flash;
     [SerializeField] CameraShake cameraShake;
     [SerializeField] Collider2D WeaponCollider;
+    [SerializeField] Generic_DamageDetector damageDetector;
     Player_Roll playerRoll;
+    Player_ParryPerformer parryPerformer;
+    
 
     public InputSystem inputSystem;
 
     public float CurrentSpeed;
     public float BaseSpeed;
-   
-    
-    
+
     public float CurrentDamage;
     public float BaseDamage;
   
@@ -35,20 +38,31 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] AnimationCurve Curve;
 
     public event EventHandler OnParriedEnemy;
-        
-    void Start()
+
+    private void Awake()
     {
         Player_Animator = GetComponent<Animator>();
         _HealthSystem = GetComponent<Player_HealthSystem>();
         playerRoll = GetComponent<Player_Roll>();
         _rigitbody = GetComponent<Rigidbody2D>();
         player_Flash = GetComponent<Generic_Flash>();
+        parryPerformer = GetComponent<Player_ParryPerformer>();
 
         CurrentDamage = BaseDamage;
-         CurrentSpeed = BaseSpeed;
-      }
+        CurrentSpeed = BaseSpeed;
+    }
+    
 
-
+    private void OnEnable()
+    {
+        parryPerformer.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
+        damageDetector.OnReceiveDamage += ReceiveDamage;
+    }
+    private void OnDisable()
+    {
+        parryPerformer.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
+        damageDetector.OnReceiveDamage -= ReceiveDamage;
+    }
     void Update()
     {
         var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
@@ -73,44 +87,39 @@ public class Player_Controller : MonoBehaviour
             }
         }
     }
-    public void ReceiveDamage(Enemy_AttackCollider attackCollider)
+    public void ReceiveDamage(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
     {
         if(!receivingDamage)
         {
             receivingDamage = true;
 
              CurrentSpeed = 0;
-            _HealthSystem.UpdateLife(attackCollider.Damage);
+            
             cameraShake.ShakeCamera(1, 0.1f); ;
-            hitStop.Stop(attackCollider.HitStop);
+            hitStop.Stop(receivedAttackinfo.Hitstop);
             player_Flash.CallFlasher();
 
-            Vector2 direction = (transform.position - attackCollider.gameObject.transform.position).normalized;
-            _rigitbody.AddForce(direction * (attackCollider.Knockback), ForceMode2D.Impulse);
+            Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
+            _rigitbody.AddForce(direction * (receivedAttackinfo.KnockBack), ForceMode2D.Impulse);
             StartCoroutine(InvulnerableAfterDamage());
 
         }
     }
      IEnumerator InvulnerableAfterDamage()
     {
-
         yield return new WaitForSeconds(staggerTime);
         CurrentSpeed = BaseSpeed;
         receivingDamage = false;
     }
-    public void OnParry()
+    public void OnSuccesfulParryCameraEffects(object sender, EventArgs_ParryInfo position)
     {
-       
         hitStop.Stop(StopSeconds: 0.3f);
+        cameraShake.ShakeCamera(0.6f, 0.1f);
     }
-    void SpawnVFXTest()
-    {
-
-    }
-    public void OnHitEnemy()
+    public void OnHitEnemyCameraEffects()
     {
         cameraShake.ShakeCamera(1 * CurrentDamage, 0.1f * CurrentDamage);
-        _HealthSystem.UpdateLife(-1);
+        //_HealthSystem.RemoveLife(-1);
         
     }
     public void RestartDamage() { CurrentDamage = BaseDamage; }

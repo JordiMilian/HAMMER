@@ -79,6 +79,7 @@ MonoBehaviour:
   WeaponCollider: {fileID: 7332707543437145030}
   EnemyAnimator: {fileID: 0}
   Attacking: 0
+  damageDetector: {fileID: 8503966058725397229}
 --- !u!114 &2829660713819239201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,6 +103,8 @@ MonoBehaviour:
   WalkingSpeed: 0.3
   WalkingRotationSpeed: 0.3
   RoamingRadios: 2
+  EnemyAnimator: {fileID: 0}
+  doDrawGizmo: 0
 --- !u!114 &7929925186517721759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 0
   CurrentHealth: 1
-  AutofillHealthOnStart: 1
+  FillHealthOnStart: 1
+  damageDetector: {fileID: 8503966058725397229}
   deadBody: {fileID: 0}
   deadHead: {fileID: 0}
   BloodCristals: {fileID: 5308774821670971264, guid: ee77d54bae9746040992b11977385ba0, type: 3}
@@ -145,6 +149,7 @@ MonoBehaviour:
   OnShortRange: 0
   OnMidRange: 0
   OnLongRange: 0
+  ShowDebug: 0
 --- !u!114 &39932132862467972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,8 +603,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2492995162555606777}
-  - component: {fileID: 5012734694996926618}
   - component: {fileID: 7332707543437145030}
+  - component: {fileID: 8393237760477941251}
   m_Layer: 0
   m_Name: Weapon_Collider
   m_TagString: Enemy_Attack_hitbox
@@ -622,23 +627,6 @@ Transform:
   m_Father: {fileID: 3868954544030753605}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5012734694996926618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117043943955436526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9471688cf7fbb488cc57ae8aa5087a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 0
-  Knockback: 0
-  HitStop: 0
-  IsEnemyWeapon: 1
-  VFX_DealDamage: {fileID: 2194223484176408461, guid: 88956dd7cce121846b95d65ef4b771fa, type: 3}
 --- !u!60 &7332707543437145030
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -667,6 +655,23 @@ PolygonCollider2D:
     - - {x: -0.04990959, y: 0.7615452}
       - {x: -0.31332594, y: 0.23692492}
       - {x: 0.25787115, y: 0.23692697}
+--- !u!114 &8393237760477941251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117043943955436526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  Knockback: 0
+  HitStop: 0
+  EntityTeam: 1
+  typeOfDamage: 0
 --- !u!1 &2343595759810818401
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,8 +933,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6324819780203704386}
-  - component: {fileID: 4061584539180456870}
   - component: {fileID: 7350678567647433300}
+  - component: {fileID: 8503966058725397229}
   m_Layer: 0
   m_Name: DamageCollider
   m_TagString: Enemy_Hitbox
@@ -952,18 +957,6 @@ Transform:
   m_Father: {fileID: 3736275689294426710}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4061584539180456870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6782905927890007597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401033b9c032c1347ad41086cc3bccb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &7350678567647433300
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -994,6 +987,19 @@ PolygonCollider2D:
       - {x: -0.17116016, y: -0.2799691}
       - {x: 0.19099963, y: -0.306422}
       - {x: 0.30297327, y: 0.01142782}
+--- !u!114 &8503966058725397229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782905927890007597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7190f94e8f0416740a6e20c03ce37fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityTeam: 1
 --- !u!1 &7089107764379347660
 GameObject:
   m_ObjectHideFlags: 0

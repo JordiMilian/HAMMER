@@ -2,35 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_HealthSystem : MonoBehaviour
+public class Enemy_HealthSystem : Generic_HealthSystem
 {
-    public float MaxHealth;
-    public float CurrentHealth;
-    [SerializeField] bool AutofillHealthOnStart = true;
+
     [SerializeField] GameObject deadBody;
     [SerializeField] GameObject deadHead;
     [SerializeField] GameObject BloodCristals;
     [SerializeField] int AmountOfCristals;
-    void Start() 
-    {
-        if (AutofillHealthOnStart) { CurrentHealth = MaxHealth; }
-       
-    }
-
     
-    public void UpdateLife(float Damage)
-    {
-        CurrentHealth -= Damage;
-        if (CurrentHealth <= 0)
-        {
-            Death();
-        }
-        if (CurrentHealth > MaxHealth)
-        {
-            CurrentHealth = MaxHealth;
-        }
-    }
-    void Death()
+    public override void Death()
     {
         if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
         if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
