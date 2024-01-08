@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class Player_ComboSystem_Simple : MonoBehaviour
+public class Player_ComboSystem : MonoBehaviour
 {
+    public float CurrentDamage;
+    public float BaseDamage;
+
     string Attack01_Charging = "Attack01_Charging";
     string Attack02_Charging = "Attack02_Charging";
     string Attack01_Release = "Attack01_Release";
@@ -12,24 +15,28 @@ public class Player_ComboSystem_Simple : MonoBehaviour
    
     private enum NextAttack { NextAttack01, NextAttack02,}
     [SerializeField] NextAttack nextAttack = NextAttack.NextAttack01;
-    Player_ChargeAttack chargeAttack;
 
     Animator animator;
-    Player_Controller player;
-    Player_Roll playerRoll;
+    Player_Movement playerRoll;
 
     public bool IsAttackCanceled;
     public bool canAttack;
-   
 
-    
+    [SerializeField] Collider2D weaponDamageCollider;
+    [SerializeField] Rigidbody2D playerRigidbody;
+    [Header("CHARGING")]
+    bool isCharging;
+    float MaxDamage;
+    float DamageAdded;
+    float Adder;
+
+    [SerializeField] Player_SwitchAttacksSide switchAttacksSide;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        player = GetComponent<Player_Controller>();
-        chargeAttack = GetComponent<Player_ChargeAttack>();
         canAttack = true;
-        playerRoll = GetComponent<Player_Roll>();
+        playerRoll = GetComponent<Player_Movement>();
     }
 
     void Update()
@@ -58,7 +65,7 @@ public class Player_ComboSystem_Simple : MonoBehaviour
     }
     void SetChargeTriggers()
     {
-        player.RestartDamage();
+        CurrentDamage = BaseDamage;
         IsAttackCanceled = false;
 
         switch (nextAttack)
@@ -74,7 +81,7 @@ public class Player_ComboSystem_Simple : MonoBehaviour
     }
     void SetReleaseTriggers()
     {
-        chargeAttack.isCharging = false;
+        isCharging = false;
         playerRoll.canDash = false;
         switch (nextAttack)
         {
@@ -111,6 +118,25 @@ public class Player_ComboSystem_Simple : MonoBehaviour
         }
         SetReleaseTriggers();
     }
+    void FixedUpdate()
+    {
+        if (isCharging) { Charging(); }
+    }
+    void Charging()
+    {
+        if (CurrentDamage < MaxDamage)
+        {
+            Adder += Time.deltaTime * DamageAdded;
+            CurrentDamage = Mathf.Lerp(BaseDamage, MaxDamage, Adder);
+        }
+
+        if (CurrentDamage > MaxDamage)
+        {
+            CurrentDamage = MaxDamage;
+            isCharging = false;
+        }
+    }
+    public void EV_OnStartCharge() { isCharging = true; Adder = 0; }
     public void ComboOver()
     {
         nextAttack = NextAttack.NextAttack01;
@@ -119,6 +145,12 @@ public class Player_ComboSystem_Simple : MonoBehaviour
     {
         canAttack = true;
     }
-   
+    public void EV_ShowWeaponCollider() { weaponDamageCollider.enabled = true; }
+    public void EV_HideWeaponCollider() { weaponDamageCollider.enabled = false; }
+    public void EV_AddForce(float force)
+    {
+        playerRigidbody.AddForce(weaponDamageCollider.gameObject.transform.up * force);
+    }
+
 }
 

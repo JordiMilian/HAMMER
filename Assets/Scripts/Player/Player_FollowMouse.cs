@@ -11,7 +11,7 @@ public class Player_FollowMouse : MonoBehaviour
 {
 
     public float FollowMouse_Speed = 8f;
-    Player_Controller Player;
+    Player_FeedbackManager Player;
     GameObject FocusedEnemy;
     Transform CameraFocusTransform;
     bool IsFocusingEnemy;
@@ -32,7 +32,7 @@ public class Player_FollowMouse : MonoBehaviour
     {
 
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
-        Player = GetComponentInParent<Player_Controller>();
+        Player = GetComponentInParent<Player_FeedbackManager>();
         PlayerGO = Player.gameObject;
         CameraFocusTransform = GameObject.Find("CameraController").transform;
         

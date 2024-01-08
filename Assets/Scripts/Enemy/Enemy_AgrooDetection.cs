@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Enemy_AgrooDetection : MonoBehaviour
 {
-    Enemy_FollowPlayer _followPlayer;
+    Enemy_Movement _followPlayer;
     [SerializeField] Animator UIAnimator;
     private void Start()
     {
-        _followPlayer = GetComponentInParent<Enemy_FollowPlayer>();
+        _followPlayer = GetComponentInParent<Enemy_Movement>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

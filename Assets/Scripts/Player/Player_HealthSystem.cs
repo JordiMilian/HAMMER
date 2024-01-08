@@ -1,19 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_HealthSystem : Generic_HealthSystem
 {
-    ReloadSceneOnDeath reloadScene;
-   
-    void Start()
-    {
-        reloadScene = GetComponent<ReloadSceneOnDeath>();
-    }
-
     public override void Death()
     {
-        reloadScene.ReloadScene();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

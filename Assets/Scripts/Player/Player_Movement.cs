@@ -4,47 +4,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Player_Roll : MonoBehaviour
+public class Player_Movement : MonoBehaviour
 {
     Rigidbody2D rigidbody;
-    Animator animator;
+    Animator Player_Animator;
+    Player_ComboSystem comboSystem;
+
+    [Header("BASE MOVEMENT")]
+    public float CurrentSpeed;
+    public float BaseSpeed;
+
+    [Header("RUN")]
+    [SerializeField] float RunningSpeed = 40;
+    [SerializeField] float RunInputDelayTime = 0.5f;
+    float TimerDelay;
+    bool IsWaitingInputDelay;
+    bool isRunning = false;
+
+
+    [Header("ROLL")]
     public bool canDash = true;
     bool isWaitingDash;
     public bool isDashing;
     [SerializeField] float RollTime;
     [SerializeField] float RollMaxForce;
     [SerializeField] float RollCooldown;
-    public VisualEffect GroundImpact;
-
     public AnimationCurve RollCurve;
+    [SerializeField] Collider2D damageCollider;
 
-    Player_ComboSystem_Simple comboSystem;
-    Player_Controller playerController;
-
-    [SerializeField] float InputDelayTime = 0.5f;
-    float TimerDelay;
-    bool IsWaitingInputDelay;
-    bool isRunning = false;
-    [SerializeField] float RunningSpeed = 40;
-    [SerializeField] TrailRenderer rollTrail;
+    public EventHandler OnPerformRoll;
+    
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        comboSystem = GetComponent<Player_ComboSystem_Simple>();
-        playerController = GetComponent<Player_Controller>();
+        Player_Animator = GetComponent<Animator>();
+        comboSystem = GetComponent<Player_ComboSystem>();
+        CurrentSpeed = BaseSpeed;
     }
 
     
     void Update()
     {
-        
+        var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
+        Move(input);
+
         if (isRunning)
         {
-            playerController.CurrentSpeed = RunningSpeed;
+            CurrentSpeed = RunningSpeed;
         }
-        else { playerController.CurrentSpeed = playerController.BaseSpeed; }
+       
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
         {
             IsWaitingInputDelay = true;
@@ -55,11 +64,10 @@ public class Player_Roll : MonoBehaviour
             DelayInput();
         }
         
-
-
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
         {
             isRunning = false;
+            CurrentSpeed = BaseSpeed;
             if(IsWaitingInputDelay)
             {
                 IsWaitingInputDelay = false;
@@ -80,26 +88,46 @@ public class Player_Roll : MonoBehaviour
             } 
         }
     }
-    void DelayInput()
+    void Move(Vector2 vector2)
     {
-        
+        rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
+        WalkingAnimation();
+    }
+  
+    void DelayInput()
+    { 
         TimerDelay += Time.deltaTime;
        
-        if(TimerDelay > InputDelayTime)
+        if(TimerDelay > RunInputDelayTime)
         {
             IsWaitingInputDelay = false;
             isRunning = true;
         }
+
     }
-    
+    void WalkingAnimation()
+    {
+        if (!isDashing)
+        {
+            if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
+            {
+                Player_Animator.SetBool("Walking", true);
+            }
+            else
+            {
+                Player_Animator.SetBool("Walking", false);
+            }
+        }
+    }
+
     IEnumerator Dash()
     {
         canDash = false;
         comboSystem.canAttack = false;
         isDashing = true;
         comboSystem.IsAttackCanceled = true;
-        GroundImpact.Play();
-        animator.SetTrigger("Roll");
+        if(OnPerformRoll != null) OnPerformRoll(this, EventArgs.Empty);
+        Player_Animator.SetTrigger("Roll");
 
 
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
@@ -127,12 +155,9 @@ public class Player_Roll : MonoBehaviour
         }
         isWaitingDash = true;
         StartCoroutine(Dash());
-        
-
     }
     public void EV_CantDash() { canDash = false; }
-    
     public void EV_CanDash() { canDash = true; }
-    public void EV_ShowRollTrail() { rollTrail.enabled = true; }
-    public void EV_HideRollTrail() { rollTrail.enabled = false; }
+    public void EV_HidePlayerCollider() { damageCollider.enabled = false; }
+    public void EV_ShowPlayerCollider() { damageCollider.enabled = true; }
 }

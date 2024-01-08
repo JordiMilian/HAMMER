@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2195041901401652145}
   - component: {fileID: 3045453252001776434}
   - component: {fileID: 3457608814812501881}
+  - component: {fileID: 3450134641583009566}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -75,10 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentDamage: 0
   CurrentKnockBack: 0
-  Player: {fileID: 0}
   WeaponCollider: {fileID: 7332707543437145030}
   EnemyAnimator: {fileID: 0}
-  Attacking: 0
   damageDetector: {fileID: 8503966058725397229}
 --- !u!114 &2829660713819239201
 MonoBehaviour:
@@ -137,6 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e153fa19332cce499f6638023e3a6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageDealer: {fileID: 8393237760477941251}
+  enemyAnimator: {fileID: 2195041901401652145}
+  isAttacking: 0
+  ShowDebug: 0
   Enemy_Attacks:
   - Damage: 0
     AnimationTime: 0
@@ -149,7 +152,6 @@ MonoBehaviour:
   OnShortRange: 0
   OnMidRange: 0
   OnLongRange: 0
-  ShowDebug: 0
 --- !u!114 &39932132862467972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +298,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FocusSprite: {fileID: 366996877998752980}
+--- !u!114 &3450134641583009566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b16d1471a4235468e52db1f3a4ee1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailRenderer: {fileID: 0}
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0

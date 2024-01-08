@@ -7,8 +7,8 @@ using UnityEngine.EventSystems;
 public class Player_ParryPerformer : MonoBehaviour
 {
     Animator playerAnimator;
- 
-    Player_AnimationEvents animationEvents;
+    [SerializeField] Collider2D weaponParryCollider;
+    [SerializeField] Collider2D damageDetectorCollider;
 
     public event EventHandler<EventArgs_ParryInfo> OnSuccessfulParry;
     public class EventArgs_ParryInfo : EventArgs
@@ -21,8 +21,6 @@ public class Player_ParryPerformer : MonoBehaviour
     }
     private void Awake()
     {
-       
-        animationEvents = GetComponent<Player_AnimationEvents>();
         playerAnimator = GetComponent<Animator>();
     }
     private void Update()
@@ -32,10 +30,21 @@ public class Player_ParryPerformer : MonoBehaviour
             playerAnimator.SetTrigger("Parry");
         }
     }
-    public void OnSuccessfulParryDetected(Vector3 closestPoint)
+    public void PublishSuccessfullParryDone(Vector3 closestPoint)
     {
         if (OnSuccessfulParry != null) OnSuccessfulParry(this, new EventArgs_ParryInfo(closestPoint)); 
-        animationEvents.EV_HideParryColldier();
+        EV_HideParryColldier();
     }
-   
+
+    public void EV_ShowParryCollider()
+    {
+        weaponParryCollider.enabled = true;
+        damageDetectorCollider.enabled = false;
+    }
+    public void EV_HideParryColldier()
+    {
+        weaponParryCollider.enabled = false;
+        damageDetectorCollider.enabled = true;
+    }
+
 }

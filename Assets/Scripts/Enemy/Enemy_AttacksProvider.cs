@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class Enemy_AttacksProvider : MonoBehaviour
 {
-    Enemy01 enemy01;
+    [SerializeField] Generic_DamageDealer damageDealer;
+    [SerializeField] Animator enemyAnimator;
+    public bool isAttacking;
+    [SerializeField] bool ShowDebug;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
 
-    float OnLong_MaxRange;
-    float OnMid_MaxRange;
-    float OnShort_MaxRange;
+    public enum Ranges
+    {
+        Short,Mid,Long
+    }
+
     float minim;
 
     public bool OnShortRange = false;
     public bool OnMidRange = false;
     public bool OnLongRange = false;
-    [SerializeField] bool ShowDebug;
 
     [Serializable]
     public class EnemyAttack
@@ -31,31 +35,42 @@ public class Enemy_AttacksProvider : MonoBehaviour
         public int ProbabilityMid;
         public int ProbabilityLong;
     }
-    private void Start()
-    {
-        enemy01 = GetComponent<Enemy01>();
-    }
     void Update()
     {
         if ((OnShortRange == true) || (OnLongRange == true) || (OnMidRange == true))
         {
-            if (enemy01.Attacking == false)
+            if (!isAttacking)
             {
                 PickAvailableAttacks();
                 
             }
         }
     }
+    void PerformAttack(EnemyAttack selectedAttack)
+    {
+        isAttacking = true;
+
+        damageDealer.Damage = selectedAttack.Damage;
+        damageDealer.Knockback = selectedAttack.KnockBack;
+        damageDealer.HitStop = selectedAttack.Hitstop;
+        enemyAnimator.SetTrigger(selectedAttack.TriggerName);
+
+        StartCoroutine(AttackCooldown(selectedAttack));
+
+    }
+    IEnumerator AttackCooldown(EnemyAttack selectedAttack)
+    {
+        yield return new WaitForSeconds(selectedAttack.AnimationTime);
+        ResetAllTriggers();
+        isAttacking = false;
+    }
     void PickAvailableAttacks()
     {
         if (OnLongRange == true)
         {
-            OnLong_MaxRange = 0;
-            for (int i = 0; i < Enemy_Attacks.Length; i++)
-            {
-                OnLong_MaxRange += Enemy_Attacks[i].ProbabilityLong;
-            }
+            float OnLong_MaxRange = AddAttacksProbability(Ranges.Long);
             Debuguer("Max Long is: " + OnLong_MaxRange);
+
             float randomLongFloat = UnityEngine.Random.Range(0f, OnLong_MaxRange);
             Debuguer("Random Long is " + randomLongFloat);
 
@@ -68,7 +83,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
                 }
                 if (randomLongFloat > minim && randomLongFloat <= minim + Enemy_Attacks[i].ProbabilityLong)
                 {
-                    StartCoroutine(enemy01.Attack(Enemy_Attacks[i]));
+                    PerformAttack(Enemy_Attacks[i]);
                     Debuguer(i + " succed Long chance");
                 }
                 else {
@@ -78,12 +93,9 @@ public class Enemy_AttacksProvider : MonoBehaviour
         }
         if (OnMidRange == true)
         {
-            OnMid_MaxRange = 0;
-            for (int i = 0; i < Enemy_Attacks.Length; i++)
-            {
-                OnMid_MaxRange += Enemy_Attacks[i].ProbabilityMid;
-            }
+            float OnMid_MaxRange = AddAttacksProbability(Ranges.Mid);
             Debuguer("Max Mid is: " + OnMid_MaxRange);
+
             float randomMidFloat = UnityEngine.Random.Range(0f, OnMid_MaxRange);
             Debuguer("Random Mid is " + randomMidFloat);
 
@@ -96,7 +108,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
                 }
                 if (randomMidFloat > minim && randomMidFloat <= minim + Enemy_Attacks[i].ProbabilityMid)
                 {
-                    StartCoroutine(enemy01.Attack(Enemy_Attacks[i]));
+                    PerformAttack(Enemy_Attacks[i]);
                     Debuguer(i + " succed Mid chance");
                 }
                 else {
@@ -106,12 +118,9 @@ public class Enemy_AttacksProvider : MonoBehaviour
         }
         if (OnShortRange == true)
         {
-            OnShort_MaxRange = 0;
-            for (int i = 0; i < Enemy_Attacks.Length; i++)
-            {
-                OnShort_MaxRange += Enemy_Attacks[i].ProbabilityShort;
-            }
+            float OnShort_MaxRange = AddAttacksProbability(Ranges.Short);
             Debuguer("Max Short is: " + OnShort_MaxRange);
+
             float randomShortFloat = UnityEngine.Random.Range(0f, OnShort_MaxRange);
             Debuguer("Random Short is " + randomShortFloat);
 
@@ -124,7 +133,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
                 }
                 if (randomShortFloat > minim && randomShortFloat <= minim + Enemy_Attacks[i].ProbabilityShort)
                 {
-                    StartCoroutine(enemy01.Attack(Enemy_Attacks[i]));
+                    PerformAttack(Enemy_Attacks[i]);
                     Debuguer(i + " succed Short chance");
                 }
                 else {
@@ -133,9 +142,55 @@ public class Enemy_AttacksProvider : MonoBehaviour
             }
         }
     }
+    float AddAttacksProbability(Ranges range)
+    {
+        float Adder = 0;
+        switch (range)
+        {
+            case Ranges.Long:
+                
+                for (int i = 0; i < Enemy_Attacks.Length; i++)
+                {
+                    Adder += Enemy_Attacks[i].ProbabilityLong;
+                }
+                break;
+
+            case Ranges.Mid:
+                for (int i = 0; i < Enemy_Attacks.Length; i++)
+                {
+                    Adder += Enemy_Attacks[i].ProbabilityMid;
+                }
+                break;
+
+            case Ranges.Short:
+                for (int i = 0; i < Enemy_Attacks.Length; i++)
+                {
+                    Adder += Enemy_Attacks[i].ProbabilityShort;
+                }
+                break;
+        }
+        return Adder;
+    }
+    private void ResetAllTriggers()
+    {
+        foreach (var param in enemyAnimator.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                enemyAnimator.ResetTrigger(param.name);
+            }
+        }
+    }
+    public void EV_Enemy_ShowAttackCollider()
+    {
+        damageDealer.GetComponent<Collider2D>().enabled = true;
+    }
+    public void EV_Enemy_HideAttackCollider()
+    {
+        damageDealer.GetComponent<Collider2D>().enabled = false;
+    }
     void Debuguer(string text)
     {
         if (ShowDebug) { Debug.Log(text); }
     }
-
 }

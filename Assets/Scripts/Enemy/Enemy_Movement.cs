@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using Pathfinding;
 //using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class Enemy_FollowPlayer : MonoBehaviour
+public class Enemy_Movement : MonoBehaviour
 {
     public float CurrentSpeed;
     public float BaseSpeed;
@@ -151,13 +151,12 @@ public class Enemy_FollowPlayer : MonoBehaviour
     }
     void LookAtPlayer()
     {
-        Vector3 PlayerPos = (Vector3)Player.position;
+        Vector3 PlayerPos = Player.position;
         transform.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - new Vector3(transform.position.x, transform.position.y), CurrentRotationSpeed * Time.deltaTime, 10));
     }
 
     public void EV_SlowRotationSpeed()
     {
-       
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.4f));
     }
     public void EV_ReturnRotationSpeed()
@@ -171,6 +170,11 @@ public class Enemy_FollowPlayer : MonoBehaviour
     public void EV_ReturnMovingSpeed()
     {
         aiPath.maxSpeed = BaseSpeed;
+    }
+    public void EV_ReturnAllSpeed()
+    {
+        aiPath.maxSpeed = BaseSpeed;
+        StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.4f));
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)
     {

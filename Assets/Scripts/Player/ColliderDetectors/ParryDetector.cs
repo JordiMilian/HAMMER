@@ -9,7 +9,7 @@ public class ParryDetector : MonoBehaviour
     {
         if(collision.CompareTag("Enemy_Attack_hitbox"))
         {
-            parryPerformer.OnSuccessfulParryDetected(collision.ClosestPoint(transform.position));
+            parryPerformer.PublishSuccessfullParryDone(collision.ClosestPoint(transform.position));
         }
     }
 }

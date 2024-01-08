@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class VFX_Destroyer : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] float SecondsToDestroy = 1;
     void Start()
     {
         StartCoroutine(Destroy());
     }
     IEnumerator Destroy()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(SecondsToDestroy);
         Destroy(gameObject);
     }
 }
