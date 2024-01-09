@@ -125,7 +125,7 @@ public class Player_Movement : MonoBehaviour
         canDash = false;
         comboSystem.canAttack = false;
         isDashing = true;
-        comboSystem.IsAttackCanceled = true;
+        comboSystem.isCurrentAttackCanceled = true;
         if(OnPerformRoll != null) OnPerformRoll(this, EventArgs.Empty);
         Player_Animator.SetTrigger("Roll");
 
@@ -156,6 +156,8 @@ public class Player_Movement : MonoBehaviour
         isWaitingDash = true;
         StartCoroutine(Dash());
     }
+    public void EV_SlowDownSpeed() { CurrentSpeed /= 2; }
+    public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
     public void EV_CantDash() { canDash = false; }
     public void EV_CanDash() { canDash = true; }
     public void EV_HidePlayerCollider() { damageCollider.enabled = false; }

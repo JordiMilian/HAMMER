@@ -13,30 +13,29 @@ public class Player_ComboSystem : MonoBehaviour
     string Attack01_Release = "Attack01_Release";
     string Attack02_Release = "Attack02_Release";
    
-    private enum NextAttack { NextAttack01, NextAttack02,}
-    [SerializeField] NextAttack nextAttack = NextAttack.NextAttack01;
+    public enum NextAttack { NextAttack01, NextAttack02,}
+    public NextAttack nextAttack = NextAttack.NextAttack01;
 
-    Animator animator;
-    Player_Movement playerRoll;
-
-    public bool IsAttackCanceled;
-    public bool canAttack;
-
+    [SerializeField] Animator animator;
+    [SerializeField] Player_Movement playerMovement;
     [SerializeField] Collider2D weaponDamageCollider;
     [SerializeField] Rigidbody2D playerRigidbody;
+
+    public bool isCurrentAttackCanceled;
+    public bool canAttack;
+
+    
     [Header("CHARGING")]
     bool isCharging;
     float MaxDamage;
     float DamageAdded;
     float Adder;
 
-    [SerializeField] Player_SwitchAttacksSide switchAttacksSide;
-
     void Start()
     {
         animator = GetComponent<Animator>();
         canAttack = true;
-        playerRoll = GetComponent<Player_Movement>();
+        playerMovement = GetComponent<Player_Movement>();
     }
 
     void Update()
@@ -47,7 +46,7 @@ public class Player_ComboSystem : MonoBehaviour
         }  
         if(Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Mouse0))
         {
-            if(!IsAttackCanceled)
+            if (!isCurrentAttackCanceled)
             {
                 if(canAttack)
                 {
@@ -60,13 +59,12 @@ public class Player_ComboSystem : MonoBehaviour
                     StartCoroutine(WaitForCanAttackRelease());
                 }
             }
-           
         }
     }
     void SetChargeTriggers()
     {
         CurrentDamage = BaseDamage;
-        IsAttackCanceled = false;
+        isCurrentAttackCanceled = false;
 
         switch (nextAttack)
         {
@@ -82,7 +80,7 @@ public class Player_ComboSystem : MonoBehaviour
     void SetReleaseTriggers()
     {
         isCharging = false;
-        playerRoll.canDash = false;
+        playerMovement.canDash = false;
         switch (nextAttack)
         {
             case NextAttack.NextAttack01:

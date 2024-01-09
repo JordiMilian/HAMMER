@@ -9,6 +9,7 @@ public class Player_ParryPerformer : MonoBehaviour
     Animator playerAnimator;
     [SerializeField] Collider2D weaponParryCollider;
     [SerializeField] Collider2D damageDetectorCollider;
+    [SerializeField] Player_ComboSystem comboSystem;
 
     public event EventHandler<EventArgs_ParryInfo> OnSuccessfulParry;
     public class EventArgs_ParryInfo : EventArgs
@@ -28,6 +29,7 @@ public class Player_ParryPerformer : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             playerAnimator.SetTrigger("Parry");
+            comboSystem.ComboOver();
         }
     }
     public void PublishSuccessfullParryDone(Vector3 closestPoint)

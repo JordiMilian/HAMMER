@@ -15,7 +15,7 @@ public class Enemy01 : MonoBehaviour
     public Collider2D WeaponCollider;
     public Animator EnemyAnimator;
     Enemy_Movement Enemy_FollowPlayer;
-    Enemy_HealthSystem Enemy_HealthSystem;
+
 
 
     HitStop hitStop;
@@ -47,7 +47,7 @@ public class Enemy01 : MonoBehaviour
         SpritesConstraint.AddSource(CameraConstrain);
 
         Enemy_FollowPlayer = GetComponent<Enemy_Movement>();
-        Enemy_HealthSystem = GetComponent<Enemy_HealthSystem>();
+
 
         hitStop = FindObjectOfType<HitStop>();
 

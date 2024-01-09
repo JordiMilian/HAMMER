@@ -15,10 +15,10 @@ public class Player_SwitchAttacksSide : MonoBehaviour
    
     public void OnReplaceAttacksSide()
     {
-
-        if(sideChecker.dirNum == -1)
+        if (sideChecker.dirNum < 0)
         {
             animator.runtimeAnimatorController = overriderSwitchToAttack02;
+            
         }
         else
         {

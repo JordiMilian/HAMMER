@@ -1,9 +1,5 @@
 using Cinemachine;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor;
 //using System.Diagnostics;
 using UnityEngine;
 
@@ -13,7 +9,7 @@ public class Player_FollowMouse : MonoBehaviour
     public float FollowMouse_Speed = 8f;
     Player_FeedbackManager Player;
     GameObject FocusedEnemy;
-    Transform CameraFocusTransform;
+    [SerializeField] Transform MouseFocusTransform;
     bool IsFocusingEnemy;
     [SerializeField] float FocusMaxDistance;
 
@@ -34,7 +30,6 @@ public class Player_FollowMouse : MonoBehaviour
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         Player = GetComponentInParent<Player_FeedbackManager>();
         PlayerGO = Player.gameObject;
-        CameraFocusTransform = GameObject.Find("CameraController").transform;
         
     }
     void Update()
@@ -102,7 +97,7 @@ public class Player_FollowMouse : MonoBehaviour
     {
        
         IsFocusingEnemy = false;
-        cinemachineTarget.m_Targets[1].target = CameraFocusTransform;
+        cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
 
         
