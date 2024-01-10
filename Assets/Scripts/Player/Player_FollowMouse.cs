@@ -26,7 +26,7 @@ public class Player_FollowMouse : MonoBehaviour
     CinemachineTargetGroup cinemachineTarget;
     void Start()
     {
-
+        MouseFocusTransform = GameObject.Find("MouseCameraTarget").transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         Player = GetComponentInParent<Player_FeedbackManager>();
         PlayerGO = Player.gameObject;

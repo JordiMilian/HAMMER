@@ -43,11 +43,11 @@ public class Player_VFXManager : MonoBehaviour
     }
     void InstantiateDealDamageVFX(object sender, EventArgs_DealtDamageInfo dealtDamageInfo)
     {
-        Instantiate(VFX_HitEnemy,dealtDamageInfo.CollisionPosition, Quaternion.identity);
+        GameObject HitEnemy = Instantiate(VFX_HitEnemy,dealtDamageInfo.CollisionPosition, Quaternion.identity);
     }
     void InstantiateReceiveDamageVFX(object sender, EventArgs_ReceivedAttackInfo receivedDamageInfo)
     {
-        Instantiate(VFX_ReceiveDamage, receivedDamageInfo.CollisionPosition, Quaternion.identity);
+        GameObject ReceiveDamage = Instantiate(VFX_ReceiveDamage, receivedDamageInfo.CollisionPosition, Quaternion.identity);
     }
     void PlayDustVFX(object sender, EventArgs args)
     {

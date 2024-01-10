@@ -8,51 +8,18 @@ using static Generic_DamageDetector;
 
 public class Enemy01 : MonoBehaviour
 {
-   
 
-    public float CurrentDamage;
-    public float CurrentKnockBack;
     public Collider2D WeaponCollider;
-    public Animator EnemyAnimator;
-    Enemy_Movement Enemy_FollowPlayer;
-
-
-
-    HitStop hitStop;
-    Generic_Flash flasher;
-
-
-    TrailRenderer WeaponTrail;
-    
-    RotationConstraint SpritesConstraint;
-
+    [SerializeField] Animator EnemyAnimator;
+    [SerializeField] Enemy_Movement enemyMovement;
+    [SerializeField] HitStop hitStop;
+    [SerializeField] Generic_Flash flasher;
+    [SerializeField] TrailRenderer WeaponTrail;
     [SerializeField] Generic_DamageDetector damageDetector;
 
-    private void Start()
+    private void Awake()
     {
-
-       
-        //EnemyAttacks[0] = new EnemyAttack(8,1.43f,20,"Attack01",30,70);
-        //EnemyAttacks[1] = new EnemyAttack(8,1.42f,15,"Attack02",80,0);
-        //EnemyAttacks[2] = new EnemyAttack(5, 3.51f, 15, "Attack03",100,100);
-        //EnemyAttacks[3] = new EnemyAttack(10, 2.4f, 25, "Attack04", 100,100);
-
-        EnemyAnimator = GetComponent<Animator>();
-        WeaponTrail = GetComponentInChildren<TrailRenderer>();
-
-        ConstraintSource CameraConstrain = new ConstraintSource();
-        CameraConstrain.sourceTransform = Camera.main.transform;
-        CameraConstrain.weight = 1;
-        SpritesConstraint = GetComponentInChildren<RotationConstraint>();
-        SpritesConstraint.AddSource(CameraConstrain);
-
-        Enemy_FollowPlayer = GetComponent<Enemy_Movement>();
-
-
         hitStop = FindObjectOfType<HitStop>();
-
-        flasher = GetComponent<Generic_Flash>();
-
     }
     private void OnEnable()
     {
@@ -66,10 +33,10 @@ public class Enemy01 : MonoBehaviour
     {
         
         flasher.CallFlasher();
-        Enemy_FollowPlayer.EV_SlowRotationSpeed();
-        Enemy_FollowPlayer.IsAgroo = true;
+        enemyMovement.EV_SlowRotationSpeed();
+        enemyMovement.EV_SlowMovingSpeed();
+        enemyMovement.IsAgroo = true;
         hitStop.Stop(0.05f);
-       
         EnemyAnimator.SetTrigger("PushBack");
         StartCoroutine(WaitReceiveDamage());
        
@@ -77,27 +44,28 @@ public class Enemy01 : MonoBehaviour
     IEnumerator WaitReceiveDamage()
     {
         yield return new WaitForSeconds(0.3f);
-        Enemy_FollowPlayer.EV_ReturnRotationSpeed();  
+        enemyMovement.EV_ReturnAllSpeed();
     }
     public void HitShield()
     {
         EnemyAnimator.SetBool("HitShield", true);
+        WeaponCollider.enabled = false;
     }
-   
+    public void EndHitShield()
+    {
+        EnemyAnimator.SetBool("HitShield", false);
+    }
+
     public void Enemy_ShowAttackCollider()
     {
         WeaponCollider.enabled = true;
     }
     public void Enemy_HideAttackCollider()
     {
-        WeaponCollider.enabled = false;
-        Enemy_FollowPlayer.EV_ReturnRotationSpeed();
+        
+        enemyMovement.EV_ReturnRotationSpeed();
     }
-    public void EndHitShield()
-    {
-        EnemyAnimator.SetBool("HitShield", false);
-        Enemy_HideAttackCollider();
-    }
+    
     public void ShowTrail() { WeaponTrail.enabled = true; }
     public void HideTrail() { WeaponTrail.enabled = false; }
 }

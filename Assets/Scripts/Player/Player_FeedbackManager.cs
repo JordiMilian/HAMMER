@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Generic_DamageDealer;
 using static Generic_DamageDetector;
 using static Player_ParryPerformer;
 //using UnityEngine.Windows;
@@ -19,6 +20,7 @@ public class Player_FeedbackManager : MonoBehaviour
     [SerializeField] Generic_DamageDetector damageDetector;
     [SerializeField] Player_Movement playerMovement;
     [SerializeField] Generic_DamageDealer damageDealer;
+
 
     [SerializeField] Player_ParryPerformer parryPerformer;
     
@@ -40,11 +42,13 @@ public class Player_FeedbackManager : MonoBehaviour
     {
         parryPerformer.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
         damageDetector.OnReceiveDamage += ReceiveDamageEffects;
+        damageDealer.OnDealtDamage += OnHitEnemyCameraEffects;
     }
     private void OnDisable()
     {
         parryPerformer.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
         damageDetector.OnReceiveDamage -= ReceiveDamageEffects;
+        damageDealer.OnDealtDamage -= OnHitEnemyCameraEffects;
     }
 
     public void ReceiveDamageEffects(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
@@ -75,11 +79,12 @@ public class Player_FeedbackManager : MonoBehaviour
         hitStop.Stop(StopSeconds: 0.3f);
         cameraShake.ShakeCamera(0.6f, 0.1f);
     }
-    public void OnHitEnemyCameraEffects()
+    public void OnHitEnemyCameraEffects(object sender, EventArgs_DealtDamageInfo damageinfo)
     {
         cameraShake.ShakeCamera(1 * damageDealer.Damage, 0.1f * damageDealer.Damage);
+        hitStop.Stop(StopSeconds: 0.1f);
         //_HealthSystem.RemoveLife(-1);
-        
+
     }
 
     
