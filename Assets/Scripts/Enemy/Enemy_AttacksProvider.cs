@@ -9,6 +9,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
     public bool isAttacking;
     [SerializeField] bool ShowDebug;
+    [SerializeField] Generic_Stats stats;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
 
@@ -50,7 +51,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
     {
         isAttacking = true;
 
-        damageDealer.Damage = selectedAttack.Damage;
+        damageDealer.Damage = selectedAttack.Damage * stats.DamageMultiplier;
         damageDealer.Knockback = selectedAttack.KnockBack;
         damageDealer.HitStop = selectedAttack.Hitstop;
         enemyAnimator.SetTrigger(selectedAttack.TriggerName);

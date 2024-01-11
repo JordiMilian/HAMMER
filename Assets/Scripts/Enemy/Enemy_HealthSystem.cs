@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class Enemy_HealthSystem : Generic_HealthSystem
             }
             
         }
-
+        if (OnDeath != null) OnDeath(this, EventArgs.Empty);
         Destroy(gameObject);
     }
 

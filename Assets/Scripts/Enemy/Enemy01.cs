@@ -56,15 +56,6 @@ public class Enemy01 : MonoBehaviour
         EnemyAnimator.SetBool("HitShield", false);
     }
 
-    public void Enemy_ShowAttackCollider()
-    {
-        WeaponCollider.enabled = true;
-    }
-    public void Enemy_HideAttackCollider()
-    {
-        
-        enemyMovement.EV_ReturnRotationSpeed();
-    }
     
     public void ShowTrail() { WeaponTrail.enabled = true; }
     public void HideTrail() { WeaponTrail.enabled = false; }

@@ -20,6 +20,8 @@ public class Player_ComboSystem : MonoBehaviour
     [SerializeField] Player_Movement playerMovement;
     [SerializeField] Collider2D weaponDamageCollider;
     [SerializeField] Rigidbody2D playerRigidbody;
+    [SerializeField] Generic_DamageDealer damageDealer;
+    [SerializeField] Generic_Stats stats;
 
     public bool isCurrentAttackCanceled;
     public bool canAttack;
@@ -99,6 +101,7 @@ public class Player_ComboSystem : MonoBehaviour
                 }
                 break;
         }
+        SetdamageDealer();
     }
     IEnumerator WaitForCanAttackCharge()
     {
@@ -133,6 +136,11 @@ public class Player_ComboSystem : MonoBehaviour
             CurrentDamage = MaxDamage;
             isCharging = false;
         }
+    }
+
+    void SetdamageDealer()
+    {
+        damageDealer.Damage = CurrentDamage * stats.DamageMultiplier;
     }
     public void EV_OnStartCharge() { isCharging = true; Adder = 0; }
     public void ComboOver()

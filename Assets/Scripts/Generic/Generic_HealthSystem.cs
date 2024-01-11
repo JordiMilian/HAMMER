@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static Generic_DamageDetector;
 
 public class Generic_HealthSystem : MonoBehaviour
@@ -9,9 +11,12 @@ public class Generic_HealthSystem : MonoBehaviour
     public float CurrentHealth;
     [SerializeField] bool FillHealthOnStart = true;
     [SerializeField] Generic_DamageDetector damageDetector;
+    [SerializeField] Generic_Stats stats;
+    public EventHandler OnDeath;
 
     void Start()
     {
+        MaxHealth = stats.MaxHealth;
         if (FillHealthOnStart) { CurrentHealth = MaxHealth; }
     }
     private void OnEnable()
@@ -37,6 +42,7 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public virtual void Death()
     {
+        if (OnDeath != null) OnDeath(this, EventArgs.Empty);
         Destroy(gameObject);
     }
 }
