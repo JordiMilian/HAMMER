@@ -43,7 +43,6 @@ public class Enemy_AttacksProvider : MonoBehaviour
             if (!isAttacking)
             {
                 PickAvailableAttacks();
-                
             }
         }
     }

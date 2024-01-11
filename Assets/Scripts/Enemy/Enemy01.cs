@@ -16,6 +16,7 @@ public class Enemy01 : MonoBehaviour
     [SerializeField] Generic_Flash flasher;
     [SerializeField] TrailRenderer WeaponTrail;
     [SerializeField] Generic_DamageDetector damageDetector;
+    [SerializeField] Generic_DamageDealer damageDealer;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class Enemy01 : MonoBehaviour
     private void OnEnable()
     {
         damageDetector.OnReceiveDamage += ReceiveDamage;
+        damageDealer.OnGettingParried += GettingParried;
     }
     private void OnDisable()
     {
@@ -46,6 +48,11 @@ public class Enemy01 : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         enemyMovement.EV_ReturnAllSpeed();
     }
+    void GettingParried(object sender, EventArgs args)
+    {
+        EnemyAnimator.SetBool("HitShield", true);
+        WeaponCollider.enabled = false;
+    }
     public void HitShield()
     {
         EnemyAnimator.SetBool("HitShield", true);
@@ -55,6 +62,7 @@ public class Enemy01 : MonoBehaviour
     {
         EnemyAnimator.SetBool("HitShield", false);
     }
+
 
     
     public void ShowTrail() { WeaponTrail.enabled = true; }
