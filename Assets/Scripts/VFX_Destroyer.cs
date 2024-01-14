@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VFX_Destroyer : MonoBehaviour
 {
-     float SecondsToDestroy = 1;
+     float SecondsToDestroy = 3;
     void Start()
     {
         StartCoroutine(Destroy());
