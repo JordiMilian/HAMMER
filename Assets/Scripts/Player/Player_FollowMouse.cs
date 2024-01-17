@@ -99,8 +99,9 @@ public class Player_FollowMouse : MonoBehaviour
         IsFocusingEnemy = false;
         cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
+        cinemachineTarget.m_Targets[1].radius = 0;
 
-        
+
     }
     void OnLookAtEnemy()
     {
@@ -109,7 +110,8 @@ public class Player_FollowMouse : MonoBehaviour
 
         IsFocusingEnemy = true;
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
-        cinemachineTarget.m_Targets[1].weight = 2;
+        cinemachineTarget.m_Targets[1].weight = 3;
+        cinemachineTarget.m_Targets[1].radius = 2;
 
         
     }

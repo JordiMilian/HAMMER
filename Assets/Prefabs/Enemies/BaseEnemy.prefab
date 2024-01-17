@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 3045453252001776434}
   - component: {fileID: 3457608814812501881}
   - component: {fileID: 3450134641583009566}
+  - component: {fileID: 695697341023069215}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e153fa19332cce499f6638023e3a6cc, type: 3}
   m_Name: 
@@ -383,7 +384,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b16d1471a4235468e52db1f3a4ee1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StanceBrokenVFX: {fileID: 7173184949144218407, guid: 283b49a7b9b4e7f428eecff3d1a6c915, type: 3}
   trailRenderer: {fileID: 0}
+  stanceMeter: {fileID: 695697341023069215}
+--- !u!114 &695697341023069215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485b44867ef868f45b502749ae80d274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxStance: 2
+  CurrentStance: 2
+  CooldownAfterDamage: 2
+  CooldownStanceBroken: 0.5
+  RecoveryPerSecond: 1
+  damageDetector: {fileID: 8503966058725397229}
+  animator: {fileID: 2195041901401652145}
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0

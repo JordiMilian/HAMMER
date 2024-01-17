@@ -12,11 +12,10 @@ public class GreenBoss_ProjectileThrower : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
-            GreenBoss_OnThrowProjectile(Destination.position);
+            GreenBoss_ThrowProjectile(Destination.position);
         }
     }
-
-    public void GreenBoss_OnThrowProjectile(Vector3 DestinationPosition)
+    public void GreenBoss_ThrowProjectile(Vector3 DestinationPosition)
     {
         AnimationLenght = ProjectileClip.length;
 

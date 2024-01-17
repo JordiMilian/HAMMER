@@ -46,7 +46,7 @@ public class Player_Movement : MonoBehaviour
     
     void Update()
     {
-        var input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
+        Vector2 input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
         Move(input);
 
         if (isRunning)

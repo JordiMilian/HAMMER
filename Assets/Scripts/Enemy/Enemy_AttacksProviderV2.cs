@@ -15,18 +15,12 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
 
-    public enum Ranges
-    {
-        Short,Mid,Long
-    }
-
-   
-
     [Serializable]
     public class EnemyAttack
     {
         public Enemy_AttackRangeDetector rangeDetector;
         public bool isActive;
+        
         [Header("Stats:")]
         public float Damage;
         public int Probability;
@@ -34,9 +28,22 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public float Hitstop;
         public string TriggerName;
         public float AnimationTime;
+        [Header("Cooldown")]
+        public bool isInCooldown;
+        public int PerformancesDone;
+        public int PerformancesBeforeCooldown;
+        public float CooldownTime;
+
 
         public  void isInRange(object sender, EventArgs args) { isActive = true; }
         public void isNotInRange(object sender, EventArgs args) { isActive = false; }
+         
+        public IEnumerator Cooldown()
+        {
+            isInCooldown = true;
+            yield return new WaitForSeconds(AnimationTime + CooldownTime);
+            isInCooldown = false;
+        }
     }
     private void OnEnable()
     {
@@ -103,10 +110,17 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         damageDealer.HitStop = selectedAttack.Hitstop;
         enemyAnimator.SetTrigger(selectedAttack.TriggerName);
 
-        StartCoroutine(AttackCooldown(selectedAttack));
+        StartCoroutine(WaitAnimationTime(selectedAttack));
+
+        selectedAttack.PerformancesDone++;
+        if(selectedAttack.PerformancesDone == selectedAttack.PerformancesBeforeCooldown)
+        {
+            selectedAttack.PerformancesDone = 0;
+            StartCoroutine(selectedAttack.Cooldown());
+        }
 
     }
-    IEnumerator AttackCooldown(EnemyAttack selectedAttack)
+    IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
     {
         yield return new WaitForSeconds(selectedAttack.AnimationTime);
         ResetAllTriggers();
@@ -118,7 +132,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         List<EnemyAttack> ActiveAttacks = new List<EnemyAttack>();
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
-            if (attack.isActive)
+            if (attack.isActive && !attack.isInCooldown)
             {
                 ActiveAttacks.Add(attack);
             }
