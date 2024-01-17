@@ -95,9 +95,12 @@ GameObject:
   - component: {fileID: 3223237532765421925}
   - component: {fileID: 5742276620658245018}
   - component: {fileID: 412032795418955265}
+  - component: {fileID: 6476284241555231533}
+  - component: {fileID: 7697261271829785414}
+  - component: {fileID: 6042016261946515780}
   m_Layer: 0
   m_Name: DestinationUI
-  m_TagString: Untagged
+  m_TagString: Enemy_Attack_hitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,3 +153,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50418c2ac4b94cc4e9478eb91692bc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!60 &6476284241555231533
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449027988912000722}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.064888, y: 0.4808998}
+      - {x: -0.7679549, y: 0.32828882}
+      - {x: -1.078701, y: 0.02999878}
+      - {x: -0.73527527, y: -0.35211563}
+      - {x: -0.08666366, y: -0.45244968}
+      - {x: 0.65524065, y: -0.3657148}
+      - {x: 1.0288811, y: -0.103061676}
+      - {x: 0.8643217, y: 0.28010935}
+--- !u!114 &7697261271829785414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449027988912000722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  Knockback: 5
+  HitStop: 0.01
+  EntityTeam: 1
+  typeOfDamage: 1
+--- !u!114 &6042016261946515780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449027988912000722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b1373230966fb44a62193a49c61e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageDealer: {fileID: 7697261271829785414}
+  enemyAnimator: {fileID: 0}
+  isAttacking: 0
+  PlayerIsInAnyRange: 0
+  ShowDebug: 0
+  stats: {fileID: 0}
+  Enemy_Attacks: []

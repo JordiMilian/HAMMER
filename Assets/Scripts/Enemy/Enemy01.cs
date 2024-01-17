@@ -11,7 +11,7 @@ public class Enemy01 : MonoBehaviour
 
     public Collider2D WeaponCollider;
     [SerializeField] Animator EnemyAnimator;
-    [SerializeField] Enemy_Movement enemyMovement;
+    [SerializeField] Enemy_AgrooMovement enemyMovement;
     [SerializeField] HitStop hitStop;
     [SerializeField] Generic_Flash flasher;
     [SerializeField] TrailRenderer WeaponTrail;
@@ -37,7 +37,7 @@ public class Enemy01 : MonoBehaviour
         flasher.CallFlasher();
         enemyMovement.EV_SlowRotationSpeed();
         enemyMovement.EV_SlowMovingSpeed();
-        enemyMovement.IsAgroo = true;
+        //enemyMovement.IsAgroo = true;
         hitStop.Stop(0.05f);
         EnemyAnimator.SetTrigger("PushBack");
         StartCoroutine(WaitReceiveDamage());

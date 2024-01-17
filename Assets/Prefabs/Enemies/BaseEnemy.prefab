@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7654662553848504304}
   - component: {fileID: 3881809578619784559}
   - component: {fileID: 2829660713819239201}
+  - component: {fileID: 1484837429054597437}
   - component: {fileID: 7929925186517721759}
   - component: {fileID: 5566719458364263592}
   - component: {fileID: 9036491661720074360}
@@ -25,6 +26,7 @@ GameObject:
   - component: {fileID: 3457608814812501881}
   - component: {fileID: 3450134641583009566}
   - component: {fileID: 695697341023069215}
+  - component: {fileID: 1030339945491469921}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -117,14 +119,32 @@ MonoBehaviour:
   CurrentRotationSpeed: 0
   BaseRotationSpeed: 1
   SlowRotationSpeed: 0
-  IsAgroo: 0
-  ChanceToWalk: 30
-  ChanceToChangeDirection: 30
-  WalkingSpeed: 0.3
-  WalkingRotationSpeed: 0.3
-  RoamingRadios: 2
-  EnemyAnimator: {fileID: 0}
-  doDrawGizmo: 0
+  Weapon_Pivot: {fileID: 8543705226525020148}
+  EnemyAnimator: {fileID: 2195041901401652145}
+  UIAnimator: {fileID: 5595212810533667070}
+  destinationSetter: {fileID: 7657326149140149116}
+  aiPath: {fileID: 8701185615965157963}
+  spriteFliper: {fileID: 3045453252001776434}
+--- !u!114 &1484837429054597437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764aabf1edb7ab442a0c1496ec2ede65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChanceToChangeDestination: 60
+  DelayBetweenChecks: 3
+  WalkingSpeed: 0.5
+  RoamingRadios: 3
+  EnemyAnimator: {fileID: 2195041901401652145}
+  destinationSetter: {fileID: 7657326149140149116}
+  aiPath: {fileID: 8701185615965157963}
+  spriteFliper: {fileID: 3045453252001776434}
 --- !u!114 &7929925186517721759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +222,10 @@ MonoBehaviour:
     Hitstop: 0
     TriggerName: 
     AnimationTime: 0
+    isInCooldown: 0
+    PerformancesDone: 0
+    PerformancesBeforeCooldown: 0
+    CooldownTime: 0
   - rangeDetector: {fileID: 4040043019073815960}
     isActive: 0
     Damage: 0
@@ -210,6 +234,10 @@ MonoBehaviour:
     Hitstop: 0
     TriggerName: 
     AnimationTime: 0
+    isInCooldown: 0
+    PerformancesDone: 0
+    PerformancesBeforeCooldown: 0
+    CooldownTime: 0
   - rangeDetector: {fileID: 3792853293050386045}
     isActive: 0
     Damage: 0
@@ -218,6 +246,10 @@ MonoBehaviour:
     Hitstop: 0
     TriggerName: 
     AnimationTime: 0
+    isInCooldown: 0
+    PerformancesDone: 0
+    PerformancesBeforeCooldown: 0
+    CooldownTime: 0
   - rangeDetector: {fileID: 4898058486958885132}
     isActive: 0
     Damage: 0
@@ -226,6 +258,10 @@ MonoBehaviour:
     Hitstop: 0
     TriggerName: 
     AnimationTime: 0
+    isInCooldown: 0
+    PerformancesDone: 0
+    PerformancesBeforeCooldown: 0
+    CooldownTime: 0
 --- !u!114 &39932132862467972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +315,7 @@ MonoBehaviour:
   repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 1
-  enableRotation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -406,6 +442,23 @@ MonoBehaviour:
   RecoveryPerSecond: 1
   damageDetector: {fileID: 8503966058725397229}
   animator: {fileID: 2195041901401652145}
+--- !u!114 &1030339945491469921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a4b4836edc1d7429a47e9c07f42ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleMovement: {fileID: 1484837429054597437}
+  agrooMovement: {fileID: 2829660713819239201}
+  attackProvider: {fileID: 9036491661720074360}
+  agrooDetection: {fileID: 4982409665230710257}
+  CurrentState: 0
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d49f70ef202c80448e058f4d3ca1a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIAnimator: {fileID: 5595212810533667070}
 --- !u!1 &1630673584959798655
 GameObject:
   m_ObjectHideFlags: 0
