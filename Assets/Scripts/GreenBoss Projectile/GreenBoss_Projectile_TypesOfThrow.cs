@@ -6,7 +6,7 @@ using UnityEngine;
 public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
 {
     [SerializeField] GreenBoss_ProjectileThrower thrower;
-    [SerializeField] Player_Movement playerMovement;
+
 
     [Header("Polygon Throw")]
     [SerializeField] int pointsAround;
@@ -24,7 +24,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     float angleToPlayerRad;
     float distanceToPlayer;
 
-    void UpdateVectorData ()
+    private void UpdateVectorData ()
     {
          originPosition = transform.position;
          player = GameObject.FindGameObjectWithTag(TagsCollection.instance.Player_SinglePointCollider);
@@ -33,15 +33,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
          angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);
          distanceToPlayer = VectorToPlayer.magnitude;
     }
-    private void Start()
-    {
-        InvokeRepeating("callCoroutineTest", 0,5);
-    }
-    void callCoroutineTest()
-    {
-        StartCoroutine(BurstToPlayer());
-    }
-    IEnumerator SinglePolygonThrow()
+    public IEnumerator SinglePolygonThrow()
     {
         UpdateVectorData();
         float OffsetRot = angleToPlayerRad / (Mathf.PI * 2);
@@ -55,7 +47,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
             yield return new WaitForSeconds(delayBetweenThrows_polygon);
         }  
     }
-    IEnumerator DoblePolygonThrow()
+    public IEnumerator DoblePolygonThrow()
     {
         UpdateVectorData();
         float OffsetRot = angleToPlayerRad / (Mathf.PI * 2);
@@ -70,10 +62,10 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         }
         StartCoroutine(SinglePolygonThrow());
     }
-    IEnumerator BurstToPlayer()
+    public IEnumerator BurstToPlayer(int throws)
     {
         UpdateVectorData();
-        for(int i = 0; i < AmountOfThrows; i++)
+        for(int i = 0; i < throws; i++)
         {
             Vector2 playerPositionTemporal = player.transform.position;
             thrower.GreenBoss_ThrowProjectile(playerPositionTemporal);

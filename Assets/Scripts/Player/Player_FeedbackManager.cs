@@ -35,6 +35,8 @@ public class Player_FeedbackManager : MonoBehaviour
     private void Awake()
     {
         _rigitbody = GetComponent<Rigidbody2D>();
+        cameraShake = GameObject.Find("CM vcam1").GetComponent<CameraShake>();
+        hitStop = GameObject.Find("HitStop").GetComponent<HitStop>();
     }
     
 

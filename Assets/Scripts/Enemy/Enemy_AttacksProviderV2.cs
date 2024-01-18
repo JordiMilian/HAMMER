@@ -18,6 +18,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     [Serializable]
     public class EnemyAttack
     {
+        public string ShortDescription;
         public Enemy_AttackRangeDetector rangeDetector;
         public bool isActive;
         
@@ -27,7 +28,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public float KnockBack;
         public float Hitstop;
         public string TriggerName;
-        public float AnimationTime;
+        public AnimationClip animationClip;
         [Header("Cooldown")]
         public bool isInCooldown;
         public int PerformancesDone;
@@ -41,7 +42,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public IEnumerator Cooldown()
         {
             isInCooldown = true;
-            yield return new WaitForSeconds(AnimationTime + CooldownTime);
+            yield return new WaitForSeconds(animationClip.length + CooldownTime);
             isInCooldown = false;
         }
     }
@@ -122,7 +123,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
     {
-        yield return new WaitForSeconds(selectedAttack.AnimationTime);
+        yield return new WaitForSeconds(selectedAttack.animationClip.length);
         ResetAllTriggers();
         isAttacking = false;
     }
