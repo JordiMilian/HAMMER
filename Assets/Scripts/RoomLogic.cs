@@ -12,28 +12,32 @@ public class RoomLogic : MonoBehaviour
 
     List<GameObject> EnemiesGO = new List<GameObject>();
     int EnemiesAlive;
-    public bool AreSpawned = true;
+    public bool AreCorrectlySpawned = true;
 
     [Serializable]
     public class RespawnPoint 
     {
-        public GameObject SpawnedEnemy;
+        public GameObject CurrentlySpawnedEnemy;
         public GameObject EnemyPrefab;
         Vector3 SpawnVector;
         public void setSpawnVector()
         {
-            SpawnVector = SpawnedEnemy.transform.position;
+            SpawnVector = CurrentlySpawnedEnemy.transform.position;
         }
         public GameObject Spawn()
         {
            GameObject Spawned =  Instantiate(EnemyPrefab, SpawnVector,Quaternion.identity);
             return Spawned;
         }
+        public void DestroyCurrentEnemy()
+        {
+            Destroy(CurrentlySpawnedEnemy);
+        }
     }
     [SerializeField] List<RespawnPoint> respawnPoints;
     private void OnEnable()
     {
-        LoadTrigger.ActivatorTags.Add("Player_SinglePointCollider");
+        LoadTrigger.ActivatorTags.Add(TagsCollection.instance.Player_SinglePointCollider);
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
     }
     private void Start()
@@ -49,7 +53,7 @@ public class RoomLogic : MonoBehaviour
         if (EnemiesAlive <= 0)
         {
             OpenDoor();
-            AreSpawned = false;
+            AreCorrectlySpawned = false;
         }
     }
      void OpenDoor()
@@ -58,19 +62,26 @@ public class RoomLogic : MonoBehaviour
     }
     public void RespawnEnemies(object sender, EventArgsTriggererInfo triggereInfo)
     {
-        if(!AreSpawned)
+        if(!AreCorrectlySpawned)
         {
             EnemiesGO.Clear();
             foreach (RespawnPoint point in respawnPoints)
             {
+                point.DestroyCurrentEnemy();
                 GameObject spawnedEnemy = (point.Spawn());
-
+                point.CurrentlySpawnedEnemy = spawnedEnemy;
                 EnemiesGO.Add(spawnedEnemy);
                 Generic_HealthSystem thisHealth = spawnedEnemy.GetComponent<Generic_HealthSystem>();
                 thisHealth.OnDeath += EnemyDied;
             }
             EnemiesAlive = EnemiesGO.Count;
-            AreSpawned = true;
+            StartCoroutine(RespawnCooldown());
         }
+    }
+    IEnumerator RespawnCooldown()
+    {
+        AreCorrectlySpawned = true;
+        yield return new WaitForSeconds(4);
+        AreCorrectlySpawned = false;
     }
 }

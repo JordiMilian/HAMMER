@@ -33,6 +33,7 @@ public class Player_RespawnerManager : MonoBehaviour
     {
         CheckFurthestRespawner(this, EventArgs.Empty);
         CurrentFurthestRespawner.RespawnFromHere(PlayerGO);
+        playerHealth.RestoreAllHealth();
     }
     void CheckFurthestRespawner(object sender, EventArgs args)
     {
