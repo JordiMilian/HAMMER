@@ -17,7 +17,7 @@ public class Generic_HealthSystem : MonoBehaviour
     void Start()
     {
         MaxHealth = stats.MaxHealth;
-        if (FillHealthOnStart) { CurrentHealth = MaxHealth; }
+        if (FillHealthOnStart) { RestoreAllHealth(); }
     }
     private void OnEnable()
     {
@@ -39,6 +39,10 @@ public class Generic_HealthSystem : MonoBehaviour
         {
             CurrentHealth = MaxHealth;
         }
+    }
+    public void RestoreAllHealth()
+    {
+        CurrentHealth = MaxHealth;
     }
     public virtual void Death()
     {
