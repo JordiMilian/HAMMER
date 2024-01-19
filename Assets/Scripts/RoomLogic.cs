@@ -37,7 +37,7 @@ public class RoomLogic : MonoBehaviour
     [SerializeField] List<RespawnPoint> respawnPoints;
     private void OnEnable()
     {
-        LoadTrigger.ActivatorTags.Add(TagsCollection.instance.Player_SinglePointCollider);
+        LoadTrigger.ActivatorTags.Add("Player_SinglePointCollider");
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
     }
     private void Start()

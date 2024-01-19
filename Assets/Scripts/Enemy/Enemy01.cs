@@ -65,6 +65,6 @@ public class Enemy01 : MonoBehaviour
 
 
     
-    public void ShowTrail() { WeaponTrail.enabled = true; }
-    public void HideTrail() { WeaponTrail.enabled = false; }
+    public void ShowTrail() { if(WeaponTrail != null) WeaponTrail.enabled = true; }
+    public void HideTrail() { if (WeaponTrail != null) WeaponTrail.enabled = false; }
 }
