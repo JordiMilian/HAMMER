@@ -27,7 +27,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     private void UpdateVectorData ()
     {
          originPosition = transform.position;
-         player = GameObject.FindGameObjectWithTag(TagsCollection.instance.Player_SinglePointCollider);
+         player = GameObject.FindGameObjectWithTag(TagsCollection.Instance.Player_SinglePointCollider);
          playerPosition = player.transform.position;
          VectorToPlayer = originPosition - playerPosition;
          angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);
@@ -37,7 +37,9 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     {
         UpdateVectorData();
         float OffsetRot = angleToPlayerRad / (Mathf.PI * 2);
-        if (distanceToPlayer < minimDistance) distanceToPlayer = minimDistance;
+        int BasePointAround = pointsAround;
+        if (distanceToPlayer < minimDistance) distanceToPlayer = minimDistance; pointsAround -= 2;
+        if (distanceToPlayer > minimDistance * 2) pointsAround += 2;
 
         for (int i = 0; i < pointsAround; i++)
         {
@@ -45,7 +47,8 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
             Vector2 direction = angleToVector((divider + OffsetRot)*(Mathf.PI*2));
             thrower.GreenBoss_ThrowProjectile(originPosition + (direction * distanceToPlayer));
             yield return new WaitForSeconds(delayBetweenThrows_polygon);
-        }  
+        }
+        pointsAround = BasePointAround;
     }
     public IEnumerator DoblePolygonThrow()
     {

@@ -1,56 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &137231373
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 137231375}
-  - component: {fileID: 137231374}
-  m_Layer: 0
-  m_Name: RoomLogic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &137231375
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137231373}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3200016, y: -0.5999985, z: 0.16090244}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 770403662}
-  m_Father: {fileID: 6729034075489065413}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &137231374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137231373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50560cb6215ab0e458f5b6dea7583b0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exitDoorController: {fileID: 6729034075489065412}
-  LoadTrigger: {fileID: 770403660}
-  AreSpawned: 0
-  respawnPoints:
-  - SpawnedEnemy: {fileID: 0}
-    EnemyPrefab: {fileID: 0}
 --- !u!1 &770403659
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770403659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.38, y: -7.7300034, z: 0}
+  m_LocalPosition: {x: 0.05999756, y: -8.330002, z: 0.16090244}
   m_LocalScale: {x: 3.5875, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 137231375}
+  m_Father: {fileID: 6729034075489065413}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &770403661
@@ -417,7 +366,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6729034075489065413}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &6729034074633609137
 PolygonCollider2D:
@@ -595,7 +544,7 @@ Transform:
   - {fileID: 6729034074030647358}
   - {fileID: 6729034074323006821}
   m_Father: {fileID: 6729034075489065413}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &6729034074948013253
 SortingGroup:
@@ -638,7 +587,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6729034075489065413}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6729034075467209477
 BoxCollider2D:
@@ -676,6 +625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6729034075489065413}
   - component: {fileID: 6729034075489065412}
+  - component: {fileID: 5400164668372572997}
   - component: {fileID: 6729034075489065415}
   - component: {fileID: 6729034075489065410}
   - component: {fileID: 6967503184801421659}
@@ -699,10 +649,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 770403662}
   - {fileID: 6729034074948013252}
   - {fileID: 6729034075467209474}
   - {fileID: 6729034074633609139}
-  - {fileID: 137231375}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -721,6 +671,24 @@ MonoBehaviour:
   CloseWhenCrossed: 1
   doorAnimator: {fileID: 6729034075489065410}
   blockingCollider: {fileID: 6729034075467209477}
+--- !u!114 &5400164668372572997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6729034075489065414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50560cb6215ab0e458f5b6dea7583b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitDoorController: {fileID: 6729034075489065412}
+  LoadTrigger: {fileID: 770403660}
+  AreCorrectlySpawned: 0
+  respawnPoints:
+  - CurrentlySpawnedEnemy: {fileID: 0}
+    EnemyPrefab: {fileID: 0}
 --- !u!70 &6729034075489065415
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

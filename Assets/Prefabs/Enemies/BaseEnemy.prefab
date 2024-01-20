@@ -20,9 +20,7 @@ GameObject:
   - component: {fileID: 39932132862467972}
   - component: {fileID: 8701185615965157963}
   - component: {fileID: 7657326149140149116}
-  - component: {fileID: 495914072615379085}
   - component: {fileID: 2195041901401652145}
-  - component: {fileID: 3045453252001776434}
   - component: {fileID: 3457608814812501881}
   - component: {fileID: 3450134641583009566}
   - component: {fileID: 695697341023069215}
@@ -83,7 +81,7 @@ MonoBehaviour:
   EnemyAnimator: {fileID: 2195041901401652145}
   enemyMovement: {fileID: 2829660713819239201}
   hitStop: {fileID: 0}
-  flasher: {fileID: 495914072615379085}
+  flasher: {fileID: 4868621688972523929}
   WeaponTrail: {fileID: 0}
   damageDetector: {fileID: 8503966058725397229}
   damageDealer: {fileID: 8393237760477941251}
@@ -124,7 +122,7 @@ MonoBehaviour:
   UIAnimator: {fileID: 5595212810533667070}
   destinationSetter: {fileID: 7657326149140149116}
   aiPath: {fileID: 8701185615965157963}
-  spriteFliper: {fileID: 3045453252001776434}
+  spriteFliper: {fileID: 7619558403456288951}
 --- !u!114 &1484837429054597437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +142,7 @@ MonoBehaviour:
   EnemyAnimator: {fileID: 2195041901401652145}
   destinationSetter: {fileID: 7657326149140149116}
   aiPath: {fileID: 8701185615965157963}
-  spriteFliper: {fileID: 3045453252001776434}
+  spriteFliper: {fileID: 7619558403456288951}
 --- !u!114 &7929925186517721759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,54 +212,59 @@ MonoBehaviour:
   ShowDebug: 0
   stats: {fileID: 3881809578619784559}
   Enemy_Attacks:
-  - rangeDetector: {fileID: 4898058486958885132}
+  - ShortDescription: 
+    rangeDetector: {fileID: 4898058486958885132}
     isActive: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
     Hitstop: 0
     TriggerName: 
-    AnimationTime: 0
+    animationClip: {fileID: 0}
     isInCooldown: 0
     PerformancesDone: 0
     PerformancesBeforeCooldown: 0
     CooldownTime: 0
-  - rangeDetector: {fileID: 4040043019073815960}
+  - ShortDescription: 
+    rangeDetector: {fileID: 4040043019073815960}
     isActive: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
     Hitstop: 0
     TriggerName: 
-    AnimationTime: 0
+    animationClip: {fileID: 0}
     isInCooldown: 0
     PerformancesDone: 0
     PerformancesBeforeCooldown: 0
     CooldownTime: 0
-  - rangeDetector: {fileID: 3792853293050386045}
+  - ShortDescription: 
+    rangeDetector: {fileID: 3792853293050386045}
     isActive: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
     Hitstop: 0
     TriggerName: 
-    AnimationTime: 0
+    animationClip: {fileID: 0}
     isInCooldown: 0
     PerformancesDone: 0
     PerformancesBeforeCooldown: 0
     CooldownTime: 0
-  - rangeDetector: {fileID: 4898058486958885132}
+  - ShortDescription: 
+    rangeDetector: {fileID: 4898058486958885132}
     isActive: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
     Hitstop: 0
     TriggerName: 
-    AnimationTime: 0
+    animationClip: {fileID: 0}
     isInCooldown: 0
     PerformancesDone: 0
     PerformancesBeforeCooldown: 0
     CooldownTime: 0
+  trailrendered: {fileID: 0}
 --- !u!114 &39932132862467972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,21 +349,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!114 &495914072615379085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashTime: 0.25
-  SpritesRoot: {fileID: 1685913343309174426}
 --- !u!95 &2195041901401652145
 Animator:
   serializedVersion: 4
@@ -381,20 +369,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3045453252001776434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee0c5cfaa144d254e8d9d4471361b780, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FocusVector: {x: 0, y: 0}
-  SpriteObject: {fileID: 1685913343309174426}
 --- !u!114 &3457608814812501881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,6 +674,8 @@ GameObject:
   - component: {fileID: 8775765544101597181}
   - component: {fileID: 2046030118279707562}
   - component: {fileID: 6487864564342437606}
+  - component: {fileID: 4868621688972523929}
+  - component: {fileID: 7619558403456288951}
   m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
@@ -770,6 +746,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpritesConstraint: {fileID: 8775765544101597181}
+--- !u!114 &4868621688972523929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685913343309174426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashTime: 0.25
+  SpritesRoot: {fileID: 1685913343309174426}
+--- !u!114 &7619558403456288951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685913343309174426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0c5cfaa144d254e8d9d4471361b780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FocusVector: {x: 0, y: 0}
+  SpriteObject: {fileID: 1685913343309174426}
 --- !u!1 &2117043943955436526
 GameObject:
   m_ObjectHideFlags: 0

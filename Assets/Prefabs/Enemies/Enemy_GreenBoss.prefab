@@ -292,7 +292,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.125
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -355,7 +355,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.5
+  m_MinVertexDistance: 0.7
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1001 &397266628243465970
@@ -846,6 +846,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: trailrendered
+      value: 
+      objectReference: {fileID: 6975676743311414649}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.size
       value: 10
       objectReference: {fileID: 0}
@@ -1251,7 +1255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrower: {fileID: 1937304806052182506}
   pointsAround: 8
-  minimDistance: 2
+  minimDistance: 1.5
   delayBetweenThrows_polygon: 0.06
   AmountOfThrows: 3
   delayBetweenThrows_burst: 0.15

@@ -181,14 +181,7 @@ public class Enemy_AttacksProvider : MonoBehaviour
             }
         }
     }
-    public void EV_Enemy_ShowAttackCollider()
-    {
-        damageDealer.GetComponent<Collider2D>().enabled = true;
-    }
-    public void EV_Enemy_HideAttackCollider()
-    {
-        damageDealer.GetComponent<Collider2D>().enabled = false;
-    }
+  
     void Debuguer(string text)
     {
         if (ShowDebug) { Debug.Log(text); }

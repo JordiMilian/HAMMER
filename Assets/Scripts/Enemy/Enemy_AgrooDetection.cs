@@ -10,14 +10,14 @@ public class Enemy_AgrooDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(TagsCollection.instance.Player))
+        if (collision.CompareTag(TagsCollection.Instance.Player))
         {
             if (OnPlayerDetected != null) OnPlayerDetected(this,EventArgs.Empty);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(TagsCollection.instance.Player))
+        if (collision.CompareTag(TagsCollection.Instance.Player))
         {
             if (OnPlayerExited != null) OnPlayerExited(this, EventArgs.Empty);
         }

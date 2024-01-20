@@ -14,6 +14,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     [SerializeField] Generic_Stats stats;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
+    [SerializeField] TrailRenderer trailrendered;
 
     [Serializable]
     public class EnemyAttack
@@ -184,10 +185,13 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     public void EV_Enemy_ShowAttackCollider()
     {
         damageDealer.GetComponent<Collider2D>().enabled = true;
+        if(trailrendered != null) trailrendered.emitting = true;
+
     }
     public void EV_Enemy_HideAttackCollider()
     {
         damageDealer.GetComponent<Collider2D>().enabled = false;
+        if (trailrendered != null) trailrendered.emitting = false;
     }
     void Debuguer(string text)
     {
