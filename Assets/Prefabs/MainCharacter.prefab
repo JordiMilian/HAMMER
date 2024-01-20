@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1075933421922543544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7522100837760415568}
+  m_Layer: 0
+  m_Name: ArmDestination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7522100837760415568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075933421922543544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.106, y: -0.115, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7653426974895600711}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7653426974019842421
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +820,7 @@ Transform:
   - {fileID: 7653426974887384897}
   - {fileID: 7653426974077638564}
   - {fileID: 7653426974019842418}
+  - {fileID: 7522100837760415568}
   m_Father: {fileID: 7653426974910943478}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -51.489}
@@ -1252,6 +1284,7 @@ GameObject:
   - component: {fileID: 7653426975249963385}
   - component: {fileID: 1686922545}
   - component: {fileID: 5265307542570127292}
+  - component: {fileID: 1152056774001601869}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Player
@@ -1540,6 +1573,20 @@ MonoBehaviour:
   MaxHealth: 200
   BaseSpeed: 20
   DamageMultiplier: 1
+--- !u!114 &1152056774001601869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab76bc294b14e14fb0788e3be0d3612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OriginPosition: {fileID: 7653426975249963376}
+  DestinationPosition: {fileID: 7522100837760415568}
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2151,7 @@ MonoBehaviour:
   - {x: 0.28112483, y: 0.17249785, z: 0}
   m_ShapePathHash: 1677457288
   m_Mesh: {fileID: 0}
-  m_InstanceId: 64958
+  m_InstanceId: 50880
 --- !u!114 &7653426974201414755
 MonoBehaviour:
   m_ObjectHideFlags: 0
