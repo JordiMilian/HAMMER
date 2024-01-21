@@ -7,22 +7,32 @@ using UnityEngine;
 public class ChangeCameraZoom : MonoBehaviour
 {
    
-    [SerializeField] float TargetZoom;
-    [SerializeField] float ZoomSpeed = 0.003f;
+    [SerializeField] float NewZoom;
+    [SerializeField] float NewZoomDuration = 0.003f;
+    [SerializeField] string Name;
 
     [SerializeField] CameraZoomer cameraZoomer;
+    CameraZoomer.ZoomInfo ThisInfo;
+    private void Awake()
+    {
+        ThisInfo = new CameraZoomer.ZoomInfo(NewZoom, NewZoomDuration, Name);
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        cameraZoomer.TargetZoom = TargetZoom;
-        cameraZoomer.CurrentZoomSpeed = ZoomSpeed;
-        
+        if(collision.CompareTag("Player"))
+        {
+            cameraZoomer.AddZoomInfo(ThisInfo);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        cameraZoomer.TargetZoom = cameraZoomer.BaseZoom;
-        cameraZoomer.CurrentZoomSpeed = cameraZoomer.BaseZoomSpeed;
+        if (collision.CompareTag("Player"))
+        {
+            cameraZoomer.RemoveZoomInfo(ThisInfo.Name);
+        }
+           
     }
     
 }

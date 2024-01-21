@@ -22,16 +22,21 @@ public class RoomLogic : MonoBehaviour
         Vector3 SpawnVector;
         public void setSpawnVector()
         {
-            SpawnVector = CurrentlySpawnedEnemy.transform.position;
+            if (CurrentlySpawnedEnemy == null) 
+            { 
+                SpawnVector = Vector2.zero; 
+                Debug.Log("Missing original enemy");
+            }
+            else SpawnVector = CurrentlySpawnedEnemy.transform.position; 
         }
         public GameObject Spawn()
         {
-           GameObject Spawned =  Instantiate(EnemyPrefab, SpawnVector,Quaternion.identity);
+            GameObject Spawned = Instantiate(EnemyPrefab, SpawnVector, Quaternion.identity);
             return Spawned;
         }
         public void DestroyCurrentEnemy()
         {
-            Destroy(CurrentlySpawnedEnemy);
+            if(CurrentlySpawnedEnemy != null) { Destroy(CurrentlySpawnedEnemy); }
         }
     }
     [SerializeField] List<RespawnPoint> respawnPoints;
@@ -39,6 +44,10 @@ public class RoomLogic : MonoBehaviour
     {
         LoadTrigger.ActivatorTags.Add("Player_SinglePointCollider");
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
+    }
+    private void OnDisable()
+    {
+        LoadTrigger.OnTriggerEntered -= RespawnEnemies;
     }
     private void Start()
     {
@@ -62,21 +71,23 @@ public class RoomLogic : MonoBehaviour
     }
     public void RespawnEnemies(object sender, EventArgsTriggererInfo triggereInfo)
     {
-        if(!AreCorrectlySpawned)
+        if (AreCorrectlySpawned) return;
+        
+        EnemiesGO.Clear();
+        foreach (RespawnPoint point in respawnPoints)
         {
-            EnemiesGO.Clear();
-            foreach (RespawnPoint point in respawnPoints)
-            {
-                point.DestroyCurrentEnemy();
-                GameObject spawnedEnemy = (point.Spawn());
-                point.CurrentlySpawnedEnemy = spawnedEnemy;
-                EnemiesGO.Add(spawnedEnemy);
-                Generic_HealthSystem thisHealth = spawnedEnemy.GetComponent<Generic_HealthSystem>();
-                thisHealth.OnDeath += EnemyDied;
-            }
-            EnemiesAlive = EnemiesGO.Count;
-            StartCoroutine(RespawnCooldown());
+            if (point.EnemyPrefab = null) { Debug.Log("Missing Prefab"); continue; }
+                
+            point.DestroyCurrentEnemy();
+            GameObject spawnedEnemy = (point.Spawn());
+            point.CurrentlySpawnedEnemy = spawnedEnemy;
+            EnemiesGO.Add(spawnedEnemy);
+            Generic_HealthSystem thisHealth = spawnedEnemy.GetComponent<Generic_HealthSystem>();
+            thisHealth.OnDeath += EnemyDied;
         }
+        EnemiesAlive = EnemiesGO.Count;
+        StartCoroutine(RespawnCooldown());
+        
     }
     IEnumerator RespawnCooldown()
     {

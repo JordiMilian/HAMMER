@@ -5,7 +5,6 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     bool isDoorOpen;
-    [SerializeField] bool CloseWhenCrossed = true;
     [SerializeField] Animator doorAnimator;
     [SerializeField] Collider2D blockingCollider;
 

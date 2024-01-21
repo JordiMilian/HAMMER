@@ -3,45 +3,53 @@ using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
 
-public class Player_FollowMouse : MonoBehaviour
+public class Player_FollowMouse_withFocus : MonoBehaviour
 {
-
+    
     public float FollowMouse_Speed = 8f;
-    Player_FeedbackManager Player;
-    GameObject FocusedEnemy;
-    [SerializeField] Transform MouseFocusTransform;
-    bool IsFocusingEnemy;
     [SerializeField] float FocusMaxDistance;
-
-    GameObject PlayerGO;
-    [SerializeField] GameObject BodySprite;
-    bool FlipOnce;
-
+    [Header("zoomer")]
+    [SerializeField] CameraZoomer zoomer;
+    [SerializeField] float minZoom;
+    [SerializeField] float minDistance;
+    [SerializeField] float maxZoom;
+    [SerializeField] float maxDistance;
+    [Header("references")]
+    [SerializeField] Transform MouseFocusTransform;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
+    [SerializeField] CinemachineTargetGroup cinemachineTarget;
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
+
+
 
 
     List<GameObject> CurrentEnemies = new List<GameObject>();
+    GameObject FocusedEnemy;
+    bool IsFocusingEnemy = false;
 
-
-    CinemachineTargetGroup cinemachineTarget;
-    void Start()
+    private void Awake()
     {
         MouseFocusTransform = GameObject.Find("MouseCameraTarget").transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
-        Player = GetComponentInParent<Player_FeedbackManager>();
-        PlayerGO = Player.gameObject;
-        
     }
-    void Update()
+    void Start()
     {
-        if (Input.GetMouseButtonDown(2))
+        OnLookAtMouse(); 
+    }
+    void  Update()
+    {
+        if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.F))
         {
+            //Restart enemies list
             CurrentEnemies.Clear();
             CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-            if(FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+            //Unfocus old Enemy if they are not null
+            if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
 
+            //Find closest enemy
             FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
+
 
             if (FocusedEnemy == null)
             {
@@ -51,11 +59,7 @@ public class Player_FollowMouse : MonoBehaviour
             {
                 OnLookAtEnemy();
             }
-        }
-        if (FocusedEnemy == null)
-        {
-            OnLookAtMouse();
-        }
+        } 
 
         if (IsFocusingEnemy == true) { LookingAtEnemy(); }
         else { LookingAtMouse(); }
@@ -63,26 +67,28 @@ public class Player_FollowMouse : MonoBehaviour
     GameObject ClosestEnemyToMouseInRange(float range)
     {
         Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        int u = 0;
 
         List<GameObject> InrangeEnemies = new List<GameObject>();
         List<float> InrangeDistances = new List<float>();
 
-        int minIndex = 0;
-
+        
+        //Add to a list every enemy within range and its distance
         for (int i = 0; i < CurrentEnemies.Count; i++)
         {
             if (Vector2.Distance(mousepos, CurrentEnemies[i].transform.position) < range)
             {
                 InrangeEnemies.Add(CurrentEnemies[i]);
                 InrangeDistances.Add(Vector2.Distance(mousepos, CurrentEnemies[i].transform.position));
-                u++;
             }
         }
+        //If no enemies in range
         if (InrangeEnemies.Count == 0)
         {
             return null;
         }
+
+        //Check which index has the shortest distance and return
+        int minIndex = 0;
         for (int o = 0; o < InrangeDistances.Count; o++)
         {
             if (InrangeDistances[o] < InrangeDistances[minIndex])
@@ -93,7 +99,21 @@ public class Player_FollowMouse : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
-    void OnLookAtMouse()
+    void  UpdateZoom()
+    {
+        Vector2 playerPosition = transform.position;
+        Vector2 enemyPosition = FocusedEnemy.transform.position;
+        float distanceToEnemy = (enemyPosition - playerPosition).magnitude;
+        float relativeDistance = distanceToEnemy - minDistance;
+        float relativeMaxDistance = maxDistance - minDistance;
+        float lerpingDistance = 1 * relativeDistance / relativeMaxDistance;
+        Debug.Log(lerpingDistance);
+        float CurrentLerpedZoom = Mathf.Lerp(minZoom, maxZoom, lerpingDistance);
+        Debug.Log(CurrentLerpedZoom);
+        virtualCamera.m_Lens.OrthographicSize = CurrentLerpedZoom;
+        
+    }
+    void  OnLookAtMouse()
     {
        
         IsFocusingEnemy = false;
@@ -118,19 +138,17 @@ public class Player_FollowMouse : MonoBehaviour
     void LookingAtMouse()
     {
         Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.up = (Vector3.RotateTowards(transform.up, mousePos - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed*Time.deltaTime, 10f));
-
-        
+        Vector2 PivotVector = transform.position;
+        transform.up = (Vector3.RotateTowards(transform.up, mousePos - PivotVector, FollowMouse_Speed * Time.deltaTime, 10f));
         spriteFliper.FocusVector = mousePos;
     }
     void LookingAtEnemy()
     {
-       
-        transform.up = (Vector3.RotateTowards(transform.up, new Vector2(FocusedEnemy.transform.position.x, FocusedEnemy.transform.position.y) - new Vector2(transform.position.x, transform.position.y), FollowMouse_Speed, 10f));
-
-        
-        spriteFliper.FocusVector = FocusedEnemy.transform.position;
-
+        Vector2 focusedEnemyVector = FocusedEnemy.transform.position;
+        Vector2 playerVector = transform.position;
+        transform.up = (Vector3.RotateTowards(transform.up,focusedEnemyVector-playerVector, FollowMouse_Speed * Time.deltaTime, 10f));
+        spriteFliper.FocusVector = focusedEnemyVector;
+        UpdateZoom();
     }
 
 }

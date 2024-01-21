@@ -13,7 +13,7 @@ public class Ui_HealthBarController : MonoBehaviour
     ProgressBar UltimateBar;
     void Start()
     {
-        _HealthSystem = GameObject.Find(TagsCollection.Instance.Player).GetComponent<Player_HealthSystem>();
+        _HealthSystem = GameObject.Find("MainCharacter").GetComponent<Player_HealthSystem>();
         _UiDocument = GetComponent<UIDocument>();
         root = _UiDocument.rootVisualElement;
         HealthBar = root.Q<ProgressBar>("HealthBar");

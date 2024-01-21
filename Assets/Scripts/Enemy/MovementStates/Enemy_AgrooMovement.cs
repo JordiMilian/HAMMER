@@ -18,7 +18,6 @@ public class Enemy_AgrooMovement : MonoBehaviour
 
     Transform PlayerTransform;
     [SerializeField] Transform Weapon_Pivot;
-    bool walking = false;
 
     [SerializeField] Animator EnemyAnimator;
     [SerializeField] Animator UIAnimator;
