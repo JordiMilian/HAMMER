@@ -31,7 +31,6 @@ public class Dialoguer : MonoBehaviour
         Position02_Collider.ActivatorTags.Add("Player");
         Position01_Collider.OnTriggerEntered += SwitchPosition01;
         Position02_Collider.OnTriggerEntered += SwitchPosition02;
-        Debug.Log("Total lines: " + TextLines.Count);
     }
     private void OnDisable()
     {

@@ -76,7 +76,7 @@ public class RoomLogic : MonoBehaviour
         EnemiesGO.Clear();
         foreach (RespawnPoint point in respawnPoints)
         {
-            if (point.EnemyPrefab = null) { Debug.Log("Missing Prefab"); continue; }
+            if (point.EnemyPrefab == null) { Debug.Log("Missing Prefab"); continue; }
                 
             point.DestroyCurrentEnemy();
             GameObject spawnedEnemy = (point.Spawn());

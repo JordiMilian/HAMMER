@@ -25,7 +25,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
     List<GameObject> CurrentEnemies = new List<GameObject>();
     GameObject FocusedEnemy;
-    bool IsFocusingEnemy = false;
+    public bool IsFocusingEnemy = false;
 
     private void Awake()
     {
@@ -99,20 +99,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
-    void  UpdateZoom()
-    {
-        Vector2 playerPosition = transform.position;
-        Vector2 enemyPosition = FocusedEnemy.transform.position;
-        float distanceToEnemy = (enemyPosition - playerPosition).magnitude;
-        float relativeDistance = distanceToEnemy - minDistance;
-        float relativeMaxDistance = maxDistance - minDistance;
-        float lerpingDistance = 1 * relativeDistance / relativeMaxDistance;
-        Debug.Log(lerpingDistance);
-        float CurrentLerpedZoom = Mathf.Lerp(minZoom, maxZoom, lerpingDistance);
-        Debug.Log(CurrentLerpedZoom);
-        virtualCamera.m_Lens.OrthographicSize = CurrentLerpedZoom;
-        
-    }
+    
     void  OnLookAtMouse()
     {
        
@@ -120,6 +107,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
         cinemachineTarget.m_Targets[1].radius = 0;
+        zoomer.StartFocusOutTransition();
 
 
     }
@@ -132,6 +120,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
         cinemachineTarget.m_Targets[1].weight = 3;
         cinemachineTarget.m_Targets[1].radius = 2;
+        zoomer.StartFocusInTransition();
 
         
     }
@@ -144,11 +133,26 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void LookingAtEnemy()
     {
+        if (FocusedEnemy == null)
+        {
+            IsFocusingEnemy = false; 
+            return;
+        }
         Vector2 focusedEnemyVector = FocusedEnemy.transform.position;
         Vector2 playerVector = transform.position;
         transform.up = (Vector3.RotateTowards(transform.up,focusedEnemyVector-playerVector, FollowMouse_Speed * Time.deltaTime, 10f));
         spriteFliper.FocusVector = focusedEnemyVector;
-        UpdateZoom();
+        zoomer.FocusZoom = UpdateZoom();
+    }
+    float UpdateZoom()
+    {
+        Vector2 playerPosition = transform.position;
+        Vector2 enemyPosition = FocusedEnemy.transform.position;
+        float distanceToEnemy = (enemyPosition - playerPosition).magnitude;
+
+        float RelativeDistance = Mathf.InverseLerp(minDistance, maxDistance, distanceToEnemy);
+        float CurrentLerpedZoom = Mathf.Lerp(minZoom, maxZoom, RelativeDistance);
+        return CurrentLerpedZoom;
     }
 
 }

@@ -10,14 +10,12 @@ public class Ui_HealthBarController : MonoBehaviour
 
     VisualElement root;
     ProgressBar HealthBar;
-    ProgressBar UltimateBar;
     void Start()
     {
         _HealthSystem = GameObject.Find("MainCharacter").GetComponent<Player_HealthSystem>();
         _UiDocument = GetComponent<UIDocument>();
         root = _UiDocument.rootVisualElement;
         HealthBar = root.Q<ProgressBar>("HealthBar");
-        UltimateBar = root.Q<ProgressBar>("UltimateBar");
         HealthBar.highValue = _HealthSystem.MaxHealth;
         HealthBar.lowValue = _HealthSystem.CurrentHealth;
     }

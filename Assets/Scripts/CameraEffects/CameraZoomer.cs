@@ -9,6 +9,7 @@ using UnityEngine;
 public class CameraZoomer : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [SerializeField] Player_FollowMouse_withFocus followMouse;
     [Header("Base info")]
     [SerializeField] float BaseZoom;
     [SerializeField] float BaseDuration;
@@ -16,6 +17,9 @@ public class CameraZoomer : MonoBehaviour
     public float CurrentZoom;
     public float TargetZoom;
     Coroutine currentCoroutine;
+    [Header("Focus info")]
+    bool isFocusingZoom;
+    public float FocusZoom;
     [Serializable]
     public class ZoomInfo
     {
@@ -35,53 +39,58 @@ public class CameraZoomer : MonoBehaviour
     private void Start()
     {
         ZoomInfo BaseInfo = new ZoomInfo(BaseZoom, BaseDuration, "Base");
-        zoomInfos.Add(BaseInfo);
-        UpdateNewCoroutine();
+        AddZoomInfo(BaseInfo);
     }
     public void AddZoomInfo(ZoomInfo info)
     {
-        if (currentCoroutine != null)
-        {
-            StopCoroutine(currentCoroutine);
-        }
+        StopAllCoroutines();
+       
         zoomInfos.Add(info);
         UpdateNewCoroutine();
     }
     public void RemoveZoomInfo(string name)
-    {
-        if (currentCoroutine != null)
-        {
-            StopCoroutine(currentCoroutine);
-        }
-        ZoomInfo infoToRemove = new ZoomInfo(0,0,"null");
+    {       
+         StopAllCoroutines();
+            
+        ZoomInfo infoToRemove = new ZoomInfo(0, 0, "null");
         foreach (ZoomInfo info in zoomInfos)
         {
-            if(info.Name == name)
+            if (info.Name == name)
             {
                 infoToRemove = info;
             }
         }
         zoomInfos.Remove(infoToRemove);
         UpdateNewCoroutine();
+        
     }
     ZoomInfo CheckLatestZoomInfo()
     {
-        return zoomInfos.Last();
+        if (zoomInfos.Count > 0)
+        {
+            return zoomInfos.Last();
+        }
+        else return null;
     }
     public void UpdateNewCoroutine()
     {
-        ZoomInfo Latest = CheckLatestZoomInfo();
-        TargetZoom = Latest.ZoomSize;
-        if(CurrentZoom != TargetZoom)
+        if (!followMouse.IsFocusingEnemy)
         {
-            currentCoroutine = StartCoroutine(ChangeZoomSmoothly(Latest));
+            ZoomInfo Latest = CheckLatestZoomInfo();
+            TargetZoom = Latest.ZoomSize;
+            if (CurrentZoom != TargetZoom)
+            {
+                currentCoroutine = StartCoroutine(ChangeZoomSmoothly(Latest));
+            }
         }
+           
         
     }
     IEnumerator ChangeZoomSmoothly(ZoomInfo info)
     {
         float timer = 0;
-        while(timer < info.ZoomDuration)
+        CurrentZoom = virtualCamera.m_Lens.OrthographicSize;
+        while (timer < info.ZoomDuration)
         {
             timer += Time.deltaTime;
             CurrentZoom = Mathf.Lerp(CurrentZoom, info.ZoomSize, timer / info.ZoomDuration);
@@ -90,5 +99,48 @@ public class CameraZoomer : MonoBehaviour
             yield return null;
         }
         CurrentZoom = info.ZoomSize;
+    }
+
+    Coroutine FocusInCor, FocusOutCor;
+    public void StartFocusInTransition()
+    {
+       StopAllCoroutines();
+        FocusInCor = StartCoroutine(TransitionToFocus());
+    }
+    public void StartFocusOutTransition()
+    {
+        StopAllCoroutines();
+        isFocusingZoom = false;
+        FocusOutCor = StartCoroutine(ChangeZoomSmoothly(CheckLatestZoomInfo()));
+    }
+
+    IEnumerator TransitionToFocus()
+    {
+        CurrentZoom = virtualCamera.m_Lens.OrthographicSize;
+
+        float timer = 0;
+        while (timer < 2)
+        {
+            timer += Time.deltaTime;
+            CurrentZoom = Mathf.Lerp(CurrentZoom, FocusZoom, timer / 2);
+            virtualCamera.m_Lens.OrthographicSize = CurrentZoom;
+            yield return null;
+        }
+        isFocusingZoom = true;
+    }
+    
+    private void Update()
+    {
+        if (isFocusingZoom) { ConstantlyChangeZoom(); }
+    }
+    void ConstantlyChangeZoom()
+    {
+        virtualCamera.m_Lens.OrthographicSize = FocusZoom;
+    }
+    void StopAllCoroutines()
+    {
+        if (currentCoroutine != null) { StopCoroutine(currentCoroutine); }
+        if (FocusOutCor != null) { StopCoroutine(FocusOutCor); }
+        if (FocusInCor != null) { StopCoroutine(FocusInCor); }
     }
 }

@@ -48,7 +48,6 @@ public class Enemy_IdleMovement : MonoBehaviour
         {
             DecideWalk();
             timer = 0;
-            Debug.Log("CHECK WALK");
         }
     }
     void DecideWalk()

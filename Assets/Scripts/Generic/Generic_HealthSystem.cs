@@ -13,6 +13,7 @@ public class Generic_HealthSystem : MonoBehaviour
     [SerializeField] Generic_DamageDetector damageDetector;
     [SerializeField] Generic_Stats stats;
     public EventHandler OnDeath;
+    public EventHandler OnUpdatedHealth;
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class Generic_HealthSystem : MonoBehaviour
         {
             CurrentHealth = MaxHealth;
         }
+        if (OnUpdatedHealth != null) OnUpdatedHealth(this, EventArgs.Empty);
     }
     public void RestoreAllHealth()
     {
