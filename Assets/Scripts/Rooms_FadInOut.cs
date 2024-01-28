@@ -14,10 +14,16 @@ public class Rooms_FadInOut : MonoBehaviour
     public GameObject TopRoom;
     public GameObject BottomRoom;
     [SerializeField] float TransitionTime = 0.2f;
+    [SerializeField] bool invertStartingRoom;
     private void Awake()
     {
         bottomRoomSprites = BottomRoom.GetComponentsInChildren<SpriteRenderer>();
         topRoomSprites = TopRoom.GetComponentsInChildren<SpriteRenderer>();
+    }
+    private void Start()
+    {
+        if (invertStartingRoom) { topTrigger.gameObject.SetActive(false); }
+        else { bottomTrigger.gameObject.SetActive(false); }
     }
     private void OnEnable()
     {

@@ -38,7 +38,7 @@ public class Enemy01 : MonoBehaviour
         enemyMovement.EV_SlowRotationSpeed();
         enemyMovement.EV_SlowMovingSpeed();
         //enemyMovement.IsAgroo = true;
-        hitStop.Stop(0.05f);
+        TimeScaleEditor.Instance.HitStop(0.05f);
         EnemyAnimator.SetTrigger("PushBack");
         StartCoroutine(WaitReceiveDamage());
        

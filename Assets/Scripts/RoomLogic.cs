@@ -54,7 +54,8 @@ public class RoomLogic : MonoBehaviour
         foreach (RespawnPoint point in respawnPoints)
         {
             point.setSpawnVector();
-        }
+            AssignEnemyInfo(point, point.CurrentlySpawnedEnemy);
+        }  
     }
     void EnemyDied(object sender, EventArgs args)
     {
@@ -79,15 +80,19 @@ public class RoomLogic : MonoBehaviour
             if (point.EnemyPrefab == null) { Debug.Log("Missing Prefab"); continue; }
                 
             point.DestroyCurrentEnemy();
-            GameObject spawnedEnemy = (point.Spawn());
-            point.CurrentlySpawnedEnemy = spawnedEnemy;
-            EnemiesGO.Add(spawnedEnemy);
-            Generic_HealthSystem thisHealth = spawnedEnemy.GetComponent<Generic_HealthSystem>();
-            thisHealth.OnDeath += EnemyDied;
+            GameObject spawnedEnemy = point.Spawn();
+            AssignEnemyInfo(point, spawnedEnemy);
         }
         EnemiesAlive = EnemiesGO.Count;
         StartCoroutine(RespawnCooldown());
         
+    }
+    void AssignEnemyInfo(RespawnPoint point, GameObject spawnedEnemy)
+    {
+        point.CurrentlySpawnedEnemy = spawnedEnemy;
+        EnemiesGO.Add(spawnedEnemy);
+        Generic_HealthSystem thisHealth = spawnedEnemy.GetComponent<Generic_HealthSystem>();
+        thisHealth.OnDeath += EnemyDied;
     }
     IEnumerator RespawnCooldown()
     {

@@ -32,8 +32,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public AnimationClip animationClip;
         [Header("Cooldown")]
         public bool isInCooldown;
-        public int PerformancesDone;
-        public int PerformancesBeforeCooldown;
+        public bool HasCooldown;
         public float CooldownTime;
 
 
@@ -114,12 +113,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
         StartCoroutine(WaitAnimationTime(selectedAttack));
 
-        selectedAttack.PerformancesDone++;
-        if(selectedAttack.PerformancesDone == selectedAttack.PerformancesBeforeCooldown)
+        if(selectedAttack.HasCooldown)
         {
-            selectedAttack.PerformancesDone = 0;
             StartCoroutine(selectedAttack.Cooldown());
         }
+        
 
     }
     IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
@@ -130,7 +128,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     void PickAvailableAttacks()
     {
-        //Make a list of all active attacks
+        //Make a list of all active attacks and not in Cooldown
         List<EnemyAttack> ActiveAttacks = new List<EnemyAttack>();
         foreach (EnemyAttack attack in Enemy_Attacks)
         {

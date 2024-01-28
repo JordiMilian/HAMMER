@@ -62,7 +62,8 @@ public class Player_FeedbackManager : MonoBehaviour
             playerMovement.CurrentSpeed = 0;
             
             cameraShake.ShakeCamera(1, 0.1f); ;
-            hitStop.Stop(receivedAttackinfo.Hitstop);
+            //hitStop.Stop(receivedAttackinfo.Hitstop);
+            TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
             player_Flash.CallFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
@@ -78,13 +79,15 @@ public class Player_FeedbackManager : MonoBehaviour
     }
     public void OnSuccesfulParryCameraEffects(object sender, EventArgs_ParryInfo position)
     {
-        hitStop.Stop(StopSeconds: 0.3f);
+        //hitStop.Stop(StopSeconds: 0.3f);
+        TimeScaleEditor.Instance.HitStop(0.3f);
         cameraShake.ShakeCamera(0.6f, 0.1f);
     }
     public void OnHitEnemyCameraEffects(object sender, EventArgs_DealtDamageInfo damageinfo)
     {
         cameraShake.ShakeCamera(1 * damageDealer.Damage, 0.1f * damageDealer.Damage);
-        hitStop.Stop(StopSeconds: 0.1f);
+        //hitStop.Stop( 0.1f);
+        TimeScaleEditor.Instance.HitStop(0.1f);
         //_HealthSystem.RemoveLife(-1);
 
     }

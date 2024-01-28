@@ -43,14 +43,14 @@ public class CameraZoomer : MonoBehaviour
     }
     public void AddZoomInfo(ZoomInfo info)
     {
-        StopAllCoroutines();
+        StopAllZoomCoroutines();
        
         zoomInfos.Add(info);
         UpdateNewCoroutine();
     }
     public void RemoveZoomInfo(string name)
     {       
-         StopAllCoroutines();
+         StopAllZoomCoroutines();
             
         ZoomInfo infoToRemove = new ZoomInfo(0, 0, "null");
         foreach (ZoomInfo info in zoomInfos)
@@ -104,12 +104,12 @@ public class CameraZoomer : MonoBehaviour
     Coroutine FocusInCor, FocusOutCor;
     public void StartFocusInTransition()
     {
-       StopAllCoroutines();
+       StopAllZoomCoroutines();
         FocusInCor = StartCoroutine(TransitionToFocus());
     }
     public void StartFocusOutTransition()
     {
-        StopAllCoroutines();
+        StopAllZoomCoroutines();
         isFocusingZoom = false;
         FocusOutCor = StartCoroutine(ChangeZoomSmoothly(CheckLatestZoomInfo()));
     }
@@ -137,7 +137,7 @@ public class CameraZoomer : MonoBehaviour
     {
         virtualCamera.m_Lens.OrthographicSize = FocusZoom;
     }
-    void StopAllCoroutines()
+    void StopAllZoomCoroutines()
     {
         if (currentCoroutine != null) { StopCoroutine(currentCoroutine); }
         if (FocusOutCor != null) { StopCoroutine(FocusOutCor); }

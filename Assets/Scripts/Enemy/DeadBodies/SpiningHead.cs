@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpiningHead : MonoBehaviour
 {
-    [SerializeField] AnimationCurve SpinningCurve;
+    [SerializeField] AnimationCurve RandomDirectionCurve;
     [SerializeField] AnimationCurve VerticalCurve;
     [SerializeField] AnimationCurve HorizontalCurve;
     [SerializeField] AnimationCurve AlphaCurve;
@@ -17,11 +17,10 @@ public class SpiningHead : MonoBehaviour
         SpriteGO = headSprite.gameObject;
         StartCoroutine(HeadSpin());
     }
-    
-        
     IEnumerator HeadSpin()
     {
-        float randomHorizontal = Random.Range(0f, 1f);
+        Vector2 origin = transform.position; 
+        float randomHorizontal = RandomDirectionCurve.Evaluate( Random.Range(0f, 1f));
         
         float timer = 0;
         float weightY = 0;
@@ -32,19 +31,18 @@ public class SpiningHead : MonoBehaviour
         while (timer < Lifetime)
         {
             timer += Time.deltaTime;
-            weightAlpha = AlphaCurve.Evaluate(timer / Lifetime);    
+               
             weightY = VerticalCurve.Evaluate(timer / Lifetime);
-            weightX = HorizontalCurve.Evaluate(randomHorizontal);
-            weightRotate += SpinningCurve.Evaluate(timer / Lifetime);
-            transform.Translate(new Vector2(weightX, weightY));
-            SpriteGO.transform.rotation = Quaternion.Euler(0f, 0f,weightRotate*-weightX*50);
+            weightX = HorizontalCurve.Evaluate(timer/Lifetime) * randomHorizontal;
+            transform.position = origin + new Vector2(weightX, weightY);
+
+            weightRotate += 3 * Time.timeScale;
+            SpriteGO.transform.rotation = Quaternion.Euler(0f, 0f,weightRotate*-randomHorizontal);
+
+            weightAlpha = AlphaCurve.Evaluate(timer / Lifetime);
             headSprite.color = new Color(1, 1, 1, weightAlpha);
             yield return null;
         }
        Destroy(gameObject);
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O)) { StartCoroutine(HeadSpin()); }
     }
 }

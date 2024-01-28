@@ -13,20 +13,17 @@ public class TagsCollection : MonoBehaviour
     public string PlayerDamageCollider = "PlayerDamageCollider";
     public string StanceBroken = "StanceBroken";
 
-    //public static TagsCollection instance;
-    public static TagsCollection Instance
+    public static TagsCollection Instance;
+    private void Awake()
     {
-        get
+        if (Instance != null && Instance != this)
         {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(TagsCollection)) as TagsCollection;
-
-            return instance;
+            Destroy(this);
         }
-        set
+        else
         {
-            instance = value;
+            Instance = this;
         }
     }
-    private static TagsCollection instance;
+    
 }

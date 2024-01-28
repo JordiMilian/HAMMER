@@ -8,8 +8,8 @@ public class HitStop : MonoBehaviour
     public void Stop(float StopSeconds)
     {
         if (!waiting)
-        {
-            StartCoroutine(Wait(StopSeconds));
+        { 
+            StartCoroutine(Wait(StopSeconds)); 
         }
     }
     IEnumerator Wait(float StopSeconds)
@@ -21,10 +21,4 @@ public class HitStop : MonoBehaviour
         Time.timeScale = 1;
         waiting = false;
     }
-    IEnumerator PreWait()
-    {
-        yield return new WaitForSecondsRealtime(0.05f);
-        Time.timeScale = 0;
-    }
-
 }
