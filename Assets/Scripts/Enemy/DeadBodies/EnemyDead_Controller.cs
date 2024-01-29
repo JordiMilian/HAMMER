@@ -13,14 +13,6 @@ public class EnemyDead_Controller : MonoBehaviour
 
     [SerializeField] GameObject bloodExplosion;
    
-
-    void Start()
-    {
-       
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P)) OnPushBody();
@@ -29,7 +21,6 @@ public class EnemyDead_Controller : MonoBehaviour
     {
        
         if (Random.value > 0.5f) { transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y); } 
-        var BloodExplosion = Instantiate(bloodExplosion, transform.position, Quaternion.Euler(0, 0, 0));
         rigidbody = GetComponent<Rigidbody2D>();
         PlayerPosition = GameObject.Find("MainCharacter").transform;
         OnPushBody();

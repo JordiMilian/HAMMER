@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] CinemachineTargetGroup cinemachineTarget;
     [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [SerializeField] Generic_HealthSystem playerHealth;
 
 
 
@@ -31,6 +33,14 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     {
         MouseFocusTransform = GameObject.Find("MouseCameraTarget").transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
+    }
+    private void OnEnable()
+    {
+        playerHealth.OnDeath += callOnLookatMouse;
+    }
+    private void OnDisable()
+    {
+        playerHealth.OnDeath -= callOnLookatMouse;
     }
     void Start()
     {
@@ -99,7 +109,15 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
-    
+    void callOnLookatMouse(object sender, EventArgs args)
+    {
+        if(IsFocusingEnemy)
+        {
+            FocusedEnemy = null;
+            OnLookAtMouse();
+        }
+        
+    }
     void  OnLookAtMouse()
     {
        

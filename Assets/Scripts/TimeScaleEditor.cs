@@ -17,7 +17,7 @@ public class TimeScaleEditor : MonoBehaviour
             Instance = this;
         }
     }
-    float BaseScale = 1;
+    float BaseScale = 1f;
     public void SlowMotion(float SlowPercent, float DurationSeconts)
     { StartCoroutine(SlowMoCorroutine(SlowPercent, DurationSeconts)); }
 
