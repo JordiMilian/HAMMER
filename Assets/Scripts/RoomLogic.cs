@@ -50,7 +50,12 @@ public class RoomLogic : MonoBehaviour
         LoadTrigger.OnTriggerEntered -= RespawnEnemies;
     }
     private void Start()
-    {
+    { 
+        if (respawnPoints.Count == 0) 
+        { 
+            OpenDoor();
+            return;
+        }
         foreach (RespawnPoint point in respawnPoints)
         {
             point.setSpawnVector();

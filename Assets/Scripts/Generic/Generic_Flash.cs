@@ -10,7 +10,6 @@ public class Generic_Flash : MonoBehaviour
 
     SpriteRenderer[] spriteRenderers;
     Material[] materials;
-        // Start is called before the first frame update
     void Start()
     {
         spriteRenderers = SpritesRoot.GetComponentsInChildren<SpriteRenderer>();
@@ -33,7 +32,7 @@ public class Generic_Flash : MonoBehaviour
 
         while (elapsedTime < flashTime)
         {
-            elapsedTime = elapsedTime + Time.deltaTime;
+            elapsedTime += Time.deltaTime;
             CurrentFlashAmount = Mathf.Lerp(1f,0f,elapsedTime/flashTime);
             SetFlashAmount(CurrentFlashAmount);
             yield return null;

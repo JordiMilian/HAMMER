@@ -11,10 +11,12 @@ public class Rooms_FadInOut : MonoBehaviour
     SpriteRenderer[] topRoomSprites = new SpriteRenderer[0];
     [SerializeField] Generic_OnTriggerEnterEvents topTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents bottomTrigger;
+    [SerializeField] Foregrounder DoorForegrounder;
     public GameObject TopRoom;
     public GameObject BottomRoom;
     [SerializeField] float TransitionTime = 0.2f;
     [SerializeField] bool invertStartingRoom;
+    [SerializeField] bool StartFadedOut;
     private void Awake()
     {
         bottomRoomSprites = BottomRoom.GetComponentsInChildren<SpriteRenderer>();
@@ -24,6 +26,10 @@ public class Rooms_FadInOut : MonoBehaviour
     {
         if (invertStartingRoom) { topTrigger.gameObject.SetActive(false); }
         else { bottomTrigger.gameObject.SetActive(false); }
+        if(StartFadedOut)
+        {
+            FadeOut(bottomRoomSprites, BottomRoom);
+        }
     }
     private void OnEnable()
     {
@@ -44,6 +50,7 @@ public class Rooms_FadInOut : MonoBehaviour
         bottomTrigger.gameObject.SetActive(true);
         FadeOut(bottomRoomSprites, BottomRoom);
         FadeIn(topRoomSprites, TopRoom);
+        DoorForegrounder.CallTurnBlack();
     }
     void playerEnteredBottom(object sender, EventArgsTriggererInfo args)
     {
@@ -51,6 +58,7 @@ public class Rooms_FadInOut : MonoBehaviour
         bottomTrigger.gameObject.SetActive(false);
         FadeOut(topRoomSprites, TopRoom);
         FadeIn(bottomRoomSprites, BottomRoom);
+        DoorForegrounder.CallTurnColor();
     }
 
     void FadeOut(SpriteRenderer[] sprites, GameObject Room)
@@ -70,12 +78,12 @@ public class Rooms_FadInOut : MonoBehaviour
             sprite.color = new Color (1,1,1,opacity);
             yield return null;
         }
-        room.SetActive(false);
+        //room.SetActive(false);
     }
 
     void FadeIn(SpriteRenderer[] sprites, GameObject Room)
     {
-        Room.SetActive(true);
+        //Room.SetActive(true);
         foreach (SpriteRenderer sprite in sprites)
         {
             StartCoroutine(FadeInSprites(sprite, Room));

@@ -28,6 +28,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     List<GameObject> CurrentEnemies = new List<GameObject>();
     GameObject FocusedEnemy;
     public bool IsFocusingEnemy = false;
+    Generic_HealthSystem FocusedHealthSystem;
 
     private void Awake()
     {
@@ -120,19 +121,21 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void  OnLookAtMouse()
     {
-       
+        
         IsFocusingEnemy = false;
         cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
         cinemachineTarget.m_Targets[1].radius = 0;
         zoomer.StartFocusOutTransition();
 
-
+        if (FocusedHealthSystem != null) { FocusedHealthSystem.OnDeath -= callOnLookatMouse; }
     }
     void OnLookAtEnemy()
     {
        
         FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnFocus();
+        FocusedHealthSystem = FocusedEnemy.GetComponent<Generic_HealthSystem>();
+        FocusedHealthSystem.OnDeath += callOnLookatMouse;
 
         IsFocusingEnemy = true;
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
