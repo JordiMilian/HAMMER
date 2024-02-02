@@ -8,6 +8,7 @@ using Pathfinding;
 
 public class Enemy_AgrooMovement : MonoBehaviour
 {
+    [SerializeField] Transform enemyTransform;
     public float CurrentSpeed;
     public float BaseSpeed;
     float SlowSpeedF;
@@ -51,7 +52,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
         Vector3 PlayerPos = PlayerTransform.position;
         Vector3 EnemyPos = new Vector3(transform.position.x, transform.position.y);
         float DistanceToPlayer = (EnemyPos - PlayerPos).magnitude;
-        transform.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - EnemyPos, CurrentRotationSpeed * Time.deltaTime, 10));
+        enemyTransform.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - EnemyPos, CurrentRotationSpeed * Time.deltaTime, 10));
     }
 
     public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.2f)); }

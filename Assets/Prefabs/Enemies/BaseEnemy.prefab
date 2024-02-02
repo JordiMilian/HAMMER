@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7043884e9fa7838409e350ed77d13f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTransform: {fileID: 4802207913274506029}
   CurrentSpeed: 0
   BaseSpeed: 0.5
   CurrentRotationSpeed: 0
@@ -222,8 +223,7 @@ MonoBehaviour:
     TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
-    PerformancesDone: 0
-    PerformancesBeforeCooldown: 0
+    HasCooldown: 0
     CooldownTime: 0
   - ShortDescription: 
     rangeDetector: {fileID: 4040043019073815960}
@@ -235,8 +235,7 @@ MonoBehaviour:
     TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
-    PerformancesDone: 0
-    PerformancesBeforeCooldown: 0
+    HasCooldown: 0
     CooldownTime: 0
   - ShortDescription: 
     rangeDetector: {fileID: 3792853293050386045}
@@ -248,8 +247,7 @@ MonoBehaviour:
     TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
-    PerformancesDone: 0
-    PerformancesBeforeCooldown: 0
+    HasCooldown: 0
     CooldownTime: 0
   - ShortDescription: 
     rangeDetector: {fileID: 4898058486958885132}
@@ -261,8 +259,7 @@ MonoBehaviour:
     TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
-    PerformancesDone: 0
-    PerformancesBeforeCooldown: 0
+    HasCooldown: 0
     CooldownTime: 0
   trailrendered: {fileID: 0}
 --- !u!114 &39932132862467972
@@ -504,7 +501,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1215504865
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9ed6d6ea2f9657409bfa068d4846139, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -1273,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496329245301422006, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7496329245301422006, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
       propertyPath: m_SortingLayerID
@@ -1329,7 +1326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496329245681011492, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7496329245681011492, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
       propertyPath: m_SortingLayerID
