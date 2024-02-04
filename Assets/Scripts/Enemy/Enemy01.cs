@@ -4,36 +4,32 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
-using static Generic_DamageDetector;
+using static Generic_EventSystem;
 
 public class Enemy01 : MonoBehaviour
 {
 
     public Collider2D WeaponCollider;
     [SerializeField] Animator EnemyAnimator;
-    [SerializeField] Enemy_AgrooMovement enemyMovement;
-    [SerializeField] HitStop hitStop;
+    public Enemy_AgrooMovement enemyMovement;
     [SerializeField] Generic_Flash flasher;
-    [SerializeField] TrailRenderer WeaponTrail;
-    [SerializeField] Generic_DamageDetector damageDetector;
-    [SerializeField] Generic_DamageDealer damageDealer;
+    [SerializeField] Enemy_EventSystem eventSystem;
 
     private void Awake()
     {
-        hitStop = FindObjectOfType<HitStop>();
     }
-    private void OnEnable()
+    public virtual void OnEnable()
     {
-        damageDetector.OnReceiveDamage += ReceiveDamage;
-        damageDealer.OnGettingParried += GettingParried;
+        eventSystem.OnReceiveDamage += ReceiveDamage;
+        eventSystem.OnGettingParried += GettingParried;
     }
-    private void OnDisable()
+    public virtual void OnDisable()
     {
-        damageDetector.OnReceiveDamage -= ReceiveDamage;
+        eventSystem.OnReceiveDamage -= ReceiveDamage;
+        eventSystem.OnGettingParried -= GettingParried;
     }
     public void ReceiveDamage(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
     {
-        
         flasher.CallFlasher();
         enemyMovement.EV_SlowRotationSpeed();
         enemyMovement.EV_SlowMovingSpeed();
@@ -48,12 +44,7 @@ public class Enemy01 : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         enemyMovement.EV_ReturnAllSpeed();
     }
-    void GettingParried(object sender, EventArgs args)
-    {
-        EnemyAnimator.SetBool("HitShield", true);
-        WeaponCollider.enabled = false;
-    }
-    public void HitShield()
+    public void GettingParried(object sender, EventArgs args)
     {
         EnemyAnimator.SetBool("HitShield", true);
         WeaponCollider.enabled = false;
@@ -62,9 +53,4 @@ public class Enemy01 : MonoBehaviour
     {
         EnemyAnimator.SetBool("HitShield", false);
     }
-
-
-    
-    public void ShowTrail() { if(WeaponTrail != null) WeaponTrail.enabled = true; }
-    public void HideTrail() { if (WeaponTrail != null) WeaponTrail.enabled = false; }
 }

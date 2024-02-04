@@ -5,7 +5,9 @@ using UnityEngine;
 public class TagsCollection : MonoBehaviour
 {
     public string Player = "Player";
+    public string ParryCollider = "ParryCollider";
     public string Player_SinglePointCollider = "Player_SinglePointCollider";
+    public string Attack_Hitbox = "Attack_Hitbox";
     public string Enemy_Attack_hitbox = "Enemy_Attack_hitbox";
     public string Enemy = "Enemy";
     public string Enemy_Hitbox = "Enemy_Hitbox";

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Generic_DamageDetector;
+using static Generic_EventSystem;
 
 public class Enemy_StanceMeter : MonoBehaviour
 {
@@ -11,18 +11,17 @@ public class Enemy_StanceMeter : MonoBehaviour
     [SerializeField] float CooldownAfterDamage;
     [SerializeField] float CooldownStanceBroken;
     [SerializeField] float RecoveryPerSecond;
-    [SerializeField] Generic_DamageDetector damageDetector;
+    [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Animator animator;
     bool isInFullRecovery;
     bool isRecovering;
-    public event EventHandler onStanceBroken;
     private void OnEnable()
     {
-        damageDetector.OnReceiveDamage += RemoveStance;
+        eventSystem.OnReceiveDamage += RemoveStance;
     }
     private void OnDisable()
     {
-        damageDetector.OnReceiveDamage -= RemoveStance;
+        eventSystem.OnReceiveDamage -= RemoveStance;
     }
     private void Start()
     {
@@ -40,7 +39,7 @@ public class Enemy_StanceMeter : MonoBehaviour
                 animator.SetTrigger(TagsCollection.Instance.StanceBroken);
                 StartCoroutine(Cooldown(CooldownStanceBroken));
                 isInFullRecovery = true;
-                if(onStanceBroken != null) onStanceBroken(this, EventArgs.Empty);
+                if(eventSystem.OnStanceBroken != null) eventSystem.OnStanceBroken(this, EventArgs.Empty);
             }
             else
             {

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 3450134641583009566}
   - component: {fileID: 695697341023069215}
   - component: {fileID: 1030339945491469921}
+  - component: {fileID: 627058440868749388}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -83,8 +84,7 @@ MonoBehaviour:
   hitStop: {fileID: 0}
   flasher: {fileID: 4868621688972523929}
   WeaponTrail: {fileID: 0}
-  damageDetector: {fileID: 8503966058725397229}
-  damageDealer: {fileID: 8393237760477941251}
+  eventSystem: {fileID: 627058440868749388}
 --- !u!114 &3881809578619784559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
   MaxHealth: 0
   CurrentHealth: 1
   FillHealthOnStart: 1
-  damageDetector: {fileID: 8503966058725397229}
   stats: {fileID: 3881809578619784559}
+  eventSystem: {fileID: 627058440868749388}
   deadBody: {fileID: 0}
   deadHead: {fileID: 0}
   BloodCristals: {fileID: 5308774821670971264, guid: ee77d54bae9746040992b11977385ba0, type: 3}
@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StanceBrokenVFX: {fileID: 7173184949144218407, guid: 283b49a7b9b4e7f428eecff3d1a6c915, type: 3}
   trailRenderer: {fileID: 0}
-  stanceMeter: {fileID: 695697341023069215}
+  eventSystem: {fileID: 627058440868749388}
 --- !u!114 &695697341023069215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   CooldownAfterDamage: 2
   CooldownStanceBroken: 0.5
   RecoveryPerSecond: 1
-  damageDetector: {fileID: 8503966058725397229}
+  eventSystem: {fileID: 627058440868749388}
   animator: {fileID: 2195041901401652145}
 --- !u!114 &1030339945491469921
 MonoBehaviour:
@@ -429,7 +429,21 @@ MonoBehaviour:
   agrooMovement: {fileID: 2829660713819239201}
   attackProvider: {fileID: 9036491661720074360}
   agrooDetection: {fileID: 4982409665230710257}
+  agrooDetectionTrigger: {fileID: 8290111105923011726}
+  eventSystem: {fileID: 627058440868749388}
   CurrentState: 0
+--- !u!114 &627058440868749388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +539,7 @@ GameObject:
   - component: {fileID: 4617263032900962171}
   - component: {fileID: 7298081609623427543}
   - component: {fileID: 4982409665230710257}
+  - component: {fileID: 8290111105923011726}
   m_Layer: 0
   m_Name: IsAgrooCollider
   m_TagString: Untagged
@@ -575,6 +590,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d49f70ef202c80448e058f4d3ca1a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8290111105923011726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280522450137198729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
 --- !u!1 &1630673584959798655
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,8 +877,10 @@ MonoBehaviour:
   Damage: 0
   Knockback: 0
   HitStop: 0
+  isParryable: 1
   EntityTeam: 1
   typeOfDamage: 0
+  eventSystem: {fileID: 627058440868749388}
 --- !u!1 &2343595759810818401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityTeam: 1
+  eventSystem: {fileID: 627058440868749388}
 --- !u!1 &8186222616927864388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1430,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 627058440868749388}
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: healthSystem
       value: 

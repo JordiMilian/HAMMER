@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static Generic_DamageDetector;
+using static Generic_EventSystem;
 
 public class Generic_HealthSystem : MonoBehaviour
 {
     public float MaxHealth;
     public float CurrentHealth;
     [SerializeField] bool FillHealthOnStart = true;
-    [SerializeField] Generic_DamageDetector damageDetector;
     [SerializeField] Generic_Stats stats;
     public EventHandler OnDeath;
     public EventHandler OnUpdatedHealth;
+    [SerializeField] Generic_EventSystem eventSystem;
 
     void Start()
     {
@@ -22,11 +22,11 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     private void OnEnable()
     {
-        damageDetector.OnReceiveDamage += RemoveLife;
+        eventSystem.OnReceiveDamage += RemoveLife;
     }
     private void OnDisable()
     {
-        damageDetector.OnReceiveDamage -= RemoveLife;
+        eventSystem.OnReceiveDamage -= RemoveLife;
     }
     public void RemoveLife(object sender, EventArgs_ReceivedAttackInfo receivedAttackInfo)
     {
@@ -40,7 +40,7 @@ public class Generic_HealthSystem : MonoBehaviour
         {
             CurrentHealth = MaxHealth;
         }
-        if (OnUpdatedHealth != null) OnUpdatedHealth(this, EventArgs.Empty);
+        if (eventSystem.OnUpdatedHealth != null) eventSystem.OnUpdatedHealth(this, EventArgs.Empty);
     }
     public void RestoreAllHealth()
     {
@@ -48,7 +48,7 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public virtual void Death()
     {
-        if (OnDeath != null) OnDeath(this, EventArgs.Empty);
+        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, EventArgs.Empty);
         Destroy(gameObject);
     }
 }

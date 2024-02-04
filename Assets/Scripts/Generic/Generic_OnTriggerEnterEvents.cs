@@ -27,7 +27,6 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
                 if (OnTriggerEntered != null) OnTriggerEntered(this, new EventArgsTriggererInfo(collision.tag, collision));
             }
         }
-        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

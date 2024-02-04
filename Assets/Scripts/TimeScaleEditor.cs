@@ -24,7 +24,6 @@ public class TimeScaleEditor : MonoBehaviour
     IEnumerator SlowMoCorroutine(float SlowPercent, float DurationSeconts)
     {
         float lerpedPercent = Mathf.InverseLerp(100, 0, SlowPercent);
-        Debug.Log(lerpedPercent);
         BaseScale = lerpedPercent;
         Time.timeScale = lerpedPercent;
         yield return new WaitForSecondsRealtime(DurationSeconts);

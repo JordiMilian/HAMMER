@@ -11,6 +11,7 @@ public class Generic_DamageDetector : MonoBehaviour
     }
     public Team EntityTeam;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
+    [SerializeField] Generic_EventSystem eventSystem;
    
     public class EventArgs_ReceivedAttackInfo : EventArgs
     {
@@ -34,14 +35,14 @@ public class Generic_DamageDetector : MonoBehaviour
         switch (EntityTeam)
         {
             case Team.Player:
-                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag("Enemy_Attack_hitbox"))
+                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag(TagsCollection.Instance.Enemy_Attack_hitbox))
                 {
                     PublishAttackEvent(collision); 
                 }
                 break;
 
             case Team.Enemy:
-                if (collision.CompareTag("Attack_Hitbox"))
+                if (collision.CompareTag(TagsCollection.Instance.Attack_Hitbox))
                 {
                     PublishAttackEvent(collision);
                 }
@@ -50,11 +51,11 @@ public class Generic_DamageDetector : MonoBehaviour
     }
     void PublishAttackEvent(Collider2D collision)
     {
-        if (OnReceiveDamage != null)
+        if (eventSystem.OnReceiveDamage != null)
         {
             Generic_DamageDealer damageDealer = collision.gameObject.GetComponent<Generic_DamageDealer>();
 
-            OnReceiveDamage(this, new EventArgs_ReceivedAttackInfo
+            eventSystem.OnReceiveDamage(this, new Generic_EventSystem.EventArgs_ReceivedAttackInfo
                 (
                 collision.ClosestPoint(gameObject.transform.position),
                 collision.gameObject,

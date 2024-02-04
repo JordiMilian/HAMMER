@@ -32,7 +32,7 @@ public class Player_Movement : MonoBehaviour
     public AnimationCurve RollCurve;
     [SerializeField] Collider2D damageCollider;
 
-    public EventHandler OnPerformRoll;
+    [SerializeField] Player_EventSystem eventSystem;
     
 
     void Start()
@@ -126,7 +126,7 @@ public class Player_Movement : MonoBehaviour
         comboSystem.canAttack = false;
         isDashing = true;
         comboSystem.isCurrentAttackCanceled = true;
-        if(OnPerformRoll != null) OnPerformRoll(this, EventArgs.Empty);
+        if(eventSystem.OnPerformRoll != null) eventSystem.OnPerformRoll(this, EventArgs.Empty);
         Player_Animator.SetTrigger("Roll");
 
 

@@ -6,10 +6,11 @@ using UnityEngine;
 public class EnemyHealthBarLogic : MonoBehaviour
 {
     [SerializeField] Generic_HealthSystem healthSystem;
+    [SerializeField] Generic_EventSystem eventSystem;
     [SerializeField] Transform HealthBarSize1;
     private void OnEnable()
     {
-        healthSystem.OnUpdatedHealth += UpdateSize;
+        eventSystem.OnUpdatedHealth += UpdateSize;
     }
     void UpdateSize(object sender, EventArgs args)
     {

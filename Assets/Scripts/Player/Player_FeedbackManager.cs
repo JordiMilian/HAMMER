@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Generic_DamageDealer;
-using static Generic_DamageDetector;
-using static Player_ParryPerformer;
+using static Player_EventSystem;
 //using UnityEngine.Windows;
 
 public class Player_FeedbackManager : MonoBehaviour
@@ -23,6 +21,7 @@ public class Player_FeedbackManager : MonoBehaviour
 
 
     [SerializeField] Player_ParryPerformer parryPerformer;
+    [SerializeField] Player_EventSystem eventSystem;
     
 
     public float CurrentDamage;
@@ -42,18 +41,18 @@ public class Player_FeedbackManager : MonoBehaviour
 
     private void OnEnable()
     {
-        parryPerformer.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
-        damageDetector.OnReceiveDamage += ReceiveDamageEffects;
-        damageDealer.OnDealtDamage += OnHitEnemyCameraEffects;
+        eventSystem.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
+        eventSystem.OnReceiveDamage += ReceiveDamageEffects;
+        eventSystem.OnDealtDamage += OnHitEnemyCameraEffects;
     }
     private void OnDisable()
     {
-        parryPerformer.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
-        damageDetector.OnReceiveDamage -= ReceiveDamageEffects;
-        damageDealer.OnDealtDamage -= OnHitEnemyCameraEffects;
+        eventSystem.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
+        eventSystem.OnReceiveDamage -= ReceiveDamageEffects;
+        eventSystem.OnDealtDamage -= OnHitEnemyCameraEffects;
     }
 
-    public void ReceiveDamageEffects(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
+    public void ReceiveDamageEffects(object sender, Player_EventSystem.EventArgs_ReceivedAttackInfo receivedAttackinfo)
     {
         if(!receivingDamage)
         {
@@ -77,13 +76,13 @@ public class Player_FeedbackManager : MonoBehaviour
         playerMovement.CurrentSpeed = playerMovement.BaseSpeed;
         receivingDamage = false;
     }
-    public void OnSuccesfulParryCameraEffects(object sender, EventArgs_ParryInfo position)
+    public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.EventArgs_ParryInfo position)
     {
         //hitStop.Stop(StopSeconds: 0.3f);
         TimeScaleEditor.Instance.HitStop(0.3f);
         cameraShake.ShakeCamera(0.6f, 0.1f);
     }
-    public void OnHitEnemyCameraEffects(object sender, EventArgs_DealtDamageInfo damageinfo)
+    public void OnHitEnemyCameraEffects(object sender, Player_EventSystem.EventArgs_DealtDamageInfo damageinfo)
     {
         cameraShake.ShakeCamera(1 * damageDealer.Damage, 0.1f * damageDealer.Damage);
         //hitStop.Stop( 0.1f);

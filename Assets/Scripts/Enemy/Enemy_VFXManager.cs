@@ -7,10 +7,14 @@ public class Enemy_VFXManager : MonoBehaviour
 {
     [SerializeField] GameObject StanceBrokenVFX;
     [SerializeField] TrailRenderer trailRenderer;
-    [SerializeField] Enemy_StanceMeter stanceMeter;
+    [SerializeField] Enemy_EventSystem eventSystem;
     private void OnEnable()
     {
-        stanceMeter.onStanceBroken += InstantiateStanceBrokenVFX;
+        eventSystem.OnStanceBroken += InstantiateStanceBrokenVFX;
+    }
+    private void OnDisable()
+    {
+        eventSystem.OnStanceBroken -= InstantiateStanceBrokenVFX;
     }
     void InstantiateStanceBrokenVFX(object sender, EventArgs args)
     {

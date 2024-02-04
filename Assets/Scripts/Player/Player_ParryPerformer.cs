@@ -10,16 +10,7 @@ public class Player_ParryPerformer : MonoBehaviour
     [SerializeField] Collider2D weaponParryCollider;
     [SerializeField] Collider2D damageDetectorCollider;
     [SerializeField] Player_ComboSystem comboSystem;
-
-    public event EventHandler<EventArgs_ParryInfo> OnSuccessfulParry;
-    public class EventArgs_ParryInfo : EventArgs
-    {
-        public Vector3 vector3data;
-        public EventArgs_ParryInfo(Vector3 data)
-        {
-            vector3data = data;
-        }
-    }
+    [SerializeField] Player_EventSystem eventSystem;
     private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
@@ -34,7 +25,7 @@ public class Player_ParryPerformer : MonoBehaviour
     }
     public void PublishSuccessfullParryDone(Vector3 closestPoint)
     {
-        if (OnSuccessfulParry != null) OnSuccessfulParry(this, new EventArgs_ParryInfo(closestPoint)); 
+        if (eventSystem.OnSuccessfulParry != null) eventSystem.OnSuccessfulParry(this, new Player_EventSystem.EventArgs_ParryInfo(closestPoint)); 
         EV_HideParryColldier();
     }
 

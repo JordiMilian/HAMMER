@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Generic_DamageDealer : MonoBehaviour
 {
     public float Damage;
     public float Knockback;
     public float HitStop;
+    public bool isParryable;
 
     public enum Team
     {
@@ -20,33 +22,26 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     public TypeofDamage typeOfDamage;
 
-    public class EventArgs_DealtDamageInfo
-    {
-        public Vector3 CollisionPosition;
-        public EventArgs_DealtDamageInfo(Vector3 collisionPosition)
-        {
-            CollisionPosition = collisionPosition;
-        }
-    }
-    public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;
+
     public EventHandler OnGettingParried;
+    [SerializeField] Generic_EventSystem eventSystem;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (EntityTeam)
         {
             case Team.Player:                
-                if (collision.CompareTag("Enemy_Hitbox"))
+                if (collision.CompareTag(TagsCollection.Instance.Enemy_Hitbox))
                 {
                     PublishDealtDamageEvent(collision);
                 }
                 break;
                 
             case Team.Enemy:
-                if(collision.CompareTag("PlayerDamageCollider"))
+                if(collision.CompareTag(TagsCollection.Instance.PlayerDamageCollider))
                 {
                     PublishDealtDamageEvent(collision);
                 }
-                if(collision.CompareTag("ParryCollider"))
+                if(collision.CompareTag(TagsCollection.Instance.ParryCollider) && isParryable) 
                 {
                     PublishGettingParriedEvent();
                 }
@@ -55,16 +50,16 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishDealtDamageEvent(Collider2D collision)
     {
-        if (OnDealtDamage != null)
+        if (eventSystem.OnDealtDamage != null)
         {
-            OnDealtDamage(this, new EventArgs_DealtDamageInfo(
+            eventSystem.OnDealtDamage(this, new Generic_EventSystem.EventArgs_DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position)
             ));
         }
     }
     void PublishGettingParriedEvent()
     {
-        if (OnGettingParried != null) OnGettingParried(this, EventArgs.Empty);
+        if (eventSystem.OnGettingParried != null) eventSystem.OnGettingParried(this, EventArgs.Empty);
     }
    
 }
