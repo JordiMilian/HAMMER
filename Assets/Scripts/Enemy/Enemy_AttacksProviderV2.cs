@@ -96,8 +96,9 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         if (PlayerIsInAnyRange)
         {
-            if (!isAttacking)
+            if (!isAttacking) 
             {
+                ResetAllTriggers();
                 PickAvailableAttacks();
             }
         }
@@ -117,13 +118,10 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         {
             StartCoroutine(selectedAttack.Cooldown());
         }
-        
-
     }
     IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
     {
         yield return new WaitForSeconds(selectedAttack.animationClip.length);
-        ResetAllTriggers();
         isAttacking = false;
     }
     void PickAvailableAttacks()
@@ -141,7 +139,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         float ActiveAttacksProbability = AddAttacksProbability(ActiveAttacks);
         Debuguer("All Active attacks combined make: " + ActiveAttacksProbability);
 
-        float randomFloat = UnityEngine.Random.Range(0, AddAttacksProbability(ActiveAttacks));
+        float randomFloat = UnityEngine.Random.Range(0, ActiveAttacksProbability);
         Debuguer("Random float is: " + randomFloat);
 
         //Check if the random number matches with the probabilities of the active attacks
@@ -162,7 +160,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 Debuguer(i + " failed chance");
             }
         }
-
     }
     float AddAttacksProbability(List<EnemyAttack> attacks)
     {
@@ -170,7 +167,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         foreach (EnemyAttack attack in attacks) { Probabilities += attack.Probability; }
         return Probabilities;
     }
-    private void ResetAllTriggers()
+    public void ResetAllTriggers()
     {
         foreach (var param in enemyAnimator.parameters)
         {
@@ -179,17 +176,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 enemyAnimator.ResetTrigger(param.name);
             }
         }
-    }
-    public void EV_Enemy_ShowAttackCollider()
-    {
-        damageDealer.GetComponent<Collider2D>().enabled = true;
-        if(trailrendered != null) trailrendered.emitting = true;
-
-    }
-    public void EV_Enemy_HideAttackCollider()
-    {
-        damageDealer.GetComponent<Collider2D>().enabled = false;
-        if (trailrendered != null) trailrendered.emitting = false;
     }
     void Debuguer(string text)
     {

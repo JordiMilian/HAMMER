@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 985943488261413285}
   - component: {fileID: 2969134010514896338}
-  - component: {fileID: 7637827482723186184}
   m_Layer: 0
   m_Name: Fase01_Behaviour
   m_TagString: Untagged
@@ -161,30 +160,6 @@ MonoBehaviour:
     HasCooldown: 0
     CooldownTime: 2
   trailrendered: {fileID: 6975676743311414649}
---- !u!114 &7637827482723186184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269535061355919335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7043884e9fa7838409e350ed77d13f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTransform: {fileID: 6872804511342155832}
-  CurrentSpeed: 0
-  BaseSpeed: 0.4
-  CurrentRotationSpeed: 0
-  BaseRotationSpeed: 6
-  SlowRotationSpeed: 0
-  Weapon_Pivot: {fileID: 7733968425091312865}
-  EnemyAnimator: {fileID: 266731727252035748}
-  UIAnimator: {fileID: 5792743499247428587}
-  destinationSetter: {fileID: 8611318317288083561}
-  aiPath: {fileID: 7279250601968195934}
-  spriteFliper: {fileID: 8393546499733154722}
 --- !u!1 &2330718893080921914
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5155203566239501693}
   - component: {fileID: 2139378392329311563}
-  - component: {fileID: 740622325339680644}
   m_Layer: 0
   m_Name: Fase02_Behaviour
   m_TagString: Untagged
@@ -346,30 +320,6 @@ MonoBehaviour:
     HasCooldown: 0
     CooldownTime: 2
   trailrendered: {fileID: 6975676743311414649}
---- !u!114 &740622325339680644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2330718893080921914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7043884e9fa7838409e350ed77d13f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTransform: {fileID: 6872804511342155832}
-  CurrentSpeed: 0
-  BaseSpeed: 0.7
-  CurrentRotationSpeed: 0
-  BaseRotationSpeed: 8
-  SlowRotationSpeed: 0
-  Weapon_Pivot: {fileID: 7733968425091312865}
-  EnemyAnimator: {fileID: 266731727252035748}
-  UIAnimator: {fileID: 5792743499247428587}
-  destinationSetter: {fileID: 8611318317288083561}
-  aiPath: {fileID: 7279250601968195934}
-  spriteFliper: {fileID: 8393546499733154722}
 --- !u!1 &2532922293689915560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,31 +1693,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponCollider: {fileID: 8648819231119266003}
   EnemyAnimator: {fileID: 266731727252035748}
-  enemyMovement: {fileID: 7637827482723186184}
-  hitStop: {fileID: 0}
+  enemyMovement: {fileID: 7061527427718821087}
   flasher: {fileID: 6797361533294975628}
-  WeaponTrail: {fileID: 0}
   eventSystem: {fileID: 7555730476318928094}
-  movement01: {fileID: 7637827482723186184}
-  movement02: {fileID: 740622325339680644}
+  movement01: {fileID: 0}
+  movement02: {fileID: 0}
   GreenEventSystem: {fileID: 7555730476318928094}
---- !u!114 &974660634371085632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450790443172764191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fea590a742eccb9438d8c5a4fef02274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fase01Provider: {fileID: 2969134010514896338}
-  fase02Provider: {fileID: 2139378392329311563}
-  fase01Movement: {fileID: 7637827482723186184}
-  fase02Movement: {fileID: 740622325339680644}
-  eventSystem: {fileID: 7555730476318928094}
 --- !u!114 &3562585380609456546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,6 +1731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHealthSystem: {fileID: 8343205403315945866}
   idleMovement: {fileID: 675247659384785448}
+  agrooMovement: {fileID: 7061527427718821087}
   Fase01_behaviour: {fileID: 269535061355919335}
   Fase02_behaviour: {fileID: 2330718893080921914}
   agrooDetectionTrigger: {fileID: 7983089719485691803}
@@ -1808,6 +1740,32 @@ MonoBehaviour:
   Fase01Animator: {fileID: 22100000, guid: 2ab4ad6e908801543a78d5a3c27fb9a0, type: 2}
   Fase02Animator: {fileID: 22100000, guid: 66442ed80a54ace4aa58fea76e34af14, type: 2}
   CurrentState: 0
+--- !u!114 &7061527427718821087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450790443172764191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7043884e9fa7838409e350ed77d13f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTransform: {fileID: 6872804511342155832}
+  CurrentSpeed: 0
+  BaseSpeed: 0.7
+  CurrentRotationSpeed: 0
+  BaseRotationSpeed: 8
+  SlowRotationSpeed: 0
+  isMoving: 0
+  Weapon_Pivot: {fileID: 7733968425091312865}
+  EnemyAnimator: {fileID: 266731727252035748}
+  UIAnimator: {fileID: 5792743499247428587}
+  destinationSetter: {fileID: 8611318317288083561}
+  aiPath: {fileID: 7279250601968195934}
+  spriteFliper: {fileID: 8393546499733154722}
+  eventSystem: {fileID: 7555730476318928094}
 --- !u!114 &7555730476318928094
 MonoBehaviour:
   m_ObjectHideFlags: 0

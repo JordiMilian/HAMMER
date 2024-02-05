@@ -34,14 +34,6 @@ public class GreenBoss_AnimationEvents : MonoBehaviour
         currentProvider = fase02Provider;
         currentMovement = fase02Movement;
     }
-    public void EV_Enemy_ShowAttackCollider()
-    {
-        currentProvider.EV_Enemy_ShowAttackCollider();
-    }
-    public void EV_Enemy_HideAttackCollider()
-    {
-        currentProvider.EV_Enemy_HideAttackCollider();
-    }
     public void EV_SlowRotationSpeed() { currentMovement.EV_SlowRotationSpeed(); }
     public void EV_ReturnRotationSpeed() { currentMovement.EV_ReturnRotationSpeed(); }
     public void EV_SlowMovingSpeed() { currentMovement.EV_SlowMovingSpeed(); }

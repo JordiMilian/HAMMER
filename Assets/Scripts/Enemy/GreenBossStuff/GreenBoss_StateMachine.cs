@@ -10,9 +10,10 @@ public class GreenBoss_StateMachine : MonoBehaviour
 
     public enum StatesGreenBoss
     {
-        Idle, Fase01, Fase02,
+        Idle, Fase01, Fase02, Transitioning,
     }
     [SerializeField] Enemy_IdleMovement idleMovement;
+    [SerializeField] Enemy_AgrooMovement agrooMovement;
     [SerializeField] GameObject Fase01_behaviour;
     [SerializeField] GameObject Fase02_behaviour;
 
@@ -48,6 +49,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
         if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
         Fase01_behaviour.SetActive(false);
         Fase02_behaviour.SetActive(false);
+        agrooMovement.enabled = false;
 
         idleMovement.enabled = true;
         CurrentState = StatesGreenBoss.Idle;
@@ -59,34 +61,66 @@ public class GreenBoss_StateMachine : MonoBehaviour
     }
     void CheckHealthForState(object sender, EventArgs args)
     {
-        if(bossHealthSystem.CurrentHealth < bossHealthSystem.MaxHealth/2)
+        switch(CurrentState)
         {
-            OnFase02State();
-        }
-        else
-        {
-            OnFase01State();
+            case StatesGreenBoss.Idle:
+                OnFase01State();
+                break;
+            case StatesGreenBoss.Fase01:
+                if (bossHealthSystem.CurrentHealth < bossHealthSystem.MaxHealth / 2)
+                {
+                    OnTransitioning();
+                }
+                break;
+            case StatesGreenBoss.Fase02:
+                break;
+            case StatesGreenBoss.Transitioning:
+                break;
         }
     }
     void OnFase01State()
     {
+        //replace animations in the animator
         greenBossAnimator.runtimeAnimatorController = Fase01Animator;
+        //call the event
         if(eventSystem.OnPhase01 != null) eventSystem.OnPhase01(this, EventArgs.Empty);
+        //Deactivate the scripts
         Fase01_behaviour.SetActive(true);
         Fase02_behaviour.SetActive(false);
-
         idleMovement.enabled = false;
+        agrooMovement.enabled = true;
+        //Set the Enum
         CurrentState = StatesGreenBoss.Fase01;
     }
-    void OnFase02State()
+    public void OnFase02State()
     {
+        //replace animations in the animator
         greenBossAnimator.runtimeAnimatorController = Fase02Animator;
+        //Deactivate animator bool
+        greenBossAnimator.SetBool("isTransitioning", false);
+        //Call the event
         if (eventSystem.OnPhase02 != null) eventSystem.OnPhase02(this, EventArgs.Empty);
-        Debug.Log("FASE 02");
+        //Deactivate the scripts
         Fase01_behaviour.SetActive(false);
         Fase02_behaviour.SetActive(true);
-
         idleMovement.enabled = false;
+        agrooMovement.enabled = true;
+
+        Fase02_behaviour.GetComponent<Enemy_AttacksProviderV2>().ResetAllTriggers();
+        //Set the enum
         CurrentState = StatesGreenBoss.Fase02;
+        Debug.Log("PHASE02");
+    }
+    void OnTransitioning()
+    {
+        //Call the event
+        if(eventSystem.OnTransitionBegin != null) eventSystem.OnTransitionBegin(this,EventArgs.Empty);
+        //Deactivate the providers
+        Fase01_behaviour.SetActive(false);
+        Fase02_behaviour.SetActive(false);
+        //Activate ANimator bool
+        greenBossAnimator.SetBool("isTransitioning", true);
+        //Set Enum
+        CurrentState = StatesGreenBoss.Transitioning;
     }
 }

@@ -16,17 +16,26 @@ public class Enemy_AgrooMovement : MonoBehaviour
     public float CurrentRotationSpeed;
     public float BaseRotationSpeed;
     public float SlowRotationSpeed;
-
     Transform PlayerTransform;
     [SerializeField] Transform Weapon_Pivot;
 
     [SerializeField] Animator EnemyAnimator;
+    //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;
     [SerializeField] AIDestinationSetter destinationSetter;
     [SerializeField] AIPath aiPath;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
+    [SerializeField] Enemy_EventSystem eventSystem;
 
     private void OnEnable()
+    {
+        StartAgroo();
+    }
+    private void OnDisable()
+    {
+        
+    }
+    void StartAgroo()
     {
         PlayerTransform = GameObject.Find("MainCharacter").transform;
         UIAnimator.SetTrigger("AgrooAlert");
@@ -37,14 +46,10 @@ public class Enemy_AgrooMovement : MonoBehaviour
         SlowSpeedF = BaseSpeed / 3;
         CurrentRotationSpeed = BaseRotationSpeed;
     }
-    private void OnDisable()
-    {
-        
-    }
     void Update()
     {
-        spriteFliper.FocusVector = PlayerTransform.transform.position;
-        LookAtPlayer(); 
+            spriteFliper.FocusVector = PlayerTransform.transform.position;
+            LookAtPlayer();
     }
     
     void LookAtPlayer()
