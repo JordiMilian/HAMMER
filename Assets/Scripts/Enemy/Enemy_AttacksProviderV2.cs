@@ -9,6 +9,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Animator enemyAnimator;
     public bool isAttacking;
+    public bool isProviding;
     public bool PlayerIsInAnyRange;
     [SerializeField] bool ShowDebug;
     [SerializeField] Generic_Stats stats;
@@ -96,7 +97,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         if (PlayerIsInAnyRange)
         {
-            if (!isAttacking) 
+            if (!isAttacking && isProviding) 
             {
                 ResetAllTriggers();
                 PickAvailableAttacks();

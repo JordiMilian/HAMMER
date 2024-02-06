@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &985943488261413285
 Transform:
   m_ObjectHideFlags: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   damageDealer: {fileID: 7619809830611807510}
   enemyAnimator: {fileID: 266731727252035748}
   isAttacking: 0
+  isProviding: 0
   PlayerIsInAnyRange: 0
   ShowDebug: 0
   stats: {fileID: 2889957272012516986}
@@ -63,18 +64,6 @@ MonoBehaviour:
     isInCooldown: 0
     HasCooldown: 0
     CooldownTime: 1
-  - ShortDescription: 02 - Long 4x combo
-    rangeDetector: {fileID: 2726041538214405773}
-    isActive: 0
-    Damage: 1
-    Probability: 1
-    KnockBack: 20
-    Hitstop: 0.1
-    TriggerName: Attack02
-    animationClip: {fileID: 7400000, guid: 35ba82000fb88be44a4068e649b78cc7, type: 2}
-    isInCooldown: 0
-    HasCooldown: 0
-    CooldownTime: 4
   - ShortDescription: 03 - Very long dash with spin
     rangeDetector: {fileID: 2983403945826448744}
     isActive: 0
@@ -176,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5155203566239501693
 Transform:
   m_ObjectHideFlags: 0
@@ -207,6 +196,7 @@ MonoBehaviour:
   damageDealer: {fileID: 7619809830611807510}
   enemyAnimator: {fileID: 266731727252035748}
   isAttacking: 0
+  isProviding: 0
   PlayerIsInAnyRange: 0
   ShowDebug: 0
   stats: {fileID: 2889957272012516986}
@@ -1696,9 +1686,6 @@ MonoBehaviour:
   enemyMovement: {fileID: 7061527427718821087}
   flasher: {fileID: 6797361533294975628}
   eventSystem: {fileID: 7555730476318928094}
-  movement01: {fileID: 0}
-  movement02: {fileID: 0}
-  GreenEventSystem: {fileID: 7555730476318928094}
 --- !u!114 &3562585380609456546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1732,8 +1719,8 @@ MonoBehaviour:
   bossHealthSystem: {fileID: 8343205403315945866}
   idleMovement: {fileID: 675247659384785448}
   agrooMovement: {fileID: 7061527427718821087}
-  Fase01_behaviour: {fileID: 269535061355919335}
-  Fase02_behaviour: {fileID: 2330718893080921914}
+  Fase01_provider: {fileID: 2969134010514896338}
+  Fase02_provider: {fileID: 2139378392329311563}
   agrooDetectionTrigger: {fileID: 7983089719485691803}
   eventSystem: {fileID: 7555730476318928094}
   greenBossAnimator: {fileID: 266731727252035748}
@@ -1758,7 +1745,6 @@ MonoBehaviour:
   CurrentRotationSpeed: 0
   BaseRotationSpeed: 8
   SlowRotationSpeed: 0
-  isMoving: 0
   Weapon_Pivot: {fileID: 7733968425091312865}
   EnemyAnimator: {fileID: 266731727252035748}
   UIAnimator: {fileID: 5792743499247428587}

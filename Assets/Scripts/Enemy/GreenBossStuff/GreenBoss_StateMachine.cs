@@ -14,8 +14,8 @@ public class GreenBoss_StateMachine : MonoBehaviour
     }
     [SerializeField] Enemy_IdleMovement idleMovement;
     [SerializeField] Enemy_AgrooMovement agrooMovement;
-    [SerializeField] GameObject Fase01_behaviour;
-    [SerializeField] GameObject Fase02_behaviour;
+    [SerializeField] Enemy_AttacksProviderV2 Fase01_provider;
+    [SerializeField] Enemy_AttacksProviderV2 Fase02_provider;
 
     [SerializeField] Generic_OnTriggerEnterEvents agrooDetectionTrigger;
     
@@ -44,27 +44,17 @@ public class GreenBoss_StateMachine : MonoBehaviour
         agrooDetectionTrigger.OnTriggerExited -= OnIdleState;
     }
 
-    void OnIdleState(object sender, EventArgsTriggererInfo args)
-    {
-        if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
-        Fase01_behaviour.SetActive(false);
-        Fase02_behaviour.SetActive(false);
-        agrooMovement.enabled = false;
-
-        idleMovement.enabled = true;
-        CurrentState = StatesGreenBoss.Idle;
-    }
-    void OnAgrooState(object sender, EventArgsTriggererInfo args)
-    {
-        if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
-        CheckHealthForState(this, EventArgs.Empty);
-    }
+    
     void CheckHealthForState(object sender, EventArgs args)
     {
         switch(CurrentState)
         {
             case StatesGreenBoss.Idle:
-                OnFase01State();
+                if (bossHealthSystem.CurrentHealth < bossHealthSystem.MaxHealth / 2)
+                {
+                    OnFase02State();
+                }
+                else { OnFase01State(); }
                 break;
             case StatesGreenBoss.Fase01:
                 if (bossHealthSystem.CurrentHealth < bossHealthSystem.MaxHealth / 2)
@@ -78,6 +68,21 @@ public class GreenBoss_StateMachine : MonoBehaviour
                 break;
         }
     }
+    void OnIdleState(object sender, EventArgsTriggererInfo args)
+    {
+        if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
+        Fase01_provider.isProviding = false;
+        Fase02_provider.isProviding = false;
+        agrooMovement.enabled = false;
+
+        idleMovement.enabled = true;
+        CurrentState = StatesGreenBoss.Idle;
+    }
+    void OnAgrooState(object sender, EventArgsTriggererInfo args)
+    {
+        if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
+        CheckHealthForState(this, EventArgs.Empty);
+    }
     void OnFase01State()
     {
         //replace animations in the animator
@@ -85,8 +90,8 @@ public class GreenBoss_StateMachine : MonoBehaviour
         //call the event
         if(eventSystem.OnPhase01 != null) eventSystem.OnPhase01(this, EventArgs.Empty);
         //Deactivate the scripts
-        Fase01_behaviour.SetActive(true);
-        Fase02_behaviour.SetActive(false);
+        Fase01_provider.isProviding = true;
+        Fase02_provider.isProviding = false;
         idleMovement.enabled = false;
         agrooMovement.enabled = true;
         //Set the Enum
@@ -101,12 +106,11 @@ public class GreenBoss_StateMachine : MonoBehaviour
         //Call the event
         if (eventSystem.OnPhase02 != null) eventSystem.OnPhase02(this, EventArgs.Empty);
         //Deactivate the scripts
-        Fase01_behaviour.SetActive(false);
-        Fase02_behaviour.SetActive(true);
+        Fase01_provider.isProviding = false;
+        Fase02_provider.isProviding = true;
         idleMovement.enabled = false;
         agrooMovement.enabled = true;
 
-        Fase02_behaviour.GetComponent<Enemy_AttacksProviderV2>().ResetAllTriggers();
         //Set the enum
         CurrentState = StatesGreenBoss.Fase02;
         Debug.Log("PHASE02");
@@ -116,8 +120,8 @@ public class GreenBoss_StateMachine : MonoBehaviour
         //Call the event
         if(eventSystem.OnTransitionBegin != null) eventSystem.OnTransitionBegin(this,EventArgs.Empty);
         //Deactivate the providers
-        Fase01_behaviour.SetActive(false);
-        Fase02_behaviour.SetActive(false);
+        Fase01_provider.isProviding = false;
+        Fase02_provider.isProviding = false;
         //Activate ANimator bool
         greenBossAnimator.SetBool("isTransitioning", true);
         //Set Enum
