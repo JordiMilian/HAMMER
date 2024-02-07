@@ -16,6 +16,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     [SerializeField] TrailRenderer trailrendered;
+    [SerializeField] Enemy_EventSystem eventSystem;
+    Coroutine CurrentWaiting;
 
     [Serializable]
     public class EnemyAttack
@@ -49,6 +51,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnEnable()
     {
+        eventSystem.OnGettingParried += OnCancelAttack;
+        eventSystem.OnStanceBroken += OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
             attack.rangeDetector.OnPlayerEntered += attack.isInRange;
@@ -59,6 +63,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnDisable()
     {
+        eventSystem.OnGettingParried -= OnCancelAttack;
+        eventSystem.OnStanceBroken -= OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
             attack.rangeDetector.OnPlayerEntered -= attack.isInRange;
@@ -112,8 +118,9 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         damageDealer.Knockback = selectedAttack.KnockBack;
         damageDealer.HitStop = selectedAttack.Hitstop;
         enemyAnimator.SetTrigger(selectedAttack.TriggerName);
+        enemyAnimator.SetBool("isAttacking", true);
 
-        StartCoroutine(WaitAnimationTime(selectedAttack));
+        CurrentWaiting = StartCoroutine(WaitAnimationTime(selectedAttack));
 
         if(selectedAttack.HasCooldown)
         {
@@ -124,6 +131,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         yield return new WaitForSeconds(selectedAttack.animationClip.length);
         isAttacking = false;
+        enemyAnimator.SetBool("isAttacking", false);
     }
     void PickAvailableAttacks()
     {
@@ -177,6 +185,19 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 enemyAnimator.ResetTrigger(param.name);
             }
         }
+    }
+    void OnCancelAttack(object sender, EventArgs args)
+    {
+        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); Debug.Log("Waiting stopped"); } 
+        StartCoroutine(WaitForCurrentAnimation());
+    }
+    IEnumerator WaitForCurrentAnimation()
+    {
+        while(enemyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+        isAttacking = false;
     }
     void Debuguer(string text)
     {

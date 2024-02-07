@@ -1523,6 +1523,7 @@ MonoBehaviour:
   damageDealer: {fileID: 7653426974895600704}
   parryPerformer: {fileID: 7653426975249963328}
   eventSystem: {fileID: 3383090570821903391}
+  playerAnimator: {fileID: 7653426975249963390}
   CurrentDamage: 0
   BaseDamage: 1
   staggerTime: 0.3
@@ -1884,6 +1885,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7221020487405985688, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7221020487405985688, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.14379677
       objectReference: {fileID: 0}
@@ -1954,6 +1959,10 @@ PrefabInstance:
     - target: {fileID: -4641982967731727504, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
       propertyPath: m_Bounds.m_Extent.y
       value: 0.11270259
+      objectReference: {fileID: 0}
+    - target: {fileID: -4274493751294844542, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4194377109704117819, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -2031,6 +2040,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.374807
+      objectReference: {fileID: 0}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000010512134
+      objectReference: {fileID: 0}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99993646
+      objectReference: {fileID: 0}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.011274422
+      objectReference: {fileID: 0}
+    - target: {fileID: 311580695235782034, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1136591742246619961, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2057,7 +2094,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
     - target: {fileID: 4257508509235537429, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.050712883
+      value: -0.05071288
       objectReference: {fileID: 0}
     - target: {fileID: 4257508509235537429, guid: 17f2dcc5a38446b4aa8386be3fa192d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2554,7 +2591,7 @@ MonoBehaviour:
   - {x: 0.28112483, y: 0.17249785, z: 0}
   m_ShapePathHash: 1677457288
   m_Mesh: {fileID: 0}
-  m_InstanceId: 78852
+  m_InstanceId: 146844
 --- !u!4 &9014439829875785812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 277c0ee90fb41ae478285238ac1be1b5, type: 3}

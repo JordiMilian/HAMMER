@@ -112,7 +112,8 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void callOnLookatMouse(object sender, EventArgs args)
     {
-        if(IsFocusingEnemy)
+        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+        if (IsFocusingEnemy)
         {
             FocusedEnemy = null;
             OnLookAtMouse();

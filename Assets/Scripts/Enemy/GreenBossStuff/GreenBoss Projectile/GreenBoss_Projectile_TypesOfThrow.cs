@@ -15,6 +15,9 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     [Header("Burst To Player")]
     [SerializeField] int AmountOfThrows;
     [SerializeField] float delayBetweenThrows_burst;
+    [Header("Random burst around player ")]
+    [SerializeField] float Radius;
+    [SerializeField] float delayBetweenThrows_around;
 
     
     Vector2 originPosition;
@@ -73,6 +76,16 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
             Vector2 playerPositionTemporal = player.transform.position;
             thrower.GreenBoss_ThrowProjectile(playerPositionTemporal);
             yield return new WaitForSeconds(delayBetweenThrows_burst);
+        }
+    }
+    public IEnumerator BurstAroundPlayer(int throws)
+    {
+        UpdateVectorData();
+        for (int i = 0; i< throws; i++)
+        {
+            Vector2 randomPositionAroundPlayer = (Random.insideUnitCircle * Radius) + playerPosition;
+            thrower.GreenBoss_ThrowProjectile(randomPositionAroundPlayer);
+            yield return new WaitForSeconds(delayBetweenThrows_around);
         }
     }
     Vector2 angleToVector(float angleRad)

@@ -22,6 +22,7 @@ public class Player_FeedbackManager : MonoBehaviour
 
     [SerializeField] Player_ParryPerformer parryPerformer;
     [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] Animator playerAnimator;
     
 
     public float CurrentDamage;
@@ -67,6 +68,7 @@ public class Player_FeedbackManager : MonoBehaviour
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
             _rigitbody.AddForce(direction * (receivedAttackinfo.KnockBack), ForceMode2D.Impulse);
+            playerAnimator.SetTrigger("GetHit");
             StartCoroutine(InvulnerableAfterDamage());
         }
     }

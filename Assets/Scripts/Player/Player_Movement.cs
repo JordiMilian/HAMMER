@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 public class Player_Movement : MonoBehaviour
 {
     Rigidbody2D rigidbody;
-    Animator Player_Animator;
+    Animator player_Animator;
     Player_ComboSystem comboSystem;
 
     [Header("BASE MOVEMENT")]
@@ -38,7 +38,7 @@ public class Player_Movement : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        Player_Animator = GetComponent<Animator>();
+        player_Animator = GetComponent<Animator>();
         comboSystem = GetComponent<Player_ComboSystem>();
         CurrentSpeed = BaseSpeed;
     }
@@ -52,6 +52,7 @@ public class Player_Movement : MonoBehaviour
         if (isRunning)
         {
             CurrentSpeed = RunningSpeed;
+            player_Animator.SetBool("Running", true);
         }
        
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
@@ -68,7 +69,8 @@ public class Player_Movement : MonoBehaviour
         {
             isRunning = false;
             CurrentSpeed = BaseSpeed;
-            if(IsWaitingInputDelay)
+            player_Animator.SetBool("Running", false);
+            if (IsWaitingInputDelay)
             {
                 IsWaitingInputDelay = false;
                 switch (canDash)
@@ -111,11 +113,11 @@ public class Player_Movement : MonoBehaviour
         {
             if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
             {
-                Player_Animator.SetBool("Walking", true);
+                player_Animator.SetBool("Walking", true);
             }
             else
             {
-                Player_Animator.SetBool("Walking", false);
+                player_Animator.SetBool("Walking", false);
             }
         }
     }
@@ -127,7 +129,7 @@ public class Player_Movement : MonoBehaviour
         isDashing = true;
         comboSystem.isCurrentAttackCanceled = true;
         if(eventSystem.OnPerformRoll != null) eventSystem.OnPerformRoll(this, EventArgs.Empty);
-        Player_Animator.SetTrigger("Roll");
+        player_Animator.SetTrigger("Roll");
 
 
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;

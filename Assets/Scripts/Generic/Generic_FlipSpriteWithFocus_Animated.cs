@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Generic_FlipSpriteWithFocus : MonoBehaviour
+public class Generic_FlipSpriteWithFocus_Animated : Generic_FlipSpriteWithFocus
 {
-    [HideInInspector] public bool FlipOnce;
-    public Vector2 FocusVector;
-    public GameObject SpriteObject;
-    public float FlipDelay = 0.2f;
-    [HideInInspector] public bool canFlip = true;
     
-    
+    [SerializeField] Animator animator;
+
+
     public void FixedUpdate()
     {
-        FlipSpriteWithFocus(FocusVector, SpriteObject);
+        base.FixedUpdate();
     }
-    public virtual void FlipSpriteWithFocus(Vector2 focus, GameObject spriteObject)
+    public override void FlipSpriteWithFocus(Vector2 focus, GameObject spriteObject)
     {
         if (focus.x > gameObject.transform.position.x)
         {
@@ -37,14 +34,18 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     }
     void flipSprite(GameObject objecto)
     {
-        objecto.transform.localScale = new Vector2(objecto.transform.localScale.x * -1, objecto.transform.localScale.y);
+        animator.SetTrigger("FlipsSprites");
         FlipOnce = !FlipOnce;
+    }
+    public void EV_flipSprite()
+    {
+        SpriteObject.transform.localScale = new Vector2(SpriteObject.transform.localScale.x * -1, SpriteObject.transform.localScale.y);
     }
     IEnumerator FlipCooldown()
     {
         canFlip = false;
-        yield return new  WaitForSeconds(FlipDelay);
+        yield return new WaitForSeconds(FlipDelay);
         canFlip = true;
-        
+
     }
 }
