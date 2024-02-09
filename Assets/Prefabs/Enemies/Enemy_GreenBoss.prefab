@@ -1420,6 +1420,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7929925186517721759, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadBody
+      value: 
+      objectReference: {fileID: 1128317746809197777, guid: 25d570611e9c1f6478f5e010c96d9125, type: 3}
+    - target: {fileID: 7929925186517721759, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadHead
+      value: 
+      objectReference: {fileID: 8535800073444292979, guid: e29203df33375f8449bdd2d4570b17ae, type: 3}
+    - target: {fileID: 7929925186517721759, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 7555730476318928094}
@@ -1990,10 +1998,13 @@ MonoBehaviour:
   pointsAround: 8
   minimDistance: 1.5
   delayBetweenThrows_polygon: 0.06
+  maxDistance_polygon: 6
   AmountOfThrows: 3
   delayBetweenThrows_burst: 0.15
+  maxDistance_burst: 7
   Radius: 2
   delayBetweenThrows_around: 0.1
+  maxDistance_around: 8
 --- !u!114 &4768529556117110463
 MonoBehaviour:
   m_ObjectHideFlags: 0

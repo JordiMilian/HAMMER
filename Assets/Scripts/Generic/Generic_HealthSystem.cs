@@ -11,9 +11,7 @@ public class Generic_HealthSystem : MonoBehaviour
     public float CurrentHealth;
     [SerializeField] bool FillHealthOnStart = true;
     [SerializeField] Generic_Stats stats;
-    public EventHandler OnDeath;
-    public EventHandler OnUpdatedHealth;
-    [SerializeField] Generic_EventSystem eventSystem;
+    public Generic_EventSystem eventSystem;
 
     void Start()
     {

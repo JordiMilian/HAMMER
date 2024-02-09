@@ -5,14 +5,16 @@ using UnityEditor;
 using UnityEngine;
 using static Generic_OnTriggerEnterEvents;
 
-public class RoomLogic : MonoBehaviour
+public class DoorLogic : MonoBehaviour
 {
-    [SerializeField] DoorController exitDoorController;
+    [SerializeField] DoorAnimationController doorAnimations;
     [SerializeField] Generic_OnTriggerEnterEvents LoadTrigger;
+    [SerializeField] Generic_OnTriggerEnterEvents ReopenDoorTrigger;
 
     List<GameObject> EnemiesGO = new List<GameObject>();
     int EnemiesAlive;
-    public bool AreCorrectlySpawned = true;
+    bool AreCorrectlySpawned = true;
+    bool isRoomCompleted = false;
 
     [Serializable]
     public class RespawnPoint 
@@ -42,20 +44,25 @@ public class RoomLogic : MonoBehaviour
     [SerializeField] List<RespawnPoint> respawnPoints;
     private void OnEnable()
     {
-        LoadTrigger.ActivatorTags.Add("Player_SinglePointCollider");
+        LoadTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
+        ReopenDoorTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        ReopenDoorTrigger.OnTriggerEntered += ReopenDoor;
     }
     private void OnDisable()
     {
         LoadTrigger.OnTriggerEntered -= RespawnEnemies;
+        ReopenDoorTrigger.OnTriggerEntered -= ReopenDoor;
     }
     private void Start()
     { 
+        ReopenDoorTrigger.enabled = false;
         if (respawnPoints.Count == 0) 
-        { 
-            OpenDoor();
+        {
+            RoomCompleted();
             return;
         }
+        else { doorAnimations.CloseDoor(); }
         foreach (RespawnPoint point in respawnPoints)
         {
             point.setSpawnVector();
@@ -65,19 +72,27 @@ public class RoomLogic : MonoBehaviour
     void EnemyDied(object sender, EventArgs args)
     {
         EnemiesAlive--;
+        AreCorrectlySpawned = false;
         if (EnemiesAlive <= 0)
         {
-            OpenDoor();
-            AreCorrectlySpawned = false;
+            RoomCompleted();
         }
     }
-     void OpenDoor()
+    void RoomCompleted()
     {
-        exitDoorController.OpenDoor();
+        doorAnimations.OpenDoor();
+        isRoomCompleted = true;
+        ReopenDoorTrigger.enabled = true;
+    }
+    //Called if a player respawns behind a closed door
+    void ReopenDoor(object sender, EventArgsTriggererInfo args)
+    {
+        doorAnimations.OpenDoor();
     }
     public void RespawnEnemies(object sender, EventArgsTriggererInfo triggereInfo)
     {
         if (AreCorrectlySpawned) return;
+        if (isRoomCompleted) return;
         
         EnemiesGO.Clear();
         foreach (RespawnPoint point in respawnPoints)
@@ -92,12 +107,13 @@ public class RoomLogic : MonoBehaviour
         StartCoroutine(RespawnCooldown());
         
     }
+    //Asign the enemy info to each respawn point when they are respawned and subscribe to their death
     void AssignEnemyInfo(RespawnPoint point, GameObject spawnedEnemy)
     {
         point.CurrentlySpawnedEnemy = spawnedEnemy;
         EnemiesGO.Add(spawnedEnemy);
-        Generic_HealthSystem thisHealth = spawnedEnemy.GetComponent<Generic_HealthSystem>();
-        thisHealth.OnDeath += EnemyDied;
+        Generic_EventSystem thisEventSystem = spawnedEnemy.GetComponent<Generic_EventSystem>();
+        thisEventSystem.OnDeath += EnemyDied;
     }
     IEnumerator RespawnCooldown()
     {

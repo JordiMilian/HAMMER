@@ -11,11 +11,12 @@ public class Player_RespawnerManager : MonoBehaviour
     [SerializeField] Player_Respawner CurrentFurthestRespawner;
     [SerializeField] GameObject PlayerGO;
     Generic_HealthSystem playerHealth;
+    [SerializeField] Player_EventSystem eventSystem;
 
     private void OnEnable()
     {
         playerHealth = PlayerGO.GetComponent<Generic_HealthSystem>();
-        playerHealth.OnDeath += RespawnPlayer;
+        eventSystem.OnRespawn += RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
             respawner.OnRespawnerActivated += CheckFurthestRespawner;
@@ -23,13 +24,13 @@ public class Player_RespawnerManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        playerHealth.OnDeath -= RespawnPlayer;
+        eventSystem.OnRespawn -= RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
             respawner.OnRespawnerActivated -= CheckFurthestRespawner;
         }
     }
-    void RespawnPlayer(object sender, EventArgs args)
+    public void RespawnPlayer(object sender, EventArgs args)
     {
         CheckFurthestRespawner(this, EventArgs.Empty);
         CurrentFurthestRespawner.RespawnFromHere(PlayerGO);

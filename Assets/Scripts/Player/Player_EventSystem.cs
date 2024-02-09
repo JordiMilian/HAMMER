@@ -15,4 +15,5 @@ public class Player_EventSystem : Generic_EventSystem
     }
     public EventHandler OnPerformRoll;
     public EventHandler<EventArgs_ParryInfo> OnSuccessfulParry;
+    public EventHandler OnRespawn;
 }

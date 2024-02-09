@@ -12,12 +12,15 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     [SerializeField] int pointsAround;
     [SerializeField] float minimDistance;
     [SerializeField] float delayBetweenThrows_polygon;
+    [SerializeField] float maxDistance_polygon;
     [Header("Burst To Player")]
     [SerializeField] int AmountOfThrows;
     [SerializeField] float delayBetweenThrows_burst;
+    [SerializeField] float maxDistance_burst;
     [Header("Random burst around player ")]
     [SerializeField] float Radius;
     [SerializeField] float delayBetweenThrows_around;
+    [SerializeField] float maxDistance_around;
 
     
     Vector2 originPosition;
@@ -41,8 +44,9 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         UpdateVectorData();
         float OffsetRot = angleToPlayerRad / (Mathf.PI * 2);
         int BasePointAround = pointsAround;
-        if (distanceToPlayer < minimDistance) distanceToPlayer = minimDistance; pointsAround -= 2;
-        if (distanceToPlayer > minimDistance * 2) pointsAround += 2;
+        if (distanceToPlayer < minimDistance) { distanceToPlayer = minimDistance; pointsAround -= 2; }
+        else if (distanceToPlayer > minimDistance * 2) pointsAround += 2;
+        if (distanceToPlayer > maxDistance_polygon) distanceToPlayer = maxDistance_polygon;
 
         for (int i = 0; i < pointsAround; i++)
         {
@@ -57,7 +61,9 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     {
         UpdateVectorData();
         float OffsetRot = angleToPlayerRad / (Mathf.PI * 2);
-        if (distanceToPlayer < minimDistance) distanceToPlayer = minimDistance;
+        if (distanceToPlayer < minimDistance) { distanceToPlayer = minimDistance; pointsAround -= 2; }
+        else if (distanceToPlayer > minimDistance * 2) pointsAround += 2;
+        if (distanceToPlayer > maxDistance_polygon) distanceToPlayer = maxDistance_polygon;
 
         for (int i = 0; i < pointsAround; i++)
         {
@@ -74,6 +80,12 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         for(int i = 0; i < throws; i++)
         {
             Vector2 playerPositionTemporal = player.transform.position;
+            if((originPosition - playerPositionTemporal).magnitude > maxDistance_burst)
+            {
+                Vector2 playerPositionInLocal = -player.transform.InverseTransformPoint(originPosition);
+                Vector2 playerDirectionInLocal = playerPositionInLocal.normalized;
+                playerPositionTemporal = originPosition + (playerDirectionInLocal * maxDistance_burst);
+            }
             thrower.GreenBoss_ThrowProjectile(playerPositionTemporal);
             yield return new WaitForSeconds(delayBetweenThrows_burst);
         }
@@ -83,7 +95,14 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         UpdateVectorData();
         for (int i = 0; i< throws; i++)
         {
-            Vector2 randomPositionAroundPlayer = (Random.insideUnitCircle * Radius) + playerPosition;
+            Vector2 playerPositionTemporal = player.transform.position;
+            if ((originPosition - playerPositionTemporal).magnitude > maxDistance_around)
+            {
+                Vector2 playerPositionInLocal = -player.transform.InverseTransformPoint(originPosition);
+                Vector2 playerDirectionInLocal = playerPositionInLocal.normalized;
+                playerPositionTemporal = originPosition + (playerDirectionInLocal * maxDistance_burst);
+            }
+            Vector2 randomPositionAroundPlayer = (Random.insideUnitCircle * Radius) + playerPositionTemporal;
             thrower.GreenBoss_ThrowProjectile(randomPositionAroundPlayer);
             yield return new WaitForSeconds(delayBetweenThrows_around);
         }

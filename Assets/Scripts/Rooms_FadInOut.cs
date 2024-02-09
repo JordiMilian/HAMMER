@@ -7,68 +7,53 @@ using static Generic_OnTriggerEnterEvents;
 
 public class Rooms_FadInOut : MonoBehaviour
 {
-    SpriteRenderer[] bottomRoomSprites = new SpriteRenderer[0];
-    SpriteRenderer[] topRoomSprites = new SpriteRenderer[0];
-    [SerializeField] Generic_OnTriggerEnterEvents topTrigger;
-    [SerializeField] Generic_OnTriggerEnterEvents bottomTrigger;
+    SpriteRenderer[] RoomSpritesArray = new SpriteRenderer[0];
+    [SerializeField] Generic_OnTriggerEnterEvents RoomTrigger;
     [SerializeField] Foregrounder DoorForegrounder;
-    public GameObject TopRoom;
-    public GameObject BottomRoom;
+    public GameObject RoomSprites;
     [SerializeField] float TransitionTime = 0.2f;
-    [SerializeField] bool invertStartingRoom;
-    [SerializeField] bool StartFadedOut;
+    [SerializeField] bool isStartingRoom;
     private void Awake()
     {
-        bottomRoomSprites = BottomRoom.GetComponentsInChildren<SpriteRenderer>();
-        topRoomSprites = TopRoom.GetComponentsInChildren<SpriteRenderer>();
+        RoomSpritesArray = RoomSprites.GetComponentsInChildren<SpriteRenderer>();
     }
     private void Start()
     {
-        if (invertStartingRoom) { topTrigger.gameObject.SetActive(false); }
-        else { bottomTrigger.gameObject.SetActive(false); }
-        if(StartFadedOut)
+        if(!isStartingRoom)
         {
-            FadeOut(bottomRoomSprites, BottomRoom);
+            FadeOut(RoomSpritesArray);
+            DoorForegrounder.CallTurnBlack();
         }
     }
     private void OnEnable()
     {
-        topTrigger.ActivatorTags.Add("Player_SinglePointCollider");
-        topTrigger.OnTriggerEntered += playerEnteredTop;
-
-        bottomTrigger.ActivatorTags.Add("Player_SinglePointCollider");
-        bottomTrigger.OnTriggerEntered += playerEnteredBottom;
+        RoomTrigger.ActivatorTags.Add("Player_SinglePointCollider");
+        RoomTrigger.OnTriggerEntered += playerEnteredRoom;
+        RoomTrigger.OnTriggerExited += playerExitedRoom;
     }
     private void OnDisable()
     {
-        topTrigger.OnTriggerEntered -= playerEnteredTop;
-        bottomTrigger.OnTriggerEntered -= playerEnteredBottom;
+        RoomTrigger.OnTriggerEntered -= playerEnteredRoom;
+        RoomTrigger.OnTriggerExited -= playerExitedRoom;
     }
-    void playerEnteredTop(object sender, EventArgsTriggererInfo args)
+    void playerEnteredRoom(object sender, EventArgsTriggererInfo args)
     {
-        topTrigger.gameObject.SetActive(false);
-        bottomTrigger.gameObject.SetActive(true);
-        FadeOut(bottomRoomSprites, BottomRoom);
-        FadeIn(topRoomSprites, TopRoom);
-        DoorForegrounder.CallTurnBlack();
-    }
-    void playerEnteredBottom(object sender, EventArgsTriggererInfo args)
-    {
-        topTrigger.gameObject.SetActive(true);
-        bottomTrigger.gameObject.SetActive(false);
-        FadeOut(topRoomSprites, TopRoom);
-        FadeIn(bottomRoomSprites, BottomRoom);
+        FadeIn(RoomSpritesArray);
         DoorForegrounder.CallTurnColor();
     }
-
-    void FadeOut(SpriteRenderer[] sprites, GameObject Room)
+    void playerExitedRoom(object sender, EventArgsTriggererInfo args)
+    {
+        FadeOut(RoomSpritesArray);
+        DoorForegrounder.CallTurnBlack();
+    }
+    void FadeOut(SpriteRenderer[] sprites)
     {
         foreach (SpriteRenderer sprite in sprites)
         {
-            StartCoroutine(FadeOutSprite(sprite,Room));
+            StartCoroutine(FadeOutSprite(sprite));
         }
     }
-    IEnumerator FadeOutSprite(SpriteRenderer sprite, GameObject room)
+    IEnumerator FadeOutSprite(SpriteRenderer sprite)
     {
         float timer = 0;
         while(timer < TransitionTime)
@@ -78,18 +63,15 @@ public class Rooms_FadInOut : MonoBehaviour
             sprite.color = new Color (1,1,1,opacity);
             yield return null;
         }
-        //room.SetActive(false);
     }
-
-    void FadeIn(SpriteRenderer[] sprites, GameObject Room)
+    void FadeIn(SpriteRenderer[] sprites)
     {
-        //Room.SetActive(true);
         foreach (SpriteRenderer sprite in sprites)
         {
-            StartCoroutine(FadeInSprites(sprite, Room));
+            StartCoroutine(FadeInSprite(sprite));
         }
     }
-    IEnumerator FadeInSprites(SpriteRenderer sprite, GameObject room)
+    IEnumerator FadeInSprite(SpriteRenderer sprite)
     {
         float timer = 0;
         while (timer < TransitionTime)
