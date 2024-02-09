@@ -13,6 +13,7 @@ public class Enemy_GenericStateMachine : MonoBehaviour
 
     [SerializeField] Enemy_AgrooDetection agrooDetection;
     [SerializeField] Generic_OnTriggerEnterEvents agrooDetectionTrigger;
+    [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
     [SerializeField] Enemy_EventSystem eventSystem;
     public enum States
     {
@@ -27,35 +28,44 @@ public class Enemy_GenericStateMachine : MonoBehaviour
     private void OnEnable()
     {
         agrooDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
         agrooDetectionTrigger.OnTriggerEntered += OnAgrooState;
-        agrooDetectionTrigger.OnTriggerExited += OnIdleState;
+        outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
         //agrooDetection.OnPlayerDetected += OnAgrooState;
         //agrooDetection.OnPlayerExited += OnIdleState;
     }
     private void OnDisable()
     {
+        agrooDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
         agrooDetectionTrigger.OnTriggerEntered -= OnAgrooState;
-        agrooDetectionTrigger.OnTriggerExited -= OnIdleState;
+        outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
         //agrooDetection.OnPlayerDetected -= OnAgrooState;
         //agrooDetection.OnPlayerExited -= OnIdleState;
     }
 
     void OnIdleState(object sender, EventArgsTriggererInfo args)
     {
-        if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
-        agrooMovement.enabled = false;
-        attackProvider.enabled = false;
+        if (CurrentState != States.Idle)
+        {
+            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
+            agrooMovement.enabled = false;
+            attackProvider.enabled = false;
 
-        idleMovement.enabled = true;
-        CurrentState = States.Idle;
+            idleMovement.enabled = true;
+            CurrentState = States.Idle;
+        } 
     }
     void OnAgrooState(object sender, EventArgsTriggererInfo args)
     {
-        if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
-        agrooMovement.enabled = true;
-        attackProvider.enabled = true;
+        if(CurrentState != States.Agroo)
+        {
+            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
+            agrooMovement.enabled = true;
+            attackProvider.enabled = true;
 
-        idleMovement.enabled = false;
-        CurrentState = States.Agroo;
+            idleMovement.enabled = false;
+            CurrentState = States.Agroo;
+        }
     }
 }
