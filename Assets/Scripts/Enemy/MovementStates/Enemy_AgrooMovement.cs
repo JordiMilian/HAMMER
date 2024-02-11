@@ -33,7 +33,11 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     private void OnDisable()
     {
-        
+        EndAgroo();
+    }
+    void EndAgroo()
+    {
+        destinationSetter.target = null;
     }
     void StartAgroo()
     {

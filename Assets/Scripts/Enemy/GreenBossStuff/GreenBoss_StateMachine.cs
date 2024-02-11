@@ -10,14 +10,15 @@ public class GreenBoss_StateMachine : MonoBehaviour
 
     public enum StatesGreenBoss
     {
-        Idle, Fase01, Fase02, Transitioning,
+        Idle, Fase01, Fase02, Transitioning, Start,
     }
     [SerializeField] Enemy_IdleMovement idleMovement;
     [SerializeField] Enemy_AgrooMovement agrooMovement;
     [SerializeField] Enemy_AttacksProviderV2 Fase01_provider;
     [SerializeField] Enemy_AttacksProviderV2 Fase02_provider;
 
-    [SerializeField] Generic_OnTriggerEnterEvents agrooDetectionTrigger;
+    [SerializeField] Generic_OnTriggerEnterEvents inRangeDetectionTrigger;
+    [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
     
     [SerializeField] GreenBoss_EventSystem eventSystem;
     [SerializeField] Animator greenBossAnimator;
@@ -27,21 +28,23 @@ public class GreenBoss_StateMachine : MonoBehaviour
     public StatesGreenBoss CurrentState = StatesGreenBoss.Idle;
     private void Start()
     {
-        if (CurrentState == StatesGreenBoss.Idle) { OnIdleState(this, new EventArgsTriggererInfo("null", new Collider2D())); }
-        if (CurrentState == StatesGreenBoss.Fase01 || CurrentState == StatesGreenBoss.Fase02) { CheckHealthForState(this, EventArgs.Empty); }
+         OnIdleState(this, new EventArgsTriggererInfo("null", new Collider2D())); 
     }
     private void OnEnable()
     {
-        agrooDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
-        agrooDetectionTrigger.OnTriggerEntered += OnAgrooState;
+        inRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.OnTriggerEntered += OnAgrooState;
         eventSystem.OnUpdatedHealth += CheckHealthForState;
-        agrooDetectionTrigger.OnTriggerExited += OnIdleState;
+        outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
     }
     private void OnDisable()
     {
-        agrooDetectionTrigger.OnTriggerEntered -= OnAgrooState;
+        inRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.OnTriggerEntered -= OnAgrooState;
         eventSystem.OnUpdatedHealth -= CheckHealthForState;
-        agrooDetectionTrigger.OnTriggerExited -= OnIdleState;
+        outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
     }
 
     
@@ -70,18 +73,25 @@ public class GreenBoss_StateMachine : MonoBehaviour
     }
     void OnIdleState(object sender, EventArgsTriggererInfo args)
     {
-        if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
-        Fase01_provider.isProviding = false;
-        Fase02_provider.isProviding = false;
-        agrooMovement.enabled = false;
+        if(CurrentState != StatesGreenBoss.Idle)
+        {
+            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
+            Fase01_provider.isProviding = false;
+            Fase02_provider.isProviding = false;
+            agrooMovement.enabled = false;
 
-        idleMovement.enabled = true;
-        CurrentState = StatesGreenBoss.Idle;
+            idleMovement.enabled = true;
+            CurrentState = StatesGreenBoss.Idle;
+        }
+        
     }
     void OnAgrooState(object sender, EventArgsTriggererInfo args)
     {
-        if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
-        CheckHealthForState(this, EventArgs.Empty);
+        if(CurrentState != StatesGreenBoss.Fase01 && CurrentState != StatesGreenBoss.Fase02 && CurrentState != StatesGreenBoss.Transitioning)
+        {
+            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
+            CheckHealthForState(this, EventArgs.Empty);
+        }
     }
     void OnFase01State()
     {

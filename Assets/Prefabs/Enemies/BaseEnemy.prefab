@@ -106,7 +106,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7043884e9fa7838409e350ed77d13f81, type: 3}
   m_Name: 
@@ -430,11 +430,10 @@ MonoBehaviour:
   idleMovement: {fileID: 1484837429054597437}
   agrooMovement: {fileID: 2829660713819239201}
   attackProvider: {fileID: 9036491661720074360}
-  agrooDetection: {fileID: 4982409665230710257}
-  agrooDetectionTrigger: {fileID: 8290111105923011726}
+  inRangeDetectionTrigger: {fileID: 0}
   outOfRangeDetectionTrigger: {fileID: 6476646031714194823}
   eventSystem: {fileID: 627058440868749388}
-  CurrentState: 0
+  CurrentState: 2
 --- !u!114 &627058440868749388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,7 +554,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4617263032900962171}
   - component: {fileID: 7298081609623427543}
-  - component: {fileID: 4982409665230710257}
   - component: {fileID: 8290111105923011726}
   m_Layer: 0
   m_Name: IsAgrooCollider
@@ -592,21 +590,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.95}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.551291
---- !u!114 &4982409665230710257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1280522450137198729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d49f70ef202c80448e058f4d3ca1a01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 2.5942507
 --- !u!114 &8290111105923011726
 MonoBehaviour:
   m_ObjectHideFlags: 0

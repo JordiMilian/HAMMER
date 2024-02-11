@@ -26,14 +26,15 @@ public class Enemy_IdleMovement : MonoBehaviour
     private void OnEnable()
     {
         IsEnabled = true;
+        //Set a new Roaming center Vector at enemy position
         RoaminCenterVector = transform.position;
+        //Set the destionation GO at the center too
         DestinationGO = Instantiate(new GameObject(),transform.position,Quaternion.identity);
+        
         destinationSetter.target = DestinationGO.transform;
 
         aiPath.maxSpeed = WalkingSpeed;
         DecideWalk();
-
-
     }
     private void OnDisable()
     {
@@ -61,12 +62,13 @@ public class Enemy_IdleMovement : MonoBehaviour
             DestinationGO.transform.position = newDestination;
             destinationSetter.target = DestinationGO.transform;
 
-            EnemyAnimator.SetBool("Walking", true);
+            if (HasParameter("Walking", EnemyAnimator)) { EnemyAnimator.SetBool("Walking", true); }
+            
             spriteFliper.FocusVector = newDestination;
         }
         else  
-        { 
-            EnemyAnimator.SetBool("Walking", false);
+        {
+            if (HasParameter("Walking", EnemyAnimator)) EnemyAnimator.SetBool("Walking", false);
         }
     }
     private void OnDrawGizmos()
@@ -79,10 +81,18 @@ public class Enemy_IdleMovement : MonoBehaviour
         }
         else
         {
-            Gizmos.color = new Color(1, 1, 1, 0.3f);
+            Gizmos.color = new Color(1, 0, 0, 0.3f);
             GizmoCenter = transform.position;
         }
         Gizmos.DrawWireSphere(GizmoCenter, RoamingRadios);
     }
-
+    //Method here just to check if the animator has a parameter because Unity doesnt have that option
+    public static bool HasParameter(string paramName, Animator animator)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName) return true;
+        }
+        return false;
+    }
 }

@@ -5,40 +5,38 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Generic_OnTriggerEnterEvents;
 
-public class Enemy_GenericStateMachine : MonoBehaviour
+public class Enemy_StateMachine : MonoBehaviour
 {
     [SerializeField] Enemy_IdleMovement idleMovement;
     [SerializeField] Enemy_AgrooMovement agrooMovement;
     [SerializeField] Enemy_AttacksProviderV2 attackProvider;
 
-    [SerializeField] Enemy_AgrooDetection agrooDetection;
-    [SerializeField] Generic_OnTriggerEnterEvents agrooDetectionTrigger;
+    [SerializeField] Generic_OnTriggerEnterEvents inRangeDetectionTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
     [SerializeField] Enemy_EventSystem eventSystem;
     public enum States
     {
-        Idle, Agroo
+        Idle, Agroo, Start
     }
     public States CurrentState = States.Idle;
     private void Start()
     {
-        if (CurrentState == States.Idle) { OnIdleState(this, new EventArgsTriggererInfo("null", new Collider2D())); }
-        if (CurrentState == States.Agroo) { OnAgrooState(this, new EventArgsTriggererInfo("null", new Collider2D())); }
+        OnIdleState(this, new EventArgsTriggererInfo("null", new Collider2D())); 
     }
     private void OnEnable()
     {
-        agrooDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
         outOfRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
-        agrooDetectionTrigger.OnTriggerEntered += OnAgrooState;
+        inRangeDetectionTrigger.OnTriggerEntered += OnAgrooState;
         outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
         //agrooDetection.OnPlayerDetected += OnAgrooState;
         //agrooDetection.OnPlayerExited += OnIdleState;
     }
     private void OnDisable()
     {
-        agrooDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
         outOfRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
-        agrooDetectionTrigger.OnTriggerEntered -= OnAgrooState;
+        inRangeDetectionTrigger.OnTriggerEntered -= OnAgrooState;
         outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
         //agrooDetection.OnPlayerDetected -= OnAgrooState;
         //agrooDetection.OnPlayerExited -= OnIdleState;
