@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
 {
-    [SerializeField] GreenBoss_ProjectileThrower thrower;
-
+    [SerializeField] GameObject ProjectilePrefab;
+    [SerializeField] GameObject EmptyProjectilePrefab;
+    [SerializeField] GameObject DestinationPrefab;
+    [SerializeField] GameObject BigDestinationPrefab;
+    [SerializeField] Transform ThrowingOrigin;
 
     [Header("Polygon Throw")]
     [SerializeField] int pointsAround;
@@ -30,6 +34,18 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     float angleToPlayerRad;
     float distanceToPlayer;
 
+    void ThrowProjectile(Vector2 destination)
+    {
+        GameObject Instantiated_DestinationUI = Instantiate(DestinationPrefab, destination, Quaternion.identity);
+        GameObject InstantiatedProjectile = Instantiate(ProjectilePrefab, ThrowingOrigin.position, Quaternion.identity);
+        InstantiatedProjectile.GetComponent<GreenBoss_ProjectileLogic>().ThrowItself(Instantiated_DestinationUI, ThrowingOrigin.position, destination);
+    }
+    void TransitionThrow(Vector2 destination)
+    {
+        GameObject Instantiated_DestinationUI = Instantiate(BigDestinationPrefab, destination, Quaternion.identity);
+        GameObject InstantiatedProjectile = Instantiate(EmptyProjectilePrefab, ThrowingOrigin.position, Quaternion.identity);
+        InstantiatedProjectile.GetComponent<GreenBoss_ProjectileLogic>().ThrowItself(Instantiated_DestinationUI, ThrowingOrigin.position, destination);
+    }
     private void UpdateVectorData ()
     {
          originPosition = transform.position;
@@ -52,7 +68,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         {
             float divider = (1.0f / pointsAround) * i;
             Vector2 direction = angleToVector((divider + OffsetRot)*(Mathf.PI*2));
-            thrower.GreenBoss_ThrowProjectile(originPosition + (direction * distanceToPlayer));
+            ThrowProjectile(originPosition + (direction * distanceToPlayer));
             yield return new WaitForSeconds(delayBetweenThrows_polygon);
         }
         pointsAround = BasePointAround;
@@ -69,7 +85,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         {
             float divider = (1.0f / pointsAround) * i;
             Vector2 direction = angleToVector((divider + OffsetRot) * (Mathf.PI * 2));
-            thrower.GreenBoss_ThrowProjectile(originPosition + (direction * distanceToPlayer));
+            ThrowProjectile(originPosition + (direction * distanceToPlayer));
             yield return new WaitForSeconds(delayBetweenThrows_polygon);
         }
         StartCoroutine(SinglePolygonThrow());
@@ -86,7 +102,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
                 Vector2 playerDirectionInLocal = playerPositionInLocal.normalized;
                 playerPositionTemporal = originPosition + (playerDirectionInLocal * maxDistance_burst);
             }
-            thrower.GreenBoss_ThrowProjectile(playerPositionTemporal);
+            ThrowProjectile(playerPositionTemporal);
             yield return new WaitForSeconds(delayBetweenThrows_burst);
         }
     }
@@ -103,9 +119,15 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
                 playerPositionTemporal = originPosition + (playerDirectionInLocal * maxDistance_burst);
             }
             Vector2 randomPositionAroundPlayer = (Random.insideUnitCircle * Radius) + playerPositionTemporal;
-            thrower.GreenBoss_ThrowProjectile(randomPositionAroundPlayer);
+            ThrowProjectile(randomPositionAroundPlayer);
             yield return new WaitForSeconds(delayBetweenThrows_around);
         }
+    }
+    public void TransitionBurst()
+    {
+        Vector2 origin = gameObject.transform.position;
+        TransitionThrow(origin);
+
     }
     Vector2 angleToVector(float angleRad)
     {

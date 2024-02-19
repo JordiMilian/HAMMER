@@ -619,7 +619,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1075626917648776945}
-  - component: {fileID: 1937304806052182506}
   m_Layer: 0
   m_Name: ThrowingHandPivot
   m_TagString: Untagged
@@ -643,23 +642,6 @@ Transform:
   m_Father: {fileID: 7733968425091312865}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1937304806052182506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3529043132911198150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836624b2ee15a7c47aaa6a3655420088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 7643844695948250389, guid: c584f31517d316f49a81aaf302a5ecf1, type: 3}
-  DestinationPrefab: {fileID: 1449027988912000722, guid: 14d63b14ed9d78643ac0095847deb9e8, type: 3}
-  Destination: {fileID: 0}
-  Origin: {fileID: 1706269059841302215}
-  ProjectileClip: {fileID: 7400000, guid: 01a538d480e08c34c897d26e2da885d9, type: 2}
 --- !u!1 &4187834438921102593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,7 +1992,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37902624334ad74b96341a5ced54e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrower: {fileID: 1937304806052182506}
+  ProjectilePrefab: {fileID: 7643844695948250389, guid: c584f31517d316f49a81aaf302a5ecf1, type: 3}
+  EmptyProjectilePrefab: {fileID: 6862789234184973505, guid: 6855aa37ae589b047a9911162193044b, type: 3}
+  DestinationPrefab: {fileID: 1449027988912000722, guid: 14d63b14ed9d78643ac0095847deb9e8, type: 3}
+  BigDestinationPrefab: {fileID: 9050276905064435868, guid: bb0df4f092d98a241bcb4e72cf0dc95e, type: 3}
+  ThrowingOrigin: {fileID: 1706269059841302215}
   pointsAround: 8
   minimDistance: 1.5
   delayBetweenThrows_polygon: 0.06
