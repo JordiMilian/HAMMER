@@ -26,7 +26,7 @@ public class Player_StateMachine : MonoBehaviour
     {
         eventSystem.OnDeath -= DisableInput;
     }
-    void DisableInput(object sender, EventArgs args)
+    void DisableInput()
     {
         movement.enabled = false;
         followMouse.enabled = false;

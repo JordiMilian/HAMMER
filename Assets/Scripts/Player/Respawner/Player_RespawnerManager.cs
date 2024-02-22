@@ -32,11 +32,11 @@ public class Player_RespawnerManager : MonoBehaviour
     }
     public void RespawnPlayer(object sender, EventArgs args)
     {
-        CheckFurthestRespawner(this, EventArgs.Empty);
+        CheckFurthestRespawner();
         CurrentFurthestRespawner.RespawnFromHere(PlayerGO);
         playerHealth.RestoreAllHealth();
     }
-    void CheckFurthestRespawner(object sender, EventArgs args)
+    void CheckFurthestRespawner()
     {
         CurrentFurthestRespawner = FindFurthestActiveRespawner();
     }

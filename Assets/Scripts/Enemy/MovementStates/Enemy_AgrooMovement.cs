@@ -29,10 +29,12 @@ public class Enemy_AgrooMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        eventSystem.OnGettingParried += EV_ReturnAllSpeed;
         StartAgroo();
     }
     private void OnDisable()
     {
+        eventSystem.OnGettingParried -= EV_ReturnAllSpeed;
         EndAgroo();
     }
     void EndAgroo()

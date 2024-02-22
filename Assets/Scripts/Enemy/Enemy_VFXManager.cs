@@ -8,6 +8,7 @@ public class Enemy_VFXManager : MonoBehaviour
     [SerializeField] GameObject StanceBrokenVFX;
     [SerializeField] TrailRenderer trailRenderer;
     [SerializeField] Enemy_EventSystem eventSystem;
+    
     private void OnEnable()
     {
         eventSystem.OnStanceBroken += InstantiateStanceBrokenVFX;
@@ -16,7 +17,7 @@ public class Enemy_VFXManager : MonoBehaviour
     {
         eventSystem.OnStanceBroken -= InstantiateStanceBrokenVFX;
     }
-    void InstantiateStanceBrokenVFX(object sender, EventArgs args)
+    void InstantiateStanceBrokenVFX()
     {
         Instantiate(StanceBrokenVFX,transform.position,Quaternion.identity);
     }

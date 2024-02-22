@@ -27,7 +27,7 @@ public class Rooms_FadInOut : MonoBehaviour
     }
     private void OnEnable()
     {
-        RoomTrigger.ActivatorTags.Add("Player_SinglePointCollider");
+        RoomTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         RoomTrigger.OnTriggerEntered += playerEnteredRoom;
         RoomTrigger.OnTriggerExited += playerExitedRoom;
     }
@@ -36,12 +36,12 @@ public class Rooms_FadInOut : MonoBehaviour
         RoomTrigger.OnTriggerEntered -= playerEnteredRoom;
         RoomTrigger.OnTriggerExited -= playerExitedRoom;
     }
-    void playerEnteredRoom(object sender, EventArgsTriggererInfo args)
+    void playerEnteredRoom(object sender, EventArgsCollisionInfo args)
     {
         FadeIn(RoomSpritesArray);
         DoorForegrounder.CallTurnColor();
     }
-    void playerExitedRoom(object sender, EventArgsTriggererInfo args)
+    void playerExitedRoom(object sender, EventArgsCollisionInfo args)
     {
         FadeOut(RoomSpritesArray);
         DoorForegrounder.CallTurnBlack();

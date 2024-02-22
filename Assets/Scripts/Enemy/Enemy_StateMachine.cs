@@ -21,12 +21,12 @@ public class Enemy_StateMachine : MonoBehaviour
     public States CurrentState = States.Idle;
     private void Start()
     {
-        OnIdleState(this, new EventArgsTriggererInfo("null", new Collider2D())); 
+        OnIdleState(this, new EventArgsCollisionInfo( new Collider2D())); 
     }
     private void OnEnable()
     {
-        inRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
-        outOfRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += OnAgrooState;
         outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
         //agrooDetection.OnPlayerDetected += OnAgrooState;
@@ -34,19 +34,17 @@ public class Enemy_StateMachine : MonoBehaviour
     }
     private void OnDisable()
     {
-        inRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
-        outOfRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered -= OnAgrooState;
         outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
         //agrooDetection.OnPlayerDetected -= OnAgrooState;
         //agrooDetection.OnPlayerExited -= OnIdleState;
     }
 
-    void OnIdleState(object sender, EventArgsTriggererInfo args)
+    void OnIdleState(object sender, EventArgsCollisionInfo args)
     {
         if (CurrentState != States.Idle)
         {
-            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
+            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange();
             agrooMovement.enabled = false;
             attackProvider.enabled = false;
 
@@ -54,11 +52,11 @@ public class Enemy_StateMachine : MonoBehaviour
             CurrentState = States.Idle;
         } 
     }
-    void OnAgrooState(object sender, EventArgsTriggererInfo args)
+    void OnAgrooState(object sender, EventArgsCollisionInfo args)
     {
         if(CurrentState != States.Agroo)
         {
-            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
+            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer();
             agrooMovement.enabled = true;
             attackProvider.enabled = true;
 

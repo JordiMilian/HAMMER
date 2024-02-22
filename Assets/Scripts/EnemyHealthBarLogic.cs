@@ -12,7 +12,7 @@ public class EnemyHealthBarLogic : MonoBehaviour
     {
         eventSystem.OnUpdatedHealth += UpdateSize;
     }
-    void UpdateSize(object sender, EventArgs args)
+    void UpdateSize()
     {
         float newSize = Mathf.InverseLerp(0, healthSystem.MaxHealth, healthSystem.CurrentHealth);
         HealthBarSize1.localScale = new Vector3(newSize, 1, 1);

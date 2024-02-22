@@ -23,12 +23,12 @@ public class Dialoguer : MonoBehaviour
     public float timer;
     private void OnEnable()
     {
-        PlayerCloseTrigger.ActivatorTags.Add("Player_SinglePointCollider");
+        PlayerCloseTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
 
-        Position01_Collider.ActivatorTags.Add("Player");
-        Position02_Collider.ActivatorTags.Add("Player");
+        Position01_Collider.AddActivatorTag("Player");
+        Position02_Collider.AddActivatorTag("Player");
         Position01_Collider.OnTriggerEntered += SwitchPosition01;
         Position02_Collider.OnTriggerEntered += SwitchPosition02;
     }
@@ -62,12 +62,12 @@ public class Dialoguer : MonoBehaviour
         MeshPro01.text = TextLines[CurrentLineToRead];
         MeshPro02.text = TextLines[CurrentLineToRead];
     }
-    void SwitchPosition01(object sender, EventArgsTriggererInfo args)
+    void SwitchPosition01(object sender, EventArgsCollisionInfo args)
     {
         Position01.SetActive(false);
         Position02.SetActive(true);
     }
-    void SwitchPosition02(object sender, EventArgsTriggererInfo args)
+    void SwitchPosition02(object sender, EventArgsCollisionInfo args)
     {
         Position01.SetActive(true);
         Position02.SetActive(false);
@@ -99,7 +99,7 @@ public class Dialoguer : MonoBehaviour
     {
         CurrentLineToRead = 0;
     }
-    void PlayerEnterDialogue(object sender, EventArgsTriggererInfo args)
+    void PlayerEnterDialogue(object sender, EventArgsCollisionInfo args)
     {
         playerIsInside = true;
         CheckIfOutOfRange();
@@ -109,7 +109,7 @@ public class Dialoguer : MonoBehaviour
         AddDialoguerToTargetGroup();
   
     }
-    void PlayerExitedDialogue(object sender, EventArgsTriggererInfo args)
+    void PlayerExitedDialogue(object sender, EventArgsCollisionInfo args)
     {
         playerIsInside = false;
         ResetDelay();

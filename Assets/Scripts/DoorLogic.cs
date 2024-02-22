@@ -44,9 +44,9 @@ public class DoorLogic : MonoBehaviour
     [SerializeField] List<RespawnPoint> respawnPoints;
     private void OnEnable()
     {
-        LoadTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        LoadTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
-        ReopenDoorTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        ReopenDoorTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         ReopenDoorTrigger.OnTriggerEntered += ReopenDoor;
     }
     private void OnDisable()
@@ -69,7 +69,7 @@ public class DoorLogic : MonoBehaviour
             AssignEnemyInfo(point, point.CurrentlySpawnedEnemy);
         }  
     }
-    void EnemyDied(object sender, EventArgs args)
+    void EnemyDied()
     {
         EnemiesAlive--;
         AreCorrectlySpawned = false;
@@ -85,11 +85,11 @@ public class DoorLogic : MonoBehaviour
         ReopenDoorTrigger.enabled = true;
     }
     //Called if a player respawns behind a closed door
-    void ReopenDoor(object sender, EventArgsTriggererInfo args)
+    void ReopenDoor(object sender, EventArgsCollisionInfo args)
     {
         doorAnimations.OpenDoor();
     }
-    public void RespawnEnemies(object sender, EventArgsTriggererInfo triggereInfo)
+    void RespawnEnemies(object sender, EventArgsCollisionInfo triggereInfo)
     {
         if (AreCorrectlySpawned) return;
         if (isRoomCompleted) return;

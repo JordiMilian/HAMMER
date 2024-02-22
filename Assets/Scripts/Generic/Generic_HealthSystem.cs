@@ -38,7 +38,7 @@ public class Generic_HealthSystem : MonoBehaviour
         {
             CurrentHealth = MaxHealth;
         }
-        if (eventSystem.OnUpdatedHealth != null) eventSystem.OnUpdatedHealth(this, EventArgs.Empty);
+        if (eventSystem.OnUpdatedHealth != null) eventSystem.OnUpdatedHealth();
     }
     public void RestoreAllHealth()
     {
@@ -46,7 +46,7 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public virtual void Death()
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, EventArgs.Empty);
+        if (eventSystem.OnDeath != null) eventSystem.OnDeath();
         Destroy(gameObject);
     }
 }

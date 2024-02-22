@@ -83,8 +83,6 @@ public class CameraZoomer : MonoBehaviour
                 currentCoroutine = StartCoroutine(ChangeZoomSmoothly(Latest));
             }
         }
-           
-        
     }
     IEnumerator ChangeZoomSmoothly(ZoomInfo info)
     {

@@ -44,7 +44,7 @@ public class Enemy01 : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         enemyMovement.EV_ReturnAllSpeed();
     }
-    public void GettingParried(object sender, EventArgs args)
+    public void GettingParried()
     {
         EnemyAnimator.SetBool("HitShield", true);
         WeaponCollider.enabled = false;

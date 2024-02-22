@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TagsCollection : MonoBehaviour
 {
+    public string MainCharacter = "MainCharacter";
     public string Player = "Player";
     public string ParryCollider = "ParryCollider";
     public string Player_SinglePointCollider = "Player_SinglePointCollider";

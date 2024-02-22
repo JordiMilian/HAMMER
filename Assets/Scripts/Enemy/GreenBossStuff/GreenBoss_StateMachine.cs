@@ -28,27 +28,26 @@ public class GreenBoss_StateMachine : MonoBehaviour
     public StatesGreenBoss CurrentState = StatesGreenBoss.Idle;
     private void Start()
     {
-         OnIdleState(this, new EventArgsTriggererInfo("null", new Collider2D())); 
+         OnIdleState(this, new EventArgsCollisionInfo( new Collider2D())); 
     }
     private void OnEnable()
     {
-        inRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
-        outOfRangeDetectionTrigger.ActivatorTags.Add(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += OnAgrooState;
         eventSystem.OnUpdatedHealth += CheckHealthForState;
         outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
     }
     private void OnDisable()
     {
-        inRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
-        outOfRangeDetectionTrigger.ActivatorTags.Remove(TagsCollection.Instance.Player_SinglePointCollider);
+
         inRangeDetectionTrigger.OnTriggerEntered -= OnAgrooState;
         eventSystem.OnUpdatedHealth -= CheckHealthForState;
         outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
     }
 
     
-    void CheckHealthForState(object sender, EventArgs args)
+    void CheckHealthForState()
     {
         switch(CurrentState)
         {
@@ -71,11 +70,11 @@ public class GreenBoss_StateMachine : MonoBehaviour
                 break;
         }
     }
-    void OnIdleState(object sender, EventArgsTriggererInfo args)
+    void OnIdleState(object sender, EventArgsCollisionInfo args)
     {
         if(CurrentState != StatesGreenBoss.Idle)
         {
-            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange(this, EventArgs.Empty);
+            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange();
             Fase01_provider.isProviding = false;
             Fase02_provider.isProviding = false;
             agrooMovement.enabled = false;
@@ -85,12 +84,12 @@ public class GreenBoss_StateMachine : MonoBehaviour
         }
         
     }
-    void OnAgrooState(object sender, EventArgsTriggererInfo args)
+    void OnAgrooState(object sender, EventArgsCollisionInfo args)
     {
         if(CurrentState != StatesGreenBoss.Fase01 && CurrentState != StatesGreenBoss.Fase02 && CurrentState != StatesGreenBoss.Transitioning)
         {
-            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer(this, EventArgs.Empty);
-            CheckHealthForState(this, EventArgs.Empty);
+            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer();
+            CheckHealthForState();
         }
     }
     void OnFase01State()

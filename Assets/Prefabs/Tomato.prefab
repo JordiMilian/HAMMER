@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 4913488667967402734}
   - component: {fileID: 357336250654337494}
   - component: {fileID: 5090956164222556862}
+  - component: {fileID: 8366119200067517946}
+  - component: {fileID: 948045873150275019}
+  - component: {fileID: 2597198481550913573}
   m_Layer: 0
   m_Name: Shadow_Sprite
   m_TagString: Static_Attack_hitbox
@@ -73,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1215504865
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1fb20bf93ad64234fb28080aea4edb37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -129,6 +132,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5877b6f533e5f7d40a948b8817d20db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8366119200067517946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913488667967402732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
+--- !u!114 &948045873150275019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913488667967402732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  Knockback: 10
+  HitStop: 0.05
+  isParryable: 0
+  EntityTeam: 1
+  typeOfDamage: 1
+  eventSystem: {fileID: 2597198481550913573}
+--- !u!114 &2597198481550913573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4913488667967402732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4913488668605361868
@@ -368,8 +415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd7d777e227ac345877dadf19783f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArrowSprite: {fileID: 4913488669197809254}
   SplashPrefab: {fileID: 3504560690000877255, guid: 3f5405163176bc642bfd7d6d329e3a12, type: 3}
+  TomatoTrigger: {fileID: 8366119200067517946}
 --- !u!95 &4913488669327700545
 Animator:
   serializedVersion: 4

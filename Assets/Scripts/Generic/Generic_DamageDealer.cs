@@ -59,7 +59,7 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishGettingParriedEvent()
     {
-        if (eventSystem.OnGettingParried != null) eventSystem.OnGettingParried(this, EventArgs.Empty);
+        if (eventSystem.OnGettingParried != null) eventSystem.OnGettingParried();
     }
    
 }

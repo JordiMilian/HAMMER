@@ -6,9 +6,10 @@ using UnityEngine.VFX;
 
 public class Player_Movement : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
-    Animator player_Animator;
-    Player_ComboSystem comboSystem;
+    [SerializeField] Rigidbody2D rigidbody;
+    [SerializeField] Animator player_Animator;
+    //Player_ComboSystem comboSystem;
+    [SerializeField] Player_ComboSystem_chargeless comboSystem;
 
     [Header("BASE MOVEMENT")]
     public float CurrentSpeed;
@@ -39,7 +40,7 @@ public class Player_Movement : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         player_Animator = GetComponent<Animator>();
-        comboSystem = GetComponent<Player_ComboSystem>();
+        
         CurrentSpeed = BaseSpeed;
     }
 
@@ -127,7 +128,7 @@ public class Player_Movement : MonoBehaviour
         canDash = false;
         comboSystem.canAttack = false;
         isDashing = true;
-        comboSystem.isCurrentAttackCanceled = true;
+       //comboSystem.isCurrentAttackCanceled = true;
         if(eventSystem.OnPerformRoll != null) eventSystem.OnPerformRoll(this, EventArgs.Empty);
         player_Animator.SetTrigger("Roll");
 

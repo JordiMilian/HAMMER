@@ -19,7 +19,6 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [SerializeField] Transform MouseFocusTransform;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] CinemachineTargetGroup cinemachineTarget;
-    [SerializeField] CinemachineVirtualCamera virtualCamera;
     [SerializeField] Player_EventSystem eventSystem;
 
 
@@ -34,6 +33,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     {
         MouseFocusTransform = GameObject.Find("MouseCameraTarget").transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
+        zoomer = GameObject.Find("CM vcam1").GetComponent<CameraZoomer>();
     }
     private void OnEnable()
     {
@@ -110,7 +110,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
-    void callOnLookatMouse(object sender, EventArgs args)
+    void callOnLookatMouse()
     {
         if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
         if (IsFocusingEnemy)

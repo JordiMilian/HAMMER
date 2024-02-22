@@ -15,7 +15,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     [SerializeField] Generic_Stats stats;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
-    [SerializeField] TrailRenderer trailrendered;
     [SerializeField] Enemy_EventSystem eventSystem;
     Coroutine CurrentWaiting;
 
@@ -186,7 +185,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             }
         }
     }
-    void OnCancelAttack(object sender, EventArgs args)
+    void OnCancelAttack()
     {
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); Debug.Log("Waiting stopped"); } 
         StartCoroutine(WaitForCurrentAnimation());

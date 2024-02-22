@@ -30,9 +30,9 @@ public class Generic_EventSystem : MonoBehaviour
         }
     }
 
-    public EventHandler OnDeath;
-    public EventHandler OnUpdatedHealth;
+    public Action OnDeath;
+    public Action OnUpdatedHealth;
     public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
-    public EventHandler OnGettingParried;
+    public Action OnGettingParried;
 }

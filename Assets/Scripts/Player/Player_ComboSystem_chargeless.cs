@@ -10,11 +10,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
     //string Attack01_Charging = "Attack01_Charging";
     //string Attack02_Charging = "Attack02_Charging";
-    string Attack01_Release = "Attack01";
-    string Attack02_Release = "Attack02";
+    string AttacksCountTag = "AttacksCount";
    
-    public enum NextAttack { NextAttack01, NextAttack02,}
-    public NextAttack nextAttack = NextAttack.NextAttack01;
 
     [SerializeField] Animator animator;
     [SerializeField] Player_Movement playerMovement;
@@ -23,16 +20,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Generic_Stats stats;
 
-    //public bool isCurrentAttackCanceled;
     public bool canAttack;
-
-    /*
-    [Header("CHARGING")]
-    bool isCharging;
-    float MaxDamage;
-    float DamageAdded;
-    float Adder;
-    */
+    public int attacksCount;
 
     void Start()
     {
@@ -61,25 +50,15 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     void SetReleaseTriggers()
     {
         playerMovement.canDash = false;
-        switch (nextAttack)
-        {
-            case NextAttack.NextAttack01:
-                if (!animator.GetBool(Attack01_Release))
-                {
-                    animator.SetTrigger(Attack01_Release);
-                    nextAttack = NextAttack.NextAttack02;
-                }
-                break;
-
-            case NextAttack.NextAttack02:
-                if (!animator.GetBool(Attack02_Release))
-                {
-                    animator.SetTrigger(Attack02_Release);
-                    nextAttack = NextAttack.NextAttack01;
-                }
-                break;
-        }
+        AddToCount(1);
         SetdamageDealer();
+    }
+    void AddToCount(int add)
+    {
+        attacksCount += add;
+        if(attacksCount > 3) { attacksCount = 3; }
+        if(attacksCount < 0) { attacksCount = 0; }
+        animator.SetInteger(AttacksCountTag,attacksCount);
     }
     IEnumerator WaitForCanAttackRelease()
     {
@@ -90,15 +69,9 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         SetReleaseTriggers();
     }
 
-
     void SetdamageDealer()
     {
         damageDealer.Damage = CurrentDamage * stats.DamageMultiplier;
-    }
-    
-    public void ComboOver()
-    {
-        nextAttack = NextAttack.NextAttack01;
     }
     public void CanAttack()
     {
@@ -110,6 +83,9 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     {
         playerRigidbody.AddForce(weaponDamageCollider.gameObject.transform.up * force);
     }
-
+    public void EV_RemoveCount()
+    {
+        AddToCount(-1);
+    }
 }
 

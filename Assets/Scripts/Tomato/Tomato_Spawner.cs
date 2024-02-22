@@ -4,36 +4,22 @@ using UnityEngine;
 
 public class Tomato_Spawner : MonoBehaviour
 {
-    public float TimeBetweenTomatoes;
-    float Timer;
-    public GameObject TomatoPrefab;
-    bool SpawnTomatoes;
-    public Transform TomatoFollowPlayer;
-    
-
-    void Start()
+    Transform Player;
+    [SerializeField] Transform TomatoHandTransform;
+    [SerializeField] GameObject TomatoPrefab;
+    void Awake()
     {
-        //TomatoFollowPlayer = GetComponentInChildren<Tomato_FollowPlayer>().gameObject.transform;
-        Timer = TimeBetweenTomatoes;
-        
-    }
-
-    
-    void Update()
-    {
-        if (SpawnTomatoes)
-        {
-            Timer = Timer - Time.deltaTime;
-            if (Timer <= 0)
-            {
-                SpawnTomato();
-                Timer = TimeBetweenTomatoes;
-            }
-        }
+        Player = GameObject.Find(TagsCollection.Instance.MainCharacter).transform;
     }
     public void SpawnTomato()
     {
-        var Tomato = Instantiate(TomatoPrefab,TomatoFollowPlayer.position,TomatoFollowPlayer.rotation);
+        //Get direction to Player and move the hand towards it
+        Vector3 PlayerPos = (Vector3)Player.position;
+        Vector3 DirectionToPlayer = PlayerPos - new Vector3(TomatoHandTransform.position.x, TomatoHandTransform.position.y);
+        TomatoHandTransform.up = Vector3.RotateTowards(TomatoHandTransform.up, DirectionToPlayer, 100 * Time.deltaTime, 10);
+
+        //Instantiante the tomato
+        var Tomato = Instantiate(TomatoPrefab, TomatoHandTransform.position, TomatoHandTransform.rotation);
     }
-    
+
 }
