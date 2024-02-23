@@ -14,7 +14,7 @@ public class EnemyHealthBarLogic : MonoBehaviour
     }
     void UpdateSize()
     {
-        float newSize = Mathf.InverseLerp(0, healthSystem.MaxHealth, healthSystem.CurrentHealth);
+        float newSize = Mathf.InverseLerp(0, healthSystem.MaxHP.Value, healthSystem.CurrentHP.Value);
         HealthBarSize1.localScale = new Vector3(newSize, 1, 1);
     }
 }

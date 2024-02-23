@@ -123,7 +123,7 @@ MonoBehaviour:
   destinationSetter: {fileID: 7657326149140149116}
   aiPath: {fileID: 8701185615965157963}
   spriteFliper: {fileID: 7619558403456288951}
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 627058440868749388}
 --- !u!114 &1484837429054597437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +158,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 0
   CurrentHealth: 1
+  MaxHP:
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 11400000, guid: f5fd80be052232346a6a0a516b3b8927, type: 2}
+  CurrentHP:
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 11400000, guid: db4fb3c9e2024f848873610e31056b69, type: 2}
   FillHealthOnStart: 1
   stats: {fileID: 3881809578619784559}
   eventSystem: {fileID: 627058440868749388}
@@ -262,7 +270,6 @@ MonoBehaviour:
     isInCooldown: 0
     HasCooldown: 0
     CooldownTime: 0
-  trailrendered: {fileID: 0}
   eventSystem: {fileID: 627058440868749388}
 --- !u!114 &39932132862467972
 MonoBehaviour:

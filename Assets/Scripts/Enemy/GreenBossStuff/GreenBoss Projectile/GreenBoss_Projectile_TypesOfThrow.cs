@@ -77,6 +77,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     {
         UpdateVectorData();
         float OffsetRot = angleToPlayerRad / (Mathf.PI * 2);
+        int BasePointAround = pointsAround;
         if (distanceToPlayer < minimDistance) { distanceToPlayer = minimDistance; pointsAround -= 2; }
         else if (distanceToPlayer > minimDistance * 2) pointsAround += 2;
         if (distanceToPlayer > maxDistance_polygon) distanceToPlayer = maxDistance_polygon;
@@ -88,6 +89,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
             ThrowProjectile(originPosition + (direction * distanceToPlayer));
             yield return new WaitForSeconds(delayBetweenThrows_polygon);
         }
+        pointsAround = BasePointAround;
         StartCoroutine(SinglePolygonThrow());
     }
     public IEnumerator BurstToPlayer(int throws)

@@ -7,15 +7,17 @@ using static Generic_EventSystem;
 
 public class Generic_HealthSystem : MonoBehaviour
 {
-    public float MaxHealth;
-    public float CurrentHealth;
+    //public float MaxHealth;
+    //public float CurrentHealth;
+    public FloatReference MaxHP;
+    public FloatReference CurrentHP;
     [SerializeField] bool FillHealthOnStart = true;
     [SerializeField] Generic_Stats stats;
     public Generic_EventSystem eventSystem;
 
     void Start()
     {
-        MaxHealth = stats.MaxHealth;
+        MaxHP.Value = stats.MaxHealth;
         if (FillHealthOnStart) { RestoreAllHealth(); }
     }
     private void OnEnable()
@@ -28,21 +30,21 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public void RemoveLife(object sender, EventArgs_ReceivedAttackInfo receivedAttackInfo)
     {
-        CurrentHealth -= receivedAttackInfo.Damage;
+        CurrentHP.Value -= receivedAttackInfo.Damage;
 
-        if (CurrentHealth <= 0)
+        if (CurrentHP.Value <= 0)
         {
             Death();
         }
-        if (CurrentHealth > MaxHealth)
+        if (CurrentHP.Value > MaxHP.Value)
         {
-            CurrentHealth = MaxHealth;
+            CurrentHP.Value = MaxHP.Value;
         }
         if (eventSystem.OnUpdatedHealth != null) eventSystem.OnUpdatedHealth();
     }
     public void RestoreAllHealth()
     {
-        CurrentHealth = MaxHealth;
+        CurrentHP.Value = MaxHP.Value;
     }
     public virtual void Death()
     {

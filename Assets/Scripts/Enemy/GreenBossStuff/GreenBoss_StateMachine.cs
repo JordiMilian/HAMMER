@@ -52,14 +52,14 @@ public class GreenBoss_StateMachine : MonoBehaviour
         switch(CurrentState)
         {
             case StatesGreenBoss.Idle:
-                if (bossHealthSystem.CurrentHealth < bossHealthSystem.MaxHealth / 2)
+                if (bossHealthSystem.CurrentHP.Value < bossHealthSystem.MaxHP.Value / 2)
                 {
                     OnFase02State();
                 }
                 else { OnFase01State(); }
                 break;
             case StatesGreenBoss.Fase01:
-                if (bossHealthSystem.CurrentHealth < bossHealthSystem.MaxHealth / 2)
+                if (bossHealthSystem.CurrentHP.Value < bossHealthSystem.MaxHP.Value / 2)
                 {
                     OnTransitioning();
                 }

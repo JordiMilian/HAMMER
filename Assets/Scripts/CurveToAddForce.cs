@@ -1,27 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CurveToAddForce : MonoBehaviour
 {
     [SerializeField] Rigidbody2D _rigidbody;
-    [SerializeField] Animator animator;
-    AnimationClip currentClip;
-    AnimationCurve currentCurve;
-    AnimatorClipInfo[] clipInfo;
+    [SerializeField] Transform CurveObject;
+    Vector2 LastPosition;
+    Vector2 CurrentPosition;
+    Vector2 Distance1Frame;
     
     private void Start()
     {
-        string path = "m_LocalPosition.x";
-        currentClip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
-        currentCurve = AnimationUtility.GetEditorCurve(currentClip, EditorCurveBinding.FloatCurve(path, typeof(Transform), path));
-        currentCurve.Evaluate(0);
+       LastPosition = CurveObject.localPosition;
+    CurrentPosition = CurveObject.localPosition;
     }
     private void Update()
     {
-        float timer = Time.realtimeSinceStartup;
-        Debug.Log(currentCurve.Evaluate(timer));
+        CurrentPosition = CurveObject.localPosition;
+        Distance1Frame = CurrentPosition - LastPosition;
+        Debug.Log(Distance1Frame);
+       
+        _rigidbody.AddForce(Distance1Frame, ForceMode2D.Impulse);
+        LastPosition = CurrentPosition;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(Vector2.zero, Distance1Frame * 10);
     }
 
 }

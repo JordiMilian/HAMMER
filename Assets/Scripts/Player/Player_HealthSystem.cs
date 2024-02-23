@@ -10,6 +10,9 @@ public class Player_HealthSystem : Generic_HealthSystem
     [SerializeField] GameObject deadHead;
     public FloatVariable currentHP;
 
+    private void Awake()
+    {
+    }
     public override void Death()
     {
         if (eventSystem.OnDeath != null) eventSystem.OnDeath();

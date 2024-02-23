@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 public class Ui_HealthBarController : MonoBehaviour
 {
     public Player_HealthSystem _HealthSystem;
+    public FloatVariable PlayerHP;
+    public FloatVariable PlayerMaxHP;
     UIDocument _UiDocument;
 
     VisualElement root;
@@ -16,18 +18,18 @@ public class Ui_HealthBarController : MonoBehaviour
         _UiDocument = GetComponent<UIDocument>();
         root = _UiDocument.rootVisualElement;
         HealthBar = root.Q<ProgressBar>("HealthBar");
-        HealthBar.highValue = _HealthSystem.MaxHealth;
-        HealthBar.lowValue = _HealthSystem.CurrentHealth;
+        HealthBar.highValue = PlayerMaxHP.Value;
+        HealthBar.lowValue = PlayerHP.Value;
     }
     private void Update()
     {
         
-        HealthBar.value=_HealthSystem.CurrentHealth;
-        HealthBar.title = _HealthSystem.CurrentHealth.ToString();
+        HealthBar.value = PlayerHP.Value;
+        HealthBar.title = PlayerHP.Value.ToString();
     }
     public void UpdateHealthBar()
     {
-        HealthBar.value = _HealthSystem.CurrentHealth;
+        HealthBar.value = PlayerHP.Value;
     }
 
 }

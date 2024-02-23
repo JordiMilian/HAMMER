@@ -21,6 +21,10 @@ public class Dialoguer : MonoBehaviour
     bool playerIsInside;
     bool isDelaying;
     public float timer;
+    private void Awake()
+    {
+        targetGroup = GameObject.Find(TagsCollection.Instance.TargetGroup).GetComponent<CinemachineTargetGroup>();
+    }
     private void OnEnable()
     {
         PlayerCloseTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);

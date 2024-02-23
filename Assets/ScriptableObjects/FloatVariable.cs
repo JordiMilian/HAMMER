@@ -9,9 +9,5 @@ using UnityEngine;
         public float Value;
     }
 
-    [Serializable]
-    public class FloatReference
-    {
-
-    }
+    
 

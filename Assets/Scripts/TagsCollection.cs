@@ -15,6 +15,9 @@ public class TagsCollection : MonoBehaviour
     public string Weapon_Pivot = "Weapon_Pivot";
     public string PlayerDamageCollider = "PlayerDamageCollider";
     public string StanceBroken = "StanceBroken";
+    public string TargetGroup = "TargetGroup";
+    public string CMvcam1 = "CM vcam1";
+    public string MouseCameraTarget = "MouseCameraTarget";
 
     public static TagsCollection Instance;
     private void Awake()
