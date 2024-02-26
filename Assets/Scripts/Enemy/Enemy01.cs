@@ -14,6 +14,7 @@ public class Enemy01 : MonoBehaviour
     public Enemy_AgrooMovement enemyMovement;
     [SerializeField] Generic_Flash flasher;
     [SerializeField] Enemy_EventSystem eventSystem;
+    [SerializeField] Rigidbody2D _rigidbody;
 
     private void Awake()
     {
@@ -37,6 +38,8 @@ public class Enemy01 : MonoBehaviour
         TimeScaleEditor.Instance.HitStop(0.05f);
         EnemyAnimator.SetTrigger("PushBack");
         StartCoroutine(WaitReceiveDamage());
+        Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
+        _rigidbody.AddForce(AttackerDirection * receivedAttackinfo.KnockBack);
        
     }  
     IEnumerator WaitReceiveDamage()

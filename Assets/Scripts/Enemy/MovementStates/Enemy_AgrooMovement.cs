@@ -22,10 +22,11 @@ public class Enemy_AgrooMovement : MonoBehaviour
     [SerializeField] Animator EnemyAnimator;
     //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;
-    [SerializeField] AIDestinationSetter destinationSetter;
-    [SerializeField] AIPath aiPath;
+    //[SerializeField] AIDestinationSetter destinationSetter;
+    //[SerializeField] AIPath aiPath;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] Enemy_EventSystem eventSystem;
+    [SerializeField] Enemy_MoveToTarget moveToTarget;
 
     private void OnEnable()
     {
@@ -39,18 +40,21 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     void EndAgroo()
     {
-        destinationSetter.target = null;
+        //destinationSetter.target = null;
     }
     void StartAgroo()
     {
         PlayerTransform = GameObject.Find("MainCharacter").transform;
         UIAnimator.SetTrigger("AgrooAlert");
         EnemyAnimator.SetBool("Walking", true);
-        destinationSetter.target = PlayerTransform;
-        aiPath.maxSpeed = BaseSpeed;
+        //destinationSetter.target = PlayerTransform;
+        //aiPath.maxSpeed = BaseSpeed;
         CurrentSpeed = BaseSpeed;
         SlowSpeedF = BaseSpeed / 3;
         CurrentRotationSpeed = BaseRotationSpeed;
+
+        moveToTarget.Target = PlayerTransform;
+        moveToTarget.DoMove = true;
     }
     void Update()
     {
@@ -63,16 +67,18 @@ public class Enemy_AgrooMovement : MonoBehaviour
         Vector3 PlayerPos = PlayerTransform.position;
         Vector3 EnemyPos = new Vector3(transform.position.x, transform.position.y);
         float DistanceToPlayer = (EnemyPos - PlayerPos).magnitude;
-        enemyTransform.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - EnemyPos, CurrentRotationSpeed * Time.deltaTime, 10));
+        Weapon_Pivot.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - EnemyPos, CurrentRotationSpeed * Time.deltaTime, 10));
     }
 
     public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.2f)); }
     public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f)); }
-    public void EV_SlowMovingSpeed() { aiPath.maxSpeed = SlowSpeedF; }
-    public void EV_ReturnMovingSpeed() { aiPath.maxSpeed = BaseSpeed; }
+    public void EV_SlowMovingSpeed() { //aiPath.maxSpeed = SlowSpeedF;
+                                       }
+    public void EV_ReturnMovingSpeed() { //aiPath.maxSpeed = BaseSpeed;
+                                         }
     public void EV_ReturnAllSpeed()
     {
-        aiPath.maxSpeed = BaseSpeed;
+       //aiPath.maxSpeed = BaseSpeed;
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f));
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)

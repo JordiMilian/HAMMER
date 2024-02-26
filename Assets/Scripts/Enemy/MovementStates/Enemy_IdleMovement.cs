@@ -17,6 +17,7 @@ public class Enemy_IdleMovement : MonoBehaviour
     [SerializeField] AIDestinationSetter destinationSetter;
     [SerializeField] AIPath aiPath;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
+    [SerializeField] Enemy_MoveToTarget moveToTarget;
 
     bool IsEnabled = false;
 
@@ -31,10 +32,13 @@ public class Enemy_IdleMovement : MonoBehaviour
         //Set the destionation GO at the center too
         DestinationGO = Instantiate(new GameObject(),transform.position,Quaternion.identity);
         
-        destinationSetter.target = DestinationGO.transform;
+        //destinationSetter.target = DestinationGO.transform;
 
-        aiPath.maxSpeed = WalkingSpeed;
-        DecideWalk();
+        //aiPath.maxSpeed = WalkingSpeed;
+        //DecideWalk();
+
+        moveToTarget.Target = null;
+        moveToTarget.DoMove = false;
     }
     private void OnDisable()
     {
@@ -47,7 +51,7 @@ public class Enemy_IdleMovement : MonoBehaviour
         timer += Time.deltaTime;
         if(timer > DelayBetweenChecks)
         {
-            DecideWalk();
+            //DecideWalk();
             timer = 0;
         }
     }
