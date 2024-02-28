@@ -79,14 +79,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 20
+  m_AngularDrag: 20
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &2195041901401652145
 Animator:
   serializedVersion: 4
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   _rigidBody: {fileID: 1771262554875931710}
-  Velocity: 1
+  Velocity: 100
   DoMove: 1
 --- !u!114 &2829660713819239201
 MonoBehaviour:
@@ -191,7 +191,7 @@ MonoBehaviour:
   UIAnimator: {fileID: 5595212810533667070}
   spriteFliper: {fileID: 7619558403456288951}
   eventSystem: {fileID: 627058440868749388}
-  moveToTarget: {fileID: 0}
+  moveToTarget: {fileID: 6932147153519873058}
 --- !u!114 &1484837429054597437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   destinationSetter: {fileID: 0}
   aiPath: {fileID: 0}
   spriteFliper: {fileID: 7619558403456288951}
-  moveToTarget: {fileID: 0}
+  moveToTarget: {fileID: 6932147153519873058}
 --- !u!114 &7929925186517721759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +288,8 @@ MonoBehaviour:
   PlayerIsInAnyRange: 0
   ShowDebug: 0
   stats: {fileID: 3881809578619784559}
+  AttackToDebug: 0
+  DebugTrigger: 0
   Enemy_Attacks:
   - ShortDescription: 
     rangeDetector: {fileID: 4898058486958885132}
@@ -813,7 +815,7 @@ MonoBehaviour:
   MovementReference: {fileID: 2341438317793130741}
   Pivot: {fileID: 8543705226525020148}
   Base: {fileID: 4802207913274506029}
-  Strengh: 500
+  Strengh: 100
 --- !u!1 &2117043943955436526
 GameObject:
   m_ObjectHideFlags: 0

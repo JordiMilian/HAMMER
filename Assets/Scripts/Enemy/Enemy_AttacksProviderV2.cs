@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy_AttacksProviderV2 : MonoBehaviour
 {
@@ -13,11 +14,16 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     public bool PlayerIsInAnyRange;
     [SerializeField] bool ShowDebug;
     [SerializeField] Generic_Stats stats;
+    [Header("Debuguer")]
+    [Range(0, 10)]
+    [SerializeField] int AttackToDebug;
+    [SerializeField] bool DebugTrigger;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     [SerializeField] Enemy_EventSystem eventSystem;
     Coroutine CurrentWaiting;
 
+    
     [Serializable]
     public class EnemyAttack
     {
@@ -36,7 +42,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public bool isInCooldown;
         public bool HasCooldown;
         public float CooldownTime;
-
 
         public  void isInRange(object sender, EventArgs args) { isActive = true; }
         public void isNotInRange(object sender, EventArgs args) { isActive = false; }
@@ -84,7 +89,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         }
         return (false);
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
@@ -108,8 +113,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 PickAvailableAttacks();
             }
         }
+        //if (DebugTrigger) { DebugTrigger = false; DebugAttack(); }
+
     }
-    void PerformAttack(EnemyAttack selectedAttack)
+
+    public void PerformAttack(EnemyAttack selectedAttack)
     {
         isAttacking = true;
 

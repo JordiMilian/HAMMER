@@ -27,7 +27,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
     }
     void StopMoving()
     {
-        _rigidBody.velocity = Vector2.zero;
+       
     }
     // TO DO maybe
     IEnumerator SlowDown()

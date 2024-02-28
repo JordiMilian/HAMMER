@@ -10,11 +10,11 @@ public class CurveToRigidBody : MonoBehaviour
     [SerializeField] Transform Base;
     public float Strengh;
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 CurrentLocalPosition = MovementReference.localPosition;
         Vector2 CurrentWorldPosition = Pivot.TransformPoint(CurrentLocalPosition);
-        Vector2 NewLocalPosition = Base.InverseTransformPoint(CurrentWorldPosition);
+        Vector2 NewLocalPosition = Base.InverseTransformPoint(CurrentWorldPosition) - Pivot.localPosition;
 
         _rigidbody.velocity = NewLocalPosition * Strengh * Time.deltaTime;
     }

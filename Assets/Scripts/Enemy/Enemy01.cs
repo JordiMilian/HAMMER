@@ -39,7 +39,7 @@ public class Enemy01 : MonoBehaviour
         EnemyAnimator.SetTrigger("PushBack");
         StartCoroutine(WaitReceiveDamage());
         Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
-        _rigidbody.AddForce(AttackerDirection * receivedAttackinfo.KnockBack);
+        StartCoroutine( ApplyForceOverTime(AttackerDirection * receivedAttackinfo.KnockBack ,0.3f));
        
     }  
     IEnumerator WaitReceiveDamage()
@@ -55,5 +55,14 @@ public class Enemy01 : MonoBehaviour
     public void EndHitShield()
     {
         EnemyAnimator.SetBool("HitShield", false);
+    }
+    IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            _rigidbody.AddForce(forceVector / duration);
+            yield return null;
+        }
     }
 }
