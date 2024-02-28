@@ -62,12 +62,12 @@ public class Player_FeedbackManager : MonoBehaviour
             playerMovement.CurrentSpeed = 0;
             
             cameraShake.ShakeCamera(1, 0.1f); ;
-            //hitStop.Stop(receivedAttackinfo.Hitstop);
+            //hitStop.Stop(receivedAttackinfo.Hitstop);s
             TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
             player_Flash.CallFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
-            _rigitbody.AddForce(direction * (receivedAttackinfo.KnockBack), ForceMode2D.Impulse);
+            StartCoroutine(ApplyForceOverTime(direction * receivedAttackinfo.KnockBack, 0.3f));
             playerAnimator.SetTrigger("GetHit");
             StartCoroutine(InvulnerableAfterDamage());
         }
@@ -92,8 +92,17 @@ public class Player_FeedbackManager : MonoBehaviour
         //_HealthSystem.RemoveLife(-1);
 
     }
+    IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            _rigitbody.AddForce(forceVector / duration);
+            yield return null;
+        }
+    }
 
-    
+
 }
 
    

@@ -28,6 +28,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
     public StatesGreenBoss CurrentState = StatesGreenBoss.Idle;
     private void Start()
     {
+        if(CurrentState == StatesGreenBoss.Fase02) { replaceAnimatorOverride(Fase02Animator); }
          OnIdleState(this, new EventArgsCollisionInfo( new Collider2D())); 
     }
     private void OnEnable()
@@ -95,7 +96,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
     void OnFase01State()
     {
         //replace animations in the animator
-        greenBossAnimator.runtimeAnimatorController = Fase01Animator;
+        replaceAnimatorOverride(Fase01Animator);
         //call the event
         if(eventSystem.OnPhase01 != null) eventSystem.OnPhase01(this, EventArgs.Empty);
         //Deactivate the scripts
@@ -109,7 +110,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
     public void OnFase02State()
     {
         //replace animations in the animator
-        greenBossAnimator.runtimeAnimatorController = Fase02Animator;
+        replaceAnimatorOverride(Fase02Animator);
         //Deactivate animator bool
         greenBossAnimator.SetBool("isTransitioning", false);
         //Call the event
@@ -123,6 +124,10 @@ public class GreenBoss_StateMachine : MonoBehaviour
         //Set the enum
         CurrentState = StatesGreenBoss.Fase02;
         Debug.Log("PHASE02");
+    }
+    void replaceAnimatorOverride(AnimatorOverrideController overrideController)
+    {
+        greenBossAnimator.runtimeAnimatorController = overrideController;
     }
     void OnTransitioning()
     {

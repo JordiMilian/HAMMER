@@ -14,10 +14,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     public bool PlayerIsInAnyRange;
     [SerializeField] bool ShowDebug;
     [SerializeField] Generic_Stats stats;
-    [Header("Debuguer")]
-    [Range(0, 10)]
-    [SerializeField] int AttackToDebug;
-    [SerializeField] bool DebugTrigger;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     [SerializeField] Enemy_EventSystem eventSystem;
@@ -29,7 +25,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         public string ShortDescription;
         public Enemy_AttackRangeDetector rangeDetector;
-        public bool isActive;
+        [HideInInspector] public BoxCollider2D boxCollider;
+        [HideInInspector] public bool isActive;
         
         [Header("Stats:")]
         public float Damage;
@@ -39,10 +36,14 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public string TriggerName;
         public AnimationClip animationClip;
         [Header("Cooldown")]
-        public bool isInCooldown;
+        [HideInInspector] public bool isInCooldown;
         public bool HasCooldown;
         public float CooldownTime;
-
+  
+        private void sdfsdf()
+        {
+            boxCollider = rangeDetector.GetComponent<BoxCollider2D>();
+        }
         public  void isInRange(object sender, EventArgs args) { isActive = true; }
         public void isNotInRange(object sender, EventArgs args) { isActive = false; }
          
