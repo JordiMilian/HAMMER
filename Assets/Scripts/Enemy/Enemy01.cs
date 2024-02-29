@@ -8,7 +8,7 @@ using static Generic_EventSystem;
 
 public class Enemy01 : MonoBehaviour
 {
-
+    
     public Collider2D WeaponCollider;
     [SerializeField] Animator EnemyAnimator;
     public Enemy_AgrooMovement enemyMovement;
