@@ -54,6 +54,7 @@ MonoBehaviour:
   Enemy_Attacks:
   - ShortDescription: 01 - short Dash-swipe-swipe
     rangeDetector: {fileID: 6713494052006476197}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -66,6 +67,7 @@ MonoBehaviour:
     CooldownTime: 1
   - ShortDescription: '03 - Very long dash '
     rangeDetector: {fileID: 2983403945826448744}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -78,6 +80,7 @@ MonoBehaviour:
     CooldownTime: 0
   - ShortDescription: 04 - Single midrange dash
     rangeDetector: {fileID: 1690697246195614107}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -90,6 +93,7 @@ MonoBehaviour:
     CooldownTime: 3
   - ShortDescription: Move away No attack
     rangeDetector: {fileID: 6790482466165369369}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -102,6 +106,7 @@ MonoBehaviour:
     CooldownTime: 0
   - ShortDescription: 05 - 4x combo without initial dash
     rangeDetector: {fileID: 2088108294211234891}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -114,6 +119,7 @@ MonoBehaviour:
     CooldownTime: 3
   - ShortDescription: 06 - Swipe + PolygonThrow
     rangeDetector: {fileID: 2088108294211234891}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -126,6 +132,7 @@ MonoBehaviour:
     CooldownTime: 2
   - ShortDescription: 07 - Swipe + BurstThrow + Dash
     rangeDetector: {fileID: 2088108294211234891}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -138,6 +145,7 @@ MonoBehaviour:
     CooldownTime: 2
   - ShortDescription: 08 - Long 3xBurst + Swipe
     rangeDetector: {fileID: 2983403945826448744}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -268,6 +276,7 @@ MonoBehaviour:
   Enemy_Attacks:
   - ShortDescription: 01 - short Dash-swipe-swipe
     rangeDetector: {fileID: 6713494052006476197}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -280,6 +289,7 @@ MonoBehaviour:
     CooldownTime: 1
   - ShortDescription: 02 - Long 4x combo
     rangeDetector: {fileID: 2726041538214405773}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -292,6 +302,7 @@ MonoBehaviour:
     CooldownTime: 4
   - ShortDescription: 03 - Very long dash with spin
     rangeDetector: {fileID: 2983403945826448744}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -304,6 +315,7 @@ MonoBehaviour:
     CooldownTime: 0
   - ShortDescription: 04 - Single midrange dash
     rangeDetector: {fileID: 1690697246195614107}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -316,6 +328,7 @@ MonoBehaviour:
     CooldownTime: 3
   - ShortDescription: Move Away with Swipe
     rangeDetector: {fileID: 6790482466165369369}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -328,6 +341,7 @@ MonoBehaviour:
     CooldownTime: 0
   - ShortDescription: 05 - 4x combo without initial dash
     rangeDetector: {fileID: 2088108294211234891}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 1
@@ -340,6 +354,7 @@ MonoBehaviour:
     CooldownTime: 3
   - ShortDescription: 06 - Swipe + PolygonThrow
     rangeDetector: {fileID: 2088108294211234891}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -352,6 +367,7 @@ MonoBehaviour:
     CooldownTime: 2
   - ShortDescription: 07 - Swipe + BurstThrow + Dash
     rangeDetector: {fileID: 2088108294211234891}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -364,6 +380,7 @@ MonoBehaviour:
     CooldownTime: 2
   - ShortDescription: 08 - Long 3xBurst + Swipe
     rangeDetector: {fileID: 2983403945826448744}
+    boxCollider: {fileID: 0}
     isActive: 0
     Damage: 1
     Probability: 2
@@ -1029,7 +1046,7 @@ PrefabInstance:
       objectReference: {fileID: 7555730476318928094}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxStance
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
@@ -1107,6 +1124,10 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 7555730476318928094}
+    - target: {fileID: 3457608814812501881, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: FocusSprite
+      value: 
+      objectReference: {fileID: 318138494990328721}
     - target: {fileID: 3736275689294426710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -2062,7 +2083,7 @@ MonoBehaviour:
   UIAnimator: {fileID: 5792743499247428587}
   spriteFliper: {fileID: 1359799563517358334}
   eventSystem: {fileID: 7555730476318928094}
-  moveToTarget: {fileID: 0}
+  moveToTarget: {fileID: 9076489338640019255}
 --- !u!114 &7555730476318928094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2209,6 +2230,17 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 7332707543437145030, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 2145338421307745045}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9076489338640019255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6932147153519873058, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 2145338421307745045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450790443172764191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fe5235e2f53714f8c1d2fecdb43b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4923054309557105436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2293,6 +2325,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5090961586421899422
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6180708936949692726}
+    m_Modifications:
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.037
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.359
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575475764882115700, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2217058296641009663, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_Name
+      value: FocusIcon_Position
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813498974479614734, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813498974479614734, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813498974479614734, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813498974479614735, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+--- !u!212 &318138494990328721 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4813498974479614735, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+  m_PrefabInstance: {fileID: 5090961586421899422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5755266697231736524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2941,6 +3051,11 @@ Transform:
 --- !u!4 &5473371355814748005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: cbaa46f23712b3a4c8e1ce689d4ebdae, type: 3}
+  m_PrefabInstance: {fileID: 6690805558057313979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6180708936949692726 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8566745631324840051, guid: cbaa46f23712b3a4c8e1ce689d4ebdae, type: 3}
   m_PrefabInstance: {fileID: 6690805558057313979}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6574494505593571078 stripped

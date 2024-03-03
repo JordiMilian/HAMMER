@@ -8,6 +8,10 @@ public class DoorAnimationController : MonoBehaviour
     [SerializeField] Animator doorAnimator;
     [SerializeField] Collider2D blockingCollider;
 
+    private void Start()
+    {
+        isDoorOpen = false;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player_SinglePointCollider"))

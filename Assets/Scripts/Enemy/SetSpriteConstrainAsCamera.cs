@@ -12,7 +12,7 @@ public class SetSpriteConstrainAsCamera : MonoBehaviour
         ConstraintSource CameraConstrain = new ConstraintSource();
         CameraConstrain.sourceTransform = Camera.main.transform;
         CameraConstrain.weight = 1;
-        SpritesConstraint = GetComponentInChildren<RotationConstraint>();
+        //SpritesConstraint = GetComponentInChildren<RotationConstraint>();
         SpritesConstraint.AddSource(CameraConstrain);
     }
 

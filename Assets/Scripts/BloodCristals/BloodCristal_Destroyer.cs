@@ -10,7 +10,6 @@ public class BloodCristal_Destroyer : MonoBehaviour
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Attack_Hitbox"))
         {
-            Debug.Log("Blood");
             Destroy(Parent);
         }
     }

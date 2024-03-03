@@ -24,7 +24,7 @@ public class Enemy_HealthSystem : Generic_HealthSystem
             
         }
         if (eventSystem.OnDeath != null) eventSystem.OnDeath();
-        TimeScaleEditor.Instance.SlowMotion(80, 2);
+        TimeScaleEditor.Instance.SlowMotion(80, 1.2f);
         Destroy(gameObject);
     }
 

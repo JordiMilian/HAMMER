@@ -55,10 +55,13 @@ public class DoorLogic : MonoBehaviour
         ReopenDoorTrigger.OnTriggerEntered -= ReopenDoor;
     }
     private void Start()
-    { 
+    {
+        isRoomCompleted = false;
+        AreCorrectlySpawned = false;
         ReopenDoorTrigger.enabled = false;
         if (respawnPoints.Count == 0) 
         {
+            Debug.Log("Room completed");
             RoomCompleted();
             return;
         }
@@ -67,7 +70,8 @@ public class DoorLogic : MonoBehaviour
         {
             point.setSpawnVector();
             AssignEnemyInfo(point, point.CurrentlySpawnedEnemy);
-        }  
+        }
+        RespawnEnemies(this, new EventArgsCollisionInfo(new Collider2D()));
     }
     void EnemyDied()
     {
@@ -91,6 +95,7 @@ public class DoorLogic : MonoBehaviour
     }
     void RespawnEnemies(object sender, EventArgsCollisionInfo triggereInfo)
     {
+        Debug.Log("Atempt respawn");
         if (AreCorrectlySpawned) return;
         if (isRoomCompleted) return;
         
@@ -104,6 +109,7 @@ public class DoorLogic : MonoBehaviour
             AssignEnemyInfo(point, spawnedEnemy);
         }
         EnemiesAlive = EnemiesGO.Count;
+        Debug.Log("EnemiesCount = " + EnemiesAlive);
         StartCoroutine(RespawnCooldown());
         
     }
