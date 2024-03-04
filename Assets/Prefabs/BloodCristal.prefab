@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419509381555589779}
   - component: {fileID: 3623205222292602103}
-  - component: {fileID: 1294932835102893037}
+  - component: {fileID: 6073015485319833214}
   m_Layer: 0
   m_Name: ProximityCollider
   m_TagString: Untagged
@@ -49,7 +49,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.1112838
---- !u!114 &1294932835102893037
+--- !u!114 &6073015485319833214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,9 +58,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4652823134677656025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8bdd7937b6c91c4289f8853faa73d30, type: 3}
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivatorTags: []
 --- !u!1 &5308774821670971264
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +166,8 @@ MonoBehaviour:
   SpinningVelocity: 0.1
   MinPower: 20
   MaxPower: 50
-  playerInRange: 0
+  playerProximityTrigger: {fileID: 6073015485319833214}
+  destroyerTrigger: {fileID: 7375091611000990158}
 --- !u!50 &765740163964846849
 Rigidbody2D:
   serializedVersion: 4
@@ -197,7 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5970254663406838293}
   - component: {fileID: 1551160215467800105}
-  - component: {fileID: 7089942616887473562}
+  - component: {fileID: 7375091611000990158}
   m_Layer: 0
   m_Name: Destroyer
   m_TagString: Untagged
@@ -236,7 +238,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.06921945
---- !u!114 &7089942616887473562
+--- !u!114 &7375091611000990158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,7 +247,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6010156861129533243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db47b03df9c6e740bfe0f2e2684bcf6, type: 3}
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parent: {fileID: 5308774821670971264}
+  ActivatorTags: []

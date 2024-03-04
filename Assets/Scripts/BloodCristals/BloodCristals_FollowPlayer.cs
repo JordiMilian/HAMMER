@@ -12,14 +12,35 @@ public class BloodCristals_FollowPlayer : MonoBehaviour
     [SerializeField] float SpinningVelocity;
     [SerializeField] float MinPower = 20;
     [SerializeField] float MaxPower = 50;
-    public bool playerInRange;
+    bool playerInRange;
+    [SerializeField] Generic_OnTriggerEnterEvents playerProximityTrigger;
+    [SerializeField] Generic_OnTriggerEnterEvents destroyerTrigger;
+    private void OnEnable()
+    {
+        playerProximityTrigger.AddActivatorTag(TagsCollection.Instance.Player);
+        playerProximityTrigger.OnTriggerEntered += playerEntered;
+        playerProximityTrigger.OnTriggerExited += playerExited;
+        destroyerTrigger.AddActivatorTag(TagsCollection.Instance.Player);
+        destroyerTrigger.OnTriggerEntered += destroyItself;
+    }
+    private void OnDisable()
+    {
+        playerProximityTrigger.OnTriggerEntered -= playerEntered;
+        playerProximityTrigger.OnTriggerExited -= playerExited;
+        destroyerTrigger.OnTriggerEntered -= destroyItself;
+    }
     void Start()
     {
         Player = GameObject.Find("MainCharacter");
         rigidbody = GetComponent<Rigidbody2D>();
         RotateAndPush();
     }
-
+    void playerEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    { playerInRange = true; }
+    void playerExited(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    { playerInRange = false; }
+    void destroyItself(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    { Destroy(gameObject); }
     void FixedUpdate()
     {
         if (playerInRange)

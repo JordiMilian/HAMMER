@@ -6,6 +6,7 @@ public class TimeScaleEditor : MonoBehaviour
 {
     public static TimeScaleEditor Instance;
 
+    //SINGLETON STUFF
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -17,6 +18,7 @@ public class TimeScaleEditor : MonoBehaviour
             Instance = this;
         }
     }
+
     float BaseScale = 1f;
     public void SlowMotion(float SlowPercent, float DurationSeconts)
     { StartCoroutine(SlowMoCorroutine(SlowPercent, DurationSeconts)); }
@@ -36,10 +38,10 @@ public class TimeScaleEditor : MonoBehaviour
     {
         if (!waiting)
         {
-            StartCoroutine(Wait(StopSeconds));
+            StartCoroutine(Hitstopper(StopSeconds));
         }
     }
-    IEnumerator Wait(float StopSeconds)
+    IEnumerator Hitstopper(float StopSeconds)
     {
         waiting = true;
         yield return new WaitForSecondsRealtime(0.01f);

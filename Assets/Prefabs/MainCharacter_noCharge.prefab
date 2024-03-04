@@ -1387,13 +1387,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a58e8a6e308c0a4199a7e040ff94ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 200
-  CurrentHealth: 65
+  MaxHP:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  CurrentHP:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   FillHealthOnStart: 1
   stats: {fileID: 5265307542570127292}
   eventSystem: {fileID: 3383090570821903391}
   deadBody: {fileID: 8373828435607482305, guid: f3f602e8ffeaba14f881e1a183c9baf1, type: 3}
   deadHead: {fileID: 2096440997588386901, guid: ac79ac2a2ba856e46bc200cf08a48e2a, type: 3}
+  currentHP: {fileID: 0}
 --- !u!114 &7653426975249963384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1514,6 +1521,8 @@ MonoBehaviour:
   playerRigidbody: {fileID: 7653426975249963380}
   damageDealer: {fileID: 7653426974895600704}
   stats: {fileID: 5265307542570127292}
+  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
+  FollowMouse: {fileID: 7653426975497917625}
   canAttack: 0
   attacksCount: 0
 --- !u!114 &7653426975249963328
@@ -1791,8 +1800,8 @@ MonoBehaviour:
   MouseFocusTransform: {fileID: 0}
   spriteFliper: {fileID: 7653426975249963385}
   cinemachineTarget: {fileID: 0}
-  virtualCamera: {fileID: 0}
   eventSystem: {fileID: 3383090570821903391}
+  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   IsFocusingEnemy: 0
 --- !u!1 &7653426975970030029
 GameObject:

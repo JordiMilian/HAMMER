@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,9 +11,10 @@ public class DoorLogic : MonoBehaviour
     [SerializeField] DoorAnimationController doorAnimations;
     [SerializeField] Generic_OnTriggerEnterEvents LoadTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents ReopenDoorTrigger;
+    [SerializeField] AnimationClip openingDoorClip;
 
     List<GameObject> EnemiesGO = new List<GameObject>();
-    int EnemiesAlive;
+    public int EnemiesAlive;
     bool AreCorrectlySpawned = true;
     bool isRoomCompleted = false;
 
@@ -44,6 +46,7 @@ public class DoorLogic : MonoBehaviour
     [SerializeField] List<RespawnPoint> respawnPoints;
     private void OnEnable()
     {
+         
         LoadTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
         ReopenDoorTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
@@ -58,7 +61,7 @@ public class DoorLogic : MonoBehaviour
     {
         isRoomCompleted = false;
         AreCorrectlySpawned = false;
-        ReopenDoorTrigger.enabled = false;
+        ReopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = false;
         if (respawnPoints.Count == 0) 
         {
             Debug.Log("Room completed");
@@ -71,7 +74,7 @@ public class DoorLogic : MonoBehaviour
             point.setSpawnVector();
             AssignEnemyInfo(point, point.CurrentlySpawnedEnemy);
         }
-        RespawnEnemies(this, new EventArgsCollisionInfo(new Collider2D()));
+        //RespawnEnemies(this, new EventArgsCollisionInfo(new Collider2D()));
     }
     void EnemyDied()
     {
@@ -84,9 +87,10 @@ public class DoorLogic : MonoBehaviour
     }
     void RoomCompleted()
     {
-        doorAnimations.OpenDoor();
+        
+        StartCoroutine(OpenDoorFocusCamera());
         isRoomCompleted = true;
-        ReopenDoorTrigger.enabled = true;
+        ReopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = true;
     }
     //Called if a player respawns behind a closed door
     void ReopenDoor(object sender, EventArgsCollisionInfo args)
@@ -100,6 +104,7 @@ public class DoorLogic : MonoBehaviour
         if (isRoomCompleted) return;
         
         EnemiesGO.Clear();
+        EnemiesAlive = 0;
         foreach (RespawnPoint point in respawnPoints)
         {
             if (point.EnemyPrefab == null) { Debug.Log("Missing Prefab"); continue; }
@@ -108,8 +113,7 @@ public class DoorLogic : MonoBehaviour
             GameObject spawnedEnemy = point.Spawn();
             AssignEnemyInfo(point, spawnedEnemy);
         }
-        EnemiesAlive = EnemiesGO.Count;
-        Debug.Log("EnemiesCount = " + EnemiesAlive);
+        
         StartCoroutine(RespawnCooldown());
         
     }
@@ -120,11 +124,40 @@ public class DoorLogic : MonoBehaviour
         EnemiesGO.Add(spawnedEnemy);
         Generic_EventSystem thisEventSystem = spawnedEnemy.GetComponent<Generic_EventSystem>();
         thisEventSystem.OnDeath += EnemyDied;
+        EnemiesAlive++;
     }
     IEnumerator RespawnCooldown()
     {
         AreCorrectlySpawned = true;
         yield return new WaitForSeconds(4);
         AreCorrectlySpawned = false;
+    }
+    IEnumerator OpenDoorFocusCamera()
+    {
+        //Wait after killing the last dude
+        yield return new WaitForSeconds(0.5f);
+
+
+        //Find which TargetGroup slot is empty
+        CinemachineTargetGroup targetGroup = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
+        int emptyTarget = 0;
+        for(int i = 0; i < targetGroup.m_Targets.Length; i++)
+        {
+            if (targetGroup.m_Targets[i].target != null) { continue; }
+            else { emptyTarget = i; break; }
+        }
+
+        //Wait a second and open door 
+        yield return new WaitForSeconds(0.2f);
+        doorAnimations.OpenDoor();
+        //Create a target, wait, and empty it
+        targetGroup.m_Targets[emptyTarget].target = transform;
+        targetGroup.m_Targets[emptyTarget].weight = 10;
+        targetGroup.m_Targets[emptyTarget].radius = 5;
+        yield return new WaitForSeconds(openingDoorClip.length);
+        targetGroup.m_Targets[emptyTarget].target = null;
+        targetGroup.m_Targets[emptyTarget].weight = 0;
+        targetGroup.m_Targets[emptyTarget].radius = 0;
+
     }
 }

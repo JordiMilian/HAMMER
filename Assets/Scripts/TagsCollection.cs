@@ -18,6 +18,9 @@ public class TagsCollection : MonoBehaviour
     public string TargetGroup = "TargetGroup";
     public string CMvcam1 = "CM vcam1";
     public string MouseCameraTarget = "MouseCameraTarget";
+    public string HitShield = "HitShield";
+    public string PushBack = "PushBack";
+    public string Walking = "Walking";
 
     public static TagsCollection Instance;
     private void Awake()

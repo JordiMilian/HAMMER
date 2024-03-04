@@ -19,6 +19,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [SerializeField] Rigidbody2D playerRigidbody;
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Generic_Stats stats;
+    [SerializeField] FloatVariable distanceToEnemy;
+    [SerializeField] GameObject FollowMouse;
 
     public bool canAttack;
     public int attacksCount;
@@ -81,11 +83,25 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     public void EV_HideWeaponCollider() { weaponDamageCollider.enabled = false; }
     public void EV_AddForce(float force)
     {
-        playerRigidbody.AddForce(weaponDamageCollider.gameObject.transform.up * force);
+        float inverseLerpedDistance = Mathf.InverseLerp(0.2f, 3f, distanceToEnemy.Value);
+        float lerpedDistance = Mathf.Lerp(-0.5f, 1, inverseLerpedDistance);
+        if(distanceToEnemy.Value > 4) { lerpedDistance = 0.5f; } //If the player is too far, behave normally
+        Vector3 tempForce = FollowMouse.gameObject.transform.up * force * lerpedDistance;
+        StartCoroutine(ApplyForceOverTime(tempForce, 0.1f));
+        Debug.Log(lerpedDistance + " means it was at:" + distanceToEnemy.Value);
     }
     public void EV_RemoveCount()
     {
         AddToCount(-1);
+    }
+    IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < duration)
+        {
+            playerRigidbody.AddForce(forceVector / duration);
+            yield return null;
+        }
     }
 }
 

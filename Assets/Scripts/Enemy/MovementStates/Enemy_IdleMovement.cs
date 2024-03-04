@@ -6,16 +6,10 @@ using UnityEngine;
 
 public class Enemy_IdleMovement : MonoBehaviour
 {
-    // To-Do STATE MACHINE!!!!
-
-    [SerializeField] float ChanceToChangeDestination;
     [SerializeField] float DelayBetweenChecks;
     [SerializeField] float WalkingSpeed;
     [SerializeField] float RoamingRadios = 2;
-    [SerializeField] Animator EnemyAnimator;
 
-    [SerializeField] AIDestinationSetter destinationSetter;
-    [SerializeField] AIPath aiPath;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] Enemy_MoveToTarget moveToTarget;
 
@@ -31,11 +25,9 @@ public class Enemy_IdleMovement : MonoBehaviour
         RoaminCenterVector = transform.position;
         //Set the destionation GO at the center too
         DestinationGO = Instantiate(new GameObject(),transform.position,Quaternion.identity);
+        DestinationGO.name = ("Destination " + gameObject.name);
         
-        //destinationSetter.target = DestinationGO.transform;
-
-        //aiPath.maxSpeed = WalkingSpeed;
-        //DecideWalk();
+        DecideWalk();
 
         moveToTarget.Target = null;
         moveToTarget.DoMove = false;
@@ -51,7 +43,7 @@ public class Enemy_IdleMovement : MonoBehaviour
         timer += Time.deltaTime;
         if(timer > DelayBetweenChecks)
         {
-            //DecideWalk();
+            DecideWalk();
             timer = 0;
         }
     }
@@ -59,23 +51,18 @@ public class Enemy_IdleMovement : MonoBehaviour
     {
         float randomFloat = Random.Range(0, 100);
 
-        if (randomFloat <= ChanceToChangeDestination)
+        //50% chance to change direction 
+        if (randomFloat <= 50)
         {
             Vector2 newDestination = RoaminCenterVector + (Random.insideUnitCircle * RoamingRadios);
 
             DestinationGO.transform.position = newDestination;
-            destinationSetter.target = DestinationGO.transform;
+            moveToTarget.Target = DestinationGO.transform;
 
-            if (HasParameter("Walking", EnemyAnimator)) { EnemyAnimator.SetBool("Walking", true); }
-            
             spriteFliper.FocusVector = newDestination;
         }
-        else  
-        {
-            if (HasParameter("Walking", EnemyAnimator)) EnemyAnimator.SetBool("Walking", false);
-        }
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Vector2 GizmoCenter;
         if (IsEnabled)
@@ -90,13 +77,5 @@ public class Enemy_IdleMovement : MonoBehaviour
         }
         Gizmos.DrawWireSphere(GizmoCenter, RoamingRadios);
     }
-    //Method here just to check if the animator has a parameter because Unity doesnt have that option
-    public static bool HasParameter(string paramName, Animator animator)
-    {
-        foreach (AnimatorControllerParameter param in animator.parameters)
-        {
-            if (param.name == paramName) return true;
-        }
-        return false;
-    }
+
 }

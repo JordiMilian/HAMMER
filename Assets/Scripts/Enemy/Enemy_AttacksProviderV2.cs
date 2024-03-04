@@ -196,7 +196,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     void OnCancelAttack()
     {
-        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); Debug.Log("Waiting stopped"); } 
+        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); } 
         StartCoroutine(WaitForCurrentAnimation());
     }
     IEnumerator WaitForCurrentAnimation()

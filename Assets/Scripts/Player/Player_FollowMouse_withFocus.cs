@@ -20,9 +20,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] CinemachineTargetGroup cinemachineTarget;
     [SerializeField] Player_EventSystem eventSystem;
-
-
-
+    [SerializeField] FloatVariable distanceToEnemy;
 
     List<GameObject> CurrentEnemies = new List<GameObject>();
     GameObject FocusedEnemy;
@@ -124,12 +122,16 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     {
         
         IsFocusingEnemy = false;
+
         cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
         cinemachineTarget.m_Targets[1].radius = 0;
+
         zoomer.StartFocusOutTransition();
 
         if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; }
+
+        distanceToEnemy.Value = 2f;
     }
     void OnLookAtEnemy()
     {
@@ -163,6 +165,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         transform.up = (Vector3.RotateTowards(transform.up,focusedEnemyVector-playerVector, FollowMouse_Speed * Time.deltaTime, 10f));
         spriteFliper.FocusVector = focusedEnemyVector;
         zoomer.FocusZoom = UpdateZoom();
+        distanceToEnemy.Value = (focusedEnemyVector - playerVector).magnitude;
     }
     float UpdateZoom()
     {

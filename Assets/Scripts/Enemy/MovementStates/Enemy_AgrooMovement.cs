@@ -8,26 +8,28 @@ using Pathfinding;
 
 public class Enemy_AgrooMovement : MonoBehaviour
 {
-    [SerializeField] Transform enemyTransform;
     public float CurrentSpeed;
-    public float BaseSpeed;
+    float BaseSpeed;
     float SlowSpeedF;
 
     public float CurrentRotationSpeed;
-    public float BaseRotationSpeed;
-    public float SlowRotationSpeed;
+    float BaseRotationSpeed;
+    float SlowRotationSpeed;
     Transform PlayerTransform;
     [SerializeField] Transform Weapon_Pivot;
-
-    [SerializeField] Animator EnemyAnimator;
     //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;
-    //[SerializeField] AIDestinationSetter destinationSetter;
-    //[SerializeField] AIPath aiPath;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Enemy_MoveToTarget moveToTarget;
 
+    private void Awake()
+    {
+        BaseRotationSpeed = CurrentRotationSpeed;
+        SlowRotationSpeed = CurrentRotationSpeed / 5;
+        BaseSpeed = CurrentSpeed;
+        SlowSpeedF = BaseSpeed / 3;
+    }
     private void OnEnable()
     {
         eventSystem.OnGettingParried += EV_ReturnAllSpeed;
@@ -40,26 +42,20 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     void EndAgroo()
     {
-        //destinationSetter.target = null;
+        moveToTarget.Target = null;
     }
     void StartAgroo()
     {
         PlayerTransform = GameObject.Find("MainCharacter").transform;
         UIAnimator.SetTrigger("AgrooAlert");
-        EnemyAnimator.SetBool("Walking", true);
-        //destinationSetter.target = PlayerTransform;
-        //aiPath.maxSpeed = BaseSpeed;
-        CurrentSpeed = BaseSpeed;
-        SlowSpeedF = BaseSpeed / 3;
-        CurrentRotationSpeed = BaseRotationSpeed;
 
         moveToTarget.Target = PlayerTransform;
         moveToTarget.DoMove = true;
     }
     void Update()
     {
-            spriteFliper.FocusVector = PlayerTransform.transform.position;
-            LookAtPlayer();
+        spriteFliper.FocusVector = PlayerTransform.transform.position;
+        LookAtPlayer();
     }
     
     void LookAtPlayer()
@@ -72,13 +68,12 @@ public class Enemy_AgrooMovement : MonoBehaviour
 
     public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.2f)); }
     public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f)); }
-    public void EV_SlowMovingSpeed() { //aiPath.maxSpeed = SlowSpeedF;
-                                       }
-    public void EV_ReturnMovingSpeed() { //aiPath.maxSpeed = BaseSpeed;
-                                         }
+    public void EV_SlowMovingSpeed() { moveToTarget.Velocity = SlowSpeedF; }
+    public void EV_ReturnMovingSpeed() { moveToTarget.Velocity = BaseSpeed; }
+                                         
     public void EV_ReturnAllSpeed()
     {
-       //aiPath.maxSpeed = BaseSpeed;
+       moveToTarget.Velocity = BaseSpeed;
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f));
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)

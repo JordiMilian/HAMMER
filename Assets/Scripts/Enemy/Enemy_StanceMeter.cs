@@ -35,7 +35,6 @@ public class Enemy_StanceMeter : MonoBehaviour
             if (CurrentStance <= 0)
             {
                 CurrentStance = 0;
-                Debug.Log("stance broken");
                 animator.SetTrigger(TagsCollection.Instance.StanceBroken);
                 StartCoroutine(Cooldown(CooldownStanceBroken));
                 isInFullRecovery = true;
