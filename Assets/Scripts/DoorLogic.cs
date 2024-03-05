@@ -154,7 +154,7 @@ public class DoorLogic : MonoBehaviour
         targetGroup.m_Targets[emptyTarget].target = transform;
         targetGroup.m_Targets[emptyTarget].weight = 10;
         targetGroup.m_Targets[emptyTarget].radius = 5;
-        yield return new WaitForSeconds(openingDoorClip.length);
+        yield return new WaitForSeconds(openingDoorClip.length + 0.3f);
         targetGroup.m_Targets[emptyTarget].target = null;
         targetGroup.m_Targets[emptyTarget].weight = 0;
         targetGroup.m_Targets[emptyTarget].radius = 0;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
-using static Player_EventSystem;
+using static Generic_EventSystem;
 
 public class Player_VFXManager : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage -= InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll -= PlayDustVFX;
     }
-    public void InstantiateParryVFX(object sender, EventArgs_ParryInfo parryInfo)
+    public void InstantiateParryVFX(object sender, EventArgs_SuccesfulParryInfo parryInfo)
     {
         Instantiate(VFX_Parry, parryInfo.vector3data, Quaternion.identity);
     }

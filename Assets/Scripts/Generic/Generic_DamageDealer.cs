@@ -34,6 +34,10 @@ public class Generic_DamageDealer : MonoBehaviour
                 {
                     PublishDealtDamageEvent(collision);
                 }
+                else if (collision.CompareTag(TagsCollection.Instance.EnemyParryCollider))
+                {
+                    PublishGettingParriedEvent();
+                }
                 break;
                 
             case Team.Enemy:

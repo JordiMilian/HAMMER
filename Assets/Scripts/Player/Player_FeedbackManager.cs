@@ -45,12 +45,14 @@ public class Player_FeedbackManager : MonoBehaviour
         eventSystem.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
         eventSystem.OnReceiveDamage += ReceiveDamageEffects;
         eventSystem.OnDealtDamage += OnHitEnemyCameraEffects;
+        eventSystem.OnGettingParried += GettingParriedEffects;
     }
     private void OnDisable()
     {
         eventSystem.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
         eventSystem.OnReceiveDamage -= ReceiveDamageEffects;
         eventSystem.OnDealtDamage -= OnHitEnemyCameraEffects;
+        eventSystem.OnGettingParried -= GettingParriedEffects;
     }
 
     public void ReceiveDamageEffects(object sender, Player_EventSystem.EventArgs_ReceivedAttackInfo receivedAttackinfo)
@@ -62,7 +64,6 @@ public class Player_FeedbackManager : MonoBehaviour
             playerMovement.CurrentSpeed = 0;
             
             cameraShake.ShakeCamera(1, 0.1f); ;
-            //hitStop.Stop(receivedAttackinfo.Hitstop);s
             TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
             player_Flash.CallFlasher();
 
@@ -72,13 +73,22 @@ public class Player_FeedbackManager : MonoBehaviour
             StartCoroutine(InvulnerableAfterDamage());
         }
     }
+    void GettingParriedEffects()
+    {
+        Player_ComboSystem_chargeless comboSystem = GetComponent<Player_ComboSystem_chargeless>();
+        comboSystem.EV_HideWeaponCollider();
+        comboSystem.ResetCount();
+        playerMovement.EV_ReturnSpeed();
+        playerMovement.EV_CanDash();
+        playerAnimator.SetTrigger("Parried");
+    }
      IEnumerator InvulnerableAfterDamage()
     {
         yield return new WaitForSeconds(staggerTime);
         playerMovement.CurrentSpeed = playerMovement.BaseSpeed;
         receivingDamage = false;
     }
-    public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.EventArgs_ParryInfo position)
+    public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.EventArgs_SuccesfulParryInfo position)
     {
         //hitStop.Stop(StopSeconds: 0.3f);
         TimeScaleEditor.Instance.HitStop(0.3f);

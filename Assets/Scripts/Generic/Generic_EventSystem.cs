@@ -29,10 +29,19 @@ public class Generic_EventSystem : MonoBehaviour
             Hitstop = hitstop;
         }
     }
+    public class EventArgs_SuccesfulParryInfo : EventArgs
+    {
+        public Vector3 vector3data;
+        public EventArgs_SuccesfulParryInfo(Vector3 data)
+        {
+            vector3data = data;
+        }
+    }
 
     public Action OnDeath;
     public Action OnUpdatedHealth;
     public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
     public Action OnGettingParried;
+    public EventHandler<EventArgs_SuccesfulParryInfo> OnSuccessfulParry;
 }

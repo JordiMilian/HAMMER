@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 7653426974895600711}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4327882946831343968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8094939585006820728}
+  m_Layer: 0
+  m_Name: VFX_Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8094939585006820728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327882946831343968}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.363, y: 0.456, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7653426974895600711}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7653426974019842421
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +852,7 @@ Transform:
   - {fileID: 7653426974077638564}
   - {fileID: 7653426974019842418}
   - {fileID: 7522100837760415568}
+  - {fileID: 8094939585006820728}
   m_Father: {fileID: 7653426974910943478}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -51.489}
@@ -1523,6 +1555,7 @@ MonoBehaviour:
   stats: {fileID: 5265307542570127292}
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   FollowMouse: {fileID: 7653426975497917625}
+  VFXManager: {fileID: 7653426975249963331}
   canAttack: 0
   attacksCount: 0
 --- !u!114 &7653426975249963328
@@ -1539,8 +1572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponParryCollider: {fileID: 7653426975970030027}
   damageDetectorCollider: {fileID: 7653426974398778621}
-  comboSystem: {fileID: 7653426975249963332}
-  eventSystem: {fileID: 3383090570821903391}
+  comboSystem: {fileID: 864485886040288406}
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,7 +1845,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7653426975970030026}
   - component: {fileID: 7653426975970030027}
-  - component: {fileID: 7653426975970030024}
+  - component: {fileID: 7631733328338548649}
   m_Layer: 0
   m_Name: ParryCollider
   m_TagString: ParryCollider
@@ -1866,7 +1898,7 @@ PolygonCollider2D:
       - {x: -0.14359434, y: 0.124467105}
       - {x: 0.114723176, y: -0.09596133}
       - {x: 0.49683207, y: 0.3968723}
---- !u!114 &7653426975970030024
+--- !u!114 &7631733328338548649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1875,10 +1907,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7653426975970030029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c57f6dbef671ca49b924f9ac0b3d14f, type: 3}
+  m_Script: {fileID: 11500000, guid: a3169442d79b07b4baa7408de1b796e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryPerformer: {fileID: 7653426975249963328}
+  eventSystem: {fileID: 3383090570821903391}
+  VFXPositionTransform: {fileID: 8094939585006820728}
+  EntityTeam: 0
 --- !u!1001 &823664196182813470
 PrefabInstance:
   m_ObjectHideFlags: 0
