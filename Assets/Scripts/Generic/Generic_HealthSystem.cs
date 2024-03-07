@@ -48,7 +48,7 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public virtual void Death()
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath();
+        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject));
         Destroy(gameObject);
     }
 }

@@ -1372,6 +1372,7 @@ GameObject:
   - component: {fileID: 3383090570821903391}
   - component: {fileID: 3372783210703460156}
   - component: {fileID: 4128982462933193464}
+  - component: {fileID: 1631478559803088520}
   m_Layer: 0
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -1398,6 +1399,7 @@ Transform:
   - {fileID: 7653426975463659564}
   - {fileID: 2036163816277594816}
   - {fileID: 8395267518320841892}
+  - {fileID: 1022069164156102680}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1605,11 +1607,16 @@ MonoBehaviour:
   playerRigidbody: {fileID: 7653426975249963380}
   damageDealer: {fileID: 7653426974895600704}
   stats: {fileID: 5265307542570127292}
-  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   FollowMouse: {fileID: 7653426975497917625}
   VFXManager: {fileID: 7653426975249963331}
   eventSystem: {fileID: 3383090570821903391}
   CurrentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
+  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
+  defaultDistance: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
+  minDistance: 0.2
+  maxDistance: 3
+  minForce: -0.75
+  maxForce: 1.25
   canAttack: 0
   attacksCount: 0
 --- !u!114 &7653426975249963328
@@ -1778,6 +1785,27 @@ MonoBehaviour:
   RecoveryPerSecond: 4
   DelayToRecover: 0.7
   DelayToFullRecover: 1.5
+--- !u!114 &1631478559803088520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2ba1a99adef8849b41fc7a35336051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceToEnemy:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
+  defaultDistance:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
+  proximityTrigger: {fileID: 285086702692713560}
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,6 +2097,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8833568615544629894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1022069164156102680}
+  - component: {fileID: 285086702692713560}
+  - component: {fileID: 8382717615291115365}
+  m_Layer: 0
+  m_Name: ProximityTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1022069164156102680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833568615544629894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7653426975249963376}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &285086702692713560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833568615544629894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
+--- !u!58 &8382717615291115365
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833568615544629894}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1001 &823664196182813470
 PrefabInstance:
   m_ObjectHideFlags: 0

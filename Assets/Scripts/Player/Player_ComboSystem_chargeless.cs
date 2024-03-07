@@ -19,11 +19,20 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [SerializeField] Rigidbody2D playerRigidbody;
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Generic_Stats stats;
-    [SerializeField] FloatVariable distanceToEnemy;
+    
     [SerializeField] GameObject FollowMouse;
     [SerializeField] Player_VFXManager VFXManager;
     [SerializeField] Player_EventSystem eventSystem;
     [SerializeField] FloatVariable CurrentStamina;
+
+    [Header("Adapt to distance to Enemy")]
+    [SerializeField] float Force;
+    [SerializeField] FloatVariable distanceToEnemy;
+    [SerializeField] FloatVariable defaultDistance;
+    [SerializeField] float minDistance = 0.2f;
+    [SerializeField] float maxDistance = 3f;
+    [SerializeField] float minForce = - 0.5f;
+    [SerializeField] float maxForce = 1f;
 
     public bool canAttack;
     public int attacksCount;
@@ -88,16 +97,21 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     }
     public void EV_ShowWeaponCollider() { weaponDamageCollider.enabled = true; VFXManager.EV_ShowTrail(); }
     public void EV_HideWeaponCollider() { weaponDamageCollider.enabled = false; VFXManager.EV_HideTrail(); }
-    public void EV_AddForce(float force)
+    public void EV_AddForce()
     {
         //Make equivalent between min and max distance to -0,5 and 1
-        float inverseLerpedDistance = Mathf.InverseLerp(0.2f, 3f, distanceToEnemy.Value);
-        float lerpedDistance = Mathf.Lerp(-0.5f, 1, inverseLerpedDistance);
-        if(distanceToEnemy.Value > 4) { lerpedDistance = 0.5f; } //If the player is too far, behave normally (normally is at 2 now)
-        Vector3 tempForce = FollowMouse.gameObject.transform.up * force * lerpedDistance;
-        StartCoroutine(ApplyForceOverTime(tempForce, 0.1f));
+        float equivalent;
+        if(distanceToEnemy.Value > maxDistance) { equivalent = CalculateEquivalent(defaultDistance.Value); } //If the player is too far, behave with default 
+        else { equivalent = CalculateEquivalent(distanceToEnemy.Value);} // Else calculate with distance
 
-         
+        Vector3 tempForce = FollowMouse.gameObject.transform.up * Force * equivalent;
+        StartCoroutine(ApplyForceOverTime(tempForce, 0.1f));
+    }
+    float CalculateEquivalent(float Distance)
+    {
+        float inverseF = Mathf.InverseLerp(minDistance, maxDistance, Distance);
+        float lerpF = Mathf.Lerp(minForce, maxForce, inverseF);
+        return lerpF;
     }
     public void EV_RemoveCount()
     {
@@ -113,7 +127,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         float startTime = Time.time;
         while (Time.time - startTime < duration)
         {
-            playerRigidbody.AddForce(forceVector / duration);
+            playerRigidbody.AddForce((forceVector / duration)*Time.deltaTime);
             yield return null;
         }
     }

@@ -108,7 +108,7 @@ public class Player_FeedbackManager : MonoBehaviour
         float startTime = Time.time;
         while (Time.time - startTime < duration)
         {
-            _rigitbody.AddForce(forceVector / duration);
+            _rigitbody.AddForce(forceVector / duration * Time.deltaTime);
             yield return null;
         }
     }

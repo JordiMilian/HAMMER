@@ -45,8 +45,16 @@ public class Generic_EventSystem : MonoBehaviour
             StaminaUsage = stamina;
         }
     }
+    public class Args_DeadCharacter
+    {
+        public GameObject DeadGameObject;
+        public Args_DeadCharacter(GameObject deadGameObject)
+        {
+            DeadGameObject = deadGameObject;
+        }
+    }
 
-    public Action OnDeath;
+    public EventHandler<Args_DeadCharacter> OnDeath;
     public Action OnAttackFinished;
     public Action OnUpdatedHealth;
     public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;

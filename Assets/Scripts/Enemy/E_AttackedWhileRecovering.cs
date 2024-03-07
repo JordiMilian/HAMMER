@@ -33,7 +33,6 @@ public class E_AttackedWhileRecovering : MonoBehaviour
     {
         if(isInRecovery && !isInCooldown)
         {
-            Debug.Log("Response ON");
             enemyAnimator.SetTrigger(TagsCollection.Instance.AttackedWhileRecovering); //Set animation trigger
             attackProvider.PerformAttack(attackProvider.Enemy_Attacks[ResponseAttackIndex]); //Perform attack from provider
             enemyAnimator.SetBool(attackProvider.Enemy_Attacks[ResponseAttackIndex].TriggerName, false); //Uncheck trigger checked by the provider

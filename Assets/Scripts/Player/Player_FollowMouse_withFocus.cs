@@ -108,7 +108,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
-    void callOnLookatMouse()
+    void callOnLookatMouse(object sender, Generic_EventSystem.Args_DeadCharacter args)
     {
         if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
         if (IsFocusingEnemy)
@@ -131,7 +131,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; }
 
-        distanceToEnemy.Value = 2f;
+        //distanceToEnemy.Value = 2f;
     }
     void OnLookAtEnemy()
     {
@@ -165,7 +165,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         transform.up = (Vector3.RotateTowards(transform.up,focusedEnemyVector-playerVector, FollowMouse_Speed * Time.deltaTime, 10f));
         spriteFliper.FocusVector = focusedEnemyVector;
         zoomer.FocusZoom = UpdateZoom();
-        distanceToEnemy.Value = (focusedEnemyVector - playerVector).magnitude;
+        //distanceToEnemy.Value = (focusedEnemyVector - playerVector).magnitude;
     }
     float UpdateZoom()
     {
