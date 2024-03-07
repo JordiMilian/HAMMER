@@ -16,7 +16,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
     [SerializeField] float MaxDistance;
     [SerializeField] float MinDistance;
     [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
-    List<Transform> inRangeEnemies = new List<Transform>();
+    public List<Transform> inRangeEnemies = new List<Transform>();
     Transform ClosestEnemy;
 
     private void OnEnable()
@@ -27,7 +27,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating("CheckClosestTransform", 0, 0.25f);
+        InvokeRepeating("CheckClosestTransform", 0, 1f);
     }
     void AddEnemy(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo collisionInfo)
     {
@@ -83,6 +83,15 @@ public class Enemy_MoveToTarget : MonoBehaviour
         //Find the direction to Target and the oposite direction to the enemy
         DirectionToTarget = (targetPosition - ownPosition).normalized;
         OpositeDirectionToClosest = (ownPosition - closestPosition).normalized;
+        Debug.DrawLine(ownPosition, ownPosition + OpositeDirectionToClosest, new Color(1, 0, 0, 0.3f));
+        Debug.DrawLine(ownPosition, ownPosition + DirectionToTarget, new Color(0, 1, 0, 0.3f));
+
+        //Check which side is the Target respecto al Enemigo. First make perpendicular to enemy
+        float perpendicularAngle = Vector2Angle(OpositeDirectionToClosest) + (0.25f * Mathf.PI + 2);
+        Vector2 perpendicularVector = Angle2Vector(perpendicularAngle);
+        //Dot that to find out side
+        float SideDot = Vector2.Dot(perpendicularVector, DirectionToTarget);
+        int side = CheckSide(SideDot);
 
         //Get the angles of both directions
         float angleToTarget = Vector2Angle(DirectionToTarget);
@@ -90,11 +99,16 @@ public class Enemy_MoveToTarget : MonoBehaviour
 
         //Find how close is the enemy and find the relation to 1 with min/max
         float distanceToClosest = (closestPosition - ownPosition).magnitude;
-        float inverseLerpedDistance = Mathf.InverseLerp(MaxDistance, MinDistance, distanceToClosest);
+        float distanceInfluence = Mathf.InverseLerp(MaxDistance, MinDistance, distanceToClosest);
 
-        //Lerp the angle transform to vector2
-        float lerpedAngle = Mathf.Lerp(angleToTarget, opositeAngleToClosest, inverseLerpedDistance);
-        return Angle2Vector(lerpedAngle);
+        //Find the angle between and add more or less angle depending on distance. Also multiply by side
+        float dotBetween = Vector2.Dot(DirectionToTarget, OpositeDirectionToClosest);
+        float angleBetween = Mathf.Acos(dotBetween);
+
+        float finalInfluence = Mathf.Lerp(0, angleBetween, distanceInfluence);
+        float finalAngle = (finalInfluence * side) + angleToTarget;
+
+        return Angle2Vector(finalAngle);
     }
     private void OnDrawGizmos()
     {
@@ -114,5 +128,10 @@ public class Enemy_MoveToTarget : MonoBehaviour
         float x = Mathf.Cos(angleRad);
         float y = Mathf.Sin(angleRad);
         return new Vector2(x, y);
+    }
+    int CheckSide(float Dot)
+    {
+        if (Dot >= 0) return -1;
+        else { return 1; }
     }
 }
