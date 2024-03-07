@@ -22,6 +22,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [SerializeField] FloatVariable distanceToEnemy;
     [SerializeField] GameObject FollowMouse;
     [SerializeField] Player_VFXManager VFXManager;
+    [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] FloatVariable CurrentStamina;
 
     public bool canAttack;
     public int attacksCount;
@@ -52,9 +54,13 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     
     void SetReleaseTriggers()
     {
-        playerMovement.canDash = false;
-        AddToCount(1);
-        SetdamageDealer();
+        if(CurrentStamina.Value > 0)
+        {
+            eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(2));
+            playerMovement.canDash = false;
+            AddToCount(1);
+            SetdamageDealer();
+        } 
     }
     void AddToCount(int add)
     {
@@ -90,6 +96,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         if(distanceToEnemy.Value > 4) { lerpedDistance = 0.5f; } //If the player is too far, behave normally (normally is at 2 now)
         Vector3 tempForce = FollowMouse.gameObject.transform.up * force * lerpedDistance;
         StartCoroutine(ApplyForceOverTime(tempForce, 0.1f));
+
+         
     }
     public void EV_RemoveCount()
     {

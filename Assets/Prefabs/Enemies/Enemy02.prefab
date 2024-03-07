@@ -546,7 +546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3881809578619784559, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxHealth
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3968944070215854671, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
@@ -1321,6 +1321,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fe5235e2f53714f8c1d2fecdb43b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1406607099462115099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 7993138362164832099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7424939523629538921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b1373230966fb44a62193a49c61e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1764287759889852567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8543705226525020148, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1400,6 +1411,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7376498895628896047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 627058440868749388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 7993138362164832099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7424939523629538921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7424939523629538921 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 713815961661323530, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1463,3 +1485,19 @@ MonoBehaviour:
   Pivot: {fileID: 1764287759889852567}
   Base: {fileID: 3191233933428268110}
   Strengh: 250
+--- !u!114 &6356201397143528825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7424939523629538921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAnimator: {fileID: 317273742}
+  eventSystem: {fileID: 7376498895628896047}
+  attackProvider: {fileID: 1406607099462115099}
+  ResponseAttackIndex: 3

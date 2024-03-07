@@ -22,6 +22,7 @@ public class TagsCollection : MonoBehaviour
     public string PushBack = "PushBack";
     public string Walking = "Walking";
     public string EnemyParryCollider = "EnemyParryCollider";
+    public string AttackedWhileRecovering = "AttackedWhileRecovering";
 
     public static TagsCollection Instance;
     private void Awake()

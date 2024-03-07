@@ -34,6 +34,7 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] Collider2D damageCollider;
 
     [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] FloatVariable playerStamina;
     
 
     void Start()
@@ -68,6 +69,9 @@ public class Player_Movement : MonoBehaviour
         
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
         {
+            if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) == (0, 0)) { return; }
+            if(playerStamina.Value == 0) { return; }
+
             isRunning = false;
             CurrentSpeed = BaseSpeed;
             player_Animator.SetBool("Running", false);
@@ -77,16 +81,12 @@ public class Player_Movement : MonoBehaviour
                 switch (canDash)
                 {
                     case true:
-                        if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != (0, 0))
-                        {
-                            StartCoroutine(Dash());
-                        }
+                        StartCoroutine(Dash());
                         break;
                     case false:
                         if (!isWaitingDash) { StartCoroutine(WaitForCanDash()); }
 
                         break;
-
                 }
             } 
         }
@@ -131,7 +131,7 @@ public class Player_Movement : MonoBehaviour
        //comboSystem.isCurrentAttackCanceled = true;
         if(eventSystem.OnPerformRoll != null) eventSystem.OnPerformRoll(this, EventArgs.Empty);
         player_Animator.SetTrigger("Roll");
-
+        eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(1f));
 
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
 

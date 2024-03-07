@@ -170,6 +170,7 @@ MonoBehaviour:
   PushBack: PushBack
   Walking: Walking
   EnemyParryCollider: EnemyParryCollider
+  AttackedWhileRecovering: AttackedWhileRecovering
 --- !u!4 &375634006
 Transform:
   m_ObjectHideFlags: 0
@@ -331,8 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00008ba1b191d884c990ecb8804ce795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 2061579158}
-  AttackProviderV2: {fileID: 2061579159}
+  Enemy: {fileID: 2088726025}
+  AttackProviderV2: {fileID: 2088726026}
   AttackName: 
   ResetPositionTrigger: 0
   PerformAttack: 0
@@ -882,17 +883,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
---- !u!1 &2061579158 stripped
+--- !u!1 &2088726025 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4853828804743536953, guid: 1ed8f8758ac6c444fbd47e4b36323bee, type: 3}
-  m_PrefabInstance: {fileID: 1418155522}
+  m_CorrespondingSourceObject: {fileID: 7898659401009106300, guid: a9b4ddf04ac94494ba8a5043ad7c8018, type: 3}
+  m_PrefabInstance: {fileID: 869152996}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2061579159 stripped
+--- !u!114 &2088726026 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4022744748258566219, guid: 1ed8f8758ac6c444fbd47e4b36323bee, type: 3}
-  m_PrefabInstance: {fileID: 1418155522}
+  m_CorrespondingSourceObject: {fileID: 1806583900592114702, guid: a9b4ddf04ac94494ba8a5043ad7c8018, type: 3}
+  m_PrefabInstance: {fileID: 869152996}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061579158}
+  m_GameObject: {fileID: 2088726025}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84b1373230966fb44a62193a49c61e58, type: 3}

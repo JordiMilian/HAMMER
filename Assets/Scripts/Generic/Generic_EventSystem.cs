@@ -37,11 +37,21 @@ public class Generic_EventSystem : MonoBehaviour
             vector3data = data;
         }
     }
+    public class EventArgs_StaminaConsumption
+    {
+        public float StaminaUsage;
+        public EventArgs_StaminaConsumption(float stamina)
+        {
+            StaminaUsage = stamina;
+        }
+    }
 
     public Action OnDeath;
+    public Action OnAttackFinished;
     public Action OnUpdatedHealth;
     public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
     public Action OnGettingParried;
+    public EventHandler<EventArgs_StaminaConsumption> OnStaminaAction;
     public EventHandler<EventArgs_SuccesfulParryInfo> OnSuccessfulParry;
 }

@@ -40,10 +40,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public bool HasCooldown;
         public float CooldownTime;
   
-        private void sdfsdf()
-        {
-            boxCollider = rangeDetector.GetComponent<BoxCollider2D>();
-        }
         public  void isInRange(object sender, EventArgs args) { isActive = true; }
         public void isNotInRange(object sender, EventArgs args) { isActive = false; }
          
@@ -114,8 +110,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 PickAvailableAttacks();
             }
         }
-        //if (DebugTrigger) { DebugTrigger = false; DebugAttack(); }
-
     }
 
     public void PerformAttack(EnemyAttack selectedAttack)
@@ -128,6 +122,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         enemyAnimator.SetTrigger(selectedAttack.TriggerName);
         enemyAnimator.SetBool("isAttacking", true);
 
+        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
         CurrentWaiting = StartCoroutine(WaitAnimationTime(selectedAttack));
 
         if(selectedAttack.HasCooldown)
@@ -140,6 +135,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         yield return new WaitForSeconds(selectedAttack.animationClip.length);
         isAttacking = false;
         enemyAnimator.SetBool("isAttacking", false);
+        if(eventSystem.OnAttackFinished != null) { eventSystem.OnAttackFinished(); }
     }
     void PickAvailableAttacks()
     {
