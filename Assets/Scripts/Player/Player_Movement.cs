@@ -35,8 +35,16 @@ public class Player_Movement : MonoBehaviour
 
     [SerializeField] Player_EventSystem eventSystem;
     [SerializeField] FloatVariable playerStamina;
-    
+    [SerializeField] Player_ActionPerformer actionPerformer;
 
+    private void OnEnable()
+    {
+        eventSystem.OnPerformRoll += CallDashMovement;
+    }
+    private void OnDisable()
+    {
+        eventSystem.OnPerformRoll -= CallDashMovement;
+    }
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -69,27 +77,23 @@ public class Player_Movement : MonoBehaviour
         
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
         {
-            if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) == (0, 0)) { return; }
-            if(playerStamina.Value == 0) { return; }
+            //if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) == (0, 0)) { return; }
+            if(playerStamina.Value <= 0) { return; }
 
-            isRunning = false;
-            CurrentSpeed = BaseSpeed;
-            player_Animator.SetBool("Running", false);
+            StopRunning();
+
             if (IsWaitingInputDelay)
             {
                 IsWaitingInputDelay = false;
-                switch (canDash)
-                {
-                    case true:
-                        StartCoroutine(Dash());
-                        break;
-                    case false:
-                        if (!isWaitingDash) { StartCoroutine(WaitForCanDash()); }
-
-                        break;
-                }
+                actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Roll"));
             } 
         }
+    }
+    void StopRunning()
+    {
+        isRunning = false;
+        CurrentSpeed = BaseSpeed;
+        player_Animator.SetBool("Running", false);
     }
     void Move(Vector2 vector2)
     {
@@ -122,43 +126,29 @@ public class Player_Movement : MonoBehaviour
             }
         }
     }
-
-    IEnumerator Dash()
+    void CallDashMovement()
     {
-        canDash = false;
-        comboSystem.canAttack = false;
-        isDashing = true;
-       //comboSystem.isCurrentAttackCanceled = true;
-        if(eventSystem.OnPerformRoll != null) eventSystem.OnPerformRoll(this, EventArgs.Empty);
-        player_Animator.SetTrigger("Roll");
+        //Call the event to remove Stamina
         eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(1f));
 
+        //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
-
+        if (Axis.magnitude == 0) {  return; }
+        StartCoroutine(DashMovement(Axis));
+    }
+    IEnumerator DashMovement(Vector2 direction)
+    {
         float time = 0;
         float weight = 0;
         while (time < RollTime)
         {
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
-            rigidbody.AddForce(Axis * RollMaxForce * weight* Time.deltaTime);
+            rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
             yield return null;
         }
-        isDashing = false;
-        yield return new WaitForSeconds(RollCooldown);
-        canDash = true;
-
     }
-    IEnumerator WaitForCanDash()
-    {
-        isWaitingDash = true;
-        while (!canDash) 
-        {
-            yield return null;
-        }
-        isWaitingDash = true;
-        StartCoroutine(Dash());
-    }
+    
     public void EV_SlowDownSpeed() { CurrentSpeed /= 2; }
     public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
     public void EV_CantDash() { canDash = false; }

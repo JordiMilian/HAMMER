@@ -456,7 +456,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: -7868742994160866062}
   - {fileID: 250668352828469974}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 901493176659996810}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -773,61 +774,67 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Running
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AttacksCount
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Roll
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Parry
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: canParry
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: isAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: GetHit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Death
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Parried
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: isInputing
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Body
@@ -981,6 +988,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &901493176659996810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a63e98313699c043bfd8e7f7ed59310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1102 &1074095786355478471
 AnimatorState:
   serializedVersion: 6
@@ -1039,13 +1058,13 @@ AnimatorStateMachine:
     m_Position: {x: 490, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1215331844555234311}
-    m_Position: {x: 580, y: 300, z: 0}
+    m_Position: {x: 640, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7978206576455441509}
     m_Position: {x: -440, y: 650, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6842579008190408249}
-    m_Position: {x: 830, y: 310, z: 0}
+    m_Position: {x: 920, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4995981914015945055}
     m_Position: {x: 420, y: -20, z: 0}
@@ -1054,7 +1073,7 @@ AnimatorStateMachine:
     m_Position: {x: 1090, y: -10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 319338301864418256}
-    m_Position: {x: 360, y: 320, z: 0}
+    m_Position: {x: 410, y: 300, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 5806369519687498726}
@@ -1065,7 +1084,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 770, y: 420, z: 0}
   m_EntryPosition: {x: 760, y: 190, z: 0}
-  m_ExitPosition: {x: 750, y: 730, z: 0}
+  m_ExitPosition: {x: 830, y: -110, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 6013700676662323752}
 --- !u!1101 &1846051786145140869

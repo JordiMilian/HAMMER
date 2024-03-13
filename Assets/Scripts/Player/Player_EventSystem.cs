@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player_EventSystem : Generic_EventSystem
 {
     
-    public EventHandler OnPerformRoll;
+    public Action OnPerformRoll;
     public EventHandler OnRespawn;
+    public Action OnPerformAttack;
 }

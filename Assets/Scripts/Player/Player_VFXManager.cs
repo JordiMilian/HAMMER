@@ -44,7 +44,7 @@ public class Player_VFXManager : MonoBehaviour
     {
         GameObject ReceiveDamage = Instantiate(VFX_ReceiveDamage, receivedDamageInfo.CollisionPosition, Quaternion.identity);
     }
-    void PlayDustVFX(object sender, EventArgs args)
+    void PlayDustVFX()
     {
         VFX_Roll.Play();
     }

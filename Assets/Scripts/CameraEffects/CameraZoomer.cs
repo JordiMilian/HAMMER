@@ -27,10 +27,10 @@ public class CameraZoomer : MonoBehaviour
         public float ZoomDuration;
         public string Name;
 
-        public ZoomInfo(float zoom, float adder, string name)
+        public ZoomInfo(float zoom, float duration, string name)
         {
             ZoomSize = zoom;
-            ZoomDuration = adder;
+            ZoomDuration = duration;
             Name = name;
         }
     }

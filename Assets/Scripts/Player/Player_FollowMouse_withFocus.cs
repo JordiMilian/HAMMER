@@ -26,12 +26,14 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     GameObject FocusedEnemy;
     public bool IsFocusingEnemy = false;
     Enemy_EventSystem FocusedEventSystem;
+    Camera mainCamera;
 
     private void Awake()
     {
         MouseFocusTransform = GameObject.Find("MouseCameraTarget").transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         zoomer = GameObject.Find("CM vcam1").GetComponent<CameraZoomer>();
+        mainCamera = Camera.main;
     }
     private void OnEnable()
     {
@@ -75,7 +77,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     GameObject ClosestEnemyToMouseInRange(float range)
     {
-        Vector2 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousepos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         List<GameObject> InrangeEnemies = new List<GameObject>();
         List<float> InrangeDistances = new List<float>();
@@ -148,7 +150,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void LookingAtMouse()
     {
-        Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 PivotVector = transform.position;
         transform.up = (Vector3.RotateTowards(transform.up, mousePos - PivotVector, FollowMouse_Speed * Time.deltaTime, 10f));
         spriteFliper.FocusVector = mousePos;

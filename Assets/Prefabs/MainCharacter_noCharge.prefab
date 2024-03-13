@@ -1373,6 +1373,7 @@ GameObject:
   - component: {fileID: 3372783210703460156}
   - component: {fileID: 4128982462933193464}
   - component: {fileID: 1631478559803088520}
+  - component: {fileID: 399182982499736661}
   m_Layer: 0
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -1450,7 +1451,7 @@ Animator:
   m_GameObject: {fileID: 7653426975249963383}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 422ac4663c74d924ea1c7aee8145fc60, type: 2}
+  m_Controller: {fileID: 9100000, guid: fd943e08426a8c54bb5d79ebd9befa40, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1564,6 +1565,7 @@ MonoBehaviour:
   damageCollider: {fileID: 7653426974398778621}
   eventSystem: {fileID: 3383090570821903391}
   playerStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
+  actionPerformer: {fileID: 399182982499736661}
 --- !u!114 &7653426975249963332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1611,6 +1613,8 @@ MonoBehaviour:
   VFXManager: {fileID: 7653426975249963331}
   eventSystem: {fileID: 3383090570821903391}
   CurrentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
+  actionPerformer: {fileID: 399182982499736661}
+  Force: 0
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   defaultDistance: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
   minDistance: 0.2
@@ -1634,6 +1638,7 @@ MonoBehaviour:
   weaponParryCollider: {fileID: 7653426975970030027}
   damageDetectorCollider: {fileID: 7653426974398778621}
   comboSystem: {fileID: 864485886040288406}
+  actionPerformer: {fileID: 399182982499736661}
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1783,8 +1788,8 @@ MonoBehaviour:
   maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
   currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
   RecoveryPerSecond: 4
-  DelayToRecover: 0.7
-  DelayToFullRecover: 1.5
+  DelayToRecover: 0.6
+  DelayToFullRecover: 1
 --- !u!114 &1631478559803088520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1806,6 +1811,19 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
   proximityTrigger: {fileID: 285086702692713560}
+--- !u!114 &399182982499736661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d867b0a8745ce7d4f8307d9bc05a5715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 7653426975249963390}
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0

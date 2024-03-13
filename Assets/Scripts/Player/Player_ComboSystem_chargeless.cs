@@ -24,6 +24,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [SerializeField] Player_VFXManager VFXManager;
     [SerializeField] Player_EventSystem eventSystem;
     [SerializeField] FloatVariable CurrentStamina;
+    [SerializeField] Player_ActionPerformer actionPerformer;
 
     [Header("Adapt to distance to Enemy")]
     [SerializeField] float Force;
@@ -43,20 +44,30 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         canAttack = true;
         playerMovement = GetComponent<Player_Movement>();
     }
+    private void OnEnable()
+    {
+        eventSystem.OnPerformAttack += RemoveAttackStamina;
+    }
+    void RemoveAttackStamina()
+    {
+        eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(2));
+    }
 
     void Update()
     {
 
         if(Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Mouse0))
         {
+            actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
+
             if(canAttack)
             {
-                SetReleaseTriggers();
+                //SetReleaseTriggers();
             }
 
             if (!canAttack)
             {
-                StartCoroutine(WaitForCanAttackRelease());
+                //StartCoroutine(WaitForCanAttackRelease());
             }
         }
     }

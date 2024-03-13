@@ -6,7 +6,9 @@ using UnityEngine.EventSystems;
 
 public class Enemy_EventSystem : Generic_EventSystem
 {
-    public Action OnAgrooPlayer;
-    public Action OnPlayerOutOfRange;
+    public Action CallAgrooState;
+    public Action CallIdleState;
+    public Action OnAgrooState;
+    public Action OnIdleState;
     public Action OnStanceBroken;
 }

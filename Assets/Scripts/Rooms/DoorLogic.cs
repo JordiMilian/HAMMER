@@ -158,6 +158,5 @@ public class DoorLogic : MonoBehaviour
         targetGroup.m_Targets[emptyTarget].target = null;
         targetGroup.m_Targets[emptyTarget].weight = 0;
         targetGroup.m_Targets[emptyTarget].radius = 0;
-
     }
 }

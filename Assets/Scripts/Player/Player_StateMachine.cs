@@ -40,6 +40,7 @@ public class Player_StateMachine : MonoBehaviour
     public void EV_TeleportPlayer()
     {
         if (eventSystem.OnRespawn != null) eventSystem.OnRespawn(this, EventArgs.Empty);
+
         weaponPivot.transform.eulerAngles = new Vector3(
             weaponPivot.transform.eulerAngles.x,
             weaponPivot.transform.eulerAngles.y,

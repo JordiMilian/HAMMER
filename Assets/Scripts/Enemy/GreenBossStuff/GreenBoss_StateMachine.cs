@@ -75,7 +75,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
     {
         if(CurrentState != StatesGreenBoss.Idle)
         {
-            if (eventSystem.OnPlayerOutOfRange != null) eventSystem.OnPlayerOutOfRange();
+            if (eventSystem.OnIdleState != null) eventSystem.OnIdleState();
             Fase01_provider.isProviding = false;
             Fase02_provider.isProviding = false;
             agrooMovement.enabled = false;
@@ -89,7 +89,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
     {
         if(CurrentState != StatesGreenBoss.Fase01 && CurrentState != StatesGreenBoss.Fase02 && CurrentState != StatesGreenBoss.Transitioning)
         {
-            if (eventSystem.OnAgrooPlayer != null) eventSystem.OnAgrooPlayer();
+            if (eventSystem.OnAgrooState != null) eventSystem.OnAgrooState();
             CheckHealthForState();
         }
     }
