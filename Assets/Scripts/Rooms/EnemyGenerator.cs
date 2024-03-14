@@ -25,13 +25,14 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents ReopenDoorTrigger;
     [SerializeField] Collider2D SpawnArea;
     [SerializeField] GameObject EnemiesContainer;
-    [SerializeField] bool isRoomCompleted;
+    public bool isRoomCompleted;
     [Header("Door animation stuff")]
     [SerializeField] DoorAnimationController doorController;
     [SerializeField] AnimationClip openDoorAnimation;
     [SerializeField] Transform DoorPosition;
     int EnemiesAlive;
     bool areCorrectlySpawned;
+    [HideInInspector] public bool reenteredRoom;
 
     private void OnEnable()
     {
@@ -46,8 +47,9 @@ public class EnemyGenerator : MonoBehaviour
     }
     void SpawnEnemies(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
-        if (areCorrectlySpawned) { return; }
+        
         if (isRoomCompleted) { return; }
+        if (areCorrectlySpawned) { return; }
         if (SpawneableEnemies.Count == 0 || MaxWeight == 0)
         {
             RoomCompleted(false);
@@ -55,6 +57,7 @@ public class EnemyGenerator : MonoBehaviour
             return; 
         }
 
+        reenteredRoom = true;
         //Destroy the remaining enemies
         for (int i = CurrentlySpawnedEnemies.Count - 1; i >= 0; i--)
         {
@@ -99,6 +102,7 @@ public class EnemyGenerator : MonoBehaviour
         }
         EnemiesAlive = CurrentlySpawnedEnemies.Count;
         areCorrectlySpawned = true;
+        
     }
     void ActuallySpawn(EnemySpawn spawn)
     {

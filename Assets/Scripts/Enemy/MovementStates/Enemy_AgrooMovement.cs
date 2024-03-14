@@ -15,7 +15,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     public float CurrentRotationSpeed;
     float BaseRotationSpeed;
     float SlowRotationSpeed;
-    Transform PlayerTransform;
+    [HideInInspector] public static Transform PlayerTransform;
     [SerializeField] Transform Weapon_Pivot;
     //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;

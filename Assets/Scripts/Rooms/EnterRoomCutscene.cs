@@ -9,6 +9,7 @@ public class EnterRoomCutscene : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents enterRoomTrigger;
     [SerializeField] EnemyGenerator enemyGenerator;
     [SerializeField] Transform CenterOfRoom;
+    bool isRoomEntered;
 
     private void OnEnable()
     {
@@ -21,6 +22,8 @@ public class EnterRoomCutscene : MonoBehaviour
     }
     void callEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
+        if (enemyGenerator.isRoomCompleted) { return; }
+        if(!enemyGenerator.reenteredRoom) { return; }
         StartCoroutine(EnterRoom());
     }
 
@@ -50,6 +53,6 @@ public class EnterRoomCutscene : MonoBehaviour
         zoomer.RemoveZoomInfo("enter");
         EnemyGenerator.AddTargetToTargetGroup(targetGroup, emptySlot, null, 0, 0);
 
-        
+        enemyGenerator.reenteredRoom = false;
     }
 }

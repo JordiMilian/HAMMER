@@ -18,12 +18,16 @@ public class Player_VFXManager : MonoBehaviour
     [Header("TRAILS")]
     [SerializeField] TrailRenderer WeaponTrail;
     [SerializeField] TrailRenderer rollTrail;
+    [Header("GROUND BLOOD")]
+    [SerializeField] Transform GroundBlood_Offset;
+    [SerializeField] VisualEffect GroundBloodVFX;
     private void OnEnable()
     {
         eventSystem.OnSuccessfulParry += InstantiateParryVFX;
         eventSystem.OnDealtDamage += InstantiateDealDamageVFX;
         eventSystem.OnReceiveDamage += InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll += PlayDustVFX;
+        eventSystem.OnReceiveDamage += PlayGroundBlood;
     }
     private void OnDisable()
     {
@@ -31,6 +35,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnDealtDamage -= InstantiateDealDamageVFX;
         eventSystem.OnReceiveDamage -= InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll -= PlayDustVFX;
+        eventSystem.OnReceiveDamage -= PlayGroundBlood;
     }
     public void InstantiateParryVFX(object sender, EventArgs_SuccesfulParryInfo parryInfo)
     {
@@ -47,6 +52,15 @@ public class Player_VFXManager : MonoBehaviour
     void PlayDustVFX()
     {
         VFX_Roll.Play();
+    }
+    void PlayGroundBlood(object sender, Generic_EventSystem.EventArgs_ReceivedAttackInfo args)
+    {
+        Vector2 thisPosition = transform.position;
+        Vector2 otherPosition = args.Attacker.transform.root.position;
+        Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
+
+        GroundBlood_Offset.up = opositeDirection;
+        GroundBloodVFX.Play();
     }
     public void EV_HideTrail() { WeaponTrail.enabled = false; }
     public void EV_ShowTrail() { WeaponTrail.enabled = true; }

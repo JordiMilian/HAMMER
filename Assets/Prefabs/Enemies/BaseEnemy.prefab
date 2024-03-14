@@ -110,6 +110,7 @@ Transform:
   - {fileID: 8543705226525020148}
   - {fileID: 3736275689294426710}
   - {fileID: 2804378631093290336}
+  - {fileID: 5182215059924202484}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -415,6 +416,8 @@ MonoBehaviour:
   StanceBrokenVFX: {fileID: 7173184949144218407, guid: 283b49a7b9b4e7f428eecff3d1a6c915, type: 3}
   SucesfullParryVFX: {fileID: 0}
   trailRenderer: {fileID: 0}
+  GroundBlood_Offset: {fileID: 5182215059924202484}
+  GroundBloodVFX: {fileID: 157946737289787008}
   eventSystem: {fileID: 627058440868749388}
 --- !u!114 &695697341023069215
 MonoBehaviour:
@@ -995,6 +998,38 @@ MonoBehaviour:
   Pivot: {fileID: 8543705226525020148}
   Base: {fileID: 4802207913274506029}
   Strengh: 100
+--- !u!1 &1911993330059850203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5182215059924202484}
+  m_Layer: 0
+  m_Name: GroundBloodOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5182215059924202484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911993330059850203}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 157946737289787011}
+  m_Father: {fileID: 4802207913274506029}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2117043943955436526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1723,73 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309733073026282586, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
   m_PrefabInstance: {fileID: 4626600347995894287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6761297830571591290
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5182215059924202484}
+    m_Modifications:
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.186
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910165827283071228, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+      propertyPath: m_Name
+      value: VFX_BloodGroundSplash_prefab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+--- !u!2083052967 &157946737289787008 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 6910165827283071226, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+  m_PrefabInstance: {fileID: 6761297830571591290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &157946737289787011 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6910165827283071225, guid: c280ab03a5a10b645ac9210a876ab2fd, type: 3}
+  m_PrefabInstance: {fileID: 6761297830571591290}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6969704260542634703
 PrefabInstance:
