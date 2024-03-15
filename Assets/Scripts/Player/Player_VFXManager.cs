@@ -18,9 +18,7 @@ public class Player_VFXManager : MonoBehaviour
     [Header("TRAILS")]
     [SerializeField] TrailRenderer WeaponTrail;
     [SerializeField] TrailRenderer rollTrail;
-    [Header("GROUND BLOOD")]
-    [SerializeField] Transform GroundBlood_Offset;
-    [SerializeField] VisualEffect GroundBloodVFX;
+
     private void OnEnable()
     {
         eventSystem.OnSuccessfulParry += InstantiateParryVFX;
@@ -59,8 +57,12 @@ public class Player_VFXManager : MonoBehaviour
         Vector2 otherPosition = args.Attacker.transform.root.position;
         Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
 
-        GroundBlood_Offset.up = opositeDirection;
-        GroundBloodVFX.Play();
+        if (GroundBloodMaker.Instance == null)
+        {
+            Debug.LogWarning("No Ground Blood instance");
+            return;
+        }
+        GroundBloodMaker.Instance.Play(thisPosition, opositeDirection,0.9f);
     }
     public void EV_HideTrail() { WeaponTrail.enabled = false; }
     public void EV_ShowTrail() { WeaponTrail.enabled = true; }

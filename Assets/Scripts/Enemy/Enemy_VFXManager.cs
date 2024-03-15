@@ -9,15 +9,13 @@ public class Enemy_VFXManager : MonoBehaviour
     [SerializeField] GameObject StanceBrokenVFX;
     [SerializeField] GameObject SucesfullParryVFX;
     [SerializeField] TrailRenderer trailRenderer;
-    [SerializeField] Transform GroundBlood_Offset;
-    [SerializeField] VisualEffect GroundBloodVFX;
+
     [SerializeField] Enemy_EventSystem eventSystem;
-    Transform playerTf;
+
    
     
     private void OnEnable()
     {
-        playerTf = GameObject.Find(TagsCollection.Instance.MainCharacter).transform;
         eventSystem.OnStanceBroken += InstantiateStanceBrokenVFX;
         eventSystem.OnSuccessfulParry += InstantiateSuccesfulParryVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
@@ -49,8 +47,12 @@ public class Enemy_VFXManager : MonoBehaviour
         Vector2 otherPosition = args.Attacker.transform.root.position;
         Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
 
-        GroundBlood_Offset.up = opositeDirection;
-        GroundBloodVFX.Play();
+        if(GroundBloodMaker.Instance ==  null)
+        {
+            Debug.LogWarning("No Ground Blood instance");
+            return;
+        }
+        GroundBloodMaker.Instance.Play(thisPosition, opositeDirection,0.9f);
     }
   
 }

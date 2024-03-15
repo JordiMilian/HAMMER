@@ -158,7 +158,6 @@ public class EnemyGenerator : MonoBehaviour
             attempts++;
         }
         while (!collider.OverlapPoint(randomPoint));
-        Debug.Log("Attempts: " + attempts);
         return randomPoint;
     }
     IEnumerator OpenDoorFocusCamera()
