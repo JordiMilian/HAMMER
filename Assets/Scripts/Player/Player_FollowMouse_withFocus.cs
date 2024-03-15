@@ -23,10 +23,12 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [SerializeField] FloatVariable distanceToEnemy;
 
     List<GameObject> CurrentEnemies = new List<GameObject>();
-    GameObject FocusedEnemy;
+    [HideInInspector] public GameObject FocusedEnemy;
     public bool IsFocusingEnemy = false;
     Enemy_EventSystem FocusedEventSystem;
     Camera mainCamera;
+    public Action OnFocusEnemy;
+    public Action OnUnfocusEnemy;
 
     private void Awake()
     {

@@ -47,7 +47,7 @@ public class OrbLogic : MonoBehaviour
 
         isCollected = true;
         spriteRend.color = Color.yellow;
-        if(OnPickedUp != null) { OnPickedUp(); }
+        OnPickedUp?.Invoke();
     }
     public void Despawn()
     {
