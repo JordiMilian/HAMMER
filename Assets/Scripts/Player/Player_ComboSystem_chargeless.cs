@@ -116,7 +116,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         else { equivalent = CalculateEquivalent(distanceToEnemy.Value);} // Else calculate with distance
 
         Vector3 tempForce = FollowMouse.gameObject.transform.up * Force * equivalent;
-        StartCoroutine(ApplyForceOverTime(tempForce, 0.1f));
+        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRigidbody, tempForce, 0.1f));
     }
     float CalculateEquivalent(float Distance)
     {
@@ -132,15 +132,6 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     {
         attacksCount = 0;
         animator.SetInteger(AttacksCountTag, attacksCount);
-    }
-    IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
-    {
-        float startTime = Time.time;
-        while (Time.time - startTime < duration)
-        {
-            playerRigidbody.AddForce((forceVector / duration)*Time.deltaTime);
-            yield return null;
-        }
     }
 }
 
