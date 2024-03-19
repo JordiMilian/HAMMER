@@ -65,6 +65,7 @@ MonoBehaviour:
   doorController: {fileID: 222388718124707070}
   openDoorAnimation: {fileID: 7400000, guid: 438a725f1151b93478c76a080da3f9d3, type: 2}
   DoorPosition: {fileID: 222388718124707071}
+  reenteredRoom: 0
 --- !u!114 &4156041065630128416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +181,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3027678335786828838}
   - component: {fileID: 8708407016903495072}
-  m_Layer: 0
+  - component: {fileID: 4905518411256303662}
+  m_Layer: 9
   m_Name: WallsCollisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +237,27 @@ PolygonCollider2D:
       - {x: -2.5911548, y: -0.4713701}
       - {x: -1.9558188, y: -0.47136998}
       - {x: -1.977021, y: 0.8438649}
+--- !u!50 &4905518411256303662
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3490106071638590932}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4930672427952423567
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +633,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2306721142003148613}
   - component: {fileID: 2124397717869093364}
-  m_Layer: 0
+  - component: {fileID: 6424608156452296814}
+  m_Layer: 9
   m_Name: WallsCollisions (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,6 +689,27 @@ PolygonCollider2D:
       - {x: -2.5911548, y: -0.4713701}
       - {x: -1.9558188, y: -0.47136998}
       - {x: -1.977021, y: 0.8438649}
+--- !u!50 &6424608156452296814
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884438536881848316}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &6806137000356672826
 PrefabInstance:
   m_ObjectHideFlags: 0

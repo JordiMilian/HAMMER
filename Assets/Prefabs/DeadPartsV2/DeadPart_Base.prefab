@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1204544688043583331}
+  - component: {fileID: 2495732562812387194}
   m_Layer: 0
   m_Name: DeadPart_Base
   m_TagString: Untagged
@@ -33,6 +34,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2495732562812387194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204544688043583332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd962f21f5df0a45a88ce8b8b4d8c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ground_RB: {fileID: 1204544688163766680}
+  DeadPart_RB: {fileID: 1204544689040424557}
+  testDirection: {x: 0, y: 0}
+  DP_Force: 3
+  Intensity_tester: 1
+  groundForce: 0.707
+  groundDuration: 1
+  maxRandomRotation: 10
+  attackTrigger: {fileID: 2467431972470182038}
 --- !u!1 &1204544688163766682
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +68,7 @@ GameObject:
   - component: {fileID: 1204544688163766679}
   - component: {fileID: 1204544688163766680}
   - component: {fileID: 1204544688163766676}
+  - component: {fileID: 3503498806152523517}
   m_Layer: 11
   m_Name: DeadGround
   m_TagString: Untagged
@@ -242,6 +265,18 @@ PolygonCollider2D:
       - {x: -0.90281487, y: -1}
       - {x: -0.97451854, y: -1}
       - {x: -1, y: -1}
+--- !u!114 &3503498806152523517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204544688163766682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ddd026f8eb77349b0bf96aa256497f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1204544689040424558
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +289,6 @@ GameObject:
   - component: {fileID: 1204544689040424555}
   - component: {fileID: 1204544689040424556}
   - component: {fileID: 1204544689040424557}
-  - component: {fileID: 1204544689040424553}
   - component: {fileID: 1204544689040424552}
   m_Layer: 10
   m_Name: DeadPart
@@ -380,27 +414,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1204544689040424553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204544689040424558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd962f21f5df0a45a88ce8b8b4d8c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Ground_RB: {fileID: 1204544688163766680}
-  DeadPart_RB: {fileID: 1204544689040424557}
-  testDirection: {x: 0, y: 0}
-  DP_Force: 3
-  groundAcceleration: 0.284
-  groundForce: 0.5
-  groundDuration: 1
-  maxRandomRotation: 100
-  attackTrigger: {fileID: 2467431972470182038}
 --- !u!231 &1204544689040424552
 SpringJoint2D:
   m_ObjectHideFlags: 0

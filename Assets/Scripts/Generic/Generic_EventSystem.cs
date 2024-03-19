@@ -48,9 +48,11 @@ public class Generic_EventSystem : MonoBehaviour
     public class Args_DeadCharacter
     {
         public GameObject DeadGameObject;
-        public Args_DeadCharacter(GameObject deadGameObject)
+        public GameObject Killer;
+        public Args_DeadCharacter(GameObject deadGameObject, GameObject killer)
         {
             DeadGameObject = deadGameObject;
+            Killer = killer;
         }
     }
 

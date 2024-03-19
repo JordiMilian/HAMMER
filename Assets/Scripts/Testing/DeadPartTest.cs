@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ public class DeadPartTest : MonoBehaviour
     [SerializeField] Vector2 testDirection;
 
     [SerializeField] float DP_Force;
+    [Range(0, 1)]
+    [SerializeField] float Intensity_tester;
 
-    [Range(0f, 1f)]
-    [SerializeField] float groundAcceleration;
+    //[Range(0f, 1f)]
+    //[SerializeField] float groundAcceleration;
     [SerializeField] float groundForce;
     [SerializeField] float groundDuration;
     [SerializeField] float maxRandomRotation;
@@ -29,31 +32,53 @@ public class DeadPartTest : MonoBehaviour
         attackTrigger.AddActivatorTag(TagsCollection.Instance.Player);
         attackTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
         attackTrigger.OnTriggerEntered += AttackDetected;
+        DeadParts_Manager.Instance.OnDeadPartInstantiated += CheckIgnorance;
 
         //Get the ground and add it to the list of the manager
         groundCollider = Ground_RB.GetComponent<Collider2D>();
         DeadParts_Manager.Instance.GroundsList.Add(groundCollider);
 
+        //FInd all the objects with DeadPart Layer and add their collider to a List
         LayerMask DeadPartLayer = LayerMask.NameToLayer("DeadParts");
-       // DP_Colliders = UsefullMethods.GetChildrensWithLayer(transform, DeadPartLayer);
+        GameObject[] DP_GO = UsefullMethods.GetChildrensWithLayer(transform, DeadPartLayer);
+        foreach (GameObject go in DP_GO)
+        {
+            if(go.GetComponent<Collider2D>() != null)
+            {
+                DP_Colliders.Add(go.GetComponent<Collider2D>());
+            }
+        }
+
+        //Invoke the Event that calls everyone to revisit what colliders to ignore 
+        DeadParts_Manager.Instance.OnDeadPartInstantiated?.Invoke();
+    }
+    void CheckIgnorance()
+    {
+        //Make every Collider listed to Ignore every Ground except its own
         foreach (Collider2D col in DP_Colliders)
         {
             DeadParts_Manager.Instance.IgnoreAllGroundExceptThis(groundCollider, col);
         }
-        
     }
+
     private void OnDisable()
     {
         attackTrigger.OnTriggerExited -= AttackDetected;
         DeadParts_Manager.Instance.GroundsList.Remove(groundCollider);
-
+        DeadParts_Manager.Instance.OnDeadPartInstantiated -= CheckIgnorance;
     }
+    
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E)) 
         {
-            StartCoroutine(PushMegaCoroutine(groundDuration, testDirection));
+            StartCoroutine(PushMegaCoroutine(testDirection,Intensity_tester));
         }
+        /*
+        GameObject player = GameObject.Find(TagsCollection.Instance.MainCharacter);
+        Vector3 attackDirection = (transform.root.position - player.transform.root.position).normalized;
+        Debug.DrawLine(transform.root.position, transform.root.position + attackDirection);
+        */
     }
     private void FixedUpdate()
     {
@@ -61,30 +86,59 @@ public class DeadPartTest : MonoBehaviour
     }
     void AttackDetected(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
-        Debug.Log("Detected");
-        Vector2 attackDirection = ( transform.position- args.Collision.gameObject.transform.root.position).normalized;
-        StartCoroutine(PushMegaCoroutine(groundDuration, attackDirection));
+        Vector2 otherPosition = args.Collision.gameObject.transform.root.position;
+        Vector2 attackDirection = ( DeadPart_RB.position - otherPosition).normalized;
+        switch (args.Collision.gameObject.tag)
+        {
+            case "Attack_Hitbox":
+                StartCoroutine(PushMegaCoroutine(attackDirection, 0.5f));
+                break;
+            case "Player":
+                StartCoroutine(PushMegaCoroutine(attackDirection, 0.2f));
+                break;
+            default: break;
+        }
+            
+        
     }
-    IEnumerator PushMegaCoroutine(float duration, Vector2 direction)
+    public IEnumerator PushMegaCoroutine( Vector2 direction, float intencity)
     {
         float timer = 0;
         float lerpedStrenght = 1;
+        float randomTorque = UnityEngine.Random.Range(-maxRandomRotation, maxRandomRotation);
 
-        while (timer < duration)
+        while (timer < groundDuration)
         {
             timer += Time.fixedDeltaTime;
-            lerpedStrenght = Mathf.Lerp(lerpedStrenght, 0, groundAcceleration);
-            Ground_RB.MovePosition(Ground_RB.position + (direction * lerpedStrenght * groundForce));
-            if(timer < duration/2)
+            attackTrigger.enabled = false;
+            //Ground decelerator and move the ground
+            lerpedStrenght = Mathf.Lerp(lerpedStrenght, 0, 0.25f);
+            Ground_RB.MovePosition(Ground_RB.position + (direction * lerpedStrenght * groundForce*intencity));
+            
+            //For the first half of time, push Deadport upwards
+            if(timer < groundDuration/ 3)
             {
-                DeadPart_RB.AddForce((Vector2.up * DP_Force) + direction);
+                DeadPart_RB.AddForce((Vector2.up * DP_Force * intencity) + direction);
             }
-            if(timer < duration/4)
+
+            //For the first quarter, rotate the DeadPart
+            if (timer < groundDuration/ 4)
             {
-                DeadPart_RB.AddTorque(UnityEngine.Random.Range(-maxRandomRotation, maxRandomRotation));
+                DeadPart_RB.AddTorque(randomTorque);
             }
+
+
+            //FIxed Update
             yield return new WaitForFixedUpdate();
-            Debug.Log("deathhh");
+        }
+        attackTrigger.enabled = true;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Detected some");
+        if(collision.gameObject.layer == LayerMask.NameToLayer("BlockingWalls"))
+        {
+            Debug.Log("I SHOULD STOP");
         }
     }
 }

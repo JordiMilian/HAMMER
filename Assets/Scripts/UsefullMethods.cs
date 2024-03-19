@@ -25,6 +25,7 @@ public class UsefullMethods : MonoBehaviour
     public static GameObject[] GetChildrensWithLayer (Transform parent, LayerMask layer)
     {
         List<GameObject> found = new List<GameObject>();
+        if (parent.gameObject.layer == layer) { found.Add(parent.gameObject); }
         for(int i = 0; i< parent.childCount; i++)
         {
             Transform child = parent.GetChild(i);

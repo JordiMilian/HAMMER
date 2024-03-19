@@ -13,9 +13,9 @@ public class Player_HealthSystem : Generic_HealthSystem
     private void Awake()
     {
     }
-    public override void Death()
+    public override void Death(GameObject killer)
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject));
+        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject, killer));
         if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
         if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
         TimeScaleEditor.Instance.SlowMotion(80, 2);

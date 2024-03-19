@@ -34,7 +34,7 @@ public class Generic_HealthSystem : MonoBehaviour
 
         if (CurrentHP.Value <= 0)
         {
-            Death();
+            Death(receivedAttackInfo.Attacker);
         }
         if (CurrentHP.Value > MaxHP.Value)
         {
@@ -46,9 +46,9 @@ public class Generic_HealthSystem : MonoBehaviour
     {
         CurrentHP.Value = MaxHP.Value;
     }
-    public virtual void Death()
+    public virtual void Death(GameObject killer)
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject));
+        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject,killer));
         Destroy(gameObject);
     }
 }

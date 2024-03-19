@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class DeadParts_Manager : MonoBehaviour
 {
     public List<Collider2D> GroundsList = new List<Collider2D>();
+    public Action OnDeadPartInstantiated;
 
     public static DeadParts_Manager Instance;
     private void Awake()
@@ -20,10 +22,14 @@ public class DeadParts_Manager : MonoBehaviour
     }
     public void IgnoreAllGroundExceptThis(Collider2D ownGround, Collider2D DeadPartCollider)
     {
-        foreach (Collider2D col in GroundsList)
+        int equals = 0;
+        int diferents = 0;
+        foreach (Collider2D groundCol in GroundsList)
         {
-            if (col == ownGround) { continue; }
-            Physics2D.IgnoreCollision(ownGround, DeadPartCollider);
+            if (groundCol == ownGround) { equals++; continue; }
+            diferents++;
+            Physics2D.IgnoreCollision(groundCol, DeadPartCollider);
         }
+        Debug.Log("Equals: " +  equals + "  Diferents: " + diferents);
     }
 }

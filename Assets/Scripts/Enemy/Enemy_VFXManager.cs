@@ -9,6 +9,7 @@ public class Enemy_VFXManager : MonoBehaviour
     [SerializeField] GameObject StanceBrokenVFX;
     [SerializeField] GameObject SucesfullParryVFX;
     [SerializeField] TrailRenderer trailRenderer;
+    [SerializeField] GameObject BloodExplosion;
 
     [SerializeField] Enemy_EventSystem eventSystem;
 
@@ -19,11 +20,19 @@ public class Enemy_VFXManager : MonoBehaviour
         eventSystem.OnStanceBroken += InstantiateStanceBrokenVFX;
         eventSystem.OnSuccessfulParry += InstantiateSuccesfulParryVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
+        eventSystem.OnDeath += InstantiateBllodExplosion;
     }
     private void OnDisable()
     {
         eventSystem.OnStanceBroken -= InstantiateStanceBrokenVFX;
         eventSystem.OnSuccessfulParry -= InstantiateSuccesfulParryVFX;
+        eventSystem.OnReceiveDamage -= PlayGroundBlood;
+        eventSystem.OnDeath -= InstantiateBllodExplosion;
+
+    }
+    void InstantiateBllodExplosion(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    {
+        Instantiate(BloodExplosion, transform.position, Quaternion.identity);
     }
     void InstantiateStanceBrokenVFX()
     {
