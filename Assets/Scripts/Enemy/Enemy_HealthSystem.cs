@@ -15,7 +15,7 @@ public class Enemy_HealthSystem : Generic_HealthSystem
     public override void Death(GameObject killer)
     {
         //if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
-        //if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
+       // if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
         if(BloodCristals != null) 
         { 
             for(int i = 0; i< AmountOfCristals;i++)
@@ -24,12 +24,14 @@ public class Enemy_HealthSystem : Generic_HealthSystem
             }
             
         }
+        
         foreach(GameObject part in DeadParts)
         {
-            Vector2 direction = (transform.position - killer.transform.root.position).normalized;
+            Vector2 direction = (transform.position - killer.transform.position).normalized;
             GameObject InstantiatedDeadPart = Instantiate(part, transform.root.position, Quaternion.identity);
-            StartCoroutine(InstantiatedDeadPart.GetComponent<DeadPartTest>().PushMegaCoroutine(direction,0.5f));
+            StartCoroutine(InstantiatedDeadPart.GetComponent<DeadPartTest>().PushMegaCoroutine(direction,2f));
         }
+        
         if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject, killer));
         TimeScaleEditor.Instance.SlowMotion(80, 1.2f);
         Destroy(gameObject);

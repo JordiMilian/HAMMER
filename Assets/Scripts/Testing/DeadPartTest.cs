@@ -86,7 +86,7 @@ public class DeadPartTest : MonoBehaviour
     }
     void AttackDetected(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
-        Vector2 otherPosition = args.Collision.gameObject.transform.root.position;
+        Vector2 otherPosition = args.Collision.gameObject.transform.position;
         Vector2 attackDirection = ( DeadPart_RB.position - otherPosition).normalized;
         switch (args.Collision.gameObject.tag)
         {
@@ -98,8 +98,6 @@ public class DeadPartTest : MonoBehaviour
                 break;
             default: break;
         }
-            
-        
     }
     public IEnumerator PushMegaCoroutine( Vector2 direction, float intencity)
     {
