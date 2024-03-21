@@ -47,4 +47,9 @@ public class UsefullMethods
         Vector2 normalized = vector.normalized;
         return Mathf.Atan2(normalized.y, normalized.x);
     }
+    public static int simplifyScale(float scale)
+    {
+        if(scale >= 0) { return 1; }
+        else { return -1; }
+    }
 }

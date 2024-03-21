@@ -5,21 +5,20 @@ using UnityEngine;
 public class DeadGround_Detector : MonoBehaviour
 {
     [SerializeField] DeadPartV3 deadPartV3;
+    [SerializeField] DeadPart_EventSystem eventSystem;
     [SerializeField] float exitSpeed = 0.01f;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer(TagsCollection.BlockingWalls))
         {
-            if (deadPartV3.currentPush != null)
-            {
-                deadPartV3.triggerDetector.GetComponent<Collider2D>().enabled = true;
-            }
-            //Push in the other direction
+            
+            /*
             Vector2 originPosition = transform.root.position;
             Vector2 colisionPoint = collision.ClosestPoint(originPosition);
             Vector2 opositeDirection = (colisionPoint - originPosition).normalized;
+            */
 
-            deadPartV3.OnHitWall();
+            eventSystem.OnHitWall?.Invoke();
         }
     }
     private void OnTriggerStay2D(Collider2D collision)

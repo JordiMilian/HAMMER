@@ -32,7 +32,7 @@ public class Generic_Flash : MonoBehaviour
 
         while (elapsedTime < flashTime)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime * Time.timeScale;
             CurrentFlashAmount = Mathf.Lerp(1f,0f,elapsedTime/flashTime);
             SetFlashAmount(CurrentFlashAmount);
             yield return null;

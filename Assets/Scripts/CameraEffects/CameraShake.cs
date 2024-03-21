@@ -5,20 +5,28 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
-
-    private CinemachineVirtualCamera CMVC;
+    [SerializeField] CinemachineVirtualCamera CMVC;
     private CinemachineBasicMultiChannelPerlin CMVCx;
-   
     float ShakeTimer;
     bool Shaking = false;
 
-    private void Start()
+    public static CameraShake Instance;
+    private void Awake()
     {
-        CMVC = GetComponent<CinemachineVirtualCamera>();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+        CMVCx = CMVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
+
     public void ShakeCamera(float Intensity, float Time)
     {
-        CMVCx = CMVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         ShakeTimer = Time;
         Shaking = true;
         CMVCx.m_AmplitudeGain = Intensity;

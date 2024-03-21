@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 695697341023069215}
   - component: {fileID: 1030339945491469921}
   - component: {fileID: 6132185481060562800}
+  - component: {fileID: 4265673334437877355}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -472,6 +473,21 @@ MonoBehaviour:
   rb: {fileID: 1771262554875931710}
   Threshold: 0.1
   animator: {fileID: 2195041901401652145}
+--- !u!114 &4265673334437877355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e22bda6deeacb746b7d7a462c30d540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 627058440868749388}
+  DeadParts: []
+  OrientationGuide: {fileID: 3736275689294426710}
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0

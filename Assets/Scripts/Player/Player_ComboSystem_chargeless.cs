@@ -58,7 +58,11 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-            actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
+            if(CurrentStamina.Value > 0)
+            {
+               actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
+            }
+            
 
             if(canAttack)
             {

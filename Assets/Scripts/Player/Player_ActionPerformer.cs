@@ -13,7 +13,7 @@ public class Player_ActionPerformer : MonoBehaviour
             triggerName = triggername;
         }
     }
-    bool isReadingInput;
+
 
     public void AddAction(Action action)
     {
@@ -28,7 +28,6 @@ public class Player_ActionPerformer : MonoBehaviour
     }
     public void EV_returnInput()
     {
-        isReadingInput = true;
         playerAnimator.SetBool("isInputing", true);
     }
     public void EV_canTransition()

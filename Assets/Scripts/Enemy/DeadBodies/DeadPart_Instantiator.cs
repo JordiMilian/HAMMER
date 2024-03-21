@@ -1,0 +1,59 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DeadPart_Instantiator : MonoBehaviour
+{
+    [SerializeField] Generic_EventSystem eventSystem;
+    [SerializeField] List<GameObject> DeadParts = new List<GameObject>();
+    [SerializeField] Transform OrientationGuide;
+    [Serializable]
+    public class DeadPart
+    {
+        public Transform referenceBone_TF;
+        public GameObject deadPart_GO;
+    }
+    [SerializeField] List<DeadPart> deadPartsList = new List<DeadPart>();
+
+    private void OnEnable()
+    {
+        eventSystem.OnDeath += InstantiateDeadParts;
+    }
+    private void OnDisable()
+    {
+        eventSystem.OnDeath -= InstantiateDeadParts;
+    }
+    void InstantiateDeadParts(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    {
+        foreach (DeadPart part in deadPartsList)
+        {   
+            Vector2 direction = (transform.position - args.Killer.transform.root.position).normalized; //Find direction
+     
+            GameObject InstantiatedDeadPart = Instantiate(part.deadPart_GO, transform.root.position, Quaternion.identity); //Instantiate
+
+            Vector2 bonePosition = part.referenceBone_TF.position;
+            Vector2 rootPosition = transform.root.position;
+            float boneRotation = part.referenceBone_TF.rotation.z;
+            Vector2 distanceRoot2Bone = bonePosition - rootPosition;
+            InstantiatedDeadPart.transform.Find("DeadPart_MovingParent").position = rootPosition + new Vector2( distanceRoot2Bone.x,0);
+            Rigidbody2D SimulatedChild = InstantiatedDeadPart.transform.Find("Simulated Child").GetComponent<Rigidbody2D>();
+            SimulatedChild.isKinematic = true;
+            SimulatedChild.position = bonePosition;
+            SimulatedChild.rotation = boneRotation;
+            Debug.Log("Transform: " + SimulatedChild.transform.rotation.z + "  RB: " + SimulatedChild.rotation + "  Bone: " + boneRotation);
+            SimulatedChild.isKinematic = false;
+
+
+            InstantiatedDeadPart.transform.localScale = new Vector3(InstantiatedDeadPart.transform.localScale.x * OrientationGuide.localScale.x, 1, 1); //Fix orientation
+
+            StartCoroutine(InvokeWithDelay(InstantiatedDeadPart, direction));//Invoke with a slight delay so everyone can subscribe
+
+        }
+    }
+    IEnumerator InvokeWithDelay(GameObject instantiated, Vector2 direction)
+    {
+        yield return new WaitForSecondsRealtime(0.02f);
+        instantiated.GetComponent<DeadPart_EventSystem>().OnSpawned?.Invoke(this, new DeadPart_EventSystem.DeadPartArgs(direction));
+    }
+}

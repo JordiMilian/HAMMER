@@ -14,10 +14,10 @@ public class Player_FeedbackManager : MonoBehaviour
 
     [SerializeField] HitStop hitStop;
     [SerializeField] Generic_Flash player_Flash;
-    [SerializeField] CameraShake cameraShake;
     [SerializeField] Generic_DamageDetector damageDetector;
     [SerializeField] Player_Movement playerMovement;
     [SerializeField] Generic_DamageDealer damageDealer;
+    
 
 
     [SerializeField] Player_ParryPerformer parryPerformer;
@@ -35,7 +35,6 @@ public class Player_FeedbackManager : MonoBehaviour
     private void Awake()
     {
         _rigitbody = GetComponent<Rigidbody2D>();
-        cameraShake = GameObject.Find("CM vcam1").GetComponent<CameraShake>();
         hitStop = GameObject.Find("HitStop").GetComponent<HitStop>();
     }
     
@@ -64,7 +63,7 @@ public class Player_FeedbackManager : MonoBehaviour
 
             playerMovement.CurrentSpeed = 0;
             
-            cameraShake.ShakeCamera(1, 0.1f); ;
+            CameraShake.Instance.ShakeCamera(1, 0.1f); ;
             TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
             player_Flash.CallFlasher();
 
@@ -93,11 +92,11 @@ public class Player_FeedbackManager : MonoBehaviour
     {
         //hitStop.Stop(StopSeconds: 0.3f);
         TimeScaleEditor.Instance.HitStop(0.3f);
-        cameraShake.ShakeCamera(0.6f, 0.1f);
+        CameraShake.Instance.ShakeCamera(0.6f, 0.1f);
     }
     public void OnHitEnemyCameraEffects(object sender, Player_EventSystem.EventArgs_DealtDamageInfo damageinfo)
     {
-        cameraShake.ShakeCamera(1 * damageDealer.Damage, 0.1f * damageDealer.Damage);
+        CameraShake.Instance.ShakeCamera(1 * damageDealer.Damage, 0.1f * damageDealer.Damage);
         //hitStop.Stop( 0.1f);
         TimeScaleEditor.Instance.HitStop(0.1f);
         //_HealthSystem.RemoveLife(-1);
