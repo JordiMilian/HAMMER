@@ -36,7 +36,7 @@ public class Enemy01 : MonoBehaviour
         enemyMovement.EV_SlowMovingSpeed();
         //enemyMovement.IsAgroo = true;
         TimeScaleEditor.Instance.HitStop(0.05f);
-        EnemyAnimator.SetTrigger(TagsCollection.Instance.PushBack);
+        EnemyAnimator.SetTrigger(TagsCollection.PushBack);
         StartCoroutine(WaitReceiveDamage());
         Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
         StartCoroutine(UsefullMethods.ApplyForceOverTime(_rigidbody, AttackerDirection * receivedAttackinfo.KnockBack ,0.3f));
@@ -49,11 +49,11 @@ public class Enemy01 : MonoBehaviour
     }
     public void GettingParried()
     {
-        EnemyAnimator.SetBool(TagsCollection.Instance.HitShield, true);
+        EnemyAnimator.SetBool(TagsCollection.HitShield, true);
         WeaponCollider.enabled = false;
     }
     public void EndHitShield()
     {
-        EnemyAnimator.SetBool(TagsCollection.Instance.HitShield, false);
+        EnemyAnimator.SetBool(TagsCollection.HitShield, false);
     }
 }

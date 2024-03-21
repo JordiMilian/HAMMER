@@ -28,9 +28,9 @@ public class DeadPartTest : MonoBehaviour
 
     private void OnEnable()
     {
-        attackTrigger.AddActivatorTag(TagsCollection.Instance.Attack_Hitbox);
-        attackTrigger.AddActivatorTag(TagsCollection.Instance.Player);
-        attackTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        attackTrigger.AddActivatorTag(TagsCollection.Attack_Hitbox);
+        attackTrigger.AddActivatorTag(TagsCollection.Player);
+        attackTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         attackTrigger.OnTriggerEntered += AttackDetected;
         DeadParts_Manager.Instance.OnDeadPartInstantiated += CheckIgnorance;
 

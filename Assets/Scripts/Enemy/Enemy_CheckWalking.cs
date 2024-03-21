@@ -13,13 +13,13 @@ public class Enemy_CheckWalking : MonoBehaviour
     {
         if (rb.velocity.magnitude <= Threshold && isWalking)
         {
-            CheckNSetBool(TagsCollection.Instance.Walking, false);
+            CheckNSetBool(TagsCollection.Walking, false);
             isWalking = false;
         }
 
         else if (rb.velocity.magnitude > Threshold && !isWalking)
         {
-            CheckNSetBool(TagsCollection.Instance.Walking, true);
+            CheckNSetBool(TagsCollection.Walking, true);
             isWalking = true;
         }
     }

@@ -21,7 +21,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        proximityTrigger.AddActivatorTag(TagsCollection.Instance.Enemy);
+        proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
     }

@@ -35,14 +35,14 @@ public class Generic_DamageDetector : MonoBehaviour
         switch (EntityTeam)
         {
             case Team.Player:
-                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag(TagsCollection.Instance.Enemy_Attack_hitbox))
+                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag(TagsCollection.Enemy_Attack_hitbox))
                 {
                     PublishAttackEvent(collision); 
                 }
                 break;
 
             case Team.Enemy:
-                if (collision.CompareTag(TagsCollection.Instance.Attack_Hitbox))
+                if (collision.CompareTag(TagsCollection.Attack_Hitbox))
                 {
                     PublishAttackEvent(collision);
                 }

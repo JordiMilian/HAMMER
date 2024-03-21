@@ -12,7 +12,7 @@ public class Player_ProximityDetector : MonoBehaviour
     Transform ClosestEnemy;
     private void OnEnable()
     {
-        proximityTrigger.AddActivatorTag(TagsCollection.Instance.Enemy);
+        proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
     }

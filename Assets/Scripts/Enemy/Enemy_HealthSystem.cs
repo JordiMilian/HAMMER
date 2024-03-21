@@ -27,9 +27,9 @@ public class Enemy_HealthSystem : Generic_HealthSystem
         
         foreach(GameObject part in DeadParts)
         {
-            Vector2 direction = (transform.position - killer.transform.position).normalized;
+            Vector2 direction = (transform.position - killer.transform.root.position).normalized;
             GameObject InstantiatedDeadPart = Instantiate(part, transform.root.position, Quaternion.identity);
-            StartCoroutine(InstantiatedDeadPart.GetComponent<DeadPartTest>().PushMegaCoroutine(direction,2f));
+            InstantiatedDeadPart.GetComponent<DeadPartV3>().CallVertical(direction, 1, 1);
         }
         
         if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject, killer));

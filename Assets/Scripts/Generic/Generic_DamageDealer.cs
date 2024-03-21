@@ -30,22 +30,22 @@ public class Generic_DamageDealer : MonoBehaviour
         switch (EntityTeam)
         {
             case Team.Player:                
-                if (collision.CompareTag(TagsCollection.Instance.Enemy_Hitbox))
+                if (collision.CompareTag(TagsCollection.Enemy_Hitbox))
                 {
                     PublishDealtDamageEvent(collision);
                 }
-                else if (collision.CompareTag(TagsCollection.Instance.EnemyParryCollider))
+                else if (collision.CompareTag(TagsCollection.EnemyParryCollider))
                 {
                     PublishGettingParriedEvent();
                 }
                 break;
                 
             case Team.Enemy:
-                if(collision.CompareTag(TagsCollection.Instance.PlayerDamageCollider))
+                if(collision.CompareTag(TagsCollection.PlayerDamageCollider))
                 {
                     PublishDealtDamageEvent(collision);
                 }
-                if(collision.CompareTag(TagsCollection.Instance.ParryCollider) && isParryable) 
+                if(collision.CompareTag(TagsCollection.ParryCollider) && isParryable) 
                 {
                     PublishGettingParriedEvent();
                 }

@@ -47,9 +47,9 @@ public class DoorLogic : MonoBehaviour
     private void OnEnable()
     {
          
-        LoadTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        LoadTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         LoadTrigger.OnTriggerEntered += RespawnEnemies;
-        ReopenDoorTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        ReopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         ReopenDoorTrigger.OnTriggerEntered += ReopenDoor;
     }
     private void OnDisable()

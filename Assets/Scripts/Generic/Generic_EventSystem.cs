@@ -64,4 +64,5 @@ public class Generic_EventSystem : MonoBehaviour
     public Action OnGettingParried;
     public EventHandler<EventArgs_StaminaConsumption> OnStaminaAction;
     public EventHandler<EventArgs_SuccesfulParryInfo> OnSuccessfulParry;
+    public Action OnHitObject;
 }

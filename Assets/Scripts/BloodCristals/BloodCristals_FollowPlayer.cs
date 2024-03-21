@@ -17,10 +17,10 @@ public class BloodCristals_FollowPlayer : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents destroyerTrigger;
     private void OnEnable()
     {
-        playerProximityTrigger.AddActivatorTag(TagsCollection.Instance.Player);
+        playerProximityTrigger.AddActivatorTag(TagsCollection.Player);
         playerProximityTrigger.OnTriggerEntered += playerEntered;
         playerProximityTrigger.OnTriggerExited += playerExited;
-        destroyerTrigger.AddActivatorTag(TagsCollection.Instance.Player);
+        destroyerTrigger.AddActivatorTag(TagsCollection.Player);
         destroyerTrigger.OnTriggerEntered += destroyItself;
     }
     private void OnDisable()

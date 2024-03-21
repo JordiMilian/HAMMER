@@ -27,7 +27,7 @@ public class Rooms_FadInOut : MonoBehaviour
     }
     private void OnEnable()
     {
-        RoomTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        RoomTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         RoomTrigger.OnTriggerEntered += playerEnteredRoom;
         RoomTrigger.OnTriggerExited += playerExitedRoom;
     }

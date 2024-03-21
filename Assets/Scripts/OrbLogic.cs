@@ -23,7 +23,7 @@ public class OrbLogic : MonoBehaviour
     }
     private void OnEnable()
     {
-        orbTrigger.AddActivatorTag(TagsCollection.Instance.Attack_Hitbox);
+        orbTrigger.AddActivatorTag(TagsCollection.Attack_Hitbox);
         orbTrigger.OnTriggerEntered += PickedUp;
     }
     private void OnDisable()

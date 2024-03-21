@@ -49,7 +49,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     private void UpdateVectorData ()
     {
          originPosition = transform.position;
-         player = GameObject.FindGameObjectWithTag(TagsCollection.Instance.Player_SinglePointCollider);
+         player = GameObject.FindGameObjectWithTag(TagsCollection.Player_SinglePointCollider);
          playerPosition = player.transform.position;
          VectorToPlayer = originPosition - playerPosition;
          angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);

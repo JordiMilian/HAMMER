@@ -9,7 +9,7 @@ public class Tomato_Spawner : MonoBehaviour
     [SerializeField] GameObject TomatoPrefab;
     void Awake()
     {
-        Player = GameObject.Find(TagsCollection.Instance.MainCharacter).transform;
+        Player = GameObject.Find(TagsCollection.MainCharacter).transform;
     }
     public void SpawnTomato()
     {

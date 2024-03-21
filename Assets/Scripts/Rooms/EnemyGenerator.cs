@@ -36,9 +36,9 @@ public class EnemyGenerator : MonoBehaviour
 
     private void OnEnable()
     {
-        SpawnTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        SpawnTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
-        ReopenDoorTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        ReopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         ReopenDoorTrigger.OnTriggerEntered += ReopenDoor;
     }
     private void Start()

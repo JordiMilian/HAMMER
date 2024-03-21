@@ -12,7 +12,7 @@ public class Player_Respawner : MonoBehaviour
     public bool IsActivated = false;
     private void OnEnable()
     {
-        ActivationTrigger.AddActivatorTag(TagsCollection.Instance.Attack_Hitbox);
+        ActivationTrigger.AddActivatorTag(TagsCollection.Attack_Hitbox);
         ActivationTrigger.OnTriggerEntered += OnDudeKilled;
     }
     private void OnDisable()

@@ -2,39 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TagsCollection : MonoBehaviour
+public class TagsCollection
 {
-    public string MainCharacter = "MainCharacter";
-    public string Player = "Player";
-    public string ParryCollider = "ParryCollider";
-    public string Player_SinglePointCollider = "Player_SinglePointCollider";
-    public string Attack_Hitbox = "Attack_Hitbox";
-    public string Enemy_Attack_hitbox = "Enemy_Attack_hitbox";
-    public string Enemy = "Enemy";
-    public string Enemy_Hitbox = "Enemy_Hitbox";
-    public string Weapon_Pivot = "Weapon_Pivot";
-    public string PlayerDamageCollider = "PlayerDamageCollider";
-    public string StanceBroken = "StanceBroken";
-    public string TargetGroup = "TargetGroup";
-    public string CMvcam1 = "CM vcam1";
-    public string MouseCameraTarget = "MouseCameraTarget";
-    public string HitShield = "HitShield";
-    public string PushBack = "PushBack";
-    public string Walking = "Walking";
-    public string EnemyParryCollider = "EnemyParryCollider";
-    public string AttackedWhileRecovering = "AttackedWhileRecovering";
+    public static string MainCharacter = "MainCharacter";
+    public static string Player = "Player";
+    public static string ParryCollider = "ParryCollider";
+    public static string Player_SinglePointCollider = "Player_SinglePointCollider";
+    public static string Attack_Hitbox = "Attack_Hitbox";
+    public static string Enemy_Attack_hitbox = "Enemy_Attack_hitbox";
+    public static string Enemy = "Enemy";
+    public static string Enemy_Hitbox = "Enemy_Hitbox";
+    public static string Weapon_Pivot = "Weapon_Pivot";
+    public static string PlayerDamageCollider = "PlayerDamageCollider";
+    public static string StanceBroken = "StanceBroken";
+    public static string TargetGroup = "TargetGroup";
+    public static string CMvcam1 = "CM vcam1";
+    public static string MouseCameraTarget = "MouseCameraTarget";
+    public static string HitShield = "HitShield";
+    public static string PushBack = "PushBack";
+    public static string Walking = "Walking";
+    public static string EnemyParryCollider = "EnemyParryCollider";
+    public static string AttackedWhileRecovering = "AttackedWhileRecovering";
+    public static string BlockingWalls = "BlockingWalls";
 
-    public static TagsCollection Instance;
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-    
 }

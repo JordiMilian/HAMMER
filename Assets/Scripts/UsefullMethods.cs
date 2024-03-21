@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsefullMethods : MonoBehaviour
+public class UsefullMethods
 {
     public static IEnumerator ApplyForceOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
@@ -35,5 +35,16 @@ public class UsefullMethods : MonoBehaviour
             }
         }
         return found.ToArray();
+    }
+    public static Vector2 angle2Vector(float angleRad)
+    {
+        float x = Mathf.Cos(angleRad);
+        float y = Mathf.Sin(angleRad);
+        return new Vector2(x, y);
+    }
+    public static float vector2Angle(Vector2 vector)
+    {
+        Vector2 normalized = vector.normalized;
+        return Mathf.Atan2(normalized.y, normalized.x);
     }
 }

@@ -25,8 +25,8 @@ public class Enemy_StateMachine : MonoBehaviour
     }
     private void OnEnable()
     {
-        inRangeDetectionTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
-        outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        inRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += PlayerInRange;
         outOfRangeDetectionTrigger.OnTriggerExited += PlayerOutOfRange;
         eventSystem.CallAgrooState += ActivateAgroo;

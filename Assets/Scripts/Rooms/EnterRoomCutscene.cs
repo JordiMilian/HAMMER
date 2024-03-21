@@ -13,7 +13,7 @@ public class EnterRoomCutscene : MonoBehaviour
 
     private void OnEnable()
     {
-        enterRoomTrigger.AddActivatorTag(TagsCollection.Instance.Player_SinglePointCollider);
+        enterRoomTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         enterRoomTrigger.OnTriggerEntered += callEntered;
     }
     private void OnDisable()
@@ -30,8 +30,8 @@ public class EnterRoomCutscene : MonoBehaviour
     IEnumerator EnterRoom()
     {
         //Find the references
-        CinemachineTargetGroup targetGroup = GameObject.Find(TagsCollection.Instance.TargetGroup).GetComponent<CinemachineTargetGroup>();
-        CameraZoomer zoomer = GameObject.Find(TagsCollection.Instance.CMvcam1).GetComponent<CameraZoomer>();
+        CinemachineTargetGroup targetGroup = GameObject.Find(TagsCollection.TargetGroup).GetComponent<CinemachineTargetGroup>();
+        CameraZoomer zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
 
         //Find empty slot
         int emptySlot = EnemyGenerator.FindEmptyTargetgroupSlot(targetGroup);

@@ -30,6 +30,6 @@ public class DeadParts_Manager : MonoBehaviour
             diferents++;
             Physics2D.IgnoreCollision(groundCol, DeadPartCollider);
         }
-        Debug.Log("Equals: " +  equals + "  Diferents: " + diferents);
+        //Debug.Log("Equals: " +  equals + "  Diferents: " + diferents);
     }
 }
