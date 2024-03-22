@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class DeadPart_Feedback : MonoBehaviour
+public class DeadPart_Feedback_Min : MonoBehaviour
 {
-    [SerializeField] DeadPart_EventSystem eventSystem;
+    [SerializeField] DeadPart_EventSystem_min eventSystem;
     [SerializeField] Transform Ground_TF;
     [SerializeField] Animator deadPart_Animator;
     [SerializeField] VisualEffect BloodTrail;
     [SerializeField] Generic_Flash flasher;
     float bloodSplashIntensity;
 
+    /*
     private void OnEnable()
     {
         eventSystem.OnSpawned += spawnedFeedback;
@@ -19,21 +20,21 @@ public class DeadPart_Feedback : MonoBehaviour
         eventSystem.OnBeingTouched += GettingTouchedFeedback;
         eventSystem.OnHitWall += HittingWallFeedback;
     }
-    void spawnedFeedback(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void spawnedFeedback(object sender, DeadPart_EventSystem_min.DeadPartArgs args)
     {
         Debug.Log("spawn feedbaked");
         StartCoroutine(BloodStopper());
         deadPart_Animator.SetTrigger("Light");
         flasher.CallFlasher();
     }
-    void GettingHitFeedback(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void GettingHitFeedback(object sender, DeadPart_EventSystem_min.DeadPartArgs args)
     {
         TimeScaleEditor.Instance.HitStop(0.05f);
         CameraShake.Instance.ShakeCamera(0.5f, 0.1f);
         GroundBloodMaker.Instance.Play(Ground_TF.position, args.Direction, bloodSplashIntensity);
         deadPart_Animator.SetTrigger("Strong");
     }
-    void GettingTouchedFeedback(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void GettingTouchedFeedback(object sender, DeadPart_EventSystem_min.DeadPartArgs args)
     {
         deadPart_Animator.SetTrigger("Light");
     }
@@ -53,4 +54,5 @@ public class DeadPart_Feedback : MonoBehaviour
         BloodTrail.Stop();
         bloodSplashIntensity = 0.4f;
     }
+    */
 }

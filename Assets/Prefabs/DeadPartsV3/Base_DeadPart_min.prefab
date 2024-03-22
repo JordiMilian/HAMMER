@@ -363,8 +363,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -0.16293854, y: 0.15238464}
       - {x: -0.17046809, y: -0.19527367}
-      - {x: 0.18303114, y: -0.18371698}
-      - {x: 0.1823237, y: 0.17027134}
+      - {x: 0.17313838, y: -0.18071267}
+      - {x: 0.15567827, y: 0.16094363}
 --- !u!1 &5541261590469208459
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +396,6 @@ Transform:
   - {fileID: 5541261589564976851}
   - {fileID: 6583931349485478336}
   - {fileID: 2234361762892813034}
-  - {fileID: 2675868472702223773}
   m_Father: {fileID: 5541261590543252257}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -410,12 +409,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5541261590543252257}
   - component: {fileID: 8284637122495033914}
-  - component: {fileID: 416308767569435411}
-  - component: {fileID: 2961501569116425281}
-  - component: {fileID: 1705429221236731783}
-  - component: {fileID: 8598444412644154160}
+  - component: {fileID: 4879277814474381821}
+  - component: {fileID: 1349304257352595796}
   m_Layer: 0
-  m_Name: Base_DeadPart
+  m_Name: Base_DeadPart_min
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -458,7 +455,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &416308767569435411
+--- !u!114 &4879277814474381821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -467,7 +464,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5541261590543252258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00eed5ea6b57741499faac377f62f509, type: 3}
+  m_Script: {fileID: 11500000, guid: a5dde73a1ef239944afd3ac3971294fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DeadPart_RB: {fileID: 5541261590350098415}
@@ -476,51 +473,54 @@ MonoBehaviour:
   groundCollider: {fileID: 5541261589564976849}
   triggerDetector: {fileID: 2167317097471593106}
   isPushed: 0
-  eventSystem: {fileID: 1705429221236731783}
+  eventSystem: {fileID: 1349304257352595796}
   groundAnimationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 9.527058
-      outSlope: 9.527058
+      inSlope: 6.287858
+      outSlope: 6.287858
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.0502358
+      outWeight: 0.05967215
     - serializedVersion: 3
-      time: 0.14252594
-      value: 0.7478586
-      inSlope: 0.8432451
-      outSlope: 0.8432451
+      time: 0.19997895
+      value: 0.79074305
+      inSlope: 0.68933976
+      outSlope: 0.68933976
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.06758384
+      outWeight: 0.067745306
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0
-      outSlope: -0
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.06443912
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   hor_Duration: 1
-  hor_maxRandomRotation: 10
+  hor_maxRandomRotation: 5
   hor_verticalForce: 10
-  hor_groundDistance: 2.5
+  hor_groundDistance: 3
   hor_directionRandom: 10
   ver_Duration: 1
   ver_maxRandomRotation: 15
-  ver_verticalForce: 18
+  ver_verticalForce: 20
   ver_groundDistance: 1
   ver_directionRandom: 30
---- !u!114 &2961501569116425281
+  doVertical: 0
+  debugDirection: {x: 0.22, y: 0.33}
+  debugIntensity: 1
+--- !u!114 &1349304257352595796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -529,151 +529,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5541261590543252258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6584fc49d96d4d24a90978e050ad44e2, type: 3}
+  m_Script: {fileID: 11500000, guid: f6e37b17ab97c0e4fa4b2d5a9da37d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 1705429221236731783}
-  Ground_TF: {fileID: 5541261590469208457}
-  deadPart_Animator: {fileID: 8284637122495033914}
-  BloodTrail: {fileID: 6847420861401134865}
-  flasher: {fileID: 8598444412644154160}
---- !u!114 &1705429221236731783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5541261590543252258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1655197a941e4d142be5e4330044d2f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8598444412644154160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5541261590543252258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashTime: 0.12
-  SpritesRoot: {fileID: 5541261590182680170}
---- !u!1 &8562859875456213584
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2675868472702223773}
-  - component: {fileID: 6847420861401134865}
-  - component: {fileID: 6377896075361114768}
-  m_Layer: 0
-  m_Name: BloodTrail
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2675868472702223773
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562859875456213584}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.006, z: -0.3184701}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5541261590469208457}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!2083052967 &6847420861401134865
-VisualEffect:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562859875456213584}
-  m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: fe5a032a619c19440bdb662d39b17b72, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
-  m_StartSeed: 0
-  m_ResetSeedOnPlay: 1
-  m_ResourceVersion: 1
-  m_PropertySheet:
-    m_Float:
-      m_Array: []
-    m_Vector2f:
-      m_Array: []
-    m_Vector3f:
-      m_Array: []
-    m_Vector4f:
-      m_Array: []
-    m_Uint:
-      m_Array: []
-    m_Int:
-      m_Array: []
-    m_Matrix4x4f:
-      m_Array: []
-    m_AnimationCurve:
-      m_Array: []
-    m_Gradient:
-      m_Array: []
-    m_NamedObject:
-      m_Array: []
-    m_Bool:
-      m_Array: []
---- !u!73398921 &6377896075361114768
-VFXRenderer:
-  serializedVersion: 1
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562859875456213584}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1215504865
-  m_SortingLayer: -2
-  m_SortingOrder: 0
 --- !u!1 &8656012227662267798
 GameObject:
   m_ObjectHideFlags: 0

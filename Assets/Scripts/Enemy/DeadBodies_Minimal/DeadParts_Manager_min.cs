@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeadParts_Manager : MonoBehaviour
+public class DeadParts_Manager_min : MonoBehaviour
 {
     public List<Collider2D> GroundsList = new List<Collider2D>();
     public Action OnDeadPartInstantiated;
 
-    public static DeadParts_Manager Instance;
+    public static DeadParts_Manager_min Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,7 +24,7 @@ public class DeadParts_Manager : MonoBehaviour
     {
         int equals = 0;
         int diferents = 0;
-        foreach (Collider2D groundCol in GroundsList)
+        foreach (Collider2D groundCol in GroundsList) // Go throw every ground in the List and ignore the deadpart except its own
         {
             if (groundCol == ownGround) { equals++; continue; }
             diferents++;
