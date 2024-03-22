@@ -590,16 +590,24 @@ PrefabInstance:
       objectReference: {fileID: 4911051096917906642, guid: c4af3650b9ad7684eaef92b95836d70e, type: 3}
     - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: deadPartsList.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: deadPartsList.Array.data[0].deadPart_GO
       value: 
       objectReference: {fileID: 4911051096917906642, guid: c4af3650b9ad7684eaef92b95836d70e, type: 3}
     - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[1].deadPart_GO
+      value: 
+      objectReference: {fileID: 3058082446917723099, guid: 09250460d282902469b764bb83a665ba, type: 3}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: deadPartsList.Array.data[0].referenceBone_TF
       value: 
       objectReference: {fileID: 4290153139690329377}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[1].referenceBone_TF
+      value: 
+      objectReference: {fileID: 6483443382444756268}
     - target: {fileID: 4652752866635177825, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Name
       value: Long
@@ -1166,15 +1174,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].KnockBack
-      value: 3
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[1].KnockBack
-      value: 3
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[2].KnockBack
-      value: 3
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].Probability
@@ -1428,6 +1436,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6483443382444756268 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3968944070215854671, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 7993138362164832099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6507630011213787422 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3792853293050386045, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}

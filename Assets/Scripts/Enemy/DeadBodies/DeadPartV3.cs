@@ -210,6 +210,7 @@ public class DeadPartV3 : MonoBehaviour
             {
                 float editedTimeScale = Mathf.Lerp(0.5f, 1, Time.timeScale);
                 Debug.Log(Time.timeScale + " -> " + editedTimeScale);
+                verticalForce = Mathf.Lerp(verticalForce, 0, 0.1f);
                 DeadPart_RB.velocity = (Vector2.up * verticalForce * intencity * editedTimeScale);
                 DeadPart_RB.AddTorque(randomTorque*Time.timeScale);
             }

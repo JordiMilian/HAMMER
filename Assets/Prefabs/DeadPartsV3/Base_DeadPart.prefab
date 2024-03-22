@@ -194,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5541261590182680169}
   - component: {fileID: 5541261590182680168}
+  - component: {fileID: 8455780498457906388}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -268,6 +269,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &8455780498457906388
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541261590182680170}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &5541261590350098417
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +329,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -512,12 +524,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   hor_Duration: 1
   hor_maxRandomRotation: 3
-  hor_verticalForce: 2
+  hor_verticalForce: 8
   hor_groundDistance: 2
   hor_directionRandom: 15
   ver_Duration: 1
   ver_maxRandomRotation: 10
-  ver_verticalForce: 6
+  ver_verticalForce: 16
   ver_groundDistance: 1.5
   ver_directionRandom: 30
 --- !u!114 &1705429221236731783
