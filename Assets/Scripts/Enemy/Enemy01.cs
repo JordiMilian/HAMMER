@@ -15,6 +15,8 @@ public class Enemy01 : MonoBehaviour
     [SerializeField] Generic_Flash flasher;
     [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Rigidbody2D _rigidbody;
+    [SerializeField] FloatVariable SlowMoPercentage;
+    [SerializeField] Enemy_StateMachine stateMachine;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class Enemy01 : MonoBehaviour
     {
         eventSystem.OnReceiveDamage += ReceiveDamage;
         eventSystem.OnGettingParried += GettingParried;
+        eventSystem.OnDeath += slowMoOnDeath;
     }
     public virtual void OnDisable()
     {
@@ -31,11 +34,16 @@ public class Enemy01 : MonoBehaviour
     }
     public void ReceiveDamage(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
     {
-        flasher.CallFlasher();
+        if(stateMachine.CurrentState != Enemy_StateMachine.States.Dead)
+        {
+            flasher.CallFlasher();
+            TimeScaleEditor.Instance.HitStop(0.05f);
+        }
+        
         enemyMovement.EV_SlowRotationSpeed();
         enemyMovement.EV_SlowMovingSpeed();
         //enemyMovement.IsAgroo = true;
-        TimeScaleEditor.Instance.HitStop(0.05f);
+        
         EnemyAnimator.SetTrigger(TagsCollection.PushBack);
         StartCoroutine(WaitReceiveDamage());
         Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
@@ -55,5 +63,9 @@ public class Enemy01 : MonoBehaviour
     public void EndHitShield()
     {
         EnemyAnimator.SetBool(TagsCollection.HitShield, false);
+    }
+    void slowMoOnDeath(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    {
+        TimeScaleEditor.Instance.SlowMotion(SlowMoPercentage.Value, 1f);
     }
 }

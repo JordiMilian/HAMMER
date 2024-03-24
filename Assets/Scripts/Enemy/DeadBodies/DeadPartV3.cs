@@ -85,12 +85,8 @@ public class DeadPartV3 : MonoBehaviour
     {
         previusParentPosition = movingParent.position;
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        //Turn OFF simulation
-        DeadPart_RB.isKinematic = true;
-        foreach (Rigidbody2D rb in ChildDeadParts) { rb.isKinematic = true; }
-
         //Get velocity and reset prev position
         Vector2 parentPosition = movingParent.position;
         Vector2 parentVelocity = parentPosition - previusParentPosition;
@@ -99,11 +95,9 @@ public class DeadPartV3 : MonoBehaviour
         //Add the velocity position to the non-simulated RB
         DeadPart_RB.position = DeadPart_RB.position + parentVelocity;
 
-        //Trn ON simulation
-        DeadPart_RB.isKinematic = false;
-        foreach (Rigidbody2D rb in ChildDeadParts) { rb.isKinematic = false; }
-
-
+    }
+    private void Update()
+    {
         //Whatever else
         if (Input.GetKey(KeyCode.E))
         {
@@ -190,7 +184,9 @@ public class DeadPartV3 : MonoBehaviour
         //Get a random direction 
         Vector2 randomDirection = Quaternion.Euler(0, 0, Random.Range(random, -random)) * direction;
         currentDirection = randomDirection;
+        DeadPart_RB.AddTorque(randomTorque*10);
 
+        DeadPart_RB.AddForce(Vector2.up * verticalForce * intencity*10);
         while (timer < duration)
         {
             isPushed = true;
@@ -209,10 +205,9 @@ public class DeadPartV3 : MonoBehaviour
             if (timer < duration / 8)
             {
                 float editedTimeScale = Mathf.Lerp(0.5f, 1, Time.timeScale);
-                Debug.Log(Time.timeScale + " -> " + editedTimeScale);
-                verticalForce = Mathf.Lerp(verticalForce, 0, 0.1f);
-                DeadPart_RB.velocity = (Vector2.up * verticalForce * intencity * editedTimeScale);
-                DeadPart_RB.AddTorque(randomTorque*Time.timeScale);
+                //Debug.Log(Time.timeScale + " -> " + editedTimeScale);
+                verticalForce = Mathf.Lerp(verticalForce, 0, 0.03f);
+                
             }
             //else if(timer < pushDuration / 8 * 2) { triggerDetector.GetComponent<Collider2D>().enabled = true; }
 

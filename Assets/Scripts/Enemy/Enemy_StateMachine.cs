@@ -16,7 +16,7 @@ public class Enemy_StateMachine : MonoBehaviour
     [SerializeField] Enemy_EventSystem eventSystem;
     public enum States
     {
-        Idle, Agroo, Start
+        Idle, Agroo, Start, Dead
     }
     public States CurrentState = States.Idle;
     private void Start()
@@ -31,6 +31,7 @@ public class Enemy_StateMachine : MonoBehaviour
         outOfRangeDetectionTrigger.OnTriggerExited += PlayerOutOfRange;
         eventSystem.CallAgrooState += ActivateAgroo;
         eventSystem.CallIdleState += ActivateIdle;
+        eventSystem.OnDeath += DestroyOnDeath;
     }
     private void OnDisable()
     {
@@ -70,5 +71,15 @@ public class Enemy_StateMachine : MonoBehaviour
             idleMovement.enabled = false;
             CurrentState = States.Agroo;
         }
+    }
+    public virtual void DestroyOnDeath(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    {
+        CurrentState = States.Dead;
+        StartCoroutine(delayDestroy());
+    }
+    IEnumerator delayDestroy()
+    {
+        yield return new WaitForSecondsRealtime(0.08f);
+        Destroy(gameObject);
     }
 }

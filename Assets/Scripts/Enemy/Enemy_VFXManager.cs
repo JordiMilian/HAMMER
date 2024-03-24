@@ -13,7 +13,7 @@ public class Enemy_VFXManager : MonoBehaviour
 
     [SerializeField] Enemy_EventSystem eventSystem;
 
-   
+    public float groundBloodIntensity = 0.9f;
     
     private void OnEnable()
     {
@@ -61,7 +61,7 @@ public class Enemy_VFXManager : MonoBehaviour
             Debug.LogWarning("No Ground Blood instance");
             return;
         }
-        GroundBloodMaker.Instance.Play(thisPosition, opositeDirection,0.9f);
+        GroundBloodMaker.Instance.Play(thisPosition, opositeDirection,groundBloodIntensity);
     }
   
 }

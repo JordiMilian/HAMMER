@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Stamina : MonoBehaviour
 {
-    [SerializeField] Generic_EventSystem eventSystem;
+    [SerializeField] Player_EventSystem eventSystem;
     [SerializeField] FloatVariable maxStamina;
     [SerializeField] FloatVariable currentStamina;
     [SerializeField] float RecoveryPerSecond;
@@ -24,7 +24,7 @@ public class Player_Stamina : MonoBehaviour
     {
         eventSystem.OnStaminaAction -= RemoveStamina;
     }
-    void RemoveStamina(object sender, Generic_EventSystem.EventArgs_StaminaConsumption args)
+    void RemoveStamina(object sender, Player_EventSystem.EventArgs_StaminaConsumption args)
     {
         //Remove Stamina
         currentStamina.Value -= args.StaminaUsage; 

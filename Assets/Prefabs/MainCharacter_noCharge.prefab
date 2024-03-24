@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Knockback: 1
+  Knockback: 12
   HitStop: 1
   isParryable: 0
   EntityTeam: 0
@@ -1634,8 +1634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eaed5b4e6df8f44891cb67259a338e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentDamage: 0
-  BaseDamage: 0
+  CurrentDamage: 1
+  BaseDamage: 1
   animator: {fileID: 7653426975249963390}
   playerMovement: {fileID: 7653426975249963384}
   weaponDamageCollider: {fileID: 7653426974895600709}
@@ -1647,14 +1647,14 @@ MonoBehaviour:
   eventSystem: {fileID: 3383090570821903391}
   CurrentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
   actionPerformer: {fileID: 399182982499736661}
-  Force: 0
+  Force: 1200
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   defaultDistance: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
   minDistance: 0.2
   maxDistance: 3
   minForce: -0.75
   maxForce: 1.25
-  canAttack: 0
+  canAttack: 1
   attacksCount: 0
 --- !u!114 &7653426975249963328
 MonoBehaviour:
@@ -1686,7 +1686,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitStop: {fileID: 0}
   player_Flash: {fileID: 2966856918216762517}
-  cameraShake: {fileID: 0}
   damageDetector: {fileID: 7653426974398778620}
   playerMovement: {fileID: 7653426975249963384}
   damageDealer: {fileID: 7653426974895600704}
@@ -1822,7 +1821,7 @@ MonoBehaviour:
   currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
   RecoveryPerSecond: 4
   DelayToRecover: 0.6
-  DelayToFullRecover: 0.7
+  DelayToFullRecover: 0.8
 --- !u!114 &1631478559803088520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,6 +1984,7 @@ MonoBehaviour:
   cinemachineTarget: {fileID: 0}
   eventSystem: {fileID: 3383090570821903391}
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
+  FocusedEnemy: {fileID: 0}
   IsFocusingEnemy: 0
 --- !u!1 &7653426975970030029
 GameObject:
@@ -2726,6 +2726,7 @@ MonoBehaviour:
   HeadBone: {fileID: 1097975357195865740}
   SpritesRoot: {fileID: 2036163816277594816}
   constraint: {fileID: 7852253558543688479}
+  followMouse: {fileID: 7653426975497917575}
 --- !u!1001 &4337078176752726818
 PrefabInstance:
   m_ObjectHideFlags: 0

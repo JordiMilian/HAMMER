@@ -28,12 +28,12 @@ public class DeadPart_Instantiator : MonoBehaviour
     {
         foreach (DeadPart part in deadPartsList)
         {   
-            Vector2 direction = (transform.position - args.Killer.transform.root.position).normalized; //Find direction
+            Vector2 direction = (transform.position - args.Killer.transform.position).normalized; //Find direction
      
-            GameObject InstantiatedDeadPart = Instantiate(part.deadPart_GO, transform.root.position, Quaternion.identity); //Instantiate
+            GameObject InstantiatedDeadPart = Instantiate(part.deadPart_GO, transform.position, Quaternion.identity); //Instantiate
 
             Vector2 bonePosition = part.referenceBone_TF.position;
-            Vector2 rootPosition = transform.root.position;
+            Vector2 rootPosition = transform.position;
             float boneRotation = part.referenceBone_TF.rotation.z;
             Vector2 distanceRoot2Bone = bonePosition - rootPosition;
             InstantiatedDeadPart.transform.Find("DeadPart_MovingParent").position = rootPosition + new Vector2( distanceRoot2Bone.x,0);

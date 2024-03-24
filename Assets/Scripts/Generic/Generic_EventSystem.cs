@@ -37,14 +37,6 @@ public class Generic_EventSystem : MonoBehaviour
             vector3data = data;
         }
     }
-    public class EventArgs_StaminaConsumption
-    {
-        public float StaminaUsage;
-        public EventArgs_StaminaConsumption(float stamina)
-        {
-            StaminaUsage = stamina;
-        }
-    }
     public class Args_DeadCharacter
     {
         public GameObject DeadGameObject;
@@ -62,7 +54,6 @@ public class Generic_EventSystem : MonoBehaviour
     public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
     public Action OnGettingParried;
-    public EventHandler<EventArgs_StaminaConsumption> OnStaminaAction;
     public EventHandler<EventArgs_SuccesfulParryInfo> OnSuccessfulParry;
     public Action OnHitObject;
 }

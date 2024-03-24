@@ -28,8 +28,10 @@ public class TimeScaleEditor : MonoBehaviour
         float lerpedPercent = Mathf.InverseLerp(100, 0, SlowPercent);
         BaseScale = lerpedPercent;
         Time.timeScale = lerpedPercent;
+        //Time.fixedDeltaTime = lerpedPercent * 0.02f;
         yield return new WaitForSecondsRealtime(DurationSeconts);
         Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f;
         BaseScale = 1;
     }
 

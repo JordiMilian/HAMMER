@@ -50,7 +50,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     }
     void RemoveAttackStamina()
     {
-        eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(2));
+        eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(2));
     }
 
     void Update()
@@ -80,7 +80,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     {
         if(CurrentStamina.Value > 0)
         {
-            eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(2));
+            eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(2));
             playerMovement.canDash = false;
             AddToCount(1);
             SetdamageDealer();

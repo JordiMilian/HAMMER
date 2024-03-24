@@ -56,7 +56,7 @@ public class Player_FeedbackManager : MonoBehaviour
 
     public void ReceiveDamageEffects(object sender, Player_EventSystem.EventArgs_ReceivedAttackInfo receivedAttackinfo)
     {
-        eventSystem.OnStaminaAction?.Invoke(this, new Generic_EventSystem.EventArgs_StaminaConsumption(1));
+        eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(1));
         if(!receivingDamage)
         {
             receivingDamage = true;

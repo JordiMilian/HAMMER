@@ -10,9 +10,11 @@ public class Enemy_HealthSystem : Generic_HealthSystem
     [SerializeField] GameObject deadHead;
     [SerializeField] GameObject BloodCristals;
     [SerializeField] int AmountOfCristals;
-
+    [SerializeField] Enemy_StateMachine stateMachine;
     public override void Death(GameObject killer)
     {
+        if(stateMachine.CurrentState == Enemy_StateMachine.States.Dead) { Debug.Log("already dead"); return; }
+
         eventSystem.OnDeath?.Invoke(this, new Generic_EventSystem.Args_DeadCharacter(gameObject, killer));
         //if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
         //if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
@@ -23,15 +25,7 @@ public class Enemy_HealthSystem : Generic_HealthSystem
                 Instantiate(BloodCristals, transform.position, Quaternion.identity);
             }
         }
-        TimeScaleEditor.Instance.SlowMotion(80, 1.2f);
-        StartCoroutine(DelayedDestruction());
+        
+        //Destroyed in the StateMachine
     }
-
-    //Cutrada maxima amb 2 delays wtf arreglaho
-    IEnumerator DelayedDestruction()
-    {
-        yield return new WaitForSecondsRealtime(0.07f);
-        Destroy(gameObject);
-    }
-
 }

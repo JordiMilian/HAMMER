@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 5541261589564976851}
   - component: {fileID: 5541261589564976849}
   - component: {fileID: 5541261589564976850}
+  - component: {fileID: 5721811416372535458}
   m_Layer: 11
   m_Name: Simulated Ground
   m_TagString: Untagged
@@ -184,6 +185,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!210 &5721811416372535458
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541261589564976852}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &5541261590182680170
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +207,7 @@ GameObject:
   - component: {fileID: 5541261590182680169}
   - component: {fileID: 5541261590182680168}
   - component: {fileID: 8455780498457906388}
+  - component: {fileID: 8009456936112719226}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -280,6 +293,20 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8009456936112719226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541261590182680170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d413e7b02baa4fc46bd8181f699fb4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentSortingGroup: {fileID: 5721811416372535458}
+  OwnSortingGroup: {fileID: 8455780498457906388}
 --- !u!1 &5541261590350098417
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,13 +538,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   hor_Duration: 1
-  hor_maxRandomRotation: 10
-  hor_verticalForce: 10
-  hor_groundDistance: 2.5
+  hor_maxRandomRotation: 1
+  hor_verticalForce: 30
+  hor_groundDistance: 2
   hor_directionRandom: 10
   ver_Duration: 1
-  ver_maxRandomRotation: 15
-  ver_verticalForce: 18
+  ver_maxRandomRotation: 3
+  ver_verticalForce: 60
   ver_groundDistance: 1
   ver_directionRandom: 30
 --- !u!114 &2961501569116425281
@@ -836,6 +863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ddd026f8eb77349b0bf96aa256497f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadPartV3: {fileID: 0}
-  eventSystem: {fileID: 0}
+  deadPartV3: {fileID: 416308767569435411}
+  eventSystem: {fileID: 1705429221236731783}
   exitSpeed: 0.25
