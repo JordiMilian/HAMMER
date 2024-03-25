@@ -16,13 +16,13 @@ public class Generic_ParryDealer : MonoBehaviour
         switch (EntityTeam)
         {
             case Team.Player:
-                if (collision.CompareTag(TagsCollection.Enemy_Attack_hitbox))
+                if (collision.CompareTag(TagsCollection.Enemy_Hitbox))
                 {
                     PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position));
                 }
                 break;
             case Team.Enemy:
-                if(collision.CompareTag(TagsCollection.Attack_Hitbox))
+                if(collision.CompareTag(TagsCollection.Player_Hitbox))
                 {
                     PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position));
                 }
@@ -31,7 +31,7 @@ public class Generic_ParryDealer : MonoBehaviour
     }
     void PublishSuccesfullParry(Vector3 collisionPoint)
     {
-        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.EventArgs_SuccesfulParryInfo(collisionPoint)); }
+        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.SuccesfulParryInfo(collisionPoint)); }
         
     }
 }

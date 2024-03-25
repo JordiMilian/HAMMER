@@ -49,7 +49,7 @@ public class DeadPartV3_Min : MonoBehaviour
     private void OnEnable()
     {
         //Subscribe to everyting
-        triggerDetector.AddActivatorTag(TagsCollection.Attack_Hitbox);
+        triggerDetector.AddActivatorTag(TagsCollection.Player_Hitbox);
         triggerDetector.AddActivatorTag(TagsCollection.Player);
         triggerDetector.OnTriggerEntered += triggerDetected;
         eventSystem.OnSpawned += SpawnedPush;

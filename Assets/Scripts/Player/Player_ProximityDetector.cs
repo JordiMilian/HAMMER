@@ -36,7 +36,7 @@ public class Player_ProximityDetector : MonoBehaviour
         InRangeEnemies.Remove(args.Collision.gameObject.transform);
         args.Collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath -= EnemyDied;
     }
-    void EnemyDied(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         InRangeEnemies.Remove(args.DeadGameObject.transform);
     }

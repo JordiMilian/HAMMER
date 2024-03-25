@@ -24,7 +24,7 @@ public class DeadPart_Instantiator : MonoBehaviour
     {
         eventSystem.OnDeath -= InstantiateDeadParts;
     }
-    void InstantiateDeadParts(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void InstantiateDeadParts(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         foreach (DeadPart part in deadPartsList)
         {   
@@ -54,6 +54,6 @@ public class DeadPart_Instantiator : MonoBehaviour
     IEnumerator InvokeWithDelay(GameObject instantiated, Vector2 direction)
     {
         yield return new WaitForSecondsRealtime(0.02f);
-        instantiated.GetComponent<DeadPart_EventSystem>().OnSpawned?.Invoke(this, new DeadPart_EventSystem.DeadPartArgs(direction));
+        instantiated.GetComponent<DeadPart_EventSystem>().OnSpawned?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
     }
 }

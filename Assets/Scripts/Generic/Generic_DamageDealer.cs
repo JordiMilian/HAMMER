@@ -13,7 +13,7 @@ public class Generic_DamageDealer : MonoBehaviour
 
     public enum Team
     {
-        Player, Enemy,
+        Player, Enemy, Object,
     }
     public Team EntityTeam;
     public enum TypeofDamage
@@ -27,10 +27,14 @@ public class Generic_DamageDealer : MonoBehaviour
     [SerializeField] Generic_EventSystem eventSystem;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.CompareTag(TagsCollection.Object_Hurtbox))
+        {
+            PublishHitObject(collision);
+        }
         switch (EntityTeam)
         {
             case Team.Player:                
-                if (collision.CompareTag(TagsCollection.Enemy_Hitbox))
+                if (collision.CompareTag(TagsCollection.Enemy_Hurtbox))// || collision.GetComponent<Generic_DamageDetector>().EntityTeam == Generic_DamageDetector.Team.Player)
                 {
                     PublishDealtDamageEvent(collision);
                 }
@@ -41,7 +45,7 @@ public class Generic_DamageDealer : MonoBehaviour
                 break;
                 
             case Team.Enemy:
-                if(collision.CompareTag(TagsCollection.PlayerDamageCollider))
+                if(collision.CompareTag(TagsCollection.Player_Hurtbox))
                 {
                     PublishDealtDamageEvent(collision);
                 }
@@ -56,10 +60,16 @@ public class Generic_DamageDealer : MonoBehaviour
     {
         if (eventSystem.OnDealtDamage != null)
         {
-            eventSystem.OnDealtDamage(this, new Generic_EventSystem.EventArgs_DealtDamageInfo(
+            eventSystem.OnDealtDamage(this, new Generic_EventSystem.DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position)
             ));
         }
+    }
+    void PublishHitObject(Collider2D collision)
+    {
+        eventSystem.OnHitObject?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
+            collision.ClosestPoint(gameObject.transform.position)
+            ));
     }
     void PublishGettingParriedEvent()
     {

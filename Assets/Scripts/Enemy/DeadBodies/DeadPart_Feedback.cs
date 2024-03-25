@@ -15,25 +15,25 @@ public class DeadPart_Feedback : MonoBehaviour
     private void OnEnable()
     {
         eventSystem.OnSpawned += spawnedFeedback;
-        eventSystem.OnBeingAttacked += GettingHitFeedback;
-        eventSystem.OnBeingTouched += GettingTouchedFeedback;
+        eventSystem.OnReceiveDamage += GettingHitFeedback;
+        eventSystem.OnBeingTouchedObject += GettingTouchedFeedback;
         eventSystem.OnHitWall += HittingWallFeedback;
     }
-    void spawnedFeedback(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void spawnedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
         Debug.Log("spawn feedbaked");
         StartCoroutine(BloodStopper());
         deadPart_Animator.SetTrigger("Light");
         flasher.CallFlasher();
     }
-    void GettingHitFeedback(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void GettingHitFeedback(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         TimeScaleEditor.Instance.HitStop(0.05f);
         CameraShake.Instance.ShakeCamera(0.5f, 0.1f);
-        GroundBloodMaker.Instance.Play(Ground_TF.position, args.Direction, bloodSplashIntensity);
+        GroundBloodMaker.Instance.Play(Ground_TF.position, args.GeneralDirection, bloodSplashIntensity);
         deadPart_Animator.SetTrigger("Strong");
     }
-    void GettingTouchedFeedback(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void GettingTouchedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
         deadPart_Animator.SetTrigger("Light");
     }

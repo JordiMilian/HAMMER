@@ -123,7 +123,7 @@ public class Dialoguer : MonoBehaviour
 
     void CheckIfOutOfRange()
     {
-        if(CurrentLineToRead >= TextLines.Count)
+        if(CurrentLineToRead >= TextLines.Count -1)
         {
             CurrentLineToRead = 0;
         }

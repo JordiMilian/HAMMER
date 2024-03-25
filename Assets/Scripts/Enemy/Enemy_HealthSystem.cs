@@ -15,7 +15,7 @@ public class Enemy_HealthSystem : Generic_HealthSystem
     {
         if(stateMachine.CurrentState == Enemy_StateMachine.States.Dead) { Debug.Log("already dead"); return; }
 
-        eventSystem.OnDeath?.Invoke(this, new Generic_EventSystem.Args_DeadCharacter(gameObject, killer));
+        eventSystem.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));
         //if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
         //if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
         if(BloodCristals != null) 

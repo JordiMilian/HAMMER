@@ -12,7 +12,8 @@ public class DeadPartV3 : MonoBehaviour
     [SerializeField] List<Rigidbody2D> ChildDeadParts = new List<Rigidbody2D>();
     public Transform movingParent;
     [SerializeField] Collider2D groundCollider;
-    public Generic_OnTriggerEnterEvents triggerDetector;
+    //public Generic_OnTriggerEnterEvents triggerDetector;//DAMAGE DETECTOR PLS
+    [SerializeField] Generic_DamageDetector damageDetector;
     [HideInInspector] public bool isPushed;
 
     [SerializeField] DeadPart_EventSystem eventSystem;
@@ -45,12 +46,9 @@ public class DeadPartV3 : MonoBehaviour
     private void OnEnable()
     {
         //Subscribe to everyting
-        triggerDetector.AddActivatorTag(TagsCollection.Attack_Hitbox);
-        triggerDetector.AddActivatorTag(TagsCollection.Player);
-        triggerDetector.OnTriggerEntered += AttackDetected;
         eventSystem.OnSpawned += SpawnedPush;
-        eventSystem.OnBeingAttacked += AttackPush;
-        eventSystem.OnBeingTouched += TouchedPush;
+        eventSystem.OnReceiveDamage += AttackPush;
+        eventSystem.OnBeingTouchedObject += TouchedPush;
         eventSystem.OnHitWall += HitWallPush;
         
         //Get the ground and add it to the list of the manager
@@ -77,7 +75,7 @@ public class DeadPartV3 : MonoBehaviour
     }
     private void OnDisable()
     {
-        triggerDetector.OnTriggerExited -= AttackDetected;
+        eventSystem.OnBeingTouchedObject -= TouchedPush;
         DeadParts_Manager.Instance.GroundsList.Remove(groundCollider);
         DeadParts_Manager.Instance.OnDeadPartInstantiated -= IgnoreOtherGrounds;
     }
@@ -96,54 +94,27 @@ public class DeadPartV3 : MonoBehaviour
         DeadPart_RB.position = DeadPart_RB.position + parentVelocity;
 
     }
-    private void Update()
-    {
-        //Whatever else
-        if (Input.GetKey(KeyCode.E))
-        {
-            DeadPart_RB.AddForce(Vector2.up * 50);
-            DeadPart_RB.AddTorque(10);
-        }
-    }
-    void AttackDetected(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
-    {
-        //Find the direction
-        Vector2 otherPosition = args.Collision.gameObject.transform.root.position;
-        Vector2 attackDirection = (DeadPart_RB.position - otherPosition).normalized;
-
-        //Depending on what it touched, have more or less intensity
-        switch (args.Collision.gameObject.tag)
-        {
-            case "Attack_Hitbox":
-                eventSystem.OnBeingAttacked?.Invoke(this, new DeadPart_EventSystem.DeadPartArgs(attackDirection));
-                break;
-            case "Player":
-                eventSystem.OnBeingTouched?.Invoke(this, new DeadPart_EventSystem.DeadPartArgs(attackDirection));
-                break;
-            default: break;
-        }
-    }
-    void SpawnedPush(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void SpawnedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
         Debug.Log("spawn pushed");
-        CallVertical(args.Direction, 1f, 1f);
+        CallVertical(args.GeneralDirection, 1f, 1f);
     }
-    void AttackPush(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void AttackPush(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
-        CallHorizontal(args.Direction, 1f, 1f);
+        CallHorizontal(args.GeneralDirection, 1f, 1f);
     }
-    void TouchedPush(object sender, DeadPart_EventSystem.DeadPartArgs args)
+    void TouchedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
-        CallHorizontal(args.Direction, 0.2f, 0.5f);
+        CallHorizontal(args.GeneralDirection, 0.2f, 0.5f);
     }
     void HitWallPush()
     {
-        triggerDetector.GetComponent<Collider2D>().enabled = true;
+        damageDetector.enabled = true;
         CallHorizontal(-currentDirection, 0.4f, 1f);
     }
     public void CallHorizontal(Vector2 direction, float intencity, float durationMultiplier)
     {
-        triggerDetector.GetComponent<Collider2D>().enabled = false;
+        damageDetector.enabled = false;
         if (currentPush != null) { StopCoroutine(currentPush); }
         currentPush = StartCoroutine(PushCoroutine(
             direction, 
@@ -158,7 +129,7 @@ public class DeadPartV3 : MonoBehaviour
    
     public void CallVertical(Vector2 direction, float intencity, float durationMultiplier)
     {
-        triggerDetector.GetComponent<Collider2D>().enabled = false;
+        damageDetector.enabled = false;
 
         if (currentPush != null) { StopCoroutine(currentPush); }
         currentPush = StartCoroutine(PushCoroutine(
@@ -213,7 +184,7 @@ public class DeadPartV3 : MonoBehaviour
 
             yield return null;
         }
-        triggerDetector.GetComponent<Collider2D>().enabled = true;
+        damageDetector.enabled = true;
         isPushed = false;
     }
     

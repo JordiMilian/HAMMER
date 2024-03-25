@@ -76,7 +76,7 @@ public class DoorLogic : MonoBehaviour
         }
         //RespawnEnemies(this, new EventArgsCollisionInfo(new Collider2D()));
     }
-    void EnemyDied(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         EnemiesAlive--;
         AreCorrectlySpawned = false;

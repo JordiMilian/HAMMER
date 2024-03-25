@@ -15,6 +15,7 @@ public class ChangeCameraZoom : MonoBehaviour
     CameraZoomer.ZoomInfo ThisInfo;
     private void Awake()
     {
+        cameraZoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
         ThisInfo = new CameraZoomer.ZoomInfo(NewZoom, NewZoomDuration, Name);
     }
 

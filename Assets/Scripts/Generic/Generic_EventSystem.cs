@@ -5,55 +5,69 @@ using UnityEngine;
 
 public class Generic_EventSystem : MonoBehaviour
 {
-    public class EventArgs_DealtDamageInfo
+    public class DealtDamageInfo
     {
         public Vector3 CollisionPosition;
-        public EventArgs_DealtDamageInfo(Vector3 collisionPosition)
+        public DealtDamageInfo(Vector3 collisionPosition)
         {
             CollisionPosition = collisionPosition;
         }
     }
-    public class EventArgs_ReceivedAttackInfo : EventArgs
+    public class ReceivedAttackInfo : EventArgs
     {
         public Vector3 CollisionPosition;
+        public Vector2 GeneralDirection;
+        public Vector2 ConcreteDirection;
         public GameObject Attacker;
         public float Damage;
         public float KnockBack;
         public float Hitstop;
-        public EventArgs_ReceivedAttackInfo(Vector2 collisionPosition, GameObject attacker, float damage, float knockBack, float hitstop)
+        public ReceivedAttackInfo(Vector2 collisionPosition,
+            Vector2 Gdirection, Vector2 Cdirection, GameObject attacker, float damage, float knockBack, float hitstop)
         {
             CollisionPosition = collisionPosition;
+            GeneralDirection = Gdirection;
+            ConcreteDirection = Cdirection;
             Attacker = attacker;
             Damage = damage;
             KnockBack = knockBack;
             Hitstop = hitstop;
         }
     }
-    public class EventArgs_SuccesfulParryInfo : EventArgs
+    public class SuccesfulParryInfo : EventArgs
     {
-        public Vector3 vector3data;
-        public EventArgs_SuccesfulParryInfo(Vector3 data)
+        public Vector3 ParryPosition;
+        public SuccesfulParryInfo(Vector3 data)
         {
-            vector3data = data;
+            ParryPosition = data;
         }
     }
-    public class Args_DeadCharacter
+    public class DeadCharacterInfo
     {
         public GameObject DeadGameObject;
         public GameObject Killer;
-        public Args_DeadCharacter(GameObject deadGameObject, GameObject killer)
+        public DeadCharacterInfo(GameObject deadGameObject, GameObject killer)
         {
             DeadGameObject = deadGameObject;
             Killer = killer;
         }
     }
+    public class ObjectDirectionArgs : EventArgs
+    {
+        public Vector2 GeneralDirection;
+        public ObjectDirectionArgs(Vector2 Gdirection)
+        {
+            GeneralDirection = Gdirection;
+        }
+    }
 
-    public EventHandler<Args_DeadCharacter> OnDeath;
+    public EventHandler<DeadCharacterInfo> OnDeath;
     public Action OnAttackFinished;
     public Action OnUpdatedHealth;
-    public EventHandler<EventArgs_DealtDamageInfo> OnDealtDamage;
-    public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
+    public EventHandler<DealtDamageInfo> OnDealtDamage;
+    public EventHandler<ReceivedAttackInfo> OnReceiveDamage;
     public Action OnGettingParried;
-    public EventHandler<EventArgs_SuccesfulParryInfo> OnSuccessfulParry;
-    public Action OnHitObject;
+    public EventHandler<SuccesfulParryInfo> OnSuccessfulParry;
+    public EventHandler<DealtDamageInfo> OnHitObject;
+    public EventHandler<ObjectDirectionArgs> OnBeingTouchedObject;
 }

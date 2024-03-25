@@ -6,14 +6,19 @@ public class TagsCollection
 {
     public static string MainCharacter = "MainCharacter";
     public static string Player = "Player";
-    public static string ParryCollider = "ParryCollider";
     public static string Player_SinglePointCollider = "Player_SinglePointCollider";
-    public static string Attack_Hitbox = "Attack_Hitbox";
-    public static string Enemy_Attack_hitbox = "Enemy_Attack_hitbox";
+
+    public static string Player_Hitbox = "Attack_Hitbox";
+    public static string Player_Hurtbox = "PlayerDamageCollider";
+    public static string Enemy_Hitbox = "Enemy_Attack_hitbox";
+    public static string Enemy_Hurtbox = "Enemy_Hurtbox";
+
+    public static string ParryCollider = "ParryCollider";
+    
     public static string Enemy = "Enemy";
-    public static string Enemy_Hitbox = "Enemy_Hitbox";
+    
     public static string Weapon_Pivot = "Weapon_Pivot";
-    public static string PlayerDamageCollider = "PlayerDamageCollider";
+    
     public static string StanceBroken = "StanceBroken";
     public static string TargetGroup = "TargetGroup";
     public static string CMvcam1 = "CM vcam1";
@@ -24,5 +29,6 @@ public class TagsCollection
     public static string EnemyParryCollider = "EnemyParryCollider";
     public static string AttackedWhileRecovering = "AttackedWhileRecovering";
     public static string BlockingWalls = "BlockingWalls";
+    public static string Object_Hurtbox = "Object_Hurtbox";
 
 }

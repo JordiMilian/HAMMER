@@ -29,7 +29,7 @@ public class E_AttackedWhileRecovering : MonoBehaviour
     {
         isInRecovery = false;
     }
-    void PerformResponse(object sender, Generic_EventSystem.EventArgs_ReceivedAttackInfo args)
+    void PerformResponse(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         if(isInRecovery && !isInCooldown)
         {

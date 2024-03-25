@@ -112,7 +112,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
-    void callOnLookatMouse(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void callOnLookatMouse(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
         if (IsFocusingEnemy)

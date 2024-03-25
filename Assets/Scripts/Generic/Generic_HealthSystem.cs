@@ -28,7 +28,7 @@ public class Generic_HealthSystem : MonoBehaviour
     {
         eventSystem.OnReceiveDamage -= RemoveLife;
     }
-    public void RemoveLife(object sender, EventArgs_ReceivedAttackInfo receivedAttackInfo)
+    public void RemoveLife(object sender, ReceivedAttackInfo receivedAttackInfo)
     {
         CurrentHP.Value -= receivedAttackInfo.Damage;
 
@@ -48,7 +48,7 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public virtual void Death(GameObject killer)
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.Args_DeadCharacter(gameObject,killer));
+        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,killer));
         Destroy(gameObject);
     }
 }

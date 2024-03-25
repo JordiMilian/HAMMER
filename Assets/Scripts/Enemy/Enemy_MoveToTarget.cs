@@ -58,7 +58,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
         ClosestEnemy = currentClosest;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(DoMove)
         {
@@ -74,7 +74,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
             else { finalDirection = (Target.position - transform.position).normalized; }
 
             //Add the force
-            _rigidBody.AddForce( finalDirection * Velocity * Time.deltaTime);
+            _rigidBody.AddForce( finalDirection * Velocity * Time.fixedDeltaTime);
         }
     }
 

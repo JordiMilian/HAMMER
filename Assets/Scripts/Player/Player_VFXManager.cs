@@ -35,15 +35,15 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnPerformRoll -= PlayDustVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
     }
-    public void InstantiateParryVFX(object sender, EventArgs_SuccesfulParryInfo parryInfo)
+    public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
-        Instantiate(VFX_Parry, parryInfo.vector3data, Quaternion.identity);
+        Instantiate(VFX_Parry, parryInfo.ParryPosition, Quaternion.identity);
     }
-    void InstantiateDealDamageVFX(object sender, Player_EventSystem.EventArgs_DealtDamageInfo dealtDamageInfo)
+    void InstantiateDealDamageVFX(object sender, Player_EventSystem.DealtDamageInfo dealtDamageInfo)
     {
         GameObject HitEnemy = Instantiate(VFX_HitEnemy,dealtDamageInfo.CollisionPosition, Quaternion.identity);
     }
-    void InstantiateReceiveDamageVFX(object sender, Player_EventSystem.EventArgs_ReceivedAttackInfo receivedDamageInfo)
+    void InstantiateReceiveDamageVFX(object sender, Player_EventSystem.ReceivedAttackInfo receivedDamageInfo)
     {
         GameObject ReceiveDamage = Instantiate(VFX_ReceiveDamage, receivedDamageInfo.CollisionPosition, Quaternion.identity);
     }
@@ -51,7 +51,7 @@ public class Player_VFXManager : MonoBehaviour
     {
         VFX_Roll.Play();
     }
-    void PlayGroundBlood(object sender, Generic_EventSystem.EventArgs_ReceivedAttackInfo args)
+    void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         Vector2 thisPosition = transform.position;
         Vector2 otherPosition = args.Attacker.transform.root.position;

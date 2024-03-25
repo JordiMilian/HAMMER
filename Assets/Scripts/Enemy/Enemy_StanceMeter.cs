@@ -27,7 +27,7 @@ public class Enemy_StanceMeter : MonoBehaviour
     {
         CurrentStance = MaxStance;
     }
-    void RemoveStance(object sender, EventArgs_ReceivedAttackInfo receivedAttackInfo)
+    void RemoveStance(object sender, ReceivedAttackInfo receivedAttackInfo)
     {
         if(!isInFullRecovery)
         {

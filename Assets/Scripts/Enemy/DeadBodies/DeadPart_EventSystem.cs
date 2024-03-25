@@ -13,8 +13,8 @@ public class DeadPart_EventSystem : Generic_EventSystem
             Direction = direction;
         }
     }
-    public EventHandler<DeadPartArgs> OnSpawned;
-    public EventHandler<DeadPartArgs> OnBeingAttacked;
-    public EventHandler<DeadPartArgs> OnBeingTouched;
+    public EventHandler<ObjectDirectionArgs> OnSpawned;
+    //public EventHandler<DeadPartArgs> OnBeingAttacked;
+    //public EventHandler<ObjectDirectionArgs> OnBeingTouched;
     public Action OnHitWall;
 }

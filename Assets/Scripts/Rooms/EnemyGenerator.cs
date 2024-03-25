@@ -123,13 +123,13 @@ public class EnemyGenerator : MonoBehaviour
         spawn.currentInstances++;
 
     }
-    void EnemyDied(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         EnemiesAlive--;
         areCorrectlySpawned = false;
         if(EnemiesAlive <= 0) { RoomCompleted(true); }
     }
-    void EnemyDamaged(object sender, Generic_EventSystem.EventArgs_ReceivedAttackInfo args)
+    void EnemyDamaged(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         areCorrectlySpawned = false;
     }

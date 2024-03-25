@@ -30,7 +30,7 @@ public class Enemy_VFXManager : MonoBehaviour
         eventSystem.OnDeath -= InstantiateBllodExplosion;
 
     }
-    void InstantiateBllodExplosion(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void InstantiateBllodExplosion(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         Instantiate(BloodExplosion, transform.position, Quaternion.identity);
     }
@@ -38,9 +38,9 @@ public class Enemy_VFXManager : MonoBehaviour
     {
         Instantiate(StanceBrokenVFX,transform.position,Quaternion.identity);
     }
-    void InstantiateSuccesfulParryVFX(object sender, Generic_EventSystem.EventArgs_SuccesfulParryInfo args)
+    void InstantiateSuccesfulParryVFX(object sender, Generic_EventSystem.SuccesfulParryInfo args)
     {
-        Instantiate(SucesfullParryVFX, args.vector3data, Quaternion.identity);
+        Instantiate(SucesfullParryVFX, args.ParryPosition, Quaternion.identity);
     }
     public void EV_ShowTrail()
     {
@@ -50,7 +50,7 @@ public class Enemy_VFXManager : MonoBehaviour
     {
         trailRenderer.enabled= false;
     }
-    void PlayGroundBlood(object sender, Generic_EventSystem.EventArgs_ReceivedAttackInfo args)
+    void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         Vector2 thisPosition = transform.position;
         Vector2 otherPosition = args.Attacker.transform.root.position;

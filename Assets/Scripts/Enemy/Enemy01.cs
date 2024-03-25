@@ -32,7 +32,7 @@ public class Enemy01 : MonoBehaviour
         eventSystem.OnReceiveDamage -= ReceiveDamage;
         eventSystem.OnGettingParried -= GettingParried;
     }
-    public void ReceiveDamage(object sender, EventArgs_ReceivedAttackInfo receivedAttackinfo)
+    public void ReceiveDamage(object sender, ReceivedAttackInfo receivedAttackinfo)
     {
         if(stateMachine.CurrentState != Enemy_StateMachine.States.Dead)
         {
@@ -64,7 +64,7 @@ public class Enemy01 : MonoBehaviour
     {
         EnemyAnimator.SetBool(TagsCollection.HitShield, false);
     }
-    void slowMoOnDeath(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    void slowMoOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         TimeScaleEditor.Instance.SlowMotion(SlowMoPercentage.Value, 1f);
     }

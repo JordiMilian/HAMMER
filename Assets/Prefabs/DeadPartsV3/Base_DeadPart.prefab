@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4397653414952126942}
   - component: {fileID: 328440499063195015}
   - component: {fileID: 5572652785573848547}
-  - component: {fileID: 2167317097471593106}
   - component: {fileID: 3681321110318502647}
+  - component: {fileID: 4880938030161370114}
   m_Layer: 0
-  m_Name: triggerDetector
+  m_Name: Damage Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,19 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpritesConstraint: {fileID: 328440499063195015}
---- !u!114 &2167317097471593106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3536405964206033656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActivatorTags: []
 --- !u!61 &3681321110318502647
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -104,6 +91,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.36398536}
   m_EdgeRadius: 0
+--- !u!114 &4880938030161370114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3536405964206033656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7190f94e8f0416740a6e20c03ce37fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityTeam: 2
+  eventSystem: {fileID: 1705429221236731783}
 --- !u!1 &5541261589564976852
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +502,7 @@ MonoBehaviour:
   ChildDeadParts: []
   movingParent: {fileID: 5541261590469208457}
   groundCollider: {fileID: 5541261589564976849}
-  triggerDetector: {fileID: 2167317097471593106}
+  damageDetector: {fileID: 4880938030161370114}
   isPushed: 0
   eventSystem: {fileID: 1705429221236731783}
   groundAnimationCurve:

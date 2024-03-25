@@ -5,25 +5,23 @@ using UnityEngine;
 
 public class Player_Respawner : MonoBehaviour
 {
-
     [SerializeField] Transform respawnPosition;
-    [SerializeField] Generic_OnTriggerEnterEvents ActivationTrigger;
+    [SerializeField] Enemy_EventSystem eventSystem;
     public event Action OnRespawnerActivated;
     public bool IsActivated = false;
     private void OnEnable()
     {
-        ActivationTrigger.AddActivatorTag(TagsCollection.Attack_Hitbox);
-        ActivationTrigger.OnTriggerEntered += OnDudeKilled;
+        eventSystem.OnDeath += OnDudeKilled;
     }
     private void OnDisable()
     {
-        ActivationTrigger.OnTriggerEntered -= OnDudeKilled;
+        eventSystem.OnDeath -= OnDudeKilled;
     }
-    void OnDudeKilled(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void OnDudeKilled(object sender, Enemy_EventSystem.DeadCharacterInfo info)
     {
         ActivateRespawner();
     }
-    public void ActivateRespawner()
+     void ActivateRespawner()
     {
         IsActivated = true;
         if (OnRespawnerActivated != null) OnRespawnerActivated();

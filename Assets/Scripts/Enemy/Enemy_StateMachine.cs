@@ -72,7 +72,7 @@ public class Enemy_StateMachine : MonoBehaviour
             CurrentState = States.Agroo;
         }
     }
-    public virtual void DestroyOnDeath(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    public virtual void DestroyOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         CurrentState = States.Dead;
         StartCoroutine(delayDestroy());

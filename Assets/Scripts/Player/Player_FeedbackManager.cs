@@ -12,7 +12,6 @@ public class Player_FeedbackManager : MonoBehaviour
 {
     Rigidbody2D _rigitbody;
 
-    [SerializeField] HitStop hitStop;
     [SerializeField] Generic_Flash player_Flash;
     [SerializeField] Generic_DamageDetector damageDetector;
     [SerializeField] Player_Movement playerMovement;
@@ -35,7 +34,6 @@ public class Player_FeedbackManager : MonoBehaviour
     private void Awake()
     {
         _rigitbody = GetComponent<Rigidbody2D>();
-        hitStop = GameObject.Find("HitStop").GetComponent<HitStop>();
     }
     
 
@@ -54,7 +52,7 @@ public class Player_FeedbackManager : MonoBehaviour
         eventSystem.OnGettingParried -= GettingParriedEffects;
     }
 
-    public void ReceiveDamageEffects(object sender, Player_EventSystem.EventArgs_ReceivedAttackInfo receivedAttackinfo)
+    public void ReceiveDamageEffects(object sender, Player_EventSystem.ReceivedAttackInfo receivedAttackinfo)
     {
         eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(1));
         if(!receivingDamage)
@@ -68,7 +66,7 @@ public class Player_FeedbackManager : MonoBehaviour
             player_Flash.CallFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
-            StartCoroutine(ApplyForceOverTime(direction * receivedAttackinfo.KnockBack, 0.3f));
+            StartCoroutine(ApplyForceOverTime(receivedAttackinfo.GeneralDirection * receivedAttackinfo.KnockBack, 0.3f));
             playerAnimator.SetTrigger("GetHit");
             StartCoroutine(InvulnerableAfterDamage());
         }
@@ -88,13 +86,13 @@ public class Player_FeedbackManager : MonoBehaviour
         playerMovement.CurrentSpeed = playerMovement.BaseSpeed;
         receivingDamage = false;
     }
-    public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.EventArgs_SuccesfulParryInfo position)
+    public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.SuccesfulParryInfo position)
     {
         //hitStop.Stop(StopSeconds: 0.3f);
         TimeScaleEditor.Instance.HitStop(0.3f);
         CameraShake.Instance.ShakeCamera(0.6f, 0.1f);
     }
-    public void OnHitEnemyCameraEffects(object sender, Player_EventSystem.EventArgs_DealtDamageInfo damageinfo)
+    public void OnHitEnemyCameraEffects(object sender, Player_EventSystem.DealtDamageInfo damageinfo)
     {
         CameraShake.Instance.ShakeCamera(1 * damageDealer.Damage, 0.1f * damageDealer.Damage);
         //hitStop.Stop( 0.1f);

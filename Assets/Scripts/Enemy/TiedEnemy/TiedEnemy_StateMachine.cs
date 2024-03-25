@@ -6,7 +6,7 @@ public class TiedEnemy_StateMachine : Enemy_StateMachine
 {
     [SerializeField] SpriteRenderer HeadSprite;
     [SerializeField] Enemy_VFXManager vfxManager;
-    public override void DestroyOnDeath(object sender, Generic_EventSystem.Args_DeadCharacter args)
+    public override void DestroyOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         CurrentState = States.Dead;
         HeadSprite.enabled = false;
