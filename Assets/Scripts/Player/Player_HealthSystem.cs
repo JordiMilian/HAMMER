@@ -15,9 +15,11 @@ public class Player_HealthSystem : Generic_HealthSystem
     }
     public override void Death(GameObject killer)
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));
+        eventSystem.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));
+        /*
         if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
         if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
+        */
         TimeScaleEditor.Instance.SlowMotion(80, 2);
     }
 

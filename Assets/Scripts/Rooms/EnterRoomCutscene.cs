@@ -30,28 +30,28 @@ public class EnterRoomCutscene : MonoBehaviour
     IEnumerator EnterRoom()
     {
         //Find the references
-        CinemachineTargetGroup targetGroup = GameObject.Find(TagsCollection.TargetGroup).GetComponent<CinemachineTargetGroup>();
         CameraZoomer zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
-
-        //Find empty slot
-        int emptySlot = EnemyGenerator.FindEmptyTargetgroupSlot(targetGroup);
 
         //Wait just in case for enemies to spawn
         yield return new WaitForSeconds(0.3f);
 
+        //Look at center of room with zoom
         zoomer.AddZoomInfo(new CameraZoomer.ZoomInfo(6.5f, 1, "enter"));
-        EnemyGenerator.AddTargetToTargetGroup(targetGroup, emptySlot, CenterOfRoom, 20, 10);
+        TargetGroupSingleton.Instance.AddTarget(CenterOfRoom, 20, 10);
 
         yield return new WaitForSeconds(0.9f);
+
         //Activate the Agroo of the enemies
         foreach (GameObject enemy in enemyGenerator.CurrentlySpawnedEnemies)
         {
             enemy.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
         }
+
         yield return new WaitForSeconds(0.9f);
 
+        //Return to normal zoom
         zoomer.RemoveZoomInfo("enter");
-        EnemyGenerator.AddTargetToTargetGroup(targetGroup, emptySlot, null, 0, 0);
+        TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
 
         enemyGenerator.reenteredRoom = false;
     }

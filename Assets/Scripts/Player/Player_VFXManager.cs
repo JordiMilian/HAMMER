@@ -14,6 +14,7 @@ public class Player_VFXManager : MonoBehaviour
     [SerializeField] GameObject VFX_HitEnemy;
     [SerializeField] GameObject VFX_HitObject;
     [SerializeField] GameObject VFX_ReceiveDamage;
+    [SerializeField] GameObject VFX_BloodExplosion;
     [SerializeField] VisualEffect VFX_Roll;
     [Header("TRAILS")]
     [SerializeField] TrailRenderer WeaponTrail;
@@ -26,6 +27,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage += InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll += PlayDustVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
+        eventSystem.CallActivation += InstantiateBloodExplosion;
     }
     private void OnDisable()
     {
@@ -34,6 +36,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage -= InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll -= PlayDustVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
+        eventSystem.CallActivation -= InstantiateBloodExplosion;
     }
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
@@ -46,6 +49,11 @@ public class Player_VFXManager : MonoBehaviour
     void InstantiateReceiveDamageVFX(object sender, Player_EventSystem.ReceivedAttackInfo receivedDamageInfo)
     {
         GameObject ReceiveDamage = Instantiate(VFX_ReceiveDamage, receivedDamageInfo.CollisionPosition, Quaternion.identity);
+    }
+    void InstantiateBloodExplosion()
+    {
+        GameObject explosion = Instantiate(VFX_BloodExplosion, transform.position, Quaternion.identity);
+
     }
     void PlayDustVFX()
     {

@@ -44,8 +44,8 @@ public class DeadPart_Instantiator : MonoBehaviour
             Debug.Log("Transform: " + SimulatedChild.transform.rotation.z + "  RB: " + SimulatedChild.rotation + "  Bone: " + boneRotation);
             SimulatedChild.isKinematic = false;
 
-
-            InstantiatedDeadPart.transform.localScale = new Vector3(InstantiatedDeadPart.transform.localScale.x * OrientationGuide.localScale.x, 1, 1); //Fix orientation
+            int orientation = UsefullMethods.simplifyScale(OrientationGuide.localScale.x);
+            InstantiatedDeadPart.transform.localScale = new Vector3(InstantiatedDeadPart.transform.localScale.x * orientation, 1, 1); //Fix orientation
 
             StartCoroutine(InvokeWithDelay(InstantiatedDeadPart, direction));//Invoke with a slight delay so everyone can subscribe
 

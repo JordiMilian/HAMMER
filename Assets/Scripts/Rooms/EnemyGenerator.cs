@@ -29,9 +29,10 @@ public class EnemyGenerator : MonoBehaviour
     [Header("Door animation stuff")]
     [SerializeField] DoorAnimationController doorController;
     [SerializeField] AnimationClip openDoorAnimation;
-    [SerializeField] Transform DoorPosition;
+    [SerializeField] Transform DoorTransform;
     int EnemiesAlive;
     bool areCorrectlySpawned;
+    Coroutine correctlySpawnedCoroutine;
     [HideInInspector] public bool reenteredRoom;
 
     private void OnEnable()
@@ -102,6 +103,10 @@ public class EnemyGenerator : MonoBehaviour
         }
         EnemiesAlive = CurrentlySpawnedEnemies.Count;
         areCorrectlySpawned = true;
+
+        //not correctly spawned after a delay
+        if(correctlySpawnedCoroutine != null) { StopCoroutine(correctlySpawnedCoroutine); }
+        correctlySpawnedCoroutine = StartCoroutine(NotCorrectlySpawnedTimer());
         
     }
     void ActuallySpawn(EnemySpawn spawn)
@@ -122,6 +127,11 @@ public class EnemyGenerator : MonoBehaviour
 
         spawn.currentInstances++;
 
+    }
+    IEnumerator NotCorrectlySpawnedTimer()
+    {
+        yield return new WaitForSeconds(5);
+        areCorrectlySpawned = false;
     }
     void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
@@ -162,38 +172,14 @@ public class EnemyGenerator : MonoBehaviour
     }
     IEnumerator OpenDoorFocusCamera()
     {
-        //Wait after killing the last dude
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f); //Wait after killing the last dude
 
-        //Find which TargetGroup slot is empty
-        CinemachineTargetGroup targetGroup = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
-        int emptyTarget = FindEmptyTargetgroupSlot(targetGroup);
+        TargetGroupSingleton.Instance.AddTarget(DoorTransform, 10, 5); //Look at door
+        yield return new WaitForSeconds(0.2f); //Wait 
+        doorController.OpenDoor(); //Open door
+        yield return new WaitForSeconds(openDoorAnimation.length + 0.3f); //wait for door animation
+        TargetGroupSingleton.Instance.RemoveTarget(DoorTransform); // Stop looking at camera
 
-        //Wait a second and open door 
-        yield return new WaitForSeconds(0.2f);
-        doorController.OpenDoor();
-
-        //Create a target, wait, and empty it
-        AddTargetToTargetGroup(targetGroup, emptyTarget, DoorPosition, 10, 5);
-        yield return new WaitForSeconds(openDoorAnimation.length + 0.3f);
-        AddTargetToTargetGroup(targetGroup, emptyTarget, null, 0, 0);
-
-    }
-    public static int FindEmptyTargetgroupSlot(CinemachineTargetGroup group)
-    {
-        for (int i = 0; i < group.m_Targets.Length; i++)
-        {
-            if (group.m_Targets[i].target != null) { continue; }
-            else { return i; }
-        }
-        Debug.LogWarning("No empty Slot found");
-        return -1;
-    }
-    public static void AddTargetToTargetGroup(CinemachineTargetGroup group, int index, Transform transform, float weight, float radius)
-    {
-        group.m_Targets[index].target = transform;
-        group.m_Targets[index].weight = weight;
-        group.m_Targets[index].radius = radius;
     }
 }
 

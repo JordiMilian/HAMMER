@@ -14,7 +14,8 @@ public class Player_EventSystem : Generic_EventSystem
         }
     }
     public Action OnPerformRoll;
-    public EventHandler OnRespawn;
+    public Action CallRespawn;
+    public Action CallActivation;
     public Action OnPerformAttack;
     public EventHandler<EventArgs_StaminaConsumption> OnStaminaAction;
 }

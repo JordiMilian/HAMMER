@@ -6,13 +6,20 @@ using UnityEngine;
 public class Player_StateMachine : MonoBehaviour
 {
     [SerializeField] Player_EventSystem eventSystem;
+
     [SerializeField] Player_Movement movement;
     [SerializeField] Player_FollowMouse_withFocus followMouse;
-    [SerializeField] Player_ComboSystem comboSystem;
+    [SerializeField] Player_ComboSystem_chargeless comboSystem;
+    [SerializeField] Collider2D DamageDetector;
+    [SerializeField] Collider2D PositionCollider;
+    [SerializeField] Transform MouseTarget;
+    [SerializeField] List<GameObject> SpritesRoot = new List<GameObject>();
+
     [SerializeField] Animator playerAnimator;
-    [SerializeField] Animator swordAnimator;
-    [SerializeField] Generic_DamageDetector detector;
+
     [SerializeField] GameObject weaponPivot;
+    
+    
     enum PlayerStates
     {
         Active, Inactive
@@ -20,43 +27,50 @@ public class Player_StateMachine : MonoBehaviour
     PlayerStates currentState;
     private void OnEnable()
     {
-        eventSystem.OnDeath += DisableInput;
+        eventSystem.OnDeath += DisablePlayer;
+        eventSystem.CallActivation += ReturnPlayer;
     }
     private void OnDisable()
     {
-        eventSystem.OnDeath -= DisableInput;
+        eventSystem.OnDeath -= DisablePlayer;
+        eventSystem.CallActivation -= ReturnPlayer;
     }
-    void DisableInput(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    void DisablePlayer(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         movement.enabled = false;
         followMouse.enabled = false;
         comboSystem.enabled = false;
-        detector.gameObject.GetComponent<Collider2D>().enabled = false;
-        swordAnimator.SetTrigger("Death");
-        
-        playerAnimator.SetTrigger("Death");
-
-    }
-    public void EV_TeleportPlayer()
-    {
-        if (eventSystem.OnRespawn != null) eventSystem.OnRespawn(this, EventArgs.Empty);
+        TargetGroupSingleton.Instance.RemoveTarget(MouseTarget);
+        DamageDetector.enabled = false;
+        PositionCollider.enabled = false;
+        foreach (GameObject root in SpritesRoot)
+        {
+            root.SetActive(false);
+        }
 
         weaponPivot.transform.eulerAngles = new Vector3(
             weaponPivot.transform.eulerAngles.x,
             weaponPivot.transform.eulerAngles.y,
             90
             );
+        StartCoroutine(DelayedRespawn());
     }
-    public void EV_SwordRespawnAnimation()
+    IEnumerator DelayedRespawn()
     {
-        swordAnimator.SetTrigger("Respawn");
+        yield return new WaitForSeconds(3.5f);
+        eventSystem.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
     }
-    public void EV_ReturnControl()
+    public void ReturnPlayer()
     {
         movement.enabled = true;
         followMouse.enabled = true;
         comboSystem.enabled = true;
-        detector.gameObject.GetComponent<Collider2D>().enabled = true;
-        swordAnimator.SetTrigger("ReturnControl");
+        TargetGroupSingleton.Instance.AddTarget(MouseTarget,1,0);
+        DamageDetector.enabled = true;
+        PositionCollider.enabled = true;
+        foreach (GameObject root in SpritesRoot)
+        {
+            root.SetActive(true);
+        }
     }
 }

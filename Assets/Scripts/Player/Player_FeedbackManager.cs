@@ -43,6 +43,7 @@ public class Player_FeedbackManager : MonoBehaviour
         eventSystem.OnReceiveDamage += ReceiveDamageEffects;
         eventSystem.OnDealtDamage += OnHitEnemyCameraEffects;
         eventSystem.OnGettingParried += GettingParriedEffects;
+        eventSystem.CallActivation += OnActivationFeedback;
     }
     private void OnDisable()
     {
@@ -50,6 +51,7 @@ public class Player_FeedbackManager : MonoBehaviour
         eventSystem.OnReceiveDamage -= ReceiveDamageEffects;
         eventSystem.OnDealtDamage -= OnHitEnemyCameraEffects;
         eventSystem.OnGettingParried -= GettingParriedEffects;
+        eventSystem.CallActivation -= OnActivationFeedback;
     }
 
     public void ReceiveDamageEffects(object sender, Player_EventSystem.ReceivedAttackInfo receivedAttackinfo)
@@ -85,6 +87,11 @@ public class Player_FeedbackManager : MonoBehaviour
         yield return new WaitForSeconds(staggerTime);
         playerMovement.CurrentSpeed = playerMovement.BaseSpeed;
         receivingDamage = false;
+    }
+    void OnActivationFeedback()
+    {
+        playerAnimator.SetTrigger("Reactivated");
+        CameraShake.Instance.ShakeCamera(0.5f, 0.3f);
     }
     public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.SuccesfulParryInfo position)
     {

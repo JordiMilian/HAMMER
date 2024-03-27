@@ -7,16 +7,17 @@ using UnityEngine;
 public class Player_RespawnerManager : MonoBehaviour
 {
 
-    [SerializeField] List<Player_Respawner> Respawners = new List<Player_Respawner>();
+    public List<Player_Respawner> Respawners = new List<Player_Respawner>();
     [SerializeField] Player_Respawner CurrentFurthestRespawner;
     [SerializeField] GameObject PlayerGO;
     Generic_HealthSystem playerHealth;
     [SerializeField] Player_EventSystem eventSystem;
 
+    
     private void OnEnable()
     {
         playerHealth = PlayerGO.GetComponent<Generic_HealthSystem>();
-        eventSystem.OnRespawn += RespawnPlayer;
+        eventSystem.CallRespawn += RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
             respawner.OnRespawnerActivated += CheckFurthestRespawner;
@@ -24,16 +25,16 @@ public class Player_RespawnerManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        eventSystem.OnRespawn -= RespawnPlayer;
+        eventSystem.CallRespawn -= RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
             respawner.OnRespawnerActivated -= CheckFurthestRespawner;
         }
     }
-    public void RespawnPlayer(object sender, EventArgs args)
+    public void RespawnPlayer()
     {
         CheckFurthestRespawner();
-        CurrentFurthestRespawner.RespawnFromHere(PlayerGO);
+        CurrentFurthestRespawner.RespawnFromHere(PlayerGO); //Go to Player_Respawn
         playerHealth.RestoreAllHealth();
     }
     void CheckFurthestRespawner()
@@ -43,9 +44,16 @@ public class Player_RespawnerManager : MonoBehaviour
     Player_Respawner FindFurthestActiveRespawner()
     {
         Player_Respawner Furthest = new Player_Respawner();
-        foreach(Player_Respawner respawner in Respawners)
+        float maxDistance = 0;
+        for(int i = 0;i<Respawners.Count;i++)
         {
-            if (respawner.IsActivated) { Furthest = respawner; }
+            //Sorting by distance to the Manger gameobject
+            Respawners[i].distanceToManager = (Respawners[i].transform.position - transform.position).magnitude;
+            if(Respawners[i].distanceToManager > maxDistance && Respawners[i].IsActivated)
+            {
+                Furthest = Respawners[i];
+                maxDistance = Respawners[i].distanceToManager;
+            }
         }
         return Furthest;
     }

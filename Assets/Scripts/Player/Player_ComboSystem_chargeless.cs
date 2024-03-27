@@ -48,6 +48,10 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     {
         eventSystem.OnPerformAttack += RemoveAttackStamina;
     }
+    private void OnDisable()
+    {
+        eventSystem.OnPerformAttack -= RemoveAttackStamina;
+    }
     void RemoveAttackStamina()
     {
         eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(2));
