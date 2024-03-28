@@ -41,7 +41,7 @@ public class DeadPart_Instantiator : MonoBehaviour
             SimulatedChild.isKinematic = true;
             SimulatedChild.position = bonePosition;
             SimulatedChild.rotation = boneRotation;
-            Debug.Log("Transform: " + SimulatedChild.transform.rotation.z + "  RB: " + SimulatedChild.rotation + "  Bone: " + boneRotation);
+            //Debug.Log("Transform: " + SimulatedChild.transform.rotation.z + "  RB: " + SimulatedChild.rotation + "  Bone: " + boneRotation);
             SimulatedChild.isKinematic = false;
 
             int orientation = UsefullMethods.simplifyScale(OrientationGuide.localScale.x);

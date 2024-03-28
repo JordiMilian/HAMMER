@@ -13,7 +13,7 @@ public class DeadPartV3 : MonoBehaviour
     public Transform movingParent;
     [SerializeField] Collider2D groundCollider;
     //public Generic_OnTriggerEnterEvents triggerDetector;//DAMAGE DETECTOR PLS
-    [SerializeField] Generic_DamageDetector damageDetector;
+    [SerializeField] Collider2D damageDetector;
     [HideInInspector] public bool isPushed;
 
     [SerializeField] DeadPart_EventSystem eventSystem;
@@ -101,14 +101,17 @@ public class DeadPartV3 : MonoBehaviour
     }
     void AttackPush(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
+        Debug.Log("attackedPush");
         CallHorizontal(args.GeneralDirection, 1f, 1f);
     }
     void TouchedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
+        Debug.Log("touchedPush");
         CallHorizontal(args.GeneralDirection, 0.2f, 0.5f);
     }
     void HitWallPush()
     {
+        Debug.Log("wallPush");
         damageDetector.enabled = true;
         CallHorizontal(-currentDirection, 0.4f, 1f);
     }

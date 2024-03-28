@@ -10,11 +10,6 @@ public class Player_VFXManager : MonoBehaviour
     [Header("SCRIPTS")]
     [SerializeField] Player_EventSystem eventSystem;
     [Header("PREFABS")]
-    [SerializeField] GameObject VFX_Parry;
-    [SerializeField] GameObject VFX_HitEnemy;
-    [SerializeField] GameObject VFX_HitObject;
-    [SerializeField] GameObject VFX_ReceiveDamage;
-    [SerializeField] GameObject VFX_BloodExplosion;
     [SerializeField] VisualEffect VFX_Roll;
     [Header("TRAILS")]
     [SerializeField] TrailRenderer WeaponTrail;
@@ -40,20 +35,19 @@ public class Player_VFXManager : MonoBehaviour
     }
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
-        Instantiate(VFX_Parry, parryInfo.ParryPosition, Quaternion.identity);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.HitEnemyParry, parryInfo.ParryPosition);
     }
     void InstantiateDealDamageVFX(object sender, Player_EventSystem.DealtDamageInfo dealtDamageInfo)
     {
-        GameObject HitEnemy = Instantiate(VFX_HitEnemy,dealtDamageInfo.CollisionPosition, Quaternion.identity);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.HitEnemy, dealtDamageInfo.CollisionPosition);
     }
     void InstantiateReceiveDamageVFX(object sender, Player_EventSystem.ReceivedAttackInfo receivedDamageInfo)
     {
-        GameObject ReceiveDamage = Instantiate(VFX_ReceiveDamage, receivedDamageInfo.CollisionPosition, Quaternion.identity);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.HitPlayer, receivedDamageInfo.CollisionPosition);
     }
     void InstantiateBloodExplosion()
     {
-        GameObject explosion = Instantiate(VFX_BloodExplosion, transform.position, Quaternion.identity);
-
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.BloodExplosion, transform.position);
     }
     void PlayDustVFX()
     {
@@ -65,12 +59,12 @@ public class Player_VFXManager : MonoBehaviour
         Vector2 otherPosition = args.Attacker.transform.root.position;
         Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
 
-        if (GroundBloodMaker.Instance == null)
+        if (simpleVfxPlayer.Instance == null)
         {
             Debug.LogWarning("No Ground Blood instance");
             return;
         }
-        GroundBloodMaker.Instance.Play(thisPosition, opositeDirection,0.9f);
+        GroundBloodPlayer.Instance.PlayGroundBlood(thisPosition, opositeDirection,0.9f);
     }
     public void EV_HideTrail() { WeaponTrail.enabled = false; }
     public void EV_ShowTrail() { WeaponTrail.enabled = true; }

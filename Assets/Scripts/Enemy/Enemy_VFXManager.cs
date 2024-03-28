@@ -32,15 +32,15 @@ public class Enemy_VFXManager : MonoBehaviour
     }
     void InstantiateBllodExplosion(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
-        Instantiate(BloodExplosion, transform.position, Quaternion.identity);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.BloodExplosion, transform.position);
     }
     void InstantiateStanceBrokenVFX()
     {
-        Instantiate(StanceBrokenVFX,transform.position,Quaternion.identity);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.StanceBroken, transform.position);
     }
     void InstantiateSuccesfulParryVFX(object sender, Generic_EventSystem.SuccesfulParryInfo args)
     {
-        Instantiate(SucesfullParryVFX, args.ParryPosition, Quaternion.identity);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.StanceBroken, transform.position);
     }
     public void EV_ShowTrail()
     {
@@ -56,12 +56,12 @@ public class Enemy_VFXManager : MonoBehaviour
         Vector2 otherPosition = args.Attacker.transform.root.position;
         Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
 
-        if(GroundBloodMaker.Instance ==  null)
+        if(simpleVfxPlayer.Instance ==  null)
         {
             Debug.LogWarning("No Ground Blood instance");
             return;
         }
-        GroundBloodMaker.Instance.Play(thisPosition, opositeDirection,groundBloodIntensity);
+        GroundBloodPlayer.Instance.PlayGroundBlood(thisPosition, args.GeneralDirection,groundBloodIntensity);
     }
   
 }

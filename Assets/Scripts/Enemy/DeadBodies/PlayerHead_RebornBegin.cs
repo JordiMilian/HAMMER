@@ -11,15 +11,12 @@ public class PlayerHead_RebornBegin : MonoBehaviour
     bool isPushing;
     private IEnumerator Start()
     {
-        Debug.Log("les go");
         yield return new WaitForSeconds(2);
         verticalForce = 0f;
         float timer = 0;
         isPushing = true;
-        Debug.Log("les go?¿");
         while (maxForce - verticalForce > 0.5f )
         {
-            Debug.Log("?¿?¿");
             timer += Time.deltaTime;
             verticalForce = Mathf.Lerp(verticalForce, maxForce, 0.05f);
             yield return null;
@@ -41,15 +38,14 @@ public class PlayerHead_RebornBegin : MonoBehaviour
             }
             yield return null;
         }
+        Destroy(gameObject);
     }
     private void FixedUpdate()
     {
-        Debug.Log("updating fixedly");
         if (isPushing)
         {
             HeadRb.AddForce(Vector2.up * verticalForce);
             HeadRb.AddTorque(verticalForce / 40);
-            Debug.Log("pushing with: " + verticalForce);
         }
     }
 }

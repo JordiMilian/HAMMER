@@ -30,7 +30,7 @@ public class DeadPart_Feedback : MonoBehaviour
     {
         TimeScaleEditor.Instance.HitStop(0.05f);
         CameraShake.Instance.ShakeCamera(0.5f, 0.1f);
-        GroundBloodMaker.Instance.Play(Ground_TF.position, args.GeneralDirection, bloodSplashIntensity);
+        GroundBloodPlayer.Instance.PlayGroundBlood(Ground_TF.position, args.GeneralDirection, bloodSplashIntensity);
         deadPart_Animator.SetTrigger("Strong");
     }
     void GettingTouchedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
