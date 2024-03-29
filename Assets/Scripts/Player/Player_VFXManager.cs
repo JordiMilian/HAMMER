@@ -66,8 +66,8 @@ public class Player_VFXManager : MonoBehaviour
         }
         GroundBloodPlayer.Instance.PlayGroundBlood(thisPosition, opositeDirection,0.9f);
     }
-    public void EV_HideTrail() { WeaponTrail.enabled = false; }
-    public void EV_ShowTrail() { WeaponTrail.enabled = true; }
+    public void EV_HideTrail() { WeaponTrail.emitting = false; }
+    public void EV_ShowTrail() { WeaponTrail.emitting = true; }
     public void EV_ShowRollTrail() { rollTrail.enabled = true; }
     public void EV_HideRollTrail() { rollTrail.enabled = false; }
 }
