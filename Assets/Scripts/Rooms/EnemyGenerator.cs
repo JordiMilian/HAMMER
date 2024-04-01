@@ -145,7 +145,7 @@ public class EnemyGenerator : MonoBehaviour
     }
     void RoomCompleted(bool withAnimation)
     {
-        isRoomCompleted = true;
+        //isRoomCompleted = true;
         if (withAnimation) { StartCoroutine(OpenDoorFocusCamera()); }
 
         //Activate the trigger to Reopen Door
