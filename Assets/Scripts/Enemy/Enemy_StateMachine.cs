@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Generic_OnTriggerEnterEvents;
 
-public class Enemy_StateMachine : MonoBehaviour
+public class Enemy_StateMachine : Generic_StateMachine
 {
     [SerializeField] Enemy_IdleMovement idleMovement;
     [SerializeField] Enemy_AgrooMovement agrooMovement;
@@ -13,12 +13,7 @@ public class Enemy_StateMachine : MonoBehaviour
 
     [SerializeField] Generic_OnTriggerEnterEvents inRangeDetectionTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
-    [SerializeField] Enemy_EventSystem eventSystem;
-    public enum States
-    {
-        Idle, Agroo, Start, Dead
-    }
-    public States CurrentState = States.Idle;
+    [SerializeField] Enemy_EventSystem enemyEventSystem;
     private void Start()
     {
         ActivateIdle(); 
@@ -29,30 +24,30 @@ public class Enemy_StateMachine : MonoBehaviour
         outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += PlayerInRange;
         outOfRangeDetectionTrigger.OnTriggerExited += PlayerOutOfRange;
-        eventSystem.CallAgrooState += ActivateAgroo;
-        eventSystem.CallIdleState += ActivateIdle;
-        eventSystem.OnDeath += DestroyOnDeath;
+        enemyEventSystem.CallAgrooState += ActivateAgroo;
+        enemyEventSystem.CallIdleState += ActivateIdle;
+        enemyEventSystem.OnDeath += OnDeathState;
     }
     private void OnDisable()
     {
         inRangeDetectionTrigger.OnTriggerEntered -= PlayerInRange;
         outOfRangeDetectionTrigger.OnTriggerExited -= PlayerOutOfRange;
-        eventSystem.CallAgrooState += ActivateAgroo;
-        eventSystem.CallIdleState += ActivateIdle;
+        enemyEventSystem.CallAgrooState += ActivateAgroo;
+        enemyEventSystem.CallIdleState += ActivateIdle;
     }
     void PlayerInRange(object sender, EventArgsCollisionInfo args)
     {
-        eventSystem.CallAgrooState?.Invoke();
+        enemyEventSystem.CallAgrooState?.Invoke();
     }
     void PlayerOutOfRange(object sender, EventArgsCollisionInfo args)
     {
-        eventSystem.CallIdleState?.Invoke();
+        enemyEventSystem.CallIdleState?.Invoke();
     }
     void ActivateIdle()
     {
         if (CurrentState != States.Idle)
         {
-            if (eventSystem.OnIdleState != null) eventSystem.OnIdleState();
+            if (enemyEventSystem.OnIdleState != null) enemyEventSystem.OnIdleState();
             agrooMovement.enabled = false;
             attackProvider.enabled = false;
 
@@ -64,7 +59,7 @@ public class Enemy_StateMachine : MonoBehaviour
     {
         if(CurrentState != States.Agroo)
         {
-            if (eventSystem.OnAgrooState != null) eventSystem.OnAgrooState();
+            if (enemyEventSystem.OnAgrooState != null) enemyEventSystem.OnAgrooState();
             agrooMovement.enabled = true;
             attackProvider.enabled = true;
 
@@ -72,9 +67,9 @@ public class Enemy_StateMachine : MonoBehaviour
             CurrentState = States.Agroo;
         }
     }
-    public virtual void DestroyOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    public override void OnDeathState(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
-        CurrentState = States.Dead;
+        base.OnDeathState(sender, args);
         StartCoroutine(delayDestroy());
     }
     IEnumerator delayDestroy()

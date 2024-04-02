@@ -4,14 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Generic_OnTriggerEnterEvents;
 
-public class GreenBoss_StateMachine : MonoBehaviour
+public class GreenBoss_StateMachine : Generic_StateMachine
 {
     [SerializeField] Generic_HealthSystem bossHealthSystem;
 
-    public enum StatesGreenBoss
-    {
-        Idle, Fase01, Fase02, Transitioning, Start,
-    }
     [SerializeField] Enemy_IdleMovement idleMovement;
     [SerializeField] Enemy_AgrooMovement agrooMovement;
     [SerializeField] Enemy_AttacksProviderV2 Fase01_provider;
@@ -25,10 +21,9 @@ public class GreenBoss_StateMachine : MonoBehaviour
     [SerializeField] AnimatorOverrideController Fase01Animator;
     [SerializeField] AnimatorOverrideController Fase02Animator;
     
-    public StatesGreenBoss CurrentState = StatesGreenBoss.Idle;
     private void Start()
     {
-        if(CurrentState == StatesGreenBoss.Fase02) { replaceAnimatorOverride(Fase02Animator); }
+        if(CurrentState == States.Fase02) { replaceAnimatorOverride(Fase02Animator); }
          OnIdleState(this, new EventArgsCollisionInfo( new Collider2D())); 
     }
     private void OnEnable()
@@ -52,28 +47,28 @@ public class GreenBoss_StateMachine : MonoBehaviour
     {
         switch(CurrentState)
         {
-            case StatesGreenBoss.Idle:
+            case States.Idle:
                 if (bossHealthSystem.CurrentHP.Value < bossHealthSystem.MaxHP.Value / 2)
                 {
                     OnFase02State();
                 }
                 else { OnFase01State(); }
                 break;
-            case StatesGreenBoss.Fase01:
+            case States.Fase01:
                 if (bossHealthSystem.CurrentHP.Value < bossHealthSystem.MaxHP.Value / 2)
                 {
                     OnTransitioning();
                 }
                 break;
-            case StatesGreenBoss.Fase02:
+            case States.Fase02:
                 break;
-            case StatesGreenBoss.Transitioning:
+            case States.Transitioning:
                 break;
         }
     }
     void OnIdleState(object sender, EventArgsCollisionInfo args)
     {
-        if(CurrentState != StatesGreenBoss.Idle)
+        if(CurrentState != States.Idle)
         {
             if (eventSystem.OnIdleState != null) eventSystem.OnIdleState();
             Fase01_provider.isProviding = false;
@@ -81,13 +76,13 @@ public class GreenBoss_StateMachine : MonoBehaviour
             agrooMovement.enabled = false;
 
             idleMovement.enabled = true;
-            CurrentState = StatesGreenBoss.Idle;
+            CurrentState = States.Idle;
         }
         
     }
     void OnAgrooState(object sender, EventArgsCollisionInfo args)
     {
-        if(CurrentState != StatesGreenBoss.Fase01 && CurrentState != StatesGreenBoss.Fase02 && CurrentState != StatesGreenBoss.Transitioning)
+        if(CurrentState != States.Fase01 && CurrentState != States.Fase02 && CurrentState != States.Transitioning)
         {
             if (eventSystem.OnAgrooState != null) eventSystem.OnAgrooState();
             CheckHealthForState();
@@ -105,7 +100,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
         idleMovement.enabled = false;
         agrooMovement.enabled = true;
         //Set the Enum
-        CurrentState = StatesGreenBoss.Fase01;
+        CurrentState = States.Fase01;
     }
     public void OnFase02State()
     {
@@ -122,7 +117,7 @@ public class GreenBoss_StateMachine : MonoBehaviour
         agrooMovement.enabled = true;
 
         //Set the enum
-        CurrentState = StatesGreenBoss.Fase02;
+        CurrentState = States.Fase02;
         Debug.Log("PHASE02");
     }
     void replaceAnimatorOverride(AnimatorOverrideController overrideController)
@@ -139,6 +134,6 @@ public class GreenBoss_StateMachine : MonoBehaviour
         //Activate ANimator bool
         greenBossAnimator.SetBool("isTransitioning", true);
         //Set Enum
-        CurrentState = StatesGreenBoss.Transitioning;
+        CurrentState = States.Transitioning;
     }
 }

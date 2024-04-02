@@ -39,11 +39,11 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     private void OnEnable()
     {
-        eventSystem.OnDeath += callOnLookatMouse;
+        eventSystem.OnDeath += unfocusOnDeath;
     }
     private void OnDisable()
     {
-        eventSystem.OnDeath -= callOnLookatMouse;
+        eventSystem.OnDeath -= unfocusOnDeath;
     }
     void Start()
     {
@@ -112,6 +112,16 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         return InrangeEnemies[minIndex];
 
     }
+    //When player dies
+    void unfocusOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    {
+        if(IsFocusingEnemy)
+        {
+            TargetGroupSingleton.Instance.RemoveTarget(FocusedEnemy.transform);
+            FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+            FocusedEnemy = null;
+        }
+    }
     void callOnLookatMouse(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
@@ -139,7 +149,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void OnLookAtEnemy()
     {
-       
+       //Subscribe to stuff so it stops focusing if enemy dies
         FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnFocus();
         FocusedEventSystem = FocusedEnemy.GetComponent<Enemy_EventSystem>();
         FocusedEventSystem.OnDeath += callOnLookatMouse;

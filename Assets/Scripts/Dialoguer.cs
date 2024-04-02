@@ -43,6 +43,9 @@ public class Dialoguer : MonoBehaviour
 
         Position01_Collider.OnTriggerEntered -= SwitchPosition01;
         Position02_Collider.OnTriggerEntered -= SwitchPosition02;
+
+        Position02.SetActive(false);
+        Position01.SetActive(false);
     }
     private void Update()
     {

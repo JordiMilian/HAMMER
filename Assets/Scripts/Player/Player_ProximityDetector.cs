@@ -8,19 +8,26 @@ public class Player_ProximityDetector : MonoBehaviour
     [SerializeField] FloatReference defaultDistance;
     [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
 
+    [SerializeField] Transform mouseTarget;
+
     List<Transform> InRangeEnemies = new List<Transform>();
     Transform ClosestEnemy;
+    Vector2 ownPosition, enemyPosition, mousePosition;
     private void OnEnable()
     {
         proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
+        mouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
     }
     private void Update()
     {
+        ownPosition = transform.position;
+        //If there are no enemies near, check distance with mouse
         if (InRangeEnemies.Count == 0)
         {
-            distanceToEnemy.Value = defaultDistance.Value;
+            mousePosition = mouseTarget.position;
+            distanceToEnemy.Value = (mousePosition - ownPosition).magnitude;
             return; 
         }
         CheckClosest();

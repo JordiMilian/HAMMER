@@ -40,10 +40,12 @@ public class Player_Movement : MonoBehaviour
     private void OnEnable()
     {
         eventSystem.OnPerformRoll += CallDashMovement;
+        eventSystem.OnDeath += StopRunningOnDeath;
     }
     private void OnDisable()
     {
         eventSystem.OnPerformRoll -= CallDashMovement;
+        eventSystem.OnDeath -= StopRunningOnDeath;
     }
     void Start()
     {
@@ -89,6 +91,7 @@ public class Player_Movement : MonoBehaviour
             } 
         }
     }
+    void StopRunningOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args) { StopRunning(); }
     void StopRunning()
     {
         isRunning = false;

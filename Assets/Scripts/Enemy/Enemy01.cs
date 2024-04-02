@@ -16,7 +16,7 @@ public class Enemy01 : MonoBehaviour
     [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Rigidbody2D _rigidbody;
     [SerializeField] FloatVariable SlowMoPercentage;
-    [SerializeField] Enemy_StateMachine stateMachine;
+    [SerializeField] Generic_StateMachine stateMachine;
 
     private void Awake()
     {

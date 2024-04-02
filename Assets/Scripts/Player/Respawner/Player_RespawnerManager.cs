@@ -34,6 +34,7 @@ public class Player_RespawnerManager : MonoBehaviour
     public void RespawnPlayer()
     {
         CheckFurthestRespawner();
+        CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
         CurrentFurthestRespawner.RespawnFromHere(PlayerGO); //Go to Player_Respawn
         playerHealth.RestoreAllHealth();
     }
