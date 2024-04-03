@@ -10,6 +10,8 @@ public class DeadPart_Feedback : MonoBehaviour
     [SerializeField] Animator deadPart_Animator;
     [SerializeField] VisualEffect BloodTrail;
     [SerializeField] Generic_Flash flasher;
+    [SerializeField] GameObject spritesRoot;
+    [SerializeField] SpriteRenderer shadowSprite;
     float bloodSplashIntensity;
 
     private void OnEnable()
@@ -21,7 +23,6 @@ public class DeadPart_Feedback : MonoBehaviour
     }
     void spawnedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
-        Debug.Log("spawn feedbaked");
         StartCoroutine(BloodStopper());
         deadPart_Animator.SetTrigger("Light");
         flasher.CallFlasher();
@@ -52,5 +53,25 @@ public class DeadPart_Feedback : MonoBehaviour
         }
         BloodTrail.Stop();
         bloodSplashIntensity = 0.4f;
+    }
+    //Fade out sprites and destroy after a while
+    private IEnumerator Start()
+    {
+        SpriteRenderer[] spritesArray = spritesRoot.GetComponentsInChildren<SpriteRenderer>();
+        yield return new WaitForSeconds(8);
+        float timer = 0;
+        while (timer < 1)
+        {
+            timer += Time.deltaTime;
+            Color fadeColor = new Color(1, 1, 1, 1 - timer);
+            foreach(SpriteRenderer sprite in spritesArray)
+            {
+                sprite.color = fadeColor;
+            }
+            shadowSprite.color = fadeColor * Color.black;
+            yield return null;
+        }
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

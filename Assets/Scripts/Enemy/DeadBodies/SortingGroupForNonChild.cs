@@ -14,6 +14,8 @@ public class SortingGroupForNonChild : MonoBehaviour
     }
     void MatchSorting()
     {
+        OwnSortingGroup.sortingLayerID = ParentSortingGroup.sortingLayerID;
+        OwnSortingGroup.sortingLayerName = ParentSortingGroup.sortingLayerName;
         OwnSortingGroup.sortingOrder = ParentSortingGroup.sortingOrder;
     }
 }
