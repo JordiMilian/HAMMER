@@ -2046,6 +2046,8 @@ MonoBehaviour:
   flasher: {fileID: 6797361533294975628}
   eventSystem: {fileID: 7555730476318928094}
   _rigidbody: {fileID: 383100662245691179}
+  SlowMoPercentage: {fileID: 11400000, guid: 9a94119ce51c63f4ebab6cbbebb7ca8a, type: 2}
+  stateMachine: {fileID: 4768529556117110463}
 --- !u!114 &1359799563517358334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2103,6 +2105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8f4355cb575fd49ab8ee4e61687320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 7555730476318928094}
+  CurrentState: 4
   bossHealthSystem: {fileID: 8343205403315945866}
   idleMovement: {fileID: 675247659384785448}
   agrooMovement: {fileID: 7061527427718821087}
@@ -2114,7 +2118,6 @@ MonoBehaviour:
   greenBossAnimator: {fileID: 266731727252035748}
   Fase01Animator: {fileID: 22100000, guid: 2ab4ad6e908801543a78d5a3c27fb9a0, type: 2}
   Fase02Animator: {fileID: 22100000, guid: 66442ed80a54ace4aa58fea76e34af14, type: 2}
-  CurrentState: 4
 --- !u!114 &7061527427718821087
 MonoBehaviour:
   m_ObjectHideFlags: 0

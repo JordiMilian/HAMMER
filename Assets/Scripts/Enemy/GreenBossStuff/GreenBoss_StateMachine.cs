@@ -16,7 +16,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
     [SerializeField] Generic_OnTriggerEnterEvents inRangeDetectionTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
     
-    [SerializeField] GreenBoss_EventSystem eventSystem;
+    [SerializeField] GreenBoss_EventSystem GreenEventSystem;
     [SerializeField] Animator greenBossAnimator;
     [SerializeField] AnimatorOverrideController Fase01Animator;
     [SerializeField] AnimatorOverrideController Fase02Animator;
@@ -31,14 +31,24 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         inRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += OnAgrooState;
-        eventSystem.OnUpdatedHealth += CheckHealthForState;
+        GreenEventSystem.OnUpdatedHealth += CheckHealthForState;
         outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
+    }
+    public override void OnDeathState(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    {
+        base.OnDeathState(sender, args);
+        StartCoroutine(delayDestroy());
+    }
+    IEnumerator delayDestroy()
+    {
+        yield return new WaitForSecondsRealtime(0.08f);
+        Destroy(gameObject);
     }
     private void OnDisable()
     {
 
         inRangeDetectionTrigger.OnTriggerEntered -= OnAgrooState;
-        eventSystem.OnUpdatedHealth -= CheckHealthForState;
+        GreenEventSystem.OnUpdatedHealth -= CheckHealthForState;
         outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
     }
 
@@ -70,7 +80,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
     {
         if(CurrentState != States.Idle)
         {
-            if (eventSystem.OnIdleState != null) eventSystem.OnIdleState();
+            if (GreenEventSystem.OnIdleState != null) GreenEventSystem.OnIdleState();
             Fase01_provider.isProviding = false;
             Fase02_provider.isProviding = false;
             agrooMovement.enabled = false;
@@ -84,7 +94,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
     {
         if(CurrentState != States.Fase01 && CurrentState != States.Fase02 && CurrentState != States.Transitioning)
         {
-            if (eventSystem.OnAgrooState != null) eventSystem.OnAgrooState();
+            if (GreenEventSystem.OnAgrooState != null) GreenEventSystem.OnAgrooState();
             CheckHealthForState();
         }
     }
@@ -93,7 +103,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         //replace animations in the animator
         replaceAnimatorOverride(Fase01Animator);
         //call the event
-        if(eventSystem.OnPhase01 != null) eventSystem.OnPhase01(this, EventArgs.Empty);
+        if(GreenEventSystem.OnPhase01 != null) GreenEventSystem.OnPhase01(this, EventArgs.Empty);
         //Deactivate the scripts
         Fase01_provider.isProviding = true;
         Fase02_provider.isProviding = false;
@@ -109,7 +119,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         //Deactivate animator bool
         greenBossAnimator.SetBool("isTransitioning", false);
         //Call the event
-        if (eventSystem.OnPhase02 != null) eventSystem.OnPhase02(this, EventArgs.Empty);
+        if (GreenEventSystem.OnPhase02 != null) GreenEventSystem.OnPhase02(this, EventArgs.Empty);
         //Deactivate the scripts
         Fase01_provider.isProviding = false;
         Fase02_provider.isProviding = true;
@@ -127,7 +137,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
     void OnTransitioning()
     {
         //Call the event
-        if(eventSystem.OnTransitionBegin != null) eventSystem.OnTransitionBegin(this,EventArgs.Empty);
+        if(GreenEventSystem.OnTransitionBegin != null) GreenEventSystem.OnTransitionBegin(this,EventArgs.Empty);
         //Deactivate the providers
         Fase01_provider.isProviding = false;
         Fase02_provider.isProviding = false;

@@ -29,11 +29,18 @@ public class DoorAnimationController : MonoBehaviour
         }
         
     }
+    public void EV_OpenCollider()
+    {
+        blockingCollider.enabled = false;
+    }
+    public void EV_CloseCollider()
+    {
+        blockingCollider.enabled = true;
+    }
     public void OpenDoor()
     {
         if (!isDoorOpen)
         {
-            blockingCollider.enabled = false;
             doorAnimator.SetTrigger("Open");
             isDoorOpen = true;
         }
