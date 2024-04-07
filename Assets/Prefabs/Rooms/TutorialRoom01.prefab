@@ -322,6 +322,10 @@ PrefabInstance:
       value: TutorialRoom01
       objectReference: {fileID: 0}
     - target: {fileID: 1753886830809057014, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753886830809057014, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
       propertyPath: SpawnTrigger
       value: 
       objectReference: {fileID: 4597154070088154972}
@@ -492,6 +496,14 @@ PrefabInstance:
     - target: {fileID: 3124044054971726751, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
       propertyPath: m_LocalPosition.y
       value: -3.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156041065630128416, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156041065630128416, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
+      propertyPath: enemyGenerator
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5799173876330931381, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
       propertyPath: m_Size.x
@@ -693,7 +705,9 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[17].y
       value: 1.0520291
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1753886830809057014, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
+    - {fileID: 4156041065630128416, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
 --- !u!4 &1818472963675659789 stripped
 Transform:
@@ -710,3 +724,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 562356079729210653, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
   m_PrefabInstance: {fileID: 4966817212069663198}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6015633888592794121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1699685367534666711, guid: 9b9eb22b93fd09e49b8dccbedb2b3082, type: 3}
+  m_PrefabInstance: {fileID: 4966817212069663198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1452378953026274258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015633888592794121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38966bd74b124ca4ab3684aacbb2f4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorController: {fileID: 7110633591003237332}
+  doorTransform: {fileID: 7110633591003237333}
+  reopenDoorTrigger: {fileID: 2612496679851454157}
+  openDoorAnimation: {fileID: 7400000, guid: 6160ab0ac37cf804a88fc5f87b0cd7cb, type: 2}
+  isRoomPermanentlyCompleted: 0
+  playerEvents: {fileID: 0}
+  typeOfRoom: 0
+  parriesToOpen: 3

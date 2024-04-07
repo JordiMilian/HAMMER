@@ -22,7 +22,7 @@ public class EnterRoomCutscene : MonoBehaviour
     }
     void callEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
-        if (enemyGenerator.isRoomCompleted) { return; }
+        if (enemyGenerator.isRoomPermanentlyCompleted) { return; }
         if(!enemyGenerator.reenteredRoom) { return; }
         StartCoroutine(EnterRoom());
     }

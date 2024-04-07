@@ -27,8 +27,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     public bool IsFocusingEnemy = false;
     Enemy_EventSystem FocusedEventSystem;
     Camera mainCamera;
-    public Action OnFocusEnemy;
-    public Action OnUnfocusEnemy;
+
 
     private void Awake()
     {
@@ -47,7 +46,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void Start()
     {
-        OnLookAtMouse(); 
+        //OnLookAtMouse(); 
     }
     void  Update()
     {
@@ -134,7 +133,6 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void  OnLookAtMouse()
     {
-        
         IsFocusingEnemy = false;
 
         cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
@@ -145,6 +143,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; }
 
+        eventSystem.OnUnfocusEnemy?.Invoke();
         //distanceToEnemy.Value = 2f;
     }
     void OnLookAtEnemy()
@@ -159,6 +158,8 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         cinemachineTarget.m_Targets[1].weight = 3;
         cinemachineTarget.m_Targets[1].radius = 2;
         zoomer.StartFocusInTransition();
+
+        eventSystem.OnFocusEnemy?.Invoke();
     }
     void LookingAtMouse()
     {

@@ -10,11 +10,11 @@ public class DoorAnimationController : MonoBehaviour
 
     private void Start()
     {
-        isDoorOpen = false;
+        CloseDoor();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player_SinglePointCollider"))
+        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             CloseDoor();
         }
@@ -23,20 +23,15 @@ public class DoorAnimationController : MonoBehaviour
     {
         if (isDoorOpen)
         {
-            blockingCollider.enabled = true;
             doorAnimator.SetTrigger("Close");
             isDoorOpen = false;
-        }
-        
-    }
-    public void EV_OpenCollider()
-    {
-        blockingCollider.enabled = false;
+        } 
     }
     public void EV_CloseCollider()
     {
         blockingCollider.enabled = true;
     }
+
     public void OpenDoor()
     {
         if (!isDoorOpen)
@@ -44,5 +39,9 @@ public class DoorAnimationController : MonoBehaviour
             doorAnimator.SetTrigger("Open");
             isDoorOpen = true;
         }
+    }
+    public void EV_OpenCollider()
+    {
+        blockingCollider.enabled = false;
     }
 }

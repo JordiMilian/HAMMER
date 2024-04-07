@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Generic_OnTriggerEnterEvents;
 
-public class EnemyGenerator : MonoBehaviour
+public class EnemyGenerator : BaseRoomLogic
 {
     [Serializable]
     public class EnemySpawn
@@ -22,40 +22,35 @@ public class EnemyGenerator : MonoBehaviour
     [HideInInspector] public List<GameObject> CurrentlySpawnedEnemies = new List<GameObject>();
 
     [SerializeField] Generic_OnTriggerEnterEvents SpawnTrigger;
-    [SerializeField] Generic_OnTriggerEnterEvents ReopenDoorTrigger;
     [SerializeField] Collider2D SpawnArea;
     [SerializeField] GameObject EnemiesContainer;
-    public bool isRoomCompleted;
-    [Header("Door animation stuff")]
-    [SerializeField] DoorAnimationController doorController;
-    [SerializeField] AnimationClip openDoorAnimation;
-    [SerializeField] Transform DoorTransform;
     int EnemiesAlive;
     bool areCorrectlySpawned;
     Coroutine correctlySpawnedCoroutine;
     [HideInInspector] public bool reenteredRoom;
 
-    private void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
+
         SpawnTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
-        ReopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
-        ReopenDoorTrigger.OnTriggerEntered += ReopenDoor;
+        
     }
     private void Start()
     {
-        if(!isRoomCompleted) { ReopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = false; }
+        
     }
     void SpawnEnemies(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
-        
-        if (isRoomCompleted) { return; }
+
+        if (isRoomPermanentlyCompleted) { return; }
         if (areCorrectlySpawned) { return; }
         if (SpawneableEnemies.Count == 0 || MaxWeight == 0)
         {
-            RoomCompleted(false);
+            RoomCompleted(false,false);
             Debug.LogWarning("Nothing to spawn");
-            return; 
+            return;
         }
 
         reenteredRoom = true;
@@ -66,14 +61,14 @@ public class EnemyGenerator : MonoBehaviour
             CurrentlySpawnedEnemies.Remove(CurrentlySpawnedEnemies[i]);
         }
         int currentWeight = 0;
-        
+
         foreach (EnemySpawn spawn in SpawneableEnemies)
         {
             //Restart counters of spawners
             spawn.currentInstances = 0;
 
             //Spawn the minimums
-            for (int i = 0; i<spawn.minInstances; i++)
+            for (int i = 0; i < spawn.minInstances; i++)
             {
                 ActuallySpawn(spawn);
                 currentWeight += spawn.Weight;
@@ -93,21 +88,19 @@ public class EnemyGenerator : MonoBehaviour
             EnemySpawn thisSpawn = SpawneableEnemies[randomIndex];
 
             //If already maxed, repeat
-            if (thisSpawn.currentInstances >= thisSpawn.maxInstances) { continue;}
-           
+            if (thisSpawn.currentInstances >= thisSpawn.maxInstances) { continue; }
+
             //Spawn and add Weight
             ActuallySpawn(thisSpawn);
             currentWeight += thisSpawn.Weight;
-
-            
         }
         EnemiesAlive = CurrentlySpawnedEnemies.Count;
         areCorrectlySpawned = true;
 
         //not correctly spawned after a delay
-        if(correctlySpawnedCoroutine != null) { StopCoroutine(correctlySpawnedCoroutine); }
+        if (correctlySpawnedCoroutine != null) { StopCoroutine(correctlySpawnedCoroutine); }
         correctlySpawnedCoroutine = StartCoroutine(NotCorrectlySpawnedTimer());
-        
+
     }
     void ActuallySpawn(EnemySpawn spawn)
     {
@@ -118,6 +111,7 @@ public class EnemyGenerator : MonoBehaviour
           SpawnPosition,
           Quaternion.identity,
           EnemiesContainer.transform);
+
         CurrentlySpawnedEnemies.Add(SpawnedEnemy);
 
         //Subscribe to everything
@@ -137,25 +131,13 @@ public class EnemyGenerator : MonoBehaviour
     {
         EnemiesAlive--;
         areCorrectlySpawned = false;
-        if(EnemiesAlive <= 0) { RoomCompleted(true); }
+        if (EnemiesAlive <= 0) { RoomCompleted(true,false); }
     }
     void EnemyDamaged(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         areCorrectlySpawned = false;
     }
-    void RoomCompleted(bool withAnimation)
-    {
-        //isRoomCompleted = true;
-        if (withAnimation) { StartCoroutine(OpenDoorFocusCamera()); }
 
-        //Activate the trigger to Reopen Door
-        ReopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = true;
-
-    }
-    void ReopenDoor(object sender, EventArgsCollisionInfo args)
-    {
-        doorController.OpenDoor();
-    }
     Vector2 RandomPointInCollider(Collider2D collider)
     {
         Vector2 randomPoint = Vector2.zero;
@@ -170,16 +152,6 @@ public class EnemyGenerator : MonoBehaviour
         while (!collider.OverlapPoint(randomPoint));
         return randomPoint;
     }
-    IEnumerator OpenDoorFocusCamera()
-    {
-        yield return new WaitForSeconds(0.5f); //Wait after killing the last dude
-
-        TargetGroupSingleton.Instance.AddTarget(DoorTransform, 10, 5); //Look at door
-        yield return new WaitForSeconds(0.2f); //Wait 
-        doorController.OpenDoor(); //Open door
-        yield return new WaitForSeconds(openDoorAnimation.length + 0.3f); //wait for door animation
-        TargetGroupSingleton.Instance.RemoveTarget(DoorTransform); // Stop looking at camera
-
-    }
 }
+
 

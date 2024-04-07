@@ -87,7 +87,6 @@ public class DoorLogic : MonoBehaviour
     }
     void RoomCompleted()
     {
-        
         StartCoroutine(OpenDoorFocusCamera());
         isRoomCompleted = true;
         ReopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = true;

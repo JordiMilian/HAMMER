@@ -10,8 +10,9 @@ public class Enemy_VFXManager : MonoBehaviour
     [SerializeField] GameObject SucesfullParryVFX;
     [SerializeField] TrailRenderer trailRenderer;
     [SerializeField] GameObject BloodExplosion;
-
+    [SerializeField] bool notSpawnBlood;
     [SerializeField] Enemy_EventSystem eventSystem;
+ 
 
     public float groundBloodIntensity = 0.9f;
     
@@ -52,6 +53,8 @@ public class Enemy_VFXManager : MonoBehaviour
     }
     void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
+        if(notSpawnBlood) { return; }
+
         Vector2 thisPosition = transform.position;
         Vector2 otherPosition = args.Attacker.transform.root.position;
         Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
