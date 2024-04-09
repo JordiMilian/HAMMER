@@ -7,8 +7,6 @@ public class CameraShake : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera CMVC;
     private CinemachineBasicMultiChannelPerlin CMVCx;
-    float ShakeTimer;
-    bool Shaking = false;
 
     public static CameraShake Instance;
     private void Awake()
@@ -27,26 +25,20 @@ public class CameraShake : MonoBehaviour
 
     public void ShakeCamera(float Intensity, float Time)
     {
-        ShakeTimer = Time;
-        Shaking = true;
-        CMVCx.m_AmplitudeGain = Intensity;
+        StartCoroutine(ShakeCoroutine(Intensity, Time));
     }
-    void StopCamera()
+    IEnumerator ShakeCoroutine(float Intensity, float sTime)
     {
-        CMVCx.m_AmplitudeGain = 0;
-        
-    }
-    private void Update()
-    {
-        if (Shaking == true)
+        float timer = 0;
+        while(timer < sTime)
         {
-            ShakeTimer = ShakeTimer -  Time.deltaTime;
-            if (ShakeTimer <= 0)
-            {
-                StopCamera();
-                Shaking = false;
-            }
+            timer += Time.deltaTime * Time.timeScale;
+
+            CMVCx.m_AmplitudeGain = Intensity * Time.timeScale; //multiply intensity with timescale so when the game pauses it stops
+
+            yield return null;
         }
-        
+
+        CMVCx.m_AmplitudeGain = 0;
     }
 }

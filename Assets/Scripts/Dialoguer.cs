@@ -138,33 +138,10 @@ public class Dialoguer : MonoBehaviour
     }
     void AddDialoguerToTargetGroup()
     {
-        CinemachineTargetGroup.Target dialoguerTarget = new CinemachineTargetGroup.Target();
-        dialoguerTarget.target = gameObject.transform;
-        dialoguerTarget.weight = 1.5f;
-        dialoguerTarget.radius = 1.5f;
-
-        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
-        {
-            if (targetGroup.m_Targets[i].target == null)
-            {
-                targetGroup.m_Targets.SetValue(dialoguerTarget, i);
-                return;
-            }
-        }
+        TargetGroupSingleton.Instance.AddTarget(transform, 1.5f, 1.5f);
     }
     void RemoveDialoguerFromTargetGroup()
     {
-        CinemachineTargetGroup.Target emptyTarget = new CinemachineTargetGroup.Target();
-        emptyTarget.target = null;
-        emptyTarget.weight = 0;
-        emptyTarget.radius = 0;
-        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
-        {
-            if (targetGroup.m_Targets[i].target == gameObject.transform)
-            {
-                targetGroup.m_Targets.SetValue(emptyTarget, i);
-                return;
-            }
-        }
+        TargetGroupSingleton.Instance.RemoveTarget(transform);
     }
 }

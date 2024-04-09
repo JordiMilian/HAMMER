@@ -35,8 +35,8 @@ public class SpinningEyes : MonoBehaviour
         Vector2 directionTomouse = (targetPos-rootPos).normalized * simplifyFloat(SpritesRoot.localScale.x);
 
         //Set
-        EyeBone.right = directionTomouse;
-
+        //EyeBone.right = directionTomouse;
+        EyeBone.right = Vector3.RotateTowards(EyeBone.right, directionTomouse, 10 * Time.deltaTime, 10f);
     }
     int simplifyFloat(float f)
     {
