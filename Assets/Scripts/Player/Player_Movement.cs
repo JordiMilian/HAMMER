@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 public class Player_Movement : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rigidbody;
+    [SerializeField] Rigidbody2D playerRb;
     [SerializeField] Animator player_Animator;
     //Player_ComboSystem comboSystem;
     [SerializeField] Player_ComboSystem_chargeless comboSystem;
@@ -19,13 +19,13 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] float RunningSpeed = 40;
     [SerializeField] float RunInputDelayTime = 0.5f;
     float TimerDelay;
+    bool isDelaying;
     bool IsWaitingInputDelay;
     bool isRunning = false;
 
 
     [Header("ROLL")]
     public bool canDash = true;
-    bool isWaitingDash;
     public bool isDashing;
     [SerializeField] float RollTime;
     [SerializeField] float RollMaxForce;
@@ -33,23 +33,25 @@ public class Player_Movement : MonoBehaviour
     public AnimationCurve RollCurve;
     [SerializeField] Collider2D damageCollider;
 
-    [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] Player_EventSystem playerEvents;
     [SerializeField] FloatVariable playerStamina;
     [SerializeField] Player_ActionPerformer actionPerformer;
 
     private void OnEnable()
     {
-        eventSystem.OnPerformRoll += CallDashMovement;
-        eventSystem.OnDeath += StopRunningOnDeath;
+        playerEvents.OnPerformRoll += CallDashMovement;
+        playerEvents.OnDeath += StopRunningOnDeath;
+        playerEvents.OnPerformAttack += StopRunning;
     }
     private void OnDisable()
     {
-        eventSystem.OnPerformRoll -= CallDashMovement;
-        eventSystem.OnDeath -= StopRunningOnDeath;
+        playerEvents.OnPerformRoll -= CallDashMovement;
+        playerEvents.OnDeath -= StopRunningOnDeath;
+        playerEvents.OnPerformAttack -= StopRunning;
     }
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        playerRb = GetComponent<Rigidbody2D>();
         player_Animator = GetComponent<Animator>();
         
         CurrentSpeed = BaseSpeed;
@@ -74,7 +76,17 @@ public class Player_Movement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
         {
-            DelayInput();
+            if (IsWaitingInputDelay)
+            {
+                TimerDelay += Time.deltaTime;
+
+                if (TimerDelay > RunInputDelayTime)
+                {
+                    IsWaitingInputDelay = false;
+                    isRunning = true;
+                }
+            }
+            
         }
         
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
@@ -100,21 +112,10 @@ public class Player_Movement : MonoBehaviour
     }
     void Move(Vector2 vector2)
     {
-        rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
+        playerRb.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
         WalkingAnimation();
     }
   
-    void DelayInput()
-    { 
-        TimerDelay += Time.deltaTime;
-       
-        if(TimerDelay > RunInputDelayTime)
-        {
-            IsWaitingInputDelay = false;
-            isRunning = true;
-        }
-
-    }
     void WalkingAnimation()
     {
         if (!isDashing)
@@ -132,7 +133,7 @@ public class Player_Movement : MonoBehaviour
     void CallDashMovement()
     {
         //Call the event to remove Stamina
-        eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(1f));
+        playerEvents.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(1f));
 
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
@@ -147,7 +148,7 @@ public class Player_Movement : MonoBehaviour
         {
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
-            rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
+            playerRb.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
             yield return null;
         }
     }

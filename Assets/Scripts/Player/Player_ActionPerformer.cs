@@ -17,6 +17,7 @@ public class Player_ActionPerformer : MonoBehaviour
 
     public void AddAction(Action action)
     {
+        if (PauseGame.isPaused) { return; }
         if (!playerAnimator.GetBool("isInputing"))
         {
             Debug.Log("Currently not reading Input, specially not " + action.triggerName);

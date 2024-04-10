@@ -46,6 +46,7 @@ public class Dialoguer : MonoBehaviour
 
         Position02.SetActive(false);
         Position01.SetActive(false);
+        RemoveDialoguerFromTargetGroup();
     }
     private void Update()
     {
