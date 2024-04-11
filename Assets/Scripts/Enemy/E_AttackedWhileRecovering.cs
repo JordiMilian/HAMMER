@@ -6,7 +6,7 @@ public class E_AttackedWhileRecovering : MonoBehaviour
 {
     [SerializeField] Animator enemyAnimator;
     [SerializeField] Generic_EventSystem eventSystem;
-    [SerializeField] Enemy_AttacksProviderV2 attackProvider;
+    public Enemy_AttacksProviderV2 attackProvider;
     [SerializeField] int ResponseAttackIndex;
     [SerializeField] float CooldownSeconds = 2;
     bool isInRecovery;
