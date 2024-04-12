@@ -5,137 +5,148 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using static Generic_OnTriggerEnterEvents;
 
 public class Dialoguer : MonoBehaviour
 {
     public List<string> TextLines = new List<string>();
-    public int CurrentLineToRead;
-    [SerializeField] TextMeshProUGUI MeshPro01, MeshPro02;
-    [SerializeField] GameObject Position01, Position02;
+    
+    [SerializeField] TextMeshProUGUI MeshPro;
+    [SerializeField] GameObject DialogueBubblePosition;
     [SerializeField] Generic_OnTriggerEnterEvents PlayerCloseTrigger;
-    [SerializeField] Generic_OnTriggerEnterEvents Position01_Collider, Position02_Collider;
-    [SerializeField] CinemachineTargetGroup targetGroup;
 
-    [SerializeField] float DelayToRestartLines;
+    int CurrentLineToRead;
     bool playerIsInside;
-    bool isDelaying;
-    public float timer;
-    private void Awake()
-    {
-        targetGroup = GameObject.Find(TagsCollection.TargetGroup).GetComponent<CinemachineTargetGroup>();
-    }
+    bool currentlyReading;
+
+    Coroutine currentRead;
+    Coroutine currentLinesReseter;
+
     private void OnEnable()
     {
         PlayerCloseTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
-
-        Position01_Collider.AddActivatorTag("Player");
-        Position02_Collider.AddActivatorTag("Player");
-        Position01_Collider.OnTriggerEntered += SwitchPosition01;
-        Position02_Collider.OnTriggerEntered += SwitchPosition02;
     }
     private void OnDisable()
     {
         PlayerCloseTrigger.OnTriggerEntered -= PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited -= PlayerExitedDialogue;
 
-        Position01_Collider.OnTriggerEntered -= SwitchPosition01;
-        Position02_Collider.OnTriggerEntered -= SwitchPosition02;
 
-        Position02.SetActive(false);
-        Position01.SetActive(false);
+        HideDialogueBubble();
         RemoveDialoguerFromTargetGroup();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetMouseButtonDown(2)) 
         {
-            if (playerIsInside) NextLine();
+            if (currentlyReading) { CompleteCurrentRead(); }
+            else if (playerIsInside) NextLine();
         }
-        if (isDelaying)
-        {
-            timer += Time.deltaTime;
+    }
+    void ShowNextLine()
+    {
+        // stop reading and start de reading corroutine
+        if(currentRead != null) { StopCoroutine(currentRead); }
+        currentRead = StartCoroutine( SlowlyReadLine(TextLines[CurrentLineToRead]));
 
-            if (timer >= DelayToRestartLines)
-            {
-                isDelaying = false;
-                RestartLinesCount();
-            }
+        //I dont know what this does but it mostly works. It updates the size of the bubble
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)MeshPro.transform);
+    }
+    IEnumerator SlowlyReadLine(string finalText)
+    {
+        currentlyReading = true;
+        MeshPro.text = "";
+        bool skipping = false;;
+        foreach (char c in finalText) 
+        { 
+            if(c == '<') { skipping = true; MeshPro.text += c; continue; }
+            if(c == '>') { skipping = false; MeshPro.text += c; continue; }
+            if (skipping) { MeshPro.text += c; continue; }
+
+            MeshPro.text += c;
+            yield return new WaitForSeconds(0.03f);
         }
+        currentlyReading = false;
     }
-    void ShowLine()
+    void CompleteCurrentRead()
     {
-        MeshPro01.text = TextLines[CurrentLineToRead];
-        MeshPro02.text = TextLines[CurrentLineToRead];
+        if(currentRead != null) { StopCoroutine(currentRead);}
+        MeshPro.text = TextLines[CurrentLineToRead];
+        currentlyReading = false;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)MeshPro.transform);
     }
-    void SwitchPosition01(object sender, EventArgsCollisionInfo args)
+
+    void HideDialogueBubble()
     {
-        Position01.SetActive(false);
-        Position02.SetActive(true);
+        DialogueBubblePosition.SetActive(false);
     }
-    void SwitchPosition02(object sender, EventArgsCollisionInfo args)
+    void ShowDialogueBubble()
     {
-        Position01.SetActive(true);
-        Position02.SetActive(false);
-    }
-    void HideAllPositions()
-    {
-        Position01.SetActive(false);
-        Position02.SetActive(false);
+        DialogueBubblePosition.SetActive(true);
     }
     void NextLine()
     {
-        if(CurrentLineToRead == TextLines.Count -1)
+        if(CurrentLineToRead == TextLines.Count -1) //Si es lultima linea de text
         {
-            HideAllPositions();
+            HideDialogueBubble();
             CurrentLineToRead++;
             return;
         }
-        if(CurrentLineToRead >= TextLines.Count)
+        if(CurrentLineToRead >= TextLines.Count) //Si ho has llegit tot i vols tornar a llegir et torna al principi
         {
             CurrentLineToRead = 0;
-            Position01.SetActive(true);
-            ShowLine();
+            ShowDialogueBubble();
+            ShowNextLine();
             return;
         }
+
+        //Comportament habitual
         CurrentLineToRead++;
-        ShowLine();
+        ShowNextLine();
     }
-    void RestartLinesCount()
+    IEnumerator TimerToResetLines(float maxTime)
     {
+        float timer = 0;
+        while (timer < maxTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
         CurrentLineToRead = 0;
     }
     void PlayerEnterDialogue(object sender, EventArgsCollisionInfo args)
     {
         playerIsInside = true;
         CheckIfOutOfRange();
-        ShowLine();
-        Position01.SetActive(true);
-        isDelaying = false;
+        ShowNextLine();
+        // Lets try without reseting the lines ok??
+        // if(currentLinesReseter != null) { StopCoroutine(currentLinesReseter); }
+        ShowDialogueBubble();
+
         AddDialoguerToTargetGroup();
   
     }
     void PlayerExitedDialogue(object sender, EventArgsCollisionInfo args)
     {
         playerIsInside = false;
-        ResetDelay();
-        HideAllPositions();
+
+        // currentLinesReseter = StartCoroutine(TimerToResetLines(10));
+
+        HideDialogueBubble();
+
         RemoveDialoguerFromTargetGroup();
     }
 
-    void CheckIfOutOfRange()
+    void CheckIfOutOfRange() //Quan entres de nou, si ja tho has llegit tot o t'havies passat, tornes al principi
     {
         if(CurrentLineToRead >= TextLines.Count -1)
         {
             CurrentLineToRead = 0;
         }
-    }
-    private void ResetDelay()
-    {
-        isDelaying = true;
-        timer = 0;
     }
     void AddDialoguerToTargetGroup()
     {

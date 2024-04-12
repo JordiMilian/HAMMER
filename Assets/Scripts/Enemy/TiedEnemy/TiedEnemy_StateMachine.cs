@@ -14,6 +14,7 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
         HeadSprite.enabled = false;
         vfxManager.groundBloodIntensity = 0.4f;
         dialoguer.enabled = false;
+        GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
     }
     public void ShowBodies() //Go to Respawner Manager
     {

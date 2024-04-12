@@ -45,6 +45,7 @@ public class Generic_HealthSystem : MonoBehaviour
     public void RestoreAllHealth()
     {
         CurrentHP.Value = MaxHP.Value;
+        eventSystem.OnUpdatedHealth?.Invoke();
     }
     public virtual void Death(GameObject killer)
     {
