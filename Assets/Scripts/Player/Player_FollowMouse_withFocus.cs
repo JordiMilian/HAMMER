@@ -16,14 +16,17 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [SerializeField] float maxZoom;
     [SerializeField] float maxDistance;
     [Header("references")]
-    [SerializeField] Transform MouseFocusTransform;
+    Transform MouseFocusTransform;
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
     [SerializeField] CinemachineTargetGroup cinemachineTarget;
-    [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] Player_EventSystem playerEvents;
     [SerializeField] FloatVariable distanceToEnemy;
+    [SerializeField] BoolVariable isDistanceToMouse;
+    [SerializeField] TransformVariable ClosestEnemy;
 
     List<GameObject> CurrentEnemies = new List<GameObject>();
     [HideInInspector] public GameObject FocusedEnemy;
+    [HideInInspector] public Vector2 PositionToLook;
     public bool IsFocusingEnemy = false;
     Enemy_EventSystem FocusedEventSystem;
     Camera mainCamera;
@@ -31,50 +34,117 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
     private void Awake()
     {
-        MouseFocusTransform = GameObject.Find("MouseCameraTarget").transform;
+        MouseFocusTransform = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
-        zoomer = GameObject.Find("CM vcam1").GetComponent<CameraZoomer>();
+        zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
         mainCamera = Camera.main;
     }
     private void OnEnable()
     {
-        eventSystem.OnDeath += unfocusOnDeath;
+        playerEvents.OnDeath += unfocusOnDeath;
     }
     private void OnDisable()
     {
-        eventSystem.OnDeath -= unfocusOnDeath;
+        playerEvents.OnDeath -= unfocusOnDeath;
     }
-    void Start()
-    {
-        //OnLookAtMouse(); 
-    }
+
     void  Update()
     {
+        //Check conditions, depending on which will change the Target to focus attention
+        if (distanceToEnemy.Value < 2.2f && !isDistanceToMouse.Value && !IsFocusingEnemy) { PositionToLook = ClosestEnemy.Tf.position; } //Look at closest enemy if everything is alright
+        else if (IsFocusingEnemy == true) { zoomer.FocusZoom = UpdateZoom(); PositionToLook = FocusedEnemy.transform.position; } //Look at enemy is we are alright
+        else { PositionToLook = GetMousePosition(); } //Or look at mouse
+
+        LookingAtTarget(PositionToLook);
+
         if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.F))
         {
-            //Restart enemies list
-            CurrentEnemies.Clear();
-            CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+            AttemptFocus();
+        }
+    }
+    void AttemptFocus()
+    {
+        //Restart enemies list and find every enemy in scene
+        CurrentEnemies.Clear();
+        CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-            //Unfocus old Enemy if they are not null
-            if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+        //Unfocus old Enemy if they are not null
+        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
 
-            //Find closest enemy
-            FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
+        //Find closest enemy
+        FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
 
 
-            if (FocusedEnemy == null)
-            {
-                OnLookAtMouse();
-            }
-            else
-            {
-                OnLookAtEnemy();
-            }
-        } 
+        if (FocusedEnemy == null)
+        {
+            if (!IsFocusingEnemy) { return; } //couldnt find any enemy but we were already not focusing
+            OnLookAtMouse();
+        }
+        else
+        {
+            OnLookAtEnemy();
+        }
+    }
+    void callOnLookatMouse(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    {
+        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+        if (IsFocusingEnemy)
+        {
+            FocusedEnemy = null;
+            OnLookAtMouse();
+        }
 
-        if (IsFocusingEnemy == true) { LookingAtEnemy(); }
-        else { LookingAtMouse(); }
+    }
+    void OnLookAtMouse()
+    {
+        IsFocusingEnemy = false;
+
+        cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
+        cinemachineTarget.m_Targets[1].weight = 1;
+        cinemachineTarget.m_Targets[1].radius = 0;
+
+        zoomer.StartFocusOutTransition();
+
+        if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; } //Desubscribe to unfocused enemies Death
+
+        playerEvents.OnUnfocusEnemy?.Invoke();
+    }
+    void OnLookAtEnemy()
+    {
+        //Subscribe to stuff so it stops focusing if enemy dies
+        FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnFocus();
+        FocusedEventSystem = FocusedEnemy.GetComponent<Enemy_EventSystem>();
+        FocusedEventSystem.OnDeath += callOnLookatMouse;
+
+        IsFocusingEnemy = true;
+        cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
+        cinemachineTarget.m_Targets[1].weight = 3;
+        cinemachineTarget.m_Targets[1].radius = 2;
+        zoomer.StartFocusInTransition();
+
+        playerEvents.OnFocusEnemy?.Invoke();
+    }
+    Vector2 GetMousePosition()
+    {
+        return (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
+    }
+    void GetFocusedEnemyPosition() //deprecated?? maybe
+    {
+        if (FocusedEnemy == null)
+        {
+            IsFocusingEnemy = false;
+            return;
+        }
+        Vector2 focusedEnemyPosition = FocusedEnemy.transform.position;
+        LookingAtTarget(focusedEnemyPosition);
+        zoomer.FocusZoom = UpdateZoom();
+    }
+    void LookingAtTarget(Vector2 targetPos)
+    {
+        Vector2 playerPos = transform.position;
+        transform.up = (Vector3.RotateTowards(transform.up, targetPos - playerPos, FollowMouse_Speed * Time.deltaTime, 10f));
+
+        spriteFliper.FocusVector = targetPos;
     }
     GameObject ClosestEnemyToMouseInRange(float range)
     {
@@ -109,7 +179,6 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             }
         }
         return InrangeEnemies[minIndex];
-
     }
     //When player dies
     void unfocusOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
@@ -121,76 +190,16 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             FocusedEnemy = null;
         }
     }
-    void callOnLookatMouse(object sender, Generic_EventSystem.DeadCharacterInfo args)
-    {
-        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
-        if (IsFocusingEnemy)
-        {
-            FocusedEnemy = null;
-            OnLookAtMouse();
-        }
-        
-    }
-    void  OnLookAtMouse()
-    {
-        IsFocusingEnemy = false;
 
-        cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
-        cinemachineTarget.m_Targets[1].weight = 1;
-        cinemachineTarget.m_Targets[1].radius = 0;
-
-        zoomer.StartFocusOutTransition();
-
-        if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; }
-
-        eventSystem.OnUnfocusEnemy?.Invoke();
-        //distanceToEnemy.Value = 2f;
-    }
-    void OnLookAtEnemy()
-    {
-       //Subscribe to stuff so it stops focusing if enemy dies
-        FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnFocus();
-        FocusedEventSystem = FocusedEnemy.GetComponent<Enemy_EventSystem>();
-        FocusedEventSystem.OnDeath += callOnLookatMouse;
-
-        IsFocusingEnemy = true;
-        cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
-        cinemachineTarget.m_Targets[1].weight = 3;
-        cinemachineTarget.m_Targets[1].radius = 2;
-        zoomer.StartFocusInTransition();
-
-        eventSystem.OnFocusEnemy?.Invoke();
-    }
-    void LookingAtMouse()
-    {
-        Vector2 mousePos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 PivotVector = transform.position;
-        transform.up = (Vector3.RotateTowards(transform.up, mousePos - PivotVector, FollowMouse_Speed * Time.deltaTime, 10f));
-        spriteFliper.FocusVector = mousePos;
-    }
-    void LookingAtEnemy()
-    {
-        if (FocusedEnemy == null)
-        {
-            IsFocusingEnemy = false; 
-            return;
-        }
-        Vector2 focusedEnemyVector = FocusedEnemy.transform.position;
-        Vector2 playerVector = transform.position;
-        transform.up = (Vector3.RotateTowards(transform.up,focusedEnemyVector-playerVector, FollowMouse_Speed * Time.deltaTime, 10f));
-        spriteFliper.FocusVector = focusedEnemyVector;
-        zoomer.FocusZoom = UpdateZoom();
-        //distanceToEnemy.Value = (focusedEnemyVector - playerVector).magnitude;
-    }
     float UpdateZoom()
     {
         Vector2 playerPosition = transform.position;
         Vector2 enemyPosition = FocusedEnemy.transform.position;
         float distanceToEnemy = (enemyPosition - playerPosition).magnitude;
 
-        float RelativeDistance = Mathf.InverseLerp(minDistance, maxDistance, distanceToEnemy);
-        float CurrentLerpedZoom = Mathf.Lerp(minZoom, maxZoom, RelativeDistance);
-        return CurrentLerpedZoom;
+        float NormalizedDistance = Mathf.InverseLerp(minDistance, maxDistance, distanceToEnemy);
+        float relativeZoom = Mathf.Lerp(minZoom, maxZoom, NormalizedDistance);
+        return relativeZoom;
     }
 
 }

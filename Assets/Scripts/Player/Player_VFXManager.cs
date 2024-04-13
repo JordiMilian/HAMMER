@@ -35,19 +35,19 @@ public class Player_VFXManager : MonoBehaviour
     }
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.HitEnemyParry, parryInfo.ParryPosition);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, parryInfo.ParryPosition);
     }
     void InstantiateDealDamageVFX(object sender, Player_EventSystem.DealtDamageInfo dealtDamageInfo)
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.HitEnemy, dealtDamageInfo.CollisionPosition);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemy, dealtDamageInfo.CollisionPosition);
     }
     void InstantiateReceiveDamageVFX(object sender, Player_EventSystem.ReceivedAttackInfo receivedDamageInfo)
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.HitPlayer, receivedDamageInfo.CollisionPosition);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitPlayer, receivedDamageInfo.CollisionPosition);
     }
     void InstantiateBloodExplosion()
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.BloodExplosion, transform.position);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
     }
     void PlayDustVFX()
     {

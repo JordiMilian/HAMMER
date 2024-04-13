@@ -1931,14 +1931,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2ba1a99adef8849b41fc7a35336051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToEnemy:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
-  defaultDistance:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
+  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
+  isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
+  ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
   proximityTrigger: {fileID: 285086702692713560}
   mouseTarget: {fileID: 0}
 --- !u!114 &399182982499736661
@@ -2105,12 +2100,14 @@ MonoBehaviour:
   minDistance: 2
   maxZoom: 7
   maxDistance: 10
-  MouseFocusTransform: {fileID: 0}
   spriteFliper: {fileID: 7653426975249963385}
   cinemachineTarget: {fileID: 0}
-  eventSystem: {fileID: 3383090570821903391}
+  playerEvents: {fileID: 3383090570821903391}
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
+  isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
+  ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
   FocusedEnemy: {fileID: 0}
+  PositionToLook: {x: 0, y: 0}
   IsFocusingEnemy: 0
 --- !u!1 &7653426975970030029
 GameObject:

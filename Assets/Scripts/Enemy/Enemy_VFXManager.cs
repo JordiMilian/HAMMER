@@ -33,15 +33,15 @@ public class Enemy_VFXManager : MonoBehaviour
     }
     void InstantiateBllodExplosion(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.BloodExplosion, transform.position);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
     }
     void InstantiateStanceBrokenVFX()
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.StanceBroken, transform.position);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.StanceBroken, transform.position);
     }
     void InstantiateSuccesfulParryVFX(object sender, Generic_EventSystem.SuccesfulParryInfo args)
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFX.StanceBroken, transform.position);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.StanceBroken, transform.position);
     }
     public void EV_ShowTrail()
     {

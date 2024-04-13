@@ -15,10 +15,12 @@ public class Dialoguer : MonoBehaviour
     [SerializeField] TextMeshProUGUI MeshPro;
     [SerializeField] GameObject DialogueBubblePosition;
     [SerializeField] Generic_OnTriggerEnterEvents PlayerCloseTrigger;
+    [SerializeField] Animator bubbleAnimator;
 
     int CurrentLineToRead;
     bool playerIsInside;
     bool currentlyReading;
+    bool isDisplaying;
 
     Coroutine currentRead;
     Coroutine currentLinesReseter;
@@ -54,6 +56,8 @@ public class Dialoguer : MonoBehaviour
 
         //I dont know what this does but it mostly works. It updates the size of the bubble
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)MeshPro.transform);
+
+        bubbleAnimator.SetTrigger("NextLine");
     }
     IEnumerator SlowlyReadLine(string finalText)
     {
@@ -62,6 +66,7 @@ public class Dialoguer : MonoBehaviour
         bool skipping = false;;
         foreach (char c in finalText) 
         { 
+            // for coloring text
             if(c == '<') { skipping = true; MeshPro.text += c; continue; }
             if(c == '>') { skipping = false; MeshPro.text += c; continue; }
             if (skipping) { MeshPro.text += c; continue; }
@@ -78,15 +83,26 @@ public class Dialoguer : MonoBehaviour
         currentlyReading = false;
 
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)MeshPro.transform);
+        
     }
-
     void HideDialogueBubble()
     {
-        DialogueBubblePosition.SetActive(false);
+        if(isDisplaying)
+        {
+            bubbleAnimator.SetTrigger("Disappear");
+            isDisplaying = false;
+        }
     }
+    
     void ShowDialogueBubble()
     {
-        DialogueBubblePosition.SetActive(true);
+        if(!isDisplaying)
+        {
+            DialogueBubblePosition.SetActive(true);
+            isDisplaying = true;
+            bubbleAnimator.SetTrigger("Appear");
+        }
+        
     }
     void NextLine()
     {

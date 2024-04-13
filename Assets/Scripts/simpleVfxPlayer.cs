@@ -5,16 +5,16 @@ using UnityEngine.VFX;
 
 public class simpleVfxPlayer : MonoBehaviour
 {
-    [SerializeField] Transform PlayerTF;
+    [SerializeField] Transform EffectorTF;
     [SerializeField] VisualEffect HitEnemyVFX;
     [SerializeField] VisualEffect HitEnemyParryVFX;
     [SerializeField] VisualEffect HitPlayerVFX;
     [SerializeField] VisualEffect BloodExplosionVFX;
     [SerializeField] VisualEffect StanceBrokenVFX;
-    [SerializeField] Dictionary<simpleVFX,VisualEffect> vfxDictionary = new Dictionary<simpleVFX, VisualEffect>();
+    [SerializeField] Dictionary<simpleVFXkeys,VisualEffect> vfxDictionary = new Dictionary<simpleVFXkeys, VisualEffect>();
 
     public static simpleVfxPlayer Instance;
-    public enum simpleVFX
+    public enum simpleVFXkeys
     { 
         HitEnemy,
         HitEnemyParry,
@@ -34,18 +34,18 @@ public class simpleVfxPlayer : MonoBehaviour
             Instance = this;
         }
 
-        vfxDictionary[simpleVFX.HitEnemy] = HitEnemyVFX;
-        vfxDictionary[simpleVFX.HitEnemyParry] = HitEnemyParryVFX;
-        vfxDictionary[simpleVFX.HitPlayer] = HitPlayerVFX;
-        vfxDictionary[simpleVFX.BloodExplosion] = BloodExplosionVFX;
-        vfxDictionary[simpleVFX.StanceBroken] = StanceBrokenVFX;
+        vfxDictionary[simpleVFXkeys.HitEnemy] = HitEnemyVFX;
+        vfxDictionary[simpleVFXkeys.HitEnemyParry] = HitEnemyParryVFX;
+        vfxDictionary[simpleVFXkeys.HitPlayer] = HitPlayerVFX;
+        vfxDictionary[simpleVFXkeys.BloodExplosion] = BloodExplosionVFX;
+        vfxDictionary[simpleVFXkeys.StanceBroken] = StanceBrokenVFX;
     }
 
-    public void playSimpleVFX(simpleVFX vfxKey, Vector2 position)
+    public void playSimpleVFX(simpleVFXkeys vfxKey, Vector2 position)
     {
         if(vfxDictionary.ContainsKey(vfxKey))
         {
-            PlayerTF.position = position;
+            EffectorTF.position = position;
             vfxDictionary[vfxKey].Play();
         }
         else

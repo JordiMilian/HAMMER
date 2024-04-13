@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Player_ProximityDetector : MonoBehaviour
 {
-    [SerializeField] FloatReference distanceToEnemy;
-    [SerializeField] FloatReference defaultDistance;
+    [SerializeField] FloatVariable distanceToEnemy;
+    [SerializeField] BoolVariable isDistanceToMouse;
+    [SerializeField] TransformVariable ClosestEnemy;
     [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
 
     [SerializeField] Transform mouseTarget;
 
     List<Transform> InRangeEnemies = new List<Transform>();
-    Transform ClosestEnemy;
-    Vector2 ownPosition, enemyPosition, mousePosition;
+    //Transform ClosestEnemy;
+    Vector2 ownPosition, mousePosition;
     private void OnEnable()
     {
         proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
@@ -27,11 +28,15 @@ public class Player_ProximityDetector : MonoBehaviour
         if (InRangeEnemies.Count == 0)
         {
             mousePosition = mouseTarget.position;
+            isDistanceToMouse.Value = true; 
             distanceToEnemy.Value = (mousePosition - ownPosition).magnitude;
             return; 
         }
-        CheckClosest();
-        distanceToEnemy.Value = (ClosestEnemy.position - transform.position).magnitude;
+
+        CheckClosest(); //Given the list of near enemies, check who is closests
+        isDistanceToMouse.Value = false;
+
+        distanceToEnemy.Value = (ClosestEnemy.Tf.position - transform.position).magnitude;
     }
     void AddEnemy(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
@@ -60,6 +65,6 @@ public class Player_ProximityDetector : MonoBehaviour
                 currentClosest = t;
             }
         }
-        ClosestEnemy = currentClosest;
+        ClosestEnemy.Tf = currentClosest;
     }
 }
