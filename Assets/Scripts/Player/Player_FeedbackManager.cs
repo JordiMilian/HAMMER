@@ -18,24 +18,24 @@ public class Player_FeedbackManager : MonoBehaviour
 
     private void OnEnable()
     {
-        playerRefs.playerEvents.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
-        playerRefs.playerEvents.OnReceiveDamage += ReceiveDamageEffects;
-        playerRefs.playerEvents.OnDealtDamage += OnHitEnemyCameraEffects;
-        playerRefs.playerEvents.OnGettingParried += GettingParriedEffects;
-        playerRefs.playerEvents.CallActivation += OnActivationFeedback;
+        playerRefs.events.OnSuccessfulParry += OnSuccesfulParryCameraEffects;
+        playerRefs.events.OnReceiveDamage += ReceiveDamageEffects;
+        playerRefs.events.OnDealtDamage += OnHitEnemyCameraEffects;
+        playerRefs.events.OnGettingParried += GettingParriedEffects;
+        playerRefs.events.CallActivation += OnActivationFeedback;
     }
     private void OnDisable()
     {
-        playerRefs.playerEvents.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
-        playerRefs.playerEvents.OnReceiveDamage -= ReceiveDamageEffects;
-        playerRefs.playerEvents.OnDealtDamage -= OnHitEnemyCameraEffects;
-        playerRefs.playerEvents.OnGettingParried -= GettingParriedEffects;
-        playerRefs.playerEvents.CallActivation -= OnActivationFeedback;
+        playerRefs.events.OnSuccessfulParry -= OnSuccesfulParryCameraEffects;
+        playerRefs.events.OnReceiveDamage -= ReceiveDamageEffects;
+        playerRefs.events.OnDealtDamage -= OnHitEnemyCameraEffects;
+        playerRefs.events.OnGettingParried -= GettingParriedEffects;
+        playerRefs.events.CallActivation -= OnActivationFeedback;
     }
 
     public void ReceiveDamageEffects(object sender, Player_EventSystem.ReceivedAttackInfo receivedAttackinfo)
     {
-        playerRefs.playerEvents.OnStaminaAction?.Invoke(1);
+        playerRefs.events.OnStaminaAction?.Invoke(1);
         if(!receivingDamage)
         {
             receivingDamage = true;
@@ -44,11 +44,11 @@ public class Player_FeedbackManager : MonoBehaviour
             
             CameraShake.Instance.ShakeCamera(1, 0.1f); ;
             TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
-            playerRefs.playerFlasher.CallFlasher();
+            playerRefs.flasher.CallFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
             StartCoroutine(ApplyForceOverTime(receivedAttackinfo.GeneralDirection * receivedAttackinfo.KnockBack, 0.1f));
-            playerRefs.playerAnimator.SetTrigger("GetHit");
+            playerRefs.animator.SetTrigger("GetHit");
             StartCoroutine(InvulnerableAfterDamage());
         }
     }
@@ -56,10 +56,9 @@ public class Player_FeedbackManager : MonoBehaviour
     {
         Player_ComboSystem_chargeless comboSystem = GetComponent<Player_ComboSystem_chargeless>();
         comboSystem.EV_HideWeaponCollider();
-        comboSystem.ResetCount();
         playerRefs.playerMovement.EV_ReturnSpeed();
         playerRefs.playerMovement.EV_CanDash();
-        playerRefs.playerAnimator.SetTrigger("Parried");
+        playerRefs.animator.SetTrigger("Parried");
     }
      IEnumerator InvulnerableAfterDamage()
     {
@@ -69,7 +68,7 @@ public class Player_FeedbackManager : MonoBehaviour
     }
     void OnActivationFeedback()
     {
-        playerRefs.playerAnimator.SetTrigger("Reactivated");
+        playerRefs.animator.SetTrigger("Reactivated");
         CameraShake.Instance.ShakeCamera(0.5f, 0.3f);
     }
     public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.SuccesfulParryInfo position)
@@ -91,7 +90,7 @@ public class Player_FeedbackManager : MonoBehaviour
         float startTime = Time.time;
         while (Time.time - startTime < duration)
         {
-            playerRefs.playerRB.AddForce(forceVector / duration * Time.deltaTime);
+            playerRefs._rigidbody.AddForce(forceVector / duration * Time.deltaTime);
             yield return null;
         }
     }

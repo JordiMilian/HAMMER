@@ -7,13 +7,9 @@ using static Generic_OnTriggerEnterEvents;
 
 public class Enemy_StateMachine : Generic_StateMachine
 {
-    [SerializeField] Enemy_IdleMovement idleMovement;
-    [SerializeField] Enemy_AgrooMovement agrooMovement;
-    [SerializeField] Enemy_AttacksProviderV2 attackProvider;
-
+    [SerializeField] Enemy_References enemyRefs;
     [SerializeField] Generic_OnTriggerEnterEvents inRangeDetectionTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
-    [SerializeField] Enemy_EventSystem enemyEventSystem;
     private void Start()
     {
         ActivateIdle(); 
@@ -24,34 +20,34 @@ public class Enemy_StateMachine : Generic_StateMachine
         outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += PlayerInRange;
         outOfRangeDetectionTrigger.OnTriggerExited += PlayerOutOfRange;
-        enemyEventSystem.CallAgrooState += ActivateAgroo;
-        enemyEventSystem.CallIdleState += ActivateIdle;
-        enemyEventSystem.OnDeath += OnDeathState;
+        enemyRefs.enemyEvents.CallAgrooState += ActivateAgroo;
+        enemyRefs.enemyEvents.CallIdleState += ActivateIdle;
+        enemyRefs.enemyEvents.OnDeath += OnDeathState;
     }
     private void OnDisable()
     {
         inRangeDetectionTrigger.OnTriggerEntered -= PlayerInRange;
         outOfRangeDetectionTrigger.OnTriggerExited -= PlayerOutOfRange;
-        enemyEventSystem.CallAgrooState += ActivateAgroo;
-        enemyEventSystem.CallIdleState += ActivateIdle;
+        enemyRefs.enemyEvents.CallAgrooState += ActivateAgroo;
+        enemyRefs.enemyEvents.CallIdleState += ActivateIdle;
     }
     void PlayerInRange(object sender, EventArgsCollisionInfo args)
     {
-        enemyEventSystem.CallAgrooState?.Invoke();
+        enemyRefs.enemyEvents.CallAgrooState?.Invoke();
     }
     void PlayerOutOfRange(object sender, EventArgsCollisionInfo args)
     {
-        enemyEventSystem.CallIdleState?.Invoke();
+        enemyRefs.enemyEvents.CallIdleState?.Invoke();
     }
     void ActivateIdle()
     {
         if (CurrentState != States.Idle)
         {
-            if (enemyEventSystem.OnIdleState != null) enemyEventSystem.OnIdleState();
-            agrooMovement.enabled = false;
-            attackProvider.enabled = false;
+            if (enemyRefs.enemyEvents.OnIdleState != null) enemyRefs.enemyEvents.OnIdleState();
+            enemyRefs.agrooMovement.enabled = false;
+            enemyRefs.attackProvider.enabled = false;
 
-            idleMovement.enabled = true;
+            enemyRefs.idleMovement.enabled = true;
             CurrentState = States.Idle;
         } 
     }
@@ -59,11 +55,11 @@ public class Enemy_StateMachine : Generic_StateMachine
     {
         if(CurrentState != States.Agroo)
         {
-            if (enemyEventSystem.OnAgrooState != null) enemyEventSystem.OnAgrooState();
-            agrooMovement.enabled = true;
-            attackProvider.enabled = true;
+            if (enemyRefs.enemyEvents.OnAgrooState != null) enemyRefs.enemyEvents.OnAgrooState();
+            enemyRefs.agrooMovement.enabled = true;
+            enemyRefs.attackProvider.enabled = true;
 
-            idleMovement.enabled = false;
+            enemyRefs.idleMovement.enabled = false;
             CurrentState = States.Agroo;
         }
     }

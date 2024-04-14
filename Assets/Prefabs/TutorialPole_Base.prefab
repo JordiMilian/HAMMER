@@ -14,9 +14,12 @@ GameObject:
   - component: {fileID: 4174781769410761570}
   - component: {fileID: 6005491816409808355}
   - component: {fileID: 8478310027064708778}
+  - component: {fileID: 8628862862033143543}
+  - component: {fileID: 3819510353225946223}
+  - component: {fileID: 3997652725707455408}
   m_Layer: 0
   m_Name: TutorialPole_Base
-  m_TagString: Untagged
+  m_TagString: Enemy_notFocus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,22 +101,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae47ec02eda05448a39f7f2ffdbdca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Refs: {fileID: 8628862862033143543}
   MaxHP:
     UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
+    ConstantValue: 10
+    Variable: {fileID: 11400000, guid: f5fd80be052232346a6a0a516b3b8927, type: 2}
   CurrentHP:
     UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
+    ConstantValue: 10
+    Variable: {fileID: 11400000, guid: db4fb3c9e2024f848873610e31056b69, type: 2}
   FillHealthOnStart: 1
-  stats: {fileID: 8972844658158011290}
-  eventSystem: {fileID: 3021011115089880420}
+  enemyRefs: {fileID: 8628862862033143543}
   deadBody: {fileID: 0}
   deadHead: {fileID: 0}
   BloodCristals: {fileID: 5308774821670971264, guid: ee77d54bae9746040992b11977385ba0, type: 3}
   AmountOfCristals: 0
-  stateMachine: {fileID: 8478310027064708778}
 --- !u!114 &8478310027064708778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +139,77 @@ MonoBehaviour:
   TutorialAnimator: {fileID: 4174781769410761570}
   dialoguer: {fileID: 7500345709738653767}
   breakEffect: {fileID: 8322183221100727027}
+--- !u!114 &8628862862033143543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126386608480748826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80c444077571f64bab04e8f52c5bcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericEvents: {fileID: 3021011115089880420}
+  damageDealer: {fileID: 0}
+  damageDetector: {fileID: 3840898667399410523}
+  stats: {fileID: 8972844658158011290}
+  spriteFliper: {fileID: 0}
+  flasher: {fileID: 0}
+  animator: {fileID: 4174781769410761570}
+  weaponCollider: {fileID: 0}
+  damageDetectorCollider: {fileID: 2402293854364523958}
+  positionCollider: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  attackProvider: {fileID: 0}
+  enemyEvents: {fileID: 0}
+  healthSystem: {fileID: 0}
+  moveToTarget: {fileID: 0}
+  stanceMeter: {fileID: 0}
+  stateMachine: {fileID: 0}
+  VFXManager: {fileID: 0}
+  feedbackManager: {fileID: 0}
+  agrooMovement: {fileID: 0}
+  idleMovement: {fileID: 0}
+  damageCollider: {fileID: 0}
+--- !u!50 &3819510353225946223
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126386608480748826}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &3997652725707455408
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126386608480748826}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06, y: 0.09}
+  serializedVersion: 2
+  m_Radius: 0.08
 --- !u!1 &5998389707342482169
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,19 +710,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73087551019484198, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.005521238
+      value: -0.005521357
       objectReference: {fileID: 0}
     - target: {fileID: 73087551019484198, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.015185893
+      value: 0.015186727
       objectReference: {fileID: 0}
     - target: {fileID: 73087551019484198, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.59481585
+      value: 0.594816
       objectReference: {fileID: 0}
     - target: {fileID: 73087551019484198, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.5948154
+      value: 0.59481525
       objectReference: {fileID: 0}
     - target: {fileID: 1888339653491690959, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_LocalScale.x
@@ -669,7 +742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3143310111888714040, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3143310111888714040, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -731,6 +804,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 3021011115089880420}
     - target: {fileID: 3143310112689085149, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Radius
       value: 1.62

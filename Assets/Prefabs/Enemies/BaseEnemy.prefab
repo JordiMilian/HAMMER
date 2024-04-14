@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 1030339945491469921}
   - component: {fileID: 6132185481060562800}
   - component: {fileID: 4265673334437877355}
+  - component: {fileID: 7568110113479188649}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -196,14 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd096ccc4aa7e854890edddf51491966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponCollider: {fileID: 7332707543437145030}
-  EnemyAnimator: {fileID: 2195041901401652145}
-  enemyMovement: {fileID: 2829660713819239201}
-  flasher: {fileID: 4868621688972523929}
-  eventSystem: {fileID: 627058440868749388}
-  _rigidbody: {fileID: 1771262554875931710}
+  enemyRefs: {fileID: 7568110113479188649}
   SlowMoPercentage: {fileID: 11400000, guid: 9a94119ce51c63f4ebab6cbbebb7ca8a, type: 2}
-  stateMachine: {fileID: 1030339945491469921}
 --- !u!114 &3881809578619784559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,9 +250,7 @@ MonoBehaviour:
   CurrentRotationSpeed: 4
   Weapon_Pivot: {fileID: 8543705226525020148}
   UIAnimator: {fileID: 5595212810533667070}
-  spriteFliper: {fileID: 7619558403456288951}
-  eventSystem: {fileID: 627058440868749388}
-  moveToTarget: {fileID: 6932147153519873058}
+  enemyRefs: {fileID: 7568110113479188649}
 --- !u!114 &1484837429054597437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae47ec02eda05448a39f7f2ffdbdca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Refs: {fileID: 7568110113479188649}
   MaxHP:
     UseConstant: 1
     ConstantValue: 1
@@ -296,13 +290,11 @@ MonoBehaviour:
     ConstantValue: 1
     Variable: {fileID: 11400000, guid: db4fb3c9e2024f848873610e31056b69, type: 2}
   FillHealthOnStart: 1
-  stats: {fileID: 3881809578619784559}
-  eventSystem: {fileID: 627058440868749388}
+  enemyRefs: {fileID: 7568110113479188649}
   deadBody: {fileID: 3025069177316709613, guid: 248fd0c2dc09e864187be6a45e555cb1, type: 3}
   deadHead: {fileID: 8859067774969576514, guid: f4ef956303255b9498f259d59895984a, type: 3}
   BloodCristals: {fileID: 5308774821670971264, guid: ee77d54bae9746040992b11977385ba0, type: 3}
   AmountOfCristals: 1
-  stateMachine: {fileID: 1030339945491469921}
 --- !u!114 &9036491661720074360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,13 +307,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b1373230966fb44a62193a49c61e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 8393237760477941251}
-  enemyAnimator: {fileID: 2195041901401652145}
+  enemyRefs: {fileID: 7568110113479188649}
   isAttacking: 0
   isProviding: 1
   PlayerIsInAnyRange: 0
   ShowDebug: 0
-  stats: {fileID: 3881809578619784559}
   Enemy_Attacks:
   - ShortDescription: 
     rangeDetector: {fileID: 4898058486958885132}
@@ -375,7 +365,6 @@ MonoBehaviour:
     isInCooldown: 0
     HasCooldown: 0
     CooldownTime: 0
-  eventSystem: {fileID: 627058440868749388}
 --- !u!114 &7073730092788972273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FocusSprite: {fileID: 0}
+  enemyRefs: {fileID: 7568110113479188649}
 --- !u!114 &3450134641583009566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +411,7 @@ MonoBehaviour:
   SucesfullParryVFX: {fileID: 0}
   trailRenderer: {fileID: 0}
   BloodExplosion: {fileID: 2439310160301452507, guid: c999f75238193a04386cee6205847eaf, type: 3}
+  notSpawnBlood: 0
   eventSystem: {fileID: 627058440868749388}
   groundBloodIntensity: 0.9
 --- !u!114 &695697341023069215
@@ -456,12 +447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 627058440868749388}
   CurrentState: 2
-  idleMovement: {fileID: 1484837429054597437}
-  agrooMovement: {fileID: 2829660713819239201}
-  attackProvider: {fileID: 9036491661720074360}
+  enemyRefs: {fileID: 7568110113479188649}
   inRangeDetectionTrigger: {fileID: 8290111105923011726}
   outOfRangeDetectionTrigger: {fileID: 6476646031714194823}
-  enemyEventSystem: {fileID: 627058440868749388}
 --- !u!114 &6132185481060562800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,9 +478,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 627058440868749388}
-  DeadParts: []
   OrientationGuide: {fileID: 3736275689294426710}
   deadPartsList: []
+--- !u!114 &7568110113479188649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80c444077571f64bab04e8f52c5bcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericEvents: {fileID: 627058440868749388}
+  damageDealer: {fileID: 8393237760477941251}
+  damageDetector: {fileID: 8503966058725397229}
+  stats: {fileID: 3881809578619784559}
+  spriteFliper: {fileID: 7619558403456288951}
+  flasher: {fileID: 4868621688972523929}
+  animator: {fileID: 2195041901401652145}
+  weaponCollider: {fileID: 7332707543437145030}
+  damageDetectorCollider: {fileID: 7350678567647433300}
+  positionCollider: {fileID: 6792726357816075657}
+  _rigidbody: {fileID: 1771262554875931710}
+  attackProvider: {fileID: 9036491661720074360}
+  enemyEvents: {fileID: 627058440868749388}
+  healthSystem: {fileID: 7929925186517721759}
+  moveToTarget: {fileID: 6932147153519873058}
+  stanceMeter: {fileID: 695697341023069215}
+  stateMachine: {fileID: 1030339945491469921}
+  VFXManager: {fileID: 3450134641583009566}
+  feedbackManager: {fileID: 7654662553848504304}
+  agrooMovement: {fileID: 2829660713819239201}
+  idleMovement: {fileID: 1484837429054597437}
+  damageCollider: {fileID: 7350678567647433300}
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0

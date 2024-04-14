@@ -15,13 +15,12 @@ public class Enemy_AgrooMovement : MonoBehaviour
     public float CurrentRotationSpeed;
     float BaseRotationSpeed;
     float SlowRotationSpeed;
-    [HideInInspector] public static Transform PlayerTransform;
+     Transform PlayerTransform;
     [SerializeField] Transform Weapon_Pivot;
     //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;
-    [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
-    [SerializeField] Enemy_EventSystem eventSystem;
-    [SerializeField] Enemy_MoveToTarget moveToTarget;
+    [SerializeField] Enemy_References enemyRefs;
+
 
     private void Awake()
     {
@@ -32,29 +31,29 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     private void OnEnable()
     {
-        eventSystem.OnGettingParried += EV_ReturnAllSpeed;
+        enemyRefs.enemyEvents.OnGettingParried += EV_ReturnAllSpeed;
         StartAgroo();
     }
     private void OnDisable()
     {
-        eventSystem.OnGettingParried -= EV_ReturnAllSpeed;
+        enemyRefs.enemyEvents.OnGettingParried -= EV_ReturnAllSpeed;
         EndAgroo();
     }
     void EndAgroo()
     {
-        moveToTarget.Target = null;
+        enemyRefs.moveToTarget.Target = null;
     }
     void StartAgroo()
     {
         PlayerTransform = GameObject.Find("MainCharacter").transform;
         UIAnimator.SetTrigger("AgrooAlert");
 
-        moveToTarget.Target = PlayerTransform;
-        moveToTarget.DoMove = true;
+        enemyRefs.moveToTarget.Target = PlayerTransform;
+        enemyRefs.moveToTarget.DoMove = true;
     }
     void Update()
     {
-        spriteFliper.FocusVector = PlayerTransform.transform.position;
+        enemyRefs.spriteFliper.FocusVector = PlayerTransform.transform.position;
         LookAtPlayer();
     }
     
@@ -68,12 +67,12 @@ public class Enemy_AgrooMovement : MonoBehaviour
 
     public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.2f)); }
     public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f)); }
-    public void EV_SlowMovingSpeed() { moveToTarget.Velocity = SlowSpeedF; }
-    public void EV_ReturnMovingSpeed() { moveToTarget.Velocity = BaseSpeed; }
+    public void EV_SlowMovingSpeed() { enemyRefs.moveToTarget.Velocity = SlowSpeedF; }
+    public void EV_ReturnMovingSpeed() { enemyRefs.moveToTarget.Velocity = BaseSpeed; }
                                          
     public void EV_ReturnAllSpeed()
     {
-       moveToTarget.Velocity = BaseSpeed;
+        enemyRefs.moveToTarget.Velocity = BaseSpeed;
         StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f));
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)

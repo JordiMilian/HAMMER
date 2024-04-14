@@ -44,7 +44,7 @@ public class Player_RespawnerManager : MonoBehaviour
     }
     Player_Respawner FindFurthestActiveRespawner()
     {
-        Player_Respawner Furthest = new Player_Respawner();
+        int furthestIndex = 0;
         float maxDistance = 0;
         for(int i = 0;i<Respawners.Count;i++)
         {
@@ -52,10 +52,10 @@ public class Player_RespawnerManager : MonoBehaviour
             Respawners[i].distanceToManager = (Respawners[i].transform.position - transform.position).magnitude;
             if(Respawners[i].distanceToManager > maxDistance && Respawners[i].IsActivated)
             {
-                Furthest = Respawners[i];
+                furthestIndex = i;
                 maxDistance = Respawners[i].distanceToManager;
             }
         }
-        return Furthest;
+        return Respawners[furthestIndex];
     }
 }

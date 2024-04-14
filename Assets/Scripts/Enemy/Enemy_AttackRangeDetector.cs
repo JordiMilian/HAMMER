@@ -7,10 +7,10 @@ public class Enemy_AttackRangeDetector : MonoBehaviour
 {
     public EventHandler OnPlayerEntered;
     public EventHandler OnPlayerExited;
-    public BoxCollider2D collider;
+    public BoxCollider2D ownCollider;
     private void Awake()
     {
-        collider = GetComponent<BoxCollider2D>();
+        ownCollider = GetComponent<BoxCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

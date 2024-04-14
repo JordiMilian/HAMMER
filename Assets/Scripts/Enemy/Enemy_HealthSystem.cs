@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class Enemy_HealthSystem : Generic_HealthSystem
 {
-
+    [SerializeField] Enemy_References enemyRefs;
     [SerializeField] GameObject deadBody;
     [SerializeField] GameObject deadHead;
     [SerializeField] GameObject BloodCristals;
     [SerializeField] int AmountOfCristals;
-    [SerializeField] Generic_StateMachine stateMachine;
     public override void Death(GameObject killer)
     {
-        if(stateMachine.CurrentState == Enemy_StateMachine.States.Dead) { Debug.Log("already dead"); return; }
+        if(enemyRefs.stateMachine.CurrentState == Enemy_StateMachine.States.Dead) { Debug.Log("already dead"); return; }
 
-        eventSystem.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));
+        enemyRefs.genericEvents.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));
         //if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
         //if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
         if(BloodCristals != null) 

@@ -23,13 +23,13 @@ public class Player_StateMachine : MonoBehaviour
     PlayerStates currentState;
     private void OnEnable()
     {
-        playerRefs.playerEvents.OnDeath += DisablePlayer;
-        playerRefs.playerEvents.CallActivation += ReturnPlayer;
+        playerRefs.events.OnDeath += DisablePlayer;
+        playerRefs.events.CallActivation += ReturnPlayer;
     }
     private void OnDisable()
     {
-        playerRefs.playerEvents.OnDeath -= DisablePlayer;
-        playerRefs.playerEvents.CallActivation -= ReturnPlayer;
+        playerRefs.events.OnDeath -= DisablePlayer;
+        playerRefs.events.CallActivation -= ReturnPlayer;
     }
     void DisablePlayer(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
@@ -54,7 +54,7 @@ public class Player_StateMachine : MonoBehaviour
     IEnumerator DelayedRespawn()
     {
         yield return new WaitForSeconds(3.5f);
-        playerRefs.playerEvents.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
+        playerRefs.events.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
     }
     public void ReturnPlayer()
     {

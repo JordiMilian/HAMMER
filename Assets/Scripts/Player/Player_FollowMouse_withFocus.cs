@@ -41,11 +41,11 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerRefs.playerEvents.OnDeath += unfocusOnDeath;
+        playerRefs.events.OnDeath += unfocusOnDeath;
     }
     private void OnDisable()
     {
-        playerRefs.playerEvents.OnDeath -= unfocusOnDeath;
+        playerRefs.events.OnDeath -= unfocusOnDeath;
     }
 
     void  Update()
@@ -69,7 +69,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
         //Unfocus old Enemy if they are not null
-        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_EventSystem>().OnUnfocused?.Invoke();
 
         //Find closest enemy
         FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
@@ -107,12 +107,12 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; } //Desubscribe to unfocused enemies Death
 
-        playerRefs.playerEvents.OnUnfocusEnemy?.Invoke();
+        playerRefs.events.OnUnfocusEnemy?.Invoke();
     }
     void OnLookAtEnemy()
     {
         //Subscribe to stuff so it stops focusing if enemy dies
-        FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnFocus();
+        FocusedEnemy.GetComponent<Enemy_EventSystem>().OnFocused?.Invoke();
         FocusedEventSystem = FocusedEnemy.GetComponent<Enemy_EventSystem>();
         FocusedEventSystem.OnDeath += callOnLookatMouse;
 
@@ -122,7 +122,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         cinemachineTarget.m_Targets[1].radius = 2;
         zoomer.StartFocusInTransition();
 
-        playerRefs.playerEvents.OnFocusEnemy?.Invoke();
+        playerRefs.events.OnFocusEnemy?.Invoke();
     }
     Vector2 GetMousePosition()
     {
@@ -144,7 +144,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         Vector2 playerPos = transform.position;
         transform.up = (Vector3.RotateTowards(transform.up, targetPos - playerPos, FollowMouse_Speed * Time.deltaTime, 10f));
 
-        playerRefs.playerSpriteFliper.FocusVector = targetPos;
+        playerRefs.spriteFliper.FocusVector = targetPos;
     }
     GameObject ClosestEnemyToMouseInRange(float range)
     {
@@ -188,11 +188,14 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             TargetGroupSingleton.Instance.RemoveTarget(FocusedEnemy.transform);
             FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
             FocusedEnemy = null;
+            IsFocusingEnemy = false;
+            zoomer.UpdateNewCoroutine();
         }
     }
 
     float UpdateZoom()
     {
+        if(FocusedEnemy == null) { return 0.5f; }
         Vector2 playerPosition = transform.position;
         Vector2 enemyPosition = FocusedEnemy.transform.position;
         float distanceToEnemy = (enemyPosition - playerPosition).magnitude;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDead_Controller : MonoBehaviour
 {
     [SerializeField] AnimationCurve ForceCurve;
-    Rigidbody2D rigidbody;
+    Rigidbody2D deadRB;
     [SerializeField] Transform PlayerPosition;
 
     public float PushTime;
@@ -21,7 +21,7 @@ public class EnemyDead_Controller : MonoBehaviour
     {
        
         if (Random.value > 0.5f) { transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y); } 
-        rigidbody = GetComponent<Rigidbody2D>();
+        deadRB = GetComponent<Rigidbody2D>();
         PlayerPosition = GameObject.Find("MainCharacter").transform;
         OnPushBody();
     }
@@ -43,7 +43,7 @@ public class EnemyDead_Controller : MonoBehaviour
            
 
             
-            rigidbody.AddForce(direction * weight * PushStrengh *Time.deltaTime);
+            deadRB.AddForce(direction * weight * PushStrengh *Time.deltaTime);
 
             
             yield return null;

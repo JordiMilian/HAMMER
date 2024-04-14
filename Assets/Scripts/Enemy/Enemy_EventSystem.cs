@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class Enemy_EventSystem : Generic_EventSystem
 {
+    public Action OnFocused;
+    public Action OnUnfocused;
     public Action CallAgrooState;
     public Action CallIdleState;
     public Action OnAgrooState;

@@ -6,15 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Player_ParryPerformer : MonoBehaviour
 {
-    Player_References playerRefs;
-    /*
-    [SerializeField] Collider2D weaponParryCollider;
-    [SerializeField] Collider2D damageDetectorCollider;
-    [SerializeField] Player_ComboSystem_chargeless comboSystem;
-    [SerializeField] Player_ActionPerformer actionPerformer;
-    [SerializeField] Player_EventSystem playerEvents;
-    */
-    
+    [SerializeField] Player_References playerRefs;
 
     private void Update()
     {
@@ -29,11 +21,11 @@ public class Player_ParryPerformer : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerRefs.playerEvents.OnPerformParry += perfomedParry;
+        playerRefs.events.OnPerformParry += perfomedParry;
     }
     void perfomedParry()
     {
-        playerRefs.playerEvents.OnStaminaAction(0.5f);
+        playerRefs.events.OnStaminaAction(0.5f);
     }
     public void EV_ShowParryCollider()
     {

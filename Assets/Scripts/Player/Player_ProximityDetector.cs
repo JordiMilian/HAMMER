@@ -17,6 +17,7 @@ public class Player_ProximityDetector : MonoBehaviour
     private void OnEnable()
     {
         proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
+        proximityTrigger.AddActivatorTag(TagsCollection.Enemy_notFocus);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
         mouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;

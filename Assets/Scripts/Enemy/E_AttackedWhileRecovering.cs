@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class E_AttackedWhileRecovering : MonoBehaviour
 {
-    [SerializeField] Animator enemyAnimator;
-    [SerializeField] Generic_EventSystem eventSystem;
-    public Enemy_AttacksProviderV2 attackProvider;
+    [SerializeField] Enemy_References enemyRefs;
     [SerializeField] int ResponseAttackIndex;
     [SerializeField] float CooldownSeconds = 2;
     bool isInRecovery;
     bool isInCooldown;
     private void OnEnable()
     {
-        eventSystem.OnReceiveDamage += PerformResponse;
-        eventSystem.OnAttackFinished += RecoveryEnded;
+        enemyRefs.enemyEvents.OnReceiveDamage += PerformResponse;
+        enemyRefs.enemyEvents.OnAttackFinished += RecoveryEnded;
     }
     private void OnDisable()
     {
-        eventSystem.OnReceiveDamage -= PerformResponse;
-        eventSystem.OnAttackFinished -= RecoveryEnded;
+        enemyRefs.enemyEvents.OnReceiveDamage -= PerformResponse;
+        enemyRefs.enemyEvents.OnAttackFinished -= RecoveryEnded;
     }
     public void EV_StartRecovery()
     {
@@ -33,16 +31,16 @@ public class E_AttackedWhileRecovering : MonoBehaviour
     {
         if(isInRecovery && !isInCooldown)
         {
-            enemyAnimator.SetTrigger(TagsCollection.AttackedWhileRecovering); //Set animation trigger
-            attackProvider.PerformAttack(attackProvider.Enemy_Attacks[ResponseAttackIndex]); //Perform attack from provider
-            enemyAnimator.SetBool(attackProvider.Enemy_Attacks[ResponseAttackIndex].TriggerName, false); //Uncheck trigger checked by the provider
+            enemyRefs.animator.SetTrigger(TagsCollection.AttackedWhileRecovering); //Set animation trigger
+            enemyRefs.attackProvider.PerformAttack(enemyRefs.attackProvider.Enemy_Attacks[ResponseAttackIndex]); //Perform attack from provider
+            enemyRefs.animator.SetBool(enemyRefs.attackProvider.Enemy_Attacks[ResponseAttackIndex].TriggerName, false); //Uncheck trigger checked by the provider
             StartCoroutine(Cooldown()); //Cooldown
         }
     }
     IEnumerator Cooldown()
     {
         isInCooldown = true;
-        float waitTime = CooldownSeconds + attackProvider.Enemy_Attacks[ResponseAttackIndex].animationClip.length;
+        float waitTime = CooldownSeconds + enemyRefs.attackProvider.Enemy_Attacks[ResponseAttackIndex].animationClip.length;
         yield return new WaitForSeconds(waitTime);
         isInCooldown = false;
     }

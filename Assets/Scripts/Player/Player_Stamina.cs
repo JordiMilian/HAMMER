@@ -17,11 +17,11 @@ public class Player_Stamina : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerRefs.playerEvents.OnStaminaAction += RemoveStamina;
+        playerRefs.events.OnStaminaAction += RemoveStamina;
     }
     private void OnDisable()
     {
-        playerRefs.playerEvents.OnStaminaAction -= RemoveStamina;
+        playerRefs.events.OnStaminaAction -= RemoveStamina;
     }
     void RemoveStamina(float stamina)
     {

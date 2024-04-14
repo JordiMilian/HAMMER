@@ -16,6 +16,7 @@ public class Dialoguer : MonoBehaviour
     [SerializeField] GameObject DialogueBubblePosition;
     [SerializeField] Generic_OnTriggerEnterEvents PlayerCloseTrigger;
     [SerializeField] Animator bubbleAnimator;
+    [SerializeField] Generic_EventSystem eventSystem;
 
     int CurrentLineToRead;
     bool playerIsInside;
@@ -30,6 +31,7 @@ public class Dialoguer : MonoBehaviour
         PlayerCloseTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
+        eventSystem.OnReceiveDamage += OnInteracted;
     }
     private void OnDisable()
     {
@@ -39,14 +41,12 @@ public class Dialoguer : MonoBehaviour
 
         HideDialogueBubble();
         RemoveDialoguerFromTargetGroup();
+        eventSystem.OnReceiveDamage -= OnInteracted;
     }
-    private void Update()
+    void OnInteracted(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
-        if (Input.GetMouseButtonDown(2)) 
-        {
-            if (currentlyReading) { CompleteCurrentRead(); }
-            else if (playerIsInside) NextLine();
-        }
+        if (currentlyReading) { CompleteCurrentRead(); }
+        else if (playerIsInside) NextLine();
     }
     void ShowNextLine()
     {

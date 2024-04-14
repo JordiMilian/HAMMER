@@ -32,15 +32,15 @@ public class Player_Movement : MonoBehaviour
 
     private void OnEnable()
     {
-        playerRefs.playerEvents.OnPerformRoll += CallDashMovement;
-        playerRefs.playerEvents.OnDeath += StopRunningOnDeath;
-        playerRefs.playerEvents.OnPerformAttack += StopRunning;
+        playerRefs.events.OnPerformRoll += CallDashMovement;
+        playerRefs.events.OnDeath += StopRunningOnDeath;
+        playerRefs.events.OnPerformAttack += StopRunning;
     }
     private void OnDisable()
     {
-        playerRefs.playerEvents.OnPerformRoll -= CallDashMovement;
-        playerRefs.playerEvents.OnDeath -= StopRunningOnDeath;
-        playerRefs.playerEvents.OnPerformAttack -= StopRunning;
+        playerRefs.events.OnPerformRoll -= CallDashMovement;
+        playerRefs.events.OnDeath -= StopRunningOnDeath;
+        playerRefs.events.OnPerformAttack -= StopRunning;
     }
     void Start()
     {
@@ -57,7 +57,7 @@ public class Player_Movement : MonoBehaviour
         if (isRunning)
         {
             CurrentSpeed = RunningSpeed;
-            playerRefs.playerAnimator.SetBool("Running", true);
+            playerRefs.animator.SetBool("Running", true);
         }
        
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
@@ -99,11 +99,11 @@ public class Player_Movement : MonoBehaviour
     {
         isRunning = false;
         CurrentSpeed = BaseSpeed;
-        playerRefs.playerAnimator.SetBool("Running", false);
+        playerRefs.animator.SetBool("Running", false);
     }
     void Move(Vector2 vector2)
     {
-        playerRefs.playerRB.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
+        playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
         WalkingAnimation();
     }
   
@@ -113,18 +113,18 @@ public class Player_Movement : MonoBehaviour
         {
             if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
             {
-                playerRefs.playerAnimator.SetBool("Walking", true);
+                playerRefs.animator.SetBool("Walking", true);
             }
             else
             {
-                playerRefs.playerAnimator.SetBool("Walking", false);
+                playerRefs.animator.SetBool("Walking", false);
             }
         }
     }
     void CallDashMovement()
     {
         //Call the event to remove Stamina
-        playerRefs.playerEvents.OnStaminaAction?.Invoke(1f);
+        playerRefs.events.OnStaminaAction?.Invoke(1f);
 
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
@@ -139,7 +139,7 @@ public class Player_Movement : MonoBehaviour
         {
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
-            playerRefs.playerRB.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
+            playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
             yield return null;
         }
     }

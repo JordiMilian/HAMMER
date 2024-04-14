@@ -1548,6 +1548,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1103128562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+  m_PrefabInstance: {fileID: 1277554652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1103128570
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103128562}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &1103128571
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103128562}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.07, y: 0.12}
+  serializedVersion: 2
+  m_Radius: 0.09
 --- !u!114 &1156170847 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7653426975497917575, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
@@ -1929,6 +1971,10 @@ PrefabInstance:
     - target: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Name
       value: TutorialPole_Base (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_TagString
+      value: Enemy_notFocus
       objectReference: {fileID: 0}
     - target: {fileID: 7500345708942461861, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_AnchorMax.y

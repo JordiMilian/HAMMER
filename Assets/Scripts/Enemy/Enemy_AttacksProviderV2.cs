@@ -7,19 +7,18 @@ using UnityEngine.Events;
 
 public class Enemy_AttacksProviderV2 : MonoBehaviour
 {
-    [SerializeField] Generic_DamageDealer damageDealer;
-    [SerializeField] Animator enemyAnimator;
+    [SerializeField] Enemy_References enemyRefs;
+
     public bool isAttacking;
     public bool isProviding;
     public bool PlayerIsInAnyRange;
     [SerializeField] bool ShowDebug;
-    [SerializeField] Generic_Stats stats;
+    
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
-    [SerializeField] Enemy_EventSystem eventSystem;
+    
     Coroutine CurrentWaiting;
 
-    
     [Serializable]
     public class EnemyAttack
     {
@@ -52,8 +51,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnEnable()
     {
-        eventSystem.OnGettingParried += OnCancelAttack;
-        eventSystem.OnStanceBroken += OnCancelAttack;
+        enemyRefs.enemyEvents.OnGettingParried += OnCancelAttack;
+        enemyRefs.enemyEvents.OnStanceBroken += OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
             attack.rangeDetector.OnPlayerEntered += attack.isInRange;
@@ -64,8 +63,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnDisable()
     {
-        eventSystem.OnGettingParried -= OnCancelAttack;
-        eventSystem.OnStanceBroken -= OnCancelAttack;
+        enemyRefs.enemyEvents.OnGettingParried -= OnCancelAttack;
+        enemyRefs.enemyEvents.OnStanceBroken -= OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
             attack.rangeDetector.OnPlayerEntered -= attack.isInRange;
@@ -93,7 +92,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             if (attack.isActive) Gizmos.color = Color.blue;
             else Gizmos.color = Color.red;
 
-            BoxCollider2D boxCollider = attack.rangeDetector.collider;
+            BoxCollider2D boxCollider = attack.rangeDetector.ownCollider;
 
             Matrix4x4 rotationMatrix = Matrix4x4.TRS(boxCollider.transform.position, boxCollider.transform.rotation, boxCollider.transform.lossyScale);
             Gizmos.matrix = rotationMatrix;
@@ -116,11 +115,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         isAttacking = true;
 
-        damageDealer.Damage = selectedAttack.Damage * stats.DamageMultiplier;
-        damageDealer.Knockback = selectedAttack.KnockBack;
-        damageDealer.HitStop = selectedAttack.Hitstop;
-        enemyAnimator.SetTrigger(selectedAttack.TriggerName);
-        enemyAnimator.SetBool("isAttacking", true);
+        enemyRefs.damageDealer.Damage = selectedAttack.Damage * enemyRefs.stats.DamageMultiplier;
+        enemyRefs.damageDealer.Knockback = selectedAttack.KnockBack;
+        enemyRefs.damageDealer.HitStop = selectedAttack.Hitstop;
+        enemyRefs.animator.SetTrigger(selectedAttack.TriggerName);
+        enemyRefs.animator.SetBool("isAttacking", true);
 
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
         CurrentWaiting = StartCoroutine(WaitAnimationTime(selectedAttack));
@@ -134,8 +133,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         yield return new WaitForSeconds(selectedAttack.animationClip.length);
         isAttacking = false;
-        enemyAnimator.SetBool("isAttacking", false);
-        if(eventSystem.OnAttackFinished != null) { eventSystem.OnAttackFinished(); }
+        enemyRefs.animator.SetBool("isAttacking", false);
+        if(enemyRefs.enemyEvents.OnAttackFinished != null) { enemyRefs.enemyEvents.OnAttackFinished(); }
     }
     void PickAvailableAttacks()
     {
@@ -182,11 +181,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     public void ResetAllTriggers()
     {
-        foreach (var param in enemyAnimator.parameters)
+        foreach (var param in enemyRefs.animator.parameters)
         {
             if (param.type == AnimatorControllerParameterType.Trigger)
             {
-                enemyAnimator.ResetTrigger(param.name);
+                enemyRefs.animator.ResetTrigger(param.name);
             }
         }
     }
@@ -197,7 +196,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     IEnumerator WaitForCurrentAnimation()
     {
-        while(enemyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        while(enemyRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
             yield return null;
         }

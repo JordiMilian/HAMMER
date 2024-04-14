@@ -7,7 +7,7 @@ public class BloodCristals_FollowPlayer : MonoBehaviour
 {
 
     GameObject Player;
-    Rigidbody2D rigidbody;
+    Rigidbody2D bloodCristalRB;
     [SerializeField] float FollowVelocity;
     [SerializeField] float SpinningVelocity;
     [SerializeField] float MinPower = 20;
@@ -32,7 +32,7 @@ public class BloodCristals_FollowPlayer : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("MainCharacter");
-        rigidbody = GetComponent<Rigidbody2D>();
+        bloodCristalRB = GetComponent<Rigidbody2D>();
         RotateAndPush();
     }
     void playerEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
@@ -55,7 +55,7 @@ public class BloodCristals_FollowPlayer : MonoBehaviour
     void RotateAndPush()
     {
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-        rigidbody.AddForce(transform.up*Random.Range(MinPower,MaxPower));
+        bloodCristalRB.AddForce(transform.up*Random.Range(MinPower,MaxPower));
     }
     
 }

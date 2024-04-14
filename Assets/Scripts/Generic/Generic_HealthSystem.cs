@@ -9,24 +9,23 @@ public class Generic_HealthSystem : MonoBehaviour
 {
     //public float MaxHealth;
     //public float CurrentHealth;
+    [SerializeField] Generic_References Refs;
     public FloatReference MaxHP;
     public FloatReference CurrentHP;
     [SerializeField] bool FillHealthOnStart = true;
-    [SerializeField] Generic_Stats stats;
-    public Generic_EventSystem eventSystem;
 
     void Start()
     {
-        MaxHP.Value = stats.MaxHealth;
+        MaxHP.Value = Refs.stats.MaxHealth;
         if (FillHealthOnStart) { RestoreAllHealth(); }
     }
     private void OnEnable()
     {
-        eventSystem.OnReceiveDamage += RemoveLife;
+        Refs.genericEvents.OnReceiveDamage += RemoveLife;
     }
     private void OnDisable()
     {
-        eventSystem.OnReceiveDamage -= RemoveLife;
+        Refs.genericEvents.OnReceiveDamage -= RemoveLife;
     }
     public void RemoveLife(object sender, ReceivedAttackInfo receivedAttackInfo)
     {
@@ -40,16 +39,16 @@ public class Generic_HealthSystem : MonoBehaviour
         {
             CurrentHP.Value = MaxHP.Value;
         }
-        if (eventSystem.OnUpdatedHealth != null) eventSystem.OnUpdatedHealth();
+        if (Refs.genericEvents.OnUpdatedHealth != null) Refs.genericEvents.OnUpdatedHealth();
     }
     public void RestoreAllHealth()
     {
         CurrentHP.Value = MaxHP.Value;
-        eventSystem.OnUpdatedHealth?.Invoke();
+        Refs.genericEvents.OnUpdatedHealth?.Invoke();
     }
     public virtual void Death(GameObject killer)
     {
-        if (eventSystem.OnDeath != null) eventSystem.OnDeath(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,killer));
+        if (Refs.genericEvents.OnDeath != null) Refs.genericEvents.OnDeath(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,killer));
         Destroy(gameObject);
     }
 }
