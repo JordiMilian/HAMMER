@@ -10,16 +10,16 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     public float FollowMouse_Speed = 8f;
     [SerializeField] float FocusMaxDistance;
     [Header("zoomer")]
-    [SerializeField] CameraZoomer zoomer;
+    CameraZoomer zoomer;
     [SerializeField] float minZoom;
     [SerializeField] float minDistance;
     [SerializeField] float maxZoom;
     [SerializeField] float maxDistance;
     [Header("references")]
     Transform MouseFocusTransform;
-    [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
-    [SerializeField] CinemachineTargetGroup cinemachineTarget;
-    [SerializeField] Player_EventSystem playerEvents;
+    [SerializeField] Player_References playerRefs;
+
+    CinemachineTargetGroup cinemachineTarget;
     [SerializeField] FloatVariable distanceToEnemy;
     [SerializeField] BoolVariable isDistanceToMouse;
     [SerializeField] TransformVariable ClosestEnemy;
@@ -41,17 +41,17 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerEvents.OnDeath += unfocusOnDeath;
+        playerRefs.playerEvents.OnDeath += unfocusOnDeath;
     }
     private void OnDisable()
     {
-        playerEvents.OnDeath -= unfocusOnDeath;
+        playerRefs.playerEvents.OnDeath -= unfocusOnDeath;
     }
 
     void  Update()
     {
         //Check conditions, depending on which will change the Target to focus attention
-        if (distanceToEnemy.Value < 2.2f && !isDistanceToMouse.Value && !IsFocusingEnemy) { PositionToLook = ClosestEnemy.Tf.position; } //Look at closest enemy if everything is alright
+        if (distanceToEnemy.Value < 1.5f && !isDistanceToMouse.Value && !IsFocusingEnemy) { PositionToLook = ClosestEnemy.Tf.position; } //Look at closest enemy if everything is alright
         else if (IsFocusingEnemy == true) { zoomer.FocusZoom = UpdateZoom(); PositionToLook = FocusedEnemy.transform.position; } //Look at enemy is we are alright
         else { PositionToLook = GetMousePosition(); } //Or look at mouse
 
@@ -107,7 +107,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; } //Desubscribe to unfocused enemies Death
 
-        playerEvents.OnUnfocusEnemy?.Invoke();
+        playerRefs.playerEvents.OnUnfocusEnemy?.Invoke();
     }
     void OnLookAtEnemy()
     {
@@ -122,7 +122,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         cinemachineTarget.m_Targets[1].radius = 2;
         zoomer.StartFocusInTransition();
 
-        playerEvents.OnFocusEnemy?.Invoke();
+        playerRefs.playerEvents.OnFocusEnemy?.Invoke();
     }
     Vector2 GetMousePosition()
     {
@@ -144,7 +144,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         Vector2 playerPos = transform.position;
         transform.up = (Vector3.RotateTowards(transform.up, targetPos - playerPos, FollowMouse_Speed * Time.deltaTime, 10f));
 
-        spriteFliper.FocusVector = targetPos;
+        playerRefs.playerSpriteFliper.FocusVector = targetPos;
     }
     GameObject ClosestEnemyToMouseInRange(float range)
     {

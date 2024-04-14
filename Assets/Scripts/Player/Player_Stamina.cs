@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Player_Stamina : MonoBehaviour
 {
-    [SerializeField] Player_EventSystem eventSystem;
-    [SerializeField] FloatVariable maxStamina;
-    [SerializeField] FloatVariable currentStamina;
+    [SerializeField] Player_References playerRefs;
+
     [SerializeField] float RecoveryPerSecond;
     [SerializeField] float DelayToRecover;
     [SerializeField] float DelayToFullRecover;
@@ -14,31 +13,31 @@ public class Player_Stamina : MonoBehaviour
     Coroutine currentCooldown;
     private void Start()
     {
-        currentStamina.Value = maxStamina.Value;
+        playerRefs.currentStamina.Value = playerRefs.maxStamina.Value;
     }
     private void OnEnable()
     {
-        eventSystem.OnStaminaAction += RemoveStamina;
+        playerRefs.playerEvents.OnStaminaAction += RemoveStamina;
     }
     private void OnDisable()
     {
-        eventSystem.OnStaminaAction -= RemoveStamina;
+        playerRefs.playerEvents.OnStaminaAction -= RemoveStamina;
     }
-    void RemoveStamina(object sender, Player_EventSystem.EventArgs_StaminaConsumption args)
+    void RemoveStamina(float stamina)
     {
         //Remove Stamina
-        currentStamina.Value -= args.StaminaUsage; 
+        playerRefs.currentStamina.Value -= stamina; 
 
         //Set to max or min in case of overflow
-        if(currentStamina.Value < 0 ) { currentStamina.Value = 0; }
-        if(currentStamina.Value > maxStamina.Value ) { currentStamina.Value = maxStamina.Value; }
+        if (playerRefs.currentStamina.Value < 0 ) { playerRefs.currentStamina.Value = 0; }
+        if (playerRefs.currentStamina.Value > playerRefs.maxStamina.Value ) { playerRefs.currentStamina.Value = playerRefs.maxStamina.Value; }
 
         //Stop recovering and stop cooldown if still ON
         isRecovering = false; 
         if(currentCooldown != null) { StopCoroutine(currentCooldown); }
 
         //New Cooldown depending on stamina
-        if(currentStamina.Value <= 0) { currentCooldown = StartCoroutine(CooldownToRecover(DelayToFullRecover)); }
+        if (playerRefs.currentStamina.Value <= 0) { currentCooldown = StartCoroutine(CooldownToRecover(DelayToFullRecover)); }
         else { currentCooldown = StartCoroutine(CooldownToRecover(DelayToRecover)); }
         
     }
@@ -46,10 +45,10 @@ public class Player_Stamina : MonoBehaviour
     {
         if (isRecovering)
         {
-            currentStamina.Value += Time.deltaTime * RecoveryPerSecond;
-            if (currentStamina.Value > maxStamina.Value)
+            playerRefs.currentStamina.Value += Time.deltaTime * RecoveryPerSecond;
+            if (playerRefs.currentStamina.Value > playerRefs.maxStamina.Value)
             {
-                currentStamina.Value = maxStamina.Value;
+                playerRefs.currentStamina.Value = playerRefs.maxStamina.Value;
                 isRecovering = false;
             }
         }

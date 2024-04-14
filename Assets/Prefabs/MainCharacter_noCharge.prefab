@@ -1549,6 +1549,7 @@ GameObject:
   - component: {fileID: 399182982499736661}
   - component: {fileID: 1686922545}
   - component: {fileID: 1357381685959293475}
+  - component: {fileID: 3175104005493510322}
   m_Layer: 0
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -1621,7 +1622,6 @@ MonoBehaviour:
   eventSystem: {fileID: 3383090570821903391}
   deadBody: {fileID: 8373828435607482305, guid: f3f602e8ffeaba14f881e1a183c9baf1, type: 3}
   deadHead: {fileID: 2096440997588386901, guid: ac79ac2a2ba856e46bc200cf08a48e2a, type: 3}
-  currentHP: {fileID: 0}
 --- !u!50 &7653426975249963380
 Rigidbody2D:
   serializedVersion: 4
@@ -1691,13 +1691,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49415b7158f7b244ab4832af27a9c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRb: {fileID: 0}
-  player_Animator: {fileID: 7653426975249963390}
-  comboSystem: {fileID: 864485886040288406}
+  playerRefs: {fileID: 3175104005493510322}
   CurrentSpeed: 20
   BaseSpeed: 20
   RunningSpeed: 40
-  RunInputDelayTime: 0.5
+  RunInputDelayTime: 0.4
   canDash: 1
   isDashing: 0
   RollTime: 1.06
@@ -1754,10 +1752,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  damageCollider: {fileID: 7653426974398778621}
-  playerEvents: {fileID: 3383090570821903391}
-  playerStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
-  actionPerformer: {fileID: 399182982499736661}
 --- !u!114 &864485886040288406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1772,17 +1766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentDamage: 1
   BaseDamage: 1
-  animator: {fileID: 7653426975249963390}
-  playerMovement: {fileID: 7653426975249963384}
-  weaponDamageCollider: {fileID: 7653426974895600709}
-  playerRigidbody: {fileID: 7653426975249963380}
-  damageDealer: {fileID: 7653426974895600704}
-  stats: {fileID: 5265307542570127292}
-  FollowMouse: {fileID: 7653426975497917625}
-  VFXManager: {fileID: 7653426975249963331}
-  eventSystem: {fileID: 3383090570821903391}
-  CurrentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
-  actionPerformer: {fileID: 399182982499736661}
+  playerRefs: {fileID: 3175104005493510322}
   Force: 1200
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   defaultDistance: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
@@ -1804,10 +1788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87acafbd1f740f4987cba0204c9bde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponParryCollider: {fileID: 7653426975970030027}
-  damageDetectorCollider: {fileID: 7653426974398778621}
-  comboSystem: {fileID: 864485886040288406}
-  actionPerformer: {fileID: 399182982499736661}
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,15 +1800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b2e7f6e0a8b704a81bf35448951d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_Flash: {fileID: 8367639814930350914}
-  damageDetector: {fileID: 7653426974398778620}
-  playerMovement: {fileID: 7653426975249963384}
-  damageDealer: {fileID: 7653426974895600704}
-  parryPerformer: {fileID: 7653426975249963328}
-  eventSystem: {fileID: 3383090570821903391}
-  playerAnimator: {fileID: 7653426975249963390}
-  CurrentDamage: 0
-  BaseDamage: 1
+  playerRefs: {fileID: 3175104005493510322}
   staggerTime: 0.3
 --- !u!114 &7653426975249963331
 MonoBehaviour:
@@ -1887,19 +1859,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2520f1de59b75e34ca156743af122be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 3383090570821903391}
-  movement: {fileID: 7653426975249963384}
-  followMouse: {fileID: 7653426975497917575}
-  comboSystem: {fileID: 864485886040288406}
-  DamageDetector: {fileID: 7653426974398778621}
-  PositionCollider: {fileID: 7653426975249963388}
+  playerRefs: {fileID: 3175104005493510322}
   MouseTarget: {fileID: 0}
   SpritesRoot:
   - {fileID: 7653426974895600710}
   - {fileID: 903519175663782563}
   - {fileID: 7653426974804122897}
   - {fileID: 2729567579637855966}
-  playerAnimator: {fileID: 7653426975249963390}
+  - {fileID: 2106453508745462844}
   weaponPivot: {fileID: 7653426975497917625}
 --- !u!114 &4128982462933193464
 MonoBehaviour:
@@ -1913,9 +1880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf27c9bfad50034a87835e90a5a04d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 3383090570821903391}
-  maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
-  currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
+  playerRefs: {fileID: 3175104005493510322}
   RecoveryPerSecond: 4
   DelayToRecover: 0.6
   DelayToFullRecover: 0.8
@@ -1935,7 +1900,6 @@ MonoBehaviour:
   isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
   ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
   proximityTrigger: {fileID: 285086702692713560}
-  mouseTarget: {fileID: 0}
 --- !u!114 &399182982499736661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,11 +1937,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 3383090570821903391}
-  DeadParts: []
   OrientationGuide: {fileID: 2036163816277594816}
   deadPartsList:
   - referenceBone_TF: {fileID: 1097975357195865740}
     deadPart_GO: {fileID: 1522013482259629399, guid: 331cf5773a8541645b837a46d113a2c8, type: 3}
+--- !u!114 &3175104005493510322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e06ba8504a9904fbe5147eaf8d1286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerEvents: {fileID: 3383090570821903391}
+  actionPerformer: {fileID: 399182982499736661}
+  comboSystem: {fileID: 864485886040288406}
+  feedbackManager: {fileID: 7653426975249963379}
+  followMouse: {fileID: 7653426975497917575}
+  healthSystem: {fileID: 7653426975249963391}
+  playerMovement: {fileID: 7653426975249963384}
+  parryPerformer: {fileID: 7653426975249963328}
+  proximityDetector: {fileID: 1631478559803088520}
+  playerStamina: {fileID: 4128982462933193464}
+  playerState: {fileID: 3372783210703460156}
+  playerVFX: {fileID: 7653426975249963331}
+  playerRB: {fileID: 7653426975249963380}
+  damageDealer: {fileID: 7653426974895600704}
+  damageDetector: {fileID: 7653426974398778620}
+  playerStats: {fileID: 5265307542570127292}
+  playerSpriteFliper: {fileID: 7653426975249963385}
+  playerFlasher: {fileID: 8367639814930350914}
+  currentHealth: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
+  maxHealth: {fileID: 11400000, guid: 49c3ecc0c8b70b948b721b739b6528ec, type: 2}
+  currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
+  maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
+  playerAnimator: {fileID: 7653426975249963390}
+  weaponCollider: {fileID: 7653426974895600709}
+  damageDetectorCollider: {fileID: 7653426974398778621}
+  parryCollider: {fileID: 7653426975970030027}
+  positionCollider: {fileID: 7653426975249963388}
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,14 +2097,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowMouse_Speed: 10
   FocusMaxDistance: 1
-  zoomer: {fileID: 0}
   minZoom: 4
   minDistance: 2
   maxZoom: 7
   maxDistance: 10
-  spriteFliper: {fileID: 7653426975249963385}
-  cinemachineTarget: {fileID: 0}
-  playerEvents: {fileID: 3383090570821903391}
+  playerRefs: {fileID: 3175104005493510322}
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
   ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
@@ -2936,6 +2935,11 @@ Transform:
 --- !u!4 &2106453508745462834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309733073026282586, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
+  m_PrefabInstance: {fileID: 6094591128499777640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2106453508745462844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5309733073026282580, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
   m_PrefabInstance: {fileID: 6094591128499777640}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8451823373732807428

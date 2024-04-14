@@ -6,10 +6,7 @@ using UnityEngine.VFX;
 
 public class Player_Movement : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D playerRb;
-    [SerializeField] Animator player_Animator;
-    //Player_ComboSystem comboSystem;
-    [SerializeField] Player_ComboSystem_chargeless comboSystem;
+    [SerializeField] Player_References playerRefs;
 
     [Header("BASE MOVEMENT")]
     public float CurrentSpeed;
@@ -31,28 +28,22 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] float RollMaxForce;
     [SerializeField] float RollCooldown;
     public AnimationCurve RollCurve;
-    [SerializeField] Collider2D damageCollider;
 
-    [SerializeField] Player_EventSystem playerEvents;
-    [SerializeField] FloatVariable playerStamina;
-    [SerializeField] Player_ActionPerformer actionPerformer;
 
     private void OnEnable()
     {
-        playerEvents.OnPerformRoll += CallDashMovement;
-        playerEvents.OnDeath += StopRunningOnDeath;
-        playerEvents.OnPerformAttack += StopRunning;
+        playerRefs.playerEvents.OnPerformRoll += CallDashMovement;
+        playerRefs.playerEvents.OnDeath += StopRunningOnDeath;
+        playerRefs.playerEvents.OnPerformAttack += StopRunning;
     }
     private void OnDisable()
     {
-        playerEvents.OnPerformRoll -= CallDashMovement;
-        playerEvents.OnDeath -= StopRunningOnDeath;
-        playerEvents.OnPerformAttack -= StopRunning;
+        playerRefs.playerEvents.OnPerformRoll -= CallDashMovement;
+        playerRefs.playerEvents.OnDeath -= StopRunningOnDeath;
+        playerRefs.playerEvents.OnPerformAttack -= StopRunning;
     }
     void Start()
     {
-        playerRb = GetComponent<Rigidbody2D>();
-        player_Animator = GetComponent<Animator>();
         
         CurrentSpeed = BaseSpeed;
     }
@@ -66,7 +57,7 @@ public class Player_Movement : MonoBehaviour
         if (isRunning)
         {
             CurrentSpeed = RunningSpeed;
-            player_Animator.SetBool("Running", true);
+            playerRefs.playerAnimator.SetBool("Running", true);
         }
        
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
@@ -92,14 +83,14 @@ public class Player_Movement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
         {
             //if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) == (0, 0)) { return; }
-            if(playerStamina.Value <= 0) { return; }
+            if(playerRefs.currentStamina.Value <= 0) { return; }
 
             StopRunning();
 
             if (IsWaitingInputDelay)
             {
                 IsWaitingInputDelay = false;
-                actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Roll"));
+                playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Roll"));
             } 
         }
     }
@@ -108,11 +99,11 @@ public class Player_Movement : MonoBehaviour
     {
         isRunning = false;
         CurrentSpeed = BaseSpeed;
-        player_Animator.SetBool("Running", false);
+        playerRefs.playerAnimator.SetBool("Running", false);
     }
     void Move(Vector2 vector2)
     {
-        playerRb.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
+        playerRefs.playerRB.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
         WalkingAnimation();
     }
   
@@ -122,18 +113,18 @@ public class Player_Movement : MonoBehaviour
         {
             if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
             {
-                player_Animator.SetBool("Walking", true);
+                playerRefs.playerAnimator.SetBool("Walking", true);
             }
             else
             {
-                player_Animator.SetBool("Walking", false);
+                playerRefs.playerAnimator.SetBool("Walking", false);
             }
         }
     }
     void CallDashMovement()
     {
         //Call the event to remove Stamina
-        playerEvents.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(1f));
+        playerRefs.playerEvents.OnStaminaAction?.Invoke(1f);
 
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
@@ -148,7 +139,7 @@ public class Player_Movement : MonoBehaviour
         {
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
-            playerRb.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
+            playerRefs.playerRB.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
             yield return null;
         }
     }
@@ -157,6 +148,6 @@ public class Player_Movement : MonoBehaviour
     public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
     public void EV_CantDash() { canDash = false; }
     public void EV_CanDash() { canDash = true; }
-    public void EV_HidePlayerCollider() { damageCollider.enabled = false; }
-    public void EV_ShowPlayerCollider() { damageCollider.enabled = true; }
+    public void EV_HidePlayerCollider() { playerRefs.damageDetector.enabled = false; }
+    public void EV_ShowPlayerCollider() { playerRefs.damageDetector.enabled = true; }
 }

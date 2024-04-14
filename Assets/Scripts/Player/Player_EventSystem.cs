@@ -17,7 +17,8 @@ public class Player_EventSystem : Generic_EventSystem
     public Action CallRespawn;
     public Action CallActivation;
     public Action OnPerformAttack;
+    public Action OnPerformParry;
     public Action OnFocusEnemy;
     public Action OnUnfocusEnemy;
-    public EventHandler<EventArgs_StaminaConsumption> OnStaminaAction;
+    public Action<float> OnStaminaAction;
 }

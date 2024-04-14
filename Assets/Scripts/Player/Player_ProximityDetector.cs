@@ -9,7 +9,7 @@ public class Player_ProximityDetector : MonoBehaviour
     [SerializeField] TransformVariable ClosestEnemy;
     [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
 
-    [SerializeField] Transform mouseTarget;
+     Transform mouseTarget;
 
     List<Transform> InRangeEnemies = new List<Transform>();
     //Transform ClosestEnemy;

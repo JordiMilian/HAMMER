@@ -8,23 +8,9 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     public float CurrentDamage;
     public float BaseDamage;
 
-    //string Attack01_Charging = "Attack01_Charging";
-    //string Attack02_Charging = "Attack02_Charging";
     string AttacksCountTag = "AttacksCount";
-   
 
-    [SerializeField] Animator animator;
-    [SerializeField] Player_Movement playerMovement;
-    [SerializeField] Collider2D weaponDamageCollider;
-    [SerializeField] Rigidbody2D playerRigidbody;
-    [SerializeField] Generic_DamageDealer damageDealer;
-    [SerializeField] Generic_Stats stats;
-    
-    [SerializeField] GameObject FollowMouse;
-    [SerializeField] Player_VFXManager VFXManager;
-    [SerializeField] Player_EventSystem eventSystem;
-    [SerializeField] FloatVariable CurrentStamina;
-    [SerializeField] Player_ActionPerformer actionPerformer;
+    [SerializeField] Player_References playerRefs;
 
     [Header("Adapt to distance to Enemy")]
     [SerializeField] float Force;
@@ -40,21 +26,19 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
         canAttack = true;
-        playerMovement = GetComponent<Player_Movement>();
     }
     private void OnEnable()
     {
-        eventSystem.OnPerformAttack += RemoveAttackStamina;
+        playerRefs.playerEvents.OnPerformAttack += RemoveAttackStamina;
     }
     private void OnDisable()
     {
-        eventSystem.OnPerformAttack -= RemoveAttackStamina;
+        playerRefs.playerEvents.OnPerformAttack -= RemoveAttackStamina;
     }
     void RemoveAttackStamina()
     {
-        eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(2));
+        playerRefs.playerEvents.OnStaminaAction?.Invoke(2);
     }
 
     void Update()
@@ -62,9 +46,9 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(CurrentStamina.Value > 0)
+            if(playerRefs.currentStamina.Value > 0)
             {
-               actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
+                playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
             }
             
 
@@ -82,10 +66,10 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     
     void SetReleaseTriggers()
     {
-        if(CurrentStamina.Value > 0)
+        if(playerRefs.currentStamina.Value > 0)
         {
-            eventSystem.OnStaminaAction?.Invoke(this, new Player_EventSystem.EventArgs_StaminaConsumption(2));
-            playerMovement.canDash = false;
+            playerRefs.playerEvents.OnStaminaAction?.Invoke(2);
+            playerRefs.playerMovement.canDash = false;
             AddToCount(1);
             SetdamageDealer();
         } 
@@ -95,7 +79,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         attacksCount += add;
         if(attacksCount > 3) { attacksCount = 3; }
         if(attacksCount < 0) { attacksCount = 0; }
-        animator.SetInteger(AttacksCountTag,attacksCount);
+        playerRefs.playerAnimator.SetInteger(AttacksCountTag,attacksCount);
     }
     IEnumerator WaitForCanAttackRelease()
     {
@@ -108,14 +92,14 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
     void SetdamageDealer()
     {
-        damageDealer.Damage = CurrentDamage * stats.DamageMultiplier;
+        playerRefs.damageDealer.Damage = CurrentDamage * playerRefs.playerStats.DamageMultiplier;
     }
     public void CanAttack()
     {
         canAttack = true;
     }
-    public void EV_ShowWeaponCollider() { weaponDamageCollider.enabled = true; VFXManager.EV_ShowTrail(); }
-    public void EV_HideWeaponCollider() { weaponDamageCollider.enabled = false; VFXManager.EV_HideTrail(); }
+    public void EV_ShowWeaponCollider() { playerRefs.weaponCollider.enabled = true; playerRefs.playerVFX.EV_ShowTrail(); }
+    public void EV_HideWeaponCollider() { playerRefs.weaponCollider.enabled = false; playerRefs.playerVFX.EV_HideTrail(); }
     public void EV_AddForce()
     {
         //Make equivalent between min and max distance to -0,5 and 1
@@ -123,8 +107,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         if(distanceToEnemy.Value > maxDistance) { equivalent = CalculateEquivalent(defaultDistance.Value); } //If the player is too far, behave with default 
         else { equivalent = CalculateEquivalent(distanceToEnemy.Value);} // Else calculate with distance
 
-        Vector3 tempForce = FollowMouse.gameObject.transform.up * Force * equivalent;
-        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRigidbody, tempForce, 0.1f));
+        Vector3 tempForce = playerRefs.followMouse.gameObject.transform.up * Force * equivalent;
+        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs.playerRB, tempForce, 0.1f));
     }
     float CalculateEquivalent(float Distance)
     {
@@ -139,7 +123,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     public void ResetCount()
     {
         attacksCount = 0;
-        animator.SetInteger(AttacksCountTag, attacksCount);
+        playerRefs.playerAnimator.SetInteger(AttacksCountTag, attacksCount);
     }
 }
 

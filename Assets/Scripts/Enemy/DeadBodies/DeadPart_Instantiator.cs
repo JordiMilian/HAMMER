@@ -6,7 +6,6 @@ using UnityEngine;
 public class DeadPart_Instantiator : MonoBehaviour
 {
     [SerializeField] Generic_EventSystem eventSystem;
-    [SerializeField] List<GameObject> DeadParts = new List<GameObject>();
     [SerializeField] Transform OrientationGuide;
     [Serializable]
     public class DeadPart

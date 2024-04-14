@@ -5,21 +5,17 @@ using UnityEngine;
 
 public class Player_StateMachine : MonoBehaviour
 {
-    [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] Player_References playerRefs;
 
-    [SerializeField] Player_Movement movement;
-    [SerializeField] Player_FollowMouse_withFocus followMouse;
-    [SerializeField] Player_ComboSystem_chargeless comboSystem;
-    [SerializeField] Collider2D DamageDetector;
-    [SerializeField] Collider2D PositionCollider;
     [SerializeField] Transform MouseTarget;
     [SerializeField] List<GameObject> SpritesRoot = new List<GameObject>();
 
-    [SerializeField] Animator playerAnimator;
-
     [SerializeField] GameObject weaponPivot;
-    
-    
+
+    private void Awake()
+    {
+        MouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
+    }
     enum PlayerStates
     {
         Active, Inactive
@@ -27,22 +23,22 @@ public class Player_StateMachine : MonoBehaviour
     PlayerStates currentState;
     private void OnEnable()
     {
-        eventSystem.OnDeath += DisablePlayer;
-        eventSystem.CallActivation += ReturnPlayer;
+        playerRefs.playerEvents.OnDeath += DisablePlayer;
+        playerRefs.playerEvents.CallActivation += ReturnPlayer;
     }
     private void OnDisable()
     {
-        eventSystem.OnDeath -= DisablePlayer;
-        eventSystem.CallActivation -= ReturnPlayer;
+        playerRefs.playerEvents.OnDeath -= DisablePlayer;
+        playerRefs.playerEvents.CallActivation -= ReturnPlayer;
     }
     void DisablePlayer(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
-        movement.enabled = false;
-        followMouse.enabled = false;
-        comboSystem.enabled = false;
+        playerRefs.playerMovement.enabled = false;
+        playerRefs.followMouse.enabled = false;
+        playerRefs.comboSystem.enabled = false;
         TargetGroupSingleton.Instance.RemoveTarget(MouseTarget);
-        DamageDetector.enabled = false;
-        PositionCollider.enabled = false;
+        playerRefs.damageDetector.enabled = false;
+        playerRefs.positionCollider.enabled = false;
         foreach (GameObject root in SpritesRoot)
         {
             root.SetActive(false);
@@ -58,16 +54,16 @@ public class Player_StateMachine : MonoBehaviour
     IEnumerator DelayedRespawn()
     {
         yield return new WaitForSeconds(3.5f);
-        eventSystem.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
+        playerRefs.playerEvents.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
     }
     public void ReturnPlayer()
     {
-        movement.enabled = true;
-        followMouse.enabled = true;
-        comboSystem.enabled = true;
+        playerRefs.playerMovement.enabled = true;
+        playerRefs.followMouse.enabled = true;
+        playerRefs.comboSystem.enabled = true;
         TargetGroupSingleton.Instance.AddTarget(MouseTarget,1,0);
-        DamageDetector.enabled = true;
-        PositionCollider.enabled = true;
+        playerRefs.damageDetector.enabled = true;
+        playerRefs.positionCollider.enabled = true;
         foreach (GameObject root in SpritesRoot)
         {
             root.SetActive(true);
