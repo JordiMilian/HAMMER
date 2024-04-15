@@ -50,7 +50,7 @@ public class Enemy01 : MonoBehaviour
     }
     public void GettingParried()
     {
-        enemyRefs.animator.SetBool(TagsCollection.HitShield, true);
+        enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
         enemyRefs.weaponCollider.enabled = false;
     }
     public void EndHitShield()
