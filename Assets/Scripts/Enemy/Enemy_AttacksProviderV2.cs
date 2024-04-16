@@ -7,9 +7,11 @@ using UnityEngine.Events;
 
 public class Enemy_AttacksProviderV2 : MonoBehaviour
 {
+    //ESTE SCRIPT S'HAURIA DE OPTIMITZAR. DURANT LES TRANSICIONS A IDLE SE CALCULE CADA FRAME UN ATAC NOU 
+
     [SerializeField] Enemy_References enemyRefs;
 
-    public bool isAttacking;
+    
     public bool isProviding;
     public bool PlayerIsInAnyRange;
     [SerializeField] bool ShowDebug;
@@ -99,11 +101,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         if (PlayerIsInAnyRange)
         {
-            if (!isAttacking && isProviding) 
+            if (enemyRefs.animator.GetBool("inIdle") && isProviding) 
             {
                 ResetAllTriggers();
                 PickAvailableAttacks();
@@ -113,7 +115,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
     public void PerformAttack(EnemyAttack selectedAttack)
     {
-        isAttacking = true;
 
         enemyRefs.damageDealer.Damage = selectedAttack.Damage * enemyRefs.stats.DamageMultiplier;
         enemyRefs.damageDealer.Knockback = selectedAttack.KnockBack;
@@ -132,8 +133,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
     {
         yield return new WaitForSeconds(selectedAttack.animationClip.length);
-        isAttacking = false;
-        enemyRefs.animator.SetBool("isAttacking", false);
+        //enemyRefs.animator.SetBool("isAttacking", false);
         if(enemyRefs.enemyEvents.OnAttackFinished != null) { enemyRefs.enemyEvents.OnAttackFinished(); }
     }
     void PickAvailableAttacks()
@@ -147,6 +147,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 ActiveAttacks.Add(attack);
             }
         }
+        if(ActiveAttacks.Count <= 0) { return; } //If no attacks available return
+
         //Add up all the probabilities and take a random number
         float ActiveAttacksProbability = AddAttacksProbability(ActiveAttacks);
         Debuguer("All Active attacks combined make: " + ActiveAttacksProbability);
@@ -192,7 +194,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     void OnCancelAttack()
     {
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); } 
-        StartCoroutine(WaitForCurrentAnimation());
+        //StartCoroutine(WaitForCurrentAnimation());
     }
     IEnumerator WaitForCurrentAnimation()
     {
@@ -200,7 +202,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         {
             yield return null;
         }
-        isAttacking = false;
     }
     void Debuguer(string text)
     {

@@ -148,6 +148,6 @@ public class Player_Movement : MonoBehaviour
     public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
     public void EV_CantDash() { canDash = false; }
     public void EV_CanDash() { canDash = true; }
-    public void EV_HidePlayerCollider() { playerRefs.damageDetector.enabled = false; }
-    public void EV_ShowPlayerCollider() { playerRefs.damageDetector.enabled = true; }
+    public void EV_HidePlayerCollider() { playerRefs.damageDetectorCollider.enabled = false; }
+    public void EV_ShowPlayerCollider() { playerRefs.damageDetectorCollider.enabled = true; }
 }

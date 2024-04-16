@@ -54,6 +54,7 @@ public class Enemy_VFXManager : MonoBehaviour
     void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         if(notSpawnBlood) { return; }
+        if (!args.IsBloody) { return; }
 
         Vector2 thisPosition = transform.position;
         Vector2 otherPosition = args.Attacker.transform.root.position;

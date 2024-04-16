@@ -308,7 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRefs: {fileID: 7568110113479188649}
-  isAttacking: 0
   isProviding: 1
   PlayerIsInAnyRange: 0
   ShowDebug: 0
@@ -1149,6 +1148,7 @@ MonoBehaviour:
   Knockback: 0
   HitStop: 0
   isParryable: 1
+  isBloody: 1
   EntityTeam: 1
   typeOfDamage: 0
   eventSystem: {fileID: 627058440868749388}
@@ -1522,6 +1522,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAttackRangeDetector
       objectReference: {fileID: 0}
+    - target: {fileID: 6388427133975961431, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+      propertyPath: ownCollider
+      value: 
+      objectReference: {fileID: 7503888452882247945}
     - target: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1579,6 +1583,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &7503888452882247945 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8318725024180381522, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+  m_PrefabInstance: {fileID: 1968396979270522459}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9220249424633348770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
@@ -1839,6 +1848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAttackRangeDetector (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6388427133975961431, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+      propertyPath: ownCollider
+      value: 
+      objectReference: {fileID: 1426323097296256413}
     - target: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1890,6 +1903,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
   m_PrefabInstance: {fileID: 6969704260542634703}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1426323097296256413 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8318725024180381522, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+  m_PrefabInstance: {fileID: 6969704260542634703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4040043019073815960 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6388427133975961431, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
@@ -1912,6 +1930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAttackRangeDetector (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6388427133975961431, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+      propertyPath: ownCollider
+      value: 
+      objectReference: {fileID: 2267746090030100088}
     - target: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1961,6 +1983,11 @@ PrefabInstance:
 --- !u!4 &625830780797492691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+  m_PrefabInstance: {fileID: 7785223300500343082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2267746090030100088 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8318725024180381522, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
   m_PrefabInstance: {fileID: 7785223300500343082}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3792853293050386045 stripped

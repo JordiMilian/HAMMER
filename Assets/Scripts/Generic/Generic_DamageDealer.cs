@@ -10,6 +10,7 @@ public class Generic_DamageDealer : MonoBehaviour
     public float Knockback;
     public float HitStop;
     public bool isParryable;
+    public bool isBloody;
 
     public enum Team
     {

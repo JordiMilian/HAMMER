@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class DoorAnimationController : MonoBehaviour
     [SerializeField] Animator doorAnimator;
     [SerializeField] Collider2D blockingCollider;
 
+    public Action OnDoorOpened;
+    public Action OnDoorClosed;
     private void Start()
     {
         CloseDoor();
@@ -25,6 +28,7 @@ public class DoorAnimationController : MonoBehaviour
         {
             doorAnimator.SetTrigger("Close");
             isDoorOpen = false;
+            OnDoorClosed?.Invoke();
         } 
     }
     public void EV_CloseCollider()
@@ -38,6 +42,7 @@ public class DoorAnimationController : MonoBehaviour
         {
             doorAnimator.SetTrigger("Open");
             isDoorOpen = true;
+            OnDoorOpened?.Invoke();
         }
     }
     public void EV_OpenCollider()

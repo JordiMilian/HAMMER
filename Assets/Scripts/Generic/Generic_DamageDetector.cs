@@ -69,12 +69,13 @@ public class Generic_DamageDetector : MonoBehaviour
                 (
                 collision.ClosestPoint(gameObject.transform.position), //position
                 (transform.position - collision.gameObject.transform.root.position).normalized, //general direction
-                (transform.position - collision.gameObject.transform.position ).normalized, //concrete direction
+                (transform.position - collision.gameObject.transform.position).normalized, //concrete direction
                 collision.gameObject, //attacker
-                damageDealer.Damage, 
+                damageDealer.Damage,
                 damageDealer.Knockback,
-                damageDealer.HitStop
-                ));
+                damageDealer.HitStop,
+                damageDealer.isBloody
+                )) ;
         }
     }
     void PublishBeingTouched(Collider2D collider)

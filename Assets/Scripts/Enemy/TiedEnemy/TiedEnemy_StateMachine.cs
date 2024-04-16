@@ -7,13 +7,11 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
     [SerializeField] SpriteRenderer HeadSprite;
     [SerializeField] List<SpriteRenderer> BodySprites;
     [SerializeField] Enemy_VFXManager vfxManager;
-    [SerializeField] Dialoguer dialoguer;
     public override void OnDeathState(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         CurrentState = States.Dead;
         HeadSprite.enabled = false;
         vfxManager.groundBloodIntensity = 0.4f;
-        dialoguer.enabled = false;
         GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
     }
     public void ShowBodies() //Go to Respawner Manager

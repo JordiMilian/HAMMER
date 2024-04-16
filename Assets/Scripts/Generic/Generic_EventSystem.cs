@@ -22,8 +22,9 @@ public class Generic_EventSystem : MonoBehaviour
         public float Damage;
         public float KnockBack;
         public float Hitstop;
+        public bool IsBloody;
         public ReceivedAttackInfo(Vector2 collisionPosition,
-            Vector2 Gdirection, Vector2 Cdirection, GameObject attacker, float damage, float knockBack, float hitstop)
+            Vector2 Gdirection, Vector2 Cdirection, GameObject attacker, float damage, float knockBack, float hitstop, bool isBloody)
         {
             CollisionPosition = collisionPosition;
             GeneralDirection = Gdirection;
@@ -32,6 +33,7 @@ public class Generic_EventSystem : MonoBehaviour
             Damage = damage;
             KnockBack = knockBack;
             Hitstop = hitstop;
+            IsBloody = isBloody;
         }
     }
     public class SuccesfulParryInfo : EventArgs

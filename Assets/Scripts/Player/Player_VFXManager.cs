@@ -55,6 +55,8 @@ public class Player_VFXManager : MonoBehaviour
     }
     void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
+        if (!args.IsBloody) { return; } //if its not bloody pa casa
+
         Vector2 thisPosition = transform.position;
         Vector2 otherPosition = args.Attacker.transform.root.position;
         Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
