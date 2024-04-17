@@ -44,7 +44,6 @@ public class Player_Movement : MonoBehaviour
     }
     void Start()
     {
-        
         CurrentSpeed = BaseSpeed;
     }
 
@@ -129,6 +128,8 @@ public class Player_Movement : MonoBehaviour
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
         if (Axis.magnitude == 0) {  return; }
+        if(Input.GetAxisRaw("Horizontal") >= 0) { }
+        playerRefs.spriteFliper.canFlip = false; //sprite can not flip during roll
         StartCoroutine(DashMovement(Axis));
     }
     IEnumerator DashMovement(Vector2 direction)
@@ -142,6 +143,7 @@ public class Player_Movement : MonoBehaviour
             playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
             yield return null;
         }
+        playerRefs.spriteFliper.canFlip = true; //sprite can flip after roll
     }
     
     public void EV_SlowDownSpeed() { CurrentSpeed /= 2; }

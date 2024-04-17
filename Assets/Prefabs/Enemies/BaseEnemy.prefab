@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRefs: {fileID: 7568110113479188649}
+  ExtraDamageDealer: {fileID: 0}
   isProviding: 1
   PlayerIsInAnyRange: 0
   ShowDebug: 0
@@ -425,8 +426,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485b44867ef868f45b502749ae80d274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxStance: 2
-  CurrentStance: 2
+  MaxStance: 3
+  CurrentStance: 3
   CooldownAfterDamage: 2
   CooldownStanceBroken: 0.5
   RecoveryPerSecond: 1
@@ -502,12 +503,12 @@ MonoBehaviour:
   damageDetectorCollider: {fileID: 7350678567647433300}
   positionCollider: {fileID: 6792726357816075657}
   _rigidbody: {fileID: 1771262554875931710}
+  stateMachine: {fileID: 1030339945491469921}
   attackProvider: {fileID: 9036491661720074360}
   enemyEvents: {fileID: 627058440868749388}
   healthSystem: {fileID: 7929925186517721759}
   moveToTarget: {fileID: 6932147153519873058}
   stanceMeter: {fileID: 695697341023069215}
-  stateMachine: {fileID: 1030339945491469921}
   VFXManager: {fileID: 3450134641583009566}
   feedbackManager: {fileID: 7654662553848504304}
   agrooMovement: {fileID: 2829660713819239201}

@@ -15,7 +15,6 @@ public class Player_References : Generic_References
     public Player_ParryPerformer parryPerformer;
     public Player_ProximityDetector proximityDetector;
     public Player_Stamina playerStamina;
-    public Player_StateMachine stateMachine;
     public Player_VFXManager playerVFX;
 
     public FloatVariable currentHealth;

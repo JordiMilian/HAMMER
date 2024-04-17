@@ -11,7 +11,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
     [SerializeField] Enemy_References enemyRefs;
 
-    
+    [SerializeField] Generic_DamageDealer ExtraDamageDealer;
     public bool isProviding;
     public bool PlayerIsInAnyRange;
     [SerializeField] bool ShowDebug;
@@ -115,20 +115,28 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
     public void PerformAttack(EnemyAttack selectedAttack)
     {
+        SetDamageDealerStats(enemyRefs.damageDealer, selectedAttack); //Set stats to main damage dealer
+        if(ExtraDamageDealer != null) { SetDamageDealerStats(ExtraDamageDealer, selectedAttack); } //If the extra dealer is available, set it too
 
-        enemyRefs.damageDealer.Damage = selectedAttack.Damage * enemyRefs.stats.DamageMultiplier;
-        enemyRefs.damageDealer.Knockback = selectedAttack.KnockBack;
-        enemyRefs.damageDealer.HitStop = selectedAttack.Hitstop;
+        //Set animations and such
         enemyRefs.animator.SetTrigger(selectedAttack.TriggerName);
         enemyRefs.animator.SetBool("isAttacking", true);
 
+        //Wait to check again for attacks
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
         CurrentWaiting = StartCoroutine(WaitAnimationTime(selectedAttack));
 
+        //Cooldown if it has it
         if(selectedAttack.HasCooldown)
         {
             StartCoroutine(selectedAttack.Cooldown());
         }
+    }
+    void SetDamageDealerStats(Generic_DamageDealer dealer, EnemyAttack selectedAttack)
+    {
+        dealer.Damage = selectedAttack.Damage;
+        dealer.Knockback = selectedAttack.KnockBack;
+        dealer.HitStop = selectedAttack.Hitstop;
     }
     IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
     {

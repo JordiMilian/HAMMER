@@ -12,6 +12,9 @@ public class Generic_DamageDetector : MonoBehaviour
     public Team EntityTeam;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
     [SerializeField] Generic_EventSystem eventSystem;
+    bool isInCooldown;
+    float CooldownTime = 0.2f;
+    Coroutine cooldownRoutine;
    
     public class EventArgs_ReceivedAttackInfo : EventArgs
     {
@@ -32,6 +35,8 @@ public class Generic_DamageDetector : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(isInCooldown) { Debug.Log("damage detector was in cooldown"); return;  }
+
         switch (EntityTeam)
         {
             case Team.Object:
@@ -77,11 +82,30 @@ public class Generic_DamageDetector : MonoBehaviour
                 damageDealer.isBloody
                 )) ;
         }
+        CooldownCall();
     }
     void PublishBeingTouched(Collider2D collider)
     {
         Vector2 direction = (transform.position - collider.transform.root.position).normalized;
         eventSystem.OnBeingTouchedObject?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
+        CooldownCall();
+    }
+    void CooldownCall()
+    {
+        if(gameObject.activeInHierarchy == false) { return; }
+        if (cooldownRoutine != null) { StopCoroutine(cooldownRoutine); }
+        cooldownRoutine = StartCoroutine(Cooldown());
+    }
+    IEnumerator Cooldown()
+    {
+        isInCooldown = true;
+        float timer = 0;
+        while (timer < CooldownTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        isInCooldown = false;
     }
 }
 

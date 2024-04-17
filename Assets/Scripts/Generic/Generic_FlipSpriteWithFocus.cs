@@ -22,15 +22,17 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
             if (FlipOnce == false && canFlip)
             {
                 flipSprite(SpriteObject);
+
                 StartCoroutine(FlipCooldown());
             }
 
         }
-        if (focus.x < gameObject.transform.position.x)
+        else if (focus.x < gameObject.transform.position.x)
         {
             if (FlipOnce == true && canFlip)
             {
                 flipSprite(SpriteObject);
+
                 StartCoroutine(FlipCooldown());
             }
         }

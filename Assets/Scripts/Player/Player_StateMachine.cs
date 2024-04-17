@@ -16,11 +16,6 @@ public class Player_StateMachine : MonoBehaviour
     {
         MouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
     }
-    enum PlayerStates
-    {
-        Active, Inactive
-    }
-    PlayerStates currentState;
     private void OnEnable()
     {
         playerRefs.events.OnDeath += DisablePlayer;
