@@ -9,6 +9,7 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     public GameObject SpriteObject;
     public float FlipDelay = 0.2f;
     [HideInInspector] public bool canFlip = true;
+    [HideInInspector] public int lookingDirection;
     
     
     public void FixedUpdate()
@@ -24,7 +25,9 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
                 flipSprite(SpriteObject);
 
                 StartCoroutine(FlipCooldown());
+                lookingDirection = 1; // 1 = right, -1 = left
             }
+            
 
         }
         else if (focus.x < gameObject.transform.position.x)
@@ -34,7 +37,9 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
                 flipSprite(SpriteObject);
 
                 StartCoroutine(FlipCooldown());
+                lookingDirection = -1;
             }
+            
         }
     }
     void flipSprite(GameObject objecto)

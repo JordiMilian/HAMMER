@@ -8,16 +8,24 @@ public class Enemy_CheckWalking : MonoBehaviour
     [SerializeField] float Threshold;
     [SerializeField] Animator animator;
     bool isWalking;
-
+    Vector2 lastPosition;
+    private void Start()
+    {
+        lastPosition = rb.position;
+    }
     private void FixedUpdate()
     {
-        if (rb.velocity.magnitude <= Threshold && isWalking)
+        float RBvelocity = (rb.position - lastPosition).magnitude;
+        lastPosition = rb.position;
+
+        Debug.Log(RBvelocity);
+        if (RBvelocity <= Threshold && isWalking)
         {
             CheckNSetBool(TagsCollection.Walking, false);
             isWalking = false;
         }
 
-        else if (rb.velocity.magnitude > Threshold && !isWalking)
+        else if (RBvelocity > Threshold && !isWalking)
         {
             CheckNSetBool(TagsCollection.Walking, true);
             isWalking = true;

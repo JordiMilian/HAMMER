@@ -52,4 +52,10 @@ public class UsefullMethods
         if(scale >= 0) { return 1; }
         else { return -1; }
     }
+    public static int normalizeFloat(float F)
+    {
+        if (F == 0) { return 0; }
+        else if (F > 0) { return 1; }
+        else { return -1; }
+    }
 }
