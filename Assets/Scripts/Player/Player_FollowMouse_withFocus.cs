@@ -30,6 +30,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     public bool IsFocusingEnemy = false;
     Enemy_EventSystem FocusedEventSystem;
     Camera mainCamera;
+    public Vector2 LookingDirection;
 
 
     private void Awake()
@@ -141,8 +142,10 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void LookingAtTarget(Vector2 targetPos)
     {
+       
         Vector2 playerPos = transform.position;
-        transform.up = (Vector3.RotateTowards(transform.up, targetPos - playerPos, FollowMouse_Speed * Time.deltaTime, 10f));
+        LookingDirection = (targetPos - playerPos).normalized;
+        transform.up = (Vector3.RotateTowards(transform.up, LookingDirection, FollowMouse_Speed * Time.deltaTime, 10f));
 
         playerRefs.spriteFliper.FocusVector = targetPos;
     }

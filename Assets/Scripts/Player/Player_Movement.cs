@@ -92,6 +92,8 @@ public class Player_Movement : MonoBehaviour
 
                 //Multiply the looking direction with the Input direction:
                 //If they coincide, the direction will be 1 and player is looking forward, else its -1 and its looking backwards
+                //
+                //Esto es una cutrada ficarho aqui pero weno funcione
                 int direction = UsefullMethods.normalizeFloat(Input.GetAxisRaw("Horizontal")) * playerRefs.spriteFliper.lookingDirection;
                 playerRefs.animator.SetInteger("LookingDirection", direction);
 
@@ -133,11 +135,18 @@ public class Player_Movement : MonoBehaviour
 
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
-        if (Axis.magnitude == 0) {  return; }
-
-        
 
         playerRefs.spriteFliper.canFlip = false; //sprite can not flip during roll
+
+        //If the player is not imputing a direction, rotate to the oposite of the sword
+        if (Axis.magnitude == 0) 
+        {
+            Vector2 opositeDirectionToSword = -playerRefs.followMouse.LookingDirection;
+            StartCoroutine(DashMovement(opositeDirectionToSword));
+            return;
+        }
+
+        //Else roll towards imput direction
         StartCoroutine(DashMovement(Axis));
     }
     IEnumerator DashMovement(Vector2 direction)
