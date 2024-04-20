@@ -55,7 +55,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 222388718124707070}
-  doorTransform: {fileID: 222388718124707071}
   reopenDoorTrigger: {fileID: 5042181294188595687}
   openDoorAnimation: {fileID: 7400000, guid: 438a725f1151b93478c76a080da3f9d3, type: 2}
   isRoomPermanentlyCompleted: 0
@@ -761,6 +760,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.8265662
       objectReference: {fileID: 0}
+    - target: {fileID: 6729034074948013253, guid: 3aafb1303f44fab44b89944735e1d2d7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6729034075489065413, guid: 3aafb1303f44fab44b89944735e1d2d7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -808,6 +811,14 @@ PrefabInstance:
     - target: {fileID: 6729034075489065414, guid: 3aafb1303f44fab44b89944735e1d2d7, type: 3}
       propertyPath: m_Name
       value: AutomaticDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7708102826686903818, guid: 3aafb1303f44fab44b89944735e1d2d7, type: 3}
+      propertyPath: MinMaxDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7708102826686903818, guid: 3aafb1303f44fab44b89944735e1d2d7, type: 3}
+      propertyPath: MinMaxDistance.y
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aafb1303f44fab44b89944735e1d2d7, type: 3}

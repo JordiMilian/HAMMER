@@ -17,8 +17,6 @@ public class Enemy_CheckWalking : MonoBehaviour
     {
         float RBvelocity = (rb.position - lastPosition).magnitude;
         lastPosition = rb.position;
-
-        Debug.Log(RBvelocity);
         if (RBvelocity <= Threshold && isWalking)
         {
             CheckNSetBool(TagsCollection.Walking, false);

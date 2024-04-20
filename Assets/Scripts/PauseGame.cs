@@ -61,7 +61,7 @@ public class PauseGame : MonoBehaviour
     public void exit()
     {
         Unpause();
-        Debug.LogError(" Main Menu doesn't exist yet");
+        Application.Quit();
     }
     public void die()
     {

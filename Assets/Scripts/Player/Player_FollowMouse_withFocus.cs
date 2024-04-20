@@ -52,8 +52,15 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     void  Update()
     {
         //Check conditions, depending on which will change the Target to focus attention
-        if (distanceToEnemy.Value < 1.5f && !isDistanceToMouse.Value && !IsFocusingEnemy) { PositionToLook = ClosestEnemy.Tf.position; } //Look at closest enemy if everything is alright
-        else if (IsFocusingEnemy == true) { zoomer.FocusZoom = UpdateZoom(); PositionToLook = FocusedEnemy.transform.position; } //Look at enemy is we are alright
+
+        if (distanceToEnemy.Value < 1.5f && !isDistanceToMouse.Value && !IsFocusingEnemy) //Look at closest enemy if everything is alright
+        {
+            if(ClosestEnemy != null) { PositionToLook = ClosestEnemy.Tf.position; }
+        } 
+        else if (IsFocusingEnemy == true) //Look at enemy is we are alright
+        { 
+            zoomer.FocusZoom = UpdateZoom(); PositionToLook = FocusedEnemy.transform.position; 
+        } 
         else { PositionToLook = GetMousePosition(); } //Or look at mouse
 
         LookingAtTarget(PositionToLook);

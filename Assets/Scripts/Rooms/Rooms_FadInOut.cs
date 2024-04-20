@@ -22,7 +22,8 @@ public class Rooms_FadInOut : MonoBehaviour
         if(!isStartingRoom)
         {
             FadeOut(RoomSpritesArray);
-            DoorForegrounder.CallTurnBlack();
+            if(DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }
+            
         }
     }
     private void OnEnable()
@@ -39,12 +40,12 @@ public class Rooms_FadInOut : MonoBehaviour
     void playerEnteredRoom(object sender, EventArgsCollisionInfo args)
     {
         FadeIn(RoomSpritesArray);
-        DoorForegrounder.CallTurnColor();
+        if (DoorForegrounder != null) { DoorForegrounder.CallTurnColor(); }
     }
     void playerExitedRoom(object sender, EventArgsCollisionInfo args)
     {
         FadeOut(RoomSpritesArray);
-        DoorForegrounder.CallTurnBlack();
+        if (DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }
     }
     void FadeOut(SpriteRenderer[] sprites)
     {
