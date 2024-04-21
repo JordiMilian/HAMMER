@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class PauseMenu_Effects : MonoBehaviour
+public class PauseMenu_VFX : MonoBehaviour
 {
     [SerializeField] PauseGame pauseGame;
 
@@ -12,8 +12,8 @@ public class PauseMenu_Effects : MonoBehaviour
     [SerializeField] Animator pentagonAnimator;
     private void OnEnable()
     {
-        pauseGame.OnPause += PauseEffects;
-        pauseGame.OnUnpause += UnpauseEffects;
+        pauseGame.OnPauseMenu += PauseEffects;
+        pauseGame.OnUnpauseMenu += UnpauseEffects;
     }
     void PauseEffects()
     {

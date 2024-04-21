@@ -15,7 +15,9 @@ public class Player_EventSystem : Generic_EventSystem
     }
     public Action OnPerformRoll;
     public Action CallRespawn;
-    public Action CallActivation;
+    public Action CallHideAndDisable;
+    public Action CallDisable;
+    public Action CallEnable;
     public Action OnPerformAttack;
     public Action OnPerformParry;
     public Action OnFocusEnemy;

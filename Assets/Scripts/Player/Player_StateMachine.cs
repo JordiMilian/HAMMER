@@ -18,15 +18,38 @@ public class Player_StateMachine : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerRefs.events.OnDeath += DisablePlayer;
-        playerRefs.events.CallActivation += ReturnPlayer;
+        playerRefs.events.OnDeath += HideAndDisablePlayer;
+        playerRefs.events.CallHideAndDisable += ShowAndEnablePlayer;
+        playerRefs.events.CallDisable += DisablePlayerScripts;
+        playerRefs.events.CallEnable += EnablePlayerScripts;
     }
     private void OnDisable()
     {
-        playerRefs.events.OnDeath -= DisablePlayer;
-        playerRefs.events.CallActivation -= ReturnPlayer;
+        playerRefs.events.OnDeath -= HideAndDisablePlayer;
+        playerRefs.events.CallHideAndDisable -= ShowAndEnablePlayer;
+        playerRefs.events.CallDisable -= DisablePlayerScripts;
+        playerRefs.events.CallEnable -= EnablePlayerScripts;
     }
-    void DisablePlayer(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    void HideAndDisablePlayer(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    {
+        DisablePlayerScripts();
+
+        foreach (GameObject root in SpritesRoot)
+        {
+            root.SetActive(false);
+        }
+
+        SetupForRespwan(); 
+    }
+    public void ShowAndEnablePlayer()
+    {
+        EnablePlayerScripts();
+        foreach (GameObject root in SpritesRoot)
+        {
+            root.SetActive(true);
+        }
+    }
+    void DisablePlayerScripts()
     {
         playerRefs.playerMovement.enabled = false;
         playerRefs.followMouse.enabled = false;
@@ -34,34 +57,29 @@ public class Player_StateMachine : MonoBehaviour
         TargetGroupSingleton.Instance.RemoveTarget(MouseTarget);
         playerRefs.damageDetector.enabled = false;
         playerRefs.positionCollider.enabled = false;
-        foreach (GameObject root in SpritesRoot)
-        {
-            root.SetActive(false);
-        }
-
+    }
+    void SetupForRespwan()
+    {
         weaponPivot.transform.eulerAngles = new Vector3(
-            weaponPivot.transform.eulerAngles.x,
-            weaponPivot.transform.eulerAngles.y,
-            90
-            );
+                    weaponPivot.transform.eulerAngles.x,
+                    weaponPivot.transform.eulerAngles.y,
+                    90
+                    );
         StartCoroutine(DelayedRespawn());
+    }
+    void EnablePlayerScripts()
+    {
+        playerRefs.playerMovement.enabled = true;
+        playerRefs.followMouse.enabled = true;
+        playerRefs.comboSystem.enabled = true;
+        TargetGroupSingleton.Instance.AddTarget(MouseTarget, 1, 0);
+        playerRefs.damageDetector.enabled = true;
+        playerRefs.positionCollider.enabled = true;
     }
     IEnumerator DelayedRespawn()
     {
         yield return new WaitForSeconds(3.5f);
         playerRefs.events.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
     }
-    public void ReturnPlayer()
-    {
-        playerRefs.playerMovement.enabled = true;
-        playerRefs.followMouse.enabled = true;
-        playerRefs.comboSystem.enabled = true;
-        TargetGroupSingleton.Instance.AddTarget(MouseTarget,1,0);
-        playerRefs.damageDetector.enabled = true;
-        playerRefs.positionCollider.enabled = true;
-        foreach (GameObject root in SpritesRoot)
-        {
-            root.SetActive(true);
-        }
-    }
+    
 }

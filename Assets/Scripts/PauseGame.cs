@@ -11,8 +11,10 @@ public class PauseGame : MonoBehaviour
     Transform MouseTarget;
     [SerializeField] Canvas pauseCanvas;
 
-    public Action OnPause;
-    public Action OnUnpause;
+    public Action OnPauseMenu;
+    public Action OnUnpauseMenu;
+    public Action CallPauseGame;
+    public Action CallUnpauseGame;
 
     [Header("Buttons references")]
     [SerializeField] Player_EventSystem playerEventSystem;
@@ -21,7 +23,11 @@ public class PauseGame : MonoBehaviour
     {
         MouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
     }
-    
+    private void Start()
+    {
+        Unpause();
+    }
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
@@ -48,7 +54,7 @@ public class PauseGame : MonoBehaviour
 
         pauseCanvas.enabled = true; //show UIs
 
-        OnPause?.Invoke(); //event
+        OnPauseMenu?.Invoke(); //event
     }
     public void Unpause()
     {
@@ -56,7 +62,7 @@ public class PauseGame : MonoBehaviour
         Time.timeScale = 1;
         TargetGroupSingleton.Instance.AddTarget(MouseTarget, 1f, 0);
         pauseCanvas.enabled = false;
-        OnUnpause?.Invoke();
+        OnUnpauseMenu?.Invoke();
     }
     public void exit()
     {

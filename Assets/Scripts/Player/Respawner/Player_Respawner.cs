@@ -47,6 +47,6 @@ public class Player_Respawner : MonoBehaviour
     }
     public void EV_ActivatePlayer()
     {
-        RespawnedPlayer.GetComponent<Player_EventSystem>().CallActivation?.Invoke(); // Go to Player_StateMachine
+        RespawnedPlayer.GetComponent<Player_EventSystem>().CallHideAndDisable?.Invoke(); // Go to Player_StateMachine
     }
 }

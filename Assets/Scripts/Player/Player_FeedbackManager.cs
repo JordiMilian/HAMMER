@@ -22,7 +22,7 @@ public class Player_FeedbackManager : MonoBehaviour
         playerRefs.events.OnReceiveDamage += ReceiveDamageEffects;
         playerRefs.events.OnDealtDamage += OnHitEnemyCameraEffects;
         playerRefs.events.OnGettingParried += GettingParriedEffects;
-        playerRefs.events.CallActivation += OnActivationFeedback;
+        playerRefs.events.CallHideAndDisable += OnActivationFeedback;
     }
     private void OnDisable()
     {
@@ -30,7 +30,7 @@ public class Player_FeedbackManager : MonoBehaviour
         playerRefs.events.OnReceiveDamage -= ReceiveDamageEffects;
         playerRefs.events.OnDealtDamage -= OnHitEnemyCameraEffects;
         playerRefs.events.OnGettingParried -= GettingParriedEffects;
-        playerRefs.events.CallActivation -= OnActivationFeedback;
+        playerRefs.events.CallHideAndDisable -= OnActivationFeedback;
     }
 
     public void ReceiveDamageEffects(object sender, Player_EventSystem.ReceivedAttackInfo receivedAttackinfo)

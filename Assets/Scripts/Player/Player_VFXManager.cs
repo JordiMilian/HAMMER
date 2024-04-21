@@ -22,7 +22,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage += InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll += PlayDustVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
-        eventSystem.CallActivation += InstantiateBloodExplosion;
+        eventSystem.CallHideAndDisable += InstantiateBloodExplosion;
     }
     private void OnDisable()
     {
@@ -31,7 +31,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage -= InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll -= PlayDustVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
-        eventSystem.CallActivation -= InstantiateBloodExplosion;
+        eventSystem.CallHideAndDisable -= InstantiateBloodExplosion;
     }
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
