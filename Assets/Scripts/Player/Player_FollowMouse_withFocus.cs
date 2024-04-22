@@ -3,12 +3,17 @@ using System;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
+using System.Collections;
+using UnityEditor.Experimental.GraphView;
 
 public class Player_FollowMouse_withFocus : MonoBehaviour
 {
     
-    public float FollowMouse_Speed = 8f;
-    [SerializeField] float FocusMaxDistance;
+    public float FollowMouse_Speed_Keyboard = 8f;
+    public float FollowMouse_Speed_Controller = 8f;
+    [SerializeField] float FocusMaxDistance_Keyboard;
+    [SerializeField] Vector2 FocusMinMaxDistance_Controller;
+    [SerializeField] float FocusDistanceWithController;
     [Header("zoomer")]
     CameraZoomer zoomer;
     [SerializeField] float minZoom;
@@ -30,8 +35,9 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     public bool IsFocusingEnemy = false;
     Enemy_EventSystem FocusedEventSystem;
     Camera mainCamera;
-    public Vector2 LookingDirection;
-
+    public Vector2 SwordDirection;
+    Vector2 lastValidDirection;
+    InputDetector inputDetector;
 
     private void Awake()
     {
@@ -39,14 +45,17 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
         mainCamera = Camera.main;
+        inputDetector = InputDetector.Instance;
     }
     private void OnEnable()
     {
         playerRefs.events.OnDeath += unfocusOnDeath;
+        inputDetector.OnFocusPressed += AttemptFocus;
     }
     private void OnDisable()
     {
         playerRefs.events.OnDeath -= unfocusOnDeath;
+        inputDetector.OnFocusPressed -= AttemptFocus;
     }
 
     void  Update()
@@ -57,17 +66,29 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         {
             if(ClosestEnemy != null) { PositionToLook = ClosestEnemy.Tf.position; }
         } 
-        else if (IsFocusingEnemy == true) //Look at enemy is we are alright
+        else if (IsFocusingEnemy == true) //Look at enemy if focusing enemy
         { 
             zoomer.FocusZoom = UpdateZoom(); PositionToLook = FocusedEnemy.transform.position; 
+        }
+        else //Or look at mouse
+        {
+            
+            if (inputDetector.LookingDirectionInput.sqrMagnitude < 0.5f)
+            {
+                PositionToLook = inputDetector.PlayerPos + lastValidDirection;
+            }
+            else
+            {
+                PositionToLook = GetLookingDirection();
+                lastValidDirection = inputDetector.LookingDirectionInput;
+            }
         } 
-        else { PositionToLook = GetMousePosition(); } //Or look at mouse
 
         LookingAtTarget(PositionToLook);
 
-        if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.F))
+        if(inputDetector.LookingDirectionInput.sqrMagnitude > .7f)
         {
-            AttemptFocus();
+            //TO DO CAMBIAR FOCUS TIPO DARK SOULS
         }
     }
     void AttemptFocus()
@@ -76,15 +97,35 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         CurrentEnemies.Clear();
         CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
+        //Get the currently focused enemy, if the new focuse enemy is the same, unfocus
+        GameObject PreviuslyFocusedEnemy = FocusedEnemy;
+
         //Unfocus old Enemy if they are not null
         if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_EventSystem>().OnUnfocused?.Invoke();
 
         //Find closest enemy
-        FocusedEnemy = ClosestEnemyToMouseInRange(FocusMaxDistance);
-
-
-        if (FocusedEnemy == null)
+            //If controller detected, the center of search will be slighly forward of the sword
+            //If in keyboard, the center will be the mouse position
+        if (inputDetector.isControllerDetected) 
         {
+            Vector2 playerPos = transform.position;
+            float lookingX = inputDetector.LookingDirectionInput.x;
+            float absoluteX = Mathf.Abs(lookingX);
+            float equivalentRadius = UsefullMethods.equivalentFromAtoB(0, 1, FocusMinMaxDistance_Controller.x, FocusMinMaxDistance_Controller.y, absoluteX);
+
+            Vector2 centerOfDetection_C = playerPos + inputDetector.LookingDirectionInput * equivalentRadius; //use the radius as distance lets see 
+            FocusedEnemy = ClosestEnemyToMouseInRange(centerOfDetection_C, equivalentRadius);
+        }
+        else 
+        {
+            Vector2 centerOfDetection_K = inputDetector.MousePosition;
+            FocusedEnemy = ClosestEnemyToMouseInRange(centerOfDetection_K, FocusMaxDistance_Keyboard);
+        }
+
+        //If couldnt find enemy or its the same enemy as before, unfocus
+        if (FocusedEnemy == null || FocusedEnemy == PreviuslyFocusedEnemy) 
+        {
+            FocusedEnemy = null;
             if (!IsFocusingEnemy) { return; } //couldnt find any enemy but we were already not focusing
             OnLookAtMouse();
         }
@@ -132,9 +173,10 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         playerRefs.events.OnFocusEnemy?.Invoke();
     }
-    Vector2 GetMousePosition()
+    Vector2 GetLookingDirection()
     {
-        return (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = inputDetector.PlayerPos + inputDetector.LookingDirectionInput;
+        return direction;
     }
     void GetFocusedEnemyPosition() //deprecated?? maybe
     {
@@ -149,28 +191,30 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void LookingAtTarget(Vector2 targetPos)
     {
-       
         Vector2 playerPos = transform.position;
-        LookingDirection = (targetPos - playerPos).normalized;
-        transform.up = (Vector3.RotateTowards(transform.up, LookingDirection, FollowMouse_Speed * Time.deltaTime, 10f));
+        SwordDirection = (targetPos - playerPos).normalized;
+
+        //Change rotation speed depending on controller or kboard
+        float actualSpeed = FollowMouse_Speed_Controller;
+        if(!InputDetector.Instance.isControllerDetected) { actualSpeed = FollowMouse_Speed_Keyboard; }
+        transform.up = (Vector3.RotateTowards(transform.up, SwordDirection, actualSpeed * Time.deltaTime, 10f));
 
         playerRefs.spriteFliper.FocusVector = targetPos;
     }
-    GameObject ClosestEnemyToMouseInRange(float range)
+    GameObject ClosestEnemyToMouseInRange(Vector2 center, float range)
     {
-        Vector2 mousepos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         List<GameObject> InrangeEnemies = new List<GameObject>();
         List<float> InrangeDistances = new List<float>();
-
+        StartCoroutine(DrawAttemptDebug(center, range, 2f));
         
         //Add to a list every enemy within range and its distance
         for (int i = 0; i < CurrentEnemies.Count; i++)
         {
-            if (Vector2.Distance(mousepos, CurrentEnemies[i].transform.position) < range)
+            if (Vector2.Distance(center, CurrentEnemies[i].transform.position) < range)
             {
                 InrangeEnemies.Add(CurrentEnemies[i]);
-                InrangeDistances.Add(Vector2.Distance(mousepos, CurrentEnemies[i].transform.position));
+                InrangeDistances.Add(Vector2.Distance(center, CurrentEnemies[i].transform.position));
             }
         }
         //If no enemies in range
@@ -189,6 +233,16 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             }
         }
         return InrangeEnemies[minIndex];
+    }
+    IEnumerator DrawAttemptDebug(Vector2 center, float radius, float time)
+    {
+        float timer = 0;
+        while (timer < time )
+        {
+            timer += Time.deltaTime;
+            UsefullMethods.DrawPolygon(center, 10, radius);
+            yield return null;
+        }
     }
     //When player dies
     void unfocusOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
@@ -214,5 +268,6 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         float relativeZoom = Mathf.Lerp(minZoom, maxZoom, NormalizedDistance);
         return relativeZoom;
     }
+
 
 }

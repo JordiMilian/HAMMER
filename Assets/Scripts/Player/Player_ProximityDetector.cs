@@ -8,6 +8,7 @@ public class Player_ProximityDetector : MonoBehaviour
     [SerializeField] BoolVariable isDistanceToMouse;
     [SerializeField] TransformVariable ClosestEnemy;
     [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
+    [SerializeField] Player_FollowMouse_withFocus followMouse;
 
      Transform mouseTarget;
 
@@ -28,9 +29,24 @@ public class Player_ProximityDetector : MonoBehaviour
         //If there are no enemies near, check distance with mouse
         if (InRangeEnemies.Count == 0)
         {
-            mousePosition = mouseTarget.position;
-            isDistanceToMouse.Value = true; 
-            distanceToEnemy.Value = (mousePosition - ownPosition).magnitude;
+            if(!InputDetector.Instance.isControllerDetected) //If keyboard, just check distance to mouse
+            {
+                mousePosition = mouseTarget.position;
+                distanceToEnemy.Value = (mousePosition - ownPosition).magnitude;
+            }
+            else //if controller, make DOT between sword and movement and determine the distance with that
+            {
+                Vector2 currentSwordDirection = followMouse.SwordDirection.normalized;
+                Vector2 movingDirection = InputDetector.Instance.MovementDirectionInput;
+
+                float DotOfSwordNMovement = Vector2.Dot(currentSwordDirection, movingDirection);
+                float normalizedDot = Mathf.InverseLerp(-1, 1, DotOfSwordNMovement);
+                Player_ComboSystem_chargeless combos = GetComponent<Player_ComboSystem_chargeless>();
+                float equivalentDistance = Mathf.Lerp(combos.minDistance, combos.maxDistance, normalizedDot);
+                distanceToEnemy.Value = equivalentDistance;
+            }
+            
+            isDistanceToMouse.Value = true;
             return; 
         }
 

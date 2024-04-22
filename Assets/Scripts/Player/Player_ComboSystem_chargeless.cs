@@ -14,33 +14,32 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [SerializeField] float Force;
     [SerializeField] FloatVariable distanceToEnemy;
     [SerializeField] FloatVariable defaultDistance;
-    [SerializeField] float minDistance = 0.2f;
-    [SerializeField] float maxDistance = 3f;
+    public float minDistance = 0.2f;
+    public float maxDistance = 3f;
     [SerializeField] float minForce = -0.5f;
     [SerializeField] float maxForce = 1f;
 
     private void OnEnable()
     {
         playerRefs.events.OnPerformAttack += RemoveAttackStamina;
+        InputDetector.Instance.OnAttackPressed += onAttackPressed;
     }
     private void OnDisable()
     {
         playerRefs.events.OnPerformAttack -= RemoveAttackStamina;
+        InputDetector.Instance.OnAttackPressed -= onAttackPressed;
     }
     void RemoveAttackStamina()
     {
         playerRefs.events.OnStaminaAction?.Invoke(2);
     }
 
-    void Update()
-    {
 
-        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Mouse0))
+    void onAttackPressed()
+    {
+        if (playerRefs.currentStamina.Value > 0)
         {
-            if (playerRefs.currentStamina.Value > 0)
-            {
-                playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
-            }
+            playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
         }
     }
     public void EV_ShowWeaponCollider() { playerRefs.weaponCollider.enabled = true; playerRefs.playerVFX.EV_ShowTrail(); }

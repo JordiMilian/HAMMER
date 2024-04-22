@@ -58,4 +58,27 @@ public class UsefullMethods
         else if (F > 0) { return 1; }
         else { return -1; }
     }
+    public static void DrawPolygon(Vector2 center, int sides, float radius, int density = 1, float offset = 0) //density is to draw satanic pentagons, keep it at 1 for normal polygon
+    {
+        for (int i = 0; i < sides; i++)
+        {
+            float sidesF = intToFloat(sides);
+            float divider = (1.0f / sidesF * i) + offset;
+            float previousDivider = (1.0f / sidesF * (i - density)) + offset;
+
+            Vector2 CurrentPoint = angle2Vector(divider * Mathf.PI * 2);
+            Vector2 PreviousPoint = angle2Vector(previousDivider * Mathf.PI * 2);
+            Debug.DrawLine(center + (PreviousPoint * radius), center + (CurrentPoint * radius));
+        }
+    }
+    public static float intToFloat(int i)
+    {
+        float ret = i;
+        return (ret);
+    }
+    public static float equivalentFromAtoB(float minA, float maxA, float minB, float maxB, float initialValue)
+    {
+        float normalizedA = Mathf.InverseLerp(minA, maxA, initialValue);
+        return Mathf.Lerp(minB,maxB, normalizedA);
+    }
 }

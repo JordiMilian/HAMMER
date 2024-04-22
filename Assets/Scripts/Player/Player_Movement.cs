@@ -35,12 +35,20 @@ public class Player_Movement : MonoBehaviour
         playerRefs.events.OnPerformRoll += CallDashMovement;
         playerRefs.events.OnDeath += StopRunningOnDeath;
         playerRefs.events.OnPerformAttack += StopRunning;
+
+        InputDetector.Instance.OnRollPressed += OnRollPressed;
+        InputDetector.Instance.OnRollPressing += OnRollPressing;
+        InputDetector.Instance.OnRollUnpressed += OnRollUnpressed;
     }
     private void OnDisable()
     {
         playerRefs.events.OnPerformRoll -= CallDashMovement;
         playerRefs.events.OnDeath -= StopRunningOnDeath;
         playerRefs.events.OnPerformAttack -= StopRunning;
+
+        InputDetector.Instance.OnRollPressed -= OnRollPressed;
+        InputDetector.Instance.OnRollPressing -= OnRollPressing;
+        InputDetector.Instance.OnRollUnpressed -= OnRollUnpressed;
     }
     void Start()
     {
@@ -50,55 +58,50 @@ public class Player_Movement : MonoBehaviour
     
     void Update()
     {
-        Vector2 input = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical"));
-        Move(input);
+        Move(InputDetector.Instance.MovementDirectionInput);
 
         if (isRunning)
         {
             CurrentSpeed = RunningSpeed;
             playerRefs.animator.SetBool("Running", true);
         }
-       
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
+    }
+    void OnRollPressed()
+    {
+        IsWaitingInputDelay = true;
+        TimerDelay = 0;
+    }
+    void OnRollPressing()
+    {
+        if (IsWaitingInputDelay)
         {
-            IsWaitingInputDelay = true;
-            TimerDelay = 0;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space))
-        {
-            if (IsWaitingInputDelay)
-            {
-                TimerDelay += Time.deltaTime;
+            TimerDelay += Time.deltaTime;
 
-                if (TimerDelay > RunInputDelayTime)
-                {
-                    IsWaitingInputDelay = false;
-                    isRunning = true;
-                }
-            }
-            
-        }
-        
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space))
-        {
-            //if ((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) == (0, 0)) { return; }
-            if(playerRefs.currentStamina.Value <= 0) { return; }
-
-            StopRunning();
-
-            if (IsWaitingInputDelay)
+            if (TimerDelay > RunInputDelayTime)
             {
                 IsWaitingInputDelay = false;
+                isRunning = true;
+            }
+        }
+    }
+    void OnRollUnpressed()
+    {
+        if (playerRefs.currentStamina.Value <= 0) { return; }
 
-                //Multiply the looking direction with the Input direction:
-                //If they coincide, the direction will be 1 and player is looking forward, else its -1 and its looking backwards
-                //
-                //Esto es una cutrada ficarho aqui pero weno funcione
-                int direction = UsefullMethods.normalizeFloat(Input.GetAxisRaw("Horizontal")) * playerRefs.spriteFliper.lookingDirection;
-                playerRefs.animator.SetInteger("LookingDirection", direction);
+        StopRunning();
 
-                playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Roll"));
-            } 
+        if (IsWaitingInputDelay)
+        {
+            IsWaitingInputDelay = false;
+
+            //Multiply the looking direction with the Input direction:
+            //If they coincide, the direction will be 1 and player is looking forward, else its -1 and its looking backwards
+            //
+            //Esto es una cutrada ficarho aqui pero weno funcione
+            int direction = UsefullMethods.normalizeFloat(Input.GetAxisRaw("Horizontal")) * playerRefs.spriteFliper.lookingDirection;
+            playerRefs.animator.SetInteger("LookingDirection", direction);
+
+            playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Roll"));
         }
     }
     void StopRunningOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args) { StopRunning(); }
@@ -141,7 +144,7 @@ public class Player_Movement : MonoBehaviour
         //If the player is not imputing a direction, rotate to the oposite of the sword
         if (Axis.magnitude == 0) 
         {
-            Vector2 opositeDirectionToSword = -playerRefs.followMouse.LookingDirection;
+            Vector2 opositeDirectionToSword = -playerRefs.followMouse.SwordDirection;
             StartCoroutine(DashMovement(opositeDirectionToSword));
             return;
         }

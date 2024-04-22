@@ -1828,7 +1828,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479966188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6891228, y: 75.19975, z: -10}
+  m_LocalPosition: {x: 0.20948407, y: -74.353325, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2115,7 +2115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525836484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6891228, y: 75.19975, z: 0}
+  m_LocalPosition: {x: 0.20948407, y: -74.353325, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2949,8 +2949,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3401fd8ce60db1d46ac21a4af50f331a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isControllerDetected: 0
   MovementDirectionInput: {x: 0, y: 0}
-  SwordDirectionInput: {x: 0, y: 0}
+  LookingDirectionInput: {x: 0, y: 0}
+  MousePosition: {x: 0, y: 0}
+  MouseDirection: {x: 0, y: 0}
+  PlayerTf: {fileID: 0}
+  PlayerPos: {x: 0, y: 0}
 --- !u!4 &661679425
 Transform:
   m_ObjectHideFlags: 0
@@ -4384,7 +4389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047033189}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6891228, y: 75.19975, z: -10}
+  m_LocalPosition: {x: 0.20948407, y: -74.353325, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4451,6 +4456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cf00a7c460b51438fa7874ef915fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controllerDistanceMultiplier: 0
 --- !u!1 &1087931990
 GameObject:
   m_ObjectHideFlags: 0
@@ -6461,6 +6467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cf00a7c460b51438fa7874ef915fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controllerDistanceMultiplier: 10
 --- !u!1 &1692905291
 GameObject:
   m_ObjectHideFlags: 0
@@ -8791,11 +8798,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7653426975249963376, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: 7653426975249963376, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 111.3
+      value: -110.03
       objectReference: {fileID: 0}
     - target: {fileID: 7653426975249963376, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
       propertyPath: m_LocalPosition.z

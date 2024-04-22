@@ -23,25 +23,29 @@ public class PauseGame : MonoBehaviour
     {
         MouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
     }
+    private void OnEnable()
+    {
+        InputDetector.Instance.OnPausePressed += onPausePresed;
+    }
+    private void OnDisable()
+    {
+        InputDetector.Instance.OnPausePressed -= onPausePresed;
+    }
     private void Start()
     {
         Unpause();
     }
-
-    void Update()
+    void onPausePresed()
     {
-        if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        switch (isPaused)
         {
-            switch (isPaused)
-            {
-                case false:
-                    Pause();
-                    break;
-                    
-                case true:
-                    Unpause();
-                    break;
-            }  
+            case false:
+                Pause();
+                break;
+
+            case true:
+                Unpause();
+                break;
         }
     }
     void Pause()

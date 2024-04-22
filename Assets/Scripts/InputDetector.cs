@@ -7,114 +7,142 @@ public class InputDetector : MonoBehaviour
 {
     public Action OnControllerDetected;
     public Action OnControllerDisconnected;
-    bool isControllerDetected;
+    public bool isControllerDetected;
 
     public Action OnRollPressed;
+    public Action OnRollUnpressed;
     public Action OnRollPressing;
+
     public Action OnParryPressed;
     public Action OnAttackPressed;
+
     public Action OnFocusPressed;
+    public Action OnFocusUnpressed;
     public Action OnFocusPressing;
+
     public Action OnPausePressed;
+
     public Vector2 MovementDirectionInput;
-    public Vector2 SwordDirectionInput;
+    public Vector2 LookingDirectionInput;
     public Vector2 MousePosition;
     public Vector2 MouseDirection;
-    Transform playerTF;
+
+    public Transform PlayerTf;
+    public Vector2 PlayerPos;
     Camera mainCamera;
     bool leftTriggerPressed;
     bool rightTriggerPressed;
+
+    public static InputDetector Instance;
     private void Awake()
-    {
+    {   
+        //Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         OnRollPressed += OnRollPressedDebug;
         OnRollPressing += OnRollPressingDebug;
         OnFocusPressed += OnFocusPressedDebug;
         OnPausePressed += OnPausePressedDebug;
+        OnAttackPressed += OnAttackPresedDebug;
         mainCamera = Camera.main;
-        playerTF = GameObject.Find(TagsCollection.MainCharacter).transform;
+        PlayerTf = GameObject.Find(TagsCollection.MainCharacter).transform;
     }
     void Update()
     {
         CheckForController();
+        PlayerPos = PlayerTf.position;
 
-        if(isControllerDetected)
+        //CONTROLLER STUFF
+        if (isControllerDetected)
         {
+            //Roll with B
             if (Input.GetKeyDown(KeyCode.JoystickButton1)) { OnRollPressed?.Invoke(); }
-
             if (Input.GetKey(KeyCode.JoystickButton1)) { OnRollPressing?.Invoke(); }
+            if (Input.GetKeyUp(KeyCode.JoystickButton1)) { OnRollUnpressed?.Invoke(); }
+
+            //Attack with RB
             if (Input.GetKey(KeyCode.JoystickButton5)) { OnAttackPressed?.Invoke(); }
+
+            //Parry with LB
+            if(Input.GetKey(KeyCode.JoystickButton4)) { OnParryPressed?.Invoke(); }
+
+            //Pause with Start
             if (Input.GetKey(KeyCode.JoystickButton7)) { OnPausePressed?.Invoke(); }
 
-            TriggerInputs(OnRollPressed, OnRollPressing, "RightTrigger", rightTriggerPressed);
-            TriggerInputs(OnFocusPressed,OnFocusPressing,"LeftTrigger",leftTriggerPressed);
-            /*
-            if(!leftTriggerPressed)
-            {
-                if (Input.GetAxis("LeftTrigger") > .5f) 
-                {
-                    OnFocusPressed?.Invoke();
-                    leftTriggerPressed = true;
-                }
-            }
-            else if(leftTriggerPressed)
-            {
-                if (Input.GetAxis("LeftTrigger") < .5f)
-                {
-                    leftTriggerPressed = false;
-                }
-            }
+            //Roll with right trigger
+            TriggerInputs(OnRollPressed, OnRollPressing, OnRollUnpressed, "RightTrigger", ref rightTriggerPressed);
 
-            if(!rightTriggerPressed)
-            {
-                if(Input.GetAxis("RightTrigger") > .5f)
-                {
-                    OnRollPressed?.Invoke();
-                    rightTriggerPressed = true;
-                }
-            }
-            else if(rightTriggerPressed)
-            {
-                if (Input.GetAxisRaw("RightTrigger") < .5f)
-                {
-                    rightTriggerPressed = false;
-                }
-                OnRollPressing?.Invoke();
-            }
-            */
-            SwordDirectionInput = new Vector2(Input.GetAxisRaw("RightJoystickHorizontal"), Input.GetAxisRaw("RightJoystickVertical"));
+            //Focus with left trigger
+            TriggerInputs(OnFocusPressed,OnFocusPressing,OnFocusUnpressed, "LeftTrigger",ref leftTriggerPressed);
+
+            //Right joystick direction
+            LookingDirectionInput = new Vector2(Input.GetAxisRaw("RightJoystickHorizontal"), Input.GetAxisRaw("RightJoystickVertical"));
+
+            //Left joystick direction
             MovementDirectionInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
-        
-        void TriggerInputs(Action OnPressed, Action OnPressing, string AxisName, bool OnceBool)
+
+        //KEYBOARD STUFF
+        else
         {
-            if (!OnceBool)
-            {
-                if (Input.GetAxisRaw(AxisName) > .5f)
-                {
-                    OnPressed?.Invoke();
-                    OnceBool = true;
-                }
-            }
-            else if (OnceBool)
-            {
-                if (Input.GetAxisRaw(AxisName) < .5f)
-                {
-                    OnceBool = false;
-                }
-                OnPressing?.Invoke();
-            }
-            Debug.Log(AxisName + Input.GetAxis(AxisName));
+            //Roll with shoft or space
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space)) { OnRollPressed?.Invoke(); }
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space)) { OnRollPressing?.Invoke(); }
+            if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.Space)) { OnRollUnpressed?.Invoke(); }
+
+            //Attack with left mouse
+            if (Input.GetKeyDown(KeyCode.Mouse0)){ OnAttackPressed?.Invoke(); }
+
+            //Parry with right Mouse
+            if (Input.GetKeyDown(KeyCode.Mouse1)) { OnParryPressed?.Invoke(); }
+
+            //Pause with Esc or P
+            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)){ OnPausePressed?.Invoke(); }
+
+            //Focus with midle mouse
+            if (Input.GetKeyDown(KeyCode.Mouse2)){ OnFocusPressed?.Invoke(); }
+
+            //movement with WASD or arrows
+            MovementDirectionInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            //mouse direction
+            MousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            LookingDirectionInput = (MousePosition - PlayerPos).normalized;
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space)) { OnRollPressed?.Invoke(); }
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Space)) { OnRollPressing?.Invoke(); }
-        MousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 playerPos = playerTF.position; 
-        MouseDirection = ( MousePosition - playerPos).normalized;
 
-        Debug.DrawLine(playerPos, playerPos + MouseDirection);
         
-        Debug.DrawLine(playerPos, playerPos + SwordDirectionInput);
+        Debug.DrawLine(PlayerPos, PlayerPos + MouseDirection);
+        
+        Debug.DrawLine(PlayerPos, PlayerPos + LookingDirectionInput);
 
+    }
+    void TriggerInputs(Action OnPressed, Action OnPressing, Action OnUnpressed, string AxisName, ref bool isPressed)
+    {
+        if (!isPressed)
+        {
+            if (Input.GetAxisRaw(AxisName) > .5f)
+            {
+                OnPressed?.Invoke();
+                isPressed = true;
+            }
+        }
+        else if (isPressed)
+        {
+            if (Input.GetAxisRaw(AxisName) < .5f)
+            {
+                isPressed = false;
+                OnUnpressed?.Invoke();
+            }
+            OnPressing?.Invoke();
+        }
+        //Debug.Log(AxisName + Input.GetAxis(AxisName));
     }
     void CheckForController()
     {
@@ -165,5 +193,9 @@ public class InputDetector : MonoBehaviour
     void OnPausePressedDebug()
     {
         Debug.Log(nameof(OnPausePressed));
+    }
+    void OnAttackPresedDebug()
+    {
+        Debug.Log(nameof(OnAttackPressed));
     }
 }

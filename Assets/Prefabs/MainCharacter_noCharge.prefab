@@ -1901,6 +1901,7 @@ MonoBehaviour:
   isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
   ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
   proximityTrigger: {fileID: 285086702692713560}
+  followMouse: {fileID: 7653426975497917575}
 --- !u!114 &399182982499736661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,7 +2099,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowMouse_Speed: 10
-  FocusMaxDistance: 1
+  FocusMaxDistance_Keyboard: 3
+  FocusMinMaxDistance_Controller: {x: 3, y: 5}
+  FocusDistanceWithController: 5
   minZoom: 4
   minDistance: 2
   maxZoom: 7
@@ -2110,6 +2113,7 @@ MonoBehaviour:
   FocusedEnemy: {fileID: 0}
   PositionToLook: {x: 0, y: 0}
   IsFocusingEnemy: 0
+  SwordDirection: {x: 0, y: 0}
 --- !u!1 &7653426975970030029
 GameObject:
   m_ObjectHideFlags: 0

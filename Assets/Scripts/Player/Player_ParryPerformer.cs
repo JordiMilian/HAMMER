@@ -8,20 +8,19 @@ public class Player_ParryPerformer : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
 
-    private void Update()
+    void onParryPressed()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Parry"));
-            
-
-            //playerAnimator.SetTrigger("Parry");
-            //comboSystem.ResetCount();
-        }
+        playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Parry"));
     }
     private void OnEnable()
     {
         playerRefs.events.OnPerformParry += perfomedParry;
+        InputDetector.Instance.OnParryPressed += onParryPressed;
+    }
+    private void OnDisable()
+    {
+        playerRefs.events.OnPerformParry -= perfomedParry;
+        InputDetector.Instance.OnParryPressed -= onParryPressed;
     }
     void perfomedParry()
     {
