@@ -58,7 +58,7 @@ public class UsefullMethods
         else if (F > 0) { return 1; }
         else { return -1; }
     }
-    public static void DrawPolygon(Vector2 center, int sides, float radius, int density = 1, float offset = 0) //density is to draw satanic pentagons, keep it at 1 for normal polygon
+    public static void DrawPolygon(Vector2 center, int sides, float radius, int density = 1, float offset = 0) //density is to draw satanic pentagons, keep it at 1 for normal polygons
     {
         for (int i = 0; i < sides; i++)
         {
@@ -76,9 +76,9 @@ public class UsefullMethods
         float ret = i;
         return (ret);
     }
-    public static float equivalentFromAtoB(float minA, float maxA, float minB, float maxB, float initialValue)
+    public static float equivalentFromAtoB(float minA, float maxA, float minB, float maxB, float initialValueA)
     {
-        float normalizedA = Mathf.InverseLerp(minA, maxA, initialValue);
+        float normalizedA = Mathf.InverseLerp(minA, maxA, initialValueA);
         return Mathf.Lerp(minB,maxB, normalizedA);
     }
 }

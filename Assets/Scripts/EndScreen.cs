@@ -11,29 +11,30 @@ public class EndScreen : MonoBehaviour
     [SerializeField] UI_BaseAction UI_Action;
     [SerializeField] GameObject EndScreenRootImage;
     bool isDisplaying;
-    private void Update()
-    {
-        if(isDisplaying)
-        {
-            if(Input.GetKeyUp(KeyCode.Escape))
-            {
-                UI_Action.Action(new UI_Button());
-            }
-        }
-    }
     private void Awake()
     {
         images = GetComponentsInChildren<MaskableGraphic>().ToList<MaskableGraphic>();
         EndCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
     }
+    private void OnEnable()
+    {
+        EndCollider.OnTriggerEntered += playerEnteredEndCollider;
+        InputDetector.Instance.OnPausePressed += onPausePressed;
+
+    }
     private void Start()
     {
         FadeOut(0);
     }
-    private void OnEnable()
+   void onPausePressed()
     {
-        EndCollider.OnTriggerEntered += playerEnteredEndCollider;
+        if(isDisplaying)
+        {
+            UI_Action.Action(new UI_Button());
+        }
+        
     }
+    
     void playerEnteredEndCollider(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
     {
         EndScreenRootImage.SetActive(true);//not used perque si no estan actius no busca be les imatges crec

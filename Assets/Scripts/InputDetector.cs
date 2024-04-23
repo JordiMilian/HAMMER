@@ -47,7 +47,6 @@ public class InputDetector : MonoBehaviour
         }
 
         OnRollPressed += OnRollPressedDebug;
-        OnRollPressing += OnRollPressingDebug;
         OnFocusPressed += OnFocusPressedDebug;
         OnPausePressed += OnPausePressedDebug;
         OnAttackPressed += OnAttackPresedDebug;
@@ -76,11 +75,11 @@ public class InputDetector : MonoBehaviour
             //Pause with Start
             if (Input.GetKey(KeyCode.JoystickButton7)) { OnPausePressed?.Invoke(); }
 
-            //Roll with right trigger
-            TriggerInputs(OnRollPressed, OnRollPressing, OnRollUnpressed, "RightTrigger", ref rightTriggerPressed);
+            //Roll with left trigger
+            TriggerInputs(OnRollPressed, OnRollPressing, OnRollUnpressed, "LeftTrigger", ref leftTriggerPressed);
 
-            //Focus with left trigger
-            TriggerInputs(OnFocusPressed,OnFocusPressing,OnFocusUnpressed, "LeftTrigger",ref leftTriggerPressed);
+            //Focus with right trigger
+            TriggerInputs(OnFocusPressed,OnFocusPressing,OnFocusUnpressed, "RightTrigger", ref rightTriggerPressed);
 
             //Right joystick direction
             LookingDirectionInput = new Vector2(Input.GetAxisRaw("RightJoystickHorizontal"), Input.GetAxisRaw("RightJoystickVertical"));
@@ -181,10 +180,6 @@ public class InputDetector : MonoBehaviour
     void OnRollPressedDebug()
     {
         Debug.Log(nameof(OnRollPressed));
-    }
-    void OnRollPressingDebug()
-    {
-        Debug.Log(nameof(OnRollPressing));
     }
     void OnFocusPressedDebug()
     {

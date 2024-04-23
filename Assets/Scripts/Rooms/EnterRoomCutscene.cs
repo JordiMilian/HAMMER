@@ -30,13 +30,13 @@ public class EnterRoomCutscene : MonoBehaviour
     IEnumerator EnterRoom()
     {
         //Find the references
-        CameraZoomer zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
+        CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
 
         //Wait just in case for enemies to spawn
         yield return new WaitForSeconds(0.3f);
 
         //Look at center of room with zoom
-        zoomer.AddZoomInfo(new CameraZoomer.ZoomInfo(6.5f, 1, "enter"));
+        zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(6.5f, 3, "enterCutscene"));
         TargetGroupSingleton.Instance.AddTarget(CenterOfRoom, 20, 10);
 
         yield return new WaitForSeconds(0.9f);
@@ -50,7 +50,7 @@ public class EnterRoomCutscene : MonoBehaviour
         yield return new WaitForSeconds(0.9f);
 
         //Return to normal zoom
-        zoomer.RemoveZoomInfo("enter");
+        zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
         TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
 
         enemyGenerator.reenteredRoom = false;

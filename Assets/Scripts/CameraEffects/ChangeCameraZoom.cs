@@ -7,16 +7,16 @@ using UnityEngine;
 public class ChangeCameraZoom : MonoBehaviour
 {
    
-    [SerializeField] float NewZoom;
-    [SerializeField] float NewZoomDuration = 0.003f;
-    [SerializeField] string Name;
+    [SerializeField] float newZoom = 5;
+    [SerializeField] float newZoomSpeed = 1f;
+    [SerializeField] string zoomName = "defaultZoom";
 
-    [SerializeField] CameraZoomer cameraZoomer;
-    CameraZoomer.ZoomInfo ThisInfo;
+    CameraZoomController cameraZoomer;
+    CameraZoomController.ZoomInfo ThisInfo;
     private void Awake()
     {
-        cameraZoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
-        ThisInfo = new CameraZoomer.ZoomInfo(NewZoom, NewZoomDuration, Name);
+        cameraZoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
+        ThisInfo = new CameraZoomController.ZoomInfo(newZoom, newZoomSpeed, zoomName);
     }
 
 
@@ -24,14 +24,14 @@ public class ChangeCameraZoom : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            cameraZoomer.AddZoomInfo(ThisInfo);
+            cameraZoomer.AddZoomInfoAndUpdate(ThisInfo);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            cameraZoomer.RemoveZoomInfo(ThisInfo.Name);
+            cameraZoomer.RemoveZoomInfoAndUpdate(ThisInfo.Name);
         }
            
     }

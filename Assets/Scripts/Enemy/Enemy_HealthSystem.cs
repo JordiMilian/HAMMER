@@ -15,13 +15,11 @@ public class Enemy_HealthSystem : Generic_HealthSystem
         if(enemyRefs.stateMachine.CurrentState == Enemy_StateMachine.States.Dead) { Debug.Log("already dead"); return; }
 
         enemyRefs.genericEvents.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));
-        //if (deadBody != null) { var DeadBody = Instantiate(deadBody, transform.position, Quaternion.identity); }
-        //if (deadHead != null) { var DeadHead = Instantiate(deadHead, transform.position, Quaternion.identity); }
         if(BloodCristals != null) 
         { 
             for(int i = 0; i< AmountOfCristals;i++)
             {
-                Instantiate(BloodCristals, transform.position, Quaternion.identity);
+                //Instantiate(BloodCristals, transform.position, Quaternion.identity);
             }
         }
         

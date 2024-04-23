@@ -32,11 +32,12 @@ public class TutorialDoorLogic : BaseRoomLogic
     }
     void FocusedEnemy()
     {
+        RoomCompleted(true, true);
         succesfullyFocused = true;
     }
     void UnfocusedEnemy()
     {
-        if (succesfullyFocused) { RoomCompleted(true, true); }
+        //if (succesfullyFocused) { RoomCompleted(true, true); }
     }
     void Count1Parry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
     {

@@ -15,11 +15,8 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [SerializeField] Vector2 FocusMinMaxDistance_Controller;
     [SerializeField] float FocusDistanceWithController;
     [Header("zoomer")]
-    CameraZoomer zoomer;
-    [SerializeField] float minZoom;
-    [SerializeField] float minDistance;
-    [SerializeField] float maxZoom;
-    [SerializeField] float maxDistance;
+    CameraZoomController zoomer;
+
     [Header("references")]
     Transform MouseFocusTransform;
     [SerializeField] Player_References playerRefs;
@@ -33,29 +30,28 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     [HideInInspector] public GameObject FocusedEnemy;
     [HideInInspector] public Vector2 PositionToLook;
     public bool IsFocusingEnemy = false;
-    Enemy_EventSystem FocusedEventSystem;
-    Camera mainCamera;
+
     public Vector2 SwordDirection;
     Vector2 lastValidDirection;
     InputDetector inputDetector;
+    bool attemptedJoystickRefocus;
 
     private void Awake()
     {
         MouseFocusTransform = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
         cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
-        zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomer>();
-        mainCamera = Camera.main;
+        zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         inputDetector = InputDetector.Instance;
     }
     private void OnEnable()
     {
         playerRefs.events.OnDeath += unfocusOnDeath;
-        inputDetector.OnFocusPressed += AttemptFocus;
+        inputDetector.OnFocusPressed += CallNormalFocusAttempt;
     }
     private void OnDisable()
     {
         playerRefs.events.OnDeath -= unfocusOnDeath;
-        inputDetector.OnFocusPressed -= AttemptFocus;
+        inputDetector.OnFocusPressed -= CallNormalFocusAttempt;
     }
 
     void  Update()
@@ -68,12 +64,11 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         } 
         else if (IsFocusingEnemy == true) //Look at enemy if focusing enemy
         { 
-            zoomer.FocusZoom = UpdateZoom(); PositionToLook = FocusedEnemy.transform.position; 
+            PositionToLook = FocusedEnemy.transform.position; 
         }
         else //Or look at mouse
         {
-            
-            if (inputDetector.LookingDirectionInput.sqrMagnitude < 0.5f)
+            if (inputDetector.LookingDirectionInput.sqrMagnitude < 0.5f) //if not enough input from joystick, look at last valid
             {
                 PositionToLook = inputDetector.PlayerPos + lastValidDirection;
             }
@@ -84,56 +79,126 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             }
         } 
 
-        LookingAtTarget(PositionToLook);
+        LookingAtTarget(PositionToLook); //MAIN METHOD
 
-        if(inputDetector.LookingDirectionInput.sqrMagnitude > .7f)
+        //DARKSOULS Joystick focus system
+        DarkSoulsFocus();
+    }
+    void DarkSoulsFocus()
+    {
+        if (inputDetector.LookingDirectionInput.sqrMagnitude > .8f && IsFocusingEnemy && inputDetector.isControllerDetected)
         {
-            //TO DO CAMBIAR FOCUS TIPO DARK SOULS
+            if (!attemptedJoystickRefocus)
+            {
+                AttemptFocus(true, false);
+                attemptedJoystickRefocus = true;
+            }
+        }
+        else
+        {
+            if (attemptedJoystickRefocus) { attemptedJoystickRefocus = false; }
         }
     }
-    void AttemptFocus()
+    void CallDeathFocusAttempt(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    {
+        AttemptFocus(false, true);
+    }
+    void CallNormalFocusAttempt()
+    {
+        AttemptFocus(false, false);
+    }
+    void AttemptFocus(bool isDarksoulsFocus, bool isDeathFocus)
     {
         //Restart enemies list and find every enemy in scene
         CurrentEnemies.Clear();
         CurrentEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        //Get the currently focused enemy, if the new focuse enemy is the same, unfocus
+        //Get the currently focused enemy, for later uses
         GameObject PreviuslyFocusedEnemy = FocusedEnemy;
 
-        //Unfocus old Enemy if they are not null
-        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_EventSystem>().OnUnfocused?.Invoke();
+        //Unsubscribe to old Enemy if they are not null and Unfocus icon
+        if (FocusedEnemy != null) { UnsubscribeToEnemy(FocusedEnemy); }
 
-        //Find closest enemy
-            //If controller detected, the center of search will be slighly forward of the sword
+        //Decide where to put the searcher:
+            //If Death Focus, make a big focus around the dead enemy
+            //If controller detected, the center of search will be slighly forward of the sword 
             //If in keyboard, the center will be the mouse position
-        if (inputDetector.isControllerDetected) 
+        if(isDeathFocus)
         {
-            Vector2 playerPos = transform.position;
-            float lookingX = inputDetector.LookingDirectionInput.x;
-            float absoluteX = Mathf.Abs(lookingX);
-            float equivalentRadius = UsefullMethods.equivalentFromAtoB(0, 1, FocusMinMaxDistance_Controller.x, FocusMinMaxDistance_Controller.y, absoluteX);
-
-            Vector2 centerOfDetection_C = playerPos + inputDetector.LookingDirectionInput * equivalentRadius; //use the radius as distance lets see 
-            FocusedEnemy = ClosestEnemyToMouseInRange(centerOfDetection_C, equivalentRadius);
+            DeathFocus(PreviuslyFocusedEnemy);
+        }
+        else if (inputDetector.isControllerDetected) 
+        {
+            ControllerFocus(PreviuslyFocusedEnemy, isDarksoulsFocus);
         }
         else 
         {
-            Vector2 centerOfDetection_K = inputDetector.MousePosition;
-            FocusedEnemy = ClosestEnemyToMouseInRange(centerOfDetection_K, FocusMaxDistance_Keyboard);
+            KeyboardFocus();
         }
 
-        //If couldnt find enemy or its the same enemy as before, unfocus
-        if (FocusedEnemy == null || FocusedEnemy == PreviuslyFocusedEnemy) 
+        //If couldnt find enemy or its the same enemy as before, unfocus (unless its darksouls joystick focus).
+        //when using darksouls joystick focus, if couldnt find an enemy, focus to previusly focused enemy
+        //Found a valid enemy
+        if (FocusedEnemy == null && !isDarksoulsFocus || FocusedEnemy == PreviuslyFocusedEnemy && !isDarksoulsFocus) 
         {
             FocusedEnemy = null;
             if (!IsFocusingEnemy) { return; } //couldnt find any enemy but we were already not focusing
-            OnLookAtMouse();
+            OnLookAtMouse(PreviuslyFocusedEnemy);
         }
-        else
+        else if(FocusedEnemy == null && isDarksoulsFocus)
+        {
+            FocusedEnemy = PreviuslyFocusedEnemy;
+            OnLookAtEnemy();
+        }
+        else 
         {
             OnLookAtEnemy();
         }
     }
+    void DeathFocus(GameObject previusEnemy)
+    {
+        FocusedEnemy = ClosestEnemyToCenterWithinRange(previusEnemy.transform.position, 5, previusEnemy);
+        if( FocusedEnemy == null) { return; }
+        if (FocusedEnemy == previusEnemy) { FocusedEnemy = null; }
+    }
+    void ControllerFocus(GameObject previusenemy, bool isDarkSouls)
+    {
+        Vector2 playerPos = transform.position;
+        float lookingX = inputDetector.LookingDirectionInput.x;
+        float absoluteX = Mathf.Abs(lookingX);
+        float equivalentRadius = UsefullMethods.equivalentFromAtoB(0, 1, FocusMinMaxDistance_Controller.x, FocusMinMaxDistance_Controller.y, absoluteX);
+
+        //If in darksouls mode, use the focused enemy as the center to get the direction
+        //If in regular mode (pressing focus button) use the player as center
+        Vector2 centerOfDetection_C = Vector2.zero;
+        if (isDarkSouls)
+        {
+            Vector2 enemyPos = previusenemy.transform.position;
+            centerOfDetection_C = enemyPos + inputDetector.LookingDirectionInput * equivalentRadius;
+        }
+        else { centerOfDetection_C = playerPos + inputDetector.LookingDirectionInput * equivalentRadius; }
+
+        FocusedEnemy = ClosestEnemyToCenterWithinRange(centerOfDetection_C, equivalentRadius);
+    }
+    void KeyboardFocus()
+    {
+        Vector2 centerOfDetection_K = inputDetector.MousePosition;
+        FocusedEnemy = ClosestEnemyToCenterWithinRange(centerOfDetection_K, FocusMaxDistance_Keyboard);
+    }
+    void UnsubscribeToEnemy(GameObject unsubscribed)
+    {
+        Enemy_EventSystem unsubscribedEvents = unsubscribed.GetComponent<Enemy_EventSystem>();
+        unsubscribedEvents.OnUnfocused?.Invoke();
+        unsubscribedEvents.OnDeath -= CallDeathFocusAttempt;
+    }
+    void SubscribeToEnemy(GameObject subscribed)
+    {
+        Enemy_EventSystem subscribedEvents = subscribed.GetComponent<Enemy_EventSystem>();
+        subscribedEvents.OnFocused?.Invoke();
+        subscribedEvents.OnDeath += CallDeathFocusAttempt;
+    }
+    //Deprecated seems
+    /*
     void callOnLookatMouse(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
@@ -144,50 +209,45 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         }
 
     }
-    void OnLookAtMouse()
+    */
+    void OnLookAtMouse(GameObject UnfocusedEnemy)
     {
-        IsFocusingEnemy = false;
+        if (!IsFocusingEnemy) { return; } //Just in case pero no fa res crec
+
+        //Unsubscribe to everything
+        if(UnfocusedEnemy != null) { UnsubscribeToEnemy(UnfocusedEnemy); }
 
         cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
         cinemachineTarget.m_Targets[1].weight = 1;
         cinemachineTarget.m_Targets[1].radius = 0;
 
-        zoomer.StartFocusOutTransition();
+        zoomer.onUnfocusedEnemy(); //Avisar al zoom controller que ja no tenim focus
 
-        if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; } //Desubscribe to unfocused enemies Death
+        //if (FocusedEventSystem != null) { FocusedEventSystem.OnDeath -= callOnLookatMouse; } //Desubscribe to unfocused enemies Death
 
-        playerRefs.events.OnUnfocusEnemy?.Invoke();
+        playerRefs.events.OnUnfocusEnemy?.Invoke(); //For tutorial room
+
+        IsFocusingEnemy = false;
     }
     void OnLookAtEnemy()
     {
         //Subscribe to stuff so it stops focusing if enemy dies
-        FocusedEnemy.GetComponent<Enemy_EventSystem>().OnFocused?.Invoke();
-        FocusedEventSystem = FocusedEnemy.GetComponent<Enemy_EventSystem>();
-        FocusedEventSystem.OnDeath += callOnLookatMouse;
+
+        SubscribeToEnemy(FocusedEnemy);
 
         IsFocusingEnemy = true;
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
         cinemachineTarget.m_Targets[1].weight = 3;
         cinemachineTarget.m_Targets[1].radius = 2;
-        zoomer.StartFocusInTransition();
 
-        playerRefs.events.OnFocusEnemy?.Invoke();
+        zoomer.onFocusedEnemy(); //Avisar al zoomer que tenim un focus
+
+        playerRefs.events.OnFocusEnemy?.Invoke(); //Currently just used for Tutorial Rooms
     }
     Vector2 GetLookingDirection()
     {
         Vector2 direction = inputDetector.PlayerPos + inputDetector.LookingDirectionInput;
         return direction;
-    }
-    void GetFocusedEnemyPosition() //deprecated?? maybe
-    {
-        if (FocusedEnemy == null)
-        {
-            IsFocusingEnemy = false;
-            return;
-        }
-        Vector2 focusedEnemyPosition = FocusedEnemy.transform.position;
-        LookingAtTarget(focusedEnemyPosition);
-        zoomer.FocusZoom = UpdateZoom();
     }
     void LookingAtTarget(Vector2 targetPos)
     {
@@ -201,16 +261,18 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         playerRefs.spriteFliper.FocusVector = targetPos;
     }
-    GameObject ClosestEnemyToMouseInRange(Vector2 center, float range)
+    GameObject ClosestEnemyToCenterWithinRange(Vector2 center, float range, GameObject IgnoredEnemy = null)
     {
 
         List<GameObject> InrangeEnemies = new List<GameObject>();
         List<float> InrangeDistances = new List<float>();
+
         StartCoroutine(DrawAttemptDebug(center, range, 2f));
         
         //Add to a list every enemy within range and its distance
         for (int i = 0; i < CurrentEnemies.Count; i++)
         {
+            if (IgnoredEnemy != null && CurrentEnemies[i] == IgnoredEnemy) { continue; } //Ignore enemy to ignore if not null
             if (Vector2.Distance(center, CurrentEnemies[i].transform.position) < range)
             {
                 InrangeEnemies.Add(CurrentEnemies[i]);
@@ -234,16 +296,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         }
         return InrangeEnemies[minIndex];
     }
-    IEnumerator DrawAttemptDebug(Vector2 center, float radius, float time)
-    {
-        float timer = 0;
-        while (timer < time )
-        {
-            timer += Time.deltaTime;
-            UsefullMethods.DrawPolygon(center, 10, radius);
-            yield return null;
-        }
-    }
+    
     //When player dies
     void unfocusOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
@@ -252,22 +305,19 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             TargetGroupSingleton.Instance.RemoveTarget(FocusedEnemy.transform);
             FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
             FocusedEnemy = null;
+            zoomer.onUnfocusedEnemy();
             IsFocusingEnemy = false;
-            zoomer.UpdateNewCoroutine();
+            //zoomer.CheckLatestZoomInfoAndChange();
         }
     }
-
-    float UpdateZoom()
+    IEnumerator DrawAttemptDebug(Vector2 center, float radius, float time)
     {
-        if(FocusedEnemy == null) { return 0.5f; }
-        Vector2 playerPosition = transform.position;
-        Vector2 enemyPosition = FocusedEnemy.transform.position;
-        float distanceToEnemy = (enemyPosition - playerPosition).magnitude;
-
-        float NormalizedDistance = Mathf.InverseLerp(minDistance, maxDistance, distanceToEnemy);
-        float relativeZoom = Mathf.Lerp(minZoom, maxZoom, NormalizedDistance);
-        return relativeZoom;
+        float timer = 0;
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+            UsefullMethods.DrawPolygon(center, 10, radius);
+            yield return null;
+        }
     }
-
-
 }
