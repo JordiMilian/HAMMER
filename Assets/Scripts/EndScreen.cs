@@ -50,6 +50,7 @@ public class EndScreen : MonoBehaviour
             StartCoroutine(FadeOutUiElement(i, time));
         }
         isDisplaying = false;
+        EndScreenRootImage.SetActive(false);
     }
     void FadeIn(float time)
     {
@@ -58,6 +59,7 @@ public class EndScreen : MonoBehaviour
             StartCoroutine(FadeInUIElement(i, time));
         }
         isDisplaying = true;
+        
     }
     IEnumerator FadeOutUiElement(MaskableGraphic im, float duration)
     {

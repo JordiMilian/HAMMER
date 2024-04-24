@@ -67,13 +67,13 @@ public class InputDetector : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.JoystickButton1)) { OnRollUnpressed?.Invoke(); }
 
             //Attack with RB
-            if (Input.GetKey(KeyCode.JoystickButton5)) { OnAttackPressed?.Invoke(); }
+            if (Input.GetKeyDown(KeyCode.JoystickButton5)) { OnAttackPressed?.Invoke(); }
 
             //Parry with LB
-            if(Input.GetKey(KeyCode.JoystickButton4)) { OnParryPressed?.Invoke(); }
+            if(Input.GetKeyDown(KeyCode.JoystickButton4)) { OnParryPressed?.Invoke(); }
 
             //Pause with Start
-            if (Input.GetKey(KeyCode.JoystickButton7)) { OnPausePressed?.Invoke(); }
+            if (Input.GetKeyDown(KeyCode.JoystickButton7)) { OnPausePressed?.Invoke(); }
 
             //Roll with left trigger
             TriggerInputs(OnRollPressed, OnRollPressing, OnRollUnpressed, "LeftTrigger", ref leftTriggerPressed);

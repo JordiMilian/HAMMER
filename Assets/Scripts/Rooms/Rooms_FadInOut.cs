@@ -19,11 +19,13 @@ public class Rooms_FadInOut : MonoBehaviour
     }
     private void Start()
     {
-        if(!isStartingRoom)
+        if(isStartingRoom)
         {
-            FadeOut(RoomSpritesArray);
-            if(DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }
-            
+            playerEnteredRoom(this, new EventArgsCollisionInfo(new Collider2D()));
+        }
+        else
+        {
+            playerExitedRoom(this, new EventArgsCollisionInfo(new Collider2D()));
         }
     }
     private void OnEnable()
