@@ -8,13 +8,14 @@ using UnityEngine.Animations;
 
 public class AudioPlayer : MonoBehaviour
 {
+    public static AudioPlayer Instance;
     [SerializeField] AudioSource audioSource;
     Dictionary<string,AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
 
     [SerializeField] List<AudioClip> audioClipsList = new List<AudioClip>();
 
 
-    public static AudioPlayer Instance;
+   
     private void Awake()
     {
         if (Instance != null && Instance != this)
