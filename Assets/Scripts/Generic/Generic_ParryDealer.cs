@@ -24,7 +24,10 @@ public class Generic_ParryDealer : MonoBehaviour
             case Team.Enemy:
                 if(collision.CompareTag(TagsCollection.Player_Hitbox))
                 {
-                    PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position));
+                    if (collision.GetComponent<Generic_DamageDealer>().isParryable)
+                    {
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position));
+                    }
                 }
                 break;
         }

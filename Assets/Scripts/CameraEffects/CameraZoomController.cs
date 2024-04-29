@@ -112,6 +112,7 @@ public class CameraZoomController : MonoBehaviour
     public void onUnfocusedEnemy()
     {
         isFocusingZoom = false;
+        checkedLatestZoom = false;
     }
     float CalculateFocusZoom(Vector2 enemyPos) 
     {

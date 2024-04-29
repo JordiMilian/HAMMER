@@ -11,6 +11,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     [SerializeField] GameObject DestinationPrefab;
     [SerializeField] GameObject BigDestinationPrefab;
     [SerializeField] Transform ThrowingOrigin;
+    [SerializeField] Enemy_EventSystem enemyEvents;
 
     [Header("Polygon Throw")]
     [SerializeField] int pointsAround;
@@ -39,6 +40,7 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         GameObject Instantiated_DestinationUI = Instantiate(DestinationPrefab, destination, Quaternion.identity);
         GameObject InstantiatedProjectile = Instantiate(ProjectilePrefab, ThrowingOrigin.position, Quaternion.identity);
         InstantiatedProjectile.GetComponent<GreenBoss_ProjectileLogic>().ThrowItself(Instantiated_DestinationUI, ThrowingOrigin.position, destination);
+        enemyEvents.OnThrowGreenProjectile?.Invoke();
     }
     void TransitionThrow(Vector2 destination)
     {

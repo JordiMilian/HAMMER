@@ -5,6 +5,7 @@ using UnityEngine;
 public class GreenBoss_ProjectileLogic : MonoBehaviour
 {
     [SerializeField] AnimationClip ParaboleAnimation;
+    [SerializeField] AudioClip GreenProjectileImpactSFX;
     public void ThrowItself(GameObject DestinationGO,Vector3 initialPosition, Vector3 destinationPosition)
     {
         float ParaboleTime = ParaboleAnimation.length;
@@ -35,5 +36,6 @@ public class GreenBoss_ProjectileLogic : MonoBehaviour
     {
         Animator DestinatioAnimator = DestinationGO.GetComponent<Animator>();
         DestinatioAnimator.SetTrigger("Landed");
+        Game_AudioPlayerSingleton.Instance.playSFXclip(GreenProjectileImpactSFX, 0.3f, -0.25f);
         Destroy(gameObject);    }
 }

@@ -13,4 +13,6 @@ public class Enemy_EventSystem : Generic_EventSystem
     public Action OnAgrooState;
     public Action OnIdleState;
     public Action OnStanceBroken;
+    public Action OnThrowTomato;
+    public Action OnThrowGreenProjectile;
 }

@@ -72,4 +72,5 @@ public class Generic_EventSystem : MonoBehaviour
     public EventHandler<SuccesfulParryInfo> OnSuccessfulParry;
     public EventHandler<DealtDamageInfo> OnHitObject;
     public EventHandler<ObjectDirectionArgs> OnBeingTouchedObject;
+    public Action OnShowCollider; //Currently for sounds
 }

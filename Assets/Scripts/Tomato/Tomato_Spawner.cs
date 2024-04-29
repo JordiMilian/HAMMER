@@ -9,6 +9,7 @@ public class Tomato_Spawner : MonoBehaviour
     [SerializeField] GameObject TomatoPrefab;
     [SerializeField] GameObject DestinationGO;
     [SerializeField] float MaxDistance;
+    [SerializeField] Enemy_EventSystem enemyEvents;
     void Awake()
     {
         Player = GameObject.Find(TagsCollection.MainCharacter).transform;
@@ -23,6 +24,9 @@ public class Tomato_Spawner : MonoBehaviour
 
         //Instantiante the tomato
         var Tomato = Instantiate(TomatoPrefab, TomatoHandTransform.position, TomatoHandTransform.rotation);
+
+        //Call event for Sound effect currently
+        enemyEvents.OnThrowTomato?.Invoke();
     }
     public void EV_newSpawnTomato()
     {
@@ -42,6 +46,9 @@ public class Tomato_Spawner : MonoBehaviour
         GameObject newDestination = Instantiate(DestinationGO, destination, Quaternion.identity);
 
         newTomato.GetComponent<Tomato_NewController>().ThrowItself(newDestination, HandPosition, destination);
+
+        //Call event for Sound effect currently
+        enemyEvents.OnThrowTomato?.Invoke();
     }
 
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tomato_NewController : MonoBehaviour
 {
     [SerializeField] AnimationClip ParaboleAnimation;
+    [SerializeField] AudioClip TomatoImpactSFX;
      public void ThrowItself(GameObject DestinationGO, Vector3 initialPosition, Vector3 destinationPosition)
     {
         float ParaboleTime = ParaboleAnimation.length;
@@ -35,6 +36,7 @@ public class Tomato_NewController : MonoBehaviour
     {
         Animator DestinatioAnimator = DestinationGO.GetComponent<Animator>();
         DestinatioAnimator.SetTrigger("Landed");
+        Game_AudioPlayerSingleton.Instance.playSFXclip(TomatoImpactSFX);
         Destroy(gameObject);
     }
 }
