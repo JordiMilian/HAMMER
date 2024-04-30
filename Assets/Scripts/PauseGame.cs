@@ -10,6 +10,7 @@ public class PauseGame : MonoBehaviour
     [HideInInspector] public static bool isPaused;
     Transform MouseTarget;
     [SerializeField] Canvas pauseCanvas;
+    [SerializeField] UI_ControllerControl controllerControls;
 
     public Action OnPauseMenu;
     public Action OnUnpauseMenu;
@@ -59,6 +60,8 @@ public class PauseGame : MonoBehaviour
         pauseCanvas.enabled = true; //show UIs
 
         OnPauseMenu?.Invoke(); //event
+
+        controllerControls.RestartSelection(); //have the first button selected when opening menu
     }
     public void Unpause()
     {

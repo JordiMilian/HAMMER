@@ -8,6 +8,7 @@ public class DoorAnimationController : MonoBehaviour
     bool isDoorOpen;
     [SerializeField] Animator doorAnimator;
     [SerializeField] Collider2D blockingCollider;
+    [SerializeField] AudioClip OpenAudio, CloseAudio;
 
     public Action OnDoorOpened;
     public Action OnDoorClosed;
@@ -27,6 +28,7 @@ public class DoorAnimationController : MonoBehaviour
         if (isDoorOpen)
         {
             doorAnimator.SetTrigger("Close");
+            Game_AudioPlayerSingleton.Instance.playSFXclip(CloseAudio);
             isDoorOpen = false;
             OnDoorClosed?.Invoke();
         } 
@@ -41,6 +43,7 @@ public class DoorAnimationController : MonoBehaviour
         if (!isDoorOpen)
         {
             doorAnimator.SetTrigger("Open");
+            Game_AudioPlayerSingleton.Instance.playSFXclip(OpenAudio);
             isDoorOpen = true;
             OnDoorOpened?.Invoke();
         }

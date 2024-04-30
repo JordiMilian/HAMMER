@@ -22,6 +22,13 @@ public class InputDetector : MonoBehaviour
 
     public Action OnPausePressed;
 
+    public Action OnUpPressed;
+    public Action OnDownPressed;
+    public Action OnRightPressed;
+    public Action OnLeftPressed;
+
+    public Action OnSelectPressed;
+
     public Vector2 MovementDirectionInput;
     public Vector2 LookingDirectionInput;
     public Vector2 MousePosition;
@@ -32,6 +39,7 @@ public class InputDetector : MonoBehaviour
     Camera mainCamera;
     bool leftTriggerPressed;
     bool rightTriggerPressed;
+    bool madeJoystickMovementInput;
 
     public static InputDetector Instance;
     private void Awake()
@@ -51,12 +59,14 @@ public class InputDetector : MonoBehaviour
         OnPausePressed += OnPausePressedDebug;
         OnAttackPressed += OnAttackPresedDebug;
         mainCamera = Camera.main;
-        PlayerTf = GameObject.Find(TagsCollection.MainCharacter).transform;
+        //PlayerTf = GameObject.Find(TagsCollection.MainCharacter).transform;
     }
     void Update()
     {
         CheckForController();
-        PlayerPos = PlayerTf.position;
+        if(PlayerTf != null) { PlayerPos = PlayerTf.position; }
+        else { PlayerTf = transform; }
+        
 
         //CONTROLLER STUFF
         if (isControllerDetected)
@@ -86,6 +96,16 @@ public class InputDetector : MonoBehaviour
 
             //Left joystick direction
             MovementDirectionInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            //Movement Events
+            if (MovementDirectionInput.y > 0.6f)        { if (!madeJoystickMovementInput) { OnUpPressed?.Invoke(); madeJoystickMovementInput = true; } }
+            else if (MovementDirectionInput.y < -0.6f)  { if (!madeJoystickMovementInput) { OnDownPressed?.Invoke(); madeJoystickMovementInput = true; } }
+            else if (MovementDirectionInput.x > 0.6f)   { if (!madeJoystickMovementInput) { OnRightPressed?.Invoke(); madeJoystickMovementInput = true; } }
+            else if (MovementDirectionInput.x < -0.6f)  { if (!madeJoystickMovementInput) { OnLeftPressed?.Invoke(); madeJoystickMovementInput = true; } }
+            else { madeJoystickMovementInput = false; }
+
+            //press A to select
+            if (Input.GetKeyDown(KeyCode.JoystickButton0)) { OnSelectPressed?.Invoke(); }
         }
 
         //KEYBOARD STUFF
@@ -110,6 +130,14 @@ public class InputDetector : MonoBehaviour
 
             //movement with WASD or arrows
             MovementDirectionInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            //movement actions with WASD
+            if (Input.GetKeyDown(KeyCode.W)) { OnUpPressed?.Invoke(); }
+            if (Input.GetKeyDown(KeyCode.S)) { OnDownPressed?.Invoke(); }
+            if (Input.GetKeyDown(KeyCode.D)) { OnRightPressed?.Invoke(); }
+            if (Input.GetKeyDown(KeyCode.A)) { OnLeftPressed?.Invoke(); }
+
+            //Enter to Select
+            if (Input.GetKeyDown(KeyCode.Return)){ OnSelectPressed?.Invoke(); }
 
             //mouse direction
             MousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);

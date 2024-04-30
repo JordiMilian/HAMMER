@@ -107,7 +107,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         {
             if (enemyRefs.animator.GetBool("inIdle") && isProviding) 
             {
-                ResetAllTriggers();
+                ResetAllTriggers(enemyRefs.animator);
                 PickAvailableAttacks();
             }
         }
@@ -189,13 +189,13 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         foreach (EnemyAttack attack in attacks) { Probabilities += attack.Probability; }
         return Probabilities;
     }
-    public void ResetAllTriggers()
+    public static void ResetAllTriggers(Animator anim)
     {
-        foreach (var param in enemyRefs.animator.parameters)
+        foreach (var param in anim.parameters)
         {
             if (param.type == AnimatorControllerParameterType.Trigger)
             {
-                enemyRefs.animator.ResetTrigger(param.name);
+                anim.ResetTrigger(param.name);
             }
         }
     }

@@ -81,4 +81,24 @@ public class UsefullMethods
         float normalizedA = Mathf.InverseLerp(minA, maxA, initialValueA);
         return Mathf.Lerp(minB,maxB, normalizedA);
     }
+    public static void ResetAllTriggersInAnimator(Animator anim)
+    {
+        foreach (var param in anim.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                anim.ResetTrigger(param.name);
+            }
+        }
+    }
+    public static void TurnAllBoolsOff(Animator anim)
+    {
+        foreach (var param in anim.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                anim.SetBool(param.name,false);
+            }
+        }
+    }
 }

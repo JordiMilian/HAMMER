@@ -7,11 +7,6 @@ public class UI_Button : MonoBehaviour
 {
     [SerializeField] VisualEffect bloodEffect;
     [SerializeField] UI_BaseAction Action;
-    public enum ButtonType
-    {
-        unpause, restartLevel, die, exit
-    }
-    [SerializeField] ButtonType buttonType;
     public void EV_playEffect()
     {
         bloodEffect.Play();
