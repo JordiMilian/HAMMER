@@ -12,6 +12,7 @@ public class Player_RespawnerManager : MonoBehaviour
     [SerializeField] GameObject PlayerGO;
     Generic_HealthSystem playerHealth;
     [SerializeField] Player_EventSystem eventSystem;
+    
 
     
     private void OnEnable()

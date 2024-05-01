@@ -7,6 +7,6 @@ public class UI_LoadGreenBossRoom : UI_BaseAction
 {
     public override void Action(UI_Button button)
     {
-        SceneManager.LoadScene("BossScene");
+        SceneManager.LoadScene("BossScene",LoadSceneMode.Single);
     }
 }

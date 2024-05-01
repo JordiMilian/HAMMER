@@ -15,12 +15,17 @@ public class EndScreen : MonoBehaviour
     {
         images = GetComponentsInChildren<MaskableGraphic>().ToList<MaskableGraphic>();
         EndCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        isDisplaying = false;
     }
     private void OnEnable()
     {
         EndCollider.OnTriggerEntered += playerEnteredEndCollider;
         InputDetector.Instance.OnPausePressed += onPausePressed;
-
+    }
+    private void OnDisable()
+    {
+        EndCollider.OnTriggerEntered -= playerEnteredEndCollider;
+        InputDetector.Instance.OnPausePressed -= onPausePressed;
     }
     private void Start()
     {
@@ -32,7 +37,6 @@ public class EndScreen : MonoBehaviour
         {
             UI_Action.Action(new UI_Button());
         }
-        
     }
     
     void playerEnteredEndCollider(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)

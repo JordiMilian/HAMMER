@@ -7,6 +7,6 @@ public class UI_RestartLevel : UI_BaseAction
 {
     public override void Action(UI_Button button)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 }

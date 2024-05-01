@@ -162,6 +162,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     }
     void ControllerFocus(GameObject previusenemy, bool isDarkSouls)
     {
+        //This is deprecated for now, all the focus attempts are now the max size
         Vector2 playerPos = transform.position;
         float lookingX = inputDetector.LookingDirectionInput.x;
         float absoluteX = Mathf.Abs(lookingX);
@@ -175,9 +176,9 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             Vector2 enemyPos = previusenemy.transform.position;
             centerOfDetection_C = enemyPos + inputDetector.LookingDirectionInput * equivalentRadius;
         }
-        else { centerOfDetection_C = playerPos + inputDetector.LookingDirectionInput * equivalentRadius; }
+        else { centerOfDetection_C = playerPos + lastValidDirection * FocusMinMaxDistance_Controller.y * 0.7f; }
 
-        FocusedEnemy = ClosestEnemyToCenterWithinRange(centerOfDetection_C, equivalentRadius);
+        FocusedEnemy = ClosestEnemyToCenterWithinRange(centerOfDetection_C, FocusMinMaxDistance_Controller.y);
     }
     void KeyboardFocus()
     {

@@ -7,6 +7,6 @@ public class UI_LoadMainMenu : UI_BaseAction
 {
     public override void Action(UI_Button button)
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

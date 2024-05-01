@@ -9,6 +9,7 @@ public class UI_ControllerControl : MonoBehaviour
     [SerializeField] InputDetector inputDetector;
     [SerializeField] int currentSelectedIndex;
     [HideInInspector] public bool isReadingInput = true;
+    [SerializeField] bool startReadingInput;
 
     string Highlighted = "Highlighted";
     string isHighlighted = "isHighlighted";
@@ -18,7 +19,7 @@ public class UI_ControllerControl : MonoBehaviour
     private void Start()
     {
         RestartSelection();
-        isReadingInput = true;
+        isReadingInput = startReadingInput;
     }
     private void OnEnable()
     {

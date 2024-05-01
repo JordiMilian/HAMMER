@@ -62,6 +62,7 @@ public class PauseGame : MonoBehaviour
         OnPauseMenu?.Invoke(); //event
 
         controllerControls.RestartSelection(); //have the first button selected when opening menu
+        controllerControls.isReadingInput = true;
     }
     public void Unpause()
     {
@@ -70,6 +71,7 @@ public class PauseGame : MonoBehaviour
         TargetGroupSingleton.Instance.AddTarget(MouseTarget, 1f, 0);
         pauseCanvas.enabled = false;
         OnUnpauseMenu?.Invoke();
+        controllerControls.isReadingInput = false;
     }
     public void exit()
     {
