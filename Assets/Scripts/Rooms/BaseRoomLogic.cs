@@ -25,6 +25,7 @@ public class BaseRoomLogic : MonoBehaviour
         if (isRoomPermanentlyCompleted) {return; }
         if (withAnimation) { StartCoroutine(OpenDoorFocusCamera()); }
         if (isRoomPermanent) { isRoomPermanentlyCompleted = true; }
+        else { return; }
 
         //Activate the trigger to Reopen Door
         reopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = true;

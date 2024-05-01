@@ -47,12 +47,13 @@ public class ScreenSaver : MonoBehaviour
     IEnumerator waitingAfterInput()
     {
         Debug.Log("Lets wait for: " + WaitAfterInput);
-        yield return new WaitForSeconds(WaitAfterInput);
+        yield return new WaitForSecondsRealtime(WaitAfterInput);
         playVideo();
         isPlaying = true;
     }
     void playVideo()
     {
+        Debug.Log("playing video");
         MainMenuButtonsController.isReadingInput = false;
         VideoUIObject.SetActive(true);
         videoPlayer.Play();

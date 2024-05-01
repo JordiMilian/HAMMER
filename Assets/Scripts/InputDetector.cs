@@ -85,8 +85,8 @@ public class InputDetector : MonoBehaviour
             //Pause with Start
             if (Input.GetKeyDown(KeyCode.JoystickButton7)) { OnPausePressed?.Invoke(); }
 
-            //Roll with left trigger
-            TriggerInputs(OnRollPressed, OnRollPressing, OnRollUnpressed, "LeftTrigger", ref leftTriggerPressed);
+            //Parry with left trigger TEST
+            TriggerInputs(OnParryPressed, OnFocusPressing, OnFocusUnpressed, "LeftTrigger", ref leftTriggerPressed);
 
             //Focus with right trigger
             TriggerInputs(OnFocusPressed,OnFocusPressing,OnFocusUnpressed, "RightTrigger", ref rightTriggerPressed);

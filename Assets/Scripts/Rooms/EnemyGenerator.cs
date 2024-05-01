@@ -12,12 +12,15 @@ public class EnemyGenerator : BaseRoomLogic
     public class EnemySpawn
     {
         public GameObject PrefabEnemy;
-        public int Weight;
-        public float minInstances;
-        public float maxInstances;
+        [Range(1,2)]
+        public int Tier = 1;
+        public int Weight = 1;
+        public float minInstances = 1;
+        public float maxInstances = 1;
         [HideInInspector] public float currentInstances;
     }
-    [SerializeField] int MaxWeight;
+    [SerializeField] int MaxWeight_T1;
+    [SerializeField] int MaxWeight_T2;
     public List<EnemySpawn> SpawneableEnemies = new List<EnemySpawn>();
     [HideInInspector] public List<GameObject> CurrentlySpawnedEnemies = new List<GameObject>();
 
@@ -37,16 +40,12 @@ public class EnemyGenerator : BaseRoomLogic
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
         
     }
-    private void Start()
-    {
-        
-    }
     void SpawnEnemies(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
     {
 
         if (isRoomPermanentlyCompleted) { return; }
         if (areCorrectlySpawned) { return; }
-        if (SpawneableEnemies.Count == 0 || MaxWeight == 0)
+        if (SpawneableEnemies.Count == 0)
         {
             RoomCompleted(false,false);
             Debug.LogWarning("Nothing to spawn");
@@ -60,7 +59,8 @@ public class EnemyGenerator : BaseRoomLogic
             Destroy(CurrentlySpawnedEnemies[i]);
             CurrentlySpawnedEnemies.Remove(CurrentlySpawnedEnemies[i]);
         }
-        int currentWeight = 0;
+        int currentWeight_T1 = 0;
+        int currentWeight_T2 = 0;
 
         foreach (EnemySpawn spawn in SpawneableEnemies)
         {
@@ -71,11 +71,25 @@ public class EnemyGenerator : BaseRoomLogic
             for (int i = 0; i < spawn.minInstances; i++)
             {
                 ActuallySpawn(spawn);
-                currentWeight += spawn.Weight;
+                currentWeight_T1 += spawn.Weight;
             }
         }
+        SpawnWeights(1, currentWeight_T1, MaxWeight_T1);
+        SpawnWeights(2, currentWeight_T2, MaxWeight_T2);
+
+        EnemiesAlive = CurrentlySpawnedEnemies.Count;
+        areCorrectlySpawned = true;
+
+        //not correctly spawned after a delay
+        if (correctlySpawnedCoroutine != null) { StopCoroutine(correctlySpawnedCoroutine); }
+        correctlySpawnedCoroutine = StartCoroutine(NotCorrectlySpawnedTimer());
+
+    }
+    void SpawnWeights(int Tier, int currentWeight, int maxWeight)
+    {
         int attemptsToSpawn = 0;
-        while (currentWeight < MaxWeight)
+        int weightReference = currentWeight;
+        while (weightReference < maxWeight)
         {
             attemptsToSpawn++;
             if (attemptsToSpawn == 30)
@@ -85,6 +99,7 @@ public class EnemyGenerator : BaseRoomLogic
             }
             //Pick a random index
             int randomIndex = UnityEngine.Random.Range(0, SpawneableEnemies.Count);
+            if (SpawneableEnemies[randomIndex].Tier != Tier) { continue; } //If not in the proper Tier pick a diferent enemy
             EnemySpawn thisSpawn = SpawneableEnemies[randomIndex];
 
             //If already maxed, repeat
@@ -92,15 +107,8 @@ public class EnemyGenerator : BaseRoomLogic
 
             //Spawn and add Weight
             ActuallySpawn(thisSpawn);
-            currentWeight += thisSpawn.Weight;
+            weightReference += thisSpawn.Weight;
         }
-        EnemiesAlive = CurrentlySpawnedEnemies.Count;
-        areCorrectlySpawned = true;
-
-        //not correctly spawned after a delay
-        if (correctlySpawnedCoroutine != null) { StopCoroutine(correctlySpawnedCoroutine); }
-        correctlySpawnedCoroutine = StartCoroutine(NotCorrectlySpawnedTimer());
-
     }
     void ActuallySpawn(EnemySpawn spawn)
     {

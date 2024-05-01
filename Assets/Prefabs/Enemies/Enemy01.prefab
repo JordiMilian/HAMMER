@@ -690,6 +690,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6706549770842171762, guid: 284900fd709658a468d08016e4bea5f5, type: 3}
   m_PrefabInstance: {fileID: 5357289513953533040}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &5877516706334194712 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7221020487405985688, guid: 284900fd709658a468d08016e4bea5f5, type: 3}
+  m_PrefabInstance: {fileID: 5357289513953533040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5873652633716492769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1053,6 +1058,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Short
       objectReference: {fileID: 0}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[0].deadPart_GO
+      value: 
+      objectReference: {fileID: 92360413221640699, guid: 7b1f93edadda9024682bbd3641fc2eb3, type: 3}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[0].referenceBone_TF
+      value: 
+      objectReference: {fileID: 5877516706334194712}
     - target: {fileID: 4342330077179444554, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Pitch
       value: 0.54
@@ -1379,7 +1396,7 @@ PrefabInstance:
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7298081609623427543, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Radius
-      value: 3.52
+      value: 4.79
       objectReference: {fileID: 0}
     - target: {fileID: 7332707543437145030, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Enabled
