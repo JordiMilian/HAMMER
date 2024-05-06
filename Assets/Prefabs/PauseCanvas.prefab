@@ -92,7 +92,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4807916172203535578}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -163,7 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodEffect: {fileID: 4807916173143301235}
   Action: {fileID: 4807916172203535581}
-  buttonType: 3
 --- !u!114 &4807916172203535581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +667,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4807916172398204074}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -739,7 +738,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodEffect: {fileID: 4807916173133155152}
   Action: {fileID: 4807916172398204077}
-  buttonType: 2
 --- !u!114 &4807916172398204077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,6 +1031,7 @@ GameObject:
   - component: {fileID: 4807916172619018051}
   - component: {fileID: 4807916172619018055}
   - component: {fileID: 4807916172619018052}
+  - component: {fileID: 451561820}
   m_Layer: 5
   m_Name: PauseCanvas
   m_TagString: Untagged
@@ -1141,6 +1140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 4807916172619018049}
+  controllerControls: {fileID: 451561820}
   playerEventSystem: {fileID: 0}
 --- !u!114 &4807916172619018052
 MonoBehaviour:
@@ -1162,6 +1162,27 @@ MonoBehaviour:
   - {fileID: 4807916173133155152}
   - {fileID: 4807916173143301235}
   pentagonAnimator: {fileID: 4807916173490186047}
+--- !u!114 &451561820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4807916172619018050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25a3fa31f206e84ea7a18f857d827d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonAnimators:
+  - {fileID: 4807916173977337571}
+  - {fileID: 4807916173635319871}
+  - {fileID: 4807916172398204079}
+  - {fileID: 4807916172203535583}
+  inputDetector: {fileID: 0}
+  currentSelectedIndex: 0
+  isReadingInput: 1
+  startReadingInput: 0
 --- !u!1 &4807916172683730107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,7 +2668,7 @@ GameObject:
   - component: {fileID: 4807916173635319864}
   - component: {fileID: 4807916173635319871}
   - component: {fileID: 4807916173635319868}
-  - component: {fileID: 4807916173635319869}
+  - component: {fileID: 1783883186}
   m_Layer: 5
   m_Name: button
   m_TagString: Untagged
@@ -2725,7 +2746,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4807916173635319866}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2795,9 +2816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodEffect: {fileID: 4807916172260955910}
-  Action: {fileID: 4807916173635319869}
-  buttonType: 1
---- !u!114 &4807916173635319869
+  Action: {fileID: 0}
+--- !u!114 &1783883186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3355,7 +3375,6 @@ GameObject:
   - component: {fileID: 4807916173977337583}
   - component: {fileID: 4807916173977337570}
   - component: {fileID: 4807916173977337581}
-  - component: {fileID: 4807916173977337580}
   - component: {fileID: 4807916173977337571}
   - component: {fileID: 4807916173977337568}
   - component: {fileID: 4807916173977337569}
@@ -3429,50 +3448,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2.33
---- !u!114 &4807916173977337580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4807916173977337582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 0
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 3
-  m_Colors:
-    m_NormalColor: {r: 0.43529412, g: 0.011764706, b: 0.105882354, a: 0.7294118}
-    m_HighlightedColor: {r: 0.85490197, g: 0.24313726, b: 0.30980393, a: 1}
-    m_PressedColor: {r: 1, g: 0.76574653, b: 0.495283, a: 1}
-    m_SelectedColor: {r: 0.43529412, g: 0.011764706, b: 0.105882354, a: 0.7294118}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1.4
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 4807916173977337581}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!95 &4807916173977337571
 Animator:
   serializedVersion: 4
@@ -3507,7 +3482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodEffect: {fileID: 4807916173136004625}
   Action: {fileID: 4807916173977337569}
-  buttonType: 0
 --- !u!114 &4807916173977337569
 MonoBehaviour:
   m_ObjectHideFlags: 0

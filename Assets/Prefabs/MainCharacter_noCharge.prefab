@@ -1772,7 +1772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68561b2311f5dab4cba9cf226ebc4150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 3
+  MaxHealth: 10
   BaseSpeed: 20
   DamageMultiplier: 1
 --- !u!114 &7653426975249963391
@@ -1789,13 +1789,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Refs: {fileID: 3175104005493510322}
   MaxHP:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
+    UseConstant: 0
+    ConstantValue: 10
+    Variable: {fileID: 11400000, guid: 49c3ecc0c8b70b948b721b739b6528ec, type: 2}
   CurrentHP:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
+    UseConstant: 0
+    ConstantValue: 10
+    Variable: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
   FillHealthOnStart: 1
   playerRefs: {fileID: 3175104005493510322}
   deadBody: {fileID: 8373828435607482305, guid: f3f602e8ffeaba14f881e1a183c9baf1, type: 3}

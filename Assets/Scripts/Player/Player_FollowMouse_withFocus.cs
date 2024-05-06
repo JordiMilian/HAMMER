@@ -57,7 +57,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     {
         //Check conditions, depending on which will change the Target to focus attention
 
-        if (distanceToEnemy.Value < 1.5f && !isDistanceToMouse.Value && !IsFocusingEnemy) //Look at closest enemy if everything is alright
+        if (distanceToEnemy.Value < 2.5f && !isDistanceToMouse.Value && !IsFocusingEnemy) //Look at closest enemy if everything is alright
         {
             if(ClosestEnemy != null) { PositionToLook = ClosestEnemy.Tf.position; }
         } 
@@ -207,10 +207,9 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             FocusedEnemy = null;
             OnLookAtMouse();
         }
-
     }
     */
-    void OnLookAtMouse(GameObject UnfocusedEnemy)
+    public void OnLookAtMouse(GameObject UnfocusedEnemy)
     {
         if (!IsFocusingEnemy) { return; } //Just in case pero no fa res crec
 

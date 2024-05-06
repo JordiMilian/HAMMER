@@ -51,7 +51,7 @@ public class Enemy01 : MonoBehaviour
     public void GettingParried()
     {
         enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
-        GetComponent<Generic_ShowHideAttackCollider>().EV_Enemy_HideAttackCollider();
+        GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
     }
     public void EndHitShield()
     {
