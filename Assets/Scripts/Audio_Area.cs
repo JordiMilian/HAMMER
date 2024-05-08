@@ -22,10 +22,8 @@ public class Audio_Area : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("What?");
         if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
-            Debug.Log("player in");
             if(CurrentFade != null) { StopCoroutine(CurrentFade); }
             CurrentFade = StartCoroutine( FadeIn(FadesSeconds));
         }
@@ -41,8 +39,6 @@ public class Audio_Area : MonoBehaviour
     }
     IEnumerator FadeOut(float time)
     { 
-
-        Debug.Log("FadeIn)");
          float timer = 0;
         float startingVolume = audioSource.volume;
         while (timer < time)
@@ -58,7 +54,6 @@ public class Audio_Area : MonoBehaviour
 
     IEnumerator FadeIn(float time)
     {
-        Debug.Log("FadeIn)");
         audioSource.Play();
         float timer = 0;
         while (timer < time)

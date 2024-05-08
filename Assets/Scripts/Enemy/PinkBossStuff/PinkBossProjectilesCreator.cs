@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -25,13 +26,14 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     {
         GameObject newGeneralProjectile = Instantiate(PinkProjectile_General,Position, Quaternion.identity);
     }
-    void ThrowDirectionalProjectile(GameObject Prefab, Vector3 Direction)
+    void ThrowDirectionalProjectile(GameObject Prefab, Vector3 Direction, bool isInstant = false)
     {
         GameObject newDirectionalProjectile = Instantiate(Prefab, transform.position, Quaternion.identity);
         Vector2 directionToPLayer = VectorToPlayer.normalized;
         GameObject DirectionChild = newDirectionalProjectile.transform.GetChild(0).gameObject;
         float angleDegToPlayer = angleToPlayerRad * Mathf.Rad2Deg;
         DirectionChild.transform.eulerAngles = new Vector3(0, 0, angleDegToPlayer + 90);
+        if (isInstant) { newDirectionalProjectile.GetComponent<Animator>().SetTrigger("InstantDrop"); }
     }
     private void UpdateVectorData()
     {
@@ -69,5 +71,11 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     {
         UpdateVectorData();
         ThrowDirectionalProjectile(PinkProjectile_StarDirectional, directionToPlayer);
+    }
+    public void EV_GeneralFromCenterOfEnemy()
+    {
+        UpdateVectorData();
+        ThrowDirectionalProjectile(PinkProjectile_General,transform.position,true);
+       
     }
 }
