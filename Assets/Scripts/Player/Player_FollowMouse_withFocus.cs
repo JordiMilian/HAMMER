@@ -176,7 +176,11 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
             Vector2 enemyPos = previusenemy.transform.position;
             centerOfDetection_C = enemyPos + inputDetector.LookingDirectionInput * equivalentRadius;
         }
-        else { centerOfDetection_C = playerPos + lastValidDirection * FocusMinMaxDistance_Controller.y * 0.7f; }
+        else 
+        { 
+            //centerOfDetection_C = playerPos + lastValidDirection * FocusMinMaxDistance_Controller.y * 0.7f;
+            centerOfDetection_C = Camera.main.transform.position;
+        }
 
         FocusedEnemy = ClosestEnemyToCenterWithinRange(centerOfDetection_C, FocusMinMaxDistance_Controller.y);
     }
