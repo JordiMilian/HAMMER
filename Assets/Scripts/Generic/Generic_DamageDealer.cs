@@ -11,6 +11,7 @@ public class Generic_DamageDealer : MonoBehaviour
     public float HitStop;
     public bool isParryable;
     public bool isBloody;
+    [SerializeField] int weaponIndex = 0;
 
     public enum Team
     {
@@ -74,7 +75,7 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishGettingParriedEvent()
     {
-        if (eventSystem.OnGettingParried != null) eventSystem.OnGettingParried();
+        if (eventSystem.OnGettingParried != null) eventSystem.OnGettingParried(weaponIndex);
     }
    
 }

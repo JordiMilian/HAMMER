@@ -68,7 +68,7 @@ public class Generic_EventSystem : MonoBehaviour
     public Action OnUpdatedHealth;
     public EventHandler<DealtDamageInfo> OnDealtDamage;
     public EventHandler<ReceivedAttackInfo> OnReceiveDamage;
-    public Action OnGettingParried;
+    public Action<int> OnGettingParried;
     public EventHandler<SuccesfulParryInfo> OnSuccessfulParry;
     public EventHandler<DealtDamageInfo> OnHitObject;
     public EventHandler<ObjectDirectionArgs> OnBeingTouchedObject;

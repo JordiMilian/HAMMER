@@ -53,7 +53,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnEnable()
     {
-        enemyRefs.enemyEvents.OnGettingParried += OnCancelAttack;
+        enemyRefs.enemyEvents.OnGettingParried += OnCancelAttackParried;
         enemyRefs.enemyEvents.OnStanceBroken += OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
@@ -65,7 +65,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnDisable()
     {
-        enemyRefs.enemyEvents.OnGettingParried -= OnCancelAttack;
+        enemyRefs.enemyEvents.OnGettingParried -= OnCancelAttackParried;
         enemyRefs.enemyEvents.OnStanceBroken -= OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
@@ -87,6 +87,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         }
         return (false);
     }
+    /*
     private void OnDrawGizmosSelected()
     {
         foreach (EnemyAttack attack in Enemy_Attacks)
@@ -101,6 +102,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
         }
     }
+    */
     void FixedUpdate()
     {
         if (PlayerIsInAnyRange)
@@ -202,7 +204,10 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     void OnCancelAttack()
     {
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); } 
-        //StartCoroutine(WaitForCurrentAnimation());
+    }
+    void OnCancelAttackParried(int i)
+    {
+        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
     }
     IEnumerator WaitForCurrentAnimation()
     {

@@ -70,7 +70,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     public void EV_SlowMovingSpeed() { enemyRefs.moveToTarget.Velocity = SlowSpeedF; }
     public void EV_ReturnMovingSpeed() { enemyRefs.moveToTarget.Velocity = BaseSpeed; }
                                          
-    public void EV_ReturnAllSpeed()
+    public void EV_ReturnAllSpeed(int i)
     {
         EV_ReturnMovingSpeed();
         EV_ReturnRotationSpeed();

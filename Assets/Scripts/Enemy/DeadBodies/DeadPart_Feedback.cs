@@ -13,6 +13,7 @@ public class DeadPart_Feedback : MonoBehaviour
     [SerializeField] GameObject spritesRoot;
     [SerializeField] SpriteRenderer shadowSprite;
     float bloodSplashIntensity;
+    [SerializeField] float secondsToFadeOut = 8;
 
     private void OnEnable()
     {
@@ -58,7 +59,7 @@ public class DeadPart_Feedback : MonoBehaviour
     private IEnumerator Start()
     {
         SpriteRenderer[] spritesArray = spritesRoot.GetComponentsInChildren<SpriteRenderer>();
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(secondsToFadeOut);
         float timer = 0;
         while (timer < 1)
         {

@@ -46,9 +46,9 @@ public class Enemy01 : MonoBehaviour
     IEnumerator WaitReceiveDamage()
     {
         yield return new WaitForSeconds(0.3f);
-        enemyRefs.agrooMovement.EV_ReturnAllSpeed();
+        enemyRefs.agrooMovement.EV_ReturnAllSpeed(0);
     }
-    public void GettingParried()
+    public void GettingParried(int i)
     {
         enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
         GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();

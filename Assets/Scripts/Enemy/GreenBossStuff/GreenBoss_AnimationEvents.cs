@@ -38,5 +38,5 @@ public class GreenBoss_AnimationEvents : MonoBehaviour
     public void EV_ReturnRotationSpeed() { currentMovement.EV_ReturnRotationSpeed(); }
     public void EV_SlowMovingSpeed() { currentMovement.EV_SlowMovingSpeed(); }
     public void EV_ReturnMovingSpeed() { currentMovement.EV_ReturnMovingSpeed(); }
-    public void EV_ReturnAllSpeed() { currentMovement.EV_ReturnAllSpeed(); }
+    public void EV_ReturnAllSpeed() { currentMovement.EV_ReturnAllSpeed(0); }
 }

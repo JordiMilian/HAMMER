@@ -69,7 +69,7 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
     {
         Game_AudioPlayerSingleton.Instance.playSFXclip(DeathSFX);
     }
-    void playParried()
+    void playParried(int i)
     {
         playSFX(GotParriedSFX,0.1f);
     }
