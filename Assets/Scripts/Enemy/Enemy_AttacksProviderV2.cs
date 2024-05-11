@@ -87,7 +87,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         }
         return (false);
     }
-    /*
     private void OnDrawGizmosSelected()
     {
         foreach (EnemyAttack attack in Enemy_Attacks)
@@ -102,7 +101,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
         }
     }
-    */
     void FixedUpdate()
     {
         if (PlayerIsInAnyRange)

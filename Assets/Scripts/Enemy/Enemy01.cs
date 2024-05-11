@@ -48,9 +48,10 @@ public class Enemy01 : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         enemyRefs.agrooMovement.EV_ReturnAllSpeed(0);
     }
-    public void GettingParried(int i)
+    public void GettingParried(int i) // Go to Damage Dealer to set int
     {
-        enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
+        if(i == 0) { enemyRefs.animator.SetTrigger(TagsCollection.HitShield); }
+        else if(i == 1) { enemyRefs.animator.SetTrigger("HitShield01"); }
         GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
     }
     public void EndHitShield()
