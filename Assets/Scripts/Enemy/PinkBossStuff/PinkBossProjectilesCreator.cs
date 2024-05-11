@@ -12,6 +12,7 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     [SerializeField] float maxDistance_around;
     [SerializeField] float delayBetweenThrows_around;
     [SerializeField] float Radius;
+    [SerializeField] GameObject WeaponFollowPlayer;
 
     Vector2 originPosition;
     GameObject player;
@@ -20,6 +21,7 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     float angleToPlayerRad;
     float distanceToPlayer;
     Vector2 directionToPlayer;
+    Vector2 weaponDirection;
 
     void ThrowGeneralProjectile(Vector3 Position)
     {
@@ -28,10 +30,9 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     void ThrowDirectionalProjectile(GameObject Prefab, Vector3 Direction, bool isInstant = false)
     {
         GameObject newDirectionalProjectile = Instantiate(Prefab, transform.position, Quaternion.identity);
-        Vector2 directionToPLayer = VectorToPlayer.normalized;
         GameObject DirectionChild = newDirectionalProjectile.transform.GetChild(0).gameObject;
-        float angleDegToPlayer = angleToPlayerRad * Mathf.Rad2Deg;
-        DirectionChild.transform.eulerAngles = new Vector3(0, 0, angleDegToPlayer + 90);
+        float angleDegToDirection = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
+        DirectionChild.transform.eulerAngles = new Vector3(0, 0, angleDegToDirection + 90);
         if (isInstant) { newDirectionalProjectile.GetComponent<Animator>().SetTrigger("InstantDrop"); }
     }
     private void UpdateVectorData()
@@ -43,6 +44,7 @@ public class PinkBossProjectilesCreator : MonoBehaviour
         angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);
         distanceToPlayer = VectorToPlayer.magnitude;
         directionToPlayer = VectorToPlayer.normalized;
+        weaponDirection = -WeaponFollowPlayer.transform.up;
     }
     public IEnumerator EV_BurstAroundPlayer(int throws)
     {
@@ -64,12 +66,12 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     public void EV_DirectionalAttack()
     {
         UpdateVectorData();
-        ThrowDirectionalProjectile(PinkProjectile_Directional, directionToPlayer);
+        ThrowDirectionalProjectile(PinkProjectile_Directional, weaponDirection);
     }
     public void EV_DirectionalStarAttack()
     {
         UpdateVectorData();
-        ThrowDirectionalProjectile(PinkProjectile_StarDirectional, directionToPlayer);
+        ThrowDirectionalProjectile(PinkProjectile_StarDirectional, weaponDirection);
     }
     public void EV_GeneralFromCenterOfEnemy()
     {

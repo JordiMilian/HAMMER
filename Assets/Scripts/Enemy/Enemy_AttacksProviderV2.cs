@@ -37,7 +37,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public string TriggerName;
         public AnimationClip animationClip;
         [Header("Cooldown")]
-        [HideInInspector] public bool isInCooldown;
+        public bool isInCooldown;
         public bool HasCooldown;
         public float CooldownTime;
   

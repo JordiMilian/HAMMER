@@ -65,8 +65,8 @@ public class Enemy_AgrooMovement : MonoBehaviour
         Weapon_Pivot.up = (Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - EnemyPos, CurrentRotationSpeed * Time.deltaTime, 10));
     }
 
-    public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.2f)); enemyRefs.spriteFliper.canFlip = false; }
-    public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.2f)); enemyRefs.spriteFliper.canFlip = true; }
+    public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.1f)); enemyRefs.spriteFliper.canFlip = false; }
+    public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.1f)); enemyRefs.spriteFliper.canFlip = true; }
     public void EV_SlowMovingSpeed() { enemyRefs.moveToTarget.Velocity = SlowSpeedF; }
     public void EV_ReturnMovingSpeed() { enemyRefs.moveToTarget.Velocity = BaseSpeed; }
                                          
