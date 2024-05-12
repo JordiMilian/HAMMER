@@ -7,7 +7,6 @@ using UnityEngine.Events;
 
 public class Enemy_AttacksProviderV2 : MonoBehaviour
 {
-    //ESTE SCRIPT S'HAURIA DE OPTIMITZAR. DURANT LES TRANSICIONS A IDLE SE CALCULE CADA FRAME UN ATAC NOU 
 
     [SerializeField] Enemy_References enemyRefs;
 
@@ -20,6 +19,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     
     Coroutine CurrentWaiting;
+    bool isAttacking;
 
     [Serializable]
     public class EnemyAttack
@@ -103,16 +103,16 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //una mica guarro aixo
         if (PlayerIsInAnyRange)
         {
-            if (enemyRefs.animator.GetBool("inIdle") && isProviding) 
+            if (enemyRefs.animator.GetBool("inIdle") && isProviding && isAttacking == false) 
             {
                 ResetAllTriggers(enemyRefs.animator);
                 PickAvailableAttacks();
             }
         }
     }
-
     public void PerformAttack(EnemyAttack selectedAttack)
     {
         SetDamageDealerStats(enemyRefs.damageDealer, selectedAttack); //Set stats to main damage dealer
@@ -125,6 +125,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         //Wait to check again for attacks
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
         CurrentWaiting = StartCoroutine(WaitAnimationTime(selectedAttack));
+        isAttacking = true;
 
         //Cooldown if it has it
         if(selectedAttack.HasCooldown)
@@ -143,6 +144,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         yield return new WaitForSeconds(selectedAttack.animationClip.length);
         //enemyRefs.animator.SetBool("isAttacking", false);
         if(enemyRefs.enemyEvents.OnAttackFinished != null) { enemyRefs.enemyEvents.OnAttackFinished(); }
+        isAttacking = false;
+
     }
     void PickAvailableAttacks()
     {
@@ -201,18 +204,24 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     void OnCancelAttack()
     {
-        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); } 
+        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
+        StartCoroutine(WaitForCurrentAnimation());
     }
     void OnCancelAttackParried(int i)
     {
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
+        StartCoroutine(WaitForCurrentAnimation());
     }
     IEnumerator WaitForCurrentAnimation()
     {
+        float parryTime = 0;
         while(enemyRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
+            parryTime += Time.deltaTime;
             yield return null;
         }
+        Debug.Log("Parry time was: " + parryTime);
+        isAttacking = false;
     }
     void Debuguer(string text)
     {
