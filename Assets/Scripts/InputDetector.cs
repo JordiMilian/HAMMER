@@ -15,6 +15,7 @@ public class InputDetector : MonoBehaviour
 
     public Action OnParryPressed;
     public Action OnAttackPressed;
+    public Action OnSpecialAttackPressed;
 
     public Action OnFocusPressed;
     public Action OnFocusUnpressed;
@@ -88,8 +89,11 @@ public class InputDetector : MonoBehaviour
             //Parry with left trigger TEST
             TriggerInputs(OnParryPressed, OnFocusPressing, OnFocusUnpressed, "LeftTrigger", ref leftTriggerPressed);
 
-            //Focus with right trigger
-            TriggerInputs(OnFocusPressed,OnFocusPressing,OnFocusUnpressed, "RightTrigger", ref rightTriggerPressed);
+            //Special attack with right trigger
+            TriggerInputs(OnSpecialAttackPressed,OnFocusPressing,OnFocusUnpressed, "RightTrigger", ref rightTriggerPressed);
+
+            //Triangle/Y to Focus
+            if (Input.GetKeyDown(KeyCode.JoystickButton3)) { OnFocusPressed?.Invoke(); }
 
             //Right joystick direction
             LookingDirectionInput = new Vector2(Input.GetAxisRaw("RightJoystickHorizontal"), Input.GetAxisRaw("RightJoystickVertical"));
@@ -127,6 +131,9 @@ public class InputDetector : MonoBehaviour
 
             //Focus with midle mouse
             if (Input.GetKeyDown(KeyCode.Mouse2)){ OnFocusPressed?.Invoke(); }
+
+            //Special Attack with Ctrl
+            if(Input.GetKeyDown(KeyCode.LeftControl)) { OnSpecialAttackPressed?.Invoke(); }
 
             //movement with WASD or arrows
             MovementDirectionInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

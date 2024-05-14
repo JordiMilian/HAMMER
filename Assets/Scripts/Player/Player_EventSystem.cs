@@ -22,6 +22,7 @@ public class Player_EventSystem : Generic_EventSystem
     public Action OnPerformParry;
     public Action OnFocusEnemy;
     public Action OnUnfocusEnemy;
+    public Action OnPerformSpecialAttack;
     public Action<GameObject> OnFocusingEnemy;
     public Action<float> OnStaminaAction;
 }

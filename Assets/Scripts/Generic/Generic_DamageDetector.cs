@@ -15,6 +15,7 @@ public class Generic_DamageDetector : MonoBehaviour
     bool isInCooldown;
     float CooldownTime = 0.2f;
     Coroutine cooldownRoutine;
+    public bool canChargeSpecialAttack;
    
     public class EventArgs_ReceivedAttackInfo : EventArgs
     {

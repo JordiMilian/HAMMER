@@ -903,6 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityTeam: 0
   eventSystem: {fileID: 3383090570821903391}
+  canChargeSpecialAttack: 0
 --- !u!1 &7653426974726293687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,6 +1729,7 @@ GameObject:
   - component: {fileID: 1357381685959293475}
   - component: {fileID: 3175104005493510322}
   - component: {fileID: 7235723769753228221}
+  - component: {fileID: 4068002304790719456}
   m_Layer: 0
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -1943,8 +1945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eaed5b4e6df8f44891cb67259a338e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentDamage: 1
-  BaseDamage: 1
   playerRefs: {fileID: 3175104005493510322}
   Force: 1200
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
@@ -1953,6 +1953,9 @@ MonoBehaviour:
   maxDistance: 3
   minForce: -0.75
   maxForce: 1.25
+  Base_Damage: 1
+  Base_Knockback: 2000
+  Base_HitStop: 0.1
 --- !u!114 &7653426975249963328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2178,6 +2181,24 @@ MonoBehaviour:
   trailrendered: {fileID: 7653426974077638565}
   testTrailrendered: {fileID: 8966516321653951930}
   isTesting: 0
+--- !u!114 &4068002304790719456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af9ac0981b806340bf43d335a04dfe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRefs: {fileID: 3175104005493510322}
+  SpCharge_Max: {fileID: 11400000, guid: 899e6a5a616961844a44edb76441dab0, type: 2}
+  SpCharge_Current: {fileID: 11400000, guid: 698a21b7d0b9eb5428469970cff28aa1, type: 2}
+  Sp_Damage: 3
+  Sp_Knockback: 5000
+  Sp_HitStop: 0.5
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0

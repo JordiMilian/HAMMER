@@ -11,6 +11,7 @@ public class Generic_DamageDealer : MonoBehaviour
     public float HitStop;
     public bool isParryable;
     public bool isBloody;
+    public bool isChargingSpecialAttack;
     [SerializeField] int weaponIndex = 0;
 
     public enum Team
@@ -38,7 +39,8 @@ public class Generic_DamageDealer : MonoBehaviour
             case Team.Player:                
                 if (collision.CompareTag(TagsCollection.Enemy_Hurtbox))// || collision.GetComponent<Generic_DamageDetector>().EntityTeam == Generic_DamageDetector.Team.Player)
                 {
-                    PublishDealtDamageEvent(collision);
+                    bool isChargeable = collision.GetComponent<Generic_DamageDetector>().canChargeSpecialAttack; //Find if the damage Detector is chargeable and pass the info
+                    PublishDealtDamageEvent(collision,isChargeable);
                 }
                 else if (collision.CompareTag(TagsCollection.EnemyParryCollider))
                 {
@@ -58,19 +60,25 @@ public class Generic_DamageDealer : MonoBehaviour
                 break;
         }
     }
-    void PublishDealtDamageEvent(Collider2D collision)
+    void PublishDealtDamageEvent(Collider2D collision, bool isChargeable = false)
     {
         if (eventSystem.OnDealtDamage != null)
         {
+            float charge = 0;
+            if (isChargeable && isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
+
             eventSystem.OnDealtDamage(this, new Generic_EventSystem.DealtDamageInfo(
-            collision.ClosestPoint(gameObject.transform.position)
-            ));
+            collision.ClosestPoint(gameObject.transform.position),
+            Damage,
+            charge
+            )) ;
         }
     }
     void PublishHitObject(Collider2D collision)
     {
         eventSystem.OnHitObject?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
-            collision.ClosestPoint(gameObject.transform.position)
+            collision.ClosestPoint(gameObject.transform.position),
+            Damage
             ));
     }
     void PublishGettingParriedEvent()

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Player_ComboSystem_chargeless : MonoBehaviour
 {
-    public float CurrentDamage;
-    public float BaseDamage;
 
     [SerializeField] Player_References playerRefs;
 
@@ -18,25 +16,27 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     public float maxDistance = 3f;
     [SerializeField] float minForce = -0.5f;
     [SerializeField] float maxForce = 1f;
+    [Header("Base attack stats")]
+    [SerializeField] float Base_Damage;
+    [SerializeField] float Base_Knockback;
+    [SerializeField] float Base_HitStop;
+
 
     private void OnEnable()
     {
         playerRefs.events.OnPerformAttack += RemoveAttackStamina;
+        playerRefs.events.OnPerformAttack += onPerformedAttack;
         InputDetector.Instance.OnAttackPressed += onAttackPressed;
     }
     private void OnDisable()
     {
         playerRefs.events.OnPerformAttack -= RemoveAttackStamina;
+        playerRefs.events.OnPerformAttack -= onPerformedAttack;
         InputDetector.Instance.OnAttackPressed -= onAttackPressed;
     }
     void RemoveAttackStamina()
     {
         playerRefs.events.OnStaminaAction?.Invoke(2);
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.JoystickButton3)) { playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Special01")); }
     }
     void onAttackPressed()
     {
@@ -44,6 +44,15 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         {
             playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
         }
+    }
+    void onPerformedAttack()
+    {
+        playerRefs.events.OnStaminaAction?.Invoke(2); //Remove stamina
+
+        playerRefs.damageDealer.Damage = Base_Damage; //Damage dealer back to base stats 
+        playerRefs.damageDealer.HitStop = Base_HitStop;
+        playerRefs.damageDealer.Knockback = Base_Knockback;
+        playerRefs.damageDealer.isChargingSpecialAttack = true;
     }
     public void EV_ShowWeaponCollider() { playerRefs.weaponCollider.enabled = true; playerRefs.playerVFX.EV_ShowTrail(); }
     public void EV_HideWeaponCollider() { playerRefs.weaponCollider.enabled = false; playerRefs.playerVFX.EV_HideTrail(); }
