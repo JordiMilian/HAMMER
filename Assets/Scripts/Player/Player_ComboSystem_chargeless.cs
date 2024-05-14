@@ -34,7 +34,10 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         playerRefs.events.OnStaminaAction?.Invoke(2);
     }
 
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.JoystickButton3)) { playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Special01")); }
+    }
     void onAttackPressed()
     {
         if (playerRefs.currentStamina.Value > 0)
@@ -44,7 +47,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     }
     public void EV_ShowWeaponCollider() { playerRefs.weaponCollider.enabled = true; playerRefs.playerVFX.EV_ShowTrail(); }
     public void EV_HideWeaponCollider() { playerRefs.weaponCollider.enabled = false; playerRefs.playerVFX.EV_HideTrail(); }
-    public void EV_AddForce()
+    public void EV_AddForce(float multiplier = 1)
     {
         //Make equivalent between min and max distance to -0,5 and 1 (normalize)
         float equivalent;
@@ -52,7 +55,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         else { equivalent = CalculateEquivalent(distanceToEnemy.Value); } // Else calculate with distance
 
         Vector3 tempForce = playerRefs.followMouse.gameObject.transform.up * Force * equivalent;
-        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForce, 0.1f));
+        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForce * multiplier, 0.1f));
     }
     float CalculateEquivalent(float Distance)
     {

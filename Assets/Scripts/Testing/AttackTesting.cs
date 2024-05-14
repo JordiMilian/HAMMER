@@ -57,8 +57,9 @@ public class AttackTesting : MonoBehaviour
     {
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(boxCollider.transform.localPosition, boxCollider.transform.localRotation, boxCollider.transform.lossyScale);
         Gizmos.matrix = rotationMatrix;
-        
-        Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
+        Transform WeaponPivot = Enemy.transform.Find("Weapons_FollowPlayer");
+        Vector2 PivotOffset = new Vector2(WeaponPivot.localPosition.x, WeaponPivot.localPosition.y);
+        Gizmos.DrawWireCube(boxCollider.offset + PivotOffset, boxCollider.size);
     }
 
 }
