@@ -17,6 +17,7 @@ public class TagsCollection
     
     public static string Enemy = "Enemy";
     public static string Enemy_notFocus = "Enemy_notFocus";
+    public static string IA_Obstacle = "IA_Obstacle";
     
     public static string Weapon_Pivot = "Weapon_Pivot";
     

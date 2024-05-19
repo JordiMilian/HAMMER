@@ -10,11 +10,12 @@ public class EnemyHealthBarLogic : MonoBehaviour
     [SerializeField] Transform HealthBarSize1;
     private void OnEnable()
     {
-        eventSystem.OnUpdatedHealth += UpdateSize;
+        healthSystem.CurrentHP.OnValueChanged += UpdateSize;
+        healthSystem.CurrentHP.Variable.OnValueSet += UpdateSize;
     }
     void UpdateSize()
     {
-        float newSize = Mathf.InverseLerp(0, healthSystem.MaxHP.Value, healthSystem.CurrentHP.Value);
+        float newSize = Mathf.InverseLerp(0, healthSystem.MaxHP.GetValue(), healthSystem.CurrentHP.GetValue());
         HealthBarSize1.localScale = new Vector3(newSize, 1, 1);
     }
 }

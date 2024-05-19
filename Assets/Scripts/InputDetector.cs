@@ -16,6 +16,7 @@ public class InputDetector : MonoBehaviour
     public Action OnParryPressed;
     public Action OnAttackPressed;
     public Action OnSpecialAttackPressed;
+    public Action OnSpecialHealPressed;
 
     public Action OnFocusPressed;
     public Action OnFocusUnpressed;
@@ -94,6 +95,8 @@ public class InputDetector : MonoBehaviour
 
             //Triangle/Y to Focus
             if (Input.GetKeyDown(KeyCode.JoystickButton3)) { OnFocusPressed?.Invoke(); }
+
+            if (Input.GetKeyDown(KeyCode.JoystickButton2)) { OnSpecialHealPressed?.Invoke(); }
 
             //Right joystick direction
             LookingDirectionInput = new Vector2(Input.GetAxisRaw("RightJoystickHorizontal"), Input.GetAxisRaw("RightJoystickVertical"));
@@ -214,18 +217,18 @@ public class InputDetector : MonoBehaviour
     }
     void OnRollPressedDebug()
     {
-        Debug.Log(nameof(OnRollPressed));
+        //Debug.Log(nameof(OnRollPressed));
     }
     void OnFocusPressedDebug()
     {
-        Debug.Log(nameof(OnFocusPressed));
+        //Debug.Log(nameof(OnFocusPressed));
     }
     void OnPausePressedDebug()
     {
-        Debug.Log(nameof(OnPausePressed));
+        //Debug.Log(nameof(OnPausePressed));
     }
     void OnAttackPresedDebug()
     {
-        Debug.Log(nameof(OnAttackPressed));
+        //Debug.Log(nameof(OnAttackPressed));
     }
 }

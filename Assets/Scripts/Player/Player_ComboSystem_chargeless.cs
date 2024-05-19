@@ -24,20 +24,15 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
     private void OnEnable()
     {
-        playerRefs.events.OnPerformAttack += RemoveAttackStamina;
         playerRefs.events.OnPerformAttack += onPerformedAttack;
         InputDetector.Instance.OnAttackPressed += onAttackPressed;
     }
     private void OnDisable()
     {
-        playerRefs.events.OnPerformAttack -= RemoveAttackStamina;
         playerRefs.events.OnPerformAttack -= onPerformedAttack;
         InputDetector.Instance.OnAttackPressed -= onAttackPressed;
     }
-    void RemoveAttackStamina()
-    {
-        playerRefs.events.OnStaminaAction?.Invoke(2);
-    }
+
     void onAttackPressed()
     {
         if (playerRefs.currentStamina.Value > 0)

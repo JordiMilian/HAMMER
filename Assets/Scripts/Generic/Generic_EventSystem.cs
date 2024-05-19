@@ -69,7 +69,6 @@ public class Generic_EventSystem : MonoBehaviour
 
     public EventHandler<DeadCharacterInfo> OnDeath;
     public Action OnAttackFinished;
-    public Action OnUpdatedHealth;
     public EventHandler<DealtDamageInfo> OnDealtDamage;
     public EventHandler<ReceivedAttackInfo> OnReceiveDamage;
     public Action<int> OnGettingParried;

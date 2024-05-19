@@ -10,9 +10,23 @@ public class Audio_Area : MonoBehaviour
     float BaseVolume;
     [SerializeField] float FadesSeconds;
     [SerializeField] bool isStartingArea;
+    [SerializeField] Generic_OnTriggerEnterEvents audioTriggerCollider;
     private void Awake()
     {
         BaseVolume = audioSource.volume;
+    }
+    private void OnEnable()
+    {
+        audioTriggerCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        audioTriggerCollider.OnTriggerEntered += onFadeInAudio;
+        audioTriggerCollider.OnTriggerExited += onFadeOutAudio;
+        MusicManager.Instance.AddMusicSource(audioSource);
+    }
+    private void OnDisable()
+    {
+        audioTriggerCollider.OnTriggerEntered -= onFadeInAudio;
+        audioTriggerCollider.OnTriggerExited -= onFadeOutAudio;
+        MusicManager.Instance.RemoveMusicSource(audioSource);
     }
     private void Start()
     {
@@ -20,22 +34,15 @@ public class Audio_Area : MonoBehaviour
         else { FadeOut(0); }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void onFadeInAudio(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
     {
-        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
-        {
-            if(CurrentFade != null) { StopCoroutine(CurrentFade); }
-            CurrentFade = StartCoroutine( FadeIn(FadesSeconds));
-        }
+        if (CurrentFade != null) { StopCoroutine(CurrentFade); }
+        CurrentFade = StartCoroutine(FadeIn(FadesSeconds));
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    void onFadeOutAudio(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
     {
-        if (collision.CompareTag(TagsCollection.Player_SinglePointCollider))
-        {
-            FadeOut(FadesSeconds);
-            if (CurrentFade != null) { StopCoroutine(CurrentFade); }
-            CurrentFade = StartCoroutine(FadeOut(FadesSeconds));
-        }
+        if (CurrentFade != null) { StopCoroutine(CurrentFade); }
+        CurrentFade = StartCoroutine(FadeOut(FadesSeconds));
     }
     IEnumerator FadeOut(float time)
     { 

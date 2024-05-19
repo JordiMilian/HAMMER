@@ -1,4 +1,5 @@
 using Pathfinding.Examples;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class BaseRoomLogic : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents reopenDoorTrigger;
     [SerializeField] AnimationClip openDoorAnimation;
     public bool isRoomPermanentlyCompleted;
+    public Action onRoomCompleted;
+    public Action onEnteredRoom;
     public virtual void OnEnable()
     {
         reopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
@@ -22,6 +25,7 @@ public class BaseRoomLogic : MonoBehaviour
     }
     public void RoomCompleted(bool withAnimation, bool isRoomPermanent)
     {
+        onRoomCompleted?.Invoke();
         if (isRoomPermanentlyCompleted) {return; }
         if (withAnimation) { StartCoroutine(OpenDoorFocusCamera()); }
         if (isRoomPermanent) { isRoomPermanentlyCompleted = true; }

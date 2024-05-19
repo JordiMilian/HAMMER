@@ -10,6 +10,7 @@ public class ChangeCameraZoom : MonoBehaviour
     [SerializeField] float newZoom = 5;
     [SerializeField] float newZoomSpeed = 1f;
     [SerializeField] string zoomName = "defaultZoom";
+    [SerializeField] Generic_OnTriggerEnterEvents triggerCollider;
 
     CameraZoomController cameraZoomer;
     CameraZoomController.ZoomInfo ThisInfo;
@@ -18,22 +19,23 @@ public class ChangeCameraZoom : MonoBehaviour
         cameraZoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         ThisInfo = new CameraZoomController.ZoomInfo(newZoom, newZoomSpeed, zoomName);
     }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnEnable()
     {
-        if(collision.CompareTag("Player"))
-        {
-            cameraZoomer.AddZoomInfoAndUpdate(ThisInfo);
-        }
+        triggerCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        triggerCollider.OnTriggerEntered += addZoom;
+        triggerCollider.OnTriggerExited += removeZoom;
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnDisable()
     {
-        if (collision.CompareTag("Player"))
-        {
-            cameraZoomer.RemoveZoomInfoAndUpdate(ThisInfo.Name);
-        }
-           
+        triggerCollider.OnTriggerEntered -= addZoom;
+        triggerCollider.OnTriggerExited -= removeZoom;
     }
-    
+    void addZoom(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    {
+        cameraZoomer.AddZoomInfoAndUpdate(ThisInfo);
+    }
+    void removeZoom(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    {
+        cameraZoomer.RemoveZoomInfoAndUpdate(ThisInfo.Name);
+    }
 }

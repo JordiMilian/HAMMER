@@ -31,7 +31,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         inRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         outOfRangeDetectionTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         inRangeDetectionTrigger.OnTriggerEntered += OnAgrooState;
-        GreenEventSystem.OnUpdatedHealth += CheckHealthForState;
+        //GreenEventSystem.OnUpdatedHealth += CheckHealthForState;
         outOfRangeDetectionTrigger.OnTriggerExited += OnIdleState;
     }
     public override void OnDeathState(object sender, Generic_EventSystem.DeadCharacterInfo args)
@@ -46,9 +46,8 @@ public class GreenBoss_StateMachine : Generic_StateMachine
     }
     private void OnDisable()
     {
-
         inRangeDetectionTrigger.OnTriggerEntered -= OnAgrooState;
-        GreenEventSystem.OnUpdatedHealth -= CheckHealthForState;
+        //GreenEventSystem.OnUpdatedHealth -= CheckHealthForState;
         outOfRangeDetectionTrigger.OnTriggerExited -= OnIdleState;
     }
 
@@ -58,14 +57,14 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         switch(CurrentState)
         {
             case States.Idle:
-                if (bossHealthSystem.CurrentHP.Value < bossHealthSystem.MaxHP.Value / 2)
+                if (bossHealthSystem.CurrentHP.GetValue() < bossHealthSystem.MaxHP.GetValue() / 2)
                 {
                     OnFase02State();
                 }
                 else { OnFase01State(); }
                 break;
             case States.Fase01:
-                if (bossHealthSystem.CurrentHP.Value < bossHealthSystem.MaxHP.Value / 2)
+                if (bossHealthSystem.CurrentHP.GetValue() < bossHealthSystem.MaxHP.GetValue() / 2)
                 {
                     OnTransitioning();
                 }

@@ -13,20 +13,18 @@ public class FloatReference
     public float ConstantValue;
     public FloatVariable Variable;
     public Action OnValueChanged;
-    public float Value
+    public float GetValue()
     {
-        get 
-        { 
-            //return UseConstant ? ConstantValue : Variable.Value;
-            if (UseConstant) { return ConstantValue; }
-            else { return Variable.Value; }
-        }
-        set 
-        {
-            if (UseConstant) { ConstantValue = value; }
-            else { Variable.Value = value; OnValueChanged?.Invoke(); }
-            
-        }
+        if (UseConstant) { return ConstantValue; }
+        else { return Variable.Value; }
+    }
+    public void SetValue(float value)
+    {
+        if (UseConstant) { ConstantValue = value; }
+        else { Variable.SetValue(value);}
+
+        OnValueChanged?.Invoke();
+        Debug.Log("new value set = " + Variable.Value);
     }
 }
 

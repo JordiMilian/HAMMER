@@ -101,4 +101,18 @@ public class UsefullMethods
             }
         }
     }
+    public static Vector2 RandomPointInCollider(Collider2D collider)
+    {
+        Vector2 randomPoint = Vector2.zero;
+        int attempts = 0;
+        do
+        {
+            float x = UnityEngine.Random.Range(collider.bounds.min.x, collider.bounds.max.x);
+            float y = UnityEngine.Random.Range(collider.bounds.min.y, collider.bounds.max.y);
+            randomPoint = new Vector2(x, y);
+            attempts++;
+        }
+        while (!collider.OverlapPoint(randomPoint));
+        return randomPoint;
+    }
 }

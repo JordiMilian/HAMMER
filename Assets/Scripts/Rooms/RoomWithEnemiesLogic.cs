@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Generic_OnTriggerEnterEvents;
 
-public class EnemyGenerator : BaseRoomLogic
+public class RoomWithEnemiesLogic : BaseRoomLogic
 {
     [Serializable]
     public class EnemySpawn
@@ -30,7 +30,8 @@ public class EnemyGenerator : BaseRoomLogic
     int EnemiesAlive;
     bool areCorrectlySpawned;
     Coroutine correctlySpawnedCoroutine;
-    [HideInInspector] public bool reenteredRoom;
+    [SerializeField] EnterTriggerCutscene enterRoomCutscene;
+    public Action onEnemiesSpawned;
 
     public override void OnEnable()
     {
@@ -52,7 +53,7 @@ public class EnemyGenerator : BaseRoomLogic
             return;
         }
 
-        reenteredRoom = true;
+        enterRoomCutscene.hasCutscenePlayed = false;
         //Destroy the remaining enemies
         for (int i = CurrentlySpawnedEnemies.Count - 1; i >= 0; i--)
         {
@@ -83,6 +84,8 @@ public class EnemyGenerator : BaseRoomLogic
         //not correctly spawned after a delay
         if (correctlySpawnedCoroutine != null) { StopCoroutine(correctlySpawnedCoroutine); }
         correctlySpawnedCoroutine = StartCoroutine(NotCorrectlySpawnedTimer());
+
+        onEnemiesSpawned?.Invoke();
 
     }
     void SpawnWeights(int Tier, int currentWeight, int maxWeight)

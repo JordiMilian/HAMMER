@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityTeam: 1
   eventSystem: {fileID: 3021011115089880420}
+  canChargeSpecialAttack: 0
 --- !u!61 &2402293854364523958
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -844,6 +845,10 @@ PrefabInstance:
       propertyPath: NewZoomDuration
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3143310112689085151, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+      propertyPath: triggerCollider
+      value: 
+      objectReference: {fileID: 7500345709738653761}
     - target: {fileID: 3143310112783284153, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -858,6 +863,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+--- !u!114 &7500345709738653761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3143310112689085148, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+  m_PrefabInstance: {fileID: 4866653193643303581}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7500345709738653767 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}

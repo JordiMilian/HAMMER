@@ -1,33 +1,25 @@
-using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using static EnterTriggerCutscene;
 
-public class EnterRoomCutscene : MonoBehaviour
+public class RegularEnemyRoomCutscene : BaseCutsceneLogic, IEnterRoomCutseneable
 {
-    [SerializeField] Generic_OnTriggerEnterEvents enterRoomTrigger;
-    [SerializeField] EnemyGenerator enemyGenerator;
     [SerializeField] Transform CenterOfRoom;
-    bool isRoomEntered;
+    [SerializeField] RoomWithEnemiesLogic enemyRoomLogic;
+    public void playCutscene()
+    {
+        if (enemyRoomLogic.isRoomPermanentlyCompleted) { return; }
 
-    private void OnEnable()
-    {
-        enterRoomTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
-        enterRoomTrigger.OnTriggerEntered += callEntered;
+        StartCoroutine(RegularCutscene());
     }
-    private void OnDisable()
+    public override void playThisCutscene()
     {
-        enterRoomTrigger.OnTriggerEntered -= callEntered;
-    }
-    void callEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
-    {
-        if (enemyGenerator.isRoomPermanentlyCompleted) { return; }
-        if(!enemyGenerator.reenteredRoom) { return; }
-        StartCoroutine(EnterRoom());
-    }
+        if (enemyRoomLogic.isRoomPermanentlyCompleted) { return; }
 
-    IEnumerator EnterRoom()
+        StartCoroutine(RegularCutscene());
+    }
+    IEnumerator RegularCutscene()
     {
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
@@ -42,7 +34,7 @@ public class EnterRoomCutscene : MonoBehaviour
         yield return new WaitForSeconds(0.9f);
 
         //Activate the Agroo of the enemies
-        foreach (GameObject enemy in enemyGenerator.CurrentlySpawnedEnemies)
+        foreach (GameObject enemy in enemyRoomLogic.CurrentlySpawnedEnemies)
         {
             enemy.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
         }
@@ -53,6 +45,5 @@ public class EnterRoomCutscene : MonoBehaviour
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
         TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
 
-        enemyGenerator.reenteredRoom = false;
     }
 }
