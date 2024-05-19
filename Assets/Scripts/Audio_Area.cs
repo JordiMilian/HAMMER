@@ -7,7 +7,7 @@ public class Audio_Area : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
     Coroutine CurrentFade;
-    float BaseVolume;
+    [HideInInspector] public float BaseVolume;
     [SerializeField] float FadesSeconds;
     [SerializeField] bool isStartingArea;
     [SerializeField] Generic_OnTriggerEnterEvents audioTriggerCollider;

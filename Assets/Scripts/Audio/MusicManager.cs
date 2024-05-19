@@ -34,11 +34,19 @@ public class MusicManager : MonoBehaviour
     {
         if(setVolumeTrigger)
         {
-            foreach(musicSource source in musicSources)
-            {
-                SetMusicVolume(source);
-            }
+            UpdateMusicsVolumes();
             setVolumeTrigger = false;
+        }
+    }
+    private void Start()
+    {
+        UpdateMusicsVolumes();
+    }
+    void UpdateMusicsVolumes()
+    {
+        foreach (musicSource source in musicSources)
+        {
+            SetMusicVolume(source);
         }
     }
     public void AddMusicSource(AudioSource source)
@@ -63,5 +71,6 @@ public class MusicManager : MonoBehaviour
     {
         float equivalentVolume = Mathf.Lerp(0, mSource.BaseVolume, GeneralMusicVolume);
         mSource.audioSource.volume = equivalentVolume;
+        mSource.audioSource.gameObject.GetComponent<Audio_Area>().BaseVolume = equivalentVolume;
     }
 }
