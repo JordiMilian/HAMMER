@@ -12,6 +12,7 @@ public class Player_SpecialAttack : MonoBehaviour
     [SerializeField] float Sp_Damage;
     [SerializeField] float Sp_Knockback;
     [SerializeField] float Sp_HitStop;
+    float amountToHeal;
 
     private void OnEnable()
     {
@@ -52,7 +53,8 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void HealItself()
     {
-        Health_Current.SetValue(Health_Max.Value);
+        playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
+        amountToHeal = Health_Max.Value - Health_Current.Value;
     }
     void onAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
@@ -70,5 +72,9 @@ public class Player_SpecialAttack : MonoBehaviour
         else if (temporalValue < 0) { temporalValue = 0; }
 
         SpCharge_Current.SetValue(temporalValue);
+    }
+    public void EV_ActuallyHeal()
+    {
+        Health_Current.SetValue(Health_Current.Value + amountToHeal);
     }
 }

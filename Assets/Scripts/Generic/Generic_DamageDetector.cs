@@ -51,7 +51,7 @@ public class Generic_DamageDetector : MonoBehaviour
                 }
                 break;
             case Team.Player:
-                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag(TagsCollection.Enemy_Hitbox))
+                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag(TagsCollection.Enemy_Hitbox) || collision.CompareTag("Neutral_Hitbox"))
                 {
                     PublishAttackedEvent(collision); 
                 }
@@ -59,6 +59,10 @@ public class Generic_DamageDetector : MonoBehaviour
 
             case Team.Enemy:
                 if (collision.CompareTag(TagsCollection.Player_Hitbox))
+                {
+                    PublishAttackedEvent(collision);
+                }
+                else if(collision.CompareTag("Neutral_Hitbox"))
                 {
                     PublishAttackedEvent(collision);
                 }
