@@ -32,6 +32,7 @@ public class Player_Movement : MonoBehaviour
 
     private void OnEnable()
     {
+        Physics.IgnoreLayerCollision(15, 16);
         playerRefs.events.OnPerformRoll += CallDashMovement;
         playerRefs.events.OnDeath += StopRunningOnDeath;
         playerRefs.events.OnPerformAttack += StopRunning;
@@ -170,6 +171,6 @@ public class Player_Movement : MonoBehaviour
     public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
     public void EV_CantDash() { canDash = false; }
     public void EV_CanDash() { canDash = true; }
-    public void EV_HidePlayerCollider() { playerRefs.damageDetectorCollider.enabled = false; }
-    public void EV_ShowPlayerCollider() { playerRefs.damageDetectorCollider.enabled = true; }
+    public void EV_HidePlayerCollider() { gameObject.layer = 15; playerRefs.damageDetectorCollider.enabled = false; }
+    public void EV_ShowPlayerCollider() { gameObject.layer = 0; playerRefs.damageDetectorCollider.enabled = true; }
 }
