@@ -2110,6 +2110,7 @@ MonoBehaviour:
   VFX_Roll: {fileID: 7653426975191670226}
   WeaponTrail: {fileID: 7653426974077638565}
   rollTrail: {fileID: 7653426975120803341}
+  groundDetector: {fileID: 7560984458989592217}
 --- !u!114 &7653426975249963385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2323,6 +2324,7 @@ GameObject:
   - component: {fileID: 7653426975463659564}
   - component: {fileID: 7653426975463659562}
   - component: {fileID: 7653426975463659565}
+  - component: {fileID: 7560984458989592217}
   m_Layer: 0
   m_Name: SinglePointCollider
   m_TagString: Player_SinglePointCollider
@@ -2382,6 +2384,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7560984458989592217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975463659567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfb5040fd1f5614cba7053f27ad1470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGround: 0
 --- !u!1 &7653426975497917625
 GameObject:
   m_ObjectHideFlags: 0

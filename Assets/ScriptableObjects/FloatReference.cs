@@ -24,7 +24,6 @@ public class FloatReference
         else { Variable.SetValue(value);}
 
         OnValueChanged?.Invoke();
-        Debug.Log("new value set = " + Variable.Value);
     }
 }
 

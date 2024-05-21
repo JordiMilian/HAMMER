@@ -11,6 +11,7 @@ public class simpleVfxPlayer : MonoBehaviour
     [SerializeField] VisualEffect HitPlayerVFX;
     [SerializeField] VisualEffect BloodExplosionVFX;
     [SerializeField] VisualEffect StanceBrokenVFX;
+    [SerializeField] VisualEffect BigPuddleStepVFX;
     [SerializeField] Dictionary<simpleVFXkeys,VisualEffect> vfxDictionary = new Dictionary<simpleVFXkeys, VisualEffect>();
 
     public static simpleVfxPlayer Instance;
@@ -21,6 +22,7 @@ public class simpleVfxPlayer : MonoBehaviour
         HitPlayer,
         BloodExplosion,
         StanceBroken,
+        BigPuddleStep
     }
 
     private void Awake()
@@ -39,6 +41,7 @@ public class simpleVfxPlayer : MonoBehaviour
         vfxDictionary[simpleVFXkeys.HitPlayer] = HitPlayerVFX;
         vfxDictionary[simpleVFXkeys.BloodExplosion] = BloodExplosionVFX;
         vfxDictionary[simpleVFXkeys.StanceBroken] = StanceBrokenVFX;
+        vfxDictionary[simpleVFXkeys.BigPuddleStep] = BigPuddleStepVFX;
     }
 
     public void playSimpleVFX(simpleVFXkeys vfxKey, Vector2 position)

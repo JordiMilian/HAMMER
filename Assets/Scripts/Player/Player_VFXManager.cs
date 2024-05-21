@@ -14,6 +14,8 @@ public class Player_VFXManager : MonoBehaviour
     [Header("TRAILS")]
     [SerializeField] TrailRenderer WeaponTrail;
     [SerializeField] TrailRenderer rollTrail;
+    [Header("Puddle")]
+    [SerializeField] Generic_TypeOFGroundDetector groundDetector;
 
     private void OnEnable()
     {
@@ -23,6 +25,11 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnPerformRoll += PlayDustVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
         eventSystem.CallHideAndDisable += InstantiateBloodExplosion;
+
+        eventSystem.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => PlayBigPuddleStep();
+        eventSystem.OnPerformAttack += PlayBigPuddleStep;
+        eventSystem.OnPerformRoll += PlayBigPuddleStep;
+        eventSystem.OnDeath += (object sender, Generic_EventSystem.DeadCharacterInfo info) => PlayBigPuddleStep();
     }
     private void OnDisable()
     {
@@ -32,6 +39,8 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnPerformRoll -= PlayDustVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
         eventSystem.CallHideAndDisable -= InstantiateBloodExplosion;
+        eventSystem.OnPerformAttack -= PlayBigPuddleStep;
+        eventSystem.OnPerformRoll -= PlayBigPuddleStep;
     }
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
@@ -52,6 +61,13 @@ public class Player_VFXManager : MonoBehaviour
     void PlayDustVFX()
     {
         VFX_Roll.Play();
+    }
+    void PlayBigPuddleStep()
+    {
+        if(groundDetector.currentGround == Generic_TypeOFGroundDetector.TypesOfGround.puddle)
+        {
+            simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BigPuddleStep, transform.position);
+        }
     }
     void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
