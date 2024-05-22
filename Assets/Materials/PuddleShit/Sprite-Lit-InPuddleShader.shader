@@ -13,6 +13,9 @@ Shader "Universal Render Pipeline/2D/Sprite-Lit-InPuddleShader"
         [HideInInspector] _Flip("Flip", Vector) = (1,1,1,1)
         [HideInInspector] _AlphaTex("External Alpha", 2D) = "white" {}
         [HideInInspector] _EnableExternalAlpha("Enable External Alpha", Float) = 0
+
+        _Color ("Color", Color) = (1,1,1,1) // Flat color property
+        _Cutoff ("Alpha Cutoff", Range(0,1)) = 0.5 // Alpha cutoff property
     }
 
     SubShader
@@ -259,6 +262,13 @@ Shader "Universal Render Pipeline/2D/Sprite-Lit-InPuddleShader"
 
                 return mainTex;
             }
+             float4 frag (v2f i) : SV_Target
+            {
+                float4 texColor = tex2D(_MainTex, i.texcoord);
+                clip(texColor.a - _Cutoff); // Alpha cutout
+                return float4(_Color.rgb, texColor.a); // Apply flat color and preserve alpha
+            }
+
             ENDHLSL
         }
     }

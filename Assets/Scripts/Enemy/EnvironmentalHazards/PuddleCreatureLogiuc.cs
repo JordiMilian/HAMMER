@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PuddleCreatureLogiuc : MonoBehaviour
 {
@@ -14,10 +15,12 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     Coroutine currentDelayBeforeChase;
     Coroutine currentChasingbeforeAttack;
     [SerializeField] List<Generic_OnTriggerEnterEvents> puddleTriggers = new List<Generic_OnTriggerEnterEvents>();
+    VisualEffect BigStepVFX;
     private void Awake()
     {
         playerTf = GlobalPlayerReferences.Instance.playerTf;
         puddleCreatureAnimator = GetComponent<Animator>();
+        BigStepVFX = GetComponent<VisualEffect>();
     }
     private void OnEnable()
     {
@@ -30,12 +33,17 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     }
     void onPlayerEnteredPuddle(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
     {
-        currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayWhenEntered));
+        if(info.Collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        {
+            currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayWhenEntered));
+        } 
     }
     void onPLayerExitedPuddle(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
     {
-        cancelEverything();
-        Debug.Log("player exited");
+        if (info.Collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        {
+            cancelEverything();
+        }
     }
     IEnumerator DelayToStartChase(float delay)
     {
@@ -65,6 +73,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
         puddleCreatureAnimator.SetTrigger("Attack");
         puddleCreatureAnimator.SetBool("Chasing", false);
         currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayBetweenAttacks));
+        BigStepVFX.Play();
     }
     void cancelEverything()
     {

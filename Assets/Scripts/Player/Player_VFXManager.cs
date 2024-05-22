@@ -27,7 +27,6 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.CallHideAndDisable += InstantiateBloodExplosion;
 
         eventSystem.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => PlayBigPuddleStep();
-        eventSystem.OnPerformAttack += PlayBigPuddleStep;
         eventSystem.OnPerformRoll += PlayBigPuddleStep;
         eventSystem.OnDeath += (object sender, Generic_EventSystem.DeadCharacterInfo info) => PlayBigPuddleStep();
     }

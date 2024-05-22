@@ -22,6 +22,7 @@ public class Enemy_VFXManager : MonoBehaviour
         eventSystem.OnSuccessfulParry += InstantiateSuccesfulParryVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
         eventSystem.OnDeath += InstantiateBllodExplosion;
+        eventSystem.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => PlayBigPuddleStep();
     }
     private void OnDisable()
     {
@@ -29,6 +30,7 @@ public class Enemy_VFXManager : MonoBehaviour
         eventSystem.OnSuccessfulParry -= InstantiateSuccesfulParryVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
         eventSystem.OnDeath -= InstantiateBllodExplosion;
+        eventSystem.OnShowCollider -= PlayBigPuddleStep;
 
     }
     void InstantiateBllodExplosion(object sender, Generic_EventSystem.DeadCharacterInfo args)
@@ -50,6 +52,10 @@ public class Enemy_VFXManager : MonoBehaviour
     public void EV_HideTrail()
     {
         trailRenderer.enabled= false;
+    }
+    void PlayBigPuddleStep()
+    {
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BigPuddleStep, transform.position);
     }
     void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
