@@ -46,10 +46,13 @@ public class Player_SpecialAttack : MonoBehaviour
     void onPerformedSpecialAttack()
     {
         SpCharge_Current.SetValue(0);
-        playerRefs.damageDealer.Damage = Sp_Damage;
-        playerRefs.damageDealer.HitStop = Sp_HitStop;
-        playerRefs.damageDealer.Knockback = Sp_Knockback;
-        playerRefs.damageDealer.isChargingSpecialAttack = false;
+        foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
+        {
+            dealer.Damage = Sp_Damage;
+            dealer.HitStop = Sp_HitStop;
+            dealer.Knockback = Sp_Knockback;
+            dealer.isChargingSpecialAttack = false;
+        }
     }
     void HealItself()
     {

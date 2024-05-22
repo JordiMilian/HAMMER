@@ -115,8 +115,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     public void PerformAttack(EnemyAttack selectedAttack)
     {
-        SetDamageDealerStats(enemyRefs.damageDealer, selectedAttack); //Set stats to main damage dealer
-        if(ExtraDamageDealer != null) { SetDamageDealerStats(ExtraDamageDealer, selectedAttack); } //If the extra dealer is available, set it too
+        foreach(Generic_DamageDealer dealer in enemyRefs.DamageDealersList)//Set stats to  damage dealers
+        {
+            SetDamageDealerStats(dealer,selectedAttack);
+        }
+
 
         //Set animations and such
         enemyRefs.animator.SetTrigger(selectedAttack.TriggerName);

@@ -44,10 +44,14 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     {
         playerRefs.events.OnStaminaAction?.Invoke(2); //Remove stamina
 
-        playerRefs.damageDealer.Damage = Base_Damage; //Damage dealer back to base stats 
-        playerRefs.damageDealer.HitStop = Base_HitStop;
-        playerRefs.damageDealer.Knockback = Base_Knockback;
-        playerRefs.damageDealer.isChargingSpecialAttack = true;
+        foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList) //Get the damage dealers back to base stats
+        {
+            dealer.Damage = Base_Damage;
+            dealer.HitStop = Base_HitStop;
+            dealer.Knockback = Base_Knockback;
+            dealer.isChargingSpecialAttack = true;
+        }
+
     }
     public void EV_ShowWeaponCollider() { playerRefs.weaponCollider.enabled = true; playerRefs.playerVFX.EV_ShowTrail(); }
     public void EV_HideWeaponCollider() { playerRefs.weaponCollider.enabled = false; playerRefs.playerVFX.EV_HideTrail(); }

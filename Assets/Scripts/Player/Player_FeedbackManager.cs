@@ -79,7 +79,7 @@ public class Player_FeedbackManager : MonoBehaviour
     }
     public void OnHitEnemyCameraEffects(object sender, Player_EventSystem.DealtDamageInfo damageinfo)
     {
-        CameraShake.Instance.ShakeCamera(1 * playerRefs.damageDealer.Damage, 0.1f * playerRefs.damageDealer.Damage);
+        CameraShake.Instance.ShakeCamera(1 * playerRefs.DamageDealersList[0].Damage, 0.1f * playerRefs.DamageDealersList[0].Damage);
         //hitStop.Stop( 0.1f);
         TimeScaleEditor.Instance.HitStop(0.1f);
         //_HealthSystem.RemoveLife(-1);

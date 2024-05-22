@@ -6,7 +6,7 @@ public class Generic_References : MonoBehaviour
 {
     [Header("Generic")]
     public Generic_EventSystem genericEvents;
-    public Generic_DamageDealer damageDealer;
+    public List<Generic_DamageDealer> DamageDealersList;
     public Generic_DamageDetector damageDetector;
     public Generic_Stats stats;
     public Generic_FlipSpriteWithFocus spriteFliper;
