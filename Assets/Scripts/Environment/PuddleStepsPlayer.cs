@@ -38,7 +38,7 @@ public class PuddleStepsPlayer : MonoBehaviour
         float currentSpeedPerSeconds = distanceThisFrame / Time.deltaTime;
         float normalizedSpeed = Mathf.InverseLerp(0,MaxEntitySpeedPerSecond, currentSpeedPerSeconds);
         float currentSecondsPerStep = Mathf.Lerp( 2,MinSecondsPerStep, normalizedSpeed);
-        Debug.Log("Current speed per seconds: " + currentSpeedPerSeconds);
+        //Debug.Log("Current speed per seconds: " + currentSpeedPerSeconds);
         timer += Time.deltaTime;
         if(timer > currentSecondsPerStep)
         {

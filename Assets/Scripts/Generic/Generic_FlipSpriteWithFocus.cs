@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,8 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     public float FlipDelay = 0.2f;
     [HideInInspector] public bool canFlip = true;
     [HideInInspector] public int lookingDirection;
-    
-    
+    public Action OnFlipped;
+    Coroutine currentDelay;
     public void FixedUpdate()
     {
         FlipSpriteWithFocus(FocusVector, SpriteObject);
@@ -23,8 +24,8 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
             if (FlipOnce == false && canFlip)
             {
                 flipSprite(SpriteObject);
-
-                StartCoroutine(FlipCooldown());
+                if (currentDelay != null) { StopCoroutine(currentDelay); }
+                currentDelay = StartCoroutine(FlipCooldown());
                 lookingDirection = 1; // 1 = right, -1 = left
             }
             
@@ -36,7 +37,8 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
             {
                 flipSprite(SpriteObject);
 
-                StartCoroutine(FlipCooldown());
+                if(currentDelay != null) { StopCoroutine(currentDelay); }
+                currentDelay = StartCoroutine(FlipCooldown());
                 lookingDirection = -1;
             }
             
@@ -44,8 +46,10 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     }
     void flipSprite(GameObject objecto)
     {
-        objecto.transform.localScale = new Vector2(objecto.transform.localScale.x * -1, objecto.transform.localScale.y);
+
+        objecto.transform.eulerAngles = new Vector3(objecto.transform.eulerAngles.x, objecto.transform.eulerAngles.y +180, objecto.transform.eulerAngles.z);
         FlipOnce = !FlipOnce;
+        OnFlipped?.Invoke();
     }
     IEnumerator FlipCooldown()
     {
