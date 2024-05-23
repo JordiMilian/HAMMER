@@ -13,7 +13,7 @@ public class SpringBones_FlipScaleWhenFliped : MonoBehaviour
     {
         spriteFlipper.OnFlipped -= flipItself;
     }
-    void flipItself()
+    void flipItself() //DEPRECATED PLS DELETE THIS SCRIPT
     {
         transform.localScale = new Vector3 (transform.localScale.x * -1, 1, 1);
     }
