@@ -19,7 +19,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     
     Coroutine CurrentWaiting;
-    bool isAttacking;
+    [HideInInspector] public bool isAttacking;
+    [HideInInspector] public EnemyAttack currentAttack;
 
     [Serializable]
     public class EnemyAttack
@@ -28,6 +29,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public Enemy_AttackRangeDetector rangeDetector;
         [HideInInspector] public BoxCollider2D boxCollider;
         [HideInInspector] public bool isActive;
+        public bool notOvniInvertable = false;
         
         [Header("Stats:")]
         public float Damage;
@@ -135,6 +137,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         {
             StartCoroutine(selectedAttack.Cooldown());
         }
+        currentAttack = selectedAttack; //set current attack (this is used for the OVNI inverter currently
     }
     void SetDamageDealerStats(Generic_DamageDealer dealer, EnemyAttack selectedAttack)
     {
