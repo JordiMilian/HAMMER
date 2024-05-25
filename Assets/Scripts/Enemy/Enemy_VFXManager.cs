@@ -12,6 +12,8 @@ public class Enemy_VFXManager : MonoBehaviour
     [SerializeField] GameObject BloodExplosion;
     [SerializeField] bool notSpawnBlood;
     [SerializeField] Enemy_EventSystem eventSystem;
+
+    [SerializeField] Generic_TypeOFGroundDetector groundDetector;
  
 
     public float groundBloodIntensity = 0.9f;
@@ -55,7 +57,10 @@ public class Enemy_VFXManager : MonoBehaviour
     }
     void PlayBigPuddleStep()
     {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BigPuddleStep, transform.position);
+        if(groundDetector.currentGround == Generic_TypeOFGroundDetector.TypesOfGround.puddle)
+        {
+            simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BigPuddleStep, transform.position);
+        }
     }
     void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {

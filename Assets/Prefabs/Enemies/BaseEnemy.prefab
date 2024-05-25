@@ -114,6 +114,7 @@ Transform:
   - {fileID: 2804378631093290336}
   - {fileID: 5182215059924202484}
   - {fileID: 2054546243307670428}
+  - {fileID: 1530135795851701840}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -318,6 +319,7 @@ MonoBehaviour:
     rangeDetector: {fileID: 4898058486958885132}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
@@ -331,6 +333,7 @@ MonoBehaviour:
     rangeDetector: {fileID: 4040043019073815960}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
@@ -344,6 +347,7 @@ MonoBehaviour:
     rangeDetector: {fileID: 3792853293050386045}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
@@ -357,6 +361,23 @@ MonoBehaviour:
     rangeDetector: {fileID: 4898058486958885132}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
+    Damage: 0
+    Probability: 0
+    KnockBack: 0
+    Hitstop: 0
+    TriggerName: 
+    animationClip: {fileID: 0}
+    isInCooldown: 0
+    HasCooldown: 0
+    CooldownTime: 0
+  isAttacking: 0
+  currentAttack:
+    ShortDescription: 
+    rangeDetector: {fileID: 0}
+    boxCollider: {fileID: 0}
+    isActive: 0
+    notOvniInvertable: 0
     Damage: 0
     Probability: 0
     KnockBack: 0
@@ -416,6 +437,7 @@ MonoBehaviour:
   BloodExplosion: {fileID: 2439310160301452507, guid: c999f75238193a04386cee6205847eaf, type: 3}
   notSpawnBlood: 0
   eventSystem: {fileID: 627058440868749388}
+  groundDetector: {fileID: 8387963849232553166}
   groundBloodIntensity: 0.9
 --- !u!114 &695697341023069215
 MonoBehaviour:
@@ -518,6 +540,68 @@ MonoBehaviour:
   agrooMovement: {fileID: 2829660713819239201}
   idleMovement: {fileID: 1484837429054597437}
   damageCollider: {fileID: 7350678567647433300}
+--- !u!1 &848200506690117509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1530135795851701840}
+  - component: {fileID: 8387963849232553166}
+  - component: {fileID: 3040402446266967765}
+  m_Layer: 0
+  m_Name: TypeOfGroundDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1530135795851701840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848200506690117509}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4802207913274506029}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8387963849232553166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848200506690117509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfb5040fd1f5614cba7053f27ad1470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGround: 0
+--- !u!58 &3040402446266967765
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848200506690117509}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.12
 --- !u!1 &885131711482531085
 GameObject:
   m_ObjectHideFlags: 0

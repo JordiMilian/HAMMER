@@ -35,7 +35,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public float Damage;
         public int Probability;
         public float KnockBack;
-        public float Hitstop;
+        [HideInInspector] public  float Hitstop;
         public string TriggerName;
         public AnimationClip animationClip;
         [Header("Cooldown")]
@@ -143,7 +143,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         dealer.Damage = selectedAttack.Damage;
         dealer.Knockback = selectedAttack.KnockBack;
-        dealer.HitStop = selectedAttack.Hitstop;
+        dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
     }
     IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
     {
