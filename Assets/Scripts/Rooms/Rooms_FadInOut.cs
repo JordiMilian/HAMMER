@@ -7,15 +7,25 @@ using static Generic_OnTriggerEnterEvents;
 
 public class Rooms_FadInOut : MonoBehaviour
 {
-    SpriteRenderer[] RoomSpritesArray = new SpriteRenderer[0];
+    public GameObject[] RoomSpritesRoots;
+    List<SpriteRenderer> AllRoomSprites = new List<SpriteRenderer>();
+    [SerializeField] GameObject[] SpriteShapesRoots;
+
     [SerializeField] Generic_OnTriggerEnterEvents RoomTrigger;
     [SerializeField] Foregrounder DoorForegrounder;
-    public GameObject RoomSprites;
+    
     [SerializeField] float TransitionTime = 0.2f;
     [SerializeField] bool isStartingRoom;
     private void Awake()
     {
-        RoomSpritesArray = RoomSprites.GetComponentsInChildren<SpriteRenderer>();
+        foreach(GameObject root in RoomSpritesRoots)
+        {
+            SpriteRenderer[] thisRootsSprites = root.GetComponentsInChildren<SpriteRenderer>();
+            foreach (SpriteRenderer thisSprite in thisRootsSprites)
+            {
+                AllRoomSprites.Add(thisSprite);
+            }
+        }
     }
     private void Start()
     {
@@ -41,12 +51,12 @@ public class Rooms_FadInOut : MonoBehaviour
     }
     void playerEnteredRoom(object sender, EventArgsCollisionInfo args)
     {
-        FadeIn(RoomSpritesArray);
+        FadeIn(AllRoomSprites.ToArray());
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnColor(); }
     }
     void playerExitedRoom(object sender, EventArgsCollisionInfo args)
     {
-        FadeOut(RoomSpritesArray);
+        FadeOut(AllRoomSprites.ToArray());
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }
     }
     void FadeOut(SpriteRenderer[] sprites)

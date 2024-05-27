@@ -138,6 +138,9 @@ public class InputDetector : MonoBehaviour
             //Special Attack with Ctrl
             if(Input.GetKeyDown(KeyCode.LeftControl)) { OnSpecialAttackPressed?.Invoke(); }
 
+            //Special Heal with E
+            if (Input.GetKeyDown(KeyCode.E)) { OnSpecialHealPressed?.Invoke(); }
+
             //movement with WASD or arrows
             MovementDirectionInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             //movement actions with WASD
