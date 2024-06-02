@@ -180,9 +180,6 @@ GameObject:
   - component: {fileID: 8224379750878037325}
   - component: {fileID: 8224379750878037324}
   - component: {fileID: 8224379750878037323}
-  - component: {fileID: 8224379750878037321}
-  - component: {fileID: 8224379750878037320}
-  - component: {fileID: 8224379750878037319}
   m_Layer: 0
   m_Name: Espinas_Reflexion
   m_TagString: Neutral_Hitbox
@@ -245,7 +242,7 @@ SpriteShapeRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2121100495
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Color: {r: 0.3301887, g: 0.035822365, b: 0.27420756, a: 1}
   m_MaskInteraction: 1
@@ -314,54 +311,6 @@ MonoBehaviour:
   m_EnableTangents: 0
   m_GeometryCached: 0
   m_UTess2D: 0
---- !u!114 &8224379750878037321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8224379750878037318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Knockback: 500
-  HitStop: 0.1
-  isParryable: 0
-  isBloody: 0
-  isChargingSpecialAttack: 0
-  weaponIndex: 0
-  EntityTeam: 2
-  typeOfDamage: 0
-  eventSystem: {fileID: 8224379750878037320}
---- !u!114 &8224379750878037320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8224379750878037318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8224379750878037319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8224379750878037318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65f2a09446434c34985eb96988457219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 1479569059560643381, guid: 2f2240f500665ec4e896426e67a93c81, type: 3}
-  espinaSplineController: {fileID: 8224379750878037323}
 --- !u!1 &8224379752563159279
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +390,7 @@ SpriteShapeRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1215504865
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_MaskInteraction: 0
