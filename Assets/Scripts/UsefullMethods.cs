@@ -115,4 +115,19 @@ public class UsefullMethods
         while (!collider.OverlapPoint(randomPoint));
         return randomPoint;
     }
+    public static void BoundsToBoxCollider(Bounds bounds, Vector3 boundsOrigin, GameObject colliderHolder)
+    {
+        BoxCollider2D boundsCollider = colliderHolder.GetComponent<BoxCollider2D>();
+
+        if(boundsCollider == null)
+        {
+            boundsCollider = colliderHolder.AddComponent<BoxCollider2D>();
+        }
+        
+        Vector3 localCenter = bounds.center - boundsOrigin;
+        bounds.center = localCenter;
+
+        boundsCollider.size = new Vector2(bounds.extents.x * 2, bounds.extents.y * 2);
+        boundsCollider.offset = new Vector2(bounds.center.x, bounds.center.y);
+    }
 }

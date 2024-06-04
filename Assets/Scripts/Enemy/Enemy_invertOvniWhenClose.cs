@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Enemy_invertOvniWhenClose : MonoBehaviour
 {
+    [SerializeField] Enemy_References enemyRefs;
     [SerializeField] Generic_OnTriggerEnterEvents enterEvents;
     [SerializeField] float InvertedStreght;
-    [SerializeField] Enemy_EventSystem enemyEvents;
     [SerializeField] CurveToRigidBody enemyOvniMaker;
-    [SerializeField] Enemy_AttacksProviderV2 attackProvider;
     float originalStrengh;
 
     private void OnEnable()
@@ -16,11 +15,11 @@ public class Enemy_invertOvniWhenClose : MonoBehaviour
         originalStrengh = enemyOvniMaker.Strengh;
         enterEvents.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         enterEvents.OnTriggerEntered += playerEntered;
-        enemyEvents.OnAttackFinished += onAttackOver;
+        enemyRefs.enemyEvents.OnAttackFinished += onAttackOver;
     }
     void playerEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
     {
-        if(attackProvider.isAttacking && !attackProvider.currentAttack.notOvniInvertable) //if its attacking and the current atack is invertable
+        if(enemyRefs.animator.GetBool("Attacking") && !enemyRefs.attackProvider.currentAttack.notOvniInvertable) //if its attacking and the current atack is invertable
         {
             InvertOvni();
         }

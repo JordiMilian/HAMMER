@@ -9,6 +9,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 {
 
     [SerializeField] Enemy_References enemyRefs;
+    [SerializeField] Enemy_ReusableStateMachine reusableStateMachine;
 
     [SerializeField] Generic_DamageDealer ExtraDamageDealer;
     public bool isProviding;
@@ -108,7 +109,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         //una mica guarro aixo
         if (PlayerIsInAnyRange)
         {
-            if (enemyRefs.animator.GetBool("inIdle") && isProviding && isAttacking == false) 
+            if (enemyRefs.animator.GetBool("inIdle") && isProviding && !enemyRefs.animator.GetBool("Attacking")) 
             {
                 ResetAllTriggers(enemyRefs.animator);
                 PickAvailableAttacks();
@@ -123,9 +124,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         }
 
 
-        //Set animations and such
-        enemyRefs.animator.SetTrigger(selectedAttack.TriggerName);
-        enemyRefs.animator.SetBool("isAttacking", true);
+        //Replace the StateMachines attack clip
+        reusableStateMachine.ReplaceaStatesClip(reusableStateMachine.statesDictionary[Enemy_ReusableStateMachine.animationStates.BaseEnemy_Attacking], selectedAttack.animationClip);
+        enemyRefs.animator.SetBool("Attacking",true);
+        //enemyRefs.animator.SetTrigger(selectedAttack.TriggerName);
+        //enemyRefs.animator.SetBool("isAttacking", true);
 
         //Wait to check again for attacks
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }

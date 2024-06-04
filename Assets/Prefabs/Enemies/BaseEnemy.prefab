@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 6132185481060562800}
   - component: {fileID: 4265673334437877355}
   - component: {fileID: 7568110113479188649}
+  - component: {fileID: 892060832174240504}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -165,7 +166,7 @@ Animator:
   m_GameObject: {fileID: 713815961661323530}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e06733abdb460d849a9b0f1ed642c814, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -310,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRefs: {fileID: 7568110113479188649}
+  reusableStateMachine: {fileID: 892060832174240504}
   ExtraDamageDealer: {fileID: 0}
   isProviding: 1
   PlayerIsInAnyRange: 0
@@ -540,6 +542,28 @@ MonoBehaviour:
   agrooMovement: {fileID: 2829660713819239201}
   idleMovement: {fileID: 1484837429054597437}
   damageCollider: {fileID: 7350678567647433300}
+--- !u!114 &892060832174240504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24487fc7b1d70c24cb824943e56ee744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseEnemyController: {fileID: 9100000, guid: e06733abdb460d849a9b0f1ed642c814, type: 2}
+  animationReplacerArray:
+  - StateName: 3
+    Clip: {fileID: 0}
+  - StateName: 2
+    Clip: {fileID: 0}
+  - StateName: 1
+    Clip: {fileID: 0}
+  - StateName: 4
+    Clip: {fileID: 0}
 --- !u!1 &848200506690117509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1771262554875931710}
+  animator: {fileID: 2195041901401652145}
   MovementReference: {fileID: 2341438317793130741}
   Pivot: {fileID: 8543705226525020148}
   Base: {fileID: 4802207913274506029}

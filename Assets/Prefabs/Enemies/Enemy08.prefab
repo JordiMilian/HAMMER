@@ -1100,6 +1100,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy08
       objectReference: {fileID: 0}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[0].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: 56e6d55e5aaa9594d8ea3f0b3145fb55, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[1].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: 2f11cf5ca7fb4204c94749321df4c1b1, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[2].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: c1afcd94350fa4b4cadd91f8d6fd2abe, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[3].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: 4b9602af4886dd449bde6a39fa91e287, type: 2}
     - target: {fileID: 1426323097296256413, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Size.x
       value: 1.3116902
@@ -1626,7 +1642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61d20ae86224f548b18c04b69255a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 7367204624498958989}
+  damageDealer:
+  - {fileID: 0}
   eventSystem: {fileID: 1942342819547614402}
   trailrendered: {fileID: 2710532288267149016}
   testTrailrendered: {fileID: 2087781961693099217}
@@ -1707,17 +1724,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8543705226525020148, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7367204624498958989 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8393237760477941251, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 1317114688664693902}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &8819312641345150343 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7503888452882247945, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}

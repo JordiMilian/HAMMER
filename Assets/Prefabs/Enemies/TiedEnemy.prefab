@@ -113,7 +113,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6496161839216221880}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &666254722196551870
 PrefabInstance:
@@ -220,13 +220,17 @@ PrefabInstance:
       propertyPath: WalkingSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1530135795851701840, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1771262554875931710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Constraints
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2054546243307670428, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2195041901401652145, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Controller
@@ -448,8 +452,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: reusableStateMachine
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1030339945491469921, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+    - {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
 --- !u!95 &501452738626919972 stripped
 Animator:
@@ -643,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5229200899377018445, guid: 2c4f54dd052995048b809c890379175c, type: 3}
       propertyPath: m_SortingLayer
-      value: -2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: -5229200899377018445, guid: 2c4f54dd052995048b809c890379175c, type: 3}
       propertyPath: m_SortingLayerID

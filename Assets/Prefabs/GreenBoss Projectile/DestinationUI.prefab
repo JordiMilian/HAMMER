@@ -206,6 +206,8 @@ MonoBehaviour:
   HitStop: 0.01
   isParryable: 0
   isBloody: 0
+  isChargingSpecialAttack: 0
+  weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 1
   eventSystem: {fileID: 3365757155640488515}
@@ -233,7 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 7697261271829785414}
+  damageDealer:
+  - {fileID: 7697261271829785414}
   eventSystem: {fileID: 3365757155640488515}
   trailrendered: {fileID: 0}
   testTrailrendered: {fileID: 0}
