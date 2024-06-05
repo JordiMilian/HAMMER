@@ -129,5 +129,13 @@ public class UsefullMethods
 
         boundsCollider.size = new Vector2(bounds.extents.x * 2, bounds.extents.y * 2);
         boundsCollider.offset = new Vector2(bounds.center.x, bounds.center.y);
+        
+    }
+    public static void DrawCollider(BoxCollider2D collider, Color boxColor)
+    {
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(collider.transform.position, collider.transform.rotation, collider.transform.lossyScale);
+        Gizmos.matrix = rotationMatrix;
+        Gizmos.color = boxColor;
+        Gizmos.DrawWireCube(collider.offset, collider.size);
     }
 }
