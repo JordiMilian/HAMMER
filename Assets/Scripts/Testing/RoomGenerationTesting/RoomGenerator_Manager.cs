@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class RoomGenerator_Manager : MonoBehaviour
 {
-    [SerializeField] bool triggerGenerateRooms;
-    [SerializeField] bool triggerSingleGroupRandomizer;
-    [SerializeField] int SingleGroupRandomizerIndex;
+    public Action<int> Call_GenerateRooms_StartFromIndex;
+    public Action<int> Call_GenerateSingleGroupOfRooms;
+    public Action<Vector2> Call_GenerateAllRoomsFromPosition;
 
-    public List<RoomsGroup_script> GroupsOfRoomsList = new List<RoomsGroup_script>();
+    [SerializeField] List<RoomsGroup_script> GroupsOfRoomsList = new List<RoomsGroup_script>();
 
     [Serializable]
     public class GroupList
@@ -21,81 +21,94 @@ public class RoomGenerator_Manager : MonoBehaviour
             list = new List<Room_script>();
         }
     }
-    public List<GroupList> completeList = new List<GroupList>();
+    public List<GroupList> CompleteList_spawnedRooms = new List<GroupList>();
 
     [Header("Read only")]
-    public List<Vector2Int> PlayerRooms; 
+    public List<Room_script> PlayerRooms;
 
-    private void Update()
+    Vector2 LastInitialPosition;
+
+    private void OnEnable()
     {
-        if(triggerGenerateRooms)
-        {
-            if(isPlayerInAnyRoom())
-            {
-                GenerateAllRooms_startFromIndex(PlayerRooms[0].x + 1);
-            }
-            else
-            {
-                GenerateAllRooms_startFromIndex(0);
-            }
-            triggerGenerateRooms = false;
-        }
-        if(triggerSingleGroupRandomizer)
-        {
-            GenerateGroup(SingleGroupRandomizerIndex);
-            UpdateInitialPositions(SingleGroupRandomizerIndex + 1);
-            triggerSingleGroupRandomizer = false;
-        }
+        Call_GenerateRooms_StartFromIndex += GenerateRooms_startFromIndex;
+        Call_GenerateSingleGroupOfRooms += GenerateSingleGroupOfRooms;
+        Call_GenerateAllRoomsFromPosition += GenerateAllRoomsFromPos;
     }
-    void GenerateAllRooms_startFromIndex(int index)
+    private void OnDisable()
+    {
+        Call_GenerateRooms_StartFromIndex -= GenerateRooms_startFromIndex;
+        Call_GenerateSingleGroupOfRooms -= GenerateSingleGroupOfRooms;
+        Call_GenerateAllRoomsFromPosition -= GenerateAllRoomsFromPos;
+    }
+    
+    void GenerateRooms_startFromIndex(int index)
     {
         //Create empty Lists if they dont exist yet
-        int necesaryIndexes = GroupsOfRoomsList.Count;
-        if (completeList.Count < necesaryIndexes)
-        {
-            for (int i = 0; i < necesaryIndexes; i++)
-            {
-                completeList.Add(new GroupList());
-            }
-        }
-
+        CreateNecesaryEmptyLists();
 
         for (int i = index; i < GroupsOfRoomsList.Count; i++)
         {
-            GenerateGroup(i);
+            GenerateGroup(i, LastInitialPosition);
         }
+    }
+    void GenerateAllRoomsFromPos(Vector2 startingPos)
+    {
+        CreateNecesaryEmptyLists();
+
+        for (int i = 0; i < GroupsOfRoomsList.Count; i++)
+        {
+            GenerateGroup(i, startingPos);
+        }
+
+        LastInitialPosition = startingPos;
+    }
+    void CreateNecesaryEmptyLists()
+    {
+        int necesaryIndexes = GroupsOfRoomsList.Count;
+        if (CompleteList_spawnedRooms.Count < necesaryIndexes)
+        {
+            for (int i = 0; i < necesaryIndexes; i++)
+            {
+                CompleteList_spawnedRooms.Add(new GroupList());
+            }
+        }
+    }
+    void GenerateSingleGroupOfRooms(int index)
+    {
+        GenerateGroup(index, transform.position);
+        UpdateInitialPositions(index + 1);
     }
     void UpdateInitialPositions(int index)
     {
         for (int i = index; i < GroupsOfRoomsList.Count; i++)
         {
             RoomsGroup_script thisGroup = GroupsOfRoomsList[i];
-            thisGroup.gameObject.transform.position = GroupsOfRoomsList[i - 1].LastExitTf;
-            thisGroup.LastExitTf = thisGroup.currentlySpawnedRooms[thisGroup.currentlySpawnedRooms.Count - 1].ExitPosition.position;
+            thisGroup.gameObject.transform.position = GroupsOfRoomsList[i - 1].LastExitPosition;
+            thisGroup.LastExitPosition = thisGroup.currentlySpawnedRooms[thisGroup.currentlySpawnedRooms.Count - 1].ExitPosition.position;
         }
     }
-    void GenerateGroup(int index)
+    void GenerateGroup(int index, Vector2 maybeStartingPos)
     {
-        Vector2 tempInitialPosition = transform.position;
+        Vector2 tempInitialPosition = maybeStartingPos;
         if (index == 0) { }
 
         else if(GroupsOfRoomsList[index - 1].transform != null)
         {
-            tempInitialPosition = GroupsOfRoomsList[index - 1].LastExitTf;
+            tempInitialPosition = GroupsOfRoomsList[index - 1].LastExitPosition;
         }
 
         GroupsOfRoomsList[index].RespawnRooms(tempInitialPosition); //Instantiate the chosen indexed group of rooms
 
 
         //Refill the subLists
-        completeList[index].list.Clear();
+        CompleteList_spawnedRooms[index].list.Clear();
 
         //Go throw all the rooms in that group to do stuff
         for (int i = 0; i < GroupsOfRoomsList[index].currentlySpawnedRooms.Count; i++)
         {
             Room_script roomScript = GroupsOfRoomsList[index].currentlySpawnedRooms[i]; //get the script
 
-            completeList[index].list.Add(roomScript); //add to the  complete list
+            CompleteList_spawnedRooms[index].list.Add(roomScript); //add to the  complete list
 
             subscribeToRoom(roomScript, new Vector2Int(index, i)); //Subscribe to this room
         }
@@ -104,35 +117,29 @@ public class RoomGenerator_Manager : MonoBehaviour
     void subscribeToRoom(Room_script room, Vector2Int completeIndex)
     {
         room.indexInCompleteList = completeIndex;
-        room.OnPlayerEnteredRoom += playerEnteredSomeRoom;
-        room.OnPlayerExitedRoom += playerExitedSomeRoom;
+        room.onRoomEntered += playerEnteredSomeRoom;
+        room.onRoomExited += playerExitedSomeRoom;
     }
-    void playerEnteredSomeRoom(Vector2Int index)
+    void playerEnteredSomeRoom(GameObject player, Room_script room)
     {
-        PlayerRooms.Add(index);
+        PlayerRooms.Add(room);
     }
-    void playerExitedSomeRoom(Vector2Int index)
+    void playerExitedSomeRoom(GameObject player, Room_script room)
     {
-        PlayerRooms.Remove(index);
+        PlayerRooms.Remove(room);
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        if(PlayerRooms.Count > 0)
+        if (PlayerRooms.Count > 0)
         {
-            BoxCollider2D groupCollider = GroupsOfRoomsList[PlayerRooms[0].x].GetComponent<BoxCollider2D>();
+            BoxCollider2D groupCollider = GroupsOfRoomsList[PlayerRooms[0].indexInCompleteList.x].GetComponent<BoxCollider2D>();
             UsefullMethods.DrawCollider(groupCollider, Color.blue);
 
             for (int i = 0; i < PlayerRooms.Count; i++)
             {
-                BoxCollider2D roomCollider = completeList[PlayerRooms[i].x].list[PlayerRooms[i].y].GetComponent<BoxCollider2D>();
+                BoxCollider2D roomCollider = CompleteList_spawnedRooms[PlayerRooms[i].indexInCompleteList.x].list[PlayerRooms[i].indexInCompleteList.y].GetComponent<BoxCollider2D>();
                 UsefullMethods.DrawCollider(roomCollider, Color.cyan);
             }
         }
-        
     }
-    bool isPlayerInAnyRoom()
-    {
-       return PlayerRooms.Count > 0; 
-    }
-
 }

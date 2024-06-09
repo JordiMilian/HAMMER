@@ -31,11 +31,11 @@ public class Rooms_FadInOut : MonoBehaviour
     {
         if(isStartingRoom)
         {
-            playerEnteredRoom(this, new EventArgsCollisionInfo(new Collider2D()));
+            playerEnteredRoom(new Collider2D());
         }
         else
         {
-            playerExitedRoom(this, new EventArgsCollisionInfo(new Collider2D()));
+            playerExitedRoom(new Collider2D());
         }
     }
     private void OnEnable()
@@ -49,12 +49,12 @@ public class Rooms_FadInOut : MonoBehaviour
         RoomTrigger.OnTriggerEntered -= playerEnteredRoom;
         RoomTrigger.OnTriggerExited -= playerExitedRoom;
     }
-    void playerEnteredRoom(object sender, EventArgsCollisionInfo args)
+    void playerEnteredRoom(Collider2D collision)
     {
         FadeIn(AllRoomSprites.ToArray());
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnColor(); }
     }
-    void playerExitedRoom(object sender, EventArgsCollisionInfo args)
+    void playerExitedRoom(Collider2D collision)
     {
         FadeOut(AllRoomSprites.ToArray());
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }

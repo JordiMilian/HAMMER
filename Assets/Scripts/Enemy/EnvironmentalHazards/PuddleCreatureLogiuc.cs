@@ -31,16 +31,16 @@ public class PuddleCreatureLogiuc : MonoBehaviour
             ontrigger.OnTriggerExited += onPLayerExitedPuddle;
         }
     }
-    void onPlayerEnteredPuddle(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void onPlayerEnteredPuddle(Collider2D collision)
     {
-        if(info.Collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayWhenEntered));
         } 
     }
-    void onPLayerExitedPuddle(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void onPLayerExitedPuddle(Collider2D collision)
     {
-        if (info.Collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if (collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             cancelEverything();
         }

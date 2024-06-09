@@ -127,14 +127,14 @@ public class DeadPartV3_Min : MonoBehaviour
             }
         }
     }
-    void triggerDetected(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void triggerDetected(Collider2D collision)
     {
         //Find the direction
-        Vector2 otherPosition = args.Collision.gameObject.transform.root.position;
+        Vector2 otherPosition = collision.gameObject.transform.root.position;
         Vector2 attackDirection = (DeadPart_RB.position - otherPosition).normalized;
 
         //Depending on what it touched, invoke a diferent event
-        switch (args.Collision.gameObject.tag)
+        switch (collision.gameObject.tag)
         {
             case "Attack_Hitbox":
                 eventSystem.OnBeingAttacked?.Invoke(this, new DeadPart_EventSystem_min.DeadPartArgs(attackDirection));

@@ -14,8 +14,8 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
             Collision = collision;
         }
     }
-    public event EventHandler<EventArgsCollisionInfo> OnTriggerEntered;
-    public event EventHandler<EventArgsCollisionInfo> OnTriggerExited;
+    public event Action<Collider2D> OnTriggerEntered;
+    public event Action<Collider2D> OnTriggerExited;
     public void AddActivatorTag(string tag)
     {
         foreach (string t in ActivatorTags)
@@ -30,7 +30,8 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
         {
             if(collision.CompareTag(tag))
             {
-                if (OnTriggerEntered != null) OnTriggerEntered(this, new EventArgsCollisionInfo(collision));
+                OnTriggerEntered?.Invoke(collision);
+                break;
             }
         }
     }
@@ -40,7 +41,8 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
         {
             if (collision.CompareTag(tag))
             {
-                if (OnTriggerExited != null) OnTriggerExited(this, new EventArgsCollisionInfo(collision));
+                OnTriggerExited?.Invoke(collision);
+                break;
             }
         }
     }

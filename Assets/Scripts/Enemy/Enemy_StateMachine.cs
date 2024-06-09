@@ -31,11 +31,11 @@ public class Enemy_StateMachine : Generic_StateMachine
         enemyRefs.enemyEvents.CallAgrooState += ActivateAgroo;
         enemyRefs.enemyEvents.CallIdleState += ActivateIdle;
     }
-    void PlayerInRange(object sender, EventArgsCollisionInfo args)
+    void PlayerInRange(Collider2D collision)
     {
         enemyRefs.enemyEvents.CallAgrooState?.Invoke();
     }
-    void PlayerOutOfRange(object sender, EventArgsCollisionInfo args)
+    void PlayerOutOfRange(Collider2D collision)
     {
         enemyRefs.enemyEvents.CallIdleState?.Invoke();
     }

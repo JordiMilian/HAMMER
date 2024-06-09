@@ -245,7 +245,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         zoomer.onFocusedEnemy(); //Avisar al zoomer que tenim un focus
 
-        playerRefs.events.OnFocusEnemy?.Invoke(); //Currently just used for Tutorial Rooms
+        playerRefs.events.OnFocusEnemy?.Invoke(FocusedEnemy); //Currently just used for Tutorial Rooms
     }
     Vector2 GetLookingDirection()
     {

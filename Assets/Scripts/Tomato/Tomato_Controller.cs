@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
-using static Generic_OnTriggerEnterEvents;
 
 public class Tomato_Controller : MonoBehaviour
 {
@@ -37,13 +36,13 @@ public class Tomato_Controller : MonoBehaviour
     {
         Tomato_Rigidbody.velocity = transform.up * Tomato_speed;
     }
-    public void TomatoCrashed(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    public void TomatoCrashed(Collider2D collision)
     {
         var Splash = Instantiate(SplashPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
     public void EV_TomatoCrashed()
     { 
-        TomatoCrashed(this, new EventArgsCollisionInfo( new Collider2D()));
+        TomatoCrashed( new Collider2D());
     }
 }

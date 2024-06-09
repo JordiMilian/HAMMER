@@ -82,11 +82,11 @@ public class DeadPartTest : MonoBehaviour
     {
        DeadPart_RB.position = new Vector2(Ground_RB.position.x, DeadPart_RB.position.y);
     }
-    void AttackDetected(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void AttackDetected(Collider2D collision)
     {
-        Vector2 otherPosition = args.Collision.gameObject.transform.position;
+        Vector2 otherPosition = collision.gameObject.transform.position;
         Vector2 attackDirection = ( DeadPart_RB.position - otherPosition).normalized;
-        switch (args.Collision.gameObject.tag)
+        switch (collision.gameObject.tag)
         {
             case "Attack_Hitbox":
                 StartCoroutine(PushMegaCoroutine(attackDirection, 0.5f));

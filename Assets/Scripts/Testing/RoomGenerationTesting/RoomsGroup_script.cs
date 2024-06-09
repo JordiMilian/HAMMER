@@ -9,8 +9,8 @@ public class RoomsGroup_script : MonoBehaviour
     public TypesOfRoom TypeOfRoom;
     public int AmountOfRoomsToSpawn;
     public GameObject[] RoomPrefabs;
-    //[HideInInspector] public Transform transform;
-    [HideInInspector] public Vector2 LastExitTf;
+
+    [HideInInspector] public Vector2 LastExitPosition;
 
     public List<Room_script> currentlySpawnedRooms = new List<Room_script>();
     GameObject[] GetRandomRooms()
@@ -65,44 +65,33 @@ public class RoomsGroup_script : MonoBehaviour
         }
         return roomsList.ToArray();
     }
-    void SpawnGroupOfRooms(Vector2 InitialPosition)
+    void SpawnNewGroupOfRooms(Vector2 InitialPosition)
     {
-        LastExitTf = InitialPosition;
+        LastExitPosition = InitialPosition;
         GameObject[] chosenRooms = GetRandomRooms();
-
-        //If there is no parent, create one OLD BORRAR SI POT SER
-        if (transform == null)
-        {
-            GameObject ParentGO = Instantiate(new GameObject("RoomsParent" + InitialPosition));
-            ParentGO.AddComponent<GroupOfRooms_ColliderDetector>();
-        }
 
         transform.position = InitialPosition; //Put parent in Initial position
 
         for (int i = 0; i < chosenRooms.Length; i++)
         {
-            GameObject newRoom = Instantiate(chosenRooms[i], LastExitTf, Quaternion.identity, transform);
+            GameObject newRoom = Instantiate(chosenRooms[i], LastExitPosition, Quaternion.identity, transform);
             Room_script thisRoom = newRoom.GetComponent<Room_script>();
-            LastExitTf = thisRoom.ExitPosition.position;
+            LastExitPosition = thisRoom.ExitPosition.position;
 
             //The bounds can be calculated beforehand. If they are skip
-            if(!thisRoom.isBoundCalculated)
+            if(!thisRoom.isBoundPrecalculated)
             {
                 thisRoom.calculateBounds();
             }
 
             currentlySpawnedRooms.Add(thisRoom);
         }
-        GetFullBounds();
+        CreateCombinedCollider();
     }
     void DestroyCurrentlySpawnedRooms()
     {
-        List<Room_script> roomsToDestroy = new List<Room_script>();
+        List<Room_script> roomsToDestroy = currentlySpawnedRooms;
 
-        foreach (Room_script room in currentlySpawnedRooms)
-        {
-            roomsToDestroy.Add(room);
-        }
         foreach (Room_script room in roomsToDestroy)
         {
             currentlySpawnedRooms.Remove(room);
@@ -112,16 +101,15 @@ public class RoomsGroup_script : MonoBehaviour
     public void RespawnRooms(Vector2 initialPos)
     {
         DestroyCurrentlySpawnedRooms();
-        SpawnGroupOfRooms(initialPos);
+        SpawnNewGroupOfRooms(initialPos);
     }
-    void GetFullBounds()
+    void CreateCombinedCollider()
     {
         Bounds combinedBounds = new Bounds(transform.position, Vector2.zero);
         foreach (Room_script room in currentlySpawnedRooms)
         {
-            combinedBounds.Encapsulate(room.GetComponent<BoxCollider2D>().bounds);
+            combinedBounds.Encapsulate(room.combinedBounds);
         }
-
         UsefullMethods.BoundsToBoxCollider(combinedBounds, transform.position, transform.gameObject);
     }
 }

@@ -34,12 +34,12 @@ public class Audio_Area : MonoBehaviour
         else { FadeOut(0); }
     }
 
-    void onFadeInAudio(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void onFadeInAudio(Collider2D collision)
     {
         if (CurrentFade != null) { StopCoroutine(CurrentFade); }
         CurrentFade = StartCoroutine(FadeIn(FadesSeconds));
     }
-    void onFadeOutAudio(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void onFadeOutAudio(Collider2D collision)
     {
         if (CurrentFade != null) { StopCoroutine(CurrentFade); }
         CurrentFade = StartCoroutine(FadeOut(FadesSeconds));

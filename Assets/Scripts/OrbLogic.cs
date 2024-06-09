@@ -41,7 +41,7 @@ public class OrbLogic : MonoBehaviour
         orbCollider.enabled = true;
         spriteRend.enabled = true;
     }
-    public void PickedUp(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    public void PickedUp(Collider2D collision)
     {
         orbCollider.enabled = false;
 

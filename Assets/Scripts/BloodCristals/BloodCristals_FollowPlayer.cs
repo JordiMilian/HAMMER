@@ -35,11 +35,11 @@ public class BloodCristals_FollowPlayer : MonoBehaviour
         bloodCristalRB = GetComponent<Rigidbody2D>();
         RotateAndPush();
     }
-    void playerEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void playerEntered(Collider2D collision)
     { playerInRange = true; }
-    void playerExited(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void playerExited(Collider2D collision)
     { playerInRange = false; }
-    void destroyItself(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void destroyItself(Collider2D collision)
     { Destroy(gameObject); }
     void FixedUpdate()
     {

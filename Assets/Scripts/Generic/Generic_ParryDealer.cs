@@ -18,27 +18,28 @@ public class Generic_ParryDealer : MonoBehaviour
             case Team.Player:
                 if (collision.CompareTag(TagsCollection.Enemy_Hitbox))
                 {
-                    if (collision.GetComponent<Generic_DamageDealer>().isParryable)
+                    Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
+                    if (dealer.isParryable)
                     {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position));
-                    }
-                        
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position),dealer);
+                    }    
                 }
                 break;
             case Team.Enemy:
                 if(collision.CompareTag(TagsCollection.Player_Hitbox))
                 {
-                    if (collision.GetComponent<Generic_DamageDealer>().isParryable)
+                    Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
+                    if (dealer.isParryable)
                     {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position));
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer);
                     }
                 }
                 break;
         }
     }
-    void PublishSuccesfullParry(Vector3 collisionPoint)
+    void PublishSuccesfullParry(Vector3 collisionPoint, Generic_DamageDealer dealer)
     {
-        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.SuccesfulParryInfo(collisionPoint)); }
+        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.SuccesfulParryInfo(collisionPoint,dealer)); }
         
     }
 }

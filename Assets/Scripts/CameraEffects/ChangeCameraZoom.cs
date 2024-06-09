@@ -30,11 +30,11 @@ public class ChangeCameraZoom : MonoBehaviour
         triggerCollider.OnTriggerEntered -= addZoom;
         triggerCollider.OnTriggerExited -= removeZoom;
     }
-    void addZoom(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void addZoom(Collider2D collision)
     {
         cameraZoomer.AddZoomInfoAndUpdate(ThisInfo);
     }
-    void removeZoom(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void removeZoom(Collider2D collision)
     {
         cameraZoomer.RemoveZoomInfoAndUpdate(ThisInfo.Name);
     }

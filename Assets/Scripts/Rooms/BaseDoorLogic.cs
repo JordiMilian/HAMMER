@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Generic_OnTriggerEnterEvents;
 
-public class BaseRoomLogic : MonoBehaviour
+public class BaseDoorLogic : MonoBehaviour
 {
     [Header ("Door opening stuff")]
     [SerializeField] DoorAnimationController doorController;
     [SerializeField] Generic_OnTriggerEnterEvents reopenDoorTrigger;
     [SerializeField] AnimationClip openDoorAnimation;
     public bool isRoomPermanentlyCompleted;
-    public Action onRoomCompleted;
-    public Action onEnteredRoom;
+    public Action<BaseDoorLogic> onRoomCompleted;
     public virtual void OnEnable()
     {
         reopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
@@ -21,12 +20,13 @@ public class BaseRoomLogic : MonoBehaviour
 
         //If the room is completed, complete, else dont let the door open
         if (isRoomPermanentlyCompleted) { RoomCompleted(false,true); }
+
         else { reopenDoorTrigger.GetComponent<Collider2D>().enabled = false; }
     }
-    public void RoomCompleted(bool withAnimation, bool isRoomPermanent)
+    public void RoomCompleted(bool withAnimation = false, bool isRoomPermanent = false)
     {
-        onRoomCompleted?.Invoke();
-        if (isRoomPermanentlyCompleted) {return; }
+        onRoomCompleted?.Invoke(this);
+        if (isRoomPermanentlyCompleted) { return; }
         if (withAnimation) { StartCoroutine(OpenDoorFocusCamera()); }
         if (isRoomPermanent) { isRoomPermanentlyCompleted = true; }
         else { return; }
@@ -35,7 +35,7 @@ public class BaseRoomLogic : MonoBehaviour
         reopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = true;
 
     }
-    public void ReopenDoor(object sender, EventArgsCollisionInfo args)
+    public void ReopenDoor(Collider2D collision)
     {
         doorController.OpenDoor();
     }

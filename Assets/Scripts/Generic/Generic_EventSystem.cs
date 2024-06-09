@@ -43,9 +43,11 @@ public class Generic_EventSystem : MonoBehaviour
     public class SuccesfulParryInfo : EventArgs
     {
         public Vector3 ParryPosition;
-        public SuccesfulParryInfo(Vector3 data)
+        public Generic_DamageDealer ParriedDamageDealer;
+        public SuccesfulParryInfo(Vector3 data, Generic_DamageDealer parriedDealer)
         {
             ParryPosition = data;
+            ParriedDamageDealer = parriedDealer;
         }
     }
     public class DeadCharacterInfo

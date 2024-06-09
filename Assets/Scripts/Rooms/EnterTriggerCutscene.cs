@@ -19,7 +19,7 @@ public class EnterTriggerCutscene : MonoBehaviour
     {
         enterRoomTrigger.OnTriggerEntered -= callEntered;
     }
-    void callEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void callEntered(Collider2D collision)
     {
         if (hasCutscenePlayed) { return; }
         thisCutsceneLogic.playThisCutscene();

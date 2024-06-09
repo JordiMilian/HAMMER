@@ -161,7 +161,7 @@ MonoBehaviour:
   - {fileID: 942801910}
   - {fileID: 1488905956}
   - {fileID: 1031347824}
-  LastExitTf: {x: 0, y: 0}
+  LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!114 &74535205
 MonoBehaviour:
@@ -255,7 +255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157449585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.56, y: 5.04, z: 0.07932377}
+  m_LocalPosition: {x: 2.47, y: 8.54, z: 0.07932377}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -360,7 +360,7 @@ MonoBehaviour:
   - {fileID: 1261189769}
   - {fileID: 992717416}
   - {fileID: 1284367518}
-  LastExitTf: {x: 0, y: 0}
+  LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!114 &259431678
 MonoBehaviour:
@@ -426,7 +426,7 @@ MonoBehaviour:
   - {fileID: 1261189769}
   - {fileID: 992717416}
   - {fileID: 1284367518}
-  LastExitTf: {x: 0, y: 0}
+  LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!4 &303052909
 Transform:
@@ -602,16 +602,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485102b74685ec44bbdd542326d39746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerGenerateRooms: 0
-  triggerSingleGroupRandomizer: 0
-  SingleGroupRandomizerIndex: 0
   GroupsOfRoomsList:
   - {fileID: 956606583}
   - {fileID: 303052908}
   - {fileID: 619393067}
   - {fileID: 259431677}
   - {fileID: 74535204}
-  completeList: []
+  CompleteList_spawnedRooms: []
   PlayerRooms: []
 --- !u!4 &344138732
 Transform:
@@ -810,7 +807,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -986,7 +983,7 @@ MonoBehaviour:
   - {fileID: 942801910}
   - {fileID: 1488905956}
   - {fileID: 1031347824}
-  LastExitTf: {x: 0, y: 0}
+  LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!4 &619393068
 Transform:
@@ -1627,7 +1624,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -1827,7 +1824,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -2145,11 +2142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 395598803}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 0
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!4 &942801912
@@ -2233,7 +2231,7 @@ MonoBehaviour:
   - {fileID: 942801910}
   - {fileID: 1488905956}
   - {fileID: 1031347824}
-  LastExitTf: {x: 0, y: 0}
+  LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!4 &956606584
 Transform:
@@ -2294,11 +2292,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 1788952909}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 1
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!4 &992717418
@@ -2388,11 +2387,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 1960103438}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 0
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!4 &1031347826
@@ -2682,11 +2682,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 1914545145}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 1
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!61 &1261189772
@@ -2946,7 +2947,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -3044,11 +3045,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 1939371265}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 1
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!4 &1284367520
@@ -3473,7 +3475,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -3822,11 +3824,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 1073359682}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 0
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!4 &1488905958
@@ -4307,7 +4310,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -4764,11 +4767,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPosition: {fileID: 1467429758}
-  combinedWorldBounds:
+  combinedBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  enterRoomCollider: {fileID: 0}
   CalculateBoundsTrigger: 0
-  isBoundCalculated: 0
+  isBoundPrecalculated: 0
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
 --- !u!4 &2138219224
@@ -4814,3 +4818,76 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &9074931350855901421
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1075035394442379020, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_Name
+      value: BaseRoomV2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899201009733240555, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899201009733240555, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862259509104711363, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044840263969784332, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}

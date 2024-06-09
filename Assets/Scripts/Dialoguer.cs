@@ -6,7 +6,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static Generic_OnTriggerEnterEvents;
 
 public class Dialoguer : MonoBehaviour
 {
@@ -134,7 +133,7 @@ public class Dialoguer : MonoBehaviour
         }
         CurrentLineToRead = 0;
     }
-    void PlayerEnterDialogue(object sender, EventArgsCollisionInfo args)
+    void PlayerEnterDialogue(Collider2D collision)
     {
         playerIsInside = true;
         CheckIfOutOfRange();
@@ -146,7 +145,7 @@ public class Dialoguer : MonoBehaviour
         AddDialoguerToTargetGroup();
   
     }
-    void PlayerExitedDialogue(object sender, EventArgsCollisionInfo args)
+    void PlayerExitedDialogue(Collider2D collision)
     {
         playerIsInside = false;
 

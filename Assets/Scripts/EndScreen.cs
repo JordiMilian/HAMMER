@@ -39,13 +39,13 @@ public class EndScreen : MonoBehaviour
         }
     }
     
-    void playerEnteredEndCollider(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void playerEnteredEndCollider(Collider2D collision)
     {
         EndScreenRootImage.SetActive(true);//not used perque si no estan actius no busca be les imatges crec
 
         FadeIn(1f);
 
-        info.Collision.transform.root.GetComponent<Player_EventSystem>().CallDisable?.Invoke(); //Disable player movement and such
+        collision.transform.root.GetComponent<Player_EventSystem>().CallDisable?.Invoke(); //Disable player movement and such
     }
     void FadeOut(float time)
     {

@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Room_script : MonoBehaviour
+public class Room_scriptV2 : MonoBehaviour
 {
-    public Action<GameObject, Room_script> onRoomEntered;
-    public Action<GameObject, Room_script> onRoomExited;
+    public Action<GameObject> onRoomEntered;
+    public Action<GameObject> onRoomExited;
 
     public Transform ExitPosition;
 
@@ -46,12 +45,12 @@ public class Room_script : MonoBehaviour
     }
     void playerEnteredRoom(Collider2D collision)
     {
-        onRoomEntered?.Invoke(collision.gameObject, this);
+        onRoomEntered?.Invoke(collision.gameObject);
         isPlayerInThisRoom = true;
     }
     void playerExitedRoom(Collider2D collision)
     {
-        onRoomExited?.Invoke(collision.gameObject, this);
+        onRoomExited?.Invoke(collision.gameObject);
         isPlayerInThisRoom = false;
     }
 

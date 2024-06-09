@@ -50,7 +50,7 @@ public class RandomThunderPlayer : MonoBehaviour
         elapsedTime = 0;
         isPlaying = true;
     }
-    void StopThunders()
+    void StopThunders(BaseDoorLogic door)
     {
         isPlaying = false;
     }

@@ -19,37 +19,37 @@ public class PuddleSteps_Manager : MonoBehaviour
             ontrigger.OnTriggerExited += onSomethingExited;
         }
     }
-    void onSomethingEntered(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void onSomethingEntered(Collider2D collision)
     {
         Debug.Log("Some entered");
-        if(info.Collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             PlayersStepper.isStepping = true;
-            PlayersStepper.followingEntityTf = info.Collision.transform;
+            PlayersStepper.followingEntityTf = collision.transform;
         }
-        else if (info.Collision.gameObject.CompareTag(TagsCollection.Enemy))
+        else if (collision.gameObject.CompareTag(TagsCollection.Enemy))
         {
             foreach (PuddleStepsPlayer pudler in SteppersGOList)
             {
                 if (pudler.isStepping) { continue; }
-                pudler.followingEntityTf = info.Collision.transform;
+                pudler.followingEntityTf = collision.transform;
                 pudler.isStepping = true;
                 break;
             }
         }
     }
-    void onSomethingExited(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo info)
+    void onSomethingExited(Collider2D collision)
     {
-        if (info.Collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if (collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             PlayersStepper.isStepping = false;
             PlayersStepper.followingEntityTf = null;
         }
-        else if (info.Collision.gameObject.CompareTag(TagsCollection.Enemy))
+        else if (collision.gameObject.CompareTag(TagsCollection.Enemy))
         {
             foreach (PuddleStepsPlayer pudler in SteppersGOList)
             {
-                if(pudler.followingEntityTf == info.Collision.transform)
+                if(pudler.followingEntityTf == collision.transform)
                 {
                     pudler.isStepping = false;
                     pudler.followingEntityTf = null;

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Generic_OnTriggerEnterEvents;
 
 public class GreenBoss_StateMachine : Generic_StateMachine
 {
@@ -24,7 +23,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
     private void Start()
     {
         if(CurrentState == States.Fase02) { replaceAnimatorOverride(Fase02Animator); }
-         OnIdleState(this, new EventArgsCollisionInfo( new Collider2D())); 
+         OnIdleState(new Collider2D()); 
     }
     private void OnEnable()
     {
@@ -75,7 +74,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
                 break;
         }
     }
-    void OnIdleState(object sender, EventArgsCollisionInfo args)
+    void OnIdleState(Collider2D collision)
     {
         if(CurrentState != States.Idle)
         {
@@ -89,7 +88,7 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         }
         
     }
-    void OnAgrooState(object sender, EventArgsCollisionInfo args)
+    void OnAgrooState(Collider2D collision)
     {
         if(CurrentState != States.Fase01 && CurrentState != States.Fase02 && CurrentState != States.Transitioning)
         {

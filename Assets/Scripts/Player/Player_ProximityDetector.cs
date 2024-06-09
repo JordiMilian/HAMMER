@@ -55,15 +55,15 @@ public class Player_ProximityDetector : MonoBehaviour
 
         distanceToEnemy.Value = (ClosestEnemy.Tf.position - transform.position).magnitude;
     }
-    void AddEnemy(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void AddEnemy(Collider2D collision)
     {
-        InRangeEnemies.Add(args.Collision.gameObject.transform);
-        args.Collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath += EnemyDied;
+        InRangeEnemies.Add(collision.gameObject.transform);
+        collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath += EnemyDied;
     }
-    void RemoveEnemy(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void RemoveEnemy(Collider2D collision)
     {
-        InRangeEnemies.Remove(args.Collision.gameObject.transform);
-        args.Collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath -= EnemyDied;
+        InRangeEnemies.Remove(collision.gameObject.transform);
+        collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath -= EnemyDied;
     }
     void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {

@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static EnterTriggerCutscene;
 
-public class RegularEnemyRoomCutscene : BaseCutsceneLogic, IEnterRoomCutseneable
+public class RegularEnemyRoomCutscene : BaseCutsceneLogic
 {
     [SerializeField] Transform CenterOfRoom;
     [SerializeField] RoomWithEnemiesLogic enemyRoomLogic;
-    public void playCutscene()
-    {
-        if (enemyRoomLogic.isRoomPermanentlyCompleted) { return; }
 
-        StartCoroutine(RegularCutscene());
-    }
     public override void playThisCutscene()
     {
         if (enemyRoomLogic.isRoomPermanentlyCompleted) { return; }

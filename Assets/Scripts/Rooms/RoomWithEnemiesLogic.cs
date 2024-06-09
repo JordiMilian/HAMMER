@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Generic_OnTriggerEnterEvents;
 
-public class RoomWithEnemiesLogic : BaseRoomLogic
+public class RoomWithEnemiesLogic : BaseDoorLogic
 {
     [Serializable]
     public class EnemySpawn
@@ -41,7 +41,7 @@ public class RoomWithEnemiesLogic : BaseRoomLogic
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
         
     }
-    void SpawnEnemies(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo args)
+    void SpawnEnemies(Collider2D collision)
     {
 
         if (isRoomPermanentlyCompleted) { return; }
@@ -116,7 +116,7 @@ public class RoomWithEnemiesLogic : BaseRoomLogic
     void ActuallySpawn(EnemySpawn spawn)
     {
         // Find random point and Instantiate the Enemy
-        Vector2 SpawnPosition = RandomPointInCollider(SpawnArea);
+        Vector2 SpawnPosition = UsefullMethods.RandomPointInCollider(SpawnArea);
         GameObject SpawnedEnemy = Instantiate(
           spawn.PrefabEnemy,
           SpawnPosition,
@@ -147,21 +147,6 @@ public class RoomWithEnemiesLogic : BaseRoomLogic
     void EnemyDamaged(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         areCorrectlySpawned = false;
-    }
-
-    Vector2 RandomPointInCollider(Collider2D collider)
-    {
-        Vector2 randomPoint = Vector2.zero;
-        int attempts = 0;
-        do
-        {
-            float x = UnityEngine.Random.Range(collider.bounds.min.x, collider.bounds.max.x);
-            float y = UnityEngine.Random.Range(collider.bounds.min.y, collider.bounds.max.y);
-            randomPoint = new Vector2(x, y);
-            attempts++;
-        }
-        while (!collider.OverlapPoint(randomPoint));
-        return randomPoint;
     }
 }
 

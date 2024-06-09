@@ -30,14 +30,14 @@ public class Enemy_MoveToTarget : MonoBehaviour
     {
         InvokeRepeating("CheckClosestTransform", 0, 1f);
     }
-    void AddEnemy(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo collisionInfo)
+    void AddEnemy(Collider2D collision)
     {
-        inRangeEnemies.Add(collisionInfo.Collision.gameObject.transform);
+        inRangeEnemies.Add(collision.gameObject.transform);
         CheckClosestTransform();
     }
-    void RemoveEnemy(object sender, Generic_OnTriggerEnterEvents.EventArgsCollisionInfo collisionInfo)
+    void RemoveEnemy(Collider2D collision)
     {
-        inRangeEnemies.Remove(collisionInfo.Collision.gameObject.transform);
+        inRangeEnemies.Remove(collision.gameObject.transform);
         CheckClosestTransform();
     }
 
