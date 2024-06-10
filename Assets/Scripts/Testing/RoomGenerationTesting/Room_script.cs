@@ -11,8 +11,8 @@ public class Room_script : MonoBehaviour
 
     public Transform ExitPosition;
 
-    public Bounds combinedBounds;
-    [SerializeField] Generic_OnTriggerEnterEvents enterRoomCollider;
+    //public Bounds combinedBounds;
+    public Generic_OnTriggerEnterEvents enterRoomCollider;
 
     Renderer[] childRenderers;
     [SerializeField] bool CalculateBoundsTrigger;
@@ -59,7 +59,7 @@ public class Room_script : MonoBehaviour
     {
         childRenderers = GetComponentsInChildren<Renderer>(); //get all renderers
 
-        combinedBounds = new Bounds(transform.position, Vector2.zero); //set the bounds as empty
+        Bounds combinedBounds = new Bounds(transform.position, Vector2.zero); //set the bounds as empty
 
         foreach (Renderer renderer in childRenderers) //combine all bounds
         {
@@ -67,6 +67,6 @@ public class Room_script : MonoBehaviour
         }
 
         //Create the 2Dcollider in the OnTriggerEnter and save the public bounds 
-        combinedBounds = UsefullMethods.BoundsToBoxCollider(combinedBounds, transform.position, enterRoomCollider.gameObject).bounds;
+        UsefullMethods.BoundsToBoxCollider(combinedBounds, transform.position, enterRoomCollider.gameObject);
     }
 }

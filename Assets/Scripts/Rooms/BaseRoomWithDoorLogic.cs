@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Generic_OnTriggerEnterEvents;
 
-public class BaseDoorLogic : MonoBehaviour
+public class BaseRoomWithDoorLogic : MonoBehaviour
 {
     [Header ("Door opening stuff")]
     [SerializeField] DoorAnimationController doorController;
     [SerializeField] Generic_OnTriggerEnterEvents reopenDoorTrigger;
     [SerializeField] AnimationClip openDoorAnimation;
     public bool isRoomPermanentlyCompleted;
-    public Action<BaseDoorLogic> onRoomCompleted;
+    public Action<BaseRoomWithDoorLogic> onRoomCompleted;
     public virtual void OnEnable()
     {
         reopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);

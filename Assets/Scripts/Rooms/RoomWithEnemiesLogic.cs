@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Generic_OnTriggerEnterEvents;
 
-public class RoomWithEnemiesLogic : BaseDoorLogic
+public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
 {
     [Serializable]
     public class EnemySpawn

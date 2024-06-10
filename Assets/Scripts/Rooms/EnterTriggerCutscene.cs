@@ -25,8 +25,4 @@ public class EnterTriggerCutscene : MonoBehaviour
         thisCutsceneLogic.playThisCutscene();
         hasCutscenePlayed = true;
     }
-    public interface IEnterRoomCutseneable
-    {
-        void playCutscene();
-    }
 }

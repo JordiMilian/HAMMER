@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialDoorLogic_Parry : BaseDoorLogic
+public class TutorialDoorLogic_Parry : BaseRoomWithDoorLogic
 {
     Player_EventSystem playerEvents;
     int parriesDone;

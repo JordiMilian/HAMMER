@@ -9,7 +9,6 @@ public class DoorAnimationController : MonoBehaviour
     [SerializeField] Animator doorAnimator;
     [SerializeField] Collider2D blockingCollider;
     [SerializeField] AudioClip OpenAudio, CloseAudio;
-
     public Action OnDoorOpened;
     public Action OnDoorClosed;
     private void Start()

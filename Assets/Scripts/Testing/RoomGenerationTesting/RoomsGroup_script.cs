@@ -108,7 +108,7 @@ public class RoomsGroup_script : MonoBehaviour
         Bounds combinedBounds = new Bounds(transform.position, Vector2.zero);
         foreach (Room_script room in currentlySpawnedRooms)
         {
-            combinedBounds.Encapsulate(room.combinedBounds);
+            combinedBounds.Encapsulate(room.enterRoomCollider.GetComponent<BoxCollider2D>().bounds);
         }
         UsefullMethods.BoundsToBoxCollider(combinedBounds, transform.position, transform.gameObject);
     }

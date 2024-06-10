@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialDoorLogic_Focus : BaseDoorLogic
+public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
 {
     [SerializeField] GameObject FocusMannequin;
      Player_EventSystem playerEvents;
