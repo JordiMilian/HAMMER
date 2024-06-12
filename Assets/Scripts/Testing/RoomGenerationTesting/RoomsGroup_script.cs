@@ -90,7 +90,11 @@ public class RoomsGroup_script : MonoBehaviour
     }
     void DestroyCurrentlySpawnedRooms()
     {
-        List<Room_script> roomsToDestroy = currentlySpawnedRooms;
+        List<Room_script> roomsToDestroy = new List<Room_script>();
+        foreach (Room_script room in currentlySpawnedRooms)
+        {
+            roomsToDestroy.Add(room);
+        }
 
         foreach (Room_script room in roomsToDestroy)
         {
