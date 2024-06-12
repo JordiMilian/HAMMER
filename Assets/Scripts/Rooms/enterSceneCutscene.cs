@@ -19,7 +19,7 @@ public class enterSceneCutscene : BaseCutsceneLogic
 
         //playerRefs.animator.SetTrigger("EnterRoom Lo que sigue etc"); 
 
-        yield return new WaitForSeconds(5f); // esperar a que acabe l'animacio
+        yield return new WaitForSeconds(.1f); // esperar a que acabe l'animacio
 
         playerRefs.events.CallEnable?.Invoke();
     }

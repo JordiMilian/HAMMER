@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &622290583917304063
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1157536968097362621}
-  m_Layer: 0
-  m_Name: SpriteRenderer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1157536968097362621
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 622290583917304063}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2512462052065118788}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1802131144188648012
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2512462052065118788}
+  - component: {fileID: 1073714571966130721}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -58,11 +28,24 @@ Transform:
   m_LocalPosition: {x: -0.28980666, y: 0.1398387, z: 0.0032663795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1157536968097362621}
+  m_Children: []
   m_Father: {fileID: 7169319268242600366}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1073714571966130721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802131144188648012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc1eaacb2ecaa14dbe312cd53078708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangeTime: 0.3
+  MinMaxDistance: {x: 0, y: 4}
 --- !u!1 &3543234150371500527
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,6 +59,7 @@ GameObject:
   - component: {fileID: 3169391174290917419}
   - component: {fileID: 4311991610400568824}
   - component: {fileID: 4240107826189967653}
+  - component: {fileID: 3144264360532915604}
   m_Layer: 18
   m_Name: CloseDoorTrigger
   m_TagString: Untagged
@@ -189,6 +173,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+--- !u!114 &3144264360532915604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543234150371500527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f15411e662f74d48a78cb2505a0f63c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnimationController: {fileID: 6505407867932872728}
 --- !u!1 &5168098405068458713
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +255,7 @@ GameObject:
   - component: {fileID: 3777616728132808769}
   - component: {fileID: 2411583898286427916}
   - component: {fileID: 4348527926078457437}
+  - component: {fileID: 1422885099308710819}
   m_Layer: 18
   m_Name: ReopenDoorTrigger
   m_TagString: Untagged
@@ -319,6 +317,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+--- !u!114 &1422885099308710819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5620523026693704990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde6283b14a9ae34fbdd1aaac176a44a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnimationController: {fileID: 6505407867932872728}
 --- !u!1 &5652138034255535129
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +384,8 @@ MonoBehaviour:
   blockingCollider: {fileID: 6358248010266653297}
   OpenAudio: {fileID: 0}
   CloseAudio: {fileID: 0}
+  AutoDoorOpenerCollider: {fileID: 2411583898286427916}
+  AutoDoorCloserCollider: {fileID: 6428261089673101807}
 --- !u!95 &1042874851638948191
 Animator:
   serializedVersion: 4

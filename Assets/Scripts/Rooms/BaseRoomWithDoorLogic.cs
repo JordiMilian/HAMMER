@@ -9,19 +9,17 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
 {
     [Header ("Door opening stuff")]
     [SerializeField] DoorAnimationController doorController;
-    [SerializeField] Generic_OnTriggerEnterEvents reopenDoorTrigger;
     [SerializeField] AnimationClip openDoorAnimation;
     public bool isRoomPermanentlyCompleted;
     public Action<BaseRoomWithDoorLogic> onRoomCompleted;
     public virtual void OnEnable()
     {
-        reopenDoorTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
-        reopenDoorTrigger.OnTriggerEntered += ReopenDoor;
+
 
         //If the room is completed, complete, else dont let the door open
         if (isRoomPermanentlyCompleted) { RoomCompleted(false,true); }
 
-        else { reopenDoorTrigger.GetComponent<Collider2D>().enabled = false; }
+        else { doorController.DisableAutoDoorOpener(); }
     }
     public void RoomCompleted(bool withAnimation = false, bool isRoomPermanent = false)
     {
@@ -32,12 +30,8 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
         else { return; }
 
         //Activate the trigger to Reopen Door
-        reopenDoorTrigger.GetComponent<BoxCollider2D>().enabled = true;
+        doorController.EnableAutoDoorOpener();
 
-    }
-    public void ReopenDoor(Collider2D collision)
-    {
-        doorController.OpenDoor();
     }
     IEnumerator OpenDoorFocusCamera()
     {

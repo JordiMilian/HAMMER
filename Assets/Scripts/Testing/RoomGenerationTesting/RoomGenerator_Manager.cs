@@ -137,7 +137,8 @@ public class RoomGenerator_Manager : MonoBehaviour
 
             for (int i = 0; i < PlayerRooms.Count; i++)
             {
-                BoxCollider2D roomCollider = CompleteList_spawnedRooms[PlayerRooms[i].indexInCompleteList.x].list[PlayerRooms[i].indexInCompleteList.y].GetComponent<BoxCollider2D>();
+                Room_script thisRoom = CompleteList_spawnedRooms[PlayerRooms[i].indexInCompleteList.x].list[PlayerRooms[i].indexInCompleteList.y].GetComponent<Room_script>();
+                BoxCollider2D roomCollider = thisRoom.enterRoomCollider.GetComponent<BoxCollider2D>();
                 UsefullMethods.DrawCollider(roomCollider, Color.cyan);
             }
         }

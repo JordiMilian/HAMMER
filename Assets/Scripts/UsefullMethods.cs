@@ -122,6 +122,7 @@ public class UsefullMethods
         if(boundsCollider == null)
         {
             boundsCollider = colliderHolder.AddComponent<BoxCollider2D>();
+            boundsCollider.isTrigger = true;
         }
         
         Vector3 localCenter = bounds.center - boundsOrigin;

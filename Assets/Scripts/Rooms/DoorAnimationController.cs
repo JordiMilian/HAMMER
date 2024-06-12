@@ -11,9 +11,12 @@ public class DoorAnimationController : MonoBehaviour
     [SerializeField] AudioClip OpenAudio, CloseAudio;
     public Action OnDoorOpened;
     public Action OnDoorClosed;
+
+    [SerializeField] Collider2D AutoDoorOpenerCollider;
+    [SerializeField] Collider2D AutoDoorCloserCollider;
     private void Start()
     {
-        CloseDoor();
+        //CloseDoor();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -50,5 +53,22 @@ public class DoorAnimationController : MonoBehaviour
     public void EV_OpenCollider()
     {
         blockingCollider.enabled = false;
+    }
+
+    public void DisableAutoDoorOpener()
+    {
+        AutoDoorOpenerCollider.enabled = false;
+    }
+    public void EnableAutoDoorOpener()
+    {
+        AutoDoorOpenerCollider.enabled = false;
+    }
+    public void DisableAutoDoorCloser()
+    {
+        AutoDoorCloserCollider.enabled = false;
+    }
+    public void EnableAutoDoorCloser()
+    {
+        AutoDoorCloserCollider.enabled = true;
     }
 }

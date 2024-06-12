@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Path;
 using UnityEngine;
+using UnityEngine.U2D;
 using static Generic_OnTriggerEnterEvents;
 
 
@@ -9,6 +11,7 @@ public class Rooms_FadInOut : MonoBehaviour
 {
     public GameObject[] RoomSpritesRoots;
     List<SpriteRenderer> AllRoomSprites = new List<SpriteRenderer>();
+    List<SpriteShapeRenderer> AllRoomShapes = new List<SpriteShapeRenderer>();
     [SerializeField] GameObject[] SpriteShapesRoots;
 
     [SerializeField] Generic_OnTriggerEnterEvents RoomTrigger;
@@ -26,6 +29,16 @@ public class Rooms_FadInOut : MonoBehaviour
                 AllRoomSprites.Add(thisSprite);
             }
         }
+        
+        foreach (GameObject root in SpriteShapesRoots)
+        {
+            SpriteShapeRenderer[] thisRootsShapes = root.GetComponentsInChildren<SpriteShapeRenderer>();
+            foreach (SpriteShapeRenderer thisShape in thisRootsShapes)
+            {
+                AllRoomShapes.Add(thisShape);
+            }
+        }
+        
     }
     private void Start()
     {
@@ -51,49 +64,61 @@ public class Rooms_FadInOut : MonoBehaviour
     }
     void playerEnteredRoom(Collider2D collision)
     {
-        FadeIn(AllRoomSprites.ToArray());
+        FadeIn();
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnColor(); }
     }
     void playerExitedRoom(Collider2D collision)
     {
-        FadeOut(AllRoomSprites.ToArray());
+        FadeOut();
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }
     }
-    void FadeOut(SpriteRenderer[] sprites)
+    void FadeOut()
     {
-        foreach (SpriteRenderer sprite in sprites)
+        foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeOutSprite(sprite));
+            StartCoroutine(FadeOutSprite(result => sprite.color = result));
+        }
+        foreach(SpriteShapeRenderer shape in AllRoomShapes)
+        {
+            StartCoroutine(FadeOutSprite(result => shape.color = result));
         }
     }
-    IEnumerator FadeOutSprite(SpriteRenderer sprite)
+    IEnumerator FadeOutSprite(Action<Color> colorToChange)
     {
         float timer = 0;
         while(timer < TransitionTime)
         {
             timer += Time.deltaTime;
             float opacity = 1- (1 / TransitionTime * timer);
-            sprite.color = new Color (1,1,1,opacity);
+            Color newColor = new Color (1,1,1,opacity);
+            colorToChange(newColor);
             yield return null;
         }
     }
-    void FadeIn(SpriteRenderer[] sprites)
+    void FadeIn()
     {
-        foreach (SpriteRenderer sprite in sprites)
+        foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeInSprite(sprite));
+            StartCoroutine(FadeInSprite(result => sprite.color = result));
+        }
+        foreach(SpriteShapeRenderer shape in AllRoomShapes)
+        {
+            StartCoroutine(FadeInSprite(result => shape.color = result));
         }
     }
-    IEnumerator FadeInSprite(SpriteRenderer sprite)
+    IEnumerator FadeInSprite(Action<Color> colorToChange)
     {
         float timer = 0;
         while (timer < TransitionTime)
         {
             timer += Time.deltaTime;
             float opacity =  1 / TransitionTime * timer;
-            sprite.color = new Color(1, 1, 1, opacity);
+            Color newColor = new Color(1, 1, 1, opacity);
+            colorToChange(newColor);
             yield return null;
         }
         
     }
+
 }
+

@@ -8,6 +8,10 @@ public class RoomGeneration_Debugger : MonoBehaviour
     [SerializeField] bool Trigger_AllRooms, Trigger_SingleGroup, Trigger_StartingFromGroup;
     [SerializeField] int triggerIndex;
 
+    private void Awake()
+    {
+        manager.Call_GenerateAllRoomsFromPosition?.Invoke(transform.position);
+    }
     private void Update()
     {
         if(Trigger_AllRooms)

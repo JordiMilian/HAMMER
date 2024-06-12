@@ -119,6 +119,7 @@ MonoBehaviour:
   isBoundPrecalculated: 1
   isPlayerInThisRoom: 0
   indexInCompleteList: {x: 0, y: 0}
+  GroundRenderersRoot: {fileID: 2012529051862698792}
 --- !u!1 &3452858833506572810
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6122615559725658702
 Transform:
   m_ObjectHideFlags: 0
@@ -558,7 +559,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.094944, y: 3.4063287}
@@ -666,7 +667,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomSpritesRoots:
   - {fileID: 838814416815481700}
-  SpriteShapesRoots: []
+  SpriteShapesRoots:
+  - {fileID: 838814416815481700}
   RoomTrigger: {fileID: 4325014975783648930}
   DoorForegrounder: {fileID: 0}
   TransitionTime: 0.2

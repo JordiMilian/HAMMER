@@ -14,13 +14,14 @@ public class Room_script : MonoBehaviour
     //public Bounds combinedBounds;
     public Generic_OnTriggerEnterEvents enterRoomCollider;
 
-    Renderer[] childRenderers;
+    
     [SerializeField] bool CalculateBoundsTrigger;
     public bool isBoundPrecalculated;
 
     [Header("read only")]
     public bool isPlayerInThisRoom;
     public Vector2Int indexInCompleteList;
+    [SerializeField] Transform GroundRenderersRoot;
 
     //This script exist to hold information of Rooms Generation stuff and Player entering room.
     //No logic of enemies spawned or doors opening or closing should be placed here
@@ -57,7 +58,7 @@ public class Room_script : MonoBehaviour
 
     public void calculateBounds()
     {
-        childRenderers = GetComponentsInChildren<Renderer>(); //get all renderers
+        Renderer[] childRenderers = GroundRenderersRoot.GetComponentsInChildren<Renderer>(); //get all renderers
 
         Bounds combinedBounds = new Bounds(transform.position, Vector2.zero); //set the bounds as empty
 

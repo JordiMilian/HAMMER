@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EnterExitScene_controller : MonoBehaviour
 {
-    public Scene sceneToLoad;
+    //public Scene sceneToLoad;
+    public string SceneName;
     [SerializeField] BaseCutsceneLogic enterCutscene;
     public bool playEnteringCutsceneOnLoad;
 
@@ -30,6 +31,6 @@ public class EnterExitScene_controller : MonoBehaviour
     }
     void LoadScene()
     {
-        SceneManager.LoadScene(sceneToLoad.name);
+        SceneManager.LoadScene(SceneName);
     }
 }
