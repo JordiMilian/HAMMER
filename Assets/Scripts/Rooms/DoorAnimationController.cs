@@ -45,7 +45,7 @@ public class DoorAnimationController : MonoBehaviour
         if (!isDoorOpen)
         {
             doorAnimator.SetTrigger("Open");
-            Game_AudioPlayerSingleton.Instance.playSFXclip(OpenAudio);
+            //Game_AudioPlayerSingleton.Instance.playSFXclip(OpenAudio);
             isDoorOpen = true;
             OnDoorOpened?.Invoke();
         }

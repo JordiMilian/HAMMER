@@ -16,6 +16,7 @@ public class BossRoomLogic : RoomWithEnemiesLogic
     void BossDefeated(BaseRoomWithDoorLogic roomLogic)
     {
         gameState.FourDoors[BossIndex].isCompleted = true;
+        gameState.LastCompletedIndex = BossIndex;
         OnBossDefeated?.Invoke(BossIndex);
     }
 }

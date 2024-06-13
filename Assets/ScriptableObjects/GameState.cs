@@ -13,4 +13,7 @@ public class GameState : ScriptableObject
         public DoorAnimationController DoorController;
     }
     public BossAreaDoor[] FourDoors;
+    public int LastCompletedIndex;
+    public bool isFinalDoorOpen;
+    public bool isTutorialCompleted;
 }
