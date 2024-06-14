@@ -9,40 +9,59 @@ public class AltoMando : MonoBehaviour
     [SerializeField] DoorAnimationController[] FourDoors;
     [SerializeField] EnterExitScene_controller[] EnterExitScene;
     [SerializeField] DoorAnimationController FinalDoor;
-    [SerializeField] GameState gameState; 
+    [SerializeField] GameState gameState;
+    int doorsCompleted;
     private void Awake()
     {
-        int doorsOpen = 0;
+        doorsCompleted = 0;
+        Handle4Doors();
+        HandleFinalDoor();
+    }
+    void Handle4Doors()
+    {
         for (int i = 0; i < gameState.FourDoors.Length; i++)
         {
             GameState.BossAreaDoor Door = gameState.FourDoors[i];
             Door.DoorController = FourDoors[i];
+
             Door.DoorController.DisableAutoDoorCloser();
+            Door.DoorController.DisableAutoDoorOpener();
             FinalDoor.DisableAutoDoorOpener();
             FinalDoor.DisableAutoDoorCloser();
 
             EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastCompletedIndex;
 
-            
-            if (!Door.isCompleted)
+            if (!Door.isCompleted) //Uncompleted Doors
             {
-                Debug.Log("Door incompleted: " + i);
-
-                Door.DoorController.OpenDoor();
+                Door.DoorController.InstaOpen();
             }
-            else
+            else if (i == gameState.LastCompletedIndex) //last completed door
             {
-                doorsOpen++;
+                doorsCompleted++;
+                Door.DoorController.InstaOpen();
                 Door.DoorController.CloseDoor();
-                Door.DoorController.DisableAutoDoorOpener();
+            }
+            else //Already completed doors
+            {
+                doorsCompleted++;
+                Door.DoorController.InstaClose();
             }
         }
-        if(doorsOpen == gameState.FourDoors.Length || !gameState.isFinalDoorOpen)
+    }
+    void HandleFinalDoor()
+    {
+        if (gameState.isFinalDoorOpen) //Final door is already completed
+        {
+            FinalDoor.InstaOpen();
+        }
+        else if (doorsCompleted == gameState.FourDoors.Length) //Final door just completed
         {
             FinalDoor.OpenDoor();
             gameState.isFinalDoorOpen = true;
-            FinalDoor.EnableAutoDoorOpener();
-            //Algo que deixe la porta oberta sense haber de passar per al animacio porfaaa
+        }
+        else //Final door is not open
+        {
+            gameState.isFinalDoorOpen = false;
         }
     }
 

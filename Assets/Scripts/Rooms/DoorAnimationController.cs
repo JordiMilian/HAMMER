@@ -12,12 +12,8 @@ public class DoorAnimationController : MonoBehaviour
     public Action OnDoorOpened;
     public Action OnDoorClosed;
 
-    [SerializeField] Collider2D AutoDoorOpenerCollider;
-    [SerializeField] Collider2D AutoDoorCloserCollider;
-    private void Start()
-    {
-        //CloseDoor();
-    }
+    [SerializeField] Transform AutoDoorOpenerCollider;
+    [SerializeField] Transform AutoDoorCloserCollider;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
@@ -30,10 +26,20 @@ public class DoorAnimationController : MonoBehaviour
         if (isDoorOpen)
         {
             doorAnimator.SetTrigger("Close");
-            Game_AudioPlayerSingleton.Instance.playSFXclip(CloseAudio);
+            //Game_AudioPlayerSingleton.Instance.playSFXclip(CloseAudio);
             isDoorOpen = false;
             OnDoorClosed?.Invoke();
         } 
+    }
+    public void InstaClose()
+    {
+        if(isDoorOpen)
+        {
+            doorAnimator.SetTrigger("InstaClose");
+            isDoorOpen = false;
+            OnDoorClosed?.Invoke();
+            EV_CloseCollider();
+        }
     }
     public void EV_CloseCollider()
     {
@@ -50,6 +56,16 @@ public class DoorAnimationController : MonoBehaviour
             OnDoorOpened?.Invoke();
         }
     }
+    public void InstaOpen()
+    {
+        if (!isDoorOpen)
+        {
+            doorAnimator.SetTrigger("InstaOpen");
+            isDoorOpen = true;
+            OnDoorOpened?.Invoke();
+            EV_OpenCollider();
+        }
+    }
     public void EV_OpenCollider()
     {
         blockingCollider.enabled = false;
@@ -57,18 +73,34 @@ public class DoorAnimationController : MonoBehaviour
 
     public void DisableAutoDoorOpener()
     {
-        AutoDoorOpenerCollider.enabled = false;
+        Collider2D[] colliders = AutoDoorOpenerCollider.GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = false;
+        }
     }
     public void EnableAutoDoorOpener()
     {
-        AutoDoorOpenerCollider.enabled = false;
+        Collider2D[] colliders = AutoDoorOpenerCollider.GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = true;
+        }
     }
     public void DisableAutoDoorCloser()
     {
-        AutoDoorCloserCollider.enabled = false;
+        Collider2D[] colliders = AutoDoorCloserCollider.GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = false;
+        }
     }
     public void EnableAutoDoorCloser()
     {
-        AutoDoorCloserCollider.enabled = true;
+        Collider2D[] colliders = AutoDoorCloserCollider.GetComponents<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = true;
+        }
     }
 }

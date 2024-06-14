@@ -36,8 +36,6 @@ public class Game_AudioPlayerSingleton : MonoBehaviour
         */
         basePitch = audioSource.pitch;
         baseVolume = audioSource.volume;
-
-
     }
     public void playSFX(string key)
     {
