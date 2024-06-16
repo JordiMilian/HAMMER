@@ -15,7 +15,6 @@ public class Player_UpgradesManager : MonoBehaviour
             Upgrade upgradeEffector = upgradeContainer.upgradeEffect;
             upgradeEffector.onAdded(gameObject); //aply the effect of the upgrade
             UpgradesList.Add(upgradeEffector); //add the effector to a List
-            Destroy(collision.gameObject); //destroy the other object
         }
     }
     void deleteRandomUpgrade()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsefullMethods
+public class UsefullMethods : MonoBehaviour 
 {
     public static IEnumerator ApplyForceOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
@@ -70,6 +70,22 @@ public class UsefullMethods
             Vector2 PreviousPoint = angle2Vector(previousDivider * Mathf.PI * 2);
             Debug.DrawLine(center + (PreviousPoint * radius), center + (CurrentPoint * radius));
         }
+    }
+    public static Vector2[] GetPolygonPositions(Vector2 center, int sides, float radius, float offset = 0)
+    {
+        List<Vector2> positions = new List<Vector2>(); 
+        for (int i = 0; i < sides; i++)
+        {
+            float sidesF = intToFloat(sides);
+            float divider = (1.0f / sidesF * i) + offset;
+
+            Vector2 CurrentPoint = angle2Vector(divider * Mathf.PI * 2);
+            Vector2 finalPoint = center + (CurrentPoint * radius);
+
+            positions.Add(finalPoint);
+        }
+
+        return positions.ToArray();
     }
     public static float intToFloat(int i)
     {
@@ -140,5 +156,10 @@ public class UsefullMethods
         Gizmos.matrix = rotationMatrix;
         Gizmos.color = boxColor;
         Gizmos.DrawWireCube(collider.offset, collider.size);
+    }
+    public static IEnumerator destroyWithDelay(float delaySeconds, GameObject objectToDestroy)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+        Destroy(objectToDestroy);
     }
 }
