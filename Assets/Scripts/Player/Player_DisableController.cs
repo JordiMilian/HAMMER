@@ -3,14 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_StateMachine : MonoBehaviour
+public class Player_DisableController : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
 
     [SerializeField] Transform MouseTarget;
     [SerializeField] List<GameObject> SpritesRoot = new List<GameObject>();
-
-    [SerializeField] GameObject weaponPivot;
 
     private void Awake()
     {
@@ -18,19 +16,18 @@ public class Player_StateMachine : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerRefs.events.OnDeath += HideAndDisablePlayer;
-        playerRefs.events.CallHideAndDisable += ShowAndEnablePlayer;
+        playerRefs.events.CallHideAndDisable += HideAndDisablePlayer;
+        playerRefs.events.CallShowAndEnable += ShowAndEnablePlayer;
         playerRefs.events.CallDisable += DisablePlayerScripts;
         playerRefs.events.CallEnable += EnablePlayerScripts;
     }
     private void OnDisable()
     {
-        playerRefs.events.OnDeath -= HideAndDisablePlayer;
-        playerRefs.events.CallHideAndDisable -= ShowAndEnablePlayer;
+        playerRefs.events.CallShowAndEnable -= ShowAndEnablePlayer;
         playerRefs.events.CallDisable -= DisablePlayerScripts;
         playerRefs.events.CallEnable -= EnablePlayerScripts;
     }
-    void HideAndDisablePlayer(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    void HideAndDisablePlayer()
     {
         DisablePlayerScripts();
 
@@ -39,9 +36,8 @@ public class Player_StateMachine : MonoBehaviour
             root.SetActive(false);
         }
 
-        SetupForRespwan(); 
     }
-    public void ShowAndEnablePlayer()
+     void ShowAndEnablePlayer()
     {
         EnablePlayerScripts();
         foreach (GameObject root in SpritesRoot)
@@ -58,15 +54,6 @@ public class Player_StateMachine : MonoBehaviour
         playerRefs.damageDetector.enabled = false;
         playerRefs.positionCollider.enabled = false;
     }
-    void SetupForRespwan()
-    {
-        weaponPivot.transform.eulerAngles = new Vector3(
-                    weaponPivot.transform.eulerAngles.x,
-                    weaponPivot.transform.eulerAngles.y,
-                    90
-                    );
-        StartCoroutine(DelayedRespawn());
-    }
     void EnablePlayerScripts()
     {
         playerRefs.playerMovement.enabled = true;
@@ -76,10 +63,4 @@ public class Player_StateMachine : MonoBehaviour
         playerRefs.damageDetector.enabled = true;
         playerRefs.positionCollider.enabled = true;
     }
-    IEnumerator DelayedRespawn()
-    {
-        yield return new WaitForSeconds(3.5f);
-        playerRefs.events.CallRespawn?.Invoke(); //Go to Player_RespawnerManager
-    }
-    
 }

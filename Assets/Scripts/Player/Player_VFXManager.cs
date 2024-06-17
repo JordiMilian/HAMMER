@@ -24,7 +24,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage += InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll += PlayDustVFX;
         eventSystem.OnReceiveDamage += PlayGroundBlood;
-        eventSystem.CallHideAndDisable += InstantiateBloodExplosion;
+        eventSystem.CallShowAndEnable += InstantiateBloodExplosion;
 
         eventSystem.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => PlayBigPuddleStep();
         eventSystem.OnPerformRoll += PlayBigPuddleStep;
@@ -37,7 +37,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnReceiveDamage -= InstantiateReceiveDamageVFX;
         eventSystem.OnPerformRoll -= PlayDustVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
-        eventSystem.CallHideAndDisable -= InstantiateBloodExplosion;
+        eventSystem.CallShowAndEnable -= InstantiateBloodExplosion;
         eventSystem.OnPerformAttack -= PlayBigPuddleStep;
         eventSystem.OnPerformRoll -= PlayBigPuddleStep;
     }

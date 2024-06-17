@@ -16,7 +16,7 @@ public class Player_Respawner : MonoBehaviour
     [HideInInspector] public int managerIndex;
     private void OnEnable()
     {
-        respawnerManager =  GameObject.Find("RespawnManager").GetComponent<Player_RespawnerManager>();
+        respawnerManager =  Player_RespawnerManager.Instance;
         respawnerManager.Respawners.Add(this);
         eventSystem.OnDeath += OnTiedEnemyKilled;
     }
@@ -47,6 +47,6 @@ public class Player_Respawner : MonoBehaviour
     }
     public void EV_ActivatePlayer()
     {
-        RespawnedPlayer.GetComponent<Player_EventSystem>().CallHideAndDisable?.Invoke(); // Go to Player_StateMachine
+        RespawnedPlayer.GetComponent<Player_EventSystem>().CallShowAndEnable?.Invoke(); // Go to Player_StateMachine
     }
 }

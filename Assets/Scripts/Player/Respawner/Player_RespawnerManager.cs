@@ -9,15 +9,13 @@ public class Player_RespawnerManager : MonoBehaviour
 
     public List<Player_Respawner> Respawners = new List<Player_Respawner>();
     [SerializeField] Player_Respawner CurrentFurthestRespawner;
-    [SerializeField] GameObject PlayerGO;
-    Generic_HealthSystem playerHealth;
+    //[SerializeField] GameObject PlayerGO;
     [SerializeField] Player_EventSystem eventSystem;
     
 
-    
     private void OnEnable()
     {
-        playerHealth = PlayerGO.GetComponent<Generic_HealthSystem>();
+        
         eventSystem.CallRespawn += RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
@@ -32,12 +30,24 @@ public class Player_RespawnerManager : MonoBehaviour
             respawner.OnRespawnerActivated -= CheckFurthestRespawner;
         }
     }
-    public void RespawnPlayer()
+    public static Player_RespawnerManager Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    void RespawnPlayer()
     {
         CheckFurthestRespawner();
         CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
-        CurrentFurthestRespawner.RespawnFromHere(PlayerGO); //Go to Player_Respawn
-        playerHealth.RestoreAllHealth();
+        CurrentFurthestRespawner.RespawnFromHere(eventSystem.gameObject); //Go to Player_Respawn
+        
     }
     void CheckFurthestRespawner()
     {

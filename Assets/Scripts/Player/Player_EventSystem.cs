@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Player_EventSystem : Generic_EventSystem
 {
-    public Action OnPerformRoll;
+    
     public Action CallRespawn;
+    public Action CallShowAndEnable;
     public Action CallHideAndDisable;
     public Action CallDisable;
     public Action CallEnable;
-    public Action CallInstantRespawn;
+
+    public Action OnPerformRoll;
     public Action OnPerformAttack;
     public Action OnPerformParry;
     public Action<GameObject> OnFocusEnemy;
