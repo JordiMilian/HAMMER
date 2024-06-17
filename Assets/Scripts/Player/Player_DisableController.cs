@@ -23,6 +23,7 @@ public class Player_DisableController : MonoBehaviour
     }
     private void OnDisable()
     {
+        playerRefs.events.CallHideAndDisable -= HideAndDisablePlayer;
         playerRefs.events.CallShowAndEnable -= ShowAndEnablePlayer;
         playerRefs.events.CallDisable -= DisablePlayerScripts;
         playerRefs.events.CallEnable -= EnablePlayerScripts;

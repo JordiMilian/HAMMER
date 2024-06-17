@@ -13,8 +13,6 @@ public class Player_ActionPerformer : MonoBehaviour
             triggerName = triggername;
         }
     }
-
-
     public void AddAction(Action action)
     {
         if (PauseGame.isPaused) { return; }

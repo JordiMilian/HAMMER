@@ -19,4 +19,5 @@ public class Player_EventSystem : Generic_EventSystem
     public Action OnUnfocusEnemy;
     public Action OnPerformSpecialAttack;
     public Action<float> OnStaminaAction;
+    public Action<UpgradeContainer> OnPickedNewUpgrade;
 }
