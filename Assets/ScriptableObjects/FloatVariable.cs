@@ -13,6 +13,10 @@ using UnityEngine;
             Value = value;
             OnValueSet?.Invoke();
         }
+        public float GetValue()
+        {
+        return Value;
+        }
    }
 
 

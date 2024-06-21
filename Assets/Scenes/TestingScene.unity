@@ -290,7 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger_DeleteRandomUpgrade: 0
-  UpgradesList: []
+  gameState: {fileID: 0}
+  playerEvents: {fileID: 0}
 --- !u!1 &184995076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +1006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594970361}
-  - component: {fileID: 594970360}
+  - component: {fileID: 594970362}
   m_Layer: 0
   m_Name: Upgrades Singleton
   m_TagString: Untagged
@@ -1013,21 +1014,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &594970360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594970359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c18f700d63846148931086ec63d4d0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AvailableUpgrades:
-  - {fileID: 7996376824585533271, guid: 3ab9163d757f8304b9090eff271705b3, type: 3}
-  - {fileID: 7996376824585533271, guid: 8f0eb1de6e9265440a29ea351efbf21b, type: 3}
 --- !u!4 &594970361
 Transform:
   m_ObjectHideFlags: 0
@@ -1043,6 +1029,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594970362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594970359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15c5a28cb68bc849842414f2e13cfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvailableUpgrades: []
 --- !u!1 &619393066
 GameObject:
   m_ObjectHideFlags: 0

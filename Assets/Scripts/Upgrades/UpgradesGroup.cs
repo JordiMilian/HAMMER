@@ -61,7 +61,7 @@ public class UpgradesGroup : MonoBehaviour
     {
         SelectedPrefabs.Clear();
 
-        int availableUpgradesCount = Upgrades_PickableUpgrades.Instance.AvailableUpgrades.Count;
+        int availableUpgradesCount = Upgrades_AvailableUpgrades.Instance.AvailableUpgrades.Count;
         if (tempAmountOfContainers > availableUpgradesCount)
         {
             tempAmountOfContainers = availableUpgradesCount;
@@ -70,7 +70,7 @@ public class UpgradesGroup : MonoBehaviour
         int attempts = 0;
         for (int i = 0; i < tempAmountOfContainers; i++)
         {
-            GameObject maybeUpdate = Upgrades_PickableUpgrades.Instance.GetRandomUpgrade();
+            GameObject maybeUpdate = Upgrades_AvailableUpgrades.Instance.GetRandomUpgrade();
 
             if (!SelectedPrefabs.Contains(maybeUpdate)) { SelectedPrefabs.Add(maybeUpdate); continue; }
             i--;
@@ -84,7 +84,7 @@ public class UpgradesGroup : MonoBehaviour
 
         for (int i = 0; i < tempAmountOfContainers; i++)
         {
-            GameObject maybeUpdate = Upgrades_PickableUpgrades.Instance.GetRandomUpgrade();
+            GameObject maybeUpdate = Upgrades_AvailableUpgrades.Instance.GetRandomUpgrade();
             SelectedPrefabs.Add(maybeUpdate);
         }
     }

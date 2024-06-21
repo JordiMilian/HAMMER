@@ -23,5 +23,7 @@ public class Player_References : Generic_References
     public FloatVariable maxStamina;
 
     public Collider2D parryCollider;
+
+    public GameObject weaponScalingRoot;
     
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrades_PickableUpgrades : MonoBehaviour
+public class Upgrades_AvailableUpgrades : MonoBehaviour
 {
    public List<GameObject> AvailableUpgrades;
-    public static Upgrades_PickableUpgrades Instance;
+    public static Upgrades_AvailableUpgrades Instance;
     private void Awake()
     {
         //Singleton
