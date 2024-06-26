@@ -11,7 +11,7 @@ public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
     {
         base.OnEnable();
 
-        playerEvents = GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_EventSystem>();
+        playerEvents = GlobalPlayerReferences.Instance.references.events;
 
         playerEvents.OnFocusEnemy += FocusedEnemy;
     }

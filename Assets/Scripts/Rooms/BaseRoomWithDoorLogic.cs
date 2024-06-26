@@ -14,8 +14,6 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
     public Action<BaseRoomWithDoorLogic> onRoomCompleted;
     public virtual void OnEnable()
     {
-
-
         //If the room is completed, complete, else dont let the door open
         if (isRoomPermanentlyCompleted) { RoomCompleted(false,true); }
 

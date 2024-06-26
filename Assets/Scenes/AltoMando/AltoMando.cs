@@ -29,7 +29,7 @@ public class AltoMando : MonoBehaviour
             FinalDoor.DisableAutoDoorOpener();
             FinalDoor.DisableAutoDoorCloser();
 
-            EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastCompletedIndex;
+            EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastCompletedIndex; //Player respawn on the last completed index
 
             if (!Door.isCompleted) //Uncompleted Doors
             {

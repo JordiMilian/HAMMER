@@ -19,7 +19,7 @@ public class Foregrounder : MonoBehaviour
         {
             materials[i] = spriteRenderers[i].material;
         }
-        playerTF = GameObject.Find(TagsCollection.MainCharacter).transform;
+        playerTF = GlobalPlayerReferences.Instance.references.transform;
     }
     private void Update()
     {

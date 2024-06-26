@@ -7,7 +7,7 @@ public class TutorialDoorLogic_Parry : BaseRoomWithDoorLogic
     Player_EventSystem playerEvents;
     int parriesDone;
     [SerializeField] int parriesToOpen;
-    [SerializeField] GameObject MannequinDamageDealer;
+    [SerializeField] Generic_DamageDealer MannequinDamageDealer;
 
     public override void OnEnable()
     {

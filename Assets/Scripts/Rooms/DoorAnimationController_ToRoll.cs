@@ -9,6 +9,8 @@ public class DoorAnimationController_ToRoll : DoorAnimationController
     {
         OnDoorClosed += HideDamageCollider;
         OnDoorOpened += ShowDamageColldier;
+        OpenDoor();
+        
     }
     void HideDamageCollider()
     {
