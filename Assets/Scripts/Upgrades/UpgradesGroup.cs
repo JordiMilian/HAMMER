@@ -1,55 +1,59 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradesGroup : MonoBehaviour
-{ 
-
-    [SerializeField] BaseRoomWithDoorLogic doorLogic;
+{
+    public Action CallSpawnUpgrades;
+    [SerializeField] BaseRoomWithDoorLogic roomLogic;
     [SerializeField] int amountOfContainers;
     int tempAmountOfContainers;
     [SerializeField] float radiusToSpawn;
     [SerializeField] bool trigger_TestSpawnContainers;
 
     [SerializeField] bool avoidUpgradesRepetition;
-    
-    List<GameObject> SelectedPrefabs = new List<GameObject>();
+
+    [SerializeField] Upgrades_AvailableUpgrades availableUpgrades;
+    List<Upgrade> SelectedUpgrades = new List<Upgrade>();
+    [SerializeField] GameObject base_UpgradeContainer;
     [SerializeField] List<UpgradeContainer> spawnedUpgradesContainers = new List<UpgradeContainer>();
 
     private void Update()
     {
         if(trigger_TestSpawnContainers)
         {
-            onSpawnNewContainers(new BaseRoomWithDoorLogic());
+            onSpawnNewContainers();
             trigger_TestSpawnContainers = false;
         }
     }
     private void OnEnable()
     {
-        if(doorLogic != null) { doorLogic.onRoomCompleted += onSpawnNewContainers; }
-        
+        CallSpawnUpgrades += onSpawnNewContainers;
     }
     private void OnDisable()
     {
-        if (doorLogic != null) { doorLogic.onRoomCompleted -= onSpawnNewContainers; }
+        CallSpawnUpgrades -= onSpawnNewContainers;
     }
-    void onSpawnNewContainers(BaseRoomWithDoorLogic thisLogic)
+    void onSpawnNewContainers()
     {
         RemoveSpawnedContainers();
 
         tempAmountOfContainers = amountOfContainers;
-        if (avoidUpgradesRepetition) { NonRepeatingSelection(); }
-        else { RepeatingSelection(); }
+        SelectedUpgrades.Clear();
+        if (avoidUpgradesRepetition) { SelectedUpgrades = NonRepeatingSelection(tempAmountOfContainers); }
+        else { SelectedUpgrades= RepeatingSelection(tempAmountOfContainers); }
+        tempAmountOfContainers = SelectedUpgrades.Count;
 
 
         Vector2[] prefabPositions = UsefullMethods.GetPolygonPositions(transform.position, tempAmountOfContainers, radiusToSpawn);
 
         for (int i = 0; i < tempAmountOfContainers; i++)
         {
-            GameObject newContainer = Instantiate(SelectedPrefabs[i], prefabPositions[i], Quaternion.identity, transform);
+            
+            GameObject newContainer = Instantiate(base_UpgradeContainer, prefabPositions[i], Quaternion.identity, transform);
             UpgradeContainer containerScript = newContainer.GetComponent<UpgradeContainer>();
 
-
+            containerScript.upgradeEffect = SelectedUpgrades[i]; //Add upgrade effect 
             containerScript.IndexInGroup = i; //save index in script
             containerScript.OnSpawnContainer(); //OnSpawn this container
             spawnedUpgradesContainers.Add(containerScript); //add to list
@@ -57,36 +61,41 @@ public class UpgradesGroup : MonoBehaviour
 
         }
     }
-    void NonRepeatingSelection()
+    List<Upgrade> NonRepeatingSelection(int amount)
     {
-        SelectedPrefabs.Clear();
 
-        int availableUpgradesCount = Upgrades_AvailableUpgrades.Instance.AvailableUpgrades.Count;
-        if (tempAmountOfContainers > availableUpgradesCount)
+        List<Upgrade> selected = new List<Upgrade>();
+
+        int availableUpgradesCount = availableUpgrades.AvailableUpgrades.Count;
+        if (amount > availableUpgradesCount)
         {
-            tempAmountOfContainers = availableUpgradesCount;
+            amount = availableUpgradesCount; //this should go to the temp amount BUG
         }
 
         int attempts = 0;
-        for (int i = 0; i < tempAmountOfContainers; i++)
+        for (int i = 0; i < amount; i++)
         {
-            GameObject maybeUpdate = Upgrades_AvailableUpgrades.Instance.GetRandomUpgrade();
+            Upgrade maybeUpdate = availableUpgrades.GetRandomUpgrade();
 
-            if (!SelectedPrefabs.Contains(maybeUpdate)) { SelectedPrefabs.Add(maybeUpdate); continue; }
+            if (!selected.Contains(maybeUpdate)) { selected.Add(maybeUpdate); continue; } //if that upgrade is not contained continue from here
+
             i--;
             attempts++;
-            if(attempts > 30) { Debug.LogError("Something wrong with Available Upgrades, pls check if there are repeating Upgrades in Singleton"); break; }
+            if(attempts > 30) { Debug.LogError("Something wrong with Available Upgrades, pls check if there are repeating Upgrades"); break; }
         }
-    }
-    void RepeatingSelection()
-    {
-        SelectedPrefabs.Clear();
 
-        for (int i = 0; i < tempAmountOfContainers; i++)
+        return selected;
+    }
+    List<Upgrade> RepeatingSelection(int amount)
+    {
+        List<Upgrade> selected = new List<Upgrade>();
+
+        for (int i = 0; i < amount; i++)
         {
-            GameObject maybeUpdate = Upgrades_AvailableUpgrades.Instance.GetRandomUpgrade();
-            SelectedPrefabs.Add(maybeUpdate);
+            Upgrade maybeUpdate = availableUpgrades.GetRandomUpgrade();
+            selected.Add(maybeUpdate);
         }
+        return selected;
     }
 
     void OnPickedOneUpgrade(int selectedIndex)

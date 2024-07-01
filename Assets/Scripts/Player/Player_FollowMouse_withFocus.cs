@@ -260,7 +260,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         //Change rotation speed depending on controller or kboard
         float actualSpeed = FollowMouse_Speed_Controller;
         if(!InputDetector.Instance.isControllerDetected) { actualSpeed = FollowMouse_Speed_Keyboard; }
-        transform.up = (Vector3.RotateTowards(transform.up, SwordDirection, actualSpeed * Time.deltaTime, 10f));
+        transform.up = Vector3.RotateTowards(transform.up, SwordDirection, actualSpeed * Time.deltaTime, 10f);
 
         playerRefs.spriteFliper.FocusVector = targetPos;
     }

@@ -1364,6 +1364,7 @@ Transform:
   - {fileID: 7522100837760415568}
   - {fileID: 8094939585006820728}
   - {fileID: 2973353992721150495}
+  - {fileID: 7653426975970030026}
   m_Father: {fileID: 7653426974910943478}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -51.489}
@@ -1557,7 +1558,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7653426974895600711}
-  - {fileID: 7653426975970030026}
   m_Father: {fileID: 7653426975497917574}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1842,6 +1842,7 @@ GameObject:
   - component: {fileID: 3175104005493510322}
   - component: {fileID: 7235723769753228221}
   - component: {fileID: 1806740500827017794}
+  - component: {fileID: 4999310393955818504}
   m_Layer: 0
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -1887,7 +1888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68561b2311f5dab4cba9cf226ebc4150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 7
+  MaxHealth: 5
   BaseSpeed: 20
   DamageMultiplier: 1
 --- !u!114 &7653426975249963391
@@ -2295,6 +2296,7 @@ MonoBehaviour:
   currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
   maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
   parryCollider: {fileID: 7653426975970030027}
+  weaponScalingRoot: {fileID: 7653426974895600710}
 --- !u!114 &7235723769753228221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2327,6 +2329,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPivot: {fileID: 7653426975497917625}
   playerRefs: {fileID: 3175104005493510322}
+--- !u!114 &4999310393955818504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3aa1fee623164141a3a8bc110899a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger_DeleteRandomUpgrade: 0
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  playerEvents: {fileID: 3383090570821903391}
+  singlePointCollider: {fileID: 9009123525477702090}
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,6 +2357,7 @@ GameObject:
   - component: {fileID: 7653426975463659562}
   - component: {fileID: 7653426975463659565}
   - component: {fileID: 7560984458989592217}
+  - component: {fileID: 9009123525477702090}
   m_Layer: 0
   m_Name: SinglePointCollider
   m_TagString: Player_SinglePointCollider
@@ -2411,6 +2430,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGround: 0
+--- !u!114 &9009123525477702090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975463659567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
 --- !u!1 &7653426975497917625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2421,6 +2453,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7653426975497917574}
   - component: {fileID: 7653426975497917575}
+  - component: {fileID: 5855810409125178880}
+  - component: {fileID: 8904201443306655597}
   m_Layer: 0
   m_Name: Weapons_Pivot
   m_TagString: Untagged
@@ -2469,6 +2503,36 @@ MonoBehaviour:
   PositionToLook: {x: 0, y: 0}
   IsFocusingEnemy: 0
   SwordDirection: {x: 0, y: 0}
+--- !u!1818360609 &5855810409125178880
+RotationConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975497917625}
+  m_Enabled: 1
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 0
+  m_IsContraintActive: 0
+  m_IsLocked: 0
+  m_Sources: []
+--- !u!114 &8904201443306655597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975497917625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5e8ffa41b68eb4db48de5f0a9ccc23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpritesConstraint: {fileID: 5855810409125178880}
 --- !u!1 &7653426975970030029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,13 +2558,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7653426975970030029}
-  m_LocalRotation: {x: -0, y: -0, z: -0.4343622, w: 0.90073824}
-  m_LocalPosition: {x: 0.504, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000000029802322, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7653426974910943478}
-  m_RootOrder: 1
+  m_Father: {fileID: 7653426974895600711}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &7653426975970030027
 PolygonCollider2D:

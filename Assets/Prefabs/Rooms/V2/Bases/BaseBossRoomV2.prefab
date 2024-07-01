@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5842453309701130613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3977532374618455286}
+  - component: {fileID: 7448831037043449186}
+  m_Layer: 0
+  m_Name: Upgrades Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3977532374618455286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842453309701130613}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.01, y: 5.58, z: 0.10368813}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2861294270407902046}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7448831037043449186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842453309701130613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476fa6cee9c4b984c93544009349a520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomLogic: {fileID: 5626894771440541730}
+  amountOfContainers: 3
+  radiusToSpawn: 2
+  trigger_TestSpawnContainers: 0
+  avoidUpgradesRepetition: 1
+  availableUpgrades: {fileID: 11400000, guid: 2e9fc6e2a2c4c6741ac403180e7f9895, type: 2}
+  base_UpgradeContainer: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
+  spawnedUpgradesContainers: []
 --- !u!1001 &4188843338289075173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,6 +186,10 @@ PrefabInstance:
     - target: {fileID: 4819580238326184547, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277813877092264036, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5717724565362422927, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_ShapeTexture
@@ -380,10 +436,11 @@ MonoBehaviour:
   CurrentlySpawnedEnemies: []
   SpawnTrigger: {fileID: 3271590697635559959}
   SpawnArea: {fileID: 7867156658887920600}
-  EnemiesContainer: {fileID: 6760338245307079506}
+  EnemiesContainer: {fileID: 6531093257421250116}
   enterRoomCutscene: {fileID: 748167249814034243}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   BossIndex: 0
+  upgradesGroup: {fileID: 7448831037043449186}
 --- !u!4 &2861294270407902046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2131496921670176955, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
@@ -400,9 +457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &6760338245307079506 stripped
+--- !u!1 &6531093257421250116 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 7489566454992292023, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6954358700734778785, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
 --- !u!60 &7867156658887920600 stripped

@@ -264,12 +264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  Knockback: 0
-  HitStop: 0
+  Damage: 1
+  Knockback: 300
+  HitStop: 0.1
   isParryable: 1
-  isBloody: 0
-  isChargingSpecialAttack: 0
+  isBloody: 1
+  isChargingSpecialAttack: 1
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -948,6 +948,10 @@ PrefabInstance:
       propertyPath: damageDealer
       value: 
       objectReference: {fileID: 4897390013240453924}
+    - target: {fileID: 7073730092788972273, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: damageDealer.Array.data[0]
+      value: 
+      objectReference: {fileID: 4897390013240453924}
     - target: {fileID: 7332707543437145030, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1056,6 +1060,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].y
       value: 0.5004176
       objectReference: {fileID: 0}
+    - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: DamageDealersList.Array.data[0]
+      value: 
+      objectReference: {fileID: 4897390013240453924}
     - target: {fileID: 7654662553848504304, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: WeaponCollider
       value: 

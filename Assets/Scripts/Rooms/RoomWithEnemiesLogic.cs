@@ -37,13 +37,25 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     {
         base.OnEnable();
 
+        GameEvents.OnPlayerDeath += delayedDestroy;
         SpawnTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
-        
+    }
+    void delayedDestroy()
+    {
+        DestroyCurrentEnemies(6);
+    }
+    private void DestroyCurrentEnemies(float delay = 0)
+    {
+        for (int i = CurrentlySpawnedEnemies.Count - 1; i >= 0; i--)
+        {
+            StartCoroutine(UsefullMethods.destroyWithDelay(delay, CurrentlySpawnedEnemies[i]));
+
+            CurrentlySpawnedEnemies.Remove(CurrentlySpawnedEnemies[i]);
+        }
     }
     void SpawnEnemies(Collider2D collision)
     {
-
         if (isRoomPermanentlyCompleted) { return; }
         if (areCorrectlySpawned) { return; }
         if (SpawneableEnemies.Count == 0)
@@ -54,12 +66,9 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
         }
 
         enterRoomCutscene.hasCutscenePlayed = false;
-        //Destroy the remaining enemies
-        for (int i = CurrentlySpawnedEnemies.Count - 1; i >= 0; i--)
-        {
-            Destroy(CurrentlySpawnedEnemies[i]);
-            CurrentlySpawnedEnemies.Remove(CurrentlySpawnedEnemies[i]);
-        }
+
+        DestroyCurrentEnemies();
+        
         int currentWeight_T1 = 0;
         int currentWeight_T2 = 0;
 
@@ -117,6 +126,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     {
         // Find random point and Instantiate the Enemy
         Vector2 SpawnPosition = UsefullMethods.RandomPointInCollider(SpawnArea);
+
         GameObject SpawnedEnemy = Instantiate(
           spawn.PrefabEnemy,
           SpawnPosition,

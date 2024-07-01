@@ -33,4 +33,7 @@ public class TagsCollection
     public static string BlockingWalls = "BlockingWalls";
     public static string Object_Hurtbox = "Object_Hurtbox";
 
+    public static string UpgradeContainer = "UpgradeContainer";
+
+
 }

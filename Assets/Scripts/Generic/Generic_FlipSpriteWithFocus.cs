@@ -28,8 +28,6 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
                 currentDelay = StartCoroutine(FlipCooldown());
                 lookingDirection = 1; // 1 = right, -1 = left
             }
-            
-
         }
         else if (focus.x < gameObject.transform.position.x)
         {
@@ -40,13 +38,11 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
                 if(currentDelay != null) { StopCoroutine(currentDelay); }
                 currentDelay = StartCoroutine(FlipCooldown());
                 lookingDirection = -1;
-            }
-            
+            }   
         }
     }
     void flipSprite(GameObject objecto)
     {
-
         objecto.transform.eulerAngles = new Vector3(objecto.transform.eulerAngles.x, objecto.transform.eulerAngles.y +180, objecto.transform.eulerAngles.z);
         FlipOnce = !FlipOnce;
         OnFlipped?.Invoke();
@@ -56,6 +52,5 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
         canFlip = false;
         yield return new  WaitForSeconds(FlipDelay);
         canFlip = true;
-        
     }
 }

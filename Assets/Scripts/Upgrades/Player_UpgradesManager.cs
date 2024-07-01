@@ -8,19 +8,33 @@ public class Player_UpgradesManager : MonoBehaviour
     [SerializeField] bool trigger_DeleteRandomUpgrade;
     [SerializeField] GameState gameState;
     [SerializeField] Player_EventSystem playerEvents;
-    private void Awake()
+    [SerializeField] Generic_OnTriggerEnterEvents singlePointCollider;
+    private void OnEnable()
     {
+        singlePointCollider.AddActivatorTag(TagsCollection.UpgradeContainer);
+        singlePointCollider.OnTriggerEntered += onSingleTriggerEnter;
+
         foreach (Upgrade upgrade in gameState.playerUpgrades)
         {
             upgrade.onAdded(gameObject);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDisable()
     {
-        UpgradeContainer upgradeContainer = collision.GetComponent<UpgradeContainer>(); //CREA UN TAG O ALGUNA COSA PERFA
-        if (upgradeContainer != null)
+        singlePointCollider.OnTriggerEntered -= onSingleTriggerEnter;
+
+        foreach (Upgrade upgrade in gameState.playerUpgrades)
         {
-           AddNewUpgrade( upgradeContainer.upgradeEffect);
+            upgrade.onRemoved(gameObject);
+        }
+    }
+    private void onSingleTriggerEnter(Collider2D collision)
+    {
+        if(collision.CompareTag("UpgradeContainer"))
+        {
+            Debug.Log("upgrade:" +  collision.name);
+            UpgradeContainer upgradeContainer = collision.GetComponent<UpgradeContainer>(); //CREA UN TAG O ALGUNA COSA PERFA
+            AddNewUpgrade(upgradeContainer.upgradeEffect);
             playerEvents.OnPickedNewUpgrade?.Invoke(upgradeContainer);
         }
     }

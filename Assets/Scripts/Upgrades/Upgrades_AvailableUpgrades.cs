@@ -2,23 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrades_AvailableUpgrades : MonoBehaviour
+[CreateAssetMenu(menuName = "Available Upgrades Holder")]
+public class Upgrades_AvailableUpgrades : ScriptableObject
 {
-   public List<GameObject> AvailableUpgrades;
-    public static Upgrades_AvailableUpgrades Instance;
-    private void Awake()
-    {
-        //Singleton
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-    public GameObject GetRandomUpgrade()
+   public List<Upgrade> AvailableUpgrades;
+
+    public  Upgrade GetRandomUpgrade()
     {
         int randomIndex = Random.Range(0, AvailableUpgrades.Count);
         return AvailableUpgrades[randomIndex];
