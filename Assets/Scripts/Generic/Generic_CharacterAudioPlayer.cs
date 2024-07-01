@@ -21,7 +21,7 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
         basePitch = audioSource.pitch;
         baseVolume = audioSource.volume;
     }
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         eventSystem.OnShowCollider += playSwordSwing;
         eventSystem.OnDealtDamage += playSwordHit;
@@ -30,7 +30,7 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
         eventSystem.OnGettingParried += playParried;
         eventSystem.OnSuccessfulParry += playSuccesfullParry;
     }
-    public void OnDisable()
+    public virtual void OnDisable()
     {
         eventSystem.OnShowCollider -= playSwordSwing;
         eventSystem.OnDealtDamage -= playSwordHit;

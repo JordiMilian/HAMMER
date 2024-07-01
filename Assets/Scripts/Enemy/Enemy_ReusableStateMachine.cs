@@ -64,6 +64,7 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
         statesDictionary.Add(animationStates.BaseEnemy_Parried, "BaseEnemy_Parried");
         statesDictionary.Add(animationStates.BaseEnemy_Damaged, "BaseEnemy_Damaged");
         statesDictionary.Add(animationStates.BaseEnemy_ResponseAttack, "BaseEnemy_ResponseAttack");
+        //statesDictionary.Add(animationStates.BaseEnemy_Walking, "BaseEnemy_Walking");
 
 
         //replace the basic animations

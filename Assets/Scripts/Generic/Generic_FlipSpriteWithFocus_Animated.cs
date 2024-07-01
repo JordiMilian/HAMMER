@@ -6,12 +6,6 @@ public class Generic_FlipSpriteWithFocus_Animated : Generic_FlipSpriteWithFocus
 {
     
     [SerializeField] Animator animator;
-
-
-    public void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
     public override void FlipSpriteWithFocus(Vector2 focus, GameObject spriteObject)
     {
         if (focus.x > gameObject.transform.position.x)

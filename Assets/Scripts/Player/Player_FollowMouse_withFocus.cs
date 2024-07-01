@@ -59,7 +59,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         if (distanceToEnemy.Value < 2.5f && !isDistanceToMouse.Value && !IsFocusingEnemy) //Look at closest enemy if everything is alright
         {
-            if(ClosestEnemy != null) { PositionToLook = ClosestEnemy.Tf.position; }
+            if(ClosestEnemy.Tf != null) { PositionToLook = ClosestEnemy.Tf.position; }
         } 
         else if (IsFocusingEnemy == true) //Look at enemy if focusing enemy
         { 

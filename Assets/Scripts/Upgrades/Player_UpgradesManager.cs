@@ -30,10 +30,11 @@ public class Player_UpgradesManager : MonoBehaviour
     }
     private void onSingleTriggerEnter(Collider2D collision)
     {
-        if(collision.CompareTag("UpgradeContainer"))
+        if(collision.CompareTag(TagsCollection.UpgradeContainer))
         {
             Debug.Log("upgrade:" +  collision.name);
             UpgradeContainer upgradeContainer = collision.GetComponent<UpgradeContainer>(); //CREA UN TAG O ALGUNA COSA PERFA
+            upgradeContainer.OnPickedUpContainer();
             AddNewUpgrade(upgradeContainer.upgradeEffect);
             playerEvents.OnPickedNewUpgrade?.Invoke(upgradeContainer);
         }

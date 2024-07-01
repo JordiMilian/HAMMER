@@ -12,9 +12,9 @@ public class UpgradeContainer : MonoBehaviour
     Collider2D ownCollider;
     private void Awake()
     {
-        ownCollider = GetComponent<Collider2D>();
+        OnSpawnContainer();
     }
-    public void OnSpawnContainer()
+     void OnSpawnContainer()
     {
         Debug.Log("Just spawned container " + IndexInGroup);
         ownCollider = GetComponent<Collider2D>();
@@ -33,12 +33,6 @@ public class UpgradeContainer : MonoBehaviour
         Debug.Log("Dispawned container " + IndexInGroup);
        StartCoroutine( UsefullMethods.destroyWithDelay(.1f, gameObject));
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
-        {
-            OnPickedUpContainer();
-        }
-    }
+
     
 }

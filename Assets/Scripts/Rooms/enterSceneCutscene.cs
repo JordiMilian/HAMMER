@@ -11,15 +11,16 @@ public class enterSceneCutscene : BaseCutsceneLogic
     }
     IEnumerator playCutscene()
     {
-        Transform playerTf = GameObject.Find(TagsCollection.MainCharacter).transform;
-        Player_References playerRefs = playerTf.GetComponent<Player_References>();
+        
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Transform playerTf = playerRefs.gameObject.transform;
 
         playerRefs.events.CallDisable?.Invoke();
         playerTf.position = enteringPos.position;
 
         //playerRefs.animator.SetTrigger("EnterRoom Lo que sigue etc"); 
 
-        yield return new WaitForSeconds(.1f); // esperar a que acabe l'animacio
+        yield return new WaitForSeconds(.5f); // esperar a que acabe l'animacio
 
         playerRefs.events.CallEnable?.Invoke();
     }

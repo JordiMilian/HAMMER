@@ -10,9 +10,12 @@ public class Player_DeathCutscene : BaseCutsceneLogic
     {
         GameEvents.OnPlayerDeath += playThisCutscene;
     }
+    private void OnDisable()
+    {
+        GameEvents.OnPlayerDeath -= playThisCutscene;
+    }
     public override void playThisCutscene()
     {
-
         StartCoroutine(cutsceneCoroutine());
     }
     IEnumerator cutsceneCoroutine()

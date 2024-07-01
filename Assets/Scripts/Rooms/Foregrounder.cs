@@ -10,6 +10,7 @@ public class Foregrounder : MonoBehaviour
     float distanceToPlayer;
     Transform playerTF;
     Material[] materials;
+    
     private void Awake()
     {
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

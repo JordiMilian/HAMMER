@@ -8,14 +8,14 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     [SerializeField] AudioClip RebornSFX;
     [SerializeField] AudioClip AttemptParrySFX;
     [SerializeField] Player_EventSystem playerEvents;
-    private void OnEnable()
+    public override void OnEnable()
     {
         base.OnEnable();
         playerEvents.OnPerformRoll += playRoll;
         playerEvents.CallEnable += playHeadReatached;
         playerEvents.OnPerformParry += playAttemptParry;
     }
-    private void OnDisable()
+    public override void OnDisable()
     {
         base.OnDisable();
         playerEvents.OnPerformRoll -= playRoll;

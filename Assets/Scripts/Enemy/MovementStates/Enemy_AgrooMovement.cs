@@ -64,7 +64,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
         float DistanceToPlayer = (EnemyPos - PlayerPos).magnitude;
         Vector3 rotateTowardsVector = Vector3.RotateTowards(Weapon_Pivot.transform.up, PlayerPos - EnemyPos, CurrentRotationSpeed * Time.deltaTime, 10);
 
-        Vector3 planeposition = Vector3.ProjectOnPlane(rotateTowardsVector, Vector3.forward);
+        Vector3 planeposition = (Vector3.ProjectOnPlane(rotateTowardsVector, Vector3.forward)).normalized;
         Weapon_Pivot.up = planeposition;
     }
 
