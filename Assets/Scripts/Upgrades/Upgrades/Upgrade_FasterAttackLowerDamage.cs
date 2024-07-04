@@ -22,4 +22,11 @@ public class Upgrade_FasterAttackLowerDamage : Upgrade
         animationSpeedController.attackingSpeed /= UsefullMethods.normalizePercentage(FasterPercent);
         stats.DamageMultiplier /= UsefullMethods.normalizePercentage(WeakerPercent, true);
     }
+    public override string shortDescription()
+    {
+        return UsefullMethods.highlightString(FasterPercent.ToString() + "%")
+            + " faster swings - "
+            + UsefullMethods.highlightString(WeakerPercent.ToString() + "%")
+            + " weaker Attacks";
+    }
 }

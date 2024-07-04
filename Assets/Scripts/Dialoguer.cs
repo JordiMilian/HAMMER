@@ -31,6 +31,9 @@ public class Dialoguer : MonoBehaviour
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
         eventSystem.OnReceiveDamage += OnInteracted;
+
+        isDisplaying = true;
+        HideDialogueBubble();
     }
     private void OnDisable()
     {

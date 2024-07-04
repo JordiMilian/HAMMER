@@ -5,6 +5,8 @@ using UnityEngine;
 public class UpgradesGroup : MonoBehaviour
 {
     public Action CallSpawnUpgrades;
+
+
     [SerializeField] BaseRoomWithDoorLogic roomLogic;
     [SerializeField] int amountOfContainers;
     int tempAmountOfContainers;
@@ -17,6 +19,8 @@ public class UpgradesGroup : MonoBehaviour
     List<Upgrade> SelectedUpgrades = new List<Upgrade>();
     [SerializeField] GameObject base_UpgradeContainer;
     [SerializeField] List<UpgradeContainer> spawnedUpgradesContainers = new List<UpgradeContainer>();
+
+    [SerializeField] BaseCutsceneLogic spawnCutscene;
 
     private void Update()
     {
@@ -53,6 +57,7 @@ public class UpgradesGroup : MonoBehaviour
             GameObject newContainer = Instantiate(base_UpgradeContainer, prefabPositions[i], Quaternion.identity, transform);
             UpgradeContainer containerScript = newContainer.GetComponent<UpgradeContainer>();
 
+            containerScript.isSoloUpgrade = false;
             containerScript.upgradeEffect = SelectedUpgrades[i]; //Add upgrade effect 
             containerScript.IndexInGroup = i; //save index in script
             containerScript.OnSpawnContainer(); //Call on spawn on the upgrade

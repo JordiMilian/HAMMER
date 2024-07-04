@@ -26,4 +26,9 @@ public class Upgrade_WeaponSizee : Upgrade
             playerWeapon.transform.localScale.z
             );
     }
+    public override string shortDescription()
+    {
+        return UsefullMethods.highlightString(Percent.ToString() + "%")
+            + " bigger Weapon ";
+    }
 }

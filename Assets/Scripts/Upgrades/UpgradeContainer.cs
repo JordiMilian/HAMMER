@@ -12,9 +12,9 @@ public class UpgradeContainer : MonoBehaviour
 
     //If its an upgrade with group, we call directly OnSpawnContainer from the Group. 
     //If its an upgrade on its own, we call it on Start
-    public bool isSoloUpgrade; 
-                               
+    public bool isSoloUpgrade;
 
+    [SerializeField] Dialoguer dialoguer;
     Collider2D ownCollider;
     
     private void Start()
@@ -23,21 +23,19 @@ public class UpgradeContainer : MonoBehaviour
     }
      public void OnSpawnContainer()
     {
-        Debug.Log("Just spawned container " + IndexInGroup);
         ownCollider = GetComponent<Collider2D>();
         iconRenderer.sprite = upgradeEffect.iconSprite;
+        dialoguer.TextLines[0] = upgradeEffect.shortDescription();
         ownCollider.enabled = true;
     }
     public void OnPickedUpContainer()
     {
         OnPickedUp?.Invoke(IndexInGroup);
-        Debug.Log("Picked container " + IndexInGroup);
         ownCollider.enabled = false;
         StartCoroutine(UsefullMethods.destroyWithDelay(1,gameObject));
     }
     public void OnDispawnContainer()
     {
-        Debug.Log("Dispawned container " + IndexInGroup);
        StartCoroutine( UsefullMethods.destroyWithDelay(.1f, gameObject));
     }
 

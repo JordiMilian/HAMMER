@@ -173,4 +173,9 @@ public class UsefullMethods : MonoBehaviour
 
         return 1 + (percent / 100); 
     }
+
+    public static string highlightString (string text)
+    {
+        return "<color=red>" + text + "<color=black>";
+    }
 }

@@ -17,4 +17,9 @@ public class Upgrade_MaxStamina : Upgrade
     {
         playerMaxStamina.SetValue(playerMaxStamina.GetValue() / (1 + (Percent / 100)));
     }
+    public override string shortDescription()
+    {
+        return UsefullMethods.highlightString(Percent.ToString() + "%")
+            + " more Stamina";
+    }
 }
