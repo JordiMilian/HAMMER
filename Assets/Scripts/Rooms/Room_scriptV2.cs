@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room_scriptV2 : MonoBehaviour
+public class Room_scriptV2 : MonoBehaviour //DEPRECATED SCPRIPT PLS DELETE
 {
     public Action<GameObject> onRoomEntered;
     public Action<GameObject> onRoomExited;

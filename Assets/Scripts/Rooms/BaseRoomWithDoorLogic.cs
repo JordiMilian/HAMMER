@@ -19,6 +19,10 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
 
         else { doorController.DisableAutoDoorOpener(); }
     }
+    public virtual void OnDisable()
+    {
+        
+    }
     public void RoomCompleted(bool withAnimation = false, bool isRoomPermanent = false)
     {
         onRoomCompleted?.Invoke(this);

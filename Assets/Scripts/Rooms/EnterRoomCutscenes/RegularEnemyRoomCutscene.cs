@@ -12,7 +12,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
     {
         if (enemyRoomLogic.isRoomPermanentlyCompleted) { return; }
 
-        StartCoroutine(RegularCutscene());
+        currentCutscene = StartCoroutine(RegularCutscene());
     }
     IEnumerator RegularCutscene()
     {
@@ -39,6 +39,8 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         //Return to normal zoom
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
         TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
+
+        onCutsceneOver?.Invoke();
 
     }
 }

@@ -1875,6 +1875,7 @@ GameObject:
   - component: {fileID: 7235723769753228221}
   - component: {fileID: 1806740500827017794}
   - component: {fileID: 4999310393955818504}
+  - component: {fileID: 131155159506509890}
   m_Layer: 0
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -1945,6 +1946,7 @@ MonoBehaviour:
     ConstantValue: 10
     Variable: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
   FillHealthOnStart: 1
+  isPlayers: 1
   playerRefs: {fileID: 3175104005493510322}
 --- !u!114 &3383090570821903391
 MonoBehaviour:
@@ -2377,6 +2379,20 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   playerEvents: {fileID: 3383090570821903391}
   singlePointCollider: {fileID: 9009123525477702090}
+--- !u!114 &131155159506509890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ab6ac9c6b84ca64680439c30e1e6823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRefs: {fileID: 3175104005493510322}
+  attackingSpeed: 1
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0

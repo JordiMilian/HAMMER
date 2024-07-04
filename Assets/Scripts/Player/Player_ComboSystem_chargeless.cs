@@ -24,12 +24,12 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
     private void OnEnable()
     {
-        playerRefs.events.OnPerformAttack += onPerformedAttack;
+        playerRefs.events.OnAttackStarted += onPerformedAttack;
         InputDetector.Instance.OnAttackPressed += onAttackPressed;
     }
     private void OnDisable()
     {
-        playerRefs.events.OnPerformAttack -= onPerformedAttack;
+        playerRefs.events.OnAttackStarted -= onPerformedAttack;
         InputDetector.Instance.OnAttackPressed -= onAttackPressed;
     }
 
@@ -46,7 +46,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
         foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList) //Get the damage dealers back to base stats
         {
-            dealer.Damage = Base_Damage;
+            dealer.Damage = Base_Damage * playerRefs.stats.DamageMultiplier;
             dealer.HitStop = Base_HitStop;
             dealer.Knockback = Base_Knockback;
             dealer.isChargingSpecialAttack = true;

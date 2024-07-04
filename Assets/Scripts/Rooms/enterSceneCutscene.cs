@@ -7,7 +7,7 @@ public class enterSceneCutscene : BaseCutsceneLogic
     [SerializeField] Transform enteringPos;
     public override void playThisCutscene()
     {
-        StartCoroutine(playCutscene()); 
+        currentCutscene =  StartCoroutine(playCutscene()); 
     }
     IEnumerator playCutscene()
     {
@@ -23,5 +23,7 @@ public class enterSceneCutscene : BaseCutsceneLogic
         yield return new WaitForSeconds(.5f); // esperar a que acabe l'animacio
 
         playerRefs.events.CallEnable?.Invoke();
+
+        onCutsceneOver?.Invoke();
     }
 }

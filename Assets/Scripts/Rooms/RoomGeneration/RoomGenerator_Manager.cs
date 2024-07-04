@@ -24,7 +24,8 @@ public class RoomGenerator_Manager : MonoBehaviour
     public List<GroupList> CompleteList_spawnedRooms = new List<GroupList>();
 
     [Header("Read only")]
-    public List<Room_script> PlayerRooms;
+    //public List<Room_script> PlayerRooms;
+    [SerializeField] GameState gameState;
 
     Vector2 LastInitialPosition;
 
@@ -122,16 +123,19 @@ public class RoomGenerator_Manager : MonoBehaviour
     }
     void playerEnteredSomeRoom(GameObject player, Room_script room)
     {
-        PlayerRooms.Add(room);
+        gameState.currentPlayersRooms.Add(room);
     }
     void playerExitedSomeRoom(GameObject player, Room_script room)
     {
-        PlayerRooms.Remove(room);
+        gameState.currentPlayersRooms.Remove(room);
     }
     private void OnDrawGizmosSelected()
     {
-        if (PlayerRooms.Count > 0)
+        
+        if (gameState.currentPlayersRooms.Count > 0)
         {
+            List<Room_script> PlayerRooms = gameState.currentPlayersRooms;
+
             BoxCollider2D groupCollider = GroupsOfRoomsList[PlayerRooms[0].indexInCompleteList.x].GetComponent<BoxCollider2D>();
             UsefullMethods.DrawCollider(groupCollider, Color.blue);
 

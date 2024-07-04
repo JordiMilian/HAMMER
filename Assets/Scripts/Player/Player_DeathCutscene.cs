@@ -16,7 +16,7 @@ public class Player_DeathCutscene : BaseCutsceneLogic
     }
     public override void playThisCutscene()
     {
-        StartCoroutine(cutsceneCoroutine());
+        currentCutscene = StartCoroutine(cutsceneCoroutine());
     }
     IEnumerator cutsceneCoroutine()
     {
@@ -29,6 +29,8 @@ public class Player_DeathCutscene : BaseCutsceneLogic
         playerRefs.events.CallRespawn?.Invoke(); 
 
         playerRefs.healthSystem.RestoreAllHealth();
+
+        onCutsceneOver?.Invoke();
 
     }
     void SetupForRespwan()

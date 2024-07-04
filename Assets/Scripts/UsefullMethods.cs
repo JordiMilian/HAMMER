@@ -162,4 +162,15 @@ public class UsefullMethods : MonoBehaviour
         yield return new WaitForSeconds(delaySeconds);
         Destroy(objectToDestroy);
     }
+
+    public static float normalizePercentage(float percent, bool negative = false)
+    {
+        // Given 25%:
+        // if POSITIVE return 1.25f
+        // if NEGATIVE return 0.75
+
+        if (negative) { return 1 - (percent / 100); }
+
+        return 1 + (percent / 100); 
+    }
 }

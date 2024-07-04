@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &743092020048209094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3419961203103509028}
+  m_Layer: 0
+  m_Name: Lost Upgrade Spawn Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3419961203103509028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743092020048209094}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.09, y: 2.28, z: 0.022611022}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2131496921670176955}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1318185655168291987
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,6 +537,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1075035394442379020, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
   m_PrefabInstance: {fileID: 1180739804397576780}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &38269896846705923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200464055817051456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7a4a4289d8034b83d27ddd8e431df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomLogic: {fileID: 8154110797072673202}
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  BaseUpgradeContainerPrefab: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
+  SpawnPosition: {fileID: 3419961203103509028}
 --- !u!114 &8154110797072673202
 MonoBehaviour:
   m_ObjectHideFlags: 0

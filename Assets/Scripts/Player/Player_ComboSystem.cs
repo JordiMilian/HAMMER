@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class Player_ComboSystem : MonoBehaviour
+public class Player_ComboSystem : MonoBehaviour //DEPRECATED PLS DELETE
 {
     public float CurrentDamage;
     public float BaseDamage;

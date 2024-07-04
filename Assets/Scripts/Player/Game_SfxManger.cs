@@ -7,7 +7,7 @@ public class Game_SfxManger : MonoBehaviour
     [SerializeField] Player_EventSystem playerEvents;
     private void OnEnable()
     {
-        playerEvents.OnPerformAttack += playSwing;
+        playerEvents.OnAttackStarted += playSwing;
         playerEvents.OnDealtDamage += onHitEnemy;
         playerEvents.OnSuccessfulParry += onsuccesfullParry;
     }

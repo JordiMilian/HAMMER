@@ -32,6 +32,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     Coroutine correctlySpawnedCoroutine;
     [SerializeField] EnterTriggerCutscene enterRoomCutscene;
     public Action onEnemiesSpawned;
+ 
 
     public override void OnEnable()
     {
@@ -40,6 +41,13 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
         GameEvents.OnPlayerDeath += delayedDestroy;
         SpawnTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
+    }
+    public override void OnDisable()
+    {
+        base.OnDisable();
+
+        GameEvents.OnPlayerDeath -= delayedDestroy;
+        SpawnTrigger.OnTriggerEntered -= SpawnEnemies;
     }
     void delayedDestroy()
     {

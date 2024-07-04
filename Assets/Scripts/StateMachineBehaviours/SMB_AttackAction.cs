@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SMB_AttackAction : SMB_BaseAction
 {
+    Player_EventSystem playerEvents;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("isInputing", false);
@@ -11,7 +12,13 @@ public class SMB_AttackAction : SMB_BaseAction
 
         animator.SetBool("Act_Attack", false);
 
-        animator.gameObject.GetComponent<Player_EventSystem>().OnPerformAttack?.Invoke();
+        if(playerEvents == null) { playerEvents = animator.gameObject.GetComponent<Player_EventSystem>(); }
+
+        playerEvents.OnAttackStarted?.Invoke();
+    }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        playerEvents.OnAttackFinished?.Invoke();
     }
 
 }

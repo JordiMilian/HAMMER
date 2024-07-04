@@ -55,8 +55,9 @@ public class UpgradesGroup : MonoBehaviour
 
             containerScript.upgradeEffect = SelectedUpgrades[i]; //Add upgrade effect 
             containerScript.IndexInGroup = i; //save index in script
+            containerScript.OnSpawnContainer(); //Call on spawn on the upgrade
             spawnedUpgradesContainers.Add(containerScript); //add to list
-            spawnedUpgradesContainers[i].OnPickedUp += OnPickedOneUpgrade; //subscribe to picked up (desubscribed in DispawnCurrentContaoiners())
+            containerScript.OnPickedUp += OnPickedOneUpgrade; //subscribe to picked up (desubscribed in DispawnCurrentContaoiners())
 
         }
     }

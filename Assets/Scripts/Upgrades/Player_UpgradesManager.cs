@@ -18,6 +18,7 @@ public class Player_UpgradesManager : MonoBehaviour
         {
             upgrade.onAdded(gameObject);
         }
+        GameEvents.OnPlayerDeath += deleteRandomUpgrade;
     }
     private void OnDisable()
     {
@@ -27,6 +28,7 @@ public class Player_UpgradesManager : MonoBehaviour
         {
             upgrade.onRemoved(gameObject);
         }
+        GameEvents.OnPlayerDeath -= deleteRandomUpgrade;
     }
     private void onSingleTriggerEnter(Collider2D collision)
     {
@@ -54,8 +56,11 @@ public class Player_UpgradesManager : MonoBehaviour
     }
     void deleteUpgrade(int i)
     {
-        gameState.playerUpgrades[i].onRemoved(gameObject);
-        gameState.playerUpgrades.RemoveAt(i);
+        gameState.lastLostUpgrade = gameState.playerUpgrades[i];
+
+        gameState.playerUpgrades[i].onRemoved(gameObject); //remove effect
+        gameState.playerUpgrades.RemoveAt(i); //remove from list
+         
     }
     private void Update()
     {

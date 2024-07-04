@@ -38,7 +38,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnPerformRoll -= PlayDustVFX;
         eventSystem.OnReceiveDamage -= PlayGroundBlood;
         eventSystem.CallShowAndEnable -= InstantiateBloodExplosion;
-        eventSystem.OnPerformAttack -= PlayBigPuddleStep;
+        eventSystem.OnAttackStarted -= PlayBigPuddleStep;
         eventSystem.OnPerformRoll -= PlayBigPuddleStep;
     }
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
