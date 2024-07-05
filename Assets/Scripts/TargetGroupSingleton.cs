@@ -27,7 +27,7 @@ public class TargetGroupSingleton : MonoBehaviour
             if (group.m_Targets[i].target != null) { continue; }
             else { return i; }
         }
-        Debug.LogWarning("No empty Slot found");
+        Debug.LogError("No empty Slot found, please create more");
         return -1;
     }
     public void AddTarget(Transform target, float weight, float radius)
