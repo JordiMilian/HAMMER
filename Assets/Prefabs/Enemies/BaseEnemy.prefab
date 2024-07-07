@@ -293,6 +293,7 @@ MonoBehaviour:
     ConstantValue: 1
     Variable: {fileID: 11400000, guid: db4fb3c9e2024f848873610e31056b69, type: 2}
   FillHealthOnStart: 1
+  isPlayers: 0
   enemyRefs: {fileID: 7568110113479188649}
   deadBody: {fileID: 3025069177316709613, guid: 248fd0c2dc09e864187be6a45e555cb1, type: 3}
   deadHead: {fileID: 8859067774969576514, guid: f4ef956303255b9498f259d59895984a, type: 3}
@@ -2018,6 +2019,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3736275689294426710}
     m_Modifications:
+    - target: {fileID: 2361237269639904750, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 7929925186517721759}
     - target: {fileID: 5309733073026282580, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: m_Name
       value: BasicHealthbarLogic
@@ -2077,7 +2082,7 @@ PrefabInstance:
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: HealthBarSize1
       value: 
-      objectReference: {fileID: 692158623123407647}
+      objectReference: {fileID: 0}
     - target: {fileID: 5309733074293340185, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7699453
@@ -2088,11 +2093,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
---- !u!4 &692158623123407647 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5309733074144129296, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
-  m_PrefabInstance: {fileID: 4626600347995894287}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &692158624107169365 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309733073026282586, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}

@@ -18,7 +18,7 @@ public class FloatReference
         if (UseConstant) { return ConstantValue; }
         else { return Variable.Value; }
     }
-    public void SetValue(float value)
+    public void ChangeValue(float value)
     {
         if (UseConstant) { ConstantValue = value; }
         else { Variable.SetValue(value);}

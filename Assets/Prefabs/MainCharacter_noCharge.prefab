@@ -40,8 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8395267518320841892}
-  - component: {fileID: 2794074414799719679}
   - component: {fileID: 902648685742614910}
+  - component: {fileID: 8839191047397450311}
   m_Layer: 0
   m_Name: StaminaBar
   m_TagString: Untagged
@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 2729567579637855966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.234, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.44315, y: 0.6813431, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6375812545435196622}
@@ -66,22 +66,6 @@ Transform:
   m_Father: {fileID: 7653426975249963376}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2794074414799719679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729567579637855966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1046dbdd278d274ab390c70def058de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
-  MaxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
-  eventSystem: {fileID: 3383090570821903391}
-  StamBarSize1: {fileID: 8395267518320841892}
 --- !u!210 &902648685742614910
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -93,6 +77,25 @@ SortingGroup:
   m_SortingLayerID: -1213780737
   m_SortingLayer: 1
   m_SortingOrder: 0
+--- !u!114 &8839191047397450311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729567579637855966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c76b18dc4995642b57e386200df72c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
+  maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
+  stamina: {fileID: 4128982462933193464}
+  Bar_Tf: {fileID: 6375812545435196622}
+  Bg_Tf: {fileID: 4051215045944010035}
+  HorizontalSizePerUnit: 0.25
+  Bg_HorizontalOffset: 0.08
 --- !u!1 &3405820985193675267
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +438,7 @@ GameObject:
   - component: {fileID: 4051215045944010035}
   - component: {fileID: 8914848874193749698}
   m_Layer: 0
-  m_Name: HealthBG
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,7 +453,7 @@ Transform:
   m_GameObject: {fileID: 7454802028082082479}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.74228, y: 0.11071999, z: 0.44314998}
+  m_LocalScale: {x: 1.0878153, y: 0.16226073, z: 0.6494386}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8395267518320841892}
@@ -2227,6 +2230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf27c9bfad50034a87835e90a5a04d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRecovering: 0
   playerRefs: {fileID: 3175104005493510322}
   RecoveryPerSecond: 4
   DelayToRecover: 0.4
@@ -2810,7 +2814,7 @@ GameObject:
   - component: {fileID: 6375812545435196622}
   - component: {fileID: 6277269163137215358}
   m_Layer: 0
-  m_Name: Bar
+  m_Name: Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2825,7 +2829,7 @@ Transform:
   m_GameObject: {fileID: 8768991512222118416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.075, z: 1}
+  m_LocalScale: {x: 1.0258536, y: 0.11678246, z: 1.4655052}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8395267518320841892}
@@ -4396,6 +4400,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7653426975249963376}
     m_Modifications:
+    - target: {fileID: 2361237269639904750, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 7653426975249963391}
     - target: {fileID: 5309733073026282580, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: m_Name
       value: BasicHealthbarLogic
@@ -4467,7 +4475,7 @@ PrefabInstance:
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: HealthBarSize1
       value: 
-      objectReference: {fileID: 2106453507761045880}
+      objectReference: {fileID: 0}
     - target: {fileID: 5309733074293340184, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -4482,11 +4490,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
---- !u!4 &2106453507761045880 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5309733074144129296, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
-  m_PrefabInstance: {fileID: 6094591128499777640}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2106453508745462834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309733073026282586, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}

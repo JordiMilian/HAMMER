@@ -17,7 +17,7 @@ public class Generic_HealthSystem : MonoBehaviour
 
     void Start()
     {
-        if (!isPlayers) { MaxHP.SetValue(Refs.stats.MaxHealth); }
+        if (!isPlayers) { MaxHP.ChangeValue(Refs.stats.MaxHealth); }
         if (FillHealthOnStart) { RestoreAllHealth(); }
     }
     private void OnEnable()
@@ -30,21 +30,21 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public void RemoveLife(object sender, ReceivedAttackInfo receivedAttackInfo)
     {
-        CurrentHP.SetValue(CurrentHP.GetValue() - receivedAttackInfo.Damage);
+        CurrentHP.ChangeValue(CurrentHP.GetValue() - receivedAttackInfo.Damage);
 
         if (CurrentHP.GetValue() <= 0f)
         {
             Death(receivedAttackInfo.Attacker);
-            CurrentHP.SetValue(0);
+            CurrentHP.ChangeValue(0);
         }
         if (CurrentHP.GetValue() > MaxHP.GetValue())
         {
-            CurrentHP.SetValue(MaxHP.Variable.Value);
+            CurrentHP.ChangeValue(MaxHP.Variable.Value);
         }
     }
     public void RestoreAllHealth()
     {
-        CurrentHP.SetValue(MaxHP.GetValue());
+        CurrentHP.ChangeValue(MaxHP.GetValue());
     }
     public virtual void Death(GameObject killer)
     {

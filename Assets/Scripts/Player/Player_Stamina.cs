@@ -4,24 +4,42 @@ using UnityEngine;
 
 public class Player_Stamina : MonoBehaviour
 {
+    public bool isRecovering;
+    public bool isFilled;
+
     [SerializeField] Player_References playerRefs;
 
     [SerializeField] float RecoveryPerSecond;
     [SerializeField] float DelayToRecover;
     [SerializeField] float DelayToFullRecover;
-    bool isRecovering;
+    
     Coroutine currentCooldown;
     private void Start()
     {
         playerRefs.currentStamina.Value = playerRefs.maxStamina.Value;
+        isFilled = true;
     }
     private void OnEnable()
     {
         playerRefs.events.OnStaminaAction += RemoveStamina;
+        playerRefs.maxStamina.OnValueSet += checkForMaxStamina;
     }
     private void OnDisable()
     {
         playerRefs.events.OnStaminaAction -= RemoveStamina;
+        playerRefs.maxStamina.OnValueSet -= checkForMaxStamina;
+    }
+    void checkForMaxStamina()
+    {
+        if(playerRefs.maxStamina.GetValue() > playerRefs.currentStamina.GetValue())
+        {
+            isRecovering = true;
+            isFilled = false;
+        }
+        else if(playerRefs.maxStamina.GetValue() < playerRefs.currentStamina.GetValue())
+        {
+            playerRefs.currentStamina.SetValue(playerRefs.maxStamina.GetValue());
+        }
     }
     void RemoveStamina(float stamina)
     {
@@ -30,8 +48,9 @@ public class Player_Stamina : MonoBehaviour
 
         //Set to max or min in case of overflow
         if (playerRefs.currentStamina.Value < 0 ) { playerRefs.currentStamina.Value = 0; }
-        if (playerRefs.currentStamina.Value > playerRefs.maxStamina.Value ) { playerRefs.currentStamina.Value = playerRefs.maxStamina.Value; }
+        else if (playerRefs.currentStamina.Value > playerRefs.maxStamina.Value ) { playerRefs.currentStamina.Value = playerRefs.maxStamina.Value; isFilled = true; return; }
 
+        isFilled = false;
         //Stop recovering and stop cooldown if still ON
         isRecovering = false; 
         if(currentCooldown != null) { StopCoroutine(currentCooldown); }
@@ -46,10 +65,12 @@ public class Player_Stamina : MonoBehaviour
         if (isRecovering)
         {
             playerRefs.currentStamina.Value += Time.deltaTime * RecoveryPerSecond;
+
             if (playerRefs.currentStamina.Value > playerRefs.maxStamina.Value)
             {
                 playerRefs.currentStamina.Value = playerRefs.maxStamina.Value;
                 isRecovering = false;
+                isFilled = true;
             }
         }
     }
