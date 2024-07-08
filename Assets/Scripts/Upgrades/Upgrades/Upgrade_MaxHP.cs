@@ -11,7 +11,10 @@ public class Upgrade_MaxHP : Upgrade
     {
         playerHealth = entity.GetComponent<Player_HealthSystem>();
         float newValue = playerHealth.MaxHP.GetValue() * (1 + (Percent / 100));
+        float addedValue = newValue - playerHealth.MaxHP.GetValue();
         playerHealth.MaxHP.ChangeValue(newValue);
+        playerHealth.CurrentHP.ChangeValue(playerHealth.CurrentHP.GetValue() + addedValue);
+
     }
     public override void onRemoved(GameObject entity)
     {

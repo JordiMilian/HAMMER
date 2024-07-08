@@ -8,11 +8,15 @@ public class Player_DeathCutscene : BaseCutsceneLogic
     [SerializeField] Player_References playerRefs;
     private void OnEnable()
     {
-        GameEvents.OnPlayerDeath += playThisCutscene;
+        GameEvents.OnPlayerDeath += AddThisCutscene;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerDeath -= playThisCutscene;
+        GameEvents.OnPlayerDeath -= AddThisCutscene;
+    }
+    void AddThisCutscene()
+    {
+        CutscenesManager.Instance.AddCutscene(this);
     }
     public override void playThisCutscene()
     {

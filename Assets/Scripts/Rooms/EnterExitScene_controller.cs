@@ -19,7 +19,7 @@ public class EnterExitScene_controller : MonoBehaviour
     }
     void OnPlayerEnteredFromHere()
     {
-        enterCutscene.playThisCutscene();
+        CutscenesManager.Instance.AddCutscene(enterCutscene);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

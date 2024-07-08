@@ -22,7 +22,7 @@ public class EnterTriggerCutscene : MonoBehaviour
     void callEntered(Collider2D collision)
     {
         if (hasCutscenePlayed) { return; }
-        thisCutsceneLogic.playThisCutscene();
+        CutscenesManager.Instance.AddCutscene(thisCutsceneLogic);
         hasCutscenePlayed = true;
     }
 }
