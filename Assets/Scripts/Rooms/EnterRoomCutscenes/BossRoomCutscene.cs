@@ -9,9 +9,10 @@ public class BossRoomCutscene : BaseCutsceneLogic
     [SerializeField] RoomWithEnemiesLogic enemyRoomLogic;
     [SerializeField] float zoomToBoss;
     [SerializeField] AnimationClip bossEnterAnimationClip;
+    [SerializeField] UI_BossHealthBar healthBar;
     public override void playThisCutscene()
     {
-        StartCoroutine(bossCutscene());
+       currentCutscene = StartCoroutine(bossCutscene());
     }
     IEnumerator bossCutscene()
     {
@@ -29,14 +30,18 @@ public class BossRoomCutscene : BaseCutsceneLogic
         TargetGroupSingleton.Instance.AddTarget(bossTf, 50, 1);
 
         //ACTIVATE ANIMATOR TRIGGER FOR INTENDED ANIMATION
-        bossTf.gameObject.GetComponent<Animator>().SetTrigger("Attack01");
+        bossTf.gameObject.GetComponent<Animator>().SetTrigger("HitShield"); //PLACEHOLDER ALERT FUCKKKK
 
-        yield return new WaitForSeconds(bossEnterAnimationClip.length + 0.5f);
+        yield return new WaitForSeconds(bossEnterAnimationClip.length);
+
+        healthBar.ShowCanvas();
+
+        yield return new WaitForSeconds(.5f);
 
         //return to basics
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
         TargetGroupSingleton.Instance.RemoveTarget(bossTf);
 
-
+        onCutsceneOver?.Invoke();
     }
 }

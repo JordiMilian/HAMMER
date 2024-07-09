@@ -52,6 +52,7 @@ MonoBehaviour:
   availableUpgrades: {fileID: 11400000, guid: 2e9fc6e2a2c4c6741ac403180e7f9895, type: 2}
   base_UpgradeContainer: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
   spawnedUpgradesContainers: []
+  spawnCutscene: {fileID: 0}
 --- !u!1001 &4188843338289075173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -127,6 +128,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseBossRoomV2
       objectReference: {fileID: 0}
+    - target: {fileID: 3419961203103509028, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477839892929856678, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: thisCutsceneLogic
+      value: 
+      objectReference: {fileID: 2624967482039839556}
     - target: {fileID: 4409939373165131227, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -373,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8621680959757464848, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_DynamicOccludee
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8772267433966631158, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: enemyRoomLogic
@@ -398,7 +407,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3477839892929856678, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2912386451497355126}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c710271dc26b48b42a229c4e3823a20d, type: 3}
@@ -446,6 +455,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2131496921670176955, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2912386451497355126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1318185655168291987, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+  m_PrefabInstance: {fileID: 4188843338289075173}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2624967482039839556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2912386451497355126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aff98fcccf02df428b0976c57fb3063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyRoomLogic: {fileID: 5626894771440541730}
+  zoomToBoss: 1
+  bossEnterAnimationClip: {fileID: 0}
+  healthBar: {fileID: 4424330670833719739}
 --- !u!114 &3271590697635559959 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1677244194947688946, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
@@ -467,6 +497,78 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 6272392358212819005, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6143863648158392283
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2861294270407902046}
+    m_Modifications:
+    - target: {fileID: 7504406700930254432, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: roomWithEnemies
+      value: 
+      objectReference: {fileID: 5626894771440541730}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.74603486
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.8643575
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.25939772
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116581630682111326, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: m_Name
+      value: BossHealthBar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+--- !u!114 &4424330670833719739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7504406700930254432, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+  m_PrefabInstance: {fileID: 6143863648158392283}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db69daf79edf5324d83848f4582458d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6903099046340374622
 PrefabInstance:
   m_ObjectHideFlags: 0

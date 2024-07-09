@@ -15,7 +15,7 @@ public class Generic_HealthSystem : MonoBehaviour
     [SerializeField] bool FillHealthOnStart = true;
     [SerializeField] bool isPlayers;
 
-    void Start()
+    void Awake()
     {
         if (!isPlayers) { MaxHP.ChangeValue(Refs.stats.MaxHealth); }
         if (FillHealthOnStart) { RestoreAllHealth(); }
