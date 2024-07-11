@@ -33,7 +33,7 @@ public class Dialoguer : MonoBehaviour
         eventSystem.OnReceiveDamage += OnInteracted;
 
         isDisplaying = true;
-        HideDialogueBubble();
+        InstaHideDialogueBubble();
     }
     private void OnDisable()
     {
@@ -92,6 +92,14 @@ public class Dialoguer : MonoBehaviour
         if(isDisplaying)
         {
             bubbleAnimator.SetTrigger("Disappear");
+            isDisplaying = false;
+        }
+    }
+    void InstaHideDialogueBubble()
+    {
+        if(isDisplaying)
+        {
+            bubbleAnimator.SetTrigger("InstaDisappear");
             isDisplaying = false;
         }
     }

@@ -40,6 +40,8 @@ public class RoomGenerator_Manager : MonoBehaviour
         Call_GenerateRooms_StartFromIndex -= GenerateRooms_startFromIndex;
         Call_GenerateSingleGroupOfRooms -= GenerateSingleGroupOfRooms;
         Call_GenerateAllRoomsFromPosition -= GenerateAllRoomsFromPos;
+
+        gameState.currentPlayersRooms.Clear();
     }
     
     void GenerateRooms_startFromIndex(int index)

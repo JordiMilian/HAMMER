@@ -10,13 +10,31 @@ public class AltoMando : MonoBehaviour
     [SerializeField] EnterExitScene_controller[] EnterExitScene;
     [SerializeField] DoorAnimationController FinalDoor;
     [SerializeField] GameState gameState;
+    [SerializeField] Player_Respawner tutorialEndRespawner;
+    [SerializeField] BaseCutsceneLogic ResetStateCutscene;
     int doorsCompleted;
     private void Awake()
     {
         doorsCompleted = 0;
         Handle4Doors();
         HandleFinalDoor();
+
+        if(gameState.isSpawnWithouUpgrades && gameState.isTutorialComplete) //FEO FEO FEO FEO FEO EL ALTO MANDO NO HAURIA DE FER TOT AIXO
+        {
+            tutorialEndRespawner.ExternallyActivateRespawner();
+
+            CutscenesManager.Instance.AddCutscene(ResetStateCutscene);
+        }
+
+        gameState.isSpawnWithouUpgrades = false;
+
+        tutorialEndRespawner.OnRespawnerActivated += TutorialCompleted;
     }
+    private void OnDisable()
+    {
+        tutorialEndRespawner.OnRespawnerActivated -= TutorialCompleted;
+    }
+
     void Handle4Doors()
     {
         for (int i = 0; i < gameState.FourDoors.Length; i++)
@@ -65,5 +83,8 @@ public class AltoMando : MonoBehaviour
         }
     }
 
-
+    void TutorialCompleted()
+    {
+        gameState.isTutorialComplete = true;
+    }
 }

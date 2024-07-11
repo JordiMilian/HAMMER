@@ -36,8 +36,11 @@ public class Generic_DamageDetector : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(isInCooldown) { Debug.Log("damage detector was in cooldown"); return;  }
-
+        if(isInCooldown) 
+        { 
+            //Debug.Log("damage detector was in cooldown"); 
+            return; 
+        }
         switch (EntityTeam)
         {
             case Team.Object:

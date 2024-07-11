@@ -18,7 +18,6 @@ public class Player_UpgradesManager : MonoBehaviour
         {
             upgrade.onAdded(gameObject);
         }
-        GameEvents.OnPlayerDeath += deleteRandomUpgrade;
     }
     private void OnDisable()
     {
@@ -28,7 +27,6 @@ public class Player_UpgradesManager : MonoBehaviour
         {
             upgrade.onRemoved(gameObject);
         }
-        GameEvents.OnPlayerDeath -= deleteRandomUpgrade;
     }
     private void onSingleTriggerEnter(Collider2D collision)
     {
@@ -47,7 +45,7 @@ public class Player_UpgradesManager : MonoBehaviour
         gameState.playerUpgrades.Add(upgrade);
         
     }
-    void deleteRandomUpgrade()
+    public void deleteRandomUpgrade()
     {
         if(gameState.playerUpgrades.Count == 0) { Debug.Log("No upgrades to delete"); return;}
         int randomIndex = Random.Range(0, gameState.playerUpgrades.Count-1);

@@ -160,6 +160,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     {
         EnemiesAlive--;
         areCorrectlySpawned = false;
+        CurrentlySpawnedEnemies.Remove(args.DeadGameObject);
         if (EnemiesAlive <= 0) { RoomCompleted(true,false); }
     }
     void EnemyDamaged(object sender, Generic_EventSystem.ReceivedAttackInfo args)

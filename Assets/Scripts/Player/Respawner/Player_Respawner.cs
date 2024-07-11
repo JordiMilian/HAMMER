@@ -29,6 +29,11 @@ public class Player_Respawner : MonoBehaviour
     {
         ActivateRespawner();
     }
+    public void ExternallyActivateRespawner() //This is called from the AltoMando when loading the scene after a reset
+    {
+        ActivateRespawner();
+        //Logic to hide sprites of the Head of the tied enemy PLSSS
+    }
      void ActivateRespawner()
     {
         IsActivated = true;

@@ -7,8 +7,6 @@ using static Generic_EventSystem;
 
 public class Generic_HealthSystem : MonoBehaviour
 {
-    //public float MaxHealth;
-    //public float CurrentHealth;
     [SerializeField] Generic_References Refs;
     public FloatReference MaxHP;
     public FloatReference CurrentHP;

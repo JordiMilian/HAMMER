@@ -16,6 +16,7 @@ public class Player_References : Generic_References
     public Player_ProximityDetector proximityDetector;
     public Player_Stamina playerStamina;
     public Player_VFXManager playerVFX;
+    public Player_UpgradesManager upgradesManager;
 
     public FloatVariable currentHealth;
     public FloatVariable maxHealth;
@@ -25,5 +26,6 @@ public class Player_References : Generic_References
     public Collider2D parryCollider;
 
     public GameObject weaponScalingRoot;
+    public GameObject weaponPivot;
     
 }

@@ -16,7 +16,7 @@ public class Player_RespawnerManager : MonoBehaviour
     private void OnEnable()
     {
         
-        eventSystem.CallRespawn += RespawnPlayer;
+        eventSystem.CallRespawnToLastRespawner += RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
             respawner.OnRespawnerActivated += CheckFurthestRespawner;
@@ -24,7 +24,7 @@ public class Player_RespawnerManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        eventSystem.CallRespawn -= RespawnPlayer;
+        eventSystem.CallRespawnToLastRespawner -= RespawnPlayer;
         foreach (Player_Respawner respawner in Respawners)
         {
             respawner.OnRespawnerActivated -= CheckFurthestRespawner;
@@ -47,7 +47,6 @@ public class Player_RespawnerManager : MonoBehaviour
         CheckFurthestRespawner();
         CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
         CurrentFurthestRespawner.RespawnFromHere(eventSystem.gameObject); //Go to Player_Respawn
-        
     }
     void CheckFurthestRespawner()
     {
@@ -60,7 +59,7 @@ public class Player_RespawnerManager : MonoBehaviour
         for(int i = 0;i<Respawners.Count;i++)
         {
             //Sorting by distance to the Manger gameobject
-            Respawners[i].distanceToManager = (Respawners[i].transform.position - transform.position).magnitude;
+            Respawners[i].distanceToManager = (Respawners[i].transform.position - transform.position).sqrMagnitude;
             if(Respawners[i].distanceToManager > maxDistance && Respawners[i].IsActivated)
             {
                 furthestIndex = i;

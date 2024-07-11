@@ -6,7 +6,8 @@ using UnityEngine;
 public class Player_EventSystem : Generic_EventSystem
 {
     
-    public Action CallRespawn;
+    public Action CallRespawnToLastRespawner;
+    public Action CallRespawnToRestartGame;
     public Action CallShowAndEnable;
     public Action CallHideAndDisable;
     public Action CallDisable;

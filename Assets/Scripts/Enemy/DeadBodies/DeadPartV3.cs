@@ -96,22 +96,22 @@ public class DeadPartV3 : MonoBehaviour
     }
     void SpawnedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
-        Debug.Log("spawn pushed");
+        //Debug.Log("spawn pushed");
         CallVertical(args.GeneralDirection, 1f, 1f);
     }
     void AttackPush(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
-        Debug.Log("attackedPush");
+        //Debug.Log("attackedPush");
         CallHorizontal(args.GeneralDirection, 1f, 1f);
     }
     void TouchedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
-        Debug.Log("touchedPush");
+       // Debug.Log("touchedPush");
         CallHorizontal(args.GeneralDirection, 0.2f, 0.5f);
     }
     void HitWallPush()
     {
-        Debug.Log("wallPush");
+        //Debug.Log("wallPush");
         damageDetector.enabled = true;
         CallHorizontal(-currentDirection, 0.4f, 1f);
     }

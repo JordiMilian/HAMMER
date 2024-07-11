@@ -10,6 +10,9 @@ public class Room_LastUpgradeHolder : MonoBehaviour
     [SerializeField] GameObject BaseUpgradeContainerPrefab;
     [SerializeField] Transform SpawnPosition;
 
+    //An instance of this script is holded by every room. 
+    //The subcription to itselt is done by the MANAGER
+    //The unsubscribtion is done by itself by multiple reasons (player picks up the uprade or player dies again)
     public void subscribeToRoomCompleted()
     {
         roomLogic.onRoomCompleted += spawnUpgrade;

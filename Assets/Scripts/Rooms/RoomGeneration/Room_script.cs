@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
 public class Room_script : MonoBehaviour
 {
     public Action<GameObject, Room_script> onRoomEntered;

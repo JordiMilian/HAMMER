@@ -47,6 +47,8 @@ public class UI_BossHealthBar : MonoBehaviour
 
         foreach (GameObject enemy in roomWithEnemies.CurrentlySpawnedEnemies)
         {
+            enemy.transform.Find("Sprites").Find("BasicHealthbarLogic").gameObject.SetActive(false);
+
             Generic_HealthSystem thisHealth = enemy.GetComponent<Generic_HealthSystem>();
             healthsList.Add(thisHealth);
             

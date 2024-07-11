@@ -7,7 +7,7 @@ public class CutscenesManager : MonoBehaviour
     public static CutscenesManager Instance;
 
     Queue<BaseCutsceneLogic> cutscenesQueue = new Queue<BaseCutsceneLogic>();
-    bool isPlaying;
+    public bool isPlaying;
 
     private void Awake()
     {
@@ -31,12 +31,14 @@ public class CutscenesManager : MonoBehaviour
     }
     void playCutscene(BaseCutsceneLogic cutscene)
     {
+        Debug.Log("Starting new cutscene");
         cutscene.playThisCutscene();
         isPlaying = true;
         cutscene.onCutsceneOver += CutsceneOver;
     }
      void CutsceneOver()
     {
+        Debug.Log("Cutscene finished");
         cutscenesQueue.Peek().onCutsceneOver -= CutsceneOver;
 
         cutscenesQueue.Dequeue();
@@ -49,6 +51,5 @@ public class CutscenesManager : MonoBehaviour
         {
             isPlaying = false;
         }
-        
     }
 }
