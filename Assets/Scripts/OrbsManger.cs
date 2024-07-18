@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OrbsManger : MonoBehaviour
 {
+    //KILL THIS SCRIPT NOW
+
     [SerializeField] List<OrbLogic> orbLogicList;
     [SerializeField] Player_Respawner respawner;
     bool IsCollected;

@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Player_Respawner : MonoBehaviour
 {
+    public event Action OnRespawnerActivated;
+    public bool IsActivated = false;
+
     [SerializeField] Transform respawnPosition;
     [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Animator TiedEnemyAnimator;
-    public event Action OnRespawnerActivated;
-    public bool IsActivated = false;
+    
+    
     GameObject RespawnedPlayer;
     Player_RespawnerManager respawnerManager;
     [HideInInspector] public float distanceToManager;
@@ -32,7 +35,7 @@ public class Player_Respawner : MonoBehaviour
     public void ExternallyActivateRespawner() //This is called from the AltoMando when loading the scene after a reset
     {
         ActivateRespawner();
-        //Logic to hide sprites of the Head of the tied enemy PLSSS
+        GetComponent<TiedEnemy_StateMachine>().OnDeathState(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,gameObject)); 
     }
      void ActivateRespawner()
     {

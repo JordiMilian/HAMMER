@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UsefullMethods : MonoBehaviour 
 {
+    public static string SubscribreWithArgument = "onEventwithArgument += (ArgumentType name) => MethodWithoutArgument";
     public static IEnumerator ApplyForceOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
         float startTime = Time.time;

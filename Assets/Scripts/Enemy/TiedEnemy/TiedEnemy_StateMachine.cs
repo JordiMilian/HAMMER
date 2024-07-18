@@ -13,9 +13,11 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
         CurrentState = States.Dead;
         HeadSprite.enabled = false;
         vfxManager.groundBloodIntensity = 0.4f;
-        GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
+        //GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
         dialoguer.SetActive(false);
     }
+
+
     public void ShowBodies() //Go to Respawner Manager
     {
         foreach (SpriteRenderer sprite in BodySprites)

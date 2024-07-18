@@ -22,4 +22,5 @@ public class Player_EventSystem : Generic_EventSystem
     public Action OnPerformSpecialAttack;
     public Action<float> OnStaminaAction;
     public Action<UpgradeContainer> OnPickedNewUpgrade;
+    public Action OnRemovedUpgrade;
 }

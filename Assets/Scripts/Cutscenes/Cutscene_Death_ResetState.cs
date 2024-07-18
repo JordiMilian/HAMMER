@@ -5,9 +5,10 @@ using UnityEngine;
 public class Cutscene_Death_ResetState : BaseCutsceneLogic
 {
     [SerializeField] GameState gameState;
+    public bool dontResetState;
     public override void playThisCutscene()
     {
-        gameState.ResetState();
+        if (!dontResetState) { gameState.ResetState(); }
 
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
