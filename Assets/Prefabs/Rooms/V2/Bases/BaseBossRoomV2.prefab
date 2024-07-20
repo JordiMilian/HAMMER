@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3977532374618455286}
   - component: {fileID: 7448831037043449186}
+  - component: {fileID: 6883731831432065899}
   m_Layer: 0
   m_Name: Upgrades Group
   m_TagString: Untagged
@@ -52,7 +53,20 @@ MonoBehaviour:
   availableUpgrades: {fileID: 11400000, guid: 2e9fc6e2a2c4c6741ac403180e7f9895, type: 2}
   base_UpgradeContainer: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
   spawnedUpgradesContainers: []
-  spawnCutscene: {fileID: 0}
+  spawnCutscene: {fileID: 6883731831432065899}
+--- !u!114 &6883731831432065899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842453309701130613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d19e97688acc894cb2a551568d07738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradesGroup: {fileID: 7448831037043449186}
 --- !u!1001 &4188843338289075173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -431,8 +445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 702467371834552783}
-  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
   isRoomPermanentlyCompleted: 0
+  openDoorCutscene: {fileID: 7920032774594241673}
   MaxWeight_T1: 1
   MaxWeight_T2: 0
   SpawneableEnemies:
@@ -497,6 +511,17 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 6272392358212819005, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7920032774594241673 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6325403577021855596, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+  m_PrefabInstance: {fileID: 4188843338289075173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2641463113601699493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f33261f7bb07f48b1f514f5c41f856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6143863648158392283
 PrefabInstance:
   m_ObjectHideFlags: 0

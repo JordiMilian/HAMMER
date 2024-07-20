@@ -6,6 +6,7 @@ using UnityEngine;
 public class Cutscene_OpenDoor : BaseCutsceneLogic
 {
     [SerializeField] AnimationClip openDoorAnimation;
+    [SerializeField] DoorAnimationController doorController;
     public override void playThisCutscene()
     {
         currentCutscene = StartCoroutine(OpenDoorFocusCamera());
@@ -13,7 +14,6 @@ public class Cutscene_OpenDoor : BaseCutsceneLogic
 
     IEnumerator OpenDoorFocusCamera()
     {
-        DoorAnimationController doorController = GetComponent<DoorAnimationController>();
         
         Transform doorTransform = doorController.transform;
 

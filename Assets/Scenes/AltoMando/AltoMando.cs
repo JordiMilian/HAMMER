@@ -19,7 +19,7 @@ public class AltoMando : MonoBehaviour
         Handle4Doors();
         HandleFinalDoor();
 
-        if(gameState.isTutorialComplete)
+        if(gameState.isTutorialComplete && gameState.LastCompletedIndex < 0)
         {
             tutorialEndRespawner.ExternallyActivateRespawner();
 

@@ -20,6 +20,6 @@ public class BossRoomLogic : RoomWithEnemiesLogic
         gameState.LastCompletedIndex = BossIndex;
         OnBossDefeated?.Invoke(BossIndex);
 
-        upgradesGroup.CallSpawnUpgrades?.Invoke();
+        upgradesGroup.StartSpawnCutscene();
     }
 }

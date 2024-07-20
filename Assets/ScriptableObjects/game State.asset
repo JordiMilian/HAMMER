@@ -13,20 +13,22 @@ MonoBehaviour:
   m_Name: game State
   m_EditorClassIdentifier: 
   FourDoors:
-  - isCompleted: 0
+  - isCompleted: 1
+    DoorController: {fileID: 0}
+  - isCompleted: 1
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
-  - isCompleted: 0
-    DoorController: {fileID: 0}
-  LastCompletedIndex: -1
+  LastCompletedIndex: 0
   isFinalDoorOpen: 0
   isTutorialComplete: 1
   isSpawnWithouUpgrades: 0
   playerUpgrades:
+  - {fileID: 11400000, guid: 1f6be0e307206c844849d0085c738f80, type: 2}
   - {fileID: 11400000, guid: 9c77de4d8d4ea2f4b9149d5faf9c9418, type: 2}
-  - {fileID: 11400000, guid: be80680bb32e0234f9079bfb895b0853, type: 2}
-  lastLostUpgrade: {fileID: 0}
+  - {fileID: 11400000, guid: 1f6be0e307206c844849d0085c738f80, type: 2}
+  - {fileID: 11400000, guid: 1f6be0e307206c844849d0085c738f80, type: 2}
+  lastLostUpgrade: {fileID: 11400000, guid: d79f547ab34379e48baadcd7ece2988b, type: 2}
   currentPlayersRooms: []

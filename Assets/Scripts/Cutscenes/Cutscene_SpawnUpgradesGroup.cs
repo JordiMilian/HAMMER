@@ -18,7 +18,7 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
 
         yield return new WaitForSeconds(1);
 
-        upgradesGroup.CallSpawnUpgrades?.Invoke();
+        upgradesGroup.onSpawnNewContainers();
 
         yield return new WaitForSeconds(1);
 

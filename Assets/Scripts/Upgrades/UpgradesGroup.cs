@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UpgradesGroup : MonoBehaviour
 {
-    public Action CallSpawnUpgrades;
+     Action CallSpawnUpgrades;
 
 
     [SerializeField] BaseRoomWithDoorLogic roomLogic;
@@ -30,15 +30,11 @@ public class UpgradesGroup : MonoBehaviour
             trigger_TestSpawnContainers = false;
         }
     }
-    private void OnEnable()
+    public void StartSpawnCutscene()
     {
-        CallSpawnUpgrades += onSpawnNewContainers;
+        CutscenesManager.Instance.AddCutscene(spawnCutscene);
     }
-    private void OnDisable()
-    {
-        CallSpawnUpgrades -= onSpawnNewContainers;
-    }
-    void onSpawnNewContainers()
+    public void onSpawnNewContainers()
     {
         RemoveSpawnedContainers();
 

@@ -14,6 +14,7 @@ public class UpgradeContainer : MonoBehaviour
     //If its an upgrade on its own, we call it on Start
     public bool isSoloUpgrade;
 
+    [SerializeField] Animator containerAnimator;
     [SerializeField] Dialoguer dialoguer;
     Collider2D ownCollider;
     
@@ -27,16 +28,19 @@ public class UpgradeContainer : MonoBehaviour
         iconRenderer.sprite = upgradeEffect.iconSprite;
         dialoguer.TextLines[0] = upgradeEffect.shortDescription();
         ownCollider.enabled = true;
+        containerAnimator.SetTrigger("Spawn");
     }
     public void OnPickedUpContainer()
     {
         OnPickedUp?.Invoke(IndexInGroup);
         ownCollider.enabled = false;
-        StartCoroutine(UsefullMethods.destroyWithDelay(1,gameObject));
+        StartCoroutine(UsefullMethods.destroyWithDelay(1.5f,gameObject));
+        containerAnimator.SetTrigger("PickedUp");
     }
     public void OnDispawnContainer()
     {
-       StartCoroutine( UsefullMethods.destroyWithDelay(.1f, gameObject));
+       StartCoroutine( UsefullMethods.destroyWithDelay(1f, gameObject));
+        containerAnimator.SetTrigger("Despawn");
     }
 
     

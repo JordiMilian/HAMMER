@@ -71,7 +71,7 @@ public class UI_BossHealthBar : MonoBehaviour
 
         size1HealthBar.localScale = new Vector3(normalizedSize, 1, 1);
 
-        Debug.Log("boss health updated: " + CurrentHealth + "/" + MaxHealth);
+        //Debug.Log("boss health updated: " + CurrentHealth + "/" + MaxHealth);
 
         if (CurrentHealth <= 0)
         {

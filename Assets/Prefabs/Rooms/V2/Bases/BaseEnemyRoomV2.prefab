@@ -553,6 +553,20 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   BaseUpgradeContainerPrefab: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
   SpawnPosition: {fileID: 3419961203103509028}
+--- !u!114 &6325403577021855596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200464055817051456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f33261f7bb07f48b1f514f5c41f856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
+  doorController: {fileID: 3719525278984921642}
 --- !u!114 &8154110797072673202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,8 +580,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 3719525278984921642}
-  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
   isRoomPermanentlyCompleted: 0
+  openDoorCutscene: {fileID: 6325403577021855596}
   MaxWeight_T1: 1
   MaxWeight_T2: 0
   SpawneableEnemies:
