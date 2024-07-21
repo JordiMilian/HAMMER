@@ -360,10 +360,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 8759509481261797382}
-  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
   isRoomPermanentlyCompleted: 0
+  openDoorCutscene: {fileID: 8881404804933095469}
   parriesToOpen: 1
   MannequinDamageDealer: {fileID: 4930931587432522008}
+--- !u!114 &8881404804933095469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079094419825606550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f33261f7bb07f48b1f514f5c41f856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
+  doorController: {fileID: 8759509481261797382}
 --- !u!4 &4593001415794494386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2012529051862698792, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}

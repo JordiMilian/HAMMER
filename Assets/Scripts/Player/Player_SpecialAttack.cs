@@ -21,6 +21,8 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnDealtDamage += onAttackedEnemy;
         playerRefs.events.OnReceiveDamage += onReceivedAttack;
         playerRefs.events.OnPerformSpecialAttack += onPerformedSpecialAttack;
+        GameEvents.OnPlayerDeath += restartCharge;
+        restartCharge();
     }
     private void OnDisable()
     {
@@ -29,6 +31,7 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnDealtDamage -= onAttackedEnemy;
         playerRefs.events.OnReceiveDamage -= onReceivedAttack;
         playerRefs.events.OnPerformSpecialAttack -= onPerformedSpecialAttack;
+        GameEvents.OnPlayerDeath -= restartCharge;
     }
     void onSpecialAttackPressed()
     {
@@ -41,7 +44,9 @@ public class Player_SpecialAttack : MonoBehaviour
         if (SpCharge_Current.Value < SpCharge_Max.Value) { Debug.Log("not enough charge try again"); return; }
 
         SpCharge_Current.SetValue(0);
-        HealItself();
+
+        playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
+        amountToHeal = Health_Max.Value - Health_Current.Value;
     }
     void onPerformedSpecialAttack()
     {
@@ -53,11 +58,6 @@ public class Player_SpecialAttack : MonoBehaviour
             dealer.Knockback = Sp_Knockback;
             dealer.isChargingSpecialAttack = false;
         }
-    }
-    void HealItself()
-    {
-        playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
-        amountToHeal = Health_Max.Value - Health_Current.Value;
     }
     void onAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
@@ -76,8 +76,13 @@ public class Player_SpecialAttack : MonoBehaviour
 
         SpCharge_Current.SetValue(temporalValue);
     }
+    void restartCharge()
+    {
+        SpCharge_Current.SetValue(0);
+    }
     public void EV_ActuallyHeal()
     {
-        Health_Current.SetValue(Health_Current.Value + amountToHeal);
+        //Health_Current.SetValue(Health_Current.Value + amountToHeal);
+        playerRefs.healthSystem.RemoveLife(-amountToHeal, gameObject);
     }
 }

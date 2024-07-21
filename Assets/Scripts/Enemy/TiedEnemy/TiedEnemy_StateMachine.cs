@@ -14,6 +14,7 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
         HeadSprite.enabled = false;
         vfxManager.groundBloodIntensity = 0.4f;
         //GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
+        GlobalPlayerReferences.Instance.references.healthSystem.RestoreAllHealth();
         dialoguer.SetActive(false);
     }
 

@@ -59,6 +59,7 @@ MonoBehaviour:
   HitStop: 0.1
   isParryable: 0
   isBloody: 1
+  isChargingSpecialAttack: 0
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -120,7 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 5671861329474703443}
+  damageDealer:
+  - {fileID: 5671861330830177943}
   eventSystem: {fileID: 5671861329474703440}
   trailrendered: {fileID: 0}
   testTrailrendered: {fileID: 0}
@@ -154,7 +156,7 @@ SortingGroup:
   m_GameObject: {fileID: 5671861329474703452}
   m_Enabled: 1
   m_SortingLayerID: -1215504865
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: 0
 --- !u!114 &3621116235373154607
 MonoBehaviour:
@@ -221,6 +223,7 @@ MonoBehaviour:
   HitStop: 0.1
   isParryable: 0
   isBloody: 1
+  isChargingSpecialAttack: 0
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -303,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 5671861330830177943}
+  damageDealer:
+  - {fileID: 0}
   eventSystem: {fileID: 5671861330830177940}
   trailrendered: {fileID: 0}
   testTrailrendered: {fileID: 0}

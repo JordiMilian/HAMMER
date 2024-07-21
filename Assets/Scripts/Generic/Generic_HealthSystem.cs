@@ -20,19 +20,20 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     private void OnEnable()
     {
-        Refs.genericEvents.OnReceiveDamage += RemoveLife;
+
+        Refs.genericEvents.OnReceiveDamage += (object sender, ReceivedAttackInfo info) => RemoveLife(info.Damage, info.Attacker);
     }
     private void OnDisable()
     {
-        Refs.genericEvents.OnReceiveDamage -= RemoveLife;
+        Refs.genericEvents.OnReceiveDamage -= (object sender, ReceivedAttackInfo info) => RemoveLife(info.Damage, info.Attacker);
     }
-    public void RemoveLife(object sender, ReceivedAttackInfo receivedAttackInfo)
+    public void RemoveLife(float damage, GameObject damager)
     {
-        CurrentHP.ChangeValue(CurrentHP.GetValue() - receivedAttackInfo.Damage);
+        CurrentHP.ChangeValue(CurrentHP.GetValue() - damage);
 
         if (CurrentHP.GetValue() <= 0f)
         {
-            Death(receivedAttackInfo.Attacker);
+            Death(damager);
             CurrentHP.ChangeValue(0);
         }
         if (CurrentHP.GetValue() > MaxHP.GetValue())

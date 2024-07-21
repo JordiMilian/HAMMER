@@ -20,10 +20,12 @@ public class UI_BossHealthBar : MonoBehaviour
         roomWithEnemies.onEnemiesSpawned += RefillHealthBar;
         HideCanvas();
         textMeshPro.text = displayText;
+        GameEvents.OnPlayerDeath += HideCanvas;
     }
     private void OnDisable()
     {
         roomWithEnemies.onEnemiesSpawned -= RefillHealthBar;
+        GameEvents.OnPlayerDeath -= HideCanvas;
     }
     public void HideCanvas()
     {
