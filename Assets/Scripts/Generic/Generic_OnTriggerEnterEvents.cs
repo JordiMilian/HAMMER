@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Generic_OnTriggerEnterEvents : MonoBehaviour
 {
-    public List<string> ActivatorTags;
+    public List<string> ActivatorTags = new List<string>();
     public class EventArgsCollisionInfo
     {
         public Collider2D Collision;

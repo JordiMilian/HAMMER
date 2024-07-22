@@ -70,7 +70,9 @@ public class Enemy_MoveToTarget : MonoBehaviour
             }
             if(inRangeEnemies.Count > 0)
             {
-                finalDirection = CalculateNewDirection(transform.position, ClosestEnemy.position, Target.position);
+                //The size of the other gameObject multiplies the distance influence (bigger = close)
+                float otherSizeMultiplier = (ClosestEnemy.transform.localScale.x + ClosestEnemy.transform.localScale.y)/2;
+                finalDirection = CalculateNewDirection(transform.position, ClosestEnemy.position, Target.position, otherSizeMultiplier);
             }
             else { finalDirection = (Target.position - transform.position).normalized; }
 
@@ -79,7 +81,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
         }
     }
 
-    Vector2 CalculateNewDirection(Vector2 ownPosition, Vector2 closestPosition, Vector2 targetPosition)
+    Vector2 CalculateNewDirection(Vector2 ownPosition, Vector2 closestPosition, Vector2 targetPosition, float closestPositionMultiplier)
     {
         //Find the direction to Target and the oposite direction to the enemy
         DirectionToTarget = (targetPosition - ownPosition).normalized;
@@ -90,6 +92,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
         //Check which side is the Target respecto al Enemigo. First make perpendicular to enemy
         float perpendicularAngle = Vector2Angle(OpositeDirectionToClosest) + (0.25f * Mathf.PI + 2);
         Vector2 perpendicularVector = Angle2Vector(perpendicularAngle);
+
         //Dot that to find out side
         float SideDot = Vector2.Dot(perpendicularVector, DirectionToTarget);
         int side = CheckSide(SideDot);
@@ -101,6 +104,9 @@ public class Enemy_MoveToTarget : MonoBehaviour
         //Find how close is the enemy and find the relation to 1 with min/max
         float distanceToClosest = (closestPosition - ownPosition).magnitude;
         float distanceInfluence = Mathf.InverseLerp(MaxDistance, MinDistance, distanceToClosest);
+
+        //The size of the other gameObject multiplies the distance influence (bigger = close)
+        distanceInfluence *= closestPositionMultiplier;
 
         //Find the angle between and add more or less angle depending on distance. Also multiply by side
         float dotBetween = Vector2.Dot(DirectionToTarget, OpositeDirectionToClosest);

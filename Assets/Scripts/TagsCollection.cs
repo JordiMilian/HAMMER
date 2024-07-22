@@ -16,6 +16,7 @@ public class TagsCollection
     public static string ParryCollider = "ParryCollider";
     
     public static string Enemy = "Enemy";
+    public static string Enemy_SinglePointCollider = "Enemy_SinglePointCollider";
     public static string Enemy_notFocus = "Enemy_notFocus";
     public static string IA_Obstacle = "IA_Obstacle";
     
