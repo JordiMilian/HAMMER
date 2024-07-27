@@ -14,13 +14,20 @@ public class Upgrade_SlowerAttackHigherDamage : Upgrade
         animationSpeedController = entity.GetComponent<Player_AnimationSpeedControler>();
         stats = entity.GetComponent<Generic_Stats>();
 
-        animationSpeedController.attackingSpeed *= UsefullMethods.normalizePercentage(SlowerPercent, true);
-        stats.DamageMultiplier *= UsefullMethods.normalizePercentage(StrongerPercent);
+
+        float removedSpeed = animationSpeedController.BaseSpeed * UsefullMethods.normalizePercentage(SlowerPercent, false, true);
+        animationSpeedController.attackingSpeed -= removedSpeed;
+
+        float addedDamage = stats.BaseDamageMultiplier * UsefullMethods.normalizePercentage(StrongerPercent, false, true);
+        stats.DamageMultiplier += addedDamage;
     }
     public override void onRemoved(GameObject entity)
     {
-        animationSpeedController.attackingSpeed /= UsefullMethods.normalizePercentage(SlowerPercent, true);
-        stats.DamageMultiplier /= UsefullMethods.normalizePercentage(StrongerPercent);
+        float removedSpeed = animationSpeedController.BaseSpeed * UsefullMethods.normalizePercentage(SlowerPercent, false, true);
+        animationSpeedController.attackingSpeed += removedSpeed;
+
+        float addedDamage = stats.BaseDamageMultiplier * UsefullMethods.normalizePercentage(StrongerPercent, false, true);
+        stats.DamageMultiplier -= addedDamage;
     }
     public override string shortDescription()
     {

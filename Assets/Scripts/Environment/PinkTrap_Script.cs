@@ -9,7 +9,7 @@ public class PinkTrap_Script : MonoBehaviour
 
     private void OnEnable()
     {
-        areaTrigger.AddActivatorTag(TagsCollection.Enemy_SinglePointCollider);
+        //areaTrigger.AddActivatorTag(TagsCollection.Enemy_SinglePointCollider);
         areaTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
 
         areaTrigger.onAreaActive += setSpikesAnimator;

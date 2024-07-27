@@ -45,4 +45,12 @@ public class UI_UpgradesIcons : MonoBehaviour
         }
 
     }
+    private void Update()
+    {
+        if (triggerUpdateUI)
+        {
+            updateIcons();
+            triggerUpdateUI = false;
+        }
+    }
 }

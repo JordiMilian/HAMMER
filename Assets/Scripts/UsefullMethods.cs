@@ -164,15 +164,33 @@ public class UsefullMethods : MonoBehaviour
         Destroy(objectToDestroy);
     }
 
-    public static float normalizePercentage(float percent, bool negative = false)
+    public static float normalizePercentage(float percent, bool negative = false, bool fromZero = false)
     {
         // Given 25%:
-        // if POSITIVE return 1.25f
-        // if NEGATIVE return 0.75
-
-        if (negative) { return 1 - (percent / 100); }
-
-        return 1 + (percent / 100); 
+            // if POSITIVE return 1.25f
+            // if NEGATIVE return 0.75f
+            // if POSITIVE and FROMZERO return 0.25f
+            // if NEGATIVE and FROMZERO return -0.25
+        if(!negative)
+        {
+            if(fromZero)
+            {
+                return percent / 100;
+            }
+            else
+            {
+                return 1 + (percent / 100);
+            }
+        }
+        else if (negative) 
+        { 
+            if(fromZero)
+            {
+                return -(percent / 100);
+            }
+        }
+        //if (negative) and (!fromZero)
+        return 1 - (percent / 100);
     }
 
     public static string highlightString (string text)

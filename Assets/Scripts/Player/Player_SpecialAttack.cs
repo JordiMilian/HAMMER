@@ -21,6 +21,7 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnDealtDamage += onAttackedEnemy;
         playerRefs.events.OnReceiveDamage += onReceivedAttack;
         playerRefs.events.OnPerformSpecialAttack += onPerformedSpecialAttack;
+        playerRefs.events.OnSuccessfulParry += onSuccesfullParry;
         GameEvents.OnPlayerDeath += restartCharge;
         restartCharge();
     }
@@ -31,6 +32,7 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnDealtDamage -= onAttackedEnemy;
         playerRefs.events.OnReceiveDamage -= onReceivedAttack;
         playerRefs.events.OnPerformSpecialAttack -= onPerformedSpecialAttack;
+        playerRefs.events.OnSuccessfulParry -= onSuccesfullParry;
         GameEvents.OnPlayerDeath -= restartCharge;
     }
     void onSpecialAttackPressed()
@@ -65,7 +67,11 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void onReceivedAttack(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
-        addCharge(-info.Damage);
+        addCharge(-info.Damage * .6f);
+    }
+    void onSuccesfullParry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
+    {
+        addCharge(1.5f);
     }
     void addCharge(float amount)
     {

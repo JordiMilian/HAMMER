@@ -36,7 +36,10 @@ public class Generic_StaminaBarController : MonoBehaviour
         UpdateBarSize();
         UpdateBgSize();
     }
-
+    private void OnDisable()
+    {
+        maxStamina.OnValueSet -= UpdateBgSize;
+    }
     void UpdateBarSize()
     {
         Bar_Tf.localScale = new Vector3(currentStamina.GetValue() * HorizontalSizePerUnit, Bar_BaseScale.y, Bar_BaseScale.z);

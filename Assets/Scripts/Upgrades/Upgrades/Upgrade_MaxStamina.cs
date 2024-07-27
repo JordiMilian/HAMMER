@@ -6,16 +6,22 @@ using UnityEngine;
 public class Upgrade_MaxStamina : Upgrade
 {
     FloatVariable playerMaxStamina;
-    FloatVariable playerCurrentStamina;
+    FloatVariable baseStamina;
     [SerializeField] float Percent;
     public override void onAdded(GameObject entity)
     {
-        playerMaxStamina = entity.GetComponent<Player_References>().maxStamina;
-        playerMaxStamina.SetValue(playerMaxStamina.GetValue() * (1 + (Percent / 100)));
+        Player_References refs = entity.GetComponent<Player_References>();
+
+        baseStamina = refs.baseStamina;
+        playerMaxStamina = refs.maxStamina;
+
+        float addedStamina = baseStamina.GetValue() * UsefullMethods.normalizePercentage(Percent, false, true);
+        playerMaxStamina.SetValue(playerMaxStamina.GetValue() + addedStamina);
     }
     public override void onRemoved(GameObject entity)
     {
-        playerMaxStamina.SetValue(playerMaxStamina.GetValue() / (1 + (Percent / 100)));
+        float removedStamina = baseStamina.GetValue() * UsefullMethods.normalizePercentage(Percent, false, true);
+        playerMaxStamina.SetValue(playerMaxStamina.GetValue() - removedStamina);
     }
     public override string shortDescription()
     {

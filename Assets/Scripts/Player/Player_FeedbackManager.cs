@@ -73,7 +73,6 @@ public class Player_FeedbackManager : MonoBehaviour
     }
     public void OnSuccesfulParryCameraEffects(object sender, Player_EventSystem.SuccesfulParryInfo position)
     {
-        //hitStop.Stop(StopSeconds: 0.3f);
         TimeScaleEditor.Instance.HitStop(0.3f);
         CameraShake.Instance.ShakeCamera(0.6f, 0.1f);
     }

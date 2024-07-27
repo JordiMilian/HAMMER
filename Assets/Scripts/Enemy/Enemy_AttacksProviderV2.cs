@@ -37,7 +37,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public int Probability;
         public float KnockBack;
         [HideInInspector] public  float Hitstop;
-        public string TriggerName;
+        //public string TriggerName;
         public AnimationClip animationClip;
         [Header("Cooldown")]
         public bool isInCooldown;

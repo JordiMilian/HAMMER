@@ -27,13 +27,14 @@ public class E_AttackedWhileRecovering : MonoBehaviour
     {
         isInRecovery = false;
     }
+    //Este script no se si esta deprecated o que
     void PerformResponse(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         if(isInRecovery && !isInCooldown)
         {
             enemyRefs.animator.SetTrigger(TagsCollection.AttackedWhileRecovering); //Set animation trigger
             enemyRefs.attackProvider.PerformAttack(enemyRefs.attackProvider.Enemy_Attacks[ResponseAttackIndex]); //Perform attack from provider
-            enemyRefs.animator.SetBool(enemyRefs.attackProvider.Enemy_Attacks[ResponseAttackIndex].TriggerName, false); //Uncheck trigger checked by the provider
+            //enemyRefs.animator.SetBool(enemyRefs.attackProvider.Enemy_Attacks[ResponseAttackIndex].TriggerName, false); //Uncheck trigger checked by the provider
             StartCoroutine(Cooldown()); //Cooldown
         }
     }

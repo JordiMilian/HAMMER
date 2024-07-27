@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player_AnimationSpeedControler : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
-    public float attackingSpeed = 2;
+    public float attackingSpeed = 1;
+    public float BaseSpeed = 1;
     bool overlappingAttack;
     bool isAttacking;
     private void OnEnable()

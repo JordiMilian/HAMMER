@@ -23,6 +23,7 @@ public class Player_Stamina : MonoBehaviour
     {
         playerRefs.events.OnStaminaAction += RemoveStamina;
         playerRefs.maxStamina.OnValueSet += checkForMaxStamina;
+        playerRefs.baseStamina.SetValue(playerRefs.maxStamina.GetValue());
     }
     private void OnDisable()
     {

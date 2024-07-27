@@ -20,8 +20,10 @@ public class Player_References : Generic_References
 
     public FloatVariable currentHealth;
     public FloatVariable maxHealth;
+    public FloatVariable baseHealth;
     public FloatVariable currentStamina;
     public FloatVariable maxStamina;
+    public FloatVariable baseStamina;
 
     public Collider2D parryCollider;
 

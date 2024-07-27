@@ -10,19 +10,21 @@ public class Upgrade_WeaponSizee : Upgrade
     public override void onAdded(GameObject entity)
     {
         playerWeapon = entity.GetComponent<Player_References>().weaponScalingRoot;
-        float percentMultiplier = 1 + (Percent / 100);
+
+        float addedScale = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
         playerWeapon.transform.localScale = new Vector3(
-            playerWeapon.transform.localScale.x * percentMultiplier,
-            playerWeapon.transform.localScale.y * percentMultiplier,
+            playerWeapon.transform.localScale.x + addedScale,
+            playerWeapon.transform.localScale.y + addedScale,
             playerWeapon.transform.localScale.z
             );
     }
     public override void onRemoved(GameObject entity)
     {
-        float percentMultiplier = 1 + (Percent / 100);
+
+        float addedScale = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
         playerWeapon.transform.localScale = new Vector3(
-            playerWeapon.transform.localScale.x / percentMultiplier,
-            playerWeapon.transform.localScale.y / percentMultiplier,
+            playerWeapon.transform.localScale.x - addedScale,
+            playerWeapon.transform.localScale.y - addedScale,
             playerWeapon.transform.localScale.z
             );
     }

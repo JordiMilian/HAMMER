@@ -19,10 +19,10 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
         public animationStates StateName;
         public AnimationClip Clip;
     }
-    [SerializeField] animationReplacer[] animationReplacerArray;
+    public animationReplacer[] animationReplacerArray;
     public enum animationStates
     {
-        BaseEnemy_Attacking, BaseEnemy_Parried, BaseEnemy_Agroo, BaseEnemy_Damaged, BaseEnemy_ResponseAttack
+        BaseEnemy_Attacking, BaseEnemy_Parried, BaseEnemy_Agroo, BaseEnemy_Damaged, BaseEnemy_ResponseAttack, BaseEnemy_Parried_Extra
     }
     public Dictionary<animationStates,string> statesDictionary = new Dictionary<animationStates,string>();
 
@@ -62,6 +62,7 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
         statesDictionary.Add(animationStates.BaseEnemy_Attacking, "BaseEnemy_Attacking");
         statesDictionary.Add(animationStates.BaseEnemy_Agroo, "BaseEnemy_Agroo");
         statesDictionary.Add(animationStates.BaseEnemy_Parried, "BaseEnemy_Parried");
+        statesDictionary.Add(animationStates.BaseEnemy_Parried_Extra, "BaseEnemy_Parried_Extra");
         statesDictionary.Add(animationStates.BaseEnemy_Damaged, "BaseEnemy_Damaged");
         statesDictionary.Add(animationStates.BaseEnemy_ResponseAttack, "BaseEnemy_ResponseAttack");
         //statesDictionary.Add(animationStates.BaseEnemy_Walking, "BaseEnemy_Walking");
@@ -91,5 +92,18 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
            clipOverrides[statesName[i]] = clipsToReplace[i];
         }
         animatorOverrideController.ApplyOverrides(clipOverrides);
+    }
+    //this is used elsewhere to find the parry01 clip
+    public AnimationClip getClipInReplacer(animationStates stateName)
+    {
+        foreach (animationReplacer replacer in animationReplacerArray)
+        {
+            if (replacer.StateName == animationStates.BaseEnemy_Parried)
+            {
+                return replacer.Clip;
+            }
+        }
+        Debug.LogWarning("No replacement clip found");
+        return null;
     }
 }

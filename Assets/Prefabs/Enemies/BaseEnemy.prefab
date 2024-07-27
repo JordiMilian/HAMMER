@@ -217,6 +217,7 @@ MonoBehaviour:
   MaxHealth: 1
   BaseSpeed: 1
   DamageMultiplier: 1
+  BaseDamageMultiplier: 1
 --- !u!114 &6932147153519873058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +293,10 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 1
     Variable: {fileID: 11400000, guid: db4fb3c9e2024f848873610e31056b69, type: 2}
+  BaseHP:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 903968240c23c7f468e64e82472d8780, type: 2}
   FillHealthOnStart: 1
   isPlayers: 0
   enemyRefs: {fileID: 7568110113479188649}
@@ -327,7 +332,6 @@ MonoBehaviour:
     Probability: 0
     KnockBack: 0
     Hitstop: 0
-    TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
     HasCooldown: 0
@@ -341,7 +345,6 @@ MonoBehaviour:
     Probability: 0
     KnockBack: 0
     Hitstop: 0
-    TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
     HasCooldown: 0
@@ -355,7 +358,6 @@ MonoBehaviour:
     Probability: 0
     KnockBack: 0
     Hitstop: 0
-    TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
     HasCooldown: 0
@@ -369,7 +371,6 @@ MonoBehaviour:
     Probability: 0
     KnockBack: 0
     Hitstop: 0
-    TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
     HasCooldown: 0
@@ -385,7 +386,6 @@ MonoBehaviour:
     Probability: 0
     KnockBack: 0
     Hitstop: 0
-    TriggerName: 
     animationClip: {fileID: 0}
     isInCooldown: 0
     HasCooldown: 0
@@ -456,8 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxStance: 3
   CurrentStance: 3
-  CooldownAfterDamage: 2
-  CooldownStanceBroken: 0.5
+  CooldownAfterDamage: 3
   RecoveryPerSecond: 1
   eventSystem: {fileID: 627058440868749388}
   animator: {fileID: 2195041901401652145}
@@ -543,6 +542,7 @@ MonoBehaviour:
   agrooMovement: {fileID: 2829660713819239201}
   idleMovement: {fileID: 1484837429054597437}
   damageCollider: {fileID: 7350678567647433300}
+  reusableStateMachine: {fileID: 892060832174240504}
 --- !u!114 &892060832174240504
 MonoBehaviour:
   m_ObjectHideFlags: 0

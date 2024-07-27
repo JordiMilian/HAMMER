@@ -44,23 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b1373230966fb44a62193a49c61e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 7619809830611807510}
-  enemyAnimator: {fileID: 266731727252035748}
-  isAttacking: 0
+  enemyRefs: {fileID: 0}
+  reusableStateMachine: {fileID: 0}
+  ExtraDamageDealer: {fileID: 0}
   isProviding: 0
   PlayerIsInAnyRange: 0
   ShowDebug: 0
-  stats: {fileID: 2889957272012516986}
   Enemy_Attacks:
   - ShortDescription: Move away No attack
     rangeDetector: {fileID: 6790482466165369369}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 0
     Hitstop: 0
-    TriggerName: MoveAway_noAttack
     animationClip: {fileID: 7400000, guid: 0fd6d46d4e8e5574ab26d49d213e75ec, type: 2}
     isInCooldown: 0
     HasCooldown: 0
@@ -69,11 +68,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 6713494052006476197}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack01
     animationClip: {fileID: 7400000, guid: e16215a7efe394444a9578b83cd11623, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -82,11 +81,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2983403945826448744}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack03
     animationClip: {fileID: 7400000, guid: 844d75892f7557b439455b339dd370e4, type: 2}
     isInCooldown: 0
     HasCooldown: 0
@@ -95,11 +94,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 1690697246195614107}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack04
     animationClip: {fileID: 7400000, guid: 262dc0e49b31bf141b58bfb59b8f9413, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -108,11 +107,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2088108294211234891}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack05
     animationClip: {fileID: 7400000, guid: 63007eab6b5045c47ae04dcd23e0cf1c, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -121,11 +120,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2088108294211234891}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack06
     animationClip: {fileID: 7400000, guid: 572360243e2082d478eba38357e331f6, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -134,11 +133,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2088108294211234891}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack07
     animationClip: {fileID: 7400000, guid: a77fecb944667af4995e0aa9c1b95f85, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -147,16 +146,30 @@ MonoBehaviour:
     rangeDetector: {fileID: 2983403945826448744}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack08
     animationClip: {fileID: 7400000, guid: d24e533b8de23924ea3ab0cea8681752, type: 2}
     isInCooldown: 0
     HasCooldown: 1
     CooldownTime: 2
-  eventSystem: {fileID: 7555730476318928094}
+  isAttacking: 0
+  currentAttack:
+    ShortDescription: 
+    rangeDetector: {fileID: 0}
+    boxCollider: {fileID: 0}
+    isActive: 0
+    notOvniInvertable: 0
+    Damage: 0
+    Probability: 0
+    KnockBack: 0
+    Hitstop: 0
+    animationClip: {fileID: 0}
+    isInCooldown: 0
+    HasCooldown: 0
+    CooldownTime: 0
 --- !u!1 &1972670314214204630
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,23 +279,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b1373230966fb44a62193a49c61e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer: {fileID: 7619809830611807510}
-  enemyAnimator: {fileID: 266731727252035748}
-  isAttacking: 0
+  enemyRefs: {fileID: 0}
+  reusableStateMachine: {fileID: 0}
+  ExtraDamageDealer: {fileID: 0}
   isProviding: 0
   PlayerIsInAnyRange: 0
   ShowDebug: 0
-  stats: {fileID: 2889957272012516986}
   Enemy_Attacks:
   - ShortDescription: Move Away with Swipe
     rangeDetector: {fileID: 6790482466165369369}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: MoveAway_WithAttack
     animationClip: {fileID: 7400000, guid: 37cfc2d9ba7aa7b48834ad5dd8224438, type: 2}
     isInCooldown: 0
     HasCooldown: 0
@@ -291,11 +303,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 6713494052006476197}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack01
     animationClip: {fileID: 7400000, guid: 480a8dc029f641a41a319ca6d9ad35f3, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -304,11 +316,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2726041538214405773}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack02
     animationClip: {fileID: 7400000, guid: cc2accb6d5733bd41b9f60f9fe580b8f, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -317,11 +329,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2983403945826448744}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack03
     animationClip: {fileID: 7400000, guid: be71281f529aaf44fbadddae79fb0b14, type: 2}
     isInCooldown: 0
     HasCooldown: 0
@@ -330,11 +342,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 1690697246195614107}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack04
     animationClip: {fileID: 7400000, guid: 262dc0e49b31bf141b58bfb59b8f9413, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -343,11 +355,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2088108294211234891}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 1
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack05
     animationClip: {fileID: 7400000, guid: 2f2adfd67fdc78e4bb19596fe03a06af, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -356,11 +368,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2088108294211234891}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack06
     animationClip: {fileID: 7400000, guid: 3a15673e2f712bc42a219fb29043ca75, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -369,11 +381,11 @@ MonoBehaviour:
     rangeDetector: {fileID: 2088108294211234891}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack07
     animationClip: {fileID: 7400000, guid: f917398c10db2a548b6a7c862fe092aa, type: 2}
     isInCooldown: 0
     HasCooldown: 1
@@ -382,16 +394,30 @@ MonoBehaviour:
     rangeDetector: {fileID: 2983403945826448744}
     boxCollider: {fileID: 0}
     isActive: 0
+    notOvniInvertable: 0
     Damage: 1
     Probability: 2
     KnockBack: 20
     Hitstop: 0.1
-    TriggerName: Attack08
     animationClip: {fileID: 7400000, guid: df787f5674df9154bacf5b123ea3b00e, type: 2}
     isInCooldown: 0
     HasCooldown: 1
     CooldownTime: 2
-  eventSystem: {fileID: 7555730476318928094}
+  isAttacking: 0
+  currentAttack:
+    ShortDescription: 
+    rangeDetector: {fileID: 0}
+    boxCollider: {fileID: 0}
+    isActive: 0
+    notOvniInvertable: 0
+    Damage: 0
+    Probability: 0
+    KnockBack: 0
+    Hitstop: 0
+    animationClip: {fileID: 0}
+    isInCooldown: 0
+    HasCooldown: 0
+    CooldownTime: 0
 --- !u!1 &2420387347399124998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,15 +1072,15 @@ PrefabInstance:
       objectReference: {fileID: 7555730476318928094}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxStance
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 7555730476318928094}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-      propertyPath: CooldownAfterDamage
-      value: 5
+      propertyPath: CurrentStance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 713815961661323530, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Name
@@ -1092,6 +1118,14 @@ PrefabInstance:
       propertyPath: spriteFliper
       value: 
       objectReference: {fileID: 8393546499733154722}
+    - target: {fileID: 1530135795851701840, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054546243307670428, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2195041901401652145, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1282,7 +1316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5182215059924202484, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5485965256422919300, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Name
@@ -2055,11 +2089,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 2195041901401652145, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 2145338421307745045}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &383100662245691179 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 1771262554875931710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &675247659384785448 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1484837429054597437, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2093,14 +2122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c53f91bba8bb04e99408cc4cf7ef69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponCollider: {fileID: 8648819231119266003}
-  EnemyAnimator: {fileID: 266731727252035748}
-  enemyMovement: {fileID: 7061527427718821087}
-  flasher: {fileID: 6797361533294975628}
-  eventSystem: {fileID: 7555730476318928094}
-  _rigidbody: {fileID: 383100662245691179}
+  enemyRefs: {fileID: 0}
   SlowMoPercentage: {fileID: 11400000, guid: 9a94119ce51c63f4ebab6cbbebb7ca8a, type: 2}
-  stateMachine: {fileID: 4768529556117110463}
 --- !u!114 &1359799563517358334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2118,6 +2141,7 @@ MonoBehaviour:
   SpriteObject: {fileID: 765705041393972623}
   FlipDelay: 0.2
   canFlip: 1
+  lookingDirection: 0
   animator: {fileID: 266731727252035748}
 --- !u!114 &3562585380609456546
 MonoBehaviour:
@@ -2136,6 +2160,7 @@ MonoBehaviour:
   DestinationPrefab: {fileID: 1449027988912000722, guid: 14d63b14ed9d78643ac0095847deb9e8, type: 3}
   BigDestinationPrefab: {fileID: 9050276905064435868, guid: bb0df4f092d98a241bcb4e72cf0dc95e, type: 3}
   ThrowingOrigin: {fileID: 1706269059841302215}
+  enemyEvents: {fileID: 0}
   pointsAround: 8
   minimDistance: 1.5
   delayBetweenThrows_polygon: 0.06
@@ -2183,9 +2208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAnimator: {fileID: 266731727252035748}
-  eventSystem: {fileID: 7555730476318928094}
-  attackProvider: {fileID: 2969134010514896338}
+  enemyRefs: {fileID: 0}
   ResponseAttackIndex: 0
   CooldownSeconds: 2
 --- !u!114 &7061527427718821087
@@ -2204,9 +2227,7 @@ MonoBehaviour:
   CurrentRotationSpeed: 4
   Weapon_Pivot: {fileID: 7733968425091312865}
   UIAnimator: {fileID: 5792743499247428587}
-  spriteFliper: {fileID: 8393546499733154722}
-  eventSystem: {fileID: 7555730476318928094}
-  moveToTarget: {fileID: 9076489338640019255}
+  enemyRefs: {fileID: 0}
 --- !u!114 &7555730476318928094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2228,17 +2249,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2889957272012516986 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3881809578619784559, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450790443172764191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68561b2311f5dab4cba9cf226ebc4150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2983403945826448744 stripped
@@ -2289,17 +2299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6797361533294975628 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4868621688972523929, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 765705041393972623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6872804511342155832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4802207913274506029, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2310,17 +2309,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8702800584861139629, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 2145338421307745045}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7619809830611807510 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8393237760477941251, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7733968425091312865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8543705226525020148, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2357,22 +2345,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0c5cfaa144d254e8d9d4471361b780, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!60 &8648819231119266003 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 7332707543437145030, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9076489338640019255 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6932147153519873058, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450790443172764191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05fe5235e2f53714f8c1d2fecdb43b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4923054309557105436

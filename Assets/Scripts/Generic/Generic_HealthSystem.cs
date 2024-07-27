@@ -10,12 +10,14 @@ public class Generic_HealthSystem : MonoBehaviour
     [SerializeField] Generic_References Refs;
     public FloatReference MaxHP;
     public FloatReference CurrentHP;
+    public FloatReference BaseHP;
     [SerializeField] bool FillHealthOnStart = true;
     [SerializeField] bool isPlayers;
 
     void Awake()
     {
         if (!isPlayers) { MaxHP.ChangeValue(Refs.stats.MaxHealth); }
+        BaseHP.ChangeValue(MaxHP.GetValue());
         if (FillHealthOnStart) { RestoreAllHealth(); }
     }
     private void OnEnable()
