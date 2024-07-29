@@ -12,6 +12,7 @@ public class Rooms_FadInOut : MonoBehaviour
     List<SpriteRenderer> AllRoomSprites = new List<SpriteRenderer>();
     List<SpriteShapeRenderer> AllRoomShapes = new List<SpriteShapeRenderer>();
     [SerializeField] GameObject[] SpriteShapesRoots;
+    List<Color> rootsColors = new List<Color>();
 
     [SerializeField] Generic_OnTriggerEnterEvents RoomTrigger;
     [SerializeField] Foregrounder DoorForegrounder;
@@ -75,21 +76,21 @@ public class Rooms_FadInOut : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeOutSprite(result => sprite.color = result));
+            StartCoroutine(FadeOutSprite(result => sprite.color = result, sprite.color));
         }
         foreach(SpriteShapeRenderer shape in AllRoomShapes)
         {
-            StartCoroutine(FadeOutSprite(result => shape.color = result));
+            StartCoroutine(FadeOutSprite(result => shape.color = result, shape.color));
         }
     }
-    IEnumerator FadeOutSprite(Action<Color> colorToChange)
+    IEnumerator FadeOutSprite(Action<Color> colorToChange, Color baseColor)
     {
         float timer = 0;
         while(timer < TransitionTime)
         {
             timer += Time.deltaTime;
             float opacity = 1- (1 / TransitionTime * timer);
-            Color newColor = new Color (1,1,1,opacity);
+            Color newColor = new Color (baseColor.r, baseColor.g, baseColor.b, opacity);
             colorToChange(newColor);
             yield return null;
         }
@@ -98,21 +99,21 @@ public class Rooms_FadInOut : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeInSprite(result => sprite.color = result));
+            StartCoroutine(FadeInSprite(result => sprite.color = result, sprite.color));
         }
         foreach(SpriteShapeRenderer shape in AllRoomShapes)
         {
-            StartCoroutine(FadeInSprite(result => shape.color = result));
+            StartCoroutine(FadeInSprite(result => shape.color = result, shape.color));
         }
     }
-    IEnumerator FadeInSprite(Action<Color> colorToChange)
+    IEnumerator FadeInSprite(Action<Color> colorToChange, Color baseColor)
     {
         float timer = 0;
         while (timer < TransitionTime)
         {
             timer += Time.deltaTime;
             float opacity =  1 / TransitionTime * timer;
-            Color newColor = new Color(1, 1, 1, opacity);
+            Color newColor = new Color(baseColor.r, baseColor.g, baseColor.b, opacity);
             colorToChange(newColor);
             yield return null;
         }

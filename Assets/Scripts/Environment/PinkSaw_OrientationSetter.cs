@@ -27,6 +27,6 @@ public class PinkSaw_OrientationSetter : MonoBehaviour
         maskTf.right = - directionToPos01;
 
         Vector2 splinePos = shapeController.transform.position;
-        maskTf.position = pos01 + splinePos ;
+        //maskTf.position = pos01 + splinePos ;
     }
 }
