@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class RestartManager : MonoBehaviour
 {
+    //IS THIS SCRIPT DEPRECATED WTF???!?!?!!?!?!?!!?
+
     [SerializeField] BaseCutsceneLogic ResetStateCutscene;
     [SerializeField] BaseCutsceneLogic noResetCutscene;
 
@@ -15,7 +17,11 @@ public class RestartManager : MonoBehaviour
     }
      void OnManageReset()
     {
-        if(checkIfReset())
+        CutscenesManager.Instance.AddCutscene(noResetCutscene);
+
+        //Testing never reseting
+        /* 
+        if (checkIfReset())
         {
             CutscenesManager.Instance.AddCutscene(ResetStateCutscene); 
         }
@@ -23,6 +29,7 @@ public class RestartManager : MonoBehaviour
         {
             CutscenesManager.Instance.AddCutscene(noResetCutscene);
         }
+        */
     }
 
     bool checkIfReset()

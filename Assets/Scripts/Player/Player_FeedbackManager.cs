@@ -47,7 +47,7 @@ public class Player_FeedbackManager : MonoBehaviour
             playerRefs.flasher.CallFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
-            StartCoroutine(ApplyForceOverTime(receivedAttackinfo.GeneralDirection * receivedAttackinfo.KnockBack, 0.1f));
+            StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack, 0.3f));
             playerRefs.animator.SetTrigger("GetHit");
             StartCoroutine(InvulnerableAfterDamage());
         }

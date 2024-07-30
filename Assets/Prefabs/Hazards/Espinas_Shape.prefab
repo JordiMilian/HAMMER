@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8224379750790290383}
   - component: {fileID: 8224379750790290382}
   - component: {fileID: 8224379750790290381}
+  - component: {fileID: 7522385318774998668}
   m_Layer: 16
   m_Name: ShapeClone
   m_TagString: Untagged
@@ -41,7 +42,7 @@ SpriteShapeRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8224379750790290379}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 0
@@ -76,7 +77,7 @@ SpriteShapeRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Sprites:
@@ -169,6 +170,20 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &7522385318774998668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8224379750790290379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b77ddf09c96f2498bcffe7d8229566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainShape: {fileID: 8224379752563159281}
+  thisShape: {fileID: 8224379750790290382}
 --- !u!1 &8224379750878037318
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +195,7 @@ GameObject:
   - component: {fileID: 8224379750878037325}
   - component: {fileID: 8224379750878037324}
   - component: {fileID: 8224379750878037323}
+  - component: {fileID: 6889672307431629645}
   m_Layer: 0
   m_Name: Espinas_Reflexion
   m_TagString: Neutral_Hitbox
@@ -311,6 +327,20 @@ MonoBehaviour:
   m_EnableTangents: 0
   m_GeometryCached: 0
   m_UTess2D: 0
+--- !u!114 &6889672307431629645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8224379750878037318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b77ddf09c96f2498bcffe7d8229566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainShape: {fileID: 8224379752563159281}
+  thisShape: {fileID: 8224379750878037323}
 --- !u!1 &8224379752563159279
 GameObject:
   m_ObjectHideFlags: 0

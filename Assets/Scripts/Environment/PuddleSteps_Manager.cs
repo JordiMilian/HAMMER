@@ -21,7 +21,6 @@ public class PuddleSteps_Manager : MonoBehaviour
     }
     void onSomethingEntered(Collider2D collision)
     {
-        Debug.Log("Some entered");
         if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             PlayersStepper.isStepping = true;

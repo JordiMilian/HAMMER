@@ -7,26 +7,37 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
 {
     [SerializeField] Transform CenterOfRoom;
     [SerializeField] RoomWithEnemiesLogic enemyRoomLogic;
+    [SerializeField] bool skipFocusCamera;
 
     public override void playThisCutscene()
     {
         if (enemyRoomLogic.isRoomPermanentlyCompleted) { return; }
 
+        if (skipFocusCamera) { currentCutscene = StartCoroutine(skippingCutscene()); return; }
+
         currentCutscene = StartCoroutine(RegularCutscene());
+    }
+    IEnumerator skippingCutscene()
+    {
+        yield return new WaitForSeconds(1);
+        onCutsceneOver?.Invoke();
     }
     IEnumerator RegularCutscene()
     {
+        
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
 
-        //Wait just in case for enemies to spawn
-        yield return new WaitForSeconds(0.3f);
+        
+            //Wait just in case for enemies to spawn
+            yield return new WaitForSeconds(0.3f);
 
-        //Look at center of room with zoom
-        zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(6.5f, 3, "enterCutscene"));
-        TargetGroupSingleton.Instance.AddTarget(CenterOfRoom, 20, 10);
+            //Look at center of room with zoom
+            zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(6.5f, 3, "enterCutscene"));
+            TargetGroupSingleton.Instance.AddTarget(CenterOfRoom, 20, 10);
 
-        yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(0.9f);
+        
 
         //Activate the Agroo of the enemies
         foreach (GameObject enemy in enemyRoomLogic.CurrentlySpawnedEnemies)
@@ -34,13 +45,15 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
             enemy.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
         }
 
-        yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(0.9f);
 
-        //Return to normal zoom
-        zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
-        TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
-
+            //Return to normal zoom
+            zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
+            TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
+        
+        
         onCutsceneOver?.Invoke();
-
+        Debug.Log("spawn enemies cutscene is completed");
+        yield return null;
     }
 }

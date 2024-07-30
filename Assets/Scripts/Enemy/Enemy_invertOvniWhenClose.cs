@@ -17,6 +17,11 @@ public class Enemy_invertOvniWhenClose : MonoBehaviour
         enterEvents.OnTriggerEntered += playerEntered;
         enemyRefs.enemyEvents.OnAttackFinished += onAttackOver;
     }
+    private void OnDisable()
+    {
+        enterEvents.OnTriggerEntered -= playerEntered;
+        enemyRefs.enemyEvents.OnAttackFinished -= onAttackOver;
+    }
     void playerEntered(Collider2D collision)
     {
         if(enemyRefs.animator.GetBool("Attacking") && !enemyRefs.attackProvider.currentAttack.notOvniInvertable) //if its attacking and the current atack is invertable

@@ -9,10 +9,11 @@ public class PinkSaw : MonoBehaviour
     Vector2 pos01, pos02;
     [SerializeField] Transform sawTf;
     [SerializeField] float TimeToReach;
-    [SerializeField] bool startTriggerSaw;
-    [SerializeField] bool stopTriggerSaw;
     [SerializeField] float posOffset01;
     [SerializeField] float posOffset02;
+    [SerializeField] int startingPos = 1;
+    [SerializeField] bool isConstantlySawing;
+    [SerializeField] float delayedStartingTime;
     [Header("References")]
     [SerializeField] Animator sawAnimator;
     [SerializeField] Generic_AreaTriggerEvents sawAreaTrigger;
@@ -24,8 +25,12 @@ public class PinkSaw : MonoBehaviour
         sawAreaTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         sawAreaTrigger.onAreaActive += startSawing;
         sawAreaTrigger.onAreaUnactive += stopSawing;
-        currentPos = 1;
+        currentPos = startingPos;
         hideSprites();
+    }
+    private void Start()
+    {
+        if (isConstantlySawing) { Invoke("startSawing", delayedStartingTime); }
     }
     void setPositions()
     {
@@ -52,7 +57,8 @@ public class PinkSaw : MonoBehaviour
     }
     void stopSawing()
     {
-        sawAnimator.SetBool("isSawing", false);
+        if (isConstantlySawing) { return; }
+       sawAnimator.SetBool("isSawing", false);
     }
     void positionAtStart()
     {
@@ -118,18 +124,5 @@ public class PinkSaw : MonoBehaviour
     float BezierBlend(float t)
     {
         return t * t * (3.0f - 2.0f * t);
-    }
-    private void Update()
-    {
-        if(startTriggerSaw)
-        {
-            startSawing();
-            startTriggerSaw = false;
-        }
-        if(stopTriggerSaw)
-        {
-            stopSawing();
-            stopTriggerSaw = false;
-        }
     }
 }

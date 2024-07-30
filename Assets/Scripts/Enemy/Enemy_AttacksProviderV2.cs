@@ -20,7 +20,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     
     Coroutine CurrentWaiting;
-    [HideInInspector] public bool isAttacking;
     [HideInInspector] public EnemyAttack currentAttack;
 
     [Serializable]
@@ -56,8 +55,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnEnable()
     {
-        enemyRefs.enemyEvents.OnGettingParried += OnCancelAttackParried;
-        enemyRefs.enemyEvents.OnStanceBroken += OnCancelAttack;
+        //enemyRefs.enemyEvents.OnGettingParried += OnCancelAttackParried;
+        //enemyRefs.enemyEvents.OnStanceBroken += OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
             attack.rangeDetector.OnPlayerEntered += attack.isInRange;
@@ -68,8 +67,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     private void OnDisable()
     {
-        enemyRefs.enemyEvents.OnGettingParried -= OnCancelAttackParried;
-        enemyRefs.enemyEvents.OnStanceBroken -= OnCancelAttack;
+        //enemyRefs.enemyEvents.OnGettingParried -= OnCancelAttackParried;
+        //enemyRefs.enemyEvents.OnStanceBroken -= OnCancelAttack;
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
             attack.rangeDetector.OnPlayerEntered -= attack.isInRange;
@@ -78,11 +77,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             attack.rangeDetector.OnPlayerExited -= RunChecker;
         }
     }
-    public void RunChecker(object sender, EventArgs args)
+    void RunChecker(object sender, EventArgs args)
     {
         PlayerIsInAnyRange = CheckIfPlayerIsInAnyRange();
     }
-    public bool CheckIfPlayerIsInAnyRange()
+    bool CheckIfPlayerIsInAnyRange()
     {
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
@@ -123,17 +122,10 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             SetDamageDealerStats(dealer,selectedAttack);
         }
 
-
         //Replace the StateMachines attack clip
         reusableStateMachine.ReplaceaStatesClip(reusableStateMachine.statesDictionary[Enemy_ReusableStateMachine.animationStates.BaseEnemy_Attacking], selectedAttack.animationClip);
         enemyRefs.animator.SetBool("Attacking",true);
-        //enemyRefs.animator.SetTrigger(selectedAttack.TriggerName);
-        //enemyRefs.animator.SetBool("isAttacking", true);
 
-        //Wait to check again for attacks
-        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
-        CurrentWaiting = StartCoroutine(WaitAnimationTime(selectedAttack));
-        isAttacking = true;
 
         //Cooldown if it has it
         if(selectedAttack.HasCooldown)
@@ -148,13 +140,9 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         dealer.Knockback = selectedAttack.KnockBack;
         dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
     }
-    IEnumerator WaitAnimationTime(EnemyAttack selectedAttack)
+    public void AttackExited()
     {
-        yield return new WaitForSeconds(selectedAttack.animationClip.length);
-        //enemyRefs.animator.SetBool("isAttacking", false);
-        if(enemyRefs.enemyEvents.OnAttackFinished != null) { enemyRefs.enemyEvents.OnAttackFinished(); }
-        isAttacking = false;
-
+        enemyRefs.enemyEvents.OnAttackFinished?.Invoke();
     }
     void PickAvailableAttacks()
     {
@@ -211,6 +199,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             }
         }
     }
+    /*
     void OnCancelAttack()
     {
         if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
@@ -230,8 +219,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             yield return null;
         }
         Debug.Log("Parry time was: " + parryTime);
-        isAttacking = false;
     }
+    */
     void Debuguer(string text)
     {
         if (ShowDebug) { Debug.Log(text); }

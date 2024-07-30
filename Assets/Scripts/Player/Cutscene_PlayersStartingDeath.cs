@@ -57,6 +57,9 @@ public class Cutscene_PlayersStartingDeath : BaseCutsceneLogic
     }
     void OnManageReset()
     {
+        CutscenesManager.Instance.AddCutscene(noResetCutscene);
+        return;
+
         if (checkIfReset())
         {
             Debug.Log("Player had no upgrades so GG: ");

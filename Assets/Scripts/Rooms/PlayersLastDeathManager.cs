@@ -17,6 +17,8 @@ public class PlayersLastDeathManager : MonoBehaviour
     }
     void SetRoomsUpgrade()
     {
+        if(gameState.playerUpgrades.Count == 0) { return; }
+        
         Room_LastUpgradeHolder lastUpgradeRoom = gameState.currentPlayersRooms[gameState.currentPlayersRooms.Count - 1].gameObject.GetComponent<Room_LastUpgradeHolder>();
         lastUpgradeRoom.subscribeToRoomCompleted();
     }

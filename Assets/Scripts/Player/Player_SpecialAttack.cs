@@ -55,7 +55,7 @@ public class Player_SpecialAttack : MonoBehaviour
         SpCharge_Current.SetValue(0);
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
-            dealer.Damage = Sp_Damage;
+            dealer.Damage = Sp_Damage * playerRefs.stats.DamageMultiplier;
             dealer.HitStop = Sp_HitStop;
             dealer.Knockback = Sp_Knockback;
             dealer.isChargingSpecialAttack = false;

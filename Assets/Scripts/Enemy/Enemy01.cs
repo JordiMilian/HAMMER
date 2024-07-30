@@ -39,9 +39,9 @@ public class Enemy01 : MonoBehaviour
 
         enemyRefs.animator.SetTrigger(TagsCollection.PushBack);
         StartCoroutine(WaitReceiveDamage());
-        Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
+        //Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
         //enemyRefs._rigidbody.AddForce(AttackerDirection * receivedAttackinfo.KnockBack);
-        StartCoroutine(UsefullMethods.ApplyForceOverTime(enemyRefs._rigidbody, AttackerDirection * receivedAttackinfo.KnockBack ,0.1f));
+        StartCoroutine(UsefullMethods.ApplyForceOverTime(enemyRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack ,0.2f));
        
     }  
     IEnumerator WaitReceiveDamage()
