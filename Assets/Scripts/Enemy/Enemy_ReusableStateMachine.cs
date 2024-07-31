@@ -22,7 +22,7 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
     public animationReplacer[] animationReplacerArray;
     public enum animationStates
     {
-        BaseEnemy_Attacking, BaseEnemy_Parried, BaseEnemy_Agroo, BaseEnemy_Damaged, BaseEnemy_ResponseAttack, BaseEnemy_Parried_Extra
+        BaseEnemy_Attacking, BaseEnemy_Parried, BaseEnemy_Agroo, BaseEnemy_Damaged, BaseEnemy_ResponseAttack, BaseEnemy_Parried_Extra, BaseEnemy_Hit
     }
     public Dictionary<animationStates,string> statesDictionary = new Dictionary<animationStates,string>();
 
@@ -65,6 +65,7 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
         statesDictionary.Add(animationStates.BaseEnemy_Parried_Extra, "BaseEnemy_Parried_Extra");
         statesDictionary.Add(animationStates.BaseEnemy_Damaged, "BaseEnemy_Damaged");
         statesDictionary.Add(animationStates.BaseEnemy_ResponseAttack, "BaseEnemy_ResponseAttack");
+        statesDictionary.Add(animationStates.BaseEnemy_Hit, "BaseEnemy_Hit");
         //statesDictionary.Add(animationStates.BaseEnemy_Walking, "BaseEnemy_Walking");
 
 
