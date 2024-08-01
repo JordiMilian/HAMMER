@@ -16,6 +16,9 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     Coroutine currentChasingbeforeAttack;
     [SerializeField] List<Generic_OnTriggerEnterEvents> puddleTriggers = new List<Generic_OnTriggerEnterEvents>();
     VisualEffect BigStepVFX;
+
+    [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
+    bool isDeactivated;
     private void Awake()
     {
         playerTf = GlobalPlayerReferences.Instance.playerTf;
@@ -29,6 +32,18 @@ public class PuddleCreatureLogiuc : MonoBehaviour
             ontrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
             ontrigger.OnTriggerEntered += onPlayerEnteredPuddle;
             ontrigger.OnTriggerExited += onPLayerExitedPuddle;
+        }
+        roomWithEnemies.onRoomCompleted += (BaseRoomWithDoorLogic doorLogic) => Deactivate();
+    }
+    void Deactivate()
+    {
+        isDeactivated = true;
+        onPLayerExitedPuddle(new Collider2D());
+
+        foreach (Generic_OnTriggerEnterEvents ontrigger in puddleTriggers)
+        {
+            ontrigger.OnTriggerEntered -= onPlayerEnteredPuddle;
+            ontrigger.OnTriggerExited -= onPLayerExitedPuddle;
         }
     }
     void onPlayerEnteredPuddle(Collider2D collision)

@@ -197,4 +197,9 @@ public class UsefullMethods : MonoBehaviour
     {
         return "<color=red>" + text + "<color=black>";
     }
+
+    public static float getCurrentAnimationLenght(Animator animator, int layer = 0)
+    {
+        return animator.GetCurrentAnimatorClipInfo(0).Length;
+    }
 }

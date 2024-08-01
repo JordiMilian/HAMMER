@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room_LastUpgradeHolder : MonoBehaviour
+public class Room_LastUpgradeHolder : BaseCutsceneLogic
 {
     //SERIELIZEFIELD
     [SerializeField] BaseRoomWithDoorLogic roomLogic;
@@ -27,19 +27,39 @@ public class Room_LastUpgradeHolder : MonoBehaviour
     {
         if(thisRoom.indexInCompleteList == gameState.IndexOfLostUpgradeRoom)
         {
-            SpawnUpgrades();
+            CutscenesManager.Instance.AddCutscene(this);
+
             gameState.isLostUpgradeAvailable = false;
         }
     }
-    void SpawnUpgrades()
+    public override void playThisCutscene()
     {
-        GameObject newContainer = Instantiate(BaseUpgradeContainerPrefab, SpawnPosition.position, Quaternion.identity);
+        currentCutscene = StartCoroutine(spawnCutscene()); //Una guarrada que este script sigue herencia de BaseCutscene pero fuck it
+    }
+    IEnumerator spawnCutscene()
+    {
+        TargetGroupSingleton.Instance.AddTarget(SpawnPosition, 10, 1);
+        yield return new WaitForSeconds(.7f);
+
+        UpgradeContainer thisUpgrade = SpawnUpgrades();
+
+        yield return new WaitForSeconds(UsefullMethods.getCurrentAnimationLenght(thisUpgrade.GetComponent<Animator>()) + 1f);
+
+        TargetGroupSingleton.Instance.RemoveTarget(SpawnPosition);
+
+        onCutsceneOver?.Invoke();
+    }
+    UpgradeContainer SpawnUpgrades()
+    {
+
+        GameObject newContainer = Instantiate(BaseUpgradeContainerPrefab, SpawnPosition.position, Quaternion.identity, SpawnPosition);
         UpgradeContainer upgradeContainer = newContainer.GetComponent<UpgradeContainer>();
 
         upgradeContainer.upgradeEffect = gameState.lastLostUpgrade;
 
         upgradeContainer.OnSpawnContainer();
 
-        
+        return upgradeContainer;
     }
+   
 }

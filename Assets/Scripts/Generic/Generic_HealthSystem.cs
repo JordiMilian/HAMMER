@@ -22,7 +22,6 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     private void OnEnable()
     {
-
         Refs.genericEvents.OnReceiveDamage += (object sender, ReceivedAttackInfo info) => RemoveLife(info.Damage, info.Attacker);
     }
     private void OnDisable()
