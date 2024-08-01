@@ -31,6 +31,8 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public void RemoveLife(float damage, GameObject damager)
     {
+        if(CurrentHP.GetValue() <= 0) { Debug.LogError("Tried to kill what is already dead wtf?"); return; }
+
         CurrentHP.ChangeValue(CurrentHP.GetValue() - damage);
 
         if (CurrentHP.GetValue() <= 0f)

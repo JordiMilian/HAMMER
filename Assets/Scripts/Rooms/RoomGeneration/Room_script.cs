@@ -19,7 +19,7 @@ public class Room_script : MonoBehaviour
 
     [Header("read only")]
     public bool isPlayerInThisRoom;
-    public Vector2Int indexInCompleteList;
+    public Vector3Int indexInCompleteList; // X is the Group, Y is the Room, Z is the Area
     [SerializeField] Transform GroundRenderersRoot;
 
     //This script exist to hold information of Rooms Generation stuff and Player entering room.

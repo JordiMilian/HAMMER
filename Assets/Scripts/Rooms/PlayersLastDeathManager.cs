@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayersLastDeathManager : MonoBehaviour
 {
     //Each room has a Room_LastUpgradeHolder.
-    //When OnPlayerdeath is called we activate the subscription on the Room_lastUpgradeHolder on the current players room
-    //All the unsubcribinge  is managed from their own script 
-    //So this script is only responsible for finding the current room and activating the bell to spawn the upgrade 
+    //When player dies we save the index of that room in the GameState
+    //If when died it still had any upgrade, the bool in the GameState "isLostUpgradeAvailable" is turnt on
+    //The script in every room, when the room is completed will check if its own index matches with the index in the gameState. If it does, spawns an upgrade
+    //The upgrade lost to spawn is selected from the players_upgradeManager
 
     [SerializeField] GameState gameState;
     
@@ -15,11 +16,20 @@ public class PlayersLastDeathManager : MonoBehaviour
     {
         GameEvents.OnPlayerDeath += SetRoomsUpgrade;
     }
+    private void OnDisable()
+    {
+        GameEvents.OnPlayerDeath -= SetRoomsUpgrade;
+    }
     void SetRoomsUpgrade()
     {
-        if(gameState.playerUpgrades.Count == 0) { return; }
-        
-        Room_LastUpgradeHolder lastUpgradeRoom = gameState.currentPlayersRooms[gameState.currentPlayersRooms.Count - 1].gameObject.GetComponent<Room_LastUpgradeHolder>();
-        lastUpgradeRoom.subscribeToRoomCompleted();
+        gameState.IndexOfLostUpgradeRoom = gameState.currentPlayersRooms[gameState.currentPlayersRooms.Count - 1].indexInCompleteList;
+
+        if (gameState.playerUpgrades.Count == 0) 
+        {
+            gameState.isLostUpgradeAvailable = false;
+            return; 
+        }
+
+        gameState.isLostUpgradeAvailable = true;
     }
 }

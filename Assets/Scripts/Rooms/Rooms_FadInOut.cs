@@ -76,14 +76,14 @@ public class Rooms_FadInOut : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeOutSprite(result => sprite.color = result, sprite.color));
+            StartCoroutine(FadeOutSprite(result => sprite.color = result, sprite.color, sprite));
         }
         foreach(SpriteShapeRenderer shape in AllRoomShapes)
         {
-            StartCoroutine(FadeOutSprite(result => shape.color = result, shape.color));
+            StartCoroutine(FadeOutSprite(result => shape.color = result, shape.color, shape));
         }
     }
-    IEnumerator FadeOutSprite(Action<Color> colorToChange, Color baseColor)
+    IEnumerator FadeOutSprite(Action<Color> colorToChange, Color baseColor, Renderer renderer)
     {
         float timer = 0;
         while(timer < TransitionTime)
@@ -94,20 +94,23 @@ public class Rooms_FadInOut : MonoBehaviour
             colorToChange(newColor);
             yield return null;
         }
+        renderer.gameObject.SetActive(false);
     }
     void FadeIn()
     {
         foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeInSprite(result => sprite.color = result, sprite.color));
+            StartCoroutine(FadeInSprite(result => sprite.color = result, sprite.color, sprite));
         }
         foreach(SpriteShapeRenderer shape in AllRoomShapes)
         {
-            StartCoroutine(FadeInSprite(result => shape.color = result, shape.color));
+            StartCoroutine(FadeInSprite(result => shape.color = result, shape.color, shape));
         }
     }
-    IEnumerator FadeInSprite(Action<Color> colorToChange, Color baseColor)
+    IEnumerator FadeInSprite(Action<Color> colorToChange, Color baseColor, Renderer renderer)
     {
+        renderer.gameObject.SetActive(true);
+
         float timer = 0;
         while (timer < TransitionTime)
         {
@@ -117,7 +120,7 @@ public class Rooms_FadInOut : MonoBehaviour
             colorToChange(newColor);
             yield return null;
         }
-        
+       
     }
 
 }

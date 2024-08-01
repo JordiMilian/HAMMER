@@ -900,7 +900,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533535347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.772345, y: 13.609384, z: -0.03217544}
+  m_LocalPosition: {x: 14.09, y: 10.53, z: -0.03217544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1987,6 +1987,7 @@ GameObject:
   - component: {fileID: 1126747144}
   - component: {fileID: 1126747143}
   - component: {fileID: 1126747145}
+  - component: {fileID: 1126747146}
   m_Layer: 0
   m_Name: RoomsManager
   m_TagString: Untagged
@@ -2006,11 +2007,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485102b74685ec44bbdd542326d39746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AreaIndex: 0
   GroupsOfRoomsList:
   - {fileID: 1733613279}
-  - {fileID: 1946957356}
-  - {fileID: 161359115}
   - {fileID: 932416960}
+  - {fileID: 161359115}
+  - {fileID: 1946957356}
   - {fileID: 138699331}
   - {fileID: 533535348}
   CompleteList_spawnedRooms: []
@@ -2053,6 +2055,20 @@ MonoBehaviour:
   Trigger_SingleGroup: 0
   Trigger_StartingFromGroup: 0
   triggerIndex: 0
+--- !u!114 &1126747146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126747142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8f13f4e07e71f4ab813e2929440a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGenerator: {fileID: 1126747143}
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!1001 &1132696074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3062,7 +3078,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733613278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.772345, y: 13.609384, z: -0.03217544}
+  m_LocalPosition: {x: 11.86, y: 15.6, z: -0.03217544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

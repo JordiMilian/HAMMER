@@ -9,6 +9,7 @@ public abstract class BaseCutsceneLogic : MonoBehaviour
     public abstract void playThisCutscene();
     public Action onCutsceneOver;
 
+    //All cutscenes MUST implement the onCutsceneOver Action at the end of themselfs or the cutscene will never end
     public void stopCurrentCutscene()
     {
         if(currentCutscene != null)

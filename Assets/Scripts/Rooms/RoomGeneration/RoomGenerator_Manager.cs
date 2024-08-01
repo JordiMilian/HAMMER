@@ -9,6 +9,7 @@ public class RoomGenerator_Manager : MonoBehaviour
     public Action<int> Call_GenerateRooms_StartFromIndex;
     public Action<int> Call_GenerateSingleGroupOfRooms;
     public Action<Vector2> Call_GenerateAllRoomsFromPosition;
+    public int AreaIndex;
 
     [SerializeField] List<RoomsGroup_script> GroupsOfRoomsList = new List<RoomsGroup_script>();
 
@@ -23,8 +24,6 @@ public class RoomGenerator_Manager : MonoBehaviour
     }
     public List<GroupList> CompleteList_spawnedRooms = new List<GroupList>();
 
-    [Header("Read only")]
-    //public List<Room_script> PlayerRooms;
     [SerializeField] GameState gameState;
 
     Vector2 LastInitialPosition;
@@ -113,11 +112,11 @@ public class RoomGenerator_Manager : MonoBehaviour
 
             CompleteList_spawnedRooms[index].list.Add(roomScript); //add to the  complete list
 
-            subscribeToRoom(roomScript, new Vector2Int(index, i)); //Subscribe to this room
+            subscribeToRoom(roomScript, new Vector3Int(index, i, AreaIndex)); //Subscribe to this room
         }
         
     }
-    void subscribeToRoom(Room_script room, Vector2Int completeIndex)
+    void subscribeToRoom(Room_script room, Vector3Int completeIndex)
     {
         room.indexInCompleteList = completeIndex;
         room.onRoomEntered += playerEnteredSomeRoom;

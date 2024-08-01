@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CenterOfRoom: {fileID: 7063207106928669032}
   enemyRoomLogic: {fileID: 8154110797072673202}
+  skipFocusCamera: 0
 --- !u!61 &8923439032853480671
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -550,6 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomLogic: {fileID: 8154110797072673202}
+  thisRoom: {fileID: 6250911060315070113}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   BaseUpgradeContainerPrefab: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
   SpawnPosition: {fileID: 3419961203103509028}
@@ -596,3 +598,14 @@ MonoBehaviour:
   SpawnArea: {fileID: 6272392358212819005}
   EnemiesContainer: {fileID: 6954358700734778785}
   enterRoomCutscene: {fileID: 3477839892929856678}
+--- !u!114 &6250911060315070113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5106350687280430317, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+  m_PrefabInstance: {fileID: 1180739804397576780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200464055817051456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876e46b7aa576dc4680d7329803bb682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

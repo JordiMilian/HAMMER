@@ -6,33 +6,40 @@ public class Room_LastUpgradeHolder : MonoBehaviour
 {
     //SERIELIZEFIELD
     [SerializeField] BaseRoomWithDoorLogic roomLogic;
+    [SerializeField] Room_script thisRoom;
     [SerializeField] GameState gameState;
     [SerializeField] GameObject BaseUpgradeContainerPrefab;
     [SerializeField] Transform SpawnPosition;
 
     //An instance of this script is holded by every room. 
-        //The subcription to itselt is done by the MANAGER
-        //The unsubscribtion is done by itself by multiple reasons (player picks up the uprade or player dies again)
-    public void subscribeToRoomCompleted()
+    //The subcription to itselt is done by the MANAGER
+    //The unsubscribtion is done by itself by multiple reasons (player picks up the uprade or player dies again)
+    private void OnEnable()
     {
-        roomLogic.onRoomCompleted += spawnUpgrade;
-        GameEvents.OnPlayerDeath += unsubscribeToRoomCompleted;
+        roomLogic.onRoomCompleted += checkIfSpawnUpgrade;
     }
-    void unsubscribeToRoomCompleted()
+    private void OnDisable()
     {
-        roomLogic.onRoomCompleted -= spawnUpgrade;
-        GameEvents.OnPlayerDeath -= unsubscribeToRoomCompleted;
+        roomLogic.onRoomCompleted -= checkIfSpawnUpgrade;
     }
-    void spawnUpgrade(BaseRoomWithDoorLogic roomLogic)
-    {
-        unsubscribeToRoomCompleted();
 
-        //Spawning logic...
+    void checkIfSpawnUpgrade(BaseRoomWithDoorLogic roomLogic)
+    {
+        if(thisRoom.indexInCompleteList == gameState.IndexOfLostUpgradeRoom)
+        {
+            SpawnUpgrades();
+            gameState.isLostUpgradeAvailable = false;
+        }
+    }
+    void SpawnUpgrades()
+    {
         GameObject newContainer = Instantiate(BaseUpgradeContainerPrefab, SpawnPosition.position, Quaternion.identity);
         UpgradeContainer upgradeContainer = newContainer.GetComponent<UpgradeContainer>();
 
         upgradeContainer.upgradeEffect = gameState.lastLostUpgrade;
 
         upgradeContainer.OnSpawnContainer();
+
+        
     }
 }

@@ -8,6 +8,7 @@ public class Espina_PrefabsOnSplinePoints : MonoBehaviour
 {
     [SerializeField] GameObject obstaclePrefab;
     [SerializeField] SpriteShapeController espinaSplineController;
+    [SerializeField] GameObject IA_Container;
 
     private void Awake()
     {
@@ -18,7 +19,7 @@ public class Espina_PrefabsOnSplinePoints : MonoBehaviour
         for (int i = 0; i< espinaSplineController.spline.GetPointCount(); i++)
         {
             Vector2 pointPos = espinaSplineController.spline.GetPosition(i);
-            Instantiate(obstaclePrefab, espinaGOPos + (pointPos*espinaLocalScale), Quaternion.identity);
+            Instantiate(obstaclePrefab, espinaGOPos + (pointPos*espinaLocalScale), Quaternion.identity, IA_Container.transform);
         }
     }
 }

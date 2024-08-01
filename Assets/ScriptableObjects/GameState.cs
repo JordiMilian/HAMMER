@@ -21,6 +21,8 @@ public class GameState : ScriptableObject
     public List<Upgrade> playerUpgrades = new List<Upgrade>();
 
     public Upgrade lastLostUpgrade;
+    public Vector3 IndexOfLostUpgradeRoom; // X is the Group, Y is the Room, Z is the Area
+    public bool isLostUpgradeAvailable;
 
     public List<Room_script> currentPlayersRooms = new List<Room_script>();
 
