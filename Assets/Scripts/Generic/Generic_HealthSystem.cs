@@ -30,7 +30,7 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public void RemoveLife(float damage, GameObject damager)
     {
-        if(CurrentHP.GetValue() <= 0) { Debug.LogError("Tried to kill what is already dead wtf?"); return; }
+        if(CurrentHP.GetValue() <= 0) { Debug.LogWarning("Tried to kill what is already dead wtf?"); return; }
 
         CurrentHP.ChangeValue(CurrentHP.GetValue() - damage);
 
@@ -39,7 +39,7 @@ public class Generic_HealthSystem : MonoBehaviour
             Death(damager);
             CurrentHP.ChangeValue(0);
         }
-        if (CurrentHP.GetValue() > MaxHP.GetValue())
+        else if (CurrentHP.GetValue() > MaxHP.GetValue())
         {
             CurrentHP.ChangeValue(MaxHP.Variable.Value);
         }

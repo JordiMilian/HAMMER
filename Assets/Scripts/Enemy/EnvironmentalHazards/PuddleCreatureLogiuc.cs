@@ -18,7 +18,6 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     VisualEffect BigStepVFX;
 
     [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
-    bool isDeactivated;
     private void Awake()
     {
         playerTf = GlobalPlayerReferences.Instance.playerTf;
@@ -37,7 +36,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     }
     void Deactivate()
     {
-        isDeactivated = true;
+
         onPLayerExitedPuddle(new Collider2D());
 
         foreach (Generic_OnTriggerEnterEvents ontrigger in puddleTriggers)
@@ -55,10 +54,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     }
     void onPLayerExitedPuddle(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
-        {
-            cancelEverything();
-        }
+        cancelEverything();
     }
     IEnumerator DelayToStartChase(float delay)
     {

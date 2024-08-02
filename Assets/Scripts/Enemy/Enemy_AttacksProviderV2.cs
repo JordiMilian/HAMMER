@@ -19,8 +19,9 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
     
-    Coroutine CurrentWaiting;
     [HideInInspector] public EnemyAttack currentAttack;
+
+    public EnemyAttack ForcedNextAttack;
 
     [Serializable]
     public class EnemyAttack
@@ -105,12 +106,19 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //una mica guarro aixo
+        //bastant guarro aixo
         if (PlayerIsInAnyRange)
         {
             if (enemyRefs.animator.GetBool("inIdle") && isProviding && !enemyRefs.animator.GetBool("Attacking")) 
             {
-                ResetAllTriggers(enemyRefs.animator);
+                if(ForcedNextAttack != null)
+                {
+                    PerformAttack(ForcedNextAttack);
+                    ForcedNextAttack = null;
+                    return;
+                }
+
+                ResetAllTriggers(enemyRefs.animator); //Aixo crec que es pot borrar pero per si de cas nose
                 PickAvailableAttacks();
             }
         }

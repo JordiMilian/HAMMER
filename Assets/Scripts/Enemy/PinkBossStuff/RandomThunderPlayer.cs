@@ -4,39 +4,31 @@ using UnityEngine;
 
 public class RandomThunderPlayer : MonoBehaviour
 {
+    public bool isPlaying;
+
     [SerializeField] GameObject ThunderPrefab;
     [SerializeField] Collider2D SpawningArea;
     [SerializeField] RoomWithEnemiesLogic enemyRoomLogic;
-    [SerializeField] float startingDelay;
-    [SerializeField] float MinDelay;
-    [SerializeField] float accelerationRatePercent = 10;
+    [SerializeField] float delayBetweenThunders;
     float elapsedTime = 0;
-    float currentDelay;
-    bool isPlaying;
+    
     private void OnEnable()
     {
-        enemyRoomLogic.onEnemiesSpawned += RestartDelays;
         enemyRoomLogic.onRoomCompleted += StopThunders;
     }
     private void OnDisable()
     {
-        enemyRoomLogic.onEnemiesSpawned -= RestartDelays;
         enemyRoomLogic.onRoomCompleted -= StopThunders;
-    }
-    private void Start()
-    {
-        isPlaying = false;
     }
     private void Update()
     {
         if(!isPlaying) { return; }
 
         elapsedTime += Time.deltaTime;
-        if(elapsedTime > currentDelay)
+        if(elapsedTime > delayBetweenThunders)
         {
             elapsedTime = 0;
             SpawnThunder();
-            if(currentDelay > MinDelay) { currentDelay = currentDelay * (accelerationRatePercent / 100); }
         }
     }
     void SpawnThunder()
@@ -44,14 +36,12 @@ public class RandomThunderPlayer : MonoBehaviour
         Vector2 thunderPos = UsefullMethods.RandomPointInCollider(SpawningArea);
         Instantiate(ThunderPrefab, thunderPos, Quaternion.identity);
     }
-    public void RestartDelays()
-    {
-        currentDelay = startingDelay;
-        elapsedTime = 0;
-        isPlaying = true;
-    }
     void StopThunders(BaseRoomWithDoorLogic door)
     {
         isPlaying = false;
+    }
+    void StartThunders()
+    {
+        isPlaying = true;
     }
 }
