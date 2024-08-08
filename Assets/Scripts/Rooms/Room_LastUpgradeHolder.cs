@@ -25,6 +25,8 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
 
     void checkIfSpawnUpgrade(BaseRoomWithDoorLogic roomLogic)
     {
+        if (!gameState.isLostUpgradeAvailable) { return; }
+
         if(thisRoom.indexInCompleteList == gameState.IndexOfLostUpgradeRoom)
         {
             CutscenesManager.Instance.AddCutscene(this);

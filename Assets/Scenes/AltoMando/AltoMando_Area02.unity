@@ -123,6 +123,84 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &92020751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92020754}
+  - component: {fileID: 92020752}
+  - component: {fileID: 92020753}
+  m_Layer: 0
+  m_Name: Checkpoint_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &92020752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92020751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f656636c59b646b557e7b0dd12513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Checkpoint
+  TypeOfRoom: 2
+  AmountOfRoomsToSpawn: 1
+  RoomPrefabs:
+  - {fileID: 3168367244166722802, guid: 1b07592ae4dca854a8e10403bcb028ac, type: 3}
+  LastExitPosition: {x: 0, y: 0}
+  currentlySpawnedRooms: []
+--- !u!61 &92020753
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92020751}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &92020754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92020751}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.772345, y: 13.609384, z: -0.03217544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1126747144}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &99182778
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +904,7 @@ GameObject:
   - component: {fileID: 306456884}
   - component: {fileID: 306456885}
   m_Layer: 0
-  m_Name: IntroRoom (1)
+  m_Name: Checkpoint_03
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2227,6 +2305,8 @@ MonoBehaviour:
   GroupsOfRoomsList:
   - {fileID: 1733613279}
   - {fileID: 1946957356}
+  - {fileID: 92020752}
+  - {fileID: 1993585378}
   - {fileID: 306456884}
   - {fileID: 533535348}
   CompleteList_spawnedRooms: []
@@ -2247,6 +2327,8 @@ Transform:
   - {fileID: 1946957357}
   - {fileID: 533535349}
   - {fileID: 306456886}
+  - {fileID: 1993585380}
+  - {fileID: 92020754}
   m_Father: {fileID: 0}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3047,7 +3129,7 @@ GameObject:
   - component: {fileID: 1733613279}
   - component: {fileID: 1733613280}
   m_Layer: 0
-  m_Name: IntroRoom
+  m_Name: Checkpoint_01
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3171,7 +3253,7 @@ GameObject:
   - component: {fileID: 1946957356}
   - component: {fileID: 1946957358}
   m_Layer: 0
-  m_Name: EnemiesRooms
+  m_Name: EnemiesRooms_01
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3190,11 +3272,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Basics
-  TypeOfRoom: 2
-  AmountOfRoomsToSpawn: 2
+  TypeOfRoom: 0
+  AmountOfRoomsToSpawn: 3
   RoomPrefabs:
   - {fileID: 8786521925620675434, guid: 64c99c2d069e7e14590da045c94c2374, type: 3}
-  - {fileID: 8565251678954193344, guid: 17d3a91d4a9ca464eb817ff4a00a9943, type: 3}
+  - {fileID: 8565251678954193344, guid: 604c0fda138f47c408de51394d5b10b0, type: 3}
+  - {fileID: 8565251678954193344, guid: df6a3ffc4a3d708449a2890d39bf416b, type: 3}
   LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!4 &1946957357
@@ -3282,6 +3365,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1993585377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993585380}
+  - component: {fileID: 1993585378}
+  - component: {fileID: 1993585379}
+  m_Layer: 0
+  m_Name: EnemiesRooms _02
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1993585378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993585377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f656636c59b646b557e7b0dd12513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Basics
+  TypeOfRoom: 0
+  AmountOfRoomsToSpawn: 3
+  RoomPrefabs:
+  - {fileID: 8565251678954193344, guid: 17d3a91d4a9ca464eb817ff4a00a9943, type: 3}
+  - {fileID: 8565251678954193344, guid: e4d76fbe2a7643c45a259ab2c331e94c, type: 3}
+  - {fileID: 8565251678954193344, guid: df6a3ffc4a3d708449a2890d39bf416b, type: 3}
+  LastExitPosition: {x: 0, y: 0}
+  currentlySpawnedRooms: []
+--- !u!61 &1993585379
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993585377}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1993585380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993585377}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.18, y: 12.26, z: -0.03217544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1126747144}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2000629821
 GameObject:

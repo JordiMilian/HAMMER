@@ -12,19 +12,19 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        refs.enemyEvents.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => checkIfAttack();
+        refs.enemyEvents.OnReceiveDamage += checkIfAttack;
     }
     private void OnDisable()
     {
-        refs.enemyEvents.OnReceiveDamage -= (object sender, Generic_EventSystem.ReceivedAttackInfo info) => checkIfAttack();
+        refs.enemyEvents.OnReceiveDamage -= checkIfAttack;
     }
-    void checkIfAttack()
+    void checkIfAttack(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
-        if(refs.healthSystem.CurrentHP.GetValue() < refs.healthSystem.MaxHP.GetValue() * (PercentOfHealthToActivate/100 ))
+        //Debug.Log("Current Health: " + refs.healthSystem.CurrentHP.GetValue() + "Desired Health: " + refs.healthSystem.MaxHP.GetValue() * (PercentOfHealthToActivate / 100));
+        if (refs.healthSystem.CurrentHP.GetValue() < refs.healthSystem.MaxHP.GetValue() * (PercentOfHealthToActivate/100 ))
         {
-            refs.attackProvider.ForcedNextAttack = SpecialAttack;
-
-            refs.enemyEvents.OnReceiveDamage -= (object sender, Generic_EventSystem.ReceivedAttackInfo info) => checkIfAttack();
+            refs.attackProvider.ForceNextAttack(SpecialAttack);
+            refs.enemyEvents.OnReceiveDamage -=  checkIfAttack;
         }
     }
 }

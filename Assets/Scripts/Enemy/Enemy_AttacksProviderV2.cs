@@ -21,7 +21,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     
     [HideInInspector] public EnemyAttack currentAttack;
 
-    public EnemyAttack ForcedNextAttack;
+    EnemyAttack ForcedNextAttack;
+    bool isNextAttackForced;
 
     [Serializable]
     public class EnemyAttack
@@ -111,10 +112,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         {
             if (enemyRefs.animator.GetBool("inIdle") && isProviding && !enemyRefs.animator.GetBool("Attacking")) 
             {
-                if(ForcedNextAttack != null)
+                if(isNextAttackForced)
                 {
+                    Debug.Log("Attack has been forced: " + ForcedNextAttack.ShortDescription);
                     PerformAttack(ForcedNextAttack);
-                    ForcedNextAttack = null;
+                    isNextAttackForced = false;
                     return;
                 }
 
@@ -206,6 +208,11 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 anim.ResetTrigger(param.name);
             }
         }
+    }
+    public void ForceNextAttack(EnemyAttack forcedAttack)
+    {
+        ForcedNextAttack = forcedAttack;
+        isNextAttackForced = true;
     }
     /*
     void OnCancelAttack()

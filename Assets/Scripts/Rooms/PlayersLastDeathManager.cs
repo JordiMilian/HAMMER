@@ -24,8 +24,11 @@ public class PlayersLastDeathManager : MonoBehaviour
     {
         gameState.IndexOfLostUpgradeRoom = gameState.currentPlayersRooms[gameState.currentPlayersRooms.Count - 1].indexInCompleteList;
 
+        Debug.Log("player had upgrades when died: " + gameState.playerUpgrades.Count);
+
         if (gameState.playerUpgrades.Count == 0) 
         {
+            
             gameState.isLostUpgradeAvailable = false;
             return; 
         }
