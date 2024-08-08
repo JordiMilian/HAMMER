@@ -12,6 +12,7 @@ public class Player_SpecialAttack : MonoBehaviour
     [SerializeField] float Sp_Damage;
     [SerializeField] float Sp_Knockback;
     [SerializeField] float Sp_HitStop;
+    [SerializeField] float StaminaCost;
     float amountToHeal;
 
     private void OnEnable()
@@ -44,8 +45,10 @@ public class Player_SpecialAttack : MonoBehaviour
     void onSpecialHealPressed()
     {
         if (SpCharge_Current.Value < SpCharge_Max.Value) { Debug.Log("not enough charge try again"); return; }
+        if(playerRefs.currentStamina.GetValue() == 0) { return; }
 
         SpCharge_Current.SetValue(0);
+        
 
         playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
         amountToHeal = Health_Max.Value - Health_Current.Value;
@@ -53,6 +56,7 @@ public class Player_SpecialAttack : MonoBehaviour
     void onPerformedSpecialAttack()
     {
         SpCharge_Current.SetValue(0);
+        playerRefs.events.OnStaminaAction(StaminaCost);
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
             dealer.Damage = Sp_Damage * playerRefs.stats.DamageMultiplier;
@@ -67,7 +71,7 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void onReceivedAttack(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
-        addCharge(-info.Damage * .6f);
+        addCharge(-info.Damage * .75f);
     }
     void onSuccesfullParry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
     {

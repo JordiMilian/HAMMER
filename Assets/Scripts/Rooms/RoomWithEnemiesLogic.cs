@@ -51,7 +51,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     }
     void delayedDestroy()
     {
-        DestroyCurrentEnemies(6);
+        DestroyCurrentEnemies(8);
     }
     private void DestroyCurrentEnemies(float delay = 0)
     {

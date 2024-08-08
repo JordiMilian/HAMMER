@@ -5,12 +5,28 @@ using UnityEngine;
 public class TutorialMannequin : MonoBehaviour
 {
     [SerializeField] bool isAttackingMannequin;
-    private void Awake()
+    [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
+    private void OnEnable()
     {
-        if(isAttackingMannequin)
-        {
-            gameObject.GetComponent<Animator>().SetBool("AttackingMannequin", true);
-        }
-        
+        if(!isAttackingMannequin) { return; }
+
+        proximityTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        proximityTrigger.OnTriggerEntered += startAttacking;
+        proximityTrigger.OnTriggerExited += stopAttacking;
+    }
+    private void OnDisable()
+    {
+        if (!isAttackingMannequin) { return; }
+
+        proximityTrigger.OnTriggerEntered -= startAttacking;
+        proximityTrigger.OnTriggerExited -= stopAttacking;
+    }
+    private void startAttacking(Collider2D collision)
+    {
+        gameObject.GetComponent<Animator>().SetBool("AttackingMannequin", true);
+    }
+    private void stopAttacking(Collider2D collision)
+    {
+        gameObject.GetComponent<Animator>().SetBool("AttackingMannequin", false); 
     }
 }
