@@ -28,9 +28,11 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
 
-        
-            //Wait just in case for enemies to spawn
-            yield return new WaitForSeconds(0.3f);
+        //Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+        //playerEvents.CallDisable();
+
+        //Wait just in case for enemies to spawn
+        yield return new WaitForSeconds(0.3f);
 
             //Look at center of room with zoom
             zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(6.5f, 3, "enterCutscene"));
@@ -51,9 +53,9 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
             zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
             TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
         
-        
+        //playerEvents.CallEnable();
+
         onCutsceneOver?.Invoke();
-        Debug.Log("spawn enemies cutscene is completed");
         yield return null;
     }
 }

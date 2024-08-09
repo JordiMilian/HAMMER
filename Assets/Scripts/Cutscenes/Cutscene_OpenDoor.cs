@@ -14,8 +14,11 @@ public class Cutscene_OpenDoor : BaseCutsceneLogic
 
     IEnumerator OpenDoorFocusCamera()
     {
-        
+       
         Transform doorTransform = doorController.transform;
+        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+
+        playerEvents.CallDisable();
 
         yield return new WaitForSeconds(0.5f); //Wait after killing the last dude
 
@@ -24,6 +27,8 @@ public class Cutscene_OpenDoor : BaseCutsceneLogic
         doorController.OpenDoor(); //Open door
         yield return new WaitForSeconds(openDoorAnimation.length + 0.3f); //wait for door animation
         TargetGroupSingleton.Instance.RemoveTarget(doorTransform); // Stop looking at camera
+
+        playerEvents.CallEnable();
 
         onCutsceneOver?.Invoke();
     }

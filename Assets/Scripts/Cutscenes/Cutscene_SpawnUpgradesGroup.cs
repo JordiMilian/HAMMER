@@ -12,6 +12,9 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
     }
     IEnumerator spawnCutscene()
     {
+        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+        playerEvents.CallDisable();
+
         targetGroupSingleton = TargetGroupSingleton.Instance;
         
         targetGroupSingleton.AddTarget(upgradesGroup.transform, 10, 1);
@@ -23,6 +26,8 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
         yield return new WaitForSeconds(1);
 
         targetGroupSingleton.RemoveTarget(upgradesGroup.transform);
+
+        playerEvents.CallEnable();
 
         onCutsceneOver?.Invoke();
     }
