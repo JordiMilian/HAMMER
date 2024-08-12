@@ -10,20 +10,23 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
     [SerializeField] GameState gameState;
     [SerializeField] GameObject BaseUpgradeContainerPrefab;
     [SerializeField] Transform SpawnPosition;
+    [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
 
     //An instance of this script is holded by every room. 
     //The subcription to itselt is done by the MANAGER
     //The unsubscribtion is done by itself by multiple reasons (player picks up the uprade or player dies again)
     private void OnEnable()
     {
-        roomLogic.onRoomCompleted += checkIfSpawnUpgrade;
+        //roomLogic.onRoomCompleted += checkIfSpawnUpgrade;
+        roomWithEnemies.onEnemiesSpawned += checkIfSpawnUpgrade;
     }
     private void OnDisable()
     {
-        roomLogic.onRoomCompleted -= checkIfSpawnUpgrade;
+        roomWithEnemies.onEnemiesSpawned -= checkIfSpawnUpgrade;
+        //roomLogic.onRoomCompleted -= checkIfSpawnUpgrade;
     }
 
-    void checkIfSpawnUpgrade(BaseRoomWithDoorLogic roomLogic)
+    void checkIfSpawnUpgrade( )
     {
         if (!gameState.isLostUpgradeAvailable) { return; }
 
@@ -36,7 +39,8 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
     }
     public override void playThisCutscene()
     {
-        currentCutscene = StartCoroutine(spawnCutscene()); //Una guarrada que este script sigue herencia de BaseCutscene pero fuck it
+        //currentCutscene = StartCoroutine(spawnCutscene()); //Una guarrada que este script sigue herencia de BaseCutscene pero fuck it
+        spawnWithoutCutscene();
     }
     IEnumerator spawnCutscene()
     {
@@ -62,6 +66,11 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
         upgradeContainer.OnSpawnContainer();
 
         return upgradeContainer;
+    }
+    void spawnWithoutCutscene()
+    {
+        UpgradeContainer thisUpgrade = SpawnUpgrades();
+        onCutsceneOver?.Invoke();
     }
    
 }

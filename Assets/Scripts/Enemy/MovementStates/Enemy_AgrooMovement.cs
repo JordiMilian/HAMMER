@@ -20,7 +20,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;
     [SerializeField] Enemy_References enemyRefs;
-
+    public bool DoLooking;
 
     private void Awake()
     {
@@ -54,7 +54,8 @@ public class Enemy_AgrooMovement : MonoBehaviour
     void Update()
     {
         enemyRefs.spriteFliper.FocusVector = PlayerTransform.transform.position;
-        LookAtPlayer();
+        if (DoLooking) { LookAtPlayer(); }
+        
     }
     
     void LookAtPlayer()

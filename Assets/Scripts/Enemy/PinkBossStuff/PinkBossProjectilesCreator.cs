@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class PinkBossProjectilesCreator : MonoBehaviour
 {
     [SerializeField] GameObject PinkProjectile_General;
+    [SerializeField] GameObject PinkProjectile_General_Big;
     [SerializeField] GameObject PinkProjectile_Directional;
     [SerializeField] GameObject PinkProjectile_StarDirectional;
     [Header("Burst around player")]
@@ -13,6 +14,11 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     [SerializeField] float delayBetweenThrows_around;
     [SerializeField] float Radius;
     [SerializeField] GameObject WeaponFollowPlayer;
+    
+    [Header("PinkSaw_polygon")]
+    [SerializeField] GameObject PinkSawProjectile_Prefab;
+    [SerializeField] int amountOfSaws;
+    [SerializeField] float delayBetweenSaws;
 
     Vector2 originPosition;
     GameObject player;
@@ -79,4 +85,30 @@ public class PinkBossProjectilesCreator : MonoBehaviour
         ThrowDirectionalProjectile(PinkProjectile_General,transform.position,true);
        
     }
+    public void EV_GeneralFromCenter_Big()
+    {
+        UpdateVectorData();
+        ThrowDirectionalProjectile(PinkProjectile_General_Big, transform.position, true);
+    }
+
+    public IEnumerator EV_MultipleSawProjectiles(float Offset)
+    {
+        Vector2[] sawDestinations = UsefullMethods.GetPolygonPositions(originPosition, amountOfSaws, 1, Offset);
+        for (int i = 0; i < amountOfSaws; i++)
+        {
+            GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity, transform);
+            PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
+            projectile.startSawing(originPosition, sawDestinations[i]);
+
+            yield return new WaitForSeconds(delayBetweenSaws);
+        }
+    }
+    public void EV_PinkSawProjectile()
+    {
+        UpdateVectorData();
+        GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity, transform);
+        PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
+        projectile.startSawing(originPosition, directionToPlayer);
+    }
+
 }

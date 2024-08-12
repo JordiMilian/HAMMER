@@ -16,4 +16,5 @@ public class Enemy_References : Generic_References
     public Enemy_IdleMovement idleMovement;
     public Collider2D damageCollider;
     public Enemy_ReusableStateMachine reusableStateMachine;
+    public Transform lookingPivotTf;
 }
