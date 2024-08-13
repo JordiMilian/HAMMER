@@ -88,6 +88,37 @@ public class UsefullMethods : MonoBehaviour
 
         return positions.ToArray();
     }
+    public static Vector2[] GetSpreadDirectionsFromSide(Vector2 startingDirection, int amountOfPoints, float spreadRad)
+    {
+        List<Vector2> positions = new List<Vector2>();
+
+        float startingAngle = vector2Angle(startingDirection);
+        float angleToAdd = spreadRad/amountOfPoints;
+
+        for (int i = 0; i < amountOfPoints; i++)
+        {
+            Vector2 newVector = angle2Vector(startingAngle + (angleToAdd * i));
+            positions.Add(newVector);
+        }
+
+        return positions.ToArray();
+    }
+    public static Vector2[] GetSpreadDirectionsFromCenter(Vector2 centerDirection, int amountOfPoints, float spreadRad)
+    {
+        List<Vector2> positions = new List<Vector2>();
+
+        float centerAngle = vector2Angle(centerDirection);
+        float startingAngle = centerAngle - (spreadRad / 2);
+        float angleToAdd = spreadRad / amountOfPoints;
+
+        for (int i = 0; i < amountOfPoints; i++)
+        {
+            Vector2 newVector = angle2Vector(startingAngle + (angleToAdd * i));
+            positions.Add(newVector);
+        }
+
+        return positions.ToArray();
+    }
     public static float intToFloat(int i)
     {
         float ret = i;

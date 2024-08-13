@@ -17,8 +17,11 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     
     [Header("PinkSaw_polygon")]
     [SerializeField] GameObject PinkSawProjectile_Prefab;
-    [SerializeField] int amountOfSaws;
-    [SerializeField] float delayBetweenSaws;
+    [SerializeField] float delayBetweenSaws_polygon;
+    [SerializeField] int amountOfSaws_polygon;
+    [Header("PinkSaw_spread")]
+    [SerializeField] float spreadAngleDeg;
+    [SerializeField] float delayBetweenSaws_spread;
 
     Vector2 originPosition;
     GameObject player;
@@ -44,7 +47,7 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     private void UpdateVectorData()
     {
         originPosition = transform.position;
-        player = GameObject.FindGameObjectWithTag(TagsCollection.Player_SinglePointCollider);
+        player = GlobalPlayerReferences.Instance.playerTf.gameObject;
         playerPosition = player.transform.position;
         VectorToPlayer = originPosition - playerPosition;
         angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);
@@ -93,22 +96,40 @@ public class PinkBossProjectilesCreator : MonoBehaviour
 
     public IEnumerator EV_MultipleSawProjectiles(float Offset)
     {
-        Vector2[] sawDestinations = UsefullMethods.GetPolygonPositions(originPosition, amountOfSaws, 1, Offset);
+        UpdateVectorData();
+
+        Vector2[] sawDirections = UsefullMethods.GetPolygonPositions(Vector2.zero, amountOfSaws_polygon, 1, Offset);
+        for (int i = 0; i < amountOfSaws_polygon; i++)
+        {
+            GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity);
+            PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
+            projectile.startSawing(originPosition, sawDirections[i]);
+
+            yield return new WaitForSeconds(delayBetweenSaws_polygon);
+        }
+    }
+    public IEnumerator EV_SawProjectile_Spread(int amountOfSaws)
+    {
+        UpdateVectorData();
+        float spreadAngleRad = spreadAngleDeg * Mathf.Deg2Rad;
+
+        Vector2[] spreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(-weaponDirection, amountOfSaws, spreadAngleRad);
+
         for (int i = 0; i < amountOfSaws; i++)
         {
-            GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity, transform);
+            GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity);
             PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
-            projectile.startSawing(originPosition, sawDestinations[i]);
+            projectile.startSawing(originPosition, spreadDirections[i]);
 
-            yield return new WaitForSeconds(delayBetweenSaws);
+            yield return new WaitForSeconds(delayBetweenSaws_spread);
         }
     }
     public void EV_PinkSawProjectile()
     {
         UpdateVectorData();
-        GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity, transform);
+        GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity);
         PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
-        projectile.startSawing(originPosition, directionToPlayer);
+        projectile.startSawing(originPosition, -directionToPlayer);
     }
 
 }

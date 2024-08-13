@@ -9,6 +9,9 @@ public class PinkSaw_Projectile : MonoBehaviour
     [SerializeField] float timeToReach;
     [SerializeField] float distance;
     public Vector2 InitialPos, FinalPos;
+    [SerializeField] SpriteMask spriteMask;
+    [SerializeField] SpriteRenderer sawSprite;
+    [SerializeField] PinkSaw_OrientationSetter_Projectile orientationSetter;
     public void startSawing(Vector2 initialPos, Vector2 directionToTarget)
     {
         InitialPos = initialPos;
@@ -16,6 +19,8 @@ public class PinkSaw_Projectile : MonoBehaviour
         transform.position = InitialPos;
         
         sawAnimator.SetBool("isSawing", true);
+
+        orientationSetter.setOritentation();
     }
     public void EV_StartMoving()
     {
@@ -40,6 +45,18 @@ public class PinkSaw_Projectile : MonoBehaviour
     void reachedEnd()
     {
         sawAnimator.SetTrigger("reachedEnd");
+    }
+    public void EV_SawIsHidden()
+    {
+        Destroy(gameObject);
+        if (!sawAnimator.GetBool("isSawing"))
+        {
+            hideSprites();
+        }
+    }
+    void hideSprites()
+    {
+        Destroy(gameObject);
     }
     float BezierBlend(float t)
     {

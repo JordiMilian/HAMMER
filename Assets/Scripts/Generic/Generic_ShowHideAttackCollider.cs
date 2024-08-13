@@ -9,6 +9,10 @@ public class Generic_ShowHideAttackCollider : MonoBehaviour
     public TrailRenderer trailrendered;
     public TrailRenderer testTrailrendered;
     [HideInInspector] public bool isTesting;
+    private void Awake()
+    {
+        EV_Enemy_HideAttackCollider();
+    }
     public  void EV_Enemy_ShowAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in damageDealer)
