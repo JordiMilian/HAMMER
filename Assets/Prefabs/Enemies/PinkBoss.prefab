@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472727102674641096}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0000002980232, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000012516975, w: 1}
   m_LocalPosition: {x: 1.075, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRefs: {fileID: 5642692438399491078}
   enterEvents: {fileID: 1828833203514914890}
-  InvertedStreght: 60
+  InvertedStreght: 75
   enemyOvniMaker: {fileID: 7340602134435700865}
 --- !u!114 &1828833203514914890
 MonoBehaviour:
@@ -880,7 +880,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8673389740606737106}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0000013113022, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000026524067, w: 1}
   m_LocalPosition: {x: 1.144, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -970,7 +970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: animationReplacerArray.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: animationReplacerArray.Array.data[0].Clip
@@ -993,12 +993,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7400000, guid: 8b422398520e15e42b2c77c01926b222, type: 2}
     - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[6].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: 500f0bbb104225241a06e0d1e24db104, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: animationReplacerArray.Array.data[4].StateName
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: animationReplacerArray.Array.data[5].StateName
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[6].StateName
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1062320051197155423, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Emitting
@@ -1170,7 +1178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3881809578619784559, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxHealth
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3968944070215854671, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
@@ -1490,7 +1498,7 @@ PrefabInstance:
       objectReference: {fileID: 7109863379444197109}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.size
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].Damage
@@ -1502,7 +1510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[2].Damage
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[3].Damage
@@ -1514,19 +1522,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].Damage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-      propertyPath: Enemy_Attacks.Array.data[6].Damage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-      propertyPath: Enemy_Attacks.Array.data[8].Damage
+      propertyPath: Enemy_Attacks.Array.data[6].Damage
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-      propertyPath: Enemy_Attacks.Array.data[9].Damage
+      propertyPath: Enemy_Attacks.Array.data[7].Damage
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[8].Damage
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[9].Damage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].Hitstop
@@ -1554,11 +1566,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].Hitstop
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].Hitstop
-      value: 0
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[7].Hitstop
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].Hitstop
@@ -1598,11 +1614,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].KnockBack
-      value: 300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].KnockBack
-      value: 300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].KnockBack
@@ -1666,7 +1682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].Probability
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].TriggerName
@@ -1686,11 +1702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].HasCooldown
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].Probability
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].TriggerName
@@ -1698,7 +1714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].HasCooldown
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].Probability
@@ -1734,11 +1750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].CooldownTime
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].CooldownTime
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].CooldownTime
@@ -1795,47 +1811,47 @@ PrefabInstance:
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[4].rangeDetector
       value: 
-      objectReference: {fileID: 7259227040249230015}
+      objectReference: {fileID: 2258721600903018807}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].animationClip
       value: 
-      objectReference: {fileID: 7400000, guid: 8d2454335d09b7d4a806305a8285acc4, type: 2}
+      objectReference: {fileID: 7400000, guid: e797e579426f61448b2e6542223c9cc9, type: 2}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].rangeDetector
       value: 
-      objectReference: {fileID: 2258721600903018807}
+      objectReference: {fileID: 7255559388615144867}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].animationClip
       value: 
-      objectReference: {fileID: 7400000, guid: e797e579426f61448b2e6542223c9cc9, type: 2}
+      objectReference: {fileID: 7400000, guid: 52cde98a831a09443845db229e5721e2, type: 2}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].rangeDetector
       value: 
-      objectReference: {fileID: 7255559388615144867}
+      objectReference: {fileID: 1435347649742121682}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].animationClip
       value: 
-      objectReference: {fileID: 7400000, guid: 9533f7b16ae93ff499ca5b4eb5b58c31, type: 2}
+      objectReference: {fileID: 7400000, guid: 12bb99ff5d95a7e488b593cc91df07be, type: 2}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].rangeDetector
       value: 
-      objectReference: {fileID: 7259227040249230015}
+      objectReference: {fileID: 2258721600903018807}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].animationClip
       value: 
-      objectReference: {fileID: 7400000, guid: 52cde98a831a09443845db229e5721e2, type: 2}
+      objectReference: {fileID: 7400000, guid: 15a93c2fc505169478f8866b3eba6030, type: 2}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].rangeDetector
       value: 
-      objectReference: {fileID: 1435347649742121682}
+      objectReference: {fileID: 7259227040249230015}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[9].animationClip
       value: 
-      objectReference: {fileID: 7400000, guid: 12bb99ff5d95a7e488b593cc91df07be, type: 2}
+      objectReference: {fileID: 7400000, guid: 15a93c2fc505169478f8866b3eba6030, type: 2}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[9].rangeDetector
       value: 
-      objectReference: {fileID: 7255559388615144867}
+      objectReference: {fileID: 7259227040249230015}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[10].animationClip
       value: 
@@ -1866,23 +1882,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].ShortDescription
-      value: 05  - JumpAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-      propertyPath: Enemy_Attacks.Array.data[6].ShortDescription
       value: 06 - MoveAway
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[6].ShortDescription
+      value: 08 - MegaDelay
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[7].ShortDescription
-      value: 07 - MoveCloser
+      value: 09 - Mixed Combop
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[8].ShortDescription
-      value: 08 - Big Melee Combo
+      value: 10 - VeryLong
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[9].ShortDescription
-      value: 09 - Mixed Combop
+      value: 10 - VeryLong
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[10].ShortDescription
@@ -1893,8 +1909,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-      propertyPath: Enemy_Attacks.Array.data[6].notOvniInvertable
+      propertyPath: Enemy_Attacks.Array.data[5].notOvniInvertable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[6].notOvniInvertable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7073730092788972273, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2435,7 +2455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.13705412
+      value: 0.13705736
       objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2447,7 +2467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.99056363
+      value: -0.99056315
       objectReference: {fileID: 0}
     - target: {fileID: -1819529356487467196, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2527,7 +2547,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
     - target: {fileID: 1770433945857213737, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.14448932
+      value: 0.14448586
       objectReference: {fileID: 0}
     - target: {fileID: 1770433945857213737, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2539,7 +2559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1770433945857213737, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.98950636
+      value: 0.9895069
       objectReference: {fileID: 0}
     - target: {fileID: 4257508509235537429, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalScale.x

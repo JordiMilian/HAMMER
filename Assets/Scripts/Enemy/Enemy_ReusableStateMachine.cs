@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class Enemy_ReusableStateMachine : MonoBehaviour
 {
+    //How to create a new reusable state:
+        // 1- Add the state name to the Enum animationStates
+        // 2- In the Awake, add fill the dictionary with the state name in the Animator
+        // 3- In the editor, in the inspector of the enemy whose animation you want to replace,
+        //      add a new element selectic in animationReplacerArray with the new enum and the animation to replace
+
     [SerializeField] RuntimeAnimatorController BaseEnemyController;
 
     Animator animator;
@@ -13,6 +19,7 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
     AnimationClipOverrides clipOverrides;
 
     // list of all the basic animations to replace (Not attacks)
+    
     [Serializable]
     public class animationReplacer
     {
@@ -22,7 +29,8 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
     public animationReplacer[] animationReplacerArray;
     public enum animationStates
     {
-        BaseEnemy_Attacking, BaseEnemy_Parried, BaseEnemy_Agroo, BaseEnemy_Damaged, BaseEnemy_ResponseAttack, BaseEnemy_Parried_Extra, BaseEnemy_Hit
+        BaseEnemy_Attacking, BaseEnemy_Parried, BaseEnemy_Agroo, BaseEnemy_Damaged, 
+        BaseEnemy_ResponseAttack, BaseEnemy_Parried_Extra, BaseEnemy_Hit, BaseEnemy_BossIntro
     }
     public Dictionary<animationStates,string> statesDictionary = new Dictionary<animationStates,string>();
 
@@ -66,6 +74,7 @@ public class Enemy_ReusableStateMachine : MonoBehaviour
         statesDictionary.Add(animationStates.BaseEnemy_Damaged, "BaseEnemy_Damaged");
         statesDictionary.Add(animationStates.BaseEnemy_ResponseAttack, "BaseEnemy_ResponseAttack");
         statesDictionary.Add(animationStates.BaseEnemy_Hit, "BaseEnemy_Hit");
+        statesDictionary.Add(animationStates.BaseEnemy_BossIntro, "BaseEnemy_BossIntro");
         //statesDictionary.Add(animationStates.BaseEnemy_Walking, "BaseEnemy_Walking");
 
 

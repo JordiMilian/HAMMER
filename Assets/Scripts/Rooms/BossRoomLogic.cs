@@ -21,5 +21,7 @@ public class BossRoomLogic : RoomWithEnemiesLogic
         OnBossDefeated?.Invoke(BossIndex);
 
         upgradesGroup.StartSpawnCutscene();
+
+        isRoomPermanentlyCompleted = true;
     }
 }

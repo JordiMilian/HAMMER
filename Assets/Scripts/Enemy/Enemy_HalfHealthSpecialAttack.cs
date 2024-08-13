@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
     [SerializeField] Enemy_AttacksProviderV2.EnemyAttack SpecialAttack;
 
     [SerializeField] float PercentOfHealthToActivate;
+    public Action OnChangePhase;
 
     private void OnEnable()
     {
@@ -24,6 +26,7 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
         {
             refs.attackProvider.ForceNextAttack(SpecialAttack);
             refs.enemyEvents.OnReceiveDamage -=  checkIfAttack;
+            OnChangePhase?.Invoke();
         }
     }
 }

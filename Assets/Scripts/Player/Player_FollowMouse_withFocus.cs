@@ -232,7 +232,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
 
         IsFocusingEnemy = false;
     }
-    void OnLookAtEnemy()
+    public void OnLookAtEnemy()
     {
         //Subscribe to stuff so it stops focusing if enemy dies
 

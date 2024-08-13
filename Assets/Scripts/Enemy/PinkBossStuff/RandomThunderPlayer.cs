@@ -11,14 +11,22 @@ public class RandomThunderPlayer : MonoBehaviour
     [SerializeField] RoomWithEnemiesLogic enemyRoomLogic;
     [SerializeField] float delayBetweenThunders;
     float elapsedTime = 0;
+    Enemy_HalfHealthSpecialAttack halfHealth;
     
     private void OnEnable()
     {
         enemyRoomLogic.onRoomCompleted += StopThunders;
+        enemyRoomLogic.onEnemiesSpawned += subscribeToHalfHealth;
+    }
+    void subscribeToHalfHealth()
+    {
+        halfHealth = enemyRoomLogic.CurrentlySpawnedEnemies[0].GetComponent<Enemy_HalfHealthSpecialAttack>();
+        halfHealth.OnChangePhase += StartThunders;
     }
     private void OnDisable()
     {
         enemyRoomLogic.onRoomCompleted -= StopThunders;
+        enemyRoomLogic.onEnemiesSpawned -= subscribeToHalfHealth;
     }
     private void Update()
     {
@@ -42,6 +50,7 @@ public class RandomThunderPlayer : MonoBehaviour
     }
     void StartThunders()
     {
+        halfHealth.OnChangePhase -= StartThunders;
         isPlaying = true;
     }
 }

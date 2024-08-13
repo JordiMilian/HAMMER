@@ -6,6 +6,7 @@ public class PinkTrap_Script : MonoBehaviour
 {
     [SerializeField] Generic_AreaTriggerEvents areaTrigger;
     [SerializeField] Animator spikesAnimator;
+    public bool areSpikesDeactivated;
 
     private void OnEnable()
     {
@@ -22,6 +23,8 @@ public class PinkTrap_Script : MonoBehaviour
     }
     void setSpikesAnimator()
     {
+        if (areSpikesDeactivated) { return; }
+
         spikesAnimator.SetBool("SpikesOn", areaTrigger.isAreaActive);
     }
 

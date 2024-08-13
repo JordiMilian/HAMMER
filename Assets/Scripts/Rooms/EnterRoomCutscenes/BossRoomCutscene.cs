@@ -10,6 +10,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
     [SerializeField] float zoomToBoss;
     [SerializeField] AnimationClip bossEnterAnimationClip;
     [SerializeField] UI_BossHealthBar healthBar;
+    Animator bossAnimator;
     public override void playThisCutscene()
     {
        currentCutscene = StartCoroutine(bossCutscene());
@@ -20,8 +21,12 @@ public class BossRoomCutscene : BaseCutsceneLogic
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
 
+        //disable player
+        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+        playerEvents.CallDisable();
+
         //Wait just in case for enemies to spawn
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
 
         //Zoom as intended
         zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(zoomToBoss, 3, "enterCutscene"));
@@ -29,18 +34,32 @@ public class BossRoomCutscene : BaseCutsceneLogic
         //Target the camera to boss
         TargetGroupSingleton.Instance.AddTarget(bossTf, 50, 1);
 
-        //ACTIVATE ANIMATOR TRIGGER FOR INTENDED ANIMATION
-        bossTf.gameObject.GetComponent<Animator>().SetTrigger("HitShield"); //PLACEHOLDER ALERT FUCKKKK
+        yield return new WaitForSeconds(0.3f);
 
-        yield return new WaitForSeconds(bossEnterAnimationClip.length);
+        //ACTIVATE ANIMATOR TRIGGER FOR INTENDED ANIMATION
+        bossAnimator = bossTf.gameObject.GetComponent<Animator>();
+        bossAnimator.SetTrigger("BossIntro");
+
+        float animationTime = UsefullMethods.getCurrentAnimationLenght(bossAnimator, 0);
+        yield return new WaitForSeconds(animationTime);
 
         healthBar.ShowCanvas();
 
         yield return new WaitForSeconds(.5f);
 
+        bossTf.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
+
         //return to basics
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
         TargetGroupSingleton.Instance.RemoveTarget(bossTf);
+
+        //Focus the boss
+        Player_FollowMouse_withFocus followMouse = GlobalPlayerReferences.Instance.references.followMouse;
+        followMouse.FocusedEnemy = bossTf.gameObject;
+        followMouse.OnLookAtEnemy();
+
+        //enable player again
+        playerEvents.CallEnable();
 
         onCutsceneOver?.Invoke();
     }

@@ -38,7 +38,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     {
         base.OnEnable();
 
-        GameEvents.OnPlayerDeath += delayedDestroy;
+        GameEvents.OnPlayerRespawned += delayedDestroy;
         SpawnTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
     }
@@ -46,12 +46,12 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     {
         base.OnDisable();
 
-        GameEvents.OnPlayerDeath -= delayedDestroy;
+        GameEvents.OnPlayerRespawned -= delayedDestroy;
         SpawnTrigger.OnTriggerEntered -= SpawnEnemies;
     }
     void delayedDestroy()
     {
-        DestroyCurrentEnemies(8);
+        DestroyCurrentEnemies(.25f);
     }
     private void DestroyCurrentEnemies(float delay = 0)
     {
@@ -64,7 +64,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     }
     void SpawnEnemies(Collider2D collision)
     {
-        if (isRoomPermanentlyCompleted) { return; }
+        if (isRoomPermanentlyCompleted) { RoomCompleted(false, true); return; }
         if (areCorrectlySpawned) { return; }
         if (SpawneableEnemies.Count == 0)
         {
