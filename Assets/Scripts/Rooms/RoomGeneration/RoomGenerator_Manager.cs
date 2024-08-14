@@ -125,10 +125,12 @@ public class RoomGenerator_Manager : MonoBehaviour
     void playerEnteredSomeRoom(GameObject player, Room_script room)
     {
         gameState.currentPlayersRooms.Add(room);
+        gameState.currentPlayerRooms_index.Add(room.indexInCompleteList);
     }
     void playerExitedSomeRoom(GameObject player, Room_script room)
     {
         gameState.currentPlayersRooms.Remove(room);
+        gameState.currentPlayerRooms_index.Remove(room.indexInCompleteList);
     }
     private void OnDrawGizmosSelected()
     {

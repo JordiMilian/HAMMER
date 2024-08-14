@@ -40,7 +40,7 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
     public override void playThisCutscene()
     {
         //currentCutscene = StartCoroutine(spawnCutscene()); //Una guarrada que este script sigue herencia de BaseCutscene pero fuck it
-        spawnWithoutCutscene();
+        StartCoroutine( spawnWithoutCutscene());
     }
     IEnumerator spawnCutscene()
     {
@@ -67,9 +67,10 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
 
         return upgradeContainer;
     }
-    void spawnWithoutCutscene()
+    IEnumerator spawnWithoutCutscene()
     {
         UpgradeContainer thisUpgrade = SpawnUpgrades();
+        yield return new WaitForSeconds(0.1f);
         onCutsceneOver?.Invoke();
     }
    

@@ -25,6 +25,7 @@ public class GameState : ScriptableObject
     public bool isLostUpgradeAvailable;
 
     public List<Room_script> currentPlayersRooms = new List<Room_script>();
+    public List<Vector3> currentPlayerRooms_index = new List<Vector3>();
 
     public void ResetState()
     {

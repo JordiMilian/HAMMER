@@ -27,7 +27,7 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
     public void RoomCompleted(bool withAnimation = false, bool isRoomPermanent = false)
     {
         onRoomCompleted?.Invoke(this);
-        if (isRoomPermanentlyCompleted) { return; }
+        //if (isRoomPermanentlyCompleted) { return; }
         if (withAnimation) { CutscenesManager.Instance.AddCutscene(openDoorCutscene); }
         if (isRoomPermanent) { isRoomPermanentlyCompleted = true; }
         else { return; }
