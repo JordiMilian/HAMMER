@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
+public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
 {
     [SerializeField] GameObject ProjectilePrefab;
     [SerializeField] GameObject EmptyProjectilePrefab;
@@ -28,12 +28,6 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
     [SerializeField] float maxDistance_around;
 
     
-    Vector2 originPosition;
-    GameObject player;
-    Vector2 playerPosition;
-    Vector2 VectorToPlayer;
-    float angleToPlayerRad;
-    float distanceToPlayer;
 
     void ThrowProjectile(Vector2 destination)
     {
@@ -47,15 +41,6 @@ public class GreenBoss_Projectile_TypesOfThrow : MonoBehaviour
         GameObject Instantiated_DestinationUI = Instantiate(BigDestinationPrefab, destination, Quaternion.identity);
         GameObject InstantiatedProjectile = Instantiate(EmptyProjectilePrefab, ThrowingOrigin.position, Quaternion.identity);
         InstantiatedProjectile.GetComponent<GreenBoss_ProjectileLogic>().ThrowItself(Instantiated_DestinationUI, ThrowingOrigin.position, destination);
-    }
-    private void UpdateVectorData ()
-    {
-         originPosition = transform.position;
-         player = GameObject.FindGameObjectWithTag(TagsCollection.Player_SinglePointCollider);
-         playerPosition = player.transform.position;
-         VectorToPlayer = originPosition - playerPosition;
-         angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);
-         distanceToPlayer = VectorToPlayer.magnitude;
     }
     public IEnumerator SinglePolygonThrow()
     {

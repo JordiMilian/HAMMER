@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PinkBossProjectilesCreator : MonoBehaviour
+public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
 {
     [SerializeField] GameObject PinkProjectile_General;
     [SerializeField] GameObject PinkProjectile_General_Big;
@@ -13,7 +13,6 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     [SerializeField] float maxDistance_around;
     [SerializeField] float delayBetweenThrows_around;
     [SerializeField] float Radius;
-    [SerializeField] GameObject WeaponFollowPlayer;
     
     [Header("PinkSaw_polygon")]
     [SerializeField] GameObject PinkSawProjectile_Prefab;
@@ -23,14 +22,6 @@ public class PinkBossProjectilesCreator : MonoBehaviour
     [SerializeField] float spreadAngleDeg;
     [SerializeField] float delayBetweenSaws_spread;
 
-    Vector2 originPosition;
-    GameObject player;
-    Vector2 playerPosition;
-    Vector2 VectorToPlayer;
-    float angleToPlayerRad;
-    float distanceToPlayer;
-    Vector2 directionToPlayer;
-    Vector2 weaponDirection;
 
     void ThrowGeneralProjectile(Vector3 Position)
     {
@@ -44,17 +35,7 @@ public class PinkBossProjectilesCreator : MonoBehaviour
         DirectionChild.transform.eulerAngles = new Vector3(0, 0, angleDegToDirection + 90);
         if (isInstant) { newDirectionalProjectile.GetComponent<Animator>().SetTrigger("InstantDrop"); }
     }
-    private void UpdateVectorData()
-    {
-        originPosition = transform.position;
-        player = GlobalPlayerReferences.Instance.playerTf.gameObject;
-        playerPosition = player.transform.position;
-        VectorToPlayer = originPosition - playerPosition;
-        angleToPlayerRad = Mathf.Atan2(VectorToPlayer.y, VectorToPlayer.x);
-        distanceToPlayer = VectorToPlayer.magnitude;
-        directionToPlayer = VectorToPlayer.normalized;
-        weaponDirection = -WeaponFollowPlayer.transform.up;
-    }
+
     public IEnumerator EV_BurstAroundPlayer(int throws)
     {
         UpdateVectorData();

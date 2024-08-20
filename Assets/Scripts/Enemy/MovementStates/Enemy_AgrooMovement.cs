@@ -8,7 +8,7 @@ using Pathfinding;
 
 public class Enemy_AgrooMovement : MonoBehaviour
 {
-    public float CurrentSpeed;
+
     float BaseSpeed;
     float SlowSpeedF;
 
@@ -26,7 +26,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     {
         BaseRotationSpeed = CurrentRotationSpeed;
         SlowRotationSpeed = CurrentRotationSpeed / 5;
-        BaseSpeed = CurrentSpeed;
+
         SlowSpeedF = BaseSpeed / 3;
     }
     private void OnEnable()
