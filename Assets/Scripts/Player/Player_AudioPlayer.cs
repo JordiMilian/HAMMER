@@ -12,14 +12,15 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     {
         base.OnEnable();
         playerEvents.OnPerformRoll += playRoll;
-        playerEvents.CallEnable += playHeadReatached;
+        GameEvents.OnPlayerRespawned += playHeadReatached;
         playerEvents.OnPerformParry += playAttemptParry;
     }
     public override void OnDisable()
     {
         base.OnDisable();
         playerEvents.OnPerformRoll -= playRoll;
-        playerEvents.CallEnable -= playHeadReatached;
+        GameEvents.OnPlayerRespawned -= playHeadReatached;
+        playerEvents.OnPerformParry += playAttemptParry;
     }
     void playAttemptParry()
     {
