@@ -87,7 +87,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
-            if (attack.isActive == true) return (true);
+            if (attack.isActive) return (true);
         }
         return (false);
     }
