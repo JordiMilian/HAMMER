@@ -34,9 +34,9 @@ public class FlipWeaponSpriteWithDirection : MonoBehaviour
         {
             t.localEulerAngles = new Vector3(
 
-                0,
+                t.localEulerAngles.x,
                 180,
-                0
+                t.localEulerAngles.z
                 );
         }
     }
@@ -46,9 +46,9 @@ public class FlipWeaponSpriteWithDirection : MonoBehaviour
         {
             t.localEulerAngles = new Vector3(
 
+                t.localEulerAngles.x,
                 0,
-                0,
-                0
+                t.localEulerAngles.z
                 );
         }
     }

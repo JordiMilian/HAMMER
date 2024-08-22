@@ -11,9 +11,10 @@ public class FrisbeeThrower : Enemy_BaseProjectileCreator
     public void EV_ThrowFrisbee()
     {
         UpdateVectorData();
-
+        Vector2 spawnPos = SpawnPos.position;
+        Vector2 directionToPlayerFromSpawn = (playerPosition - spawnPos).normalized;
         GameObject newFrisbee = Instantiate(FrisbeePrefab, SpawnPos.position, Quaternion.identity);
-        newFrisbee.GetComponent<FrisbeeController>().throwFrisbee(weaponDirection);
+        newFrisbee.GetComponent<FrisbeeController>().throwFrisbee(directionToPlayerFromSpawn, SpawnPos);
     }
     private void Update()
     {
