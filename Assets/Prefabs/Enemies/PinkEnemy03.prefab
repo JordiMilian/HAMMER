@@ -476,7 +476,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6029875931540748053}
   m_LocalRotation: {x: -0, y: -0, z: -0.69547594, w: 0.71854943}
-  m_LocalPosition: {x: -0.019247115, y: 0.010759965, z: 0}
+  m_LocalPosition: {x: -0.019247115, y: 0.01075996, z: 0}
   m_LocalScale: {x: 4.5454545, y: 4.5454545, z: 4.5068164}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1612,11 +1612,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxStance
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: CurrentStance
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 713815961661323530, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Name
@@ -1634,6 +1634,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3c0d57c0716252d43b054bba6d5ca648, type: 2}
+    - target: {fileID: 2341438317793130741, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2341438317793130741, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2829660713819239201, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: CurrentSpeed
       value: 4000
@@ -1697,6 +1705,10 @@ PrefabInstance:
     - target: {fileID: 3868954544030753605, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.19666915
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868954544030753605, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3868954544030753605, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1890,9 +1902,13 @@ PrefabInstance:
       propertyPath: m_RotationOffset.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8775765544101597181, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RotationOffset.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].Damage
@@ -1919,13 +1935,65 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[2].Probability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].HasCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].Probability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[4].HasCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[4].Probability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].CooldownTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[4].CooldownTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].animationClip
       value: 
       objectReference: {fileID: 7400000, guid: 39f074e7903c8f14b93a1de236ddf15a, type: 2}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[0].rangeDetector
+      value: 
+      objectReference: {fileID: 134453086233057431}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[1].animationClip
       value: 
       objectReference: {fileID: 7400000, guid: 9121a969c465d6943a4576c17771f138, type: 2}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[2].animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 8ce02c36e06a6c64db29017de4739906, type: 2}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 7753a50289b8ac34ca4c633b88bc053a, type: 2}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].rangeDetector
+      value: 
+      objectReference: {fileID: 8806181969954395139}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[4].animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: c89192448ba28364fa5a5d3cc619a0b5, type: 2}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[4].rangeDetector
+      value: 
+      objectReference: {fileID: 8806181969954395139}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].ShortDescription
       value: normal doble attack
@@ -1934,9 +2002,32 @@ PrefabInstance:
       propertyPath: Enemy_Attacks.Array.data[1].ShortDescription
       value: 4x frontal attack
       objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[2].ShortDescription
+      value: 1 strong 2 fast
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].ShortDescription
+      value: move away and attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[4].ShortDescription
+      value: just move away
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7073730092788972273, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+--- !u!114 &134453086233057431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4040043019073815960, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 4164899357328497935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &900148518189497930 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3868954544030753605, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1952,6 +2043,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 713815961661323530, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 4164899357328497935}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1724382038159970455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470949524263068677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyRefs: {fileID: 5821999740386459046}
+  ResponseAttackIndex: 4
+  CooldownSeconds: 4
 --- !u!114 &8146667611245513858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,6 +2127,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8543705226525020148, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 4164899357328497935}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5821999740386459046 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 4164899357328497935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470949524263068677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80c444077571f64bab04e8f52c5bcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8806181969954395139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4898058486958885132, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 4164899357328497935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9051367737720901111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4922534337889980664, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
