@@ -10,6 +10,10 @@ using UnityEngine.UI;
 public class Dialoguer : MonoBehaviour
 {
     public List<string> TextLines = new List<string>();
+
+    public DialoguesContainer dialoguesContainer;
+    public int dialoguesIndex;
+
     
     [SerializeField] TextMeshProUGUI MeshPro;
     [SerializeField] GameObject DialogueBubblePosition;
@@ -25,6 +29,19 @@ public class Dialoguer : MonoBehaviour
     Coroutine currentRead;
     Coroutine currentLinesReseter;
 
+    private void Awake()
+    {
+        TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
+    }
+    public bool TrySetDialoguesFromContainer(DialoguesContainer container, int index)
+    {
+        if (container == null) { return false; }
+        if (index < 0) { return false; }
+
+        TextLines = container.AllDialoguesList[index].DialogueLines;
+        return true;
+        
+    }
     private void OnEnable()
     {
         PlayerCloseTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);

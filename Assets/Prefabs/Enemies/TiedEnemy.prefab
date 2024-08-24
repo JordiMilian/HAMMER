@@ -516,6 +516,22 @@ MonoBehaviour:
   - {fileID: 6251554522071812381}
   vfxManager: {fileID: 3990903181184240267}
   dialoguer: {fileID: 4874232467083494805}
+--- !u!114 &8402499958707662323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253168055240236191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9a895a66d0ec242bb6d51b2fe141ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialoguerReferenced: {fileID: 4874232467083494801}
+  container: {fileID: 11400000, guid: 8e38e967f1907aa44b5e6a40e4ff38ce, type: 2}
+  indexInContainer: -1
+  newTextLines: []
 --- !u!114 &8866709386668945974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,10 +544,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83f2335b56c0ed428f860cbf59b1d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsActivated: 0
   respawnPosition: {fileID: 5447387385483511698}
   eventSystem: {fileID: 1166463318534243801}
   TiedEnemyAnimator: {fileID: 501452738626919972}
-  IsActivated: 0
   distanceToManager: 0
   managerIndex: 0
 --- !u!4 &3123867087818708931 stripped
@@ -981,6 +997,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+--- !u!114 &4874232467083494801 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+  m_PrefabInstance: {fileID: 7510745779284860747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874232467083494805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c2af6724efa4468ace74bf793f1d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4874232467083494805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3143310112689085150, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
