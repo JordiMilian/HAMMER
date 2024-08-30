@@ -31,9 +31,7 @@ public class Upgrade_SlowerAttackHigherDamage : Upgrade
     }
     public override string shortDescription()
     {
-        return UsefullMethods.highlightString(SlowerPercent.ToString() + "%")
-            + " slower swings - "
-            + UsefullMethods.highlightString(StrongerPercent.ToString() + "%")
+        return UsefullMethods.highlightString(StrongerPercent.ToString() + "%")
             + " stronger Attacks";
     }
 }

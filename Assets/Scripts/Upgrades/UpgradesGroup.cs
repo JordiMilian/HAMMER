@@ -6,11 +6,10 @@ public class UpgradesGroup : MonoBehaviour
 {
      Action CallSpawnUpgrades;
 
-
-    [SerializeField] BaseRoomWithDoorLogic roomLogic;
     [SerializeField] int amountOfContainers;
     int tempAmountOfContainers;
     [SerializeField] float radiusToSpawn;
+    [SerializeField] float polygonOffset;
     [SerializeField] bool trigger_TestSpawnContainers;
 
     [SerializeField] bool avoidUpgradesRepetition;
@@ -45,7 +44,7 @@ public class UpgradesGroup : MonoBehaviour
         tempAmountOfContainers = SelectedUpgrades.Count;
 
 
-        Vector2[] prefabPositions = UsefullMethods.GetPolygonPositions(transform.position, tempAmountOfContainers, radiusToSpawn);
+        Vector2[] prefabPositions = UsefullMethods.GetPolygonPositions(transform.position, tempAmountOfContainers, radiusToSpawn, polygonOffset);
 
         for (int i = 0; i < tempAmountOfContainers; i++)
         {

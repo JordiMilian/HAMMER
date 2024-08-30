@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Generic_OnTriggerEnterEvents : MonoBehaviour
@@ -23,6 +24,13 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
             if (tag == t) { return; }
         }
         ActivatorTags.Add(tag);
+    }
+    public void RemoveActivatorTag(string tag)
+    {
+        foreach(string t in ActivatorTags)
+        {
+            if(tag == t) { ActivatorTags.Remove(t); }
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -72,13 +72,13 @@ public class UsefullMethods : MonoBehaviour
             Debug.DrawLine(center + (PreviousPoint * radius), center + (CurrentPoint * radius));
         }
     }
-    public static Vector2[] GetPolygonPositions(Vector2 center, int sides, float radius, float offset = 0)
+    public static Vector2[] GetPolygonPositions(Vector2 center, int sides, float radius, float offsetNormalized = 0)
     {
         List<Vector2> positions = new List<Vector2>(); 
         for (int i = 0; i < sides; i++)
         {
             float sidesF = intToFloat(sides);
-            float divider = (1.0f / sidesF * i) + offset;
+            float divider = (1.0f / sidesF * i) + offsetNormalized;
 
             Vector2 CurrentPoint = angle2Vector(divider * Mathf.PI * 2);
             Vector2 finalPoint = center + (CurrentPoint * radius);

@@ -8,7 +8,7 @@ public class BossRoomLogic : RoomWithEnemiesLogic
     [SerializeField] GameState gameState;
     public Action<int> OnBossDefeated;
     public int BossIndex;
-    [SerializeField] UpgradesGroup upgradesGroup;
+    //[SerializeField] UpgradesGroup upgradesGroup;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class BossRoomLogic : RoomWithEnemiesLogic
         gameState.LastCompletedIndex = BossIndex;
         OnBossDefeated?.Invoke(BossIndex);
 
-        upgradesGroup.StartSpawnCutscene();
+        //upgradesGroup.StartSpawnCutscene();
 
         isRoomPermanentlyCompleted = true;
     }
