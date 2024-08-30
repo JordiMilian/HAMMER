@@ -199,7 +199,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126747144}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &99182778
 GameObject:
@@ -968,7 +968,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126747144}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319784613
 GameObject:
@@ -1080,6 +1080,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &406565337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406565340}
+  - component: {fileID: 406565338}
+  - component: {fileID: 406565339}
+  m_Layer: 0
+  m_Name: Starting Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &406565338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406565337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f656636c59b646b557e7b0dd12513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Checkpoint
+  TypeOfRoom: 2
+  AmountOfRoomsToSpawn: 1
+  RoomPrefabs:
+  - {fileID: 9178959033141149149, guid: 7f868b0dbda4ee644b42a337639c0293, type: 3}
+  LastExitPosition: {x: 0, y: 0}
+  currentlySpawnedRooms: []
+--- !u!61 &406565339
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406565337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &406565340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406565337}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.772345, y: 13.609384, z: -0.03217544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1126747144}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &441166931
 GameObject:
@@ -1215,7 +1293,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126747144}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &533535350
 BoxCollider2D:
@@ -2203,6 +2281,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3570658378452239907, guid: cf4c3b265a410ef429a2c88db7f4534c, type: 3}
   m_PrefabInstance: {fileID: 1022411436}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1071037634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071037637}
+  - component: {fileID: 1071037635}
+  - component: {fileID: 1071037636}
+  m_Layer: 0
+  m_Name: Upgrades Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1071037635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071037634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f656636c59b646b557e7b0dd12513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Checkpoint
+  TypeOfRoom: 2
+  AmountOfRoomsToSpawn: 1
+  RoomPrefabs:
+  - {fileID: 5910322705796402986, guid: efc84494033d1104e9dbcfb3eac05a25, type: 3}
+  LastExitPosition: {x: 0, y: 0}
+  currentlySpawnedRooms: []
+--- !u!61 &1071037636
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071037634}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1071037637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071037634}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.772345, y: 13.609384, z: -0.03217544}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1126747144}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1104482667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,12 +2459,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AreaIndex: 1
   GroupsOfRoomsList:
+  - {fileID: 406565338}
   - {fileID: 1733613279}
   - {fileID: 1946957356}
   - {fileID: 92020752}
   - {fileID: 1993585378}
   - {fileID: 306456884}
   - {fileID: 533535348}
+  - {fileID: 1071037635}
   CompleteList_spawnedRooms: []
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!4 &1126747144
@@ -2323,12 +2481,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 406565340}
   - {fileID: 1733613281}
   - {fileID: 1946957357}
   - {fileID: 533535349}
   - {fileID: 306456886}
   - {fileID: 1993585380}
   - {fileID: 92020754}
+  - {fileID: 1071037637}
   m_Father: {fileID: 0}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3193,7 +3353,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126747144}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1785665116
 GameObject:
@@ -3275,9 +3435,9 @@ MonoBehaviour:
   TypeOfRoom: 0
   AmountOfRoomsToSpawn: 3
   RoomPrefabs:
-  - {fileID: 8786521925620675434, guid: 64c99c2d069e7e14590da045c94c2374, type: 3}
-  - {fileID: 8565251678954193344, guid: 604c0fda138f47c408de51394d5b10b0, type: 3}
-  - {fileID: 8565251678954193344, guid: 740820fd8b7d5594885bdd5d8cec5cda, type: 3}
+  - {fileID: 8565251678954193344, guid: 2ca1a620132119c46a6b950d8a739b15, type: 3}
+  - {fileID: 8565251678954193344, guid: 6449fcb8781499f43947b35a324f4f27, type: 3}
+  - {fileID: 8565251678954193344, guid: 8abd4f5403cb6044c97f4746e5f75cd5, type: 3}
   - {fileID: 8565251678954193344, guid: bd861e12356cfa3488097a200d5e945d, type: 3}
   - {fileID: 8565251678954193344, guid: 849aca94dcf9e7c40ae7f8cc3137cd90, type: 3}
   LastExitPosition: {x: 0, y: 0}
@@ -3295,7 +3455,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126747144}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1946957358
 BoxCollider2D:
@@ -3402,9 +3562,12 @@ MonoBehaviour:
   TypeOfRoom: 0
   AmountOfRoomsToSpawn: 3
   RoomPrefabs:
-  - {fileID: 8565251678954193344, guid: 17d3a91d4a9ca464eb817ff4a00a9943, type: 3}
-  - {fileID: 8565251678954193344, guid: e4d76fbe2a7643c45a259ab2c331e94c, type: 3}
+  - {fileID: 8786521925620675434, guid: 64c99c2d069e7e14590da045c94c2374, type: 3}
+  - {fileID: 8565251678954193344, guid: 80af44df2335a364fb4b26260dd2dbfc, type: 3}
   - {fileID: 8565251678954193344, guid: df6a3ffc4a3d708449a2890d39bf416b, type: 3}
+  - {fileID: 8565251678954193344, guid: ca3f288ee7681c94d8bb032a93d25c79, type: 3}
+  - {fileID: 8565251678954193344, guid: 604c0fda138f47c408de51394d5b10b0, type: 3}
+  - {fileID: 8565251678954193344, guid: 740820fd8b7d5594885bdd5d8cec5cda, type: 3}
   LastExitPosition: {x: 0, y: 0}
   currentlySpawnedRooms: []
 --- !u!61 &1993585379
@@ -3446,7 +3609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1126747144}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2000629821
 GameObject:
