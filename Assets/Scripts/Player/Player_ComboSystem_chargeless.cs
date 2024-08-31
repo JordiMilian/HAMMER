@@ -16,10 +16,12 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     public float maxDistance = 3f;
     [SerializeField] float minForce = -0.5f;
     [SerializeField] float maxForce = 1f;
-    [Header("Base attack stats")]
-    [SerializeField] float Base_Damage;
-    [SerializeField] float Base_Knockback;
-    [SerializeField] float Base_HitStop;
+
+    //This is set from the weapon info holder
+    [HideInInspector] public float Base_Damage;
+    [HideInInspector] public float Base_Knockback;
+    [HideInInspector] public float Base_HitStop;
+    [HideInInspector] public float StaminaUse;
 
 
     private void OnEnable()
@@ -42,7 +44,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     }
     void onPerformedAttack()
     {
-        playerRefs.events.OnStaminaAction?.Invoke(2); //Remove stamina
+        playerRefs.events.OnStaminaAction?.Invoke(StaminaUse); //Remove stamina
 
         foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList) //Get the damage dealers back to base stats
         {

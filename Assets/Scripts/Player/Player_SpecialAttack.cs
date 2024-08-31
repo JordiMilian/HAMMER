@@ -9,10 +9,10 @@ public class Player_SpecialAttack : MonoBehaviour
     [SerializeField] FloatVariable SpCharge_Current;
     [SerializeField] FloatVariable Health_Current;
     [SerializeField] FloatVariable Health_Max;
-    [SerializeField] float Sp_Damage;
-    [SerializeField] float Sp_Knockback;
-    [SerializeField] float Sp_HitStop;
-    [SerializeField] float StaminaCost;
+    [HideInInspector] public float Sp_Damage; //This is set from the weapon info holder
+    [HideInInspector] public float Sp_Knockback;
+    [HideInInspector] public float Sp_HitStop;
+    [HideInInspector] public float StaminaCost;
     float amountToHeal;
 
     private void OnEnable()
@@ -46,11 +46,8 @@ public class Player_SpecialAttack : MonoBehaviour
     {
         if (SpCharge_Current.Value < SpCharge_Max.Value) { Debug.Log("not enough charge try again"); return; }
         if(playerRefs.currentStamina.GetValue() == 0) { return; }
-
-        SpCharge_Current.SetValue(0);
-        
-
         playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
+        
         amountToHeal = Health_Max.Value - Health_Current.Value;
     }
     void onPerformedSpecialAttack()
@@ -93,6 +90,8 @@ public class Player_SpecialAttack : MonoBehaviour
     public void EV_ActuallyHeal()
     {
         //Health_Current.SetValue(Health_Current.Value + amountToHeal);
+        restartCharge();
         playerRefs.healthSystem.RemoveLife(-amountToHeal, gameObject);
+        playerRefs.events.OnActuallySpecialHeal?.Invoke();
     }
 }
