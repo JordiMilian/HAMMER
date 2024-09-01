@@ -16,5 +16,20 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     public float Sp_Knockback;
     public float Sp_StaminaCost;
     public AnimatorController animatorController;
+    [SerializeField] Animator animator;
+
+    private void OnEnable()
+    {
+        OnSpawned();
+    }
+    public void OnSpawned()
+    {
+
+    }
+    public void OnPickedUp()
+    {
+        animator.SetTrigger("PickedUp");
+        StartCoroutine( UsefullMethods.destroyWithDelay(2,gameObject));
+    }
 
 }

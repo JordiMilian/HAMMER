@@ -6,10 +6,34 @@ public class Player_WeaponSwitcher : MonoBehaviour
 {
     [SerializeField] GameState gameState;
     [SerializeField] PolygonCollider2D playersWeaponCollider;
-    [SerializeField] Player_ComboSystem_chargeless comboSystem;
-    [SerializeField] Player_SpecialAttack specialAttack;
-    [SerializeField] Animator playersAnimator;
     [SerializeField] SpriteRenderer playersWeaponSpriteRenderer;
+
+    [SerializeField] Generic_OnTriggerEnterEvents weaponPickerDetector;
+    [SerializeField] Player_References playerRefs;
+    private void OnEnable()
+    {
+        weaponPickerDetector.AddActivatorTag(TagsCollection.Pickeable);
+
+        weaponPickerDetector.OnTriggerEntered += OnFoundPickeable;
+
+    }
+    private void OnDisable()
+    {
+        weaponPickerDetector.RemoveActivatorTag(TagsCollection.Pickeable);
+        weaponPickerDetector.OnTriggerEntered -= OnFoundPickeable;
+    }
+    void OnFoundPickeable(Collider2D collider)
+    {
+        WeaponPrefab_infoHolder infoHolder = collider.GetComponent<WeaponPrefab_infoHolder>();
+
+        if (infoHolder != null)
+        {
+            gameState.PlayersWeaponPrefab = collider.gameObject;
+            SetNewWeapon(collider.gameObject);
+            playerRefs.events.OnPickedNewWeapon?.Invoke(infoHolder);
+            infoHolder.OnPickedUp();
+        }
+    }
     private void Awake()
     {
         SetNewWeapon(gameState.PlayersWeaponPrefab);
@@ -20,17 +44,17 @@ public class Player_WeaponSwitcher : MonoBehaviour
 
         CopyPolygonCollider(infoHolder.weaponsCollider, playersWeaponCollider);
 
-        comboSystem.Base_Damage = infoHolder.BaseDamage;
-        comboSystem.Base_Knockback = infoHolder.BaseKnockback;
-        comboSystem.Base_HitStop = infoHolder.BaseHitstop;
+        playerRefs.comboSystem.Base_Damage = infoHolder.BaseDamage;
+        playerRefs.comboSystem.Base_Knockback = infoHolder.BaseKnockback;
+        playerRefs.comboSystem.Base_HitStop = infoHolder.BaseHitstop;
 
-        specialAttack.Sp_Damage = infoHolder.Sp_Damage;
-        specialAttack.Sp_Knockback = infoHolder.Sp_Knockback;
-        specialAttack.StaminaCost = infoHolder.Sp_StaminaCost;
+        playerRefs.specialAttack.Sp_Damage = infoHolder.Sp_Damage;
+        playerRefs.specialAttack.Sp_Knockback = infoHolder.Sp_Knockback;
+        playerRefs.specialAttack.StaminaCost = infoHolder.Sp_StaminaCost;
 
-        comboSystem.StaminaUse = infoHolder.StaminaUsePerSwing;
+        playerRefs.comboSystem.StaminaUse = infoHolder.StaminaUsePerSwing;
 
-        playersAnimator.runtimeAnimatorController = infoHolder.animatorController;
+        playerRefs.animator.runtimeAnimatorController = infoHolder.animatorController;
 
         playersWeaponSpriteRenderer.sprite = infoHolder.weaponSprite;
     }

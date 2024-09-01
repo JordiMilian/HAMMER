@@ -17,6 +17,8 @@ public class Player_References : Generic_References
     public Player_Stamina playerStamina;
     public Player_VFXManager playerVFX;
     public Player_UpgradesManager upgradesManager;
+    public Player_SpecialAttack specialAttack;
+    public Generic_OnTriggerEnterEvents singlePointCollider;
 
     public FloatVariable currentHealth;
     public FloatVariable maxHealth;

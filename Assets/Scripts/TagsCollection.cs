@@ -35,6 +35,7 @@ public class TagsCollection
     public static string Object_Hurtbox = "Object_Hurtbox";
 
     public static string UpgradeContainer = "UpgradeContainer";
+    public static string Pickeable = "Pickeable";
 
 
 }
