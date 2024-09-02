@@ -36,6 +36,7 @@ public class Player_Movement : MonoBehaviour
         playerRefs.events.OnPerformRoll += CallDashMovement;
         playerRefs.events.OnDeath += StopRunningOnDeath;
         playerRefs.events.OnAttackStarted += StopRunning;
+        playerRefs.events.OnEnterIdle += EV_ReturnSpeed;
 
         InputDetector.Instance.OnRollPressed += OnRollPressed;
         InputDetector.Instance.OnRollPressing += OnRollPressing;
@@ -46,6 +47,7 @@ public class Player_Movement : MonoBehaviour
         playerRefs.events.OnPerformRoll -= CallDashMovement;
         playerRefs.events.OnDeath -= StopRunningOnDeath;
         playerRefs.events.OnAttackStarted -= StopRunning;
+        playerRefs.events.OnEnterIdle -= EV_ReturnSpeed;
 
         InputDetector.Instance.OnRollPressed -= OnRollPressed;
         InputDetector.Instance.OnRollPressing -= OnRollPressing;

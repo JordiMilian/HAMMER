@@ -26,9 +26,25 @@ public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
     [SerializeField] float Radius;
     [SerializeField] float delayBetweenThrows_around;
     [SerializeField] float maxDistance_around;
+    [Header("Tornado polygon")]
+    [SerializeField] float minDistanceTornado;
+    [SerializeField] float maxDistanceTornado;
+    [SerializeField] int firstPolygonSides;
+    [SerializeField] int amountOfPolygons;
+    [SerializeField] int addedSidesPerPolygon;
+    [SerializeField] float delayBetweenThrows_tornado;
+    [SerializeField] bool testTornado;
+    [SerializeField] float testOffset;
 
-    
 
+    private void Update()
+    {
+        if(testTornado)
+        {
+            StartCoroutine( EV_TornadoPolygon(testOffset));
+            testTornado = false;
+        }
+    }
     void ThrowProjectile(Vector2 destination)
     {
         GameObject Instantiated_DestinationUI = Instantiate(DestinationPrefab, destination, Quaternion.identity);
@@ -78,6 +94,26 @@ public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
         }
         pointsAround = BasePointAround;
         StartCoroutine(SinglePolygonThrow());
+    }
+    public IEnumerator EV_TornadoPolygon(float offset)
+    {
+        UpdateVectorData();
+        int thisPolygonSides = firstPolygonSides;
+        float addedDistancePerPolygon = (maxDistanceTornado - minDistanceTornado) / amountOfPolygons;
+        for (int i = 0; i < amountOfPolygons; i++)
+        {
+            Vector2[] thisPolygonVectors = UsefullMethods.GetPolygonPositions(
+                originPosition, 
+                thisPolygonSides, 
+                minDistanceTornado + (addedDistancePerPolygon * i),
+                offset);
+            for (int u = 0; u < thisPolygonVectors.Length; u++)
+            {
+                ThrowProjectile(thisPolygonVectors[u]);
+                yield return new WaitForSeconds(delayBetweenThrows_tornado);
+            }
+            thisPolygonSides += addedSidesPerPolygon;
+        }
     }
     public IEnumerator BurstToPlayer(int throws)
     {

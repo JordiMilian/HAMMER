@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Player_WeaponSwitcher : MonoBehaviour
 {
+    /*
+    How to make a new weapon:
+    -Prefabs-weaponInfoHolder-Duplicate a new infoHolder
+    -In the script change the "Weapon Sprite" and setup the values for damages
+    -Go to Animations files and duplicate a players animator, for example "MainCharacter_PinkWeapon"
+    -Go the the players prefab and manually change the Animator, Sprite and Collider
+    -Copy the Colliders properties and paste them in the infoHolder collider
+    -Set up the animations and animator as you want
+    -Add the prefab to the gameState and set the indexInGameState of InfoHolder to where its in the list
+
+    */
     [SerializeField] GameState gameState;
     [SerializeField] PolygonCollider2D playersWeaponCollider;
     [SerializeField] SpriteRenderer playersWeaponSpriteRenderer;
@@ -28,10 +39,23 @@ public class Player_WeaponSwitcher : MonoBehaviour
 
         if (infoHolder != null)
         {
-            gameState.PlayersWeaponPrefab = collider.gameObject;
+            gameState.PlayersWeaponPrefab = gameState.weaponsPrefabList[infoHolder.indexInGameState];
+            //SetGameStateWeapon(infoHolder.ownPrefab);
             SetNewWeapon(collider.gameObject);
             playerRefs.events.OnPickedNewWeapon?.Invoke(infoHolder);
             infoHolder.OnPickedUp();
+        }
+    }
+    void SetGameStateWeapon(GameObject weapon)
+    {
+        foreach(GameObject weaponPrefab in gameState.weaponsPrefabList)
+        {
+            if(weaponPrefab == weapon)
+            {
+                Debug.Log("it is the same");
+                gameState.PlayersWeaponPrefab = weaponPrefab;
+                return;
+            }
         }
     }
     private void Awake()

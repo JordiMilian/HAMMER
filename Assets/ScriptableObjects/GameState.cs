@@ -28,6 +28,7 @@ public class GameState : ScriptableObject
     public List<Vector3> currentPlayerRooms_index = new List<Vector3>();
 
     public GameObject PlayersWeaponPrefab;
+    public List<GameObject> weaponsPrefabList = new List<GameObject>();
     public void ResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)

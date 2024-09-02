@@ -27,11 +27,14 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     private void OnEnable()
     {
         playerRefs.events.OnAttackStarted += onPerformedAttack;
+        playerRefs.events.OnEnterIdle += EV_HideWeaponCollider;
         InputDetector.Instance.OnAttackPressed += onAttackPressed;
+        
     }
     private void OnDisable()
     {
         playerRefs.events.OnAttackStarted -= onPerformedAttack;
+        playerRefs.events.OnEnterIdle -= EV_HideWeaponCollider;
         InputDetector.Instance.OnAttackPressed -= onAttackPressed;
     }
 
@@ -61,7 +64,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     {
         //Make equivalent between min and max distance to -0,5 and 1 (normalize)
         float equivalent;
-        if (distanceToEnemy.Value > maxDistance) { equivalent = CalculateEquivalent(defaultDistance.Value); } //If the player is too far, behave with default 
+        if (distanceToEnemy.Value > maxDistance*multiplier) { equivalent = CalculateEquivalent(defaultDistance.Value); } //If the player is too far, behave with default. Estic multiplicant la max distance pel multiplier no se si va be aixo
         else { equivalent = CalculateEquivalent(distanceToEnemy.Value); } // Else calculate with distance
 
         Vector3 tempForce = playerRefs.followMouse.gameObject.transform.up * Force * equivalent;

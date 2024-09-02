@@ -27,9 +27,17 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
     }
     public void RemoveActivatorTag(string tag)
     {
-        foreach(string t in ActivatorTags)
+        List<int> indexesToRemove = new List<int>();
+        for (int i = 0; i < ActivatorTags.Count; i++)
         {
-            if(tag == t) { ActivatorTags.Remove(t); }
+            if (ActivatorTags[i] == tag)
+            {
+                indexesToRemove.Add(i);
+            }
+        }
+        foreach (int i in indexesToRemove)
+        {
+            ActivatorTags.RemoveAt(i);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
