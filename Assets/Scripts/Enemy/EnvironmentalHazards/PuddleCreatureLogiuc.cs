@@ -8,7 +8,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
 {
     Transform playerTf;
     [SerializeField] float maxChasingSpeed;
-    [SerializeField] float chasingDuration;
+    public float chasingDuration;
     [SerializeField] float delayBetweenAttacks;
     [SerializeField] float delayWhenEntered;
     Animator puddleCreatureAnimator;
@@ -65,7 +65,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
         currentChasingbeforeAttack = StartCoroutine(ChasingCoroutine(chasingDuration));
     }
 
-    IEnumerator ChasingCoroutine(float chasingDuration)
+    public IEnumerator ChasingCoroutine(float chasingDuration)
     {
         
         float timer = 0;
@@ -85,6 +85,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
         puddleCreatureAnimator.SetBool("Chasing", false);
         currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayBetweenAttacks));
         BigStepVFX.Play();
+        CameraShake.Instance.ShakeCamera(.5f, 0.4f);
     }
     void cancelEverything()
     {

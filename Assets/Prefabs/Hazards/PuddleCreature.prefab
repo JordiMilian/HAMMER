@@ -83,12 +83,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 072dc752c2f071140b5b51524deceed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasingSpeed: 3
+  maxChasingSpeed: 2.5
   chasingDuration: 1.5
-  delayBetweenAttacks: 3
+  delayBetweenAttacks: 3.5
   delayWhenEntered: 1.5
   puddleTriggers:
   - {fileID: 0}
+  roomWithEnemies: {fileID: 0}
 --- !u!95 &7161263438405643109
 Animator:
   serializedVersion: 4
@@ -260,7 +261,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2121100495
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: afdc00af41b82884988bab7d8130f93e, type: 3}
   m_Color: {r: 0.6603774, g: 0, b: 0, a: 1}
@@ -531,7 +532,7 @@ SortingGroup:
   m_GameObject: {fileID: 7161263439089882461}
   m_Enabled: 1
   m_SortingLayerID: 2121100495
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
 --- !u!114 &7161263439089882787
 MonoBehaviour:
@@ -617,7 +618,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1093014401
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9f45e17aa8b7ef6449777e74183b1483, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

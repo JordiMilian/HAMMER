@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 
 public class PinkSaw : MonoBehaviour
 {
-    [SerializeField] SpriteShapeController shapeController;
+    public SpriteShapeController shapeController;
     Vector2 pos01, pos02;
     [SerializeField] Transform sawTf;
     [SerializeField] float TimeToReach;
@@ -27,6 +27,11 @@ public class PinkSaw : MonoBehaviour
         sawAreaTrigger.onAreaUnactive += stopSawing;
         currentPos = startingPos;
         hideSprites();
+    }
+    private void OnDisable()
+    {
+        sawAreaTrigger.onAreaActive -= startSawing;
+        sawAreaTrigger.onAreaUnactive -= stopSawing;
     }
     private void Start()
     {

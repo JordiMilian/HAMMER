@@ -1190,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3881809578619784559, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxHealth
-      value: 25
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3968944070215854671, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
@@ -2029,7 +2029,7 @@ MonoBehaviour:
     isInCooldown: 0
     HasCooldown: 0
     CooldownTime: 0
-  PercentOfHealthToActivate: 50
+  PercentOfHealthToActivate: 55
 --- !u!114 &8727871250198749306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2042,6 +2042,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c451c9b41514d43bcff864c261068f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponFollowPlayer: {fileID: 6256279386084047595}
+  originPosition: {x: 0, y: 0}
+  player: {fileID: 0}
+  playerPosition: {x: 0, y: 0}
+  VectorToPlayer: {x: 0, y: 0}
+  angleToPlayerRad: 0
+  distanceToPlayer: 0
+  directionToPlayer: {x: 0, y: 0}
+  weaponDirection: {x: 0, y: 0}
   PinkProjectile_General: {fileID: 5671861329474703452, guid: 70d20404298f740449b847370f7b84d3, type: 3}
   PinkProjectile_General_Big: {fileID: 5671861329474703452, guid: 21938f31772fe234bb1582edda5c7874, type: 3}
   PinkProjectile_Directional: {fileID: 4485915165747632120, guid: 9ca38ab98c04aaa4c9ed77e93d4f1c84, type: 3}
@@ -2049,7 +2058,6 @@ MonoBehaviour:
   maxDistance_around: 10
   delayBetweenThrows_around: 0.1
   Radius: 2
-  WeaponFollowPlayer: {fileID: 6256279386084047595}
   PinkSawProjectile_Prefab: {fileID: 4374704308372774901, guid: 8138e00d0635aa14bb4cea2cadada306, type: 3}
   delayBetweenSaws_polygon: 0.07
   amountOfSaws_polygon: 25
