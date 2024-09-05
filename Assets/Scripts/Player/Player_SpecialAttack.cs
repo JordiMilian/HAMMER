@@ -53,7 +53,7 @@ public class Player_SpecialAttack : MonoBehaviour
     void onPerformedSpecialAttack()
     {
         SpCharge_Current.SetValue(0);
-        playerRefs.events.OnStaminaAction(StaminaCost);
+        playerRefs.events.CallStaminaAction(StaminaCost);
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
             dealer.Damage = Sp_Damage * playerRefs.stats.DamageMultiplier;

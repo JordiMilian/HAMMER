@@ -79,4 +79,5 @@ public class Generic_EventSystem : MonoBehaviour
     public EventHandler<ObjectDirectionArgs> OnBeingTouchedObject;
     public Action OnShowCollider; //Currently for sounds
     public Action OnEnterIdle;
+    public Action OnExitIdle; //This is currently used for Stamina control of Player
 }

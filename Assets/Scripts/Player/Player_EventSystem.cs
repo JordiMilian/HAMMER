@@ -21,7 +21,7 @@ public class Player_EventSystem : Generic_EventSystem
     public Action<GameObject> OnFocusEnemy;
     public Action OnUnfocusEnemy;
     public Action OnPerformSpecialAttack;
-    public Action<float> OnStaminaAction;
+    public Action<float> CallStaminaAction;
     public Action<UpgradeContainer> OnPickedNewUpgrade;
     public Action OnRemovedUpgrade;
     public Action OnActuallySpecialHeal;

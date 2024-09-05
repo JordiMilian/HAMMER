@@ -16,4 +16,8 @@ public class SMB_IdleAction : StateMachineBehaviour
         playerEvents.OnEnterIdle?.Invoke();
         
     }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        playerEvents.OnExitIdle?.Invoke();
+    }
 }

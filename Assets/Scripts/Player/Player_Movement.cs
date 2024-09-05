@@ -137,7 +137,7 @@ public class Player_Movement : MonoBehaviour
     void CallDashMovement()
     {
         //Call the event to remove Stamina
-        playerRefs.events.OnStaminaAction?.Invoke(1.25f);
+        playerRefs.events.CallStaminaAction?.Invoke(1.25f);
 
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;

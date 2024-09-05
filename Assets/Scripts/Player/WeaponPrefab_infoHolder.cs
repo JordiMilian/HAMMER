@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class WeaponPrefab_infoHolder : MonoBehaviour
@@ -16,7 +15,7 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     public float Sp_Damage;
     public float Sp_Knockback;
     public float Sp_StaminaCost;
-    public AnimatorController animatorController;
+    public RuntimeAnimatorController animatorController;
     [SerializeField] Animator animator;
     public Action OnPickedUpEvent;
     public int indexInGameState;

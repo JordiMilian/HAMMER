@@ -13,8 +13,6 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
     [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
 
     //An instance of this script is holded by every room. 
-    //The subcription to itselt is done by the MANAGER
-    //The unsubscribtion is done by itself by multiple reasons (player picks up the uprade or player dies again)
     private void OnEnable()
     {
         //roomLogic.onRoomCompleted += checkIfSpawnUpgrade;
@@ -28,10 +26,12 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
 
     void checkIfSpawnUpgrade( )
     {
+        Debug.Log("Check if i should spawn upgrade");
         if (!gameState.isLostUpgradeAvailable) { return; }
 
         if(thisRoom.indexInCompleteList == gameState.IndexOfLostUpgradeRoom)
         {
+            Debug.Log("I should in fact");
             CutscenesManager.Instance.AddCutscene(this);
 
             gameState.isLostUpgradeAvailable = false;
@@ -57,7 +57,7 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
     }
     UpgradeContainer SpawnUpgrades()
     {
-
+        Debug.Log("Spawned Upgrade");
         GameObject newContainer = Instantiate(BaseUpgradeContainerPrefab, SpawnPosition.position, Quaternion.identity, SpawnPosition);
         UpgradeContainer upgradeContainer = newContainer.GetComponent<UpgradeContainer>();
 

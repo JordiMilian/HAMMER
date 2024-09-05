@@ -103,6 +103,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
         correctlySpawnedCoroutine = StartCoroutine(NotCorrectlySpawnedTimer());
 
         onEnemiesSpawned?.Invoke();
+        Debug.Log("Spawned enemies wtf");
 
     }
     void SpawnWeights(int Tier, int currentWeight, int maxWeight)

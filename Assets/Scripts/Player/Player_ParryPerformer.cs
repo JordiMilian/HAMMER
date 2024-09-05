@@ -24,7 +24,7 @@ public class Player_ParryPerformer : MonoBehaviour
     }
     void perfomedParry()
     {
-        playerRefs.events.OnStaminaAction(0.5f);
+        playerRefs.events.CallStaminaAction(0.5f);
     }
     public void EV_ShowParryCollider()
     {

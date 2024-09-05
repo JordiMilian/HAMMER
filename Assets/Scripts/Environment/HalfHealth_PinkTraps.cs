@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
     [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
     [SerializeField] float delayBeforeAppearingTraps;
     [SerializeField] float timeToAppearTraps;
+    [Serializable]
     class trapInfo
     {
         public PinkTrap_Script Script;
@@ -21,6 +23,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
             SpriteRenderer = sprite;
         }
     }
+    [Serializable]
     class sawInfo
     {
         public PinkSaw Script;
@@ -31,8 +34,8 @@ public class HalfHealth_PinkTraps : MonoBehaviour
             Shape = shape;
         }
     }
-    List<trapInfo> trapInfosList = new List<trapInfo>();
-    List<sawInfo> sawInfosList = new List<sawInfo>();
+    [SerializeField] List<trapInfo> trapInfosList = new List<trapInfo>();
+    [SerializeField] List<sawInfo> sawInfosList = new List<sawInfo>();
     private void OnEnable()
     {
         roomWithEnemies.onEnemiesSpawned += subscribeToHalfHealth;
@@ -40,7 +43,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
 
         if (trapInfosList.Count != pinkTrapsList.Count)
         {
-            pinkTrapsList.Clear();
+            trapInfosList.Clear();
 
             foreach (GameObject trapGO in pinkTrapsList)
             {
@@ -52,7 +55,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         }
         if(sawInfosList.Count != pinkSawsList.Count)
         {
-            pinkSawsList.Clear();
+            sawInfosList.Clear();
 
             foreach (GameObject sawGO in pinkSawsList)
             {
@@ -96,6 +99,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         {
             timer += Time.deltaTime;
             trap.SpriteRenderer.color = new Color(1, 1, 1, timer / timeToAppearTraps);
+            yield return null;
         }
         trap.SpriteRenderer.color = new Color(1, 1, 1, 1);
         trap.Script.enabled = true;
@@ -110,6 +114,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         {
             timer += Time.deltaTime;
             saw.Shape.color = new Color(1, 1, 1, timer / timeToAppearTraps);
+            yield return null;
         }
         saw.Shape.color = new Color (1,1,1,1);
         saw.Script.enabled = true;

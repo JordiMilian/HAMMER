@@ -15,7 +15,7 @@ public class LostUpgrade_SaveLastPosition : MonoBehaviour
     }
     void SetLastDeathPosition()
     {
-        Vector3 lastPos =  GlobalPlayerReferences.Instance.gameObject.transform.position;
+        Vector3 lastPos =  GlobalPlayerReferences.Instance.playerTf.position;
         transform.position = lastPos;
     }
 }

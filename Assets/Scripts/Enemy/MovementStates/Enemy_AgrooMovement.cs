@@ -15,7 +15,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     public float CurrentRotationSpeed;
     float BaseRotationSpeed;
     float SlowRotationSpeed;
-     Transform PlayerTransform;
+    Transform PlayerTransform;
     [SerializeField] Transform Weapon_Pivot;
     //UI ALERT EN UN SCRIPT APART PERFA
     [SerializeField] Animator UIAnimator;
@@ -27,16 +27,19 @@ public class Enemy_AgrooMovement : MonoBehaviour
         BaseRotationSpeed = CurrentRotationSpeed;
         SlowRotationSpeed = CurrentRotationSpeed / 5;
 
+        BaseSpeed = enemyRefs.moveToTarget.Velocity;
         SlowSpeedF = BaseSpeed / 3;
     }
     private void OnEnable()
     {
         enemyRefs.enemyEvents.OnGettingParried += EV_ReturnAllSpeed;
+        enemyRefs.enemyEvents.OnEnterIdle += returnSpeedOnIdle;
         StartAgroo();
     }
     private void OnDisable()
     {
         enemyRefs.enemyEvents.OnGettingParried -= EV_ReturnAllSpeed;
+        enemyRefs.enemyEvents.OnEnterIdle -= returnSpeedOnIdle;
         EndAgroo();
     }
     void EndAgroo()
@@ -78,6 +81,10 @@ public class Enemy_AgrooMovement : MonoBehaviour
     {
         EV_ReturnMovingSpeed();
         EV_ReturnRotationSpeed();
+    }
+    void returnSpeedOnIdle()
+    {
+        EV_ReturnAllSpeed(0);
     }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)
     {

@@ -11,7 +11,6 @@ public class Player_Stamina : MonoBehaviour
 
     [SerializeField] float RecoveryPerSecond;
     [SerializeField] float DelayToRecover;
-    [SerializeField] float DelayToFullRecover;
     
     Coroutine currentCooldown;
     private void Start()
@@ -21,14 +20,16 @@ public class Player_Stamina : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerRefs.events.OnStaminaAction += RemoveStamina;
+        playerRefs.events.CallStaminaAction += RemoveStamina;
         playerRefs.maxStamina.OnValueSet += checkForMaxStamina;
         playerRefs.baseStamina.SetValue(playerRefs.maxStamina.GetValue());
+        playerRefs.events.OnEnterIdle += onReturnToIdle;
     }
     private void OnDisable()
     {
-        playerRefs.events.OnStaminaAction -= RemoveStamina;
+        playerRefs.events.CallStaminaAction -= RemoveStamina;
         playerRefs.maxStamina.OnValueSet -= checkForMaxStamina;
+        playerRefs.events.OnEnterIdle -= onReturnToIdle;
     }
     void checkForMaxStamina()
     {
@@ -56,10 +57,11 @@ public class Player_Stamina : MonoBehaviour
         isRecovering = false; 
         if(currentCooldown != null) { StopCoroutine(currentCooldown); }
 
+        /*
         //New Cooldown depending on stamina
         if (playerRefs.currentStamina.Value <= 0) { currentCooldown = StartCoroutine(CooldownToRecover(DelayToFullRecover)); }
         else { currentCooldown = StartCoroutine(CooldownToRecover(DelayToRecover)); }
-        
+        */
     }
     private void Update()
     {
@@ -79,5 +81,9 @@ public class Player_Stamina : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         isRecovering = true;
+    }
+    void onReturnToIdle()
+    {
+        currentCooldown = StartCoroutine(CooldownToRecover(DelayToRecover));
     }
 }

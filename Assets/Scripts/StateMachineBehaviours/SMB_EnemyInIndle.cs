@@ -14,6 +14,7 @@ public class SMB_EnemyInIndle : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("inIdle", false);
+        events.OnExitIdle?.Invoke();
     }
     
 }
