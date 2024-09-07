@@ -2104,6 +2104,53 @@ PrefabInstance:
       objectReference: {fileID: 4807916173635319869, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
+--- !u!1 &961246713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961246715}
+  - component: {fileID: 961246714}
+  m_Layer: 0
+  m_Name: EnterExit_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &961246714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961246713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5baca2e5687f94b9f1c902be01616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterExitScenesList: []
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  roomGenerator: {fileID: 1126747143}
+--- !u!4 &961246715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961246713}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.22, y: -116.03, z: -0.5044769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006355745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,7 +2504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485102b74685ec44bbdd542326d39746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AreaIndex: 1
+  AreaIndex: 2
   GroupsOfRoomsList:
   - {fileID: 406565338}
   - {fileID: 1733613279}
@@ -3818,6 +3865,8 @@ MonoBehaviour:
   Respawners: []
   CurrentFurthestRespawner: {fileID: 0}
   eventSystem: {fileID: 295019124}
+  gameState: {fileID: 0}
+  roomGenerator: {fileID: 0}
 --- !u!4 &2000629824
 Transform:
   m_ObjectHideFlags: 0

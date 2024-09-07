@@ -13,7 +13,8 @@ public class GameState : ScriptableObject
         public DoorAnimationController DoorController;
     }
     public BossAreaDoor[] FourDoors;
-    public int LastCompletedIndex;
+    public int LastEnteredDoor;
+    public int LastCompletedBoss;
     public bool isFinalDoorOpen;
     public bool isTutorialComplete;
     public bool isSpawnWithouUpgrades;
@@ -29,6 +30,8 @@ public class GameState : ScriptableObject
 
     public GameObject PlayersWeaponPrefab;
     public List<GameObject> weaponsPrefabList = new List<GameObject>();
+
+    public int[] FurthestDoorsArray = new int[5];
     public void ResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)
@@ -37,10 +40,15 @@ public class GameState : ScriptableObject
         }
         isFinalDoorOpen = false;
 
-        LastCompletedIndex = -1;
+        LastEnteredDoor = -1;
 
         playerUpgrades.Clear();
 
         lastLostUpgrade = null;
+        for (int i = 0; i < FurthestDoorsArray.Length; i++)
+        {
+            FurthestDoorsArray[i] = -1;
+        }
+
     }
 }

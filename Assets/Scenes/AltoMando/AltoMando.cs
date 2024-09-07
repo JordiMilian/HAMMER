@@ -19,7 +19,7 @@ public class AltoMando : MonoBehaviour
         Handle4Doors();
         HandleFinalDoor();
 
-        if(gameState.isTutorialComplete && gameState.LastCompletedIndex < 0)
+        if (gameState.isTutorialComplete && gameState.LastEnteredDoor < 0 || (gameState.LastCompletedBoss == gameState.LastEnteredDoor && gameState.LastEnteredDoor >= 0 ))
         {
             tutorialEndRespawner.ExternallyActivateRespawner();
 
@@ -54,13 +54,13 @@ public class AltoMando : MonoBehaviour
             FinalDoor.DisableAutoDoorOpener();
             FinalDoor.DisableAutoDoorCloser();
 
-            EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastCompletedIndex; //Player respawn on the last completed index
+            EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastEnteredDoor; //Player respawn on the last exited index
 
             if (!Door.isCompleted) //Uncompleted Doors
             {
                 Door.DoorController.InstaOpen();
             }
-            else if (i == gameState.LastCompletedIndex) //last completed door
+            else if (i == gameState.LastEnteredDoor) //last completed door
             {
                 doorsCompleted++;
                 Door.DoorController.InstaOpen();

@@ -17,7 +17,7 @@ public class EnterExitScene_controller : MonoBehaviour
             OnPlayerEnteredFromHere();
         }
     }
-    void OnPlayerEnteredFromHere()
+    public void OnPlayerEnteredFromHere()
     {
         CutscenesManager.Instance.AddCutscene(enterCutscene);
     }

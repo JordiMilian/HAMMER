@@ -982,6 +982,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &527019869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527019871}
+  - component: {fileID: 527019870}
+  m_Layer: 0
+  m_Name: EnterExit_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &527019870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527019869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5baca2e5687f94b9f1c902be01616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterExitScenesList: []
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  roomGenerator: {fileID: 1126747143}
+--- !u!4 &527019871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527019869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.22, y: -116.03, z: -0.5044769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &556958803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1937,7 @@ PrefabInstance:
       objectReference: {fileID: 295019124}
     - target: {fileID: 4807916173490186040, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17.99997
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 4807916173635319868, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
       propertyPath: Action
@@ -2108,7 +2155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485102b74685ec44bbdd542326d39746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AreaIndex: 0
+  AreaIndex: 1
   GroupsOfRoomsList:
   - {fileID: 164943845}
   - {fileID: 1708173106}
@@ -3811,6 +3858,8 @@ MonoBehaviour:
   Respawners: []
   CurrentFurthestRespawner: {fileID: 0}
   eventSystem: {fileID: 295019124}
+  gameState: {fileID: 0}
+  roomGenerator: {fileID: 0}
 --- !u!4 &2000629824
 Transform:
   m_ObjectHideFlags: 0

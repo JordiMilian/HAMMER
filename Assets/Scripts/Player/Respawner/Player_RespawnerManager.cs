@@ -8,31 +8,27 @@ public class Player_RespawnerManager : MonoBehaviour
 {
 
     public List<Player_Respawner> Respawners = new List<Player_Respawner>();
+    bool isSorted;
     [SerializeField] Player_Respawner CurrentFurthestRespawner;
     //[SerializeField] GameObject PlayerGO;
     [SerializeField] Player_EventSystem eventSystem;
+    [SerializeField] GameState gameState;
+    [SerializeField] RoomGenerator_Manager roomGenerator;
     
-
+    
     private void OnEnable()
     {
-        
         eventSystem.CallRespawnToLastRespawner += RespawnPlayer;
-        foreach (Player_Respawner respawner in Respawners)
-        {
-            respawner.OnRespawnerActivated += CheckFurthestRespawner;
-        }
     }
     private void OnDisable()
     {
         eventSystem.CallRespawnToLastRespawner -= RespawnPlayer;
-        foreach (Player_Respawner respawner in Respawners)
-        {
-            respawner.OnRespawnerActivated -= CheckFurthestRespawner;
-        }
     }
     public static Player_RespawnerManager Instance;
     private void Awake()
     {
+        //ActivateSavedRespawner();
+
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -52,20 +48,57 @@ public class Player_RespawnerManager : MonoBehaviour
     {
         CurrentFurthestRespawner = FindFurthestActiveRespawner();
     }
+    
     Player_Respawner FindFurthestActiveRespawner()
     {
-        int furthestIndex = 0;
-        float maxDistance = 0;
-        for(int i = 0;i<Respawners.Count;i++)
+        if (!isSorted)
         {
-            //Sorting by distance to the Manger gameobject
-            Respawners[i].distanceToManager = (Respawners[i].transform.position - transform.position).sqrMagnitude;
-            if(Respawners[i].distanceToManager > maxDistance && Respawners[i].IsActivated)
+            sortRespawners();
+            isSorted = true;
+        }
+        return Respawners[GetFurthestActiveRespawnerIndex()];
+    }
+    int GetFurthestActiveRespawnerIndex()
+    {
+        int furthestIndex = 0;
+        for (int i = 0; i < Respawners.Count; i++)
+        {
+            if (Respawners[i].IsActivated)
             {
                 furthestIndex = i;
-                maxDistance = Respawners[i].distanceToManager;
             }
         }
-        return Respawners[furthestIndex];
+        //gameState.FurthestDoorsArray[roomGenerator.AreaIndex] = furthestIndex;
+        return furthestIndex;
+    }
+    void sortRespawners()
+    {
+        setDistancesOfRespawners();
+
+        //We should get back to just "Get furthest spawner()" without sorting pls
+
+        int respawneresLenght = Respawners.Count;
+        for (int i = 0; i < respawneresLenght; i++)
+        {
+            int closestIndex = i;
+            for (int j = i +1; j < respawneresLenght; j++)
+            {
+                if (Respawners[j].distanceToManager < Respawners[closestIndex].distanceToManager)
+                {
+                    closestIndex = j;
+                }
+            }
+
+            Player_Respawner tempRespawner = Respawners[closestIndex];
+            Respawners[closestIndex] = Respawners[i];
+            Respawners[i] = tempRespawner;
+        }
+    }
+    void setDistancesOfRespawners()
+    {
+        foreach (Player_Respawner respawner in Respawners)
+        {
+            respawner.distanceToManager = (respawner.transform.position - transform.position).sqrMagnitude;
+        }
     }
 }

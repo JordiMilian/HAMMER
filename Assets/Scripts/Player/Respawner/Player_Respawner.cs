@@ -32,9 +32,10 @@ public class Player_Respawner : MonoBehaviour
     {
         ActivateRespawner();
     }
-    public void ExternallyActivateRespawner() //This is called from the AltoMando when loading the scene after a reset
+    public void ExternallyActivateRespawner()
     {
         ActivateRespawner();
+        //THere should be something to controll the visible sprites and shi. Mainly the head should disspear if activated
         GetComponent<TiedEnemy_StateMachine>().OnDeathState(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,gameObject)); 
     }
      void ActivateRespawner()
