@@ -19,7 +19,7 @@ public class AltoMando : MonoBehaviour
         Handle4Doors();
         HandleFinalDoor();
 
-        if (gameState.isTutorialComplete && gameState.LastEnteredDoor < 0 || (gameState.LastCompletedBoss == gameState.LastEnteredDoor && gameState.LastEnteredDoor >= 0 ))
+        if (gameState.isTutorialComplete && gameState.LastEnteredDoor < 0 || gameState.justDefeatedBoss )
         {
             tutorialEndRespawner.ExternallyActivateRespawner();
 
@@ -40,6 +40,7 @@ public class AltoMando : MonoBehaviour
     private void OnDisable()
     {
         tutorialEndRespawner.OnRespawnerActivated -= TutorialCompleted;
+        if (gameState.justDefeatedBoss) { gameState.justDefeatedBoss = false; }
     }
 
     void Handle4Doors()

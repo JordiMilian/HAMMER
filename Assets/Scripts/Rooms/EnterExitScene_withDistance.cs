@@ -30,8 +30,8 @@ public class EnterExitScene_withDistance : EnterExitScene_controller
     }
     void ActivateDoor()
     {
-        onDoorActivated?.Invoke();
         isDoorActive = true;
+        onDoorActivated?.Invoke();
     }
 
     
