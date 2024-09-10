@@ -108,7 +108,7 @@ public class Player_Movement : MonoBehaviour
         }
     }
     void StopRunningOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args) { StopRunning(); }
-    void StopRunning()
+    public void StopRunning()
     {
         isRunning = false;
         CurrentSpeed = BaseSpeed;

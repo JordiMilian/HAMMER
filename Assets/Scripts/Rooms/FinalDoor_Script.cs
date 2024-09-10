@@ -8,7 +8,7 @@ public class FinalDoor_Script : BaseCutsceneLogic
     [SerializeField] GameState gameState;
     [SerializeField] Animator doorAnimator;
     [SerializeField] Generic_OnTriggerEnterEvents getNearDoor_collider;
-    int skullsThatShouldBeUnlocked;
+    [SerializeField] AnimationClip skull01Clip, skull02Clip, skull03Clip;
     private void Awake()
     {
         if (gameState.justDefeatedBoss)
@@ -85,10 +85,16 @@ public class FinalDoor_Script : BaseCutsceneLogic
     IEnumerator UnlockSkull01Cutscene()
     {
         Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-
+        Transform playerTf = playerEvents.transform;
+        TargetGroupSingleton targetGroups = TargetGroupSingleton.Instance;
+        Vector2 basePlayerTargetStats = targetGroups.GetTargetStats(playerTf);
+    
         playerEvents.CallDisable();
+        targetGroups.EditTarget(playerTf, .5f, 1);
+
         doorAnimator.SetTrigger("Unlock01");
-        yield return new WaitForSeconds(UsefullMethods.getCurrentAnimationLenght(doorAnimator, 0) + 1);
+        
+        yield return new WaitForSeconds(skull01Clip.length + .5f);
 
         gameState.actuallyUnlockedSkulls++;
         if (gameState.SkullsThatShouldBeUnlocked > gameState.actuallyUnlockedSkulls)
@@ -97,36 +103,59 @@ public class FinalDoor_Script : BaseCutsceneLogic
         }
 
         playerEvents.CallEnable();
+        targetGroups.EditTarget(playerTf,basePlayerTargetStats.x, basePlayerTargetStats.y);
+
+
         onCutsceneOver?.Invoke();
     }
     IEnumerator UnlockSkull02Cutscene()
     {
         Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+        Transform playerTf = playerEvents.transform;
+        TargetGroupSingleton targetGroups = TargetGroupSingleton.Instance;
+        Vector2 basePlayerTargetStats = targetGroups.GetTargetStats(playerTf);
 
         playerEvents.CallDisable();
+        targetGroups.EditTarget(playerTf, .5f, 1);
+
         doorAnimator.SetTrigger("Unlock02");
-        yield return new WaitForSeconds(UsefullMethods.getCurrentAnimationLenght(doorAnimator, 0) + 1);
+
+        yield return new WaitForSeconds(skull02Clip.length + .5f);
+
         gameState.actuallyUnlockedSkulls++;
         if (gameState.SkullsThatShouldBeUnlocked > gameState.actuallyUnlockedSkulls)
         {
             IterativeCheck();
         }
+
         playerEvents.CallEnable();
+        targetGroups.EditTarget(playerTf, basePlayerTargetStats.x, basePlayerTargetStats.y);
+
         onCutsceneOver?.Invoke();
     }
     IEnumerator UnlockSkull03Cutscene()
     {
         Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+        Transform playerTf = playerEvents.transform;
+        TargetGroupSingleton targetGroups = TargetGroupSingleton.Instance;
+        Vector2 basePlayerTargetStats = targetGroups.GetTargetStats(playerTf);
 
         playerEvents.CallDisable();
+        targetGroups.EditTarget(playerTf, .5f, 1);
+
         doorAnimator.SetTrigger("Unlock03");
-        yield return new WaitForSeconds(UsefullMethods.getCurrentAnimationLenght(doorAnimator, 0) + 1);
+
+        yield return new WaitForSeconds(skull03Clip.length - 1.5f);
+
         gameState.actuallyUnlockedSkulls++;
         if (gameState.SkullsThatShouldBeUnlocked > gameState.actuallyUnlockedSkulls)
         {
             IterativeCheck();
         }
+
         playerEvents.CallEnable();
+        targetGroups.EditTarget(playerTf, basePlayerTargetStats.x, basePlayerTargetStats.y);
+
         onCutsceneOver?.Invoke(); ;
     }
 }

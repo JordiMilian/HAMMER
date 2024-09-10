@@ -9,6 +9,7 @@ public class Player_DisableController : MonoBehaviour
 
     [SerializeField] Transform MouseTarget;
     [SerializeField] List<GameObject> SpritesRoot = new List<GameObject>();
+    public bool isScriptDisabled;
 
     private void Awake()
     {
@@ -49,12 +50,15 @@ public class Player_DisableController : MonoBehaviour
     }
     void DisablePlayerScripts()
     {
+        playerRefs.animator.SetBool("Walking", false);
+        playerRefs.playerMovement.StopRunning();
         playerRefs.playerMovement.enabled = false;
         playerRefs.followMouse.enabled = false;
         playerRefs.comboSystem.enabled = false;
         TargetGroupSingleton.Instance.RemoveTarget(MouseTarget);
         playerRefs.damageDetector.enabled = false;
         playerRefs.positionCollider.enabled = false;
+        isScriptDisabled = true;
     }
     void EnablePlayerScripts()
     {
@@ -64,5 +68,6 @@ public class Player_DisableController : MonoBehaviour
         TargetGroupSingleton.Instance.AddTarget(MouseTarget, 1, 0);
         playerRefs.damageDetector.enabled = true;
         playerRefs.positionCollider.enabled = true;
+        isScriptDisabled = false;
     }
 }

@@ -19,6 +19,7 @@ public class Player_References : Generic_References
     public Player_UpgradesManager upgradesManager;
     public Player_SpecialAttack specialAttack;
     public Generic_OnTriggerEnterEvents singlePointCollider;
+    public Player_DisableController disableController;
 
     public FloatVariable currentHealth;
     public FloatVariable maxHealth;

@@ -55,5 +55,31 @@ public class TargetGroupSingleton : MonoBehaviour
             }
         }
     }
+    public void EditTarget(Transform target, float newWeight, float  newRadius)
+    {
+        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+        {
+            if (targetGroup.m_Targets[i].target == target)
+            {
+                targetGroup.m_Targets[i].weight = newWeight;
+                targetGroup.m_Targets[i].radius = newRadius;
+                return;
+            }
+        }
+        Debug.LogWarning(target.name + " target group was not found");
+    }
+    public Vector2 GetTargetStats(Transform target)
+    {
+        Vector2 targetStats = Vector2.zero;
+        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+        {
+            if (targetGroup.m_Targets[i].target == target)
+            {
+                targetStats = new Vector2(targetGroup.m_Targets[i].weight, targetGroup.m_Targets[i].radius);
+                break;
+            }
+        }
+        return targetStats;
+    }
     
 }
