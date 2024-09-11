@@ -33,16 +33,7 @@ public class GameState : ScriptableObject
     public List<GameObject> weaponsPrefabList = new List<GameObject>();
 
     public int[] FurthestDoorsArray = new int[5];
-    //public int FinalDoorPhases;
-    /*
-    0: all skulls locked
-    1: first skull to unlock
-    2: first skull unlocked
-    3: second skull to unlock
-    4: second skull unlocked
-    5: third skull to unlock
-    6: third skull unlocked and door opened
-    */
+
     public int actuallyUnlockedSkulls;
     public int SkullsThatShouldBeUnlocked;
     public void ResetState()
