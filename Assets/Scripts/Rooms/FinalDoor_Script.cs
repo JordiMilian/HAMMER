@@ -13,7 +13,7 @@ public class FinalDoor_Script : BaseCutsceneLogic
     {
         if (gameState.justDefeatedBoss)
         {
-            gameState.SkullsThatShouldBeUnlocked++;
+            //gameState.SkullsThatShouldBeUnlocked++;
         }
         CheckStateAndUpdateDoor();
     }

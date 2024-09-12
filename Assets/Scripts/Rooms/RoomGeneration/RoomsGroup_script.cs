@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoomsGroup_script : MonoBehaviour
 {
     public string Name;
-    public enum TypesOfRoom { AvoidAnyRepetition, AvoidTwoSameConsecutiveRooms, TrueRandom }
+    public enum TypesOfRoom { AvoidAnyRepetition, AvoidTwoSameConsecutiveRooms, TrueRandom, SpawnInOrder }
     public TypesOfRoom TypeOfRoom;
     public int AmountOfRoomsToSpawn;
     public GameObject[] RoomPrefabs;
@@ -62,6 +63,10 @@ public class RoomsGroup_script : MonoBehaviour
                 }
 
                 return roomsList.ToArray();
+
+            case TypesOfRoom.SpawnInOrder:
+
+                return RoomPrefabs.ToArray();
         }
         return roomsList.ToArray();
     }

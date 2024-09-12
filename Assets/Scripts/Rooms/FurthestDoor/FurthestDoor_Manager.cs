@@ -38,7 +38,6 @@ public class FurthestDoor_Manager : MonoBehaviour
         enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].playEnteringCutsceneOnLoad = true;
         Player_RespawnerManager.Instance.Respawners[roomGenerator.AreaIndex].ExternallyActivateRespawner();
 
-        // We should externally activate the respawner from here probably
 
     }
     void sortDoorsByDistance()

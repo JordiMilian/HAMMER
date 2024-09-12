@@ -36,6 +36,8 @@ public class GameState : ScriptableObject
 
     public int actuallyUnlockedSkulls;
     public int SkullsThatShouldBeUnlocked;
+
+    public bool hasPickedFirstUpgrade;
     public void ResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)
@@ -43,16 +45,26 @@ public class GameState : ScriptableObject
             bossAreaDoor.isCompleted = false;
         }
         isFinalDoorOpen = false;
+        isTutorialComplete = false;
+        justDefeatedBoss = false;
 
         LastEnteredDoor = -1;
 
         playerUpgrades.Clear();
 
         lastLostUpgrade = null;
+
+        PlayersWeaponPrefab = weaponsPrefabList[0];
+
         for (int i = 0; i < FurthestDoorsArray.Length; i++)
         {
             FurthestDoorsArray[i] = -1;
         }
+
+        actuallyUnlockedSkulls = 0;
+        SkullsThatShouldBeUnlocked = 0;
+
+        hasPickedFirstUpgrade = false;
 
     }
 }

@@ -18,7 +18,7 @@ public class Rooms_FadInOut : MonoBehaviour
     [SerializeField] Foregrounder DoorForegrounder;
     
     [SerializeField] float TransitionTime = 0.2f;
-    [SerializeField] bool isStartingRoom;
+    public bool isStartingRoom;
     private void Awake()
     {
         foreach(GameObject root in RoomSpritesRoots)
