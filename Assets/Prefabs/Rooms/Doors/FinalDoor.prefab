@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 3608936726837888033}
   - component: {fileID: 6377309204280743077}
   - component: {fileID: 7211161084366964543}
+  - component: {fileID: 996272114908967329}
   m_Layer: 0
   m_Name: FinalDoor
   m_TagString: Untagged
@@ -470,6 +471,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &996272114908967329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3874574989908405094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e48d50e6452b324480bba2c97f88efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  finalDoor_Dialoguer: {fileID: 7601892427636848572}
 --- !u!1 &4253457342069672747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,6 +1049,10 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 615882249613548982}
+    - target: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+      propertyPath: dialoguesContainer
+      value: 
+      objectReference: {fileID: 11400000, guid: d35917a122fa87947bb7a29db82a4577, type: 2}
     - target: {fileID: 3143310112689085149, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Radius
       value: 1.7774312
@@ -1098,6 +1117,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7601892427636848572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+  m_PrefabInstance: {fileID: 4818885713388858726}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601892427636848568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c2af6724efa4468ace74bf793f1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &7601892427636848574 stripped

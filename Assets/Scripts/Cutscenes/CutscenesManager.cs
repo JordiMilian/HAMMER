@@ -32,9 +32,10 @@ public class CutscenesManager : MonoBehaviour
     void playCutscene(BaseCutsceneLogic cutscene)
     {
         Debug.Log("Starting new cutscene: " + cutscene.gameObject.name);
+        cutscene.onCutsceneOver += CutsceneOver;
         cutscene.playThisCutscene();
         isPlaying = true;
-        cutscene.onCutsceneOver += CutsceneOver;
+        
     }
      void CutsceneOver()
     {

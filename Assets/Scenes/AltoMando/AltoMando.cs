@@ -33,6 +33,7 @@ public class AltoMando : MonoBehaviour
             }
             CutscenesManager.Instance.AddCutscene(ResetStateCutscene);
         }
+
         gameState.isSpawnWithouUpgrades = false;
 
         tutorialEndRespawner.OnRespawnerActivated += TutorialCompleted;
@@ -55,7 +56,11 @@ public class AltoMando : MonoBehaviour
             FinalDoor.DisableAutoDoorOpener();
             FinalDoor.DisableAutoDoorCloser();
 
-            EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastEnteredDoor; //Player respawn on the last exited index
+            if (!gameState.justDefeatedBoss)
+            {
+                EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastEnteredDoor; //Player respawn on the last exited index
+            }
+
 
             if (!Door.isCompleted) //Uncompleted Doors
             {

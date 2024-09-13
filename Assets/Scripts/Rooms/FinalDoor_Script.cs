@@ -11,10 +11,6 @@ public class FinalDoor_Script : BaseCutsceneLogic
     [SerializeField] AnimationClip skull01Clip, skull02Clip, skull03Clip;
     private void Awake()
     {
-        if (gameState.justDefeatedBoss)
-        {
-            //gameState.SkullsThatShouldBeUnlocked++;
-        }
         CheckStateAndUpdateDoor();
     }
     void CheckStateAndUpdateDoor()

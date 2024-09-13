@@ -28,17 +28,12 @@ public class FurthestDoor_Manager : MonoBehaviour
         sortDoorsByDistance();
         ActivateGameStatesDoor();
     }
-    void ActivateGameStatesDoor()
+    void SubscribeToDoors()
     {
-        if (gameState.FurthestDoorsArray[roomGenerator.AreaIndex] < 0) { return; }
-        foreach (EnterExitScene_withDistance enterExitScene in enterExitScenesList)
+        foreach (EnterExitScene_withDistance enterExit in enterExitScenesList)
         {
-            enterExitScene.playEnteringCutsceneOnLoad = false;
+            enterExit.onDoorActivated += UpdateFurthestDoorInState;
         }
-        enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].playEnteringCutsceneOnLoad = true;
-        Player_RespawnerManager.Instance.Respawners[roomGenerator.AreaIndex].ExternallyActivateRespawner();
-
-
     }
     void sortDoorsByDistance()
     {
@@ -61,6 +56,18 @@ public class FurthestDoor_Manager : MonoBehaviour
             enterExitScenesList[i] = tempEnterExit;
         }
     }
+    void ActivateGameStatesDoor()
+    {
+        if (gameState.FurthestDoorsArray[roomGenerator.AreaIndex] < 0) { return; }
+        foreach (EnterExitScene_withDistance enterExitScene in enterExitScenesList)
+        {
+            enterExitScene.playEnteringCutsceneOnLoad = false;
+        }
+        enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].playEnteringCutsceneOnLoad = true;
+        enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].tiedEnemyRespawner.ExternallyActivateRespawner();
+        //Player_RespawnerManager.Instance.Respawners[roomGenerator.AreaIndex].ExternallyActivateRespawner();
+    }
+    
     void SetDistancesToDoors()
     {
         foreach (EnterExitScene_withDistance enterExit in enterExitScenesList)
@@ -68,14 +75,7 @@ public class FurthestDoor_Manager : MonoBehaviour
             enterExit.DistanceToManager = (enterExit.transform.position - transform.position).sqrMagnitude;
         }
     }
-
-    void SubscribeToDoors()
-    {
-        foreach(EnterExitScene_withDistance enterExit in enterExitScenesList)
-        {
-            enterExit.onDoorActivated += UpdateFurthestDoorInState;
-        }
-    }
+    
     void UpdateFurthestDoorInState()
     {
         gameState.FurthestDoorsArray[roomGenerator.AreaIndex] = GetFurthestActiveDoor();

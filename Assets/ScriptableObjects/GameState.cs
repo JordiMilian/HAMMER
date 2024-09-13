@@ -36,6 +36,7 @@ public class GameState : ScriptableObject
 
     public int actuallyUnlockedSkulls;
     public int SkullsThatShouldBeUnlocked;
+    public int finalDoor_DialogueIndex;
 
     public bool hasPickedFirstUpgrade;
     public void ResetState()
@@ -63,6 +64,7 @@ public class GameState : ScriptableObject
 
         actuallyUnlockedSkulls = 0;
         SkullsThatShouldBeUnlocked = 0;
+        finalDoor_DialogueIndex = 0;
 
         hasPickedFirstUpgrade = false;
 

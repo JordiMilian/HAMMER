@@ -19,6 +19,7 @@ public class Player_RespawnerManager : MonoBehaviour
     private void OnEnable()
     {
         eventSystem.CallRespawnToLastRespawner += RespawnPlayer;
+        //sortRespawners();
     }
     private void OnDisable()
     {
@@ -74,8 +75,6 @@ public class Player_RespawnerManager : MonoBehaviour
     void sortRespawners()
     {
         setDistancesOfRespawners();
-
-        //We should get back to just "Get furthest spawner()" without sorting pls
 
         int respawneresLenght = Respawners.Count;
         for (int i = 0; i < respawneresLenght; i++)

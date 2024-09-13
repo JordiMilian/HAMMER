@@ -40,19 +40,19 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
     {
         for (int i = 0; i < weaponSpawners.Count; i++)
         {
-            Debug.Log("is it unlocked?");
+            //Debug.Log("is it unlocked?");
             if (!weaponSpawners[i].isUnlocked) { continue; }
 
-            Debug.Log("is it current?");
+            //Debug.Log("is it current?");
             if (weaponSpawners[i].isCurrentWeapon)
             {
                 //Algo aqui pa marcar que ja la tens desploquejada pero la tens en mans
                 continue;
             }
-            Debug.Log("is it null?");
+            //Debug.Log("is it null?");
             if (weaponSpawners[i].spawnedInstance == null)
             {
-                Debug.Log("spawned new weapon");
+                //Debug.Log("spawned new weapon");
                 weaponSpawners[i].spawnedInstance = spawnWeapon(weaponSpawners[i]);
                 weaponSpawners[i].infoHolder = weaponSpawners[i].spawnedInstance.GetComponent<WeaponPrefab_infoHolder>();
 

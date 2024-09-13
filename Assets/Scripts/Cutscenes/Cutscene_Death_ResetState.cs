@@ -8,17 +8,8 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
     public bool dontResetState;
     public override void playThisCutscene()
     {
-        if (!dontResetState) { gameState.ResetState(); }
 
-        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
-
-        playerRefs.events.CallHideAndDisable?.Invoke();
-
-        SetupForRespwan();
-
-        playerRefs.events.CallRespawnToLastRespawner?.Invoke();
-
-        onCutsceneOver?.Invoke();
+        StartCoroutine(cutscene());
     }
     void SetupForRespwan()
     {
@@ -29,5 +20,23 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
                     weaponPivot.transform.eulerAngles.y,
                     90
                     );
+    }
+    IEnumerator cutscene()
+    {
+        if (!dontResetState) { gameState.ResetState(); }
+
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+
+        playerRefs.events.CallHideAndDisable?.Invoke();
+
+        SetupForRespwan();
+
+        yield return null;
+
+        playerRefs.events.CallRespawnToLastRespawner?.Invoke();
+
+        onCutsceneOver?.Invoke();
+
+
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnterExitScene_withDistance : EnterExitScene_controller
 {
    [HideInInspector] public float DistanceToManager;
-    [SerializeField] Player_Respawner tiedEnemyRespawner;
+   public Player_Respawner tiedEnemyRespawner;
     public bool isDoorActive;
     public Action onDoorActivated;
     private void Awake()

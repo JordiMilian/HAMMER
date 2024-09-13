@@ -14,6 +14,7 @@ public class Dialoguer : MonoBehaviour
     public DialoguesContainer dialoguesContainer;
     public int dialoguesIndex;
 
+    public Action onFinishedReading;
     
     [SerializeField] TextMeshProUGUI MeshPro;
     [SerializeField] GameObject DialogueBubblePosition;
@@ -30,6 +31,10 @@ public class Dialoguer : MonoBehaviour
     Coroutine currentLinesReseter;
 
     private void Awake()
+    {
+        TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
+    }
+    public void UpdateDialogues()
     {
         TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
     }
@@ -137,6 +142,7 @@ public class Dialoguer : MonoBehaviour
         {
             HideDialogueBubble();
             CurrentLineToRead++;
+            onFinishedReading?.Invoke();
             return;
         }
         if(CurrentLineToRead >= TextLines.Count) //Si ho has llegit tot i vols tornar a llegir et torna al principi
