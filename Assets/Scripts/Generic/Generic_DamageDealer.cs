@@ -11,7 +11,8 @@ public class Generic_DamageDealer : MonoBehaviour
     public float HitStop;
     public bool isParryable;
     public bool isBloody;
-    public bool isChargingSpecialAttack;
+    public bool isChargingSpecialAttack; // I think this is used by the player. For example de special attack shouldnt charge
+    public bool isCharginSpecialAttack_whenParried;
     [SerializeField] int weaponIndex = 0;
 
     public enum Team

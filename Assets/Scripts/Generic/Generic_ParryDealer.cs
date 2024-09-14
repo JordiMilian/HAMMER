@@ -21,7 +21,7 @@ public class Generic_ParryDealer : MonoBehaviour
                     Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
                     if (dealer.isParryable)
                     {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position),dealer);
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position),dealer,dealer.isCharginSpecialAttack_whenParried);
                     }    
                 }
                 break;
@@ -31,15 +31,15 @@ public class Generic_ParryDealer : MonoBehaviour
                     Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
                     if (dealer.isParryable)
                     {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer);
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer,dealer.isCharginSpecialAttack_whenParried);
                     }
                 }
                 break;
         }
     }
-    void PublishSuccesfullParry(Vector3 collisionPoint, Generic_DamageDealer dealer)
+    void PublishSuccesfullParry(Vector3 collisionPoint, Generic_DamageDealer dealer, bool canCharge)
     {
-        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.SuccesfulParryInfo(collisionPoint,dealer)); }
+        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.SuccesfulParryInfo(collisionPoint,dealer, canCharge)); }
         
     }
 }

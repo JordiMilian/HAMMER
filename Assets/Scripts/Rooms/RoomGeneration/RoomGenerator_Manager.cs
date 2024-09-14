@@ -11,7 +11,7 @@ public class RoomGenerator_Manager : MonoBehaviour
     public Action<Vector2> Call_GenerateAllRoomsFromPosition;
     public int AreaIndex;
 
-    [SerializeField] List<RoomsGroup_script> GroupsOfRoomsList = new List<RoomsGroup_script>();
+    public List<RoomsGroup_script> GroupsOfRoomsList = new List<RoomsGroup_script>();
 
     [Serializable]
     public class GroupList

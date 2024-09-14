@@ -13,6 +13,14 @@ public class Generic_ShowHideAttackCollider : MonoBehaviour
     {
         EV_Enemy_HideAttackCollider();
     }
+    private void OnEnable()
+    {
+        eventSystem.OnEnterIdle += EV_Enemy_HideAttackCollider;
+    }
+    private void OnDisable()
+    {
+        eventSystem.OnEnterIdle -= EV_Enemy_HideAttackCollider;
+    }
     public  void EV_Enemy_ShowAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in damageDealer)

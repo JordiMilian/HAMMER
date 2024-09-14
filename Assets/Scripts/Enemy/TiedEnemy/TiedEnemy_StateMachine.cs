@@ -8,6 +8,13 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
     [SerializeField] List<SpriteRenderer> BodySprites;
     [SerializeField] Enemy_VFXManager vfxManager;
     [SerializeField] GameObject dialoguer;
+    [SerializeField] Dialoguer dialoguerScript;
+    [SerializeField] Generic_EventSystem tiedEvents;
+    private void OnEnable()
+    {
+        eventSystem.OnDeath += OnDeathState;
+        dialoguerScript.onFinishedReading += killDude;
+    }
     public override void OnDeathState(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         CurrentState = States.Dead;
@@ -17,7 +24,17 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
         GlobalPlayerReferences.Instance.references.healthSystem.RestoreAllHealth();
         dialoguer.SetActive(false);
     }
-
+    void killDude()
+    {
+        tiedEvents.OnReceiveDamage?.Invoke(this, new Generic_EventSystem.ReceivedAttackInfo(
+            Vector2.zero,
+            Vector2.zero,
+            Vector2.zero,
+            gameObject,
+            50,
+            0, 0, false
+            ));
+    }
 
     public void ShowBodies() //Go to Respawner Manager
     {

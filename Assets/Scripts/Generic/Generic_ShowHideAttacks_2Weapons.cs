@@ -8,6 +8,18 @@ public class Generic_ShowHideAttacks_2Weapons : Generic_ShowHideAttackCollider
     [SerializeField] Generic_DamageDealer damageDealer_W2;
     public TrailRenderer trailrendered_W2;
     public TrailRenderer testTrailrendered_W2;
+    private void OnEnable()
+    {
+        EV_Enemy_HideAttackCollider();
+        EV_Enemy_HideAttackCollider_W2();
+        eventSystem.OnEnterIdle += EV_Enemy_HideAttackCollider;
+        eventSystem.OnEnterIdle += EV_Enemy_HideAttackCollider_W2;
+    }
+    private void OnDisable()
+    {
+        eventSystem.OnEnterIdle -= EV_Enemy_HideAttackCollider;
+        eventSystem.OnEnterIdle -= EV_Enemy_HideAttackCollider_W2;
+    }
     public override void HideCollliderOnParry()
     {
         base.HideCollliderOnParry();

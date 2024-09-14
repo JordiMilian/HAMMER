@@ -448,6 +448,7 @@ MonoBehaviour:
   isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 1
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -1623,6 +1624,10 @@ PrefabInstance:
       value: PinkEnemy03
       objectReference: {fileID: 0}
     - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: animationReplacerArray.Array.data[0].Clip
       value: 
       objectReference: {fileID: 7400000, guid: 4018f15e8877d864f83a2de2f3d5619e, type: 2}
@@ -1630,6 +1635,22 @@ PrefabInstance:
       propertyPath: animationReplacerArray.Array.data[1].Clip
       value: 
       objectReference: {fileID: 7400000, guid: 617dd91c54aa8ab4aa363526938503dc, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[2].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: f0093bda65912354aabb694d7120cb57, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[3].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: c89192448ba28364fa5a5d3cc619a0b5, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[4].Clip
+      value: 
+      objectReference: {fileID: 7400000, guid: c89192448ba28364fa5a5d3cc619a0b5, type: 2}
+    - target: {fileID: 892060832174240504, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: animationReplacerArray.Array.data[4].StateName
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2195041901401652145, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1916,7 +1937,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[1].Damage
-      value: 0.25
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[2].Damage
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Enemy_Attacks.Array.data[3].Damage
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].KnockBack

@@ -72,7 +72,8 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void onSuccesfullParry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
     {
-        addCharge(1.5f);
+        if (info.canChargeSpecialAttack) { addCharge(1.25f); }
+        
     }
     void addCharge(float amount)
     {

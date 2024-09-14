@@ -44,10 +44,12 @@ public class Generic_EventSystem : MonoBehaviour
     {
         public Vector3 ParryPosition;
         public Generic_DamageDealer ParriedDamageDealer;
-        public SuccesfulParryInfo(Vector3 data, Generic_DamageDealer parriedDealer)
+        public bool canChargeSpecialAttack;
+        public SuccesfulParryInfo(Vector3 data, Generic_DamageDealer parriedDealer, bool canCharge)
         {
             ParryPosition = data;
             ParriedDamageDealer = parriedDealer;
+            canChargeSpecialAttack = canCharge;
         }
     }
     public class DeadCharacterInfo
