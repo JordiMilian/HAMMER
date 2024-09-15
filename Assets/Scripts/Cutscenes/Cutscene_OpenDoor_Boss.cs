@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
+public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic 
 {
     [SerializeField] Animator BossDefeatedUI_animator;
     [SerializeField] AnimationClip BossDefeatedUiClip;
     [SerializeField] AnimationClip openDoorAnimation;
     [SerializeField] DoorAnimationController doorController;
+    [SerializeField] GameState gameState;
     [SerializeField] float delayBeforeUI;
     [SerializeField] float delayBeforeDoor;
     public override void playThisCutscene()
     {
+        currentCutscene = StartCoroutine(BossRoomFinishedCutscene());
         onCutsceneOver?.Invoke();
     }
     IEnumerator BossRoomFinishedCutscene()
@@ -19,6 +22,11 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
         Transform doorTransform = doorController.transform;
         Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
 
+        //Fade out music when boss defeated
+        int indexOfGroup = gameState.currentPlayerRooms_index[gameState.currentPlayerRooms_index.Count - 1].x;
+        RoomsGroup_script thisGroup = RoomGenerator_Manager.Instance.GroupsOfRoomsList[indexOfGroup];
+        Audio_Area audioArea = thisGroup.GetComponentInChildren<Audio_Area>();
+        audioArea.onFadeOutAudio(new Collider2D());
 
         yield return new WaitForSeconds(delayBeforeUI);
 

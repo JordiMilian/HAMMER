@@ -15,13 +15,9 @@ public class AltoMando_FadeControl : MonoBehaviour
             mainFader.isStartingRoom = true;
             return;
         }
-        foreach (GameState.BossAreaDoor Door in gameState.FourDoors)
+        else if(gameState.LastEnteredDoor >= 0)
         {
-            if(Door.isCompleted)
-            {
-                backFader.isStartingRoom = true;
-                return;
-            }
+            backFader.isStartingRoom = true;
         }
 
         

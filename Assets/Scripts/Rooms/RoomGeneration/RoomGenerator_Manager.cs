@@ -27,7 +27,18 @@ public class RoomGenerator_Manager : MonoBehaviour
     [SerializeField] GameState gameState;
 
     Vector2 LastInitialPosition;
-
+    public static RoomGenerator_Manager Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void OnEnable()
     {
         Call_GenerateRooms_StartFromIndex += GenerateRooms_startFromIndex;
