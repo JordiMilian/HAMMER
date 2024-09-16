@@ -717,6 +717,78 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!1 &4969361975829469928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4563825527389150428}
+  - component: {fileID: 9100574892731846782}
+  - component: {fileID: 5039626757725819509}
+  m_Layer: 18
+  m_Name: MainRoomCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4563825527389150428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969361975829469928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.13, y: -0, z: 17.621862}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3067738325916631057}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &9100574892731846782
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969361975829469928}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.094944, y: 14.600072}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 33.450127, y: 29.247683}
+  m_EdgeRadius: 0
+--- !u!114 &5039626757725819509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969361975829469928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
 --- !u!1 &5203438734021333171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,7 +2195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5944824254718842927, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Size.y
-      value: 29.247683
+      value: 44.784153
       objectReference: {fileID: 0}
     - target: {fileID: 5944824254718842927, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Offset.x
@@ -2131,8 +2203,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5944824254718842927, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Offset.y
-      value: 14.600072
+      value: 22.368307
       objectReference: {fileID: 0}
+    - target: {fileID: 6256568804196409403, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: RoomTrigger
+      value: 
+      objectReference: {fileID: 5039626757725819509}
     - target: {fileID: 6256568804196409403, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: RoomSpritesRoots.Array.size
       value: 2
@@ -2535,7 +2611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6496161839216221880, guid: 517ba54c25267544e8f5b7eb57b6fbaf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.6740484
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6496161839216221880, guid: 517ba54c25267544e8f5b7eb57b6fbaf, type: 3}
       propertyPath: m_LocalRotation.w

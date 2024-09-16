@@ -13,22 +13,21 @@ MonoBehaviour:
   m_Name: game State
   m_EditorClassIdentifier: 
   FourDoors:
-  - isCompleted: 0
+  - isCompleted: 1
+    DoorController: {fileID: 0}
+  - isCompleted: 1
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
-  - isCompleted: 0
-    DoorController: {fileID: 0}
-  LastEnteredDoor: -1
-  LastCompletedBoss: -1
+  LastEnteredDoor: 1
+  LastCompletedBoss: 0
   isFinalDoorOpen: 0
-  isTutorialComplete: 0
+  isTutorialComplete: 1
   isSpawnWithouUpgrades: 0
   justDefeatedBoss: 0
-  playerUpgrades:
-  - {fileID: 11400000, guid: 1f6be0e307206c844849d0085c738f80, type: 2}
+  playerUpgrades: []
   lastLostUpgrade: {fileID: 0}
   IndexOfLostUpgradeRoom: {x: 6, y: 0, z: 1}
   isLostUpgradeAvailable: 0
@@ -39,8 +38,8 @@ MonoBehaviour:
   - {fileID: 3524697448897787556, guid: 70834cc068778ad47a9d51aad406fb0e, type: 3}
   - {fileID: 6275606604221386586, guid: f91abc7aa258fd3498aee1d27942a784, type: 3}
   - {fileID: 6275606604221386586, guid: 3e73bed5efd062143bb8ef79dcf14102, type: 3}
-  FurthestDoorsArray: 00000000000000000000000000000000ffffffff
-  actuallyUnlockedSkulls: 0
-  SkullsThatShouldBeUnlocked: 0
-  finalDoor_DialogueIndex: 0
+  FurthestDoorsArray: ffffffffffffffffffffffffffffffffffffffff
+  actuallyUnlockedSkulls: 2
+  SkullsThatShouldBeUnlocked: 2
+  finalDoor_DialogueIndex: 1
   hasPickedFirstUpgrade: 0

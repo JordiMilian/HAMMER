@@ -15,7 +15,6 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
     public override void playThisCutscene()
     {
         currentCutscene = StartCoroutine(BossRoomFinishedCutscene());
-        onCutsceneOver?.Invoke();
     }
     IEnumerator BossRoomFinishedCutscene()
     {
