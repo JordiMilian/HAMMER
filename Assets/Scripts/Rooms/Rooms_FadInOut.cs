@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Path;
 using UnityEngine;
 using UnityEngine.U2D;
 using static Generic_OnTriggerEnterEvents;
@@ -100,11 +101,12 @@ public class Rooms_FadInOut : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in AllRoomSprites)
         {
-            StartCoroutine(FadeInSprite(result => sprite.color = result, sprite.color, sprite));
+            if(sprite != null) { StartCoroutine(FadeInSprite(result => sprite.color = result, sprite.color, sprite)); }
+            
         }
         foreach(SpriteShapeRenderer shape in AllRoomShapes)
         {
-            StartCoroutine(FadeInSprite(result => shape.color = result, shape.color, shape));
+            if (shape != null) { StartCoroutine(FadeInSprite(result => shape.color = result, shape.color, shape)); }
         }
     }
     IEnumerator FadeInSprite(Action<Color> colorToChange, Color baseColor, Renderer renderer)

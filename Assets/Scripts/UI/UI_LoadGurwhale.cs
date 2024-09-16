@@ -7,6 +7,6 @@ public class UI_LoadGurwhale : UI_BaseAction
 {
     public override void Action(UI_Button button)
     {
-        SceneManager.LoadScene("AltoMando", LoadSceneMode.Single);
+        SceneManager.LoadScene("AltoMando_generated", LoadSceneMode.Single);
     }
 }

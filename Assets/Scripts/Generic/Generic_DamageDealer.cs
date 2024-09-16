@@ -63,17 +63,14 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishDealtDamageEvent(Collider2D collision, bool isChargeable = false)
     {
-        if (eventSystem.OnDealtDamage != null)
-        {
-            float charge = 0;
-            if (isChargeable && isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
+        float charge = 0;
+        if (isChargeable && isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
 
-            eventSystem.OnDealtDamage(this, new Generic_EventSystem.DealtDamageInfo(
-            collision.ClosestPoint(gameObject.transform.position),
-            Damage,
-            charge
-            )) ;
-        }
+        eventSystem.OnDealtDamage?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
+        collision.ClosestPoint(gameObject.transform.position),
+        Damage,
+        charge
+        ));
     }
     void PublishHitObject(Collider2D collision)
     {
