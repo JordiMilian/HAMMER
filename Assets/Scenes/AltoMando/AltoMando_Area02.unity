@@ -517,14 +517,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1230601318}
     - target: {fileID: 4128982462933193464, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
-      propertyPath: DelayToRecover
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128982462933193464, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
-      propertyPath: RecoveryPerSecond
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128982462933193464, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
       propertyPath: DelayToFullRecover
       value: 0.7
       objectReference: {fileID: 0}
@@ -1619,7 +1611,7 @@ PrefabInstance:
       objectReference: {fileID: 8565251678954193344, guid: 17d3a91d4a9ca464eb817ff4a00a9943, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2279,9 +2271,8 @@ MonoBehaviour:
   GroupsOfRoomsList:
   - {fileID: 700436694}
   - {fileID: 641056460}
-  - {fileID: 1893215821}
   - {fileID: 1547363692}
-  - {fileID: 1809634881}
+  - {fileID: 1893215821}
   - {fileID: 1977332106}
   - {fileID: 114545059}
   CompleteList_spawnedRooms: []
@@ -2324,6 +2315,8 @@ MonoBehaviour:
   Trigger_AllRooms: 0
   Trigger_SingleGroup: 0
   Trigger_StartingFromGroup: 0
+  SpawnNewRoomsOnAwake: 1
+  SubscribeToSpawnedRoomsOnAwake: 0
   triggerIndex: 0
 --- !u!1001 &1132696074
 PrefabInstance:
@@ -2668,7 +2661,7 @@ PrefabInstance:
       objectReference: {fileID: 6238269892162303297, guid: 99c192357eec10f409f228c5d635d716, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2998,7 +2991,7 @@ PrefabInstance:
       objectReference: {fileID: 6238269892162303297, guid: c5577395d50c4ed4182cd273d2de0700, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3284,7 +3277,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4178691010928501065, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_Name
-      value: Checkpoint02
+      value: Upgrade + Checkpoint02
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: TypeOfRoom
@@ -3296,15 +3289,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.data[0]
       value: 
+      objectReference: {fileID: 5910322705796402986, guid: efc84494033d1104e9dbcfb3eac05a25, type: 3}
+    - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
+      propertyPath: RoomPrefabs.Array.data[1]
+      value: 
       objectReference: {fileID: 6238269892162303297, guid: 6681c3094b5bab14e8dd77e5c3259520, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3407,17 +3404,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
   m_PrefabInstance: {fileID: 1436288557}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1809634881 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
-  m_PrefabInstance: {fileID: 1436288557}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03f656636c59b646b557e7b0dd12513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1833505848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3447,7 +3433,7 @@ PrefabInstance:
       objectReference: {fileID: 4998058279279500313, guid: e8ad2cd4f774ffc4480b1d1d269fbb4b, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3590,14 +3576,14 @@ PrefabInstance:
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 850529500995137284, guid: 4377a179174ada44c968ef59eb600256, type: 3}
+      objectReference: {fileID: 850529500995137284, guid: 4cd351cbd0cfd3c4b8f715cc0b53ae39, type: 3}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.data[2]
       value: 
       objectReference: {fileID: 6928860249906910896, guid: 9fac7486bd199b047b3cf41bfaa915e5, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3807,7 +3793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: AmountOfRoomsToSpawn
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.size
@@ -3827,7 +3813,7 @@ PrefabInstance:
       objectReference: {fileID: 8565251678954193344, guid: 8abd4f5403cb6044c97f4746e5f75cd5, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_LocalPosition.x

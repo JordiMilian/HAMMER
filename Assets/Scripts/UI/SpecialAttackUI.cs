@@ -16,7 +16,7 @@ public class SpecialAttackUI : MonoBehaviour
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
         CurrentSpecialAttack.OnValueSet += updateBar;
-        OnNotFullyCharged();
+        updateBar();
     }
     private void OnDisable()
     {
