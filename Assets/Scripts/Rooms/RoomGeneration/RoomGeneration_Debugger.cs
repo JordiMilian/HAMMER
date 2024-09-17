@@ -5,12 +5,14 @@ using UnityEngine;
 public class RoomGeneration_Debugger : MonoBehaviour
 {
     [SerializeField] RoomGenerator_Manager manager;
-    [SerializeField] bool Trigger_AllRooms, Trigger_SingleGroup, Trigger_StartingFromGroup;
+    [SerializeField] bool Trigger_AllRooms, Trigger_SingleGroup, Trigger_StartingFromGroup, SpawnNewRoomsOnAwake, SubscribeToSpawnedRoomsOnAwake;
     [SerializeField] int triggerIndex;
 
     private void Awake()
     {
-        manager.Call_GenerateAllRoomsFromPosition?.Invoke(transform.position);
+        if (SpawnNewRoomsOnAwake) { manager.Call_GenerateAllRoomsFromPosition?.Invoke(transform.position); }
+        else if (SubscribeToSpawnedRoomsOnAwake) { manager.CallSubscribeToCurrentRooms(); }
+        
     }
     private void Update()
     {

@@ -9,6 +9,6 @@ public class UI_NewGame_AltoMando : UI_BaseAction
     public override void Action(UI_Button button)
     {
         gameState.ResetState();
-        SceneManager.LoadScene("AltoMando", LoadSceneMode.Single);
+        SceneManager.LoadScene("AltoMando_generated", LoadSceneMode.Single);
     }
 }

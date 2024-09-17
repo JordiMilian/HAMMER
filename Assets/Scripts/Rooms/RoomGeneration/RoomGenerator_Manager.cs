@@ -9,6 +9,7 @@ public class RoomGenerator_Manager : MonoBehaviour
     public Action<int> Call_GenerateRooms_StartFromIndex;
     public Action<int> Call_GenerateSingleGroupOfRooms;
     public Action<Vector2> Call_GenerateAllRoomsFromPosition;
+    public Action CallSubscribeToCurrentRooms;
     public int AreaIndex;
 
     public List<RoomsGroup_script> GroupsOfRoomsList = new List<RoomsGroup_script>();
@@ -44,12 +45,14 @@ public class RoomGenerator_Manager : MonoBehaviour
         Call_GenerateRooms_StartFromIndex += GenerateRooms_startFromIndex;
         Call_GenerateSingleGroupOfRooms += GenerateSingleGroupOfRooms;
         Call_GenerateAllRoomsFromPosition += GenerateAllRoomsFromPos;
+        CallSubscribeToCurrentRooms += subscribeToCurrentRooms;
     }
     private void OnDisable()
     {
         Call_GenerateRooms_StartFromIndex -= GenerateRooms_startFromIndex;
         Call_GenerateSingleGroupOfRooms -= GenerateSingleGroupOfRooms;
         Call_GenerateAllRoomsFromPosition -= GenerateAllRoomsFromPos;
+        CallSubscribeToCurrentRooms -= subscribeToCurrentRooms;
 
         gameState.currentPlayersRooms.Clear();
         gameState.currentPlayerRooms_index.Clear();
@@ -143,6 +146,19 @@ public class RoomGenerator_Manager : MonoBehaviour
     {
         gameState.currentPlayersRooms.Remove(room);
         gameState.currentPlayerRooms_index.Remove(room.indexInCompleteList);
+    }
+    void subscribeToCurrentRooms()
+    {
+        for (int group = 0; group < CompleteList_spawnedRooms.Count; group++)
+        {
+            for (int room = 0; room < CompleteList_spawnedRooms[group].list.Count; room++)
+            {
+                subscribeToRoom(
+                    CompleteList_spawnedRooms[group].list[room],
+                    CompleteList_spawnedRooms[group].list[room].indexInCompleteList
+                    );
+            }
+        }
     }
     private void OnDrawGizmosSelected()
     {

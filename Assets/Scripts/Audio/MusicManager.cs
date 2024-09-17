@@ -56,6 +56,7 @@ public class MusicManager : MonoBehaviour
         newSource.BaseVolume = source.volume;
 
         musicSources.Add(newSource);
+        Debug.Log("Added new music source with base: "+ newSource.BaseVolume);
     }
     public void RemoveMusicSource(AudioSource source)
     {
@@ -72,5 +73,6 @@ public class MusicManager : MonoBehaviour
         float equivalentVolume = Mathf.Lerp(0, mSource.BaseVolume, GeneralMusicVolume);
         mSource.audioSource.volume = equivalentVolume;
         mSource.audioSource.gameObject.GetComponent<Audio_Area>().BaseVolume = equivalentVolume;
+        Debug.Log("Settet new music volume to: " + equivalentVolume);   
     }
 }
