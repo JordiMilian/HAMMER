@@ -6,6 +6,7 @@ public class PinkTrap_Script : MonoBehaviour
 {
     [SerializeField] Generic_AreaTriggerEvents areaTrigger;
     [SerializeField] Animator spikesAnimator;
+    [SerializeField] RoomWithEnemiesLogic roomWithEnemiesLogic;
     public bool areSpikesDeactivated;
 
     private void OnEnable()
@@ -15,6 +16,7 @@ public class PinkTrap_Script : MonoBehaviour
 
         areaTrigger.onAreaActive += setSpikesAnimator;
         areaTrigger.onAreaUnactive += setSpikesAnimator;
+        if (roomWithEnemiesLogic != null) { roomWithEnemiesLogic.onRoomCompleted += unsubscribeFromEverything; }
     }
     private void OnDisable()
     {
@@ -26,6 +28,15 @@ public class PinkTrap_Script : MonoBehaviour
         if (areSpikesDeactivated) { return; }
 
         spikesAnimator.SetBool("SpikesOn", areaTrigger.isAreaActive);
+    }
+    void unsubscribeFromEverything(BaseRoomWithDoorLogic logic)
+    {
+        areSpikesDeactivated = true;
+        spikesAnimator.SetBool("SpikesOn", false);
+        spikesAnimator.SetTrigger("Deactivated");
+        areaTrigger.onAreaActive -= setSpikesAnimator;
+        areaTrigger.onAreaUnactive -= setSpikesAnimator;
+
     }
 
 

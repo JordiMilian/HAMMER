@@ -19,6 +19,7 @@ public class PinkSaw : MonoBehaviour
     [SerializeField] Generic_AreaTriggerEvents sawAreaTrigger;
     [SerializeField] SpriteMask spriteMask;
     [SerializeField] SpriteRenderer sawSprite;
+    [SerializeField] RoomWithEnemiesLogic roomWithEnemiesLogic;
     int currentPos;
     private void OnEnable()
     {
@@ -26,16 +27,25 @@ public class PinkSaw : MonoBehaviour
         sawAreaTrigger.onAreaActive += startSawing;
         sawAreaTrigger.onAreaUnactive += stopSawing;
         currentPos = startingPos;
+        if(roomWithEnemiesLogic != null) { roomWithEnemiesLogic.onRoomCompleted += DeactivateSaw; }
         hideSprites();
     }
     private void OnDisable()
     {
         sawAreaTrigger.onAreaActive -= startSawing;
         sawAreaTrigger.onAreaUnactive -= stopSawing;
+        if (roomWithEnemiesLogic != null) { roomWithEnemiesLogic.onRoomCompleted -= DeactivateSaw; }
     }
     private void Start()
     {
         if (isConstantlySawing) { Invoke("startSawing", delayedStartingTime); }
+    }
+    void DeactivateSaw(BaseRoomWithDoorLogic logic)
+    {
+        sawAnimator.SetTrigger("Deactivated");
+        sawAreaTrigger.onAreaActive -= startSawing;
+        sawAreaTrigger.onAreaUnactive -= stopSawing;
+        stopSawing();
     }
     void setPositions()
     {

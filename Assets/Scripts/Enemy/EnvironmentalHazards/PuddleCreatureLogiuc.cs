@@ -54,7 +54,11 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     }
     void onPLayerExitedPuddle(Collider2D collision)
     {
-        cancelEverything();
+        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider)
+        {
+            cancelEverything();
+        }
+        
     }
     IEnumerator DelayToStartChase(float delay)
     {

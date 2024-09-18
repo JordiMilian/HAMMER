@@ -26,6 +26,8 @@ public class PuddleStepsPlayer : MonoBehaviour
     {
         if (!isStepping) { return; }
 
+        if(followingEntityTf == null) { isStepping = false; return; }
+
         if (startStepping) 
         { 
             lastPos = followingEntityTf.position; 

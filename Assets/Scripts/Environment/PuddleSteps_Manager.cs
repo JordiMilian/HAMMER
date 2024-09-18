@@ -14,7 +14,7 @@ public class PuddleSteps_Manager : MonoBehaviour
         foreach (Generic_OnTriggerEnterEvents ontrigger in puddleTriggers)
         {
             ontrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
-            ontrigger.AddActivatorTag(TagsCollection.Enemy);
+            ontrigger.AddActivatorTag(TagsCollection.Enemy_SinglePointCollider);
             ontrigger.OnTriggerEntered += onSomethingEntered;
             ontrigger.OnTriggerExited += onSomethingExited;
         }
@@ -26,11 +26,15 @@ public class PuddleSteps_Manager : MonoBehaviour
             PlayersStepper.isStepping = true;
             PlayersStepper.followingEntityTf = collision.transform;
         }
-        else if (collision.gameObject.CompareTag(TagsCollection.Enemy))
+        else if (collision.gameObject.CompareTag(TagsCollection.Enemy_SinglePointCollider))
         {
+            Debug.Log("Enemy entered puddle: "+ collision.gameObject.name);
             foreach (PuddleStepsPlayer pudler in SteppersGOList)
             {
+                if (pudler.followingEntityTf == collision.transform) { return; }
                 if (pudler.isStepping) { continue; }
+               
+
                 pudler.followingEntityTf = collision.transform;
                 pudler.isStepping = true;
                 break;
