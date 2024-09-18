@@ -11,7 +11,7 @@ public class enterSceneCutscene : BaseCutsceneLogic
     }
     IEnumerator playCutscene()
     {
-        
+        Debug.Log("moving player");
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         Transform playerTf = playerRefs.gameObject.transform;
 

@@ -10,7 +10,9 @@ public class Cutscene_Death_NoResetState : BaseCutsceneLogic
     [SerializeField] SpriteRenderer iconRenderer;
     public override void playThisCutscene()
     {
-        if(gameState.playerUpgrades.Count > 0)
+        currentCutscene = StartCoroutine(cutsceneWithoutIcon());
+        return;
+        if (gameState.playerUpgrades.Count > 0)
         {
             currentCutscene = StartCoroutine(cutsceneWithIcon());
         }

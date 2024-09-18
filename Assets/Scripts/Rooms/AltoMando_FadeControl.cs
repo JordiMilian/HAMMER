@@ -10,6 +10,7 @@ public class AltoMando_FadeControl : MonoBehaviour
 
     private void Awake()
     {
+        /*
         if (gameState.isTutorialComplete && gameState.LastEnteredDoor < 0 || gameState.justDefeatedBoss)
         {
             mainFader.isStartingRoom = true;
@@ -19,6 +20,7 @@ public class AltoMando_FadeControl : MonoBehaviour
         {
             backFader.isStartingRoom = true;
         }
+        */
 
         
     }

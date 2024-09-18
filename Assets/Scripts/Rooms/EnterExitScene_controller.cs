@@ -14,7 +14,7 @@ public class EnterExitScene_controller : MonoBehaviour
     {
         if(playEnteringCutsceneOnLoad)
         {
-            OnPlayerEnteredFromHere();
+            Invoke( "OnPlayerEnteredFromHere",0.1f);
         }
     }
     public void OnPlayerEnteredFromHere()

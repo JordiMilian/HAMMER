@@ -24,6 +24,7 @@ public class FurthestDoor_Manager : MonoBehaviour
     }
     private void Start()
     {
+        Debug.Log("Activated door");
         SubscribeToDoors();
         sortDoorsByDistance();
         ActivateGameStatesDoor();

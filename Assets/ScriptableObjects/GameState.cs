@@ -31,6 +31,15 @@ public class GameState : ScriptableObject
 
     public GameObject PlayersWeaponPrefab;
     public List<GameObject> weaponsPrefabList = new List<GameObject>();
+    /*
+    public class weaponInfos
+    {
+        public GameObject weaponPrefab;
+        public bool isUnlocked;
+        public bool isCurrent;
+    }
+    public List<weaponInfos> WeaponInfosList = new List<weaponInfos>();
+    */
 
     public int[] FurthestDoorsArray = new int[5];
 

@@ -56,11 +56,10 @@ public class Player_UpgradesManager : MonoBehaviour
     {
         gameState.lastLostUpgrade = gameState.playerUpgrades[i];
 
-        
+
         gameState.playerUpgrades[i].onRemoved(gameObject); //remove effect
         gameState.playerUpgrades.RemoveAt(i); //remove from list
         playerEvents.OnRemovedUpgrade?.Invoke(); //Call the event
-
     }
     private void Update()
     {

@@ -106,7 +106,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     {
         AttemptFocus(false, false);
     }
-    void AttemptFocus(bool isDarksoulsFocus, bool isDeathFocus)
+    public void AttemptFocus(bool isDarksoulsFocus, bool isDeathFocus)
     {
         //Restart enemies list and find every enemy in scene
         CurrentEnemies.Clear();
@@ -169,7 +169,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         float equivalentRadius = UsefullMethods.equivalentFromAtoB(0, 1, FocusMinMaxDistance_Controller.x, FocusMinMaxDistance_Controller.y, absoluteX);
 
         //If in darksouls mode, use the focused enemy as the center to get the direction
-        //If in regular mode (pressing focus button) use the player as center
+        //If in regular mode (pressing focus button) focus from center of screen
         Vector2 centerOfDetection_C = Vector2.zero;
         if (isDarkSouls)
         {

@@ -17,6 +17,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
     }
     IEnumerator bossCutscene()
     {
+        yield return null;
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
@@ -53,13 +54,13 @@ public class BossRoomCutscene : BaseCutsceneLogic
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
         TargetGroupSingleton.Instance.RemoveTarget(bossTf);
 
-        //Focus the boss
-        Player_FollowMouse_withFocus followMouse = GlobalPlayerReferences.Instance.references.followMouse;
-        followMouse.FocusedEnemy = bossTf.gameObject;
-        followMouse.OnLookAtEnemy();
 
         //enable player again
         playerEvents.CallEnable();
+
+        //Focus the boss
+        Player_FollowMouse_withFocus followMouse = GlobalPlayerReferences.Instance.references.followMouse;
+        followMouse.AttemptFocus(false, false);
 
         onCutsceneOver?.Invoke();
     }

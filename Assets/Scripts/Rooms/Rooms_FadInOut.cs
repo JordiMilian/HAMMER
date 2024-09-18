@@ -18,7 +18,6 @@ public class Rooms_FadInOut : MonoBehaviour
     [SerializeField] Foregrounder DoorForegrounder;
     
     [SerializeField] float TransitionTime = 0.2f;
-    public bool isStartingRoom;
     private void Awake()
     {
         foreach(GameObject root in RoomSpritesRoots)
@@ -42,7 +41,17 @@ public class Rooms_FadInOut : MonoBehaviour
     }
     private void Start()
     {
-        if(isStartingRoom)
+
+        Invoke("checkCurrentRoom", 0.1f);
+        
+
+    }
+    void checkCurrentRoom()
+    {
+        Vector2 playerPos = GlobalPlayerReferences.Instance.playerTf.position;
+        Collider2D roomCollider = RoomTrigger.GetComponent<Collider2D>();
+
+        if (roomCollider.OverlapPoint(playerPos))
         {
             playerEnteredRoom(new Collider2D());
         }
