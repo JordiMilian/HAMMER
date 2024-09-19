@@ -10,6 +10,8 @@ public class PlayersLastDeathManager : MonoBehaviour
     //The script in every room, when the room is completed will check if its own index matches with the index in the gameState. If it does, spawns an upgrade
     //The upgrade lost to spawn is selected from the players_upgradeManager
 
+    //Currently no lost upgrades, turn the comment in line 38 ON to recover (also something else I cant remember)
+
     [SerializeField] GameState gameState;
     
     private void OnEnable()
@@ -33,6 +35,6 @@ public class PlayersLastDeathManager : MonoBehaviour
             return; 
         }
 
-        gameState.isLostUpgradeAvailable = true;
+        //gameState.isLostUpgradeAvailable = true;
     }
 }

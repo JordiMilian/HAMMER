@@ -40,7 +40,7 @@ public class KILLENEMIESAROUND : MonoBehaviour
         foreach(Generic_HealthSystem health in healthsArray)
         {
             health.RemoveLife(50, gameObject);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

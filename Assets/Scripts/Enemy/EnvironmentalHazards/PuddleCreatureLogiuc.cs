@@ -32,18 +32,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
             ontrigger.OnTriggerEntered += onPlayerEnteredPuddle;
             ontrigger.OnTriggerExited += onPLayerExitedPuddle;
         }
-        roomWithEnemies.onRoomCompleted += (BaseRoomWithDoorLogic doorLogic) => Deactivate();
-    }
-    void Deactivate()
-    {
-
-        onPLayerExitedPuddle(new Collider2D());
-
-        foreach (Generic_OnTriggerEnterEvents ontrigger in puddleTriggers)
-        {
-            ontrigger.OnTriggerEntered -= onPlayerEnteredPuddle;
-            ontrigger.OnTriggerExited -= onPLayerExitedPuddle;
-        }
+        roomWithEnemies.onRoomCompleted += (BaseRoomWithDoorLogic doorLogic) => DeactivatePuddle();
     }
     void onPlayerEnteredPuddle(Collider2D collision)
     {
@@ -54,11 +43,20 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     }
     void onPLayerExitedPuddle(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider)
+        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
             cancelEverything();
         }
         
+    }
+    void DeactivatePuddle()
+    {
+        cancelEverything();
+        foreach (Generic_OnTriggerEnterEvents ontrigger in puddleTriggers)
+        {
+            ontrigger.OnTriggerEntered -= onPlayerEnteredPuddle;
+            ontrigger.OnTriggerExited -= onPLayerExitedPuddle;
+        }
     }
     IEnumerator DelayToStartChase(float delay)
     {

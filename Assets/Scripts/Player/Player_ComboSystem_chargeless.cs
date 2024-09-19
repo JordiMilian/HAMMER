@@ -70,6 +70,11 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         Vector3 tempForce = playerRefs.followMouse.gameObject.transform.up * Force * equivalent;
         StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForce * multiplier, 0.1f));
     }
+    public void EV_JustAddForce(float multiplier)
+    {
+        Vector3 forceDirection = playerRefs.followMouse.gameObject.transform.up * Force * multiplier;
+        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, forceDirection, 0.1f));
+    }
     float CalculateEquivalent(float Distance)
     {
         float inverseF = Mathf.InverseLerp(minDistance, maxDistance, Distance);

@@ -13,6 +13,7 @@ public class Player_WeaponSwitcher : MonoBehaviour
     -Copy the Colliders properties and paste them in the infoHolder collider
     -Set up the animations and animator as you want
     -Add the prefab to the gameState and set the indexInGameState of InfoHolder to where its in the list
+    -Go to AltoMando_Room prefab, find weaponInfo_Spawns and add a new element. Make sure the areaIndex is the proper area
 
     */
     [SerializeField] GameState gameState;

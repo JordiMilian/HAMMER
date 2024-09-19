@@ -1888,7 +1888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].Probability
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].TriggerName
@@ -2063,6 +2063,34 @@ MonoBehaviour:
   enemyRefs: {fileID: 4353807062061956611}
   ResponseAttackIndex: 5
   CooldownSeconds: 2
+--- !u!114 &3425963875698714635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668559658928465824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed2f29b28ba2254b882e9fcb3b414a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  refs: {fileID: 0}
+  SpecialAttack:
+    ShortDescription: 
+    rangeDetector: {fileID: 0}
+    boxCollider: {fileID: 0}
+    isActive: 0
+    notOvniInvertable: 0
+    Damage: 1
+    Probability: 1
+    KnockBack: 1000
+    Hitstop: 0
+    animationClip: {fileID: 7400000, guid: f2c4eb1e56c358040bb0e239bb0214ed, type: 2}
+    isInCooldown: 0
+    HasCooldown: 0
+    CooldownTime: 0
+  PercentOfHealthToActivate: 0
 --- !u!114 &7047688672657639639 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3792853293050386045, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
