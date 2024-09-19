@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    [Range(0f, 1f)]
-    [SerializeField] float GeneralMusicVolume;
     [SerializeField] bool setVolumeTrigger;
+    [SerializeField] GameState gameState;
 
     public List<musicSource> musicSources = new List<musicSource>();
     public class musicSource
@@ -70,9 +69,10 @@ public class MusicManager : MonoBehaviour
     }
     void SetMusicVolume(musicSource mSource)
     {
-        float equivalentVolume = Mathf.Lerp(0, mSource.BaseVolume, GeneralMusicVolume);
-        mSource.audioSource.volume = equivalentVolume;
-        mSource.audioSource.gameObject.GetComponent<Audio_Area>().BaseVolume = equivalentVolume;
-        Debug.Log("Settet new music volume to: " + equivalentVolume);   
+        
+        //float equivalentVolume = Mathf.Lerp(0, mSource.BaseVolume, GeneralMusicVolume);
+        mSource.audioSource.volume = gameState.MusicVolum;
+        //mSource.audioSource.gameObject.GetComponent<Audio_Area>().BaseVolume = equivalentVolume;
+        Debug.Log("Settet new music volume to: " + gameState.MusicVolum);   
     }
 }

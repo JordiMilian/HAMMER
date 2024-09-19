@@ -48,6 +48,10 @@ public class GameState : ScriptableObject
     public int finalDoor_DialogueIndex;
 
     public bool hasPickedFirstUpgrade;
+
+    [Header("Audio")]
+    [Range(0,1)] public float MusicVolum;
+    [Range(0, 1)] public float SFXVolum;
     public void ResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)

@@ -1474,8 +1474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52754450ca4193f4aa55c972e7da3da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GeneralMusicVolume: 1
   setVolumeTrigger: 0
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!4 &706109612
 Transform:
   m_ObjectHideFlags: 0
@@ -1838,7 +1838,7 @@ PrefabInstance:
       objectReference: {fileID: 295019124}
     - target: {fileID: 4807916173490186040, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17.999985
+      value: -17.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4807916173635319868, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
       propertyPath: Action
@@ -2324,6 +2324,8 @@ MonoBehaviour:
   Trigger_AllRooms: 0
   Trigger_SingleGroup: 0
   Trigger_StartingFromGroup: 0
+  SpawnNewRoomsOnAwake: 0
+  SubscribeToSpawnedRoomsOnAwake: 0
   triggerIndex: 0
 --- !u!1001 &1132696074
 PrefabInstance:
