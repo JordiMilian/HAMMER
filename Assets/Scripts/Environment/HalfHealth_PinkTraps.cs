@@ -117,7 +117,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
             yield return null;
         }
         saw.Shape.color = new Color (1,1,1,1);
-        saw.Script.enabled = true;
+        saw.Script.isNotSawing = false;
     }
     void restartState()
     {
@@ -128,7 +128,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         }
         foreach(sawInfo saw in sawInfosList)
         {
-            saw.Script.enabled = false;
+            saw.Script.isNotSawing = true;
             saw.Shape.color = new Color(1, 1, 1, 0);
         }
     }

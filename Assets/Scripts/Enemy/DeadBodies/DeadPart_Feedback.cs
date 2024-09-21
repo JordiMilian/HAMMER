@@ -12,6 +12,7 @@ public class DeadPart_Feedback : MonoBehaviour
     [SerializeField] Generic_Flash flasher;
     [SerializeField] GameObject spritesRoot;
     [SerializeField] SpriteRenderer shadowSprite;
+    [SerializeField] bool dontDestroyOnRespawn;
     float bloodSplashIntensity;
     [SerializeField] float secondsToFadeOut = 8;
 
@@ -21,6 +22,11 @@ public class DeadPart_Feedback : MonoBehaviour
         eventSystem.OnReceiveDamage += GettingHitFeedback;
         eventSystem.OnBeingTouchedObject += GettingTouchedFeedback;
         eventSystem.OnHitWall += HittingWallFeedback;
+        GameEvents.OnPlayerRespawned += DestroyOnRespawn;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnPlayerRespawned -= DestroyOnRespawn;
     }
     void spawnedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
@@ -56,6 +62,7 @@ public class DeadPart_Feedback : MonoBehaviour
         bloodSplashIntensity = 0.4f;
     }
     //Fade out sprites and destroy after a while
+    /*
     private IEnumerator Start()
     {
         SpriteRenderer[] spritesArray = spritesRoot.GetComponentsInChildren<SpriteRenderer>();
@@ -74,5 +81,11 @@ public class DeadPart_Feedback : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
+    }
+    */
+    void DestroyOnRespawn()
+    {
+        if (dontDestroyOnRespawn) { return; }
+        Destroy(gameObject);   
     }
 }

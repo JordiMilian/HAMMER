@@ -7,6 +7,7 @@ public class PinkSaw : MonoBehaviour
 {
     public SpriteShapeController shapeController;
     Vector2 pos01, pos02;
+    public bool isNotSawing;
     [SerializeField] Transform sawTf;
     [SerializeField] float TimeToReach;
     [SerializeField] float posOffset01;
@@ -38,7 +39,7 @@ public class PinkSaw : MonoBehaviour
     }
     private void Start()
     {
-        if (isConstantlySawing) { Invoke("startSawing", delayedStartingTime); }
+        if (isConstantlySawing) { Invoke("startSawing", delayedStartingTime + 0.1f); }
     }
     void DeactivateSaw(BaseRoomWithDoorLogic logic)
     {
@@ -63,7 +64,7 @@ public class PinkSaw : MonoBehaviour
     }
     void startSawing()
     {
-        
+        if (isNotSawing) { return; }
         setPositions();
         positionAtStart();
         sawAnimator.SetBool("isSawing", true);

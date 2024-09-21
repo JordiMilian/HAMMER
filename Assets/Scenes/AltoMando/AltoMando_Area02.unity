@@ -2252,6 +2252,7 @@ GameObject:
   - component: {fileID: 1126747144}
   - component: {fileID: 1126747143}
   - component: {fileID: 1126747145}
+  - component: {fileID: 1126747146}
   m_Layer: 0
   m_Name: RoomsManager
   m_TagString: Untagged
@@ -2322,6 +2323,20 @@ MonoBehaviour:
   SpawnNewRoomsOnAwake: 1
   SubscribeToSpawnedRoomsOnAwake: 0
   triggerIndex: 0
+--- !u!114 &1126747146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126747142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8f13f4e07e71f4ab813e2929440a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGenerator: {fileID: 1126747143}
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!1001 &1132696074
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,6 +14,15 @@ public class DoorAnimationController : MonoBehaviour
 
     [SerializeField] Transform AutoDoorOpenerCollider;
     [SerializeField] Transform AutoDoorCloserCollider;
+    /*
+    // HOW TO MAKE A NEW DOOR
+
+        - Copy the Base door
+        - Make the 4 required animations with a new Animator (the animator should be createad automatically): Open, Close, InstaOpen, InstaClose
+        - Add the events EV_OpenCollider and EV_CloseCollider to the animations
+        - Recreate the Door_01 Animator with the same exact parameter names and transitions
+
+     */  
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))

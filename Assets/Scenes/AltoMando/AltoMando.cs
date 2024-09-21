@@ -16,7 +16,8 @@ public class AltoMando : MonoBehaviour
     private void Awake()
     {
         doorsCompleted = 0;
-        Handle4Doors();
+        //Handle4Doors();
+        Handle4DoorInOrder();
         HandleFinalDoor();
 
         if (gameState.isTutorialComplete && gameState.LastEnteredDoor < 0 || gameState.justDefeatedBoss )
@@ -79,6 +80,32 @@ public class AltoMando : MonoBehaviour
             }
         }
     }
+    void Handle4DoorInOrder()
+    {
+        int lastCompletedIndex = -1;
+        for (int i = 0; i < gameState.FourDoors.Length; i++)
+        {
+            GameState.BossAreaDoor Door = gameState.FourDoors[i];
+            Door.DoorController = FourDoors[i];
+
+            Door.DoorController.DisableAutoDoorCloser();
+            Door.DoorController.DisableAutoDoorOpener();
+            FinalDoor.DisableAutoDoorOpener();
+            FinalDoor.DisableAutoDoorCloser();
+
+            if (!gameState.justDefeatedBoss)
+            {
+                EnterExitScene[i].playEnteringCutsceneOnLoad = i == gameState.LastEnteredDoor; //Player respawn on the last exited index
+            }
+
+            if (Door.isCompleted) { lastCompletedIndex = i; }
+
+            Door.DoorController.InstaClose();
+        }
+        //if all completed nothing, else open the next to the last completed
+        if(lastCompletedIndex == gameState.FourDoors.Length - 1) { return; }
+        else { gameState.FourDoors[lastCompletedIndex + 1 ].DoorController.OpenDoor(); }
+        }
     void HandleFinalDoor()
     {
         if (gameState.isFinalDoorOpen) //Final door is already completed
