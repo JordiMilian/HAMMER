@@ -7,6 +7,7 @@ using static Generic_EventSystem;
 public class Enemy_StanceMeter : MonoBehaviour
 {
     [SerializeField] float MaxStance;
+    float BaseMaxStance;
     [SerializeField] float CurrentStance;
     [SerializeField] float CooldownAfterDamage;
     [SerializeField] float RecoveryPerSecond;
@@ -69,5 +70,16 @@ public class Enemy_StanceMeter : MonoBehaviour
                 isRecovering = false;
             }
         }
+    }
+    public void MakeStanceUnbreakeable()
+    {
+        BaseMaxStance = MaxStance;
+        MaxStance = 9999;
+        CurrentStance = 9999;
+    }
+    public void ReturnToRegularStance()
+    {
+        MaxStance = BaseMaxStance;
+        CurrentStance = MaxStance;
     }
 }

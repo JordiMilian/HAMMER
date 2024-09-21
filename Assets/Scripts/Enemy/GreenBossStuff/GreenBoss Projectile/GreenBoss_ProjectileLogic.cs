@@ -36,6 +36,6 @@ public class GreenBoss_ProjectileLogic : MonoBehaviour
     {
         Animator DestinatioAnimator = DestinationGO.GetComponent<Animator>();
         DestinatioAnimator.SetTrigger("Landed");
-        Game_AudioPlayerSingleton.Instance.playSFXclip(GreenProjectileImpactSFX, 0.3f, -0.25f);
+        SFX_PlayerSingleton.Instance.playSFX(GreenProjectileImpactSFX, 0.3f, -0.25f);
         Destroy(gameObject);    }
 }

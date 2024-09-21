@@ -8,6 +8,8 @@ public class TutorialPopUp_ShowOnPickUpgrade : MonoBehaviour
     [SerializeField] GameState gameState;
     private void OnEnable()
     {
+        if (gameState.hasPickedFirstUpgrade) { return; }
+
         GlobalPlayerReferences.Instance.references.events.OnPickedNewUpgrade += showPopUp;
     }
     private void OnDisable()
@@ -19,7 +21,7 @@ public class TutorialPopUp_ShowOnPickUpgrade : MonoBehaviour
         if (!gameState.hasPickedFirstUpgrade) 
         { 
             popUpScript.ShowPopUp();
-            gameState.hasPickedFirstUpgrade = true;
+            gameState.hasPickedFirstWeapon = true;
         }
         
         GlobalPlayerReferences.Instance.references.events.OnPickedNewUpgrade -= showPopUp;

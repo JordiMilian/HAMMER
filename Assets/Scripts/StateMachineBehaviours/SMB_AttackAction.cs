@@ -15,6 +15,7 @@ public class SMB_AttackAction : SMB_BaseAction
         if(playerEvents == null) { playerEvents = animator.gameObject.GetComponent<Player_EventSystem>(); }
 
         playerEvents.OnAttackStarted?.Invoke();
+        playerEvents.OnStartAttack?.Invoke();
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

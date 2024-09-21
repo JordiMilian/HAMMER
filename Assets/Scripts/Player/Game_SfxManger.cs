@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Game_SfxManger : MonoBehaviour
 {
+    //I think this is deprecated wtf????
+    /*
     [SerializeField] Player_EventSystem playerEvents;
     private void OnEnable()
     {
+        Debug.Log("WHERE IS THIS USED????");
         playerEvents.OnAttackStarted += playSwing;
         playerEvents.OnDealtDamage += onHitEnemy;
         playerEvents.OnSuccessfulParry += onsuccesfullParry;
@@ -23,4 +26,5 @@ public class Game_SfxManger : MonoBehaviour
     {
         Game_AudioPlayerSingleton.Instance.playSFX("Parry01");
     }
+    */
 }

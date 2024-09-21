@@ -36,7 +36,7 @@ public class Tomato_NewController : MonoBehaviour
     {
         Animator DestinatioAnimator = DestinationGO.GetComponent<Animator>();
         DestinatioAnimator.SetTrigger("Landed");
-        Game_AudioPlayerSingleton.Instance.playSFXclip(TomatoImpactSFX);
+        SFX_PlayerSingleton.Instance.playSFX(TomatoImpactSFX);
         Destroy(gameObject);
     }
 }

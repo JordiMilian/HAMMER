@@ -7,6 +7,7 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
 {
     [SerializeField] Enemy_References refs;
     [SerializeField] Enemy_AttacksProviderV2.EnemyAttack SpecialAttack;
+    float BaseMaxStance;
 
     [SerializeField] float PercentOfHealthToActivate;
     public Action OnChangePhase;
@@ -25,8 +26,24 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
         if (refs.healthSystem.CurrentHP.GetValue() < refs.healthSystem.MaxHP.GetValue() * (PercentOfHealthToActivate/100 ))
         {
             refs.attackProvider.ForceNextAttack(SpecialAttack);
+
             refs.enemyEvents.OnReceiveDamage -=  checkIfAttack;
-            OnChangePhase?.Invoke();
+
+            refs.enemyEvents.OnStartAttack += ActuallyPerformChangePhase;
         }
+    }
+    void ActuallyPerformChangePhase()
+    {
+        refs.enemyEvents.OnStartAttack -= ActuallyPerformChangePhase;
+
+        refs.stanceMeter.MakeStanceUnbreakeable();
+        OnChangePhase?.Invoke();
+
+        refs.enemyEvents.OnAttackFinished += EndedChangePerform;
+    }
+    void EndedChangePerform()
+    {
+        refs.enemyEvents.OnAttackFinished -= EndedChangePerform;
+        refs.stanceMeter.ReturnToRegularStance();
     }
 }

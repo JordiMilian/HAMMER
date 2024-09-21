@@ -7,13 +7,13 @@ public class Enemy_AudioPlayer : Generic_CharacterAudioPlayer
     [SerializeField] Enemy_EventSystem enemyEvents;
     [SerializeField] AudioClip ThrowTomatoSFX;
     [SerializeField] AudioClip ThrowGreenProjectileSFX;
-    private void OnEnable()
+    public override void OnEnable()
     {
         base.OnEnable();
         enemyEvents.OnThrowTomato += playThrowTomato;
         enemyEvents.OnThrowGreenProjectile += playThrowGreenProjectile;
     }
-    private void OnDisable()
+    public override void OnDisable()
     {
         base.OnDisable();
         enemyEvents.OnThrowTomato += playThrowTomato;
@@ -21,10 +21,10 @@ public class Enemy_AudioPlayer : Generic_CharacterAudioPlayer
     }
     void playThrowTomato()
     {
-        playSFX(ThrowTomatoSFX);
+       SFX_PlayerSingleton.Instance.playSFX(ThrowTomatoSFX);
     }
     void playThrowGreenProjectile()
     {
-        playSFX(ThrowGreenProjectileSFX, 0.1f);
+        SFX_PlayerSingleton.Instance.playSFX(ThrowGreenProjectileSFX, 0.1f);
     }
 }

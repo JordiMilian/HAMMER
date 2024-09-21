@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 
 public class Game_AudioPlayerSingleton : MonoBehaviour
 {
+    /*
     public static Game_AudioPlayerSingleton Instance;
     [SerializeField] AudioSource audioSource;
     Dictionary<string,AudioClip> sfxDictionary = new Dictionary<string, AudioClip>();
@@ -33,7 +34,7 @@ public class Game_AudioPlayerSingleton : MonoBehaviour
             Debug.Log(Clip.name);
             sfxDictionary.Add(clipName, Clip);
         }
-        */
+        
         basePitch = audioSource.pitch;
         baseVolume = audioSource.volume;
     }
@@ -59,4 +60,5 @@ public class Game_AudioPlayerSingleton : MonoBehaviour
         audioSource.clip = clip;
         audioSource.Play();
     }
+    */
 }

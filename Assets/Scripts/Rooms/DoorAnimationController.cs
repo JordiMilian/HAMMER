@@ -8,9 +8,9 @@ public class DoorAnimationController : MonoBehaviour
     bool isDoorOpen;
     [SerializeField] Animator doorAnimator;
     [SerializeField] Collider2D blockingCollider;
-    [SerializeField] AudioClip OpenAudio, CloseAudio;
-    public Action OnDoorOpened;
-    public Action OnDoorClosed;
+    public Action OnDoorOpen;
+    public Action OnDoorClose;
+    public Action OnDoorInstaOpen, OnDoorInstaClose;
 
     [SerializeField] Transform AutoDoorOpenerCollider;
     [SerializeField] Transform AutoDoorCloserCollider;
@@ -37,7 +37,7 @@ public class DoorAnimationController : MonoBehaviour
             doorAnimator.SetTrigger("Close");
             //Game_AudioPlayerSingleton.Instance.playSFXclip(CloseAudio);
             isDoorOpen = false;
-            OnDoorClosed?.Invoke();
+            OnDoorClose?.Invoke();
         } 
     }
     public void InstaClose()
@@ -46,7 +46,7 @@ public class DoorAnimationController : MonoBehaviour
         {
             doorAnimator.SetTrigger("InstaClose");
             isDoorOpen = false;
-            OnDoorClosed?.Invoke();
+            OnDoorInstaClose?.Invoke();
             EV_CloseCollider();
         }
     }
@@ -62,7 +62,7 @@ public class DoorAnimationController : MonoBehaviour
             doorAnimator.SetTrigger("Open");
             //Game_AudioPlayerSingleton.Instance.playSFXclip(OpenAudio);
             isDoorOpen = true;
-            OnDoorOpened?.Invoke();
+            OnDoorOpen?.Invoke();
         }
     }
     public void InstaOpen()
@@ -71,7 +71,7 @@ public class DoorAnimationController : MonoBehaviour
         {
             doorAnimator.SetTrigger("InstaOpen");
             isDoorOpen = true;
-            OnDoorOpened?.Invoke();
+            OnDoorInstaOpen?.Invoke();
             EV_OpenCollider();
         }
     }

@@ -7,10 +7,14 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     [SerializeField] AudioClip RollSFX;
     [SerializeField] AudioClip RebornSFX;
     [SerializeField] AudioClip AttemptParrySFX;
+    [SerializeField] AudioClip PickWeapon, PickUpgrade;
     [SerializeField] Player_EventSystem playerEvents;
+    SFX_PlayerSingleton SFX_Player;
     public override void OnEnable()
     {
         base.OnEnable();
+        SFX_Player = SFX_PlayerSingleton.Instance;
+
         playerEvents.OnPerformRoll += playRoll;
         GameEvents.OnPlayerRespawned += playHeadReatached;
         playerEvents.OnPerformParry += playAttemptParry;
@@ -24,14 +28,14 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     }
     void playAttemptParry()
     {
-        playSFX(AttemptParrySFX, 0.1f,-0.5f,0.5f);
+        SFX_Player.playSFX(AttemptParrySFX, 0.1f,-0.5f,0.5f);
     }
     void playRoll()
     {
-        playSFX(RollSFX, 0.1f);
+        SFX_Player.playSFX(RollSFX, 0.1f);
     }
     void playHeadReatached()
     {
-        playSFX(RebornSFX);
+        SFX_Player.playSFX(RebornSFX);
     }
 }

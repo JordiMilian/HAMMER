@@ -73,6 +73,7 @@ public class Generic_EventSystem : MonoBehaviour
 
     public EventHandler<DeadCharacterInfo> OnDeath;
     public Action OnAttackFinished; //On enemies this is called after waiting for the animation time. On Player it is called from the animator on exit state
+    public Action OnStartAttack;
     public EventHandler<DealtDamageInfo> OnDealtDamage;
     public EventHandler<ReceivedAttackInfo> OnReceiveDamage;
     public Action<int> OnGettingParried;

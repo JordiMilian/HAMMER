@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class Generic_CharacterAudioPlayer : MonoBehaviour
 {
-    [SerializeField] AudioSource audioSource;
+    [Range(-1, 1)][SerializeField] float basePitchModifier;
     [SerializeField] Generic_EventSystem eventSystem;
-    float basePitch;
-    float baseVolume;
 
     [SerializeField] AudioClip SwordSwingSFX;
     [SerializeField] AudioClip SwordHitSFX;
@@ -16,13 +14,10 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
     [SerializeField] AudioClip DeathSFX;
     [SerializeField] AudioClip GotParriedSFX;
     [SerializeField] AudioClip SuccesfullParrySFX;
-    private void Awake()
-    {
-        basePitch = audioSource.pitch;
-        baseVolume = audioSource.volume;
-    }
+    SFX_PlayerSingleton SFX_Player;
     public virtual void OnEnable()
     {
+        SFX_Player = SFX_PlayerSingleton.Instance;
         eventSystem.OnShowCollider += playSwordSwing;
         eventSystem.OnDealtDamage += playSwordHit;
         eventSystem.OnReceiveDamage += playGetHit;
@@ -37,45 +32,31 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
         eventSystem.OnReceiveDamage -= playGetHit;
         eventSystem.OnDeath -= playDeath;
         eventSystem.OnGettingParried -= playParried;
-        eventSystem.OnSuccessfulParry -= playSuccesfullParry;
-          
-    }
-    public void playSFX(AudioClip clip, float pitchVariationAdder = 0, float addedVolum = 0, float addedPitch = 0)
-    {
-        if(clip == null) { Debug.LogWarning("Missing audio clip: "+ clip.name); return; }
-        audioSource.pitch = basePitch;
-        audioSource.volume = baseVolume;
-        float randomAdder = Random.Range(-pitchVariationAdder, pitchVariationAdder); 
-        audioSource.pitch = basePitch + randomAdder;
-        audioSource.pitch += addedPitch;
-        audioSource.volume += addedVolum;
-
-        audioSource.clip = clip;
-        audioSource.Play();
+        eventSystem.OnSuccessfulParry -= playSuccesfullParry; 
     }
     void playSwordSwing()
     {
-        playSFX(SwordSwingSFX,0.1f);
+        SFX_Player.playSFX(SwordSwingSFX,0.1f,0,basePitchModifier);
         Debug.Log("Played swing effect");
     }
     void playSwordHit(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
-        playSFX(SwordHitSFX, 0.2f);
+        SFX_Player.playSFX(SwordHitSFX, 0.2f, 0, basePitchModifier);
     }
     void playGetHit(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
-        playSFX(GetHitSFX, 0.2f);
+        SFX_Player.playSFX(GetHitSFX, 0.2f, 0, basePitchModifier);
     }
     void playDeath(object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
-        Game_AudioPlayerSingleton.Instance.playSFXclip(DeathSFX);
+        SFX_Player.playSFX(DeathSFX, 0.2f);
     }
     void playParried(int i)
     {
-        playSFX(GotParriedSFX,0.1f);
+        SFX_Player.playSFX(GotParriedSFX,0.1f, 0, basePitchModifier);
     }
     void playSuccesfullParry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
     {
-        playSFX(SuccesfullParrySFX);
+        SFX_Player.playSFX(SuccesfullParrySFX);
     }
 }

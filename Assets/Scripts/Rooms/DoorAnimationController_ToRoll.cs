@@ -7,8 +7,10 @@ public class DoorAnimationController_ToRoll : DoorAnimationController
     [SerializeField] Collider2D DamageCollider;
     private void OnEnable()
     {
-        OnDoorClosed += HideDamageCollider;
-        OnDoorOpened += ShowDamageColldier;
+        OnDoorClose += HideDamageCollider;
+        OnDoorOpen += ShowDamageColldier;
+        OnDoorInstaOpen += ShowDamageColldier;
+        OnDoorInstaClose += HideDamageCollider;
         OpenDoor();
         
     }

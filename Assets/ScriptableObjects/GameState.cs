@@ -48,6 +48,7 @@ public class GameState : ScriptableObject
     public int finalDoor_DialogueIndex;
 
     public bool hasPickedFirstUpgrade;
+    public bool hasPickedFirstWeapon;
 
     [Header("Audio")]
     [Range(0,1)] public float MusicVolum;
@@ -80,6 +81,7 @@ public class GameState : ScriptableObject
         finalDoor_DialogueIndex = 0;
 
         hasPickedFirstUpgrade = false;
+        hasPickedFirstWeapon = false;
 
     }
 }

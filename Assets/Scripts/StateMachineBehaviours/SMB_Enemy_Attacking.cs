@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class SMB_Enemy_Attacking : StateMachineBehaviour
 {
-
+    Generic_EventSystem events;
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("Attacking", false);
-        animator.gameObject.GetComponent<Enemy_AttacksProviderV2>().AttackExited();
+        if(events == null) { events = animator.gameObject.GetComponent<Generic_EventSystem>(); }
+
+        events.OnAttackFinished?.Invoke();
+    }
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (events == null) { events = animator.gameObject.GetComponent<Generic_EventSystem>(); }
+
+        events.OnStartAttack?.Invoke();
     }
 }

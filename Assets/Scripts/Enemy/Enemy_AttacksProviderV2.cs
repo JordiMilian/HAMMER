@@ -150,10 +150,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         dealer.Knockback = selectedAttack.KnockBack;
         dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
     }
-    public void AttackExited()
-    {
-        enemyRefs.enemyEvents.OnAttackFinished?.Invoke();
-    }
     void PickAvailableAttacks()
     {
         //Make a list of all active attacks and not in Cooldown
