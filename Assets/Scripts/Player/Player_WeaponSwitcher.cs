@@ -40,28 +40,26 @@ public class Player_WeaponSwitcher : MonoBehaviour
 
         if (infoHolder != null)
         {
-            gameState.PlayersWeaponPrefab = gameState.weaponsPrefabList[infoHolder.indexInGameState];
-            //SetGameStateWeapon(infoHolder.ownPrefab);
-            SetNewWeapon(collider.gameObject);
-            playerRefs.events.OnPickedNewWeapon?.Invoke(infoHolder);
-            infoHolder.OnPickedUp();
+            OnPickedNewWeapon(infoHolder);
         }
     }
-    void SetGameStateWeapon(GameObject weapon)
+    void OnPickedNewWeapon(WeaponPrefab_infoHolder infoHolder)
     {
-        foreach(GameObject weaponPrefab in gameState.weaponsPrefabList)
-        {
-            if(weaponPrefab == weapon)
-            {
-                Debug.Log("it is the same");
-                gameState.PlayersWeaponPrefab = weaponPrefab;
-                return;
-            }
-        }
+        gameState.IndexOfCurrentWeapon = infoHolder.indexInGameState;
+
+        GameState.weaponInfos thisWeaponInfoInState = gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon];
+        
+        //SetGameStateWeapon(infoHolder.ownPrefab);
+        SetNewWeapon(thisWeaponInfoInState.weaponPrefab);
+
+        thisWeaponInfoInState.isUnlocked = true;
+
+        playerRefs.events.OnPickedNewWeapon?.Invoke(infoHolder);
+        infoHolder.OnPickedUp();
     }
     private void Awake()
     {
-        SetNewWeapon(gameState.PlayersWeaponPrefab);
+        SetNewWeapon(gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon].weaponPrefab);
     }
     public void SetNewWeapon(GameObject newWeaponPrefab)
     {

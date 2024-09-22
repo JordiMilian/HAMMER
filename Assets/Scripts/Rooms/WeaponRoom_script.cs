@@ -9,12 +9,12 @@ public class WeaponRoom_script : MonoBehaviour
 
     private void OnEnable()
     {
-        weaponInfo.OnPickedUpEvent += doorAnimationController.OpenDoor;
+        weaponInfo.OnPickedUpEvent += (WeaponPrefab_infoHolder info) => doorAnimationController.OpenDoor();
         doorAnimationController.DisableAutoDoorOpener();
     }
     private void OnDisable()
     {
-        weaponInfo.OnPickedUpEvent -= doorAnimationController.OpenDoor;
+        weaponInfo.OnPickedUpEvent -= (WeaponPrefab_infoHolder info) => doorAnimationController.OpenDoor();
     }
 
 }

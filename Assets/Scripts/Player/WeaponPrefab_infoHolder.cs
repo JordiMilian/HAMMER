@@ -17,7 +17,7 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     public float Sp_StaminaCost;
     public RuntimeAnimatorController animatorController;
     [SerializeField] Animator animator;
-    public Action OnPickedUpEvent;
+    public Action<WeaponPrefab_infoHolder> OnPickedUpEvent;
     public int indexInGameState;
 
     private void OnEnable()
@@ -31,8 +31,8 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     public void OnPickedUp()
     {
         animator.SetTrigger("PickedUp");
-        StartCoroutine( UsefullMethods.destroyWithDelay(.7f,gameObject));
-        OnPickedUpEvent?.Invoke();
+        StartCoroutine( UsefullMethods.destroyWithDelay(.6f,gameObject));
+        OnPickedUpEvent?.Invoke(this);
     }
 
 }

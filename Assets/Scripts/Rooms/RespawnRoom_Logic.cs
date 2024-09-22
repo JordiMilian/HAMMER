@@ -11,14 +11,16 @@ public class RespawnRoom_Logic : BaseRoomWithDoorLogic
         base.OnEnable();
         respawner.OnRespawnerActivated += respawnerActivated;
     }
-    private void OnDisable()
+    public override void OnDisable()
     {
+        base.OnDisable();
         respawner.OnRespawnerActivated -= respawnerActivated;
     }
     void respawnerActivated()
     {
         RoomCompleted(false, true);
-        ExitDoorGate.OpenDoor();
+
+        if (ExitDoorGate != null) { ExitDoorGate.OpenDoor(); } //Aixo tecnicament hauria de ser una extensio amb herencia o yo que se pero bueno
     }
 
 }

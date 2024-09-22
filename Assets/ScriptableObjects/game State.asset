@@ -21,28 +21,32 @@ MonoBehaviour:
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
-  LastEnteredDoor: 1
+  LastEnteredDoor: -1
   LastCompletedBoss: 0
   isFinalDoorOpen: 0
-  isTutorialComplete: 1
+  isTutorialComplete: 0
   isSpawnWithouUpgrades: 0
-  justDefeatedBoss: 1
-  playerUpgrades: []
+  justDefeatedBoss: 0
+  playerUpgrades:
+  - {fileID: 11400000, guid: be80680bb32e0234f9079bfb895b0853, type: 2}
   lastLostUpgrade: {fileID: 11400000, guid: 9c77de4d8d4ea2f4b9149d5faf9c9418, type: 2}
   IndexOfLostUpgradeRoom: {x: 1, y: 1, z: 0}
   isLostUpgradeAvailable: 0
   currentPlayersRooms: []
   currentPlayerRooms_index: []
-  PlayersWeaponPrefab: {fileID: 6275606604221386586, guid: 3e73bed5efd062143bb8ef79dcf14102, type: 3}
-  weaponsPrefabList:
-  - {fileID: 3524697448897787556, guid: 70834cc068778ad47a9d51aad406fb0e, type: 3}
-  - {fileID: 6275606604221386586, guid: f91abc7aa258fd3498aee1d27942a784, type: 3}
-  - {fileID: 6275606604221386586, guid: 3e73bed5efd062143bb8ef79dcf14102, type: 3}
+  IndexOfCurrentWeapon: 0
+  WeaponInfosList:
+  - weaponPrefab: {fileID: 3524697448897787556, guid: 70834cc068778ad47a9d51aad406fb0e, type: 3}
+    isUnlocked: 1
+  - weaponPrefab: {fileID: 6275606604221386586, guid: 3e73bed5efd062143bb8ef79dcf14102, type: 3}
+    isUnlocked: 1
+  - weaponPrefab: {fileID: 6275606604221386586, guid: f91abc7aa258fd3498aee1d27942a784, type: 3}
+    isUnlocked: 1
   FurthestDoorsArray: ffffffff00000000ffffffffffffffffffffffff
   actuallyUnlockedSkulls: 0
   SkullsThatShouldBeUnlocked: 0
   finalDoor_DialogueIndex: 2
   hasPickedFirstUpgrade: 1
-  hasPickedFirstWeapon: 0
+  hasPickedFirstWeapon: 1
   MusicVolum: 0.282
-  SFXVolum: 0.482
+  SFXVolum: 0.384

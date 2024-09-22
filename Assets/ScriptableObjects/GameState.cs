@@ -29,17 +29,17 @@ public class GameState : ScriptableObject
     public List<Room_script> currentPlayersRooms = new List<Room_script>();
     public List<Vector3Int> currentPlayerRooms_index = new List<Vector3Int>();
 
-    public GameObject PlayersWeaponPrefab;
-    public List<GameObject> weaponsPrefabList = new List<GameObject>();
-    /*
+    public int IndexOfCurrentWeapon;
+
+    [Serializable]
     public class weaponInfos
     {
         public GameObject weaponPrefab;
         public bool isUnlocked;
-        public bool isCurrent;
+        //public bool isCurrent;
     }
     public List<weaponInfos> WeaponInfosList = new List<weaponInfos>();
-    */
+    
 
     public int[] FurthestDoorsArray = new int[5];
 
@@ -69,7 +69,19 @@ public class GameState : ScriptableObject
 
         lastLostUpgrade = null;
 
-        PlayersWeaponPrefab = weaponsPrefabList[0];
+        IndexOfCurrentWeapon = 0;
+
+        for (int i = 0; i < WeaponInfosList.Count; i++)
+        {
+            if(i == 0) 
+            { 
+                WeaponInfosList[i].isUnlocked = true;
+            }
+            else
+            {
+                WeaponInfosList[i].isUnlocked = false;
+            }
+        }
 
         for (int i = 0; i < FurthestDoorsArray.Length; i++)
         {

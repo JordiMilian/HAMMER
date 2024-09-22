@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class WeaponsRune_control : MonoBehaviour
 {
-    [SerializeField] WeaponsInfos_AltoMandoSpawns altoMandoSpawns;
-    [SerializeField] List<SpriteRenderer> RunesGO = new List<SpriteRenderer>();
+    [SerializeField] GameState gameState;
+    [SerializeField] List<SpriteRenderer> RunesSprites = new List<SpriteRenderer>();
     [SerializeField] Sprite SpriteOn, SpriteOff;
     private void OnEnable()
     {
-        for (int i = 0; i < RunesGO.Count; i++)
+        SetRunesSprites(new WeaponPrefab_infoHolder());
+        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += SetRunesSprites;
+    }
+    public void SetRunesSprites(WeaponPrefab_infoHolder info)
+    {
+        for (int i = 0; i < gameState.WeaponInfosList.Count; i++)
         {
-            if (altoMandoSpawns.weaponSpawners[i].isUnlocked)
+            if (gameState.WeaponInfosList[i].isUnlocked)
             {
-                RunesGO[i].sprite = SpriteOn;
+                RunesSprites[i].sprite = SpriteOn;
             }
-            else { RunesGO[i].sprite = SpriteOff; }
+            else { RunesSprites[i].sprite = SpriteOff; }
         }
     }
 }

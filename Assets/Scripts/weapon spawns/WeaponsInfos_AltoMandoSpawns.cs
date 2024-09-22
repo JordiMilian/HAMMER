@@ -7,73 +7,41 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
 {
     [SerializeField] GameState gameState;
     [Serializable]
-    
     public class weaponSpawner
     {
-        public bool isUnlocked;
-        public bool isCurrentWeapon;
-        public int areaIndex; //Weapons with areaIndex >0 are asigned to an Area door. <0 are asigned as you wish
-        public GameObject infoHolderPrefab;
-        public GameObject spawnedInstance;
+        public bool isSpawned;
         public Transform SpawnPositionTf;
-        [HideInInspector] public WeaponPrefab_infoHolder infoHolder;
     }
-    public List<weaponSpawner> weaponSpawners = new List<weaponSpawner> ();
+    public List<weaponSpawner> weaponSpawnersList = new List<weaponSpawner> ();
     private void Awake()
     {
-        checkUnlockedAreasOnAwake();
+        checkUnlockedWeapons();
     }
-    void checkUnlockedAreasOnAwake()
+    void checkUnlockedWeapons()
     {
-        for (int i = 0; i < weaponSpawners.Count; i++)
+        for (int i = 0; i < gameState.WeaponInfosList.Count; i++)
         {
-            if(weaponSpawners[i].areaIndex < 0) { continue; }
-
-            if (gameState.FourDoors[weaponSpawners[i].areaIndex].isCompleted)
+            if (gameState.WeaponInfosList[i].isUnlocked && gameState.IndexOfCurrentWeapon != i) //if its unlocked and its not the current weapon
             {
-                weaponSpawners[i].isUnlocked = true;
-            }
-        }
-        checkCurrentAndSpawn();
-    }
-    void SpawnWeapons()
-    {
-        for (int i = 0; i < weaponSpawners.Count; i++)
-        {
-            //Debug.Log("is it unlocked?");
-            if (!weaponSpawners[i].isUnlocked) { continue; }
+                if (!weaponSpawnersList[i].isSpawned) //if its not already spawned
+                {
+                    GameObject InstantiatedWeapon = Instantiate(
+                        gameState.WeaponInfosList[i].weaponPrefab,
+                        weaponSpawnersList[i].SpawnPositionTf.position,
+                        Quaternion.identity,
+                        transform
+                        );
 
-            //Debug.Log("is it current?");
-            if (weaponSpawners[i].isCurrentWeapon)
-            {
-                //Algo aqui pa marcar que ja la tens desploquejada pero la tens en mans
-                continue;
-            }
-            //Debug.Log("is it null?");
-            if (weaponSpawners[i].spawnedInstance == null)
-            {
-                //Debug.Log("spawned new weapon");
-                weaponSpawners[i].spawnedInstance = spawnWeapon(weaponSpawners[i]);
-                weaponSpawners[i].infoHolder = weaponSpawners[i].spawnedInstance.GetComponent<WeaponPrefab_infoHolder>();
+                    weaponSpawnersList[i].isSpawned = true;
 
-                weaponSpawners[i].infoHolder.OnPickedUpEvent += checkCurrentAndSpawn;
+                    InstantiatedWeapon.GetComponent<WeaponPrefab_infoHolder>().OnPickedUpEvent += OnPickedAnyWeapon;
+                }
             }
         }
     }
-    GameObject spawnWeapon(weaponSpawner spawner)
+    void OnPickedAnyWeapon(WeaponPrefab_infoHolder infoHolder)
     {
-        return Instantiate(spawner.infoHolderPrefab, spawner.SpawnPositionTf.position, Quaternion.identity);
-    }
-    void checkCurrentAndSpawn()
-    {
-        checkCurrentWeapon();
-        SpawnWeapons();
-    }
-    void checkCurrentWeapon()
-    {
-        foreach(weaponSpawner spawner in weaponSpawners)
-        {
-            spawner.isCurrentWeapon = spawner.infoHolderPrefab == gameState.PlayersWeaponPrefab;
-        }
+        weaponSpawnersList[infoHolder.indexInGameState].isSpawned = false;
+        checkUnlockedWeapons();
     }
 }
