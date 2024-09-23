@@ -8,13 +8,20 @@ public class FrisbeeThrower : Enemy_BaseProjectileCreator
 
     [SerializeField] Transform SpawnPos;
     [SerializeField] bool throwTriggerTest;
+    [SerializeField] Animator enemyAnimator;
     public void EV_ThrowFrisbee()
     {
         UpdateVectorData();
         Vector2 spawnPos = SpawnPos.position;
         Vector2 directionToPlayerFromSpawn = (playerPosition - spawnPos).normalized;
         GameObject newFrisbee = Instantiate(FrisbeePrefab, SpawnPos.position, Quaternion.identity);
-        newFrisbee.GetComponent<FrisbeeController>().throwFrisbee(directionToPlayerFromSpawn, SpawnPos);
+        FrisbeeController frisbeeController = newFrisbee.GetComponent<FrisbeeController>();
+        frisbeeController.throwFrisbee(directionToPlayerFromSpawn, SpawnPos);
+        frisbeeController.onReturnedFrisbee += onFrisbeeReturned;
+    }
+    void onFrisbeeReturned()
+    {
+        enemyAnimator.SetTrigger("PickUpFrisbee");
     }
     private void Update()
     {

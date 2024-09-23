@@ -9,10 +9,10 @@ public class WeaponsRune_control : MonoBehaviour
     [SerializeField] Sprite SpriteOn, SpriteOff;
     private void OnEnable()
     {
-        SetRunesSprites(new WeaponPrefab_infoHolder());
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += SetRunesSprites;
+        SetRunesSprites();
+        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += (WeaponPrefab_infoHolder info) => SetRunesSprites();
     }
-    public void SetRunesSprites(WeaponPrefab_infoHolder info)
+    public void SetRunesSprites()
     {
         for (int i = 0; i < gameState.WeaponInfosList.Count; i++)
         {

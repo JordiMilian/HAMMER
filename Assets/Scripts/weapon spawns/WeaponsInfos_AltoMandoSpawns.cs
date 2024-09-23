@@ -13,9 +13,10 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
         public Transform SpawnPositionTf;
     }
     public List<weaponSpawner> weaponSpawnersList = new List<weaponSpawner> ();
-    private void Awake()
+    private void OnEnable()
     {
         checkUnlockedWeapons();
+        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += OnPickedAnyWeapon;
     }
     void checkUnlockedWeapons()
     {
@@ -34,7 +35,7 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
 
                     weaponSpawnersList[i].isSpawned = true;
 
-                    InstantiatedWeapon.GetComponent<WeaponPrefab_infoHolder>().OnPickedUpEvent += OnPickedAnyWeapon;
+                    //InstantiatedWeapon.GetComponent<WeaponPrefab_infoHolder>().OnPickedUpEvent += OnPickedAnyWeapon;
                 }
             }
         }

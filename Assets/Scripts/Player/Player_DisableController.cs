@@ -29,7 +29,7 @@ public class Player_DisableController : MonoBehaviour
         playerRefs.events.CallDisable -= DisablePlayerScripts;
         playerRefs.events.CallEnable -= EnablePlayerScripts;
     }
-    void HideAndDisablePlayer()
+    public void HideAndDisablePlayer()
     {
         DisablePlayerScripts();
 
@@ -39,7 +39,7 @@ public class Player_DisableController : MonoBehaviour
         }
 
     }
-     void ShowAndEnablePlayer()
+     public void ShowAndEnablePlayer()
     {
         EnablePlayerScripts();
         foreach (GameObject root in SpritesRoot)
@@ -48,7 +48,7 @@ public class Player_DisableController : MonoBehaviour
         }
         GameEvents.OnPlayerRespawned?.Invoke();
     }
-    void DisablePlayerScripts()
+    public void DisablePlayerScripts()
     {
         playerRefs.animator.SetBool("Walking", false);
         playerRefs.playerMovement.StopRunning();
@@ -60,7 +60,7 @@ public class Player_DisableController : MonoBehaviour
         playerRefs.positionCollider.enabled = false;
         isScriptDisabled = true;
     }
-    void EnablePlayerScripts()
+   public void EnablePlayerScripts()
     {
         playerRefs.playerMovement.enabled = true;
         playerRefs.followMouse.enabled = true;

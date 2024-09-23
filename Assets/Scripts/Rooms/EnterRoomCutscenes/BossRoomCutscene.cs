@@ -17,7 +17,6 @@ public class BossRoomCutscene : BaseCutsceneLogic
     }
     IEnumerator bossCutscene()
     {
-        yield return null;
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
@@ -29,26 +28,26 @@ public class BossRoomCutscene : BaseCutsceneLogic
         //Wait just in case for enemies to spawn
         yield return new WaitForSeconds(0.1f);
 
+        //ACTIVATE ANIMATOR TRIGGER FOR INTENDED ANIMATION
+        bossAnimator = bossTf.gameObject.GetComponent<Animator>();
+        bossAnimator.SetTrigger("BossIntro");
+
         //Zoom as intended
         zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(zoomToBoss, 3, "enterCutscene"));
 
         //Target the camera to boss
         TargetGroupSingleton.Instance.AddTarget(bossTf, 50, 1);
 
-        yield return new WaitForSeconds(0.3f);
-
-        //ACTIVATE ANIMATOR TRIGGER FOR INTENDED ANIMATION
-        bossAnimator = bossTf.gameObject.GetComponent<Animator>();
-        bossAnimator.SetTrigger("BossIntro");
 
         float animationTime = UsefullMethods.getCurrentAnimationLenght(bossAnimator, 0);
         yield return new WaitForSeconds(animationTime);
 
         healthBar.ShowCanvas();
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
 
         bossTf.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
+        yield return new WaitForSeconds(.3f);
 
         //return to basics
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");

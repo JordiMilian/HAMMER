@@ -26,6 +26,7 @@ public class SFX_PlayerSingleton : MonoBehaviour
     public void playSFX(AudioClip clip, float pitchVariationAdder = 0, float addedVolum = 0, float addedPitch = 0)
     {
         AudioSource audioSource = GetFreeAudioSource();
+        if(audioSource == null) { Debug.LogError("Not enough AudioSources, add more child sources to the singleton");return; }
 
         if (clip == null) { Debug.LogWarning("Missing audio clip: " + clip.name); return; }
         audioSource.pitch = 1;

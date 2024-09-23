@@ -27,7 +27,8 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
 
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
-        playerRefs.events.CallHideAndDisable?.Invoke();
+        //playerRefs.events.CallHideAndDisable?.Invoke();
+        playerRefs.disableController.HideAndDisablePlayer();
 
         SetupForRespwan();
 

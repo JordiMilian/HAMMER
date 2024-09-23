@@ -51,6 +51,7 @@ MonoBehaviour:
   isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -272,6 +273,7 @@ MonoBehaviour:
   isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -432,6 +434,7 @@ MonoBehaviour:
   isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -1432,6 +1435,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Short
       objectReference: {fileID: 0}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[0].deadPart_GO
+      value: 
+      objectReference: {fileID: 3007528902602298078, guid: 1f90e8a3a620aec4ca8ed5b40be3f39f, type: 3}
+    - target: {fileID: 4265673334437877355, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[0].referenceBone_TF
+      value: 
+      objectReference: {fileID: 5591451318139247216}
     - target: {fileID: 4652752866635177825, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Name
       value: Long

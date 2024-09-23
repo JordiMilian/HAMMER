@@ -233,9 +233,10 @@ MonoBehaviour:
   Damage: 1
   Knockback: 1000
   HitStop: 0.1
-  isParryable: 0
+  isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
   typeOfDamage: 0
@@ -301,6 +302,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frisbeeTime: 2.25
   frisbeeDistance: 6.5
+  ParriedReturnTime: 0.4
+  events: {fileID: 1045114889493520678}
 --- !u!95 &69645715898144517
 Animator:
   serializedVersion: 4

@@ -48,6 +48,7 @@ public class Cutscene_Death_NoResetState : BaseCutsceneLogic
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         yield return new WaitForSeconds(0.1f);
 
+        playerRefs.events.CallDisable();
         playerRefs.events.CallRespawnToLastRespawner?.Invoke();
         playerRefs.healthSystem.RestoreAllHealth();
 

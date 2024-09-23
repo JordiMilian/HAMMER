@@ -7,20 +7,30 @@ public class FrisbeeController : MonoBehaviour
 { 
     [SerializeField] float frisbeeTime;
     [SerializeField] float frisbeeDistance;
+    [SerializeField] float ParriedReturnTime;
+    [SerializeField] Generic_EventSystem events;
     public Action onReturnedFrisbee;
-
+    Coroutine FrisbeThrowCoroutine;
+    
+    Transform originTf;
+    private void OnEnable()
+    {
+        events.OnGettingParried += (int i) => GotParried();
+    }
     public void throwFrisbee(Vector2 direction, Transform origin)
     {
-        StartCoroutine(throwFrisbeeCoroutine(direction, origin));
+        FrisbeThrowCoroutine = StartCoroutine(throwFrisbeeCoroutine(direction, origin));
     }
     IEnumerator throwFrisbeeCoroutine(Vector2 direction, Transform origin)
     {
         float timer = 0;
         float normalizedTime = 0;
         float HalfTime = frisbeeTime / 2;
+        
         Vector2 originPos = origin.position;
         Vector2 startingPos = origin.position;
 
+        originTf = origin;//save the info for when parried
         while (timer < HalfTime)
         {
             timer += Time.deltaTime;
@@ -60,7 +70,45 @@ public class FrisbeeController : MonoBehaviour
 
         StartCoroutine(UsefullMethods.destroyWithDelay(0, gameObject));
     }
+    void GotParried()
+    {
+        StopCoroutine(FrisbeThrowCoroutine);
+        events.gameObject.GetComponent<Collider2D>().enabled = false;
+        StartCoroutine(ParriedCorroutine(originTf));
+    }
+    IEnumerator ParriedCorroutine(Transform origin)
+    {
+        float timer = 0;
+        float normalizedTime = 0;
+        Vector2 startingPos = transform.position;
 
+        Vector2 originPos = origin.position;
+        Vector2 ownPos = transform.position;
+        Vector2 directionFromOrigin = Vector2.zero;
+        float totalDistanceToOrigin = 0;
+
+        while (timer < ParriedReturnTime)
+        {
+            timer += Time.deltaTime;
+            normalizedTime = timer / ParriedReturnTime;
+
+            if (origin != null) { originPos = origin.position; }
+            ownPos = transform.position;
+            directionFromOrigin = (ownPos - originPos).normalized;
+            totalDistanceToOrigin = (startingPos - originPos).magnitude;
+
+            float distanceThisFrame = Mathf.Lerp(totalDistanceToOrigin, 0, normalizedTime);
+            Vector2 calculatedPos = originPos + (directionFromOrigin * distanceThisFrame);
+
+            transform.position = calculatedPos;
+            yield return null;
+        }
+
+        onReturnedFrisbee?.Invoke();
+
+        StartCoroutine(UsefullMethods.destroyWithDelay(0, gameObject));
+
+    }
     float easeOut(float normalizedInput)
     {
         return 1 - Mathf.Pow(1 - normalizedInput, 3);
