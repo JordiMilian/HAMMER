@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BossDefeatedUI_Audio : MonoBehaviour
 {
+    [SerializeField] AudioClip UIAppearSFX;
     public void EV_PlayBossDefeatedAudio()
     {
-        AudioSource source = GetComponent<AudioSource>();
-        source.Play();
+        SFX_PlayerSingleton.Instance.playSFX(UIAppearSFX);
     }
 }

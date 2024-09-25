@@ -20,6 +20,7 @@ public class UpgradesGroup : MonoBehaviour
     [SerializeField] List<UpgradeContainer> spawnedUpgradesContainers = new List<UpgradeContainer>();
 
     [SerializeField] BaseCutsceneLogic spawnCutscene;
+    [SerializeField] AudioClip AppearSfx;
 
     private void Update()
     {
@@ -60,6 +61,7 @@ public class UpgradesGroup : MonoBehaviour
             containerScript.OnPickedUp += OnPickedOneUpgrade; //subscribe to picked up (desubscribed in DispawnCurrentContaoiners())
 
         }
+        SFX_PlayerSingleton.Instance.playSFX(AppearSfx);
     }
     List<Upgrade> NonRepeatingSelection(int amount)
     {
