@@ -10,9 +10,19 @@ public class MouseCameraTarget : MonoBehaviour
     Vector2 lerpedDirection;
     Coroutine currentReturnToCenter;
     bool coroutineStarted;
+    public static MouseCameraTarget Instance;
     private void Awake()
     {
         inputDetector = InputDetector.Instance;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     private void Update()
     {

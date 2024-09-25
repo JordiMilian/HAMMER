@@ -13,6 +13,7 @@ public class Player_SpecialAttack : MonoBehaviour
     [HideInInspector] public float Sp_Knockback;
     [HideInInspector] public float Sp_HitStop;
     [HideInInspector] public float StaminaCost;
+    public float ChargeGainMultiplier = 1;
     float amountToHeal;
 
     private void OnEnable()
@@ -77,7 +78,7 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void addCharge(float amount)
     {
-        float temporalValue = SpCharge_Current.Value + amount;
+        float temporalValue = SpCharge_Current.Value + (amount * ChargeGainMultiplier);
         
         if (temporalValue > SpCharge_Max.Value) { temporalValue = SpCharge_Max.Value; }
         else if (temporalValue < 0) { temporalValue = 0; }

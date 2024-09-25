@@ -9,15 +9,20 @@ public class FrisbeeThrower : Enemy_BaseProjectileCreator
     [SerializeField] Transform SpawnPos;
     [SerializeField] bool throwTriggerTest;
     [SerializeField] Animator enemyAnimator;
+    FrisbeeController lastFrisbee;
+    private void OnDisable()
+    {
+        if (lastFrisbee != null) { lastFrisbee.onReturnedFrisbee -= onFrisbeeReturned; }
+    }
     public void EV_ThrowFrisbee()
     {
         UpdateVectorData();
         Vector2 spawnPos = SpawnPos.position;
         Vector2 directionToPlayerFromSpawn = (playerPosition - spawnPos).normalized;
         GameObject newFrisbee = Instantiate(FrisbeePrefab, SpawnPos.position, Quaternion.identity);
-        FrisbeeController frisbeeController = newFrisbee.GetComponent<FrisbeeController>();
-        frisbeeController.throwFrisbee(directionToPlayerFromSpawn, SpawnPos);
-        frisbeeController.onReturnedFrisbee += onFrisbeeReturned;
+        lastFrisbee = newFrisbee.GetComponent<FrisbeeController>();
+        lastFrisbee.throwFrisbee(directionToPlayerFromSpawn, SpawnPos);
+        lastFrisbee.onReturnedFrisbee += onFrisbeeReturned;
     }
     void onFrisbeeReturned()
     {

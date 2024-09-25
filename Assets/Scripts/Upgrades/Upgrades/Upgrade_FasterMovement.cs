@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Upgrades/FasterMovement", fileName = "FasterMovement")]
 public class Upgrade_FasterMovement : Upgrade
 {
     [SerializeField] float Percent;
@@ -10,13 +11,13 @@ public class Upgrade_FasterMovement : Upgrade
     {
        movement = entity.GetComponent<Player_Movement>();
 
-       float addedValue = movement.BaseSpeed * UsefullMethods.normalizePercentage(Percent, false, true);
-       movement.CurrentSpeed += addedValue;
+       float addedValue = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
+       movement.velocityMultiplier += addedValue;
     }
     public override void onRemoved(GameObject entity)
     {
-        float removedValue = movement.BaseSpeed * UsefullMethods.normalizePercentage(Percent, false, true);
-        movement.CurrentSpeed -= removedValue;
+        float removedValue = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
+        movement.velocityMultiplier -= removedValue;
     }
     public override string shortDescription()
     {

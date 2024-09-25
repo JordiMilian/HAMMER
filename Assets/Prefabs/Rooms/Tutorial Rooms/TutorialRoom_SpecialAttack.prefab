@@ -448,6 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorController: {fileID: 5353986280359459451}
   isRoomPermanentlyCompleted: 0
+  combinedCollider: {fileID: 3003643392823619800}
   openDoorCutscene: {fileID: 3717545724273726430}
   FocusMannequin: {fileID: 4506244158323680452}
 --- !u!114 &3717545724273726430
@@ -464,6 +465,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
   doorController: {fileID: 5353986280359459451}
+--- !u!114 &3003643392823619800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4325014975783648930, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+  m_PrefabInstance: {fileID: 1561236095099162234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1567783014705392053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -923,7 +935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.data[0]
-      value: You can practice the Special Charge here
+      value: You can practice the BloodFlow here
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.data[1]
@@ -1096,11 +1108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.data[1]
-      value: 'Hit enemies: Add special charge'
+      value: 'Hit enemies: Add Flow'
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.data[2]
-      value: 'Get Hit: Loose special charge'
+      value: 'Get Hit: Loose Flow'
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.data[3]

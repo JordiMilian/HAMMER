@@ -9,6 +9,7 @@ public class PuddleStepsPlayer : MonoBehaviour
     [SerializeField] VisualEffect stepEffect;
     [SerializeField] float MinSecondsPerStep;
     [SerializeField] float MaxEntitySpeedPerSecond;
+    [SerializeField] AudioClip stepSFX;
 
     [SerializeField] float regularStepIntensity;
     public bool isStepping;
@@ -53,5 +54,6 @@ public class PuddleStepsPlayer : MonoBehaviour
         stepEffect.gameObject.transform.position = lastPos;
         stepEffect.SetFloat("Intensity", regularStepIntensity);
         stepEffect.Play();
+        //SFX_PlayerSingleton.Instance.playSFX(stepSFX, 0.2f); quede horrible
     }
 }

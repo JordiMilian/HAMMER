@@ -38,7 +38,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
     private void Awake()
     {
         MouseFocusTransform = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
-        cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
+        //cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
         zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         inputDetector = InputDetector.Instance;
     }
@@ -116,7 +116,7 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         GameObject PreviuslyFocusedEnemy = FocusedEnemy;
 
         //Unsubscribe to old Enemy if they are not null and Unfocus icon
-        if (FocusedEnemy != null) { UnsubscribeToEnemy(FocusedEnemy); }
+        if (FocusedEnemy != null) { UnsubscribeToEnemy(FocusedEnemy); TargetGroupSingleton.Instance.RemoveTarget(FocusedEnemy.transform); }
 
         //Decide where to put the searcher:
             //If Death Focus, make a big focus around the dead enemy
@@ -218,11 +218,14 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         if (!IsFocusingEnemy) { return; } //Just in case pero no fa res crec
 
         //Unsubscribe to everything
-        if(UnfocusedEnemy != null) { UnsubscribeToEnemy(UnfocusedEnemy); }
+        if(UnfocusedEnemy != null)
+        { 
+            UnsubscribeToEnemy(UnfocusedEnemy);
+            TargetGroupSingleton.Instance.RemoveTarget(UnfocusedEnemy.transform);
+        }
 
-        cinemachineTarget.m_Targets[1].target = MouseFocusTransform;
-        cinemachineTarget.m_Targets[1].weight = 1;
-        cinemachineTarget.m_Targets[1].radius = 0;
+        TargetGroupSingleton.Instance.ReturnPlayersTarget();
+
 
         zoomer.onUnfocusedEnemy(); //Avisar al zoom controller que ja no tenim focus
 
@@ -239,9 +242,12 @@ public class Player_FollowMouse_withFocus : MonoBehaviour
         SubscribeToEnemy(FocusedEnemy);
 
         IsFocusingEnemy = true;
+        /*
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
         cinemachineTarget.m_Targets[1].weight = 3;
         cinemachineTarget.m_Targets[1].radius = 2;
+        */
+        TargetGroupSingleton.Instance.AddTarget(FocusedEnemy.transform,3,2);
 
         zoomer.onFocusedEnemy(); //Avisar al zoomer que tenim un focus
 

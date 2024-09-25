@@ -7,7 +7,7 @@ public class Player_DisableController : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
 
-    [SerializeField] Transform MouseTarget;
+     Transform MouseTarget;
     [SerializeField] List<GameObject> SpritesRoot = new List<GameObject>();
     public bool isScriptDisabled;
 

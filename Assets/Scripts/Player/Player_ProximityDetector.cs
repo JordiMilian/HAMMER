@@ -19,6 +19,7 @@ public class Player_ProximityDetector : MonoBehaviour
     {
         proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
         proximityTrigger.AddActivatorTag(TagsCollection.Enemy_notFocus);
+        proximityTrigger.AddActivatorTag(TagsCollection.UpgradeContainer); //Aixo donara problemes en algun moment
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
         mouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;

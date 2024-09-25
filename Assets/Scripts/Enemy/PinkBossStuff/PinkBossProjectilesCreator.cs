@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
 {
+    [SerializeField] Enemy_EventSystem events;
+
     [SerializeField] GameObject PinkProjectile_General;
     [SerializeField] GameObject PinkProjectile_General_Big;
     [SerializeField] GameObject PinkProjectile_Directional;
@@ -18,6 +20,7 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
     [SerializeField] GameObject PinkSawProjectile_Prefab;
     [SerializeField] float delayBetweenSaws_polygon;
     [SerializeField] int amountOfSaws_polygon;
+    [SerializeField] int sfxEach = 3;
     [Header("PinkSaw_spread")]
     [SerializeField] float spreadAngleDeg;
     [SerializeField] float delayBetweenSaws_spread;
@@ -78,6 +81,8 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
     public IEnumerator EV_MultipleSawProjectiles(float Offset)
     {
         UpdateVectorData();
+        
+        int sawsCount = 0;
 
         Vector2[] sawDirections = UsefullMethods.GetPolygonPositions(Vector2.zero, amountOfSaws_polygon, 1, Offset);
         for (int i = 0; i < amountOfSaws_polygon; i++)
@@ -86,12 +91,15 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
             PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
             projectile.startSawing(originPosition, sawDirections[i]);
 
+            sawsCount++;
+            if(sawsCount == sfxEach) { sawsCount = 0; events.OnThrowSingleSaw?.Invoke(); }
             yield return new WaitForSeconds(delayBetweenSaws_polygon);
         }
     }
     public IEnumerator EV_SawProjectile_Spread(int amountOfSaws)
     {
         UpdateVectorData();
+        events.OnThrowSingleSaw?.Invoke();
         float spreadAngleRad = spreadAngleDeg * Mathf.Deg2Rad;
 
         Vector2[] spreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(-weaponDirection, amountOfSaws, spreadAngleRad);

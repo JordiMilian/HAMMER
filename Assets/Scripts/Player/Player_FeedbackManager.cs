@@ -22,6 +22,9 @@ public class Player_FeedbackManager : MonoBehaviour
         playerRefs.events.OnDealtDamage += OnHitEnemyCameraEffects;
         playerRefs.events.OnGettingParried += GettingParriedEffects;
         playerRefs.events.CallShowAndEnable += OnActivationFeedback;
+        playerRefs.events.OnActuallySpecialHeal += HealFeedback;
+        playerRefs.events.OnPickedNewUpgrade += PickUpUpgradeFeedback;
+        playerRefs.events.OnPickedNewWeapon += PickUpWeaponFeedback;
     }
     private void OnDisable()
     {
@@ -30,6 +33,9 @@ public class Player_FeedbackManager : MonoBehaviour
         playerRefs.events.OnDealtDamage -= OnHitEnemyCameraEffects;
         playerRefs.events.OnGettingParried -= GettingParriedEffects;
         playerRefs.events.CallShowAndEnable -= OnActivationFeedback;
+        playerRefs.events.OnActuallySpecialHeal -= HealFeedback;
+        playerRefs.events.OnPickedNewUpgrade -= PickUpUpgradeFeedback;
+        playerRefs.events.OnPickedNewWeapon -= PickUpWeaponFeedback;
     }
 
     public void ReceiveDamageEffects(object sender, Player_EventSystem.ReceivedAttackInfo receivedAttackinfo)
@@ -82,6 +88,23 @@ public class Player_FeedbackManager : MonoBehaviour
         TimeScaleEditor.Instance.HitStop(0.1f);
         //_HealthSystem.RemoveLife(-1);
 
+    }
+    void HealFeedback()
+    {
+        CameraShake.Instance.ShakeCamera(.2f, 0.1f);
+        playerRefs.flasher.CallFlasher();
+    }
+    void PickUpUpgradeFeedback(UpgradeContainer upgrade)
+    {
+        CameraShake.Instance.ShakeCamera(.3f, 0.1f);
+        TimeScaleEditor.Instance.HitStop(0.03f);
+        playerRefs.flasher.CallFlasher();
+    }
+    void PickUpWeaponFeedback(WeaponPrefab_infoHolder info)
+    {
+        CameraShake.Instance.ShakeCamera(.3f, 0.1f);
+        TimeScaleEditor.Instance.HitStop(0.05f);
+        playerRefs.flasher.CallFlasher();
     }
     IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
     {

@@ -20,6 +20,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
+        TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
 
         //disable player
         Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
@@ -36,7 +37,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
         zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(zoomToBoss, 3, "enterCutscene"));
 
         //Target the camera to boss
-        TargetGroupSingleton.Instance.AddTarget(bossTf, 50, 1);
+        targetGroup.SetOnlyOneTarget(bossTf, 50, 1);
 
 
         float animationTime = UsefullMethods.getCurrentAnimationLenght(bossAnimator, 0);
@@ -51,7 +52,8 @@ public class BossRoomCutscene : BaseCutsceneLogic
 
         //return to basics
         zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
-        TargetGroupSingleton.Instance.RemoveTarget(bossTf);
+        targetGroup.ReturnPlayersTarget();
+        targetGroup.RemoveTarget(bossTf);
 
 
         //enable player again

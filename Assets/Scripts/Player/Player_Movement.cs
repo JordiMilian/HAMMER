@@ -11,6 +11,7 @@ public class Player_Movement : MonoBehaviour
     [Header("BASE MOVEMENT")]
     public float CurrentSpeed;
     public float BaseSpeed;
+    public float velocityMultiplier = 1;
 
     [Header("RUN")]
     [SerializeField] float RunningSpeed = 40;
@@ -116,7 +117,7 @@ public class Player_Movement : MonoBehaviour
     }
     void Move(Vector2 vector2)
     {
-        playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100);
+        playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100 * velocityMultiplier);
         WalkingAnimation();
     }
   
@@ -163,7 +164,7 @@ public class Player_Movement : MonoBehaviour
         {
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
-            playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime);
+            playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime * velocityMultiplier);
             yield return null;
         }
         playerRefs.spriteFliper.canFlip = true; //sprite can flip after roll

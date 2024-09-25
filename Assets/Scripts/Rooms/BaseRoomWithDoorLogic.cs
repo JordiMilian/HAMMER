@@ -11,6 +11,8 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
     [SerializeField] DoorAnimationController doorController;
     public bool isRoomPermanentlyCompleted;
     public Action<BaseRoomWithDoorLogic> onRoomCompleted;
+    public Action OnEnteredRoomFirstTime; //no estic segur si aixo esta ben ficat aqui 
+    [SerializeField] Generic_OnTriggerEnterEvents combinedCollider;
 
     [SerializeField] BaseCutsceneLogic openDoorCutscene;
     public virtual void OnEnable()
@@ -19,6 +21,8 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
         if (isRoomPermanentlyCompleted) { RoomCompleted(false,true); }
 
         else { doorController.DisableAutoDoorOpener(); }
+        combinedCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        combinedCollider.OnTriggerEntered += FirstTimeEnteringRoom;
     }
     public virtual void OnDisable()
     {
@@ -35,5 +39,10 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
         //Activate the trigger to Reopen Door
         doorController.EnableAutoDoorOpener();
 
+    }
+    void FirstTimeEnteringRoom(Collider2D colider)
+    {
+        combinedCollider.OnTriggerEntered -= FirstTimeEnteringRoom;
+        OnEnteredRoomFirstTime?.Invoke();
     }
 }

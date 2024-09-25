@@ -8,11 +8,11 @@ public class Player_UpgradesManager : MonoBehaviour
     [SerializeField] bool trigger_DeleteRandomUpgrade;
     [SerializeField] GameState gameState;
     [SerializeField] Player_EventSystem playerEvents;
-    [SerializeField] Generic_OnTriggerEnterEvents singlePointCollider;
+    [SerializeField] Generic_OnTriggerEnterEvents UpgradeColliderDetector;
     private void OnEnable()
     {
-        singlePointCollider.AddActivatorTag(TagsCollection.UpgradeContainer);
-        singlePointCollider.OnTriggerEntered += onSingleTriggerEnter;
+        UpgradeColliderDetector.AddActivatorTag(TagsCollection.UpgradeContainer);
+        UpgradeColliderDetector.OnTriggerEntered += onSingleTriggerEnter;
 
         foreach (Upgrade upgrade in gameState.playerUpgrades)
         {
@@ -21,7 +21,7 @@ public class Player_UpgradesManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        singlePointCollider.OnTriggerEntered -= onSingleTriggerEnter;
+        UpgradeColliderDetector.OnTriggerEntered -= onSingleTriggerEnter;
 
         foreach (Upgrade upgrade in gameState.playerUpgrades)
         {

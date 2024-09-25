@@ -17,10 +17,12 @@ public class HalfHealth_PinkTraps : MonoBehaviour
     {
         public PinkTrap_Script Script;
         public SpriteRenderer SpriteRenderer;
-        public trapInfo(PinkTrap_Script script, SpriteRenderer sprite)
+        public GameObject IA_Obstacle;
+        public trapInfo(PinkTrap_Script script, SpriteRenderer sprite, GameObject iA_Obstacle)
         {
             Script = script;
             SpriteRenderer = sprite;
+            IA_Obstacle = iA_Obstacle;
         }
     }
     [Serializable]
@@ -28,10 +30,12 @@ public class HalfHealth_PinkTraps : MonoBehaviour
     {
         public PinkSaw Script;
         public SpriteShapeRenderer Shape;
-        public sawInfo(PinkSaw saw, SpriteShapeRenderer shape)
+        public GameObject IA_Obstacle;
+        public sawInfo(PinkSaw saw, SpriteShapeRenderer shape, GameObject iA_Obstacle)
         {
             Script = saw;
             Shape = shape;
+            IA_Obstacle = iA_Obstacle;
         }
     }
     [SerializeField] List<trapInfo> trapInfosList = new List<trapInfo>();
@@ -49,8 +53,9 @@ public class HalfHealth_PinkTraps : MonoBehaviour
             {
                 trapInfosList.Add(new trapInfo(
                     trapGO.GetComponent<PinkTrap_Script>(),
-                    trapGO.GetComponent<SpriteRenderer>()
-                    ));
+                    trapGO.GetComponent<SpriteRenderer>(),
+                    trapGO.GetComponentInChildren<CircleCollider2D>().gameObject
+                    ));;
             }
         }
         if(sawInfosList.Count != pinkSawsList.Count)
@@ -63,7 +68,8 @@ public class HalfHealth_PinkTraps : MonoBehaviour
 
                 sawInfosList.Add(new sawInfo(
                     thisSaw,
-                    thisSaw.shapeController.gameObject.GetComponent<SpriteShapeRenderer>()
+                    thisSaw.shapeController.gameObject.GetComponent<SpriteShapeRenderer>(),
+                    thisSaw.GetComponentInChildren<CircleCollider2D>().gameObject
                 ));
             }
         }
@@ -95,6 +101,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         
         trap.SpriteRenderer.color = new Color(1, 1, 1, 0);
         float timer = 0;
+        trap.IA_Obstacle.SetActive(true);
         while (timer < timeToAppearTraps)
         {
             timer += Time.deltaTime;
@@ -109,6 +116,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         yield return new WaitForSeconds(delayBeforeAppearingTraps);
 
         saw.Shape.color = new Color (1,1,1,0);
+        saw.IA_Obstacle.SetActive(true);
         float timer = 0;
         while (timer < timeToAppearTraps)
         {
@@ -125,11 +133,13 @@ public class HalfHealth_PinkTraps : MonoBehaviour
         {
             trap.Script.enabled = false;
             trap.SpriteRenderer.color = new Color(1, 1, 1, 0);
+            trap.IA_Obstacle.SetActive(false);
         }
         foreach(sawInfo saw in sawInfosList)
         {
             saw.Script.isNotSawing = true;
             saw.Shape.color = new Color(1, 1, 1, 0);
+            saw.IA_Obstacle.SetActive(false);
         }
     }
 }

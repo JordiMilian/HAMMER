@@ -18,6 +18,7 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
         targetGroupSingleton = TargetGroupSingleton.Instance;
         
         targetGroupSingleton.AddTarget(upgradesGroup.transform, 10, 1);
+        targetGroupSingleton.RemovePlayersTarget();
 
         yield return new WaitForSeconds(1);
 
@@ -26,6 +27,7 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
         yield return new WaitForSeconds(1);
 
         targetGroupSingleton.RemoveTarget(upgradesGroup.transform);
+        targetGroupSingleton.ReturnPlayersTarget();
 
         playerEvents.CallEnable();
 

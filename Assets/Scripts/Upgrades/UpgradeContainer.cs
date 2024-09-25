@@ -9,14 +9,14 @@ public class UpgradeContainer : MonoBehaviour
     public SpriteRenderer iconRenderer;
     public Action<int> OnPickedUp; //it passes the Index in group 
     public int IndexInGroup;
-
+    bool picked;
     //If its an upgrade with group, we call directly OnSpawnContainer from the Group. 
     //If its an upgrade on its own, we call it on Start
     public bool isSoloUpgrade;
 
     [SerializeField] Animator containerAnimator;
     [SerializeField] Dialoguer dialoguer;
-    Collider2D ownCollider;
+    CircleCollider2D ownCollider;
     
     private void Start()
     {
@@ -24,7 +24,7 @@ public class UpgradeContainer : MonoBehaviour
     }
      public void OnSpawnContainer()
     {
-        ownCollider = GetComponent<Collider2D>();
+        ownCollider = GetComponent<CircleCollider2D>();
         iconRenderer.sprite = upgradeEffect.iconSprite;
         dialoguer.TextLines[0] = upgradeEffect.shortDescription();
         ownCollider.enabled = true;
@@ -32,6 +32,7 @@ public class UpgradeContainer : MonoBehaviour
     }
     public void OnPickedUpContainer()
     {
+        picked = true;
         OnPickedUp?.Invoke(IndexInGroup);
         ownCollider.enabled = false;
         StartCoroutine(UsefullMethods.destroyWithDelay(1.5f,gameObject));

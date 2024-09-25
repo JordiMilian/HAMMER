@@ -3212,6 +3212,51 @@ PrefabInstance:
       objectReference: {fileID: 1341850416}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
+--- !u!1 &1348780475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1348780477}
+  - component: {fileID: 1348780476}
+  m_Layer: 0
+  m_Name: ENEMYKILLER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1348780476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348780475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001136267b81140419488b4872abd443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFromPlayer: 10
+--- !u!4 &1348780477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348780475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.0389414, y: -96.94693, z: -0.29939184}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1378659880
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,16 +3438,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 1898244007377178344, guid: c157d8a9c1eb4ec40963bdcebddcf5d3, type: 3}
+      objectReference: {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
     - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: RoomPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 1890388043516456825, guid: 95dafad041cb726499c98ffeb89dae46, type: 3}
+      objectReference: {fileID: 8447221708613849432, guid: 36088787aaa4d8d43a594f0635aa2eb3, type: 3}
+    - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
+      propertyPath: RoomPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 7980233399720109798, guid: 11593c9a29c90e749b60f608cbbdb1e0, type: 3}
+    - target: {fileID: 4949049678508268660, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
+      propertyPath: RoomPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 8093152888981410585, guid: 13a8e8b7dc7aa2248b871acd3feb3690, type: 3}
     - target: {fileID: 7161141537563793830, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3450,7 +3503,7 @@ PrefabInstance:
     - target: {fileID: 8718984327364487368, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: c36f4d4caa9cb8a4d9fffcb7739e4ff9, type: 3}
+      objectReference: {fileID: 8300000, guid: 54e90d66e1db6eb4680a2718e7d26cf2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0d9764dc9882e4e9f745089542ae72, type: 3}
 --- !u!1 &1488754092

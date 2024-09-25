@@ -16,6 +16,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     Coroutine currentChasingbeforeAttack;
     [SerializeField] List<Generic_OnTriggerEnterEvents> puddleTriggers = new List<Generic_OnTriggerEnterEvents>();
     VisualEffect BigStepVFX;
+    [SerializeField] AudioClip CreatureSFX;
 
     [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
     private void Awake()
@@ -88,6 +89,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
         currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayBetweenAttacks));
         BigStepVFX.Play();
         CameraShake.Instance.ShakeCamera(.5f, 0.4f);
+        SFX_PlayerSingleton.Instance.playSFX(CreatureSFX);
     }
     void cancelEverything()
     {

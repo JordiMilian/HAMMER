@@ -505,7 +505,7 @@ PrefabInstance:
     - target: {fileID: 5899201009733240555, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_ShapeTexture
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
     - target: {fileID: 5899201009733240555, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_DynamicOccludee
       value: 0
@@ -584,6 +584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorController: {fileID: 3719525278984921642}
   isRoomPermanentlyCompleted: 0
+  combinedCollider: {fileID: 3199630154080722158}
   openDoorCutscene: {fileID: 6325403577021855596}
   MaxWeight_T1: 1
   MaxWeight_T2: 0
@@ -599,6 +600,17 @@ MonoBehaviour:
   SpawnArea: {fileID: 6272392358212819005}
   EnemiesContainer: {fileID: 6954358700734778785}
   enterRoomCutscene: {fileID: 3477839892929856678}
+--- !u!114 &3199630154080722158 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4325014975783648930, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+  m_PrefabInstance: {fileID: 1180739804397576780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6250911060315070113 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5106350687280430317, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}

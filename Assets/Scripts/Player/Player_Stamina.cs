@@ -6,6 +6,7 @@ public class Player_Stamina : MonoBehaviour
 {
     public bool isRecovering;
     public bool isFilled;
+    public float RecoverSpeedMultiplier = 1;
 
     [SerializeField] Player_References playerRefs;
 
@@ -67,7 +68,7 @@ public class Player_Stamina : MonoBehaviour
     {
         if (isRecovering)
         {
-            playerRefs.currentStamina.Value += Time.deltaTime * RecoveryPerSecond;
+            playerRefs.currentStamina.Value += Time.deltaTime * RecoveryPerSecond * RecoverSpeedMultiplier;
 
             if (playerRefs.currentStamina.Value > playerRefs.maxStamina.Value)
             {

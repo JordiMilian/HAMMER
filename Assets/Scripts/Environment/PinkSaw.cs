@@ -15,6 +15,7 @@ public class PinkSaw : MonoBehaviour
     [SerializeField] int startingPos = 1;
     [SerializeField] bool isConstantlySawing;
     [SerializeField] float delayedStartingTime;
+    [SerializeField] AudioClip SawAppearSFX, SawMoveSFX;
     [Header("References")]
     [SerializeField] Animator sawAnimator;
     [SerializeField] Generic_AreaTriggerEvents sawAreaTrigger;
@@ -39,7 +40,14 @@ public class PinkSaw : MonoBehaviour
     }
     private void Start()
     {
-        if (isConstantlySawing) { Invoke("startSawing", delayedStartingTime + 0.1f); }
+        if (isConstantlySawing) 
+        {
+            roomWithEnemiesLogic.OnEnteredRoomFirstTime += startPermanentlySawing;  
+        }
+    }
+    void startPermanentlySawing()
+    {
+        Invoke("startSawing", delayedStartingTime + 0.1f);
     }
     void DeactivateSaw(BaseRoomWithDoorLogic logic)
     {
@@ -140,5 +148,13 @@ public class PinkSaw : MonoBehaviour
     float BezierBlend(float t)
     {
         return t * t * (3.0f - 2.0f * t);
+    }
+    public void EV_SawAppearFeedback()
+    {
+        SFX_PlayerSingleton.Instance.playSFX(SawAppearSFX,0,-0.3f);
+    }
+    public void EV_StartMovingFeedback()
+    {
+        SFX_PlayerSingleton.Instance.playSFX(SawMoveSFX, 0.1f,-0.6f);
     }
 }

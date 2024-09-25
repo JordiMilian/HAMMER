@@ -19,10 +19,12 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     [SerializeField] Animator animator;
     public Action<WeaponPrefab_infoHolder> OnPickedUpEvent;
     public int indexInGameState;
+    CircleCollider2D detectionCollider;
 
     private void OnEnable()
     {
         OnSpawned();
+        detectionCollider = GetComponent<CircleCollider2D>();
     }
     public void OnSpawned()
     {
@@ -31,6 +33,7 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     public void OnPickedUp()
     {
         animator.SetTrigger("PickedUp");
+        detectionCollider.enabled = false;
         StartCoroutine( UsefullMethods.destroyWithDelay(.6f,gameObject));
         OnPickedUpEvent?.Invoke(this);
     }

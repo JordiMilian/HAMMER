@@ -11,14 +11,12 @@ public class EndScreen : MonoBehaviour
     [SerializeField] UI_BaseAction UI_Action;
     [SerializeField] GameObject EndScreenRootImage;
     bool isDisplaying;
-    private void Awake()
+
+    private void OnEnable()
     {
         images = GetComponentsInChildren<MaskableGraphic>().ToList<MaskableGraphic>();
         EndCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         isDisplaying = false;
-    }
-    private void OnEnable()
-    {
         EndCollider.OnTriggerEntered += playerEnteredEndCollider;
         InputDetector.Instance.OnPausePressed += onPausePressed;
     }

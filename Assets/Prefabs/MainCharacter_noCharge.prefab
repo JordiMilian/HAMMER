@@ -1285,6 +1285,7 @@ GameObject:
   - component: {fileID: 7213632186981441}
   - component: {fileID: 46438836940467434}
   - component: {fileID: 489989574351239143}
+  - component: {fileID: 3030397079455606687}
   m_Layer: 0
   m_Name: DamageDealer
   m_TagString: Attack_Hitbox
@@ -1386,6 +1387,19 @@ MonoBehaviour:
   EntityTeam: 0
   typeOfDamage: 0
   eventSystem: {fileID: 3383090570821903391}
+--- !u!114 &3030397079455606687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612325635424186014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
 --- !u!1 &6850400280213929898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,8 +1979,9 @@ MonoBehaviour:
   RollSFX: {fileID: 8300000, guid: dbeb434ae6e18394f8c4da664398aaf0, type: 3}
   RebornSFX: {fileID: 8300000, guid: 76eaa72a654c9a64d8d1d58dc0f48b25, type: 3}
   AttemptParrySFX: {fileID: 8300000, guid: 090d72a3dfebdc541a1e0de05653c2ca, type: 3}
-  PickWeapon: {fileID: 0}
-  PickUpgrade: {fileID: 0}
+  PickWeapon: {fileID: 8300000, guid: cd3af04f81ca9184aa356cbd062b98b1, type: 3}
+  PickUpgrade: {fileID: 8300000, guid: cdd0676bee739394ea85f231ed9d5147, type: 3}
+  HealSFX: {fileID: 8300000, guid: f9c5bc6b3e60c0048ba4444135d39d88, type: 3}
   playerEvents: {fileID: 3383090570821903391}
 --- !u!1 &7653426974019842421
 GameObject:
@@ -3506,7 +3521,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
-  MouseTarget: {fileID: 0}
   SpritesRoot:
   - {fileID: 7653426974895600710}
   - {fileID: 903519175663782563}
@@ -3689,7 +3703,7 @@ MonoBehaviour:
   trigger_DeleteRandomUpgrade: 0
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   playerEvents: {fileID: 3383090570821903391}
-  singlePointCollider: {fileID: 9009123525477702090}
+  UpgradeColliderDetector: {fileID: 3030397079455606687}
 --- !u!114 &131155159506509890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5955,6 +5969,10 @@ PrefabInstance:
       propertyPath: health
       value: 
       objectReference: {fileID: 7653426975249963391}
+    - target: {fileID: 2361237269639904750, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
+      propertyPath: HorizontalSizePerUnit
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5309733073026282580, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: m_Name
       value: BasicHealthbarLogic
