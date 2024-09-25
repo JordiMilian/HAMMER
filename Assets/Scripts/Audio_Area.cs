@@ -13,7 +13,7 @@ public class Audio_Area : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents audioTriggerCollider;
     private void Awake()
     {
-        BaseVolume = audioSource.volume;
+        
     }
     private void OnEnable()
     {
@@ -21,6 +21,7 @@ public class Audio_Area : MonoBehaviour
         audioTriggerCollider.OnTriggerEntered += onFadeInAudio;
         audioTriggerCollider.OnTriggerExited += onFadeOutAudio;
         MusicManager.Instance.AddMusicSource(audioSource);
+        BaseVolume = audioSource.volume;
     }
     private void OnDisable()
     {

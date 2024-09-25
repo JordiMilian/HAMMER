@@ -1777,6 +1777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3743134093748283234}
   - component: {fileID: 2816248262323164294}
+  - component: {fileID: 7571122762221070247}
   m_Layer: 0
   m_Name: UI upgrades Icons
   m_TagString: Untagged
@@ -1827,6 +1828,19 @@ MonoBehaviour:
   - {fileID: 4839914882623853790}
   distanceBetweenIcons: 45
   triggerUpdateUI: 0
+--- !u!114 &7571122762221070247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476701271576577685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065281936bc85b148b0d0b7761a37df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasRoot: {fileID: 4216416041170904585}
 --- !u!1 &7568668169372958368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3343,6 +3357,7 @@ MonoBehaviour:
   playerRefs: {fileID: 3175104005493510322}
   CurrentSpeed: 20
   BaseSpeed: 20
+  velocityMultiplier: 1
   RunningSpeed: 40
   RunInputDelayTime: 0.4
   canDash: 1
@@ -3459,6 +3474,7 @@ MonoBehaviour:
   Sp_Knockback: 5000
   Sp_HitStop: 0.5
   StaminaCost: 2
+  ChargeGainMultiplier: 1
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3542,6 +3558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRecovering: 0
   isFilled: 0
+  RecoverSpeedMultiplier: 1
   playerRefs: {fileID: 3175104005493510322}
   RecoveryPerSecond: 7
   DelayToRecover: 0
@@ -5863,6 +5880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7653426975249963376}
     m_Modifications:
+    - target: {fileID: 2279695837044297685, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2279695838598030728, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5950,6 +5971,14 @@ PrefabInstance:
     - target: {fileID: 2279695838598030739, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
       propertyPath: m_Name
       value: SpecialAttackCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279695838598030742, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279695838598030743, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}

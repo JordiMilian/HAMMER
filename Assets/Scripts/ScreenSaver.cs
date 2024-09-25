@@ -50,6 +50,7 @@ public class ScreenSaver : MonoBehaviour
         yield return new WaitForSecondsRealtime(WaitAfterInput);
         playVideo();
         isPlaying = true;
+        
     }
     void playVideo()
     {
@@ -57,11 +58,17 @@ public class ScreenSaver : MonoBehaviour
         MainMenuButtonsController.isReadingInput = false;
         VideoUIObject.SetActive(true);
         videoPlayer.Play();
+        StartCoroutine(waitForEndVideo());
     }
     void stopVideo()
     {
         MainMenuButtonsController.isReadingInput = true;
         VideoUIObject.SetActive(false);
         videoPlayer.Stop();
+    }
+    IEnumerator waitForEndVideo()
+    {
+        yield return new WaitForSeconds((float)videoPlayer.clip.length);
+        onPressedAnyButton();
     }
 }

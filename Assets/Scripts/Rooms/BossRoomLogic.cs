@@ -6,6 +6,7 @@ using UnityEngine;
 public class BossRoomLogic : RoomWithEnemiesLogic
 {
     [SerializeField] GameState gameState;
+    [SerializeField] bool dontEffectSkulls;
     public Action<int> OnBossDefeated;
     public int BossIndex;
     //[SerializeField] UpgradesGroup upgradesGroup;
@@ -17,9 +18,11 @@ public class BossRoomLogic : RoomWithEnemiesLogic
     void BossDefeated(BaseRoomWithDoorLogic roomLogic)
     {
         if(BossIndex < 0) { return; }
+        if(gameState.FourDoors[BossIndex].isCompleted == false) { gameState.SkullsThatShouldBeUnlocked++; } //Aixo shauria de controlar millor plsss
+
         gameState.FourDoors[BossIndex].isCompleted = true;
         gameState.LastCompletedBoss = BossIndex;
-        gameState.SkullsThatShouldBeUnlocked++; //Aixo shauria de controlar millor plsss
+        
         OnBossDefeated?.Invoke(BossIndex);
         gameState.justDefeatedBoss = true;
 

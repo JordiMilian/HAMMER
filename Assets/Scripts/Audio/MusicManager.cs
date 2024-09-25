@@ -36,6 +36,34 @@ public class MusicManager : MonoBehaviour
             UpdateMusicsVolumes();
             setVolumeTrigger = false;
         }
+        if(Input.GetKey(KeyCode.M)) 
+        { 
+            if(Input.GetKeyDown(KeyCode.O))
+            {
+                gameState.MusicVolum += 0.1f;
+                UpdateMusicsVolumes();
+            }
+            else if(Input.GetKeyDown(KeyCode.L)) 
+            {
+                gameState.MusicVolum -= 0.1f;
+                UpdateMusicsVolumes();
+            }
+            if(gameState.MusicVolum < 0) { gameState.MusicVolum = 0; }
+            if(gameState.MusicVolum > 1) { gameState.MusicVolum = 1; }
+        }
+        if (Input.GetKey(KeyCode.N))
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                gameState.SFXVolum += 0.1f;
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                gameState.SFXVolum -= 0.1f;
+            }
+            if(gameState.SFXVolum < 0) { gameState.SFXVolum = 0; }
+            if(gameState.SFXVolum > 1) { gameState.SFXVolum = 1; }
+        }
     }
     private void Start()
     {
@@ -53,6 +81,7 @@ public class MusicManager : MonoBehaviour
         musicSource newSource = new musicSource();
         newSource.audioSource = source;
         newSource.BaseVolume = source.volume;
+        newSource.audioSource.volume = gameState.MusicVolum;
 
         musicSources.Add(newSource);
         Debug.Log("Added new music source with base: "+ newSource.BaseVolume);
