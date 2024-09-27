@@ -15,6 +15,7 @@ public class Player_SpecialAttack : MonoBehaviour
     [HideInInspector] public float StaminaCost;
     public float ChargeGainMultiplier = 1;
     float amountToHeal;
+    bool 
 
     private void OnEnable()
     {
@@ -69,7 +70,7 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void onReceivedAttack(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
-        addCharge(-info.Damage * .75f);
+        //addCharge(-info.Damage * .75f); TESTING NOT REMOVE SPECIAL
     }
     void onSuccesfullParry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
     {
