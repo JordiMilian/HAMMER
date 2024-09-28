@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class KILLENEMIESAROUND : MonoBehaviour
 {
-
-
-    [SerializeField] float distanceFromPlayer;
+    [SerializeField] GameState gameState;
+    List< Generic_HealthSystem> enemiesHealth = new List<Generic_HealthSystem>();
+    [SerializeField] float InstaKillEnemiesOnDistance;
+     Room_script currentRoom;
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha0))
@@ -14,26 +16,53 @@ public class KILLENEMIESAROUND : MonoBehaviour
             KILLEMALL();
         }
     }
-    void KILLEMALL()
+    private void Start()
     {
-        Vector2 playerPos = GlobalPlayerReferences.Instance.playerTf.position;
+        InvokeRepeating("CheckEnemiesDistanceAndKill", 0, 5);
+    }
+    void UpdateEnemiesHealthList()
+    {
+        enemiesHealth.Clear();
+        RoomGenerator_Manager roomsGenerator = RoomGenerator_Manager.Instance;
 
-        GameObject[] enemiesGO = GameObject.FindGameObjectsWithTag(TagsCollection.Enemy);
-        List<Generic_HealthSystem> healthsList = new List<Generic_HealthSystem>();
+        if(gameState.currentPlayerRooms_index.Count == 0) { return; }
+
+        Vector3Int currentRoomsIndex = gameState.currentPlayerRooms_index[gameState.currentPlayerRooms_index.Count - 1];
+        currentRoom = roomsGenerator.CompleteList_spawnedRooms[currentRoomsIndex.x].list[currentRoomsIndex.y];
+
+        RoomWithEnemiesLogic currentRoomWithEnemies = currentRoom.GetComponent<RoomWithEnemiesLogic>();
+        if(currentRoomWithEnemies == null) { return; }
+        GameObject[] enemiesGO = currentRoomWithEnemies.CurrentlySpawnedEnemies.ToArray();
+        enemiesHealth = new List<Generic_HealthSystem>();
         foreach (GameObject enem in enemiesGO)
         {
             Generic_HealthSystem enemieHealth = enem.GetComponent<Generic_HealthSystem>();
-            
-            if (enemieHealth == null) { continue; }
-            
-            Vector2 enemPos = enem.transform.position;
-            if ((playerPos - enemPos).magnitude > distanceFromPlayer) { continue; }
 
-            healthsList.Add(enemieHealth);
-            
+            if (enemieHealth == null) { continue; }
+
+            enemiesHealth.Add(enemieHealth);
+        }
+    }
+    void KILLEMALL()
+    {
+        UpdateEnemiesHealthList();
+        StartCoroutine(KillEmSlowly(enemiesHealth.ToArray()));
+    }
+    void CheckEnemiesDistanceAndKill()
+    {
+        Debug.Log("Checking enemies distance");
+        UpdateEnemiesHealthList();
+        Vector2 roomPos = currentRoom.transform.position;
+        foreach(Generic_HealthSystem health in  enemiesHealth)
+        {
+            Vector2 enemyPos = health.transform.position;
+            if((enemyPos - roomPos).magnitude > InstaKillEnemiesOnDistance)
+            {
+                health.RemoveLife(50, gameObject);
+                Debug.Log("Killed: " + health.gameObject.name + "because he got too far");
+            }
         }
 
-        StartCoroutine(KillEmSlowly(healthsList.ToArray()));
     }
     IEnumerator KillEmSlowly(Generic_HealthSystem[] healthsArray)
     {

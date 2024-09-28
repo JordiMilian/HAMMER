@@ -9,7 +9,7 @@ public class SpinningEyes : MonoBehaviour
     [SerializeField] Transform HeadBone;
     [SerializeField] Transform SpritesRoot;
     [SerializeField] RotationConstraint constraint;
-    [SerializeField] Player_FollowMouse_withFocus followMouse;
+    [SerializeField] Player_FollowMouse_alwaysFocus followMouse;
     [SerializeField] Transform ConstrainedBone;
     [SerializeField] Transform FlippingRoot;
     ConstraintSource constranitSource = new ConstraintSource();

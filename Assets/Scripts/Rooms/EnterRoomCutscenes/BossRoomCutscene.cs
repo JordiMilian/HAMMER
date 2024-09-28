@@ -60,7 +60,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
         playerEvents.CallEnable();
 
         //Focus the boss
-        Player_FollowMouse_withFocus followMouse = GlobalPlayerReferences.Instance.references.followMouse;
+        Player_FollowMouse_alwaysFocus followMouse = GlobalPlayerReferences.Instance.references.followMouse;
         followMouse.AttemptFocus(false, false);
 
         onCutsceneOver?.Invoke();

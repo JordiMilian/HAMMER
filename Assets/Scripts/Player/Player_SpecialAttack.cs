@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_SpecialAttack : MonoBehaviour
@@ -15,7 +13,7 @@ public class Player_SpecialAttack : MonoBehaviour
     [HideInInspector] public float StaminaCost;
     public float ChargeGainMultiplier = 1;
     float amountToHeal;
-    bool 
+
 
     private void OnEnable()
     {

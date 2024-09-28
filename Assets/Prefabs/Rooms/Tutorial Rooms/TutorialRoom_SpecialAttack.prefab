@@ -434,23 +434,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1075035394442379020, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
   m_PrefabInstance: {fileID: 1561236095099162234}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1972140289402858086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1964085152448704886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38966bd74b124ca4ab3684aacbb2f4f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorController: {fileID: 5353986280359459451}
-  isRoomPermanentlyCompleted: 0
-  combinedCollider: {fileID: 3003643392823619800}
-  openDoorCutscene: {fileID: 3717545724273726430}
-  FocusMannequin: {fileID: 4506244158323680452}
 --- !u!114 &3717545724273726430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,17 +448,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
   doorController: {fileID: 5353986280359459451}
---- !u!114 &3003643392823619800 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4325014975783648930, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
-  m_PrefabInstance: {fileID: 1561236095099162234}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1567783014705392053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -659,7 +631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4742843536911538797, guid: eef1d18b514a54b4285c13c1eb97c66e, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.000000059604645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4742843536911538797, guid: eef1d18b514a54b4285c13c1eb97c66e, type: 3}
       propertyPath: m_Bounds.m_Center.y
@@ -667,11 +639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4742843536911538797, guid: eef1d18b514a54b4285c13c1eb97c66e, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.7850001
+      value: 0.7850002
       objectReference: {fileID: 0}
     - target: {fileID: 4742843536911538797, guid: eef1d18b514a54b4285c13c1eb97c66e, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.8800001
+      value: 0.88000023
       objectReference: {fileID: 0}
     - target: {fileID: 8600147544876356715, guid: eef1d18b514a54b4285c13c1eb97c66e, type: 3}
       propertyPath: m_Name
@@ -773,11 +745,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ffe6d4ff856220499b711337b1b5dd4, type: 3}
---- !u!1 &4506244158323680452 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6636541606212805010, guid: 7ffe6d4ff856220499b711337b1b5dd4, type: 3}
-  m_PrefabInstance: {fileID: 7102420987805025622}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7628547809014477444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -911,11 +878,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.00072953105
+      value: -0.0007299781
+      objectReference: {fileID: 0}
+    - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_Bounds.m_Center.y
+      value: -0.014422417
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.29926997
+      value: 0.29927003
       objectReference: {fileID: 0}
     - target: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Name
@@ -923,11 +894,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.00012049079
+      value: 0.00012001395
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.00000011920929
+      value: 0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_Bounds.m_Extent.x
+      value: 0.29988
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_Bounds.m_Extent.y
+      value: 1.4700005
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.size
@@ -1000,7 +979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 787175008504657096, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.74
+      value: -6.46
       objectReference: {fileID: 0}
     - target: {fileID: 787175008504657096, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1040,15 +1019,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.0007300079
+      value: -0.00072950125
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.014424086
+      value: -0.014424324
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.29926997
+      value: 0.2992705
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.y
@@ -1065,6 +1044,10 @@ PrefabInstance:
     - target: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Name
       value: TutorialPole_Base (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3578536280151532219, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.y
@@ -1086,17 +1069,25 @@ PrefabInstance:
       propertyPath: m_Bounds.m_Center.y
       value: -0.0015195012
       objectReference: {fileID: 0}
+    - target: {fileID: 5505163638899105333, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.00012001395
+      value: 0.00012049079
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.00000035762787
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+      propertyPath: m_Bounds.m_Extent.x
+      value: 0.29988047
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 1.4699996
+      value: 1.4699991
       objectReference: {fileID: 0}
     - target: {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: newTextLines.Array.size

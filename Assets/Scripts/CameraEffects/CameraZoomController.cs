@@ -11,7 +11,7 @@ public class CameraZoomController : MonoBehaviour
     [SerializeField] float lerpingZoom, targetZoom, zoomSpeed;
 
     [SerializeField] CinemachineVirtualCamera virtualCamera;
-    Player_FollowMouse_withFocus followMouse;
+    Player_FollowMouse_alwaysFocus followMouse;
     [Header("Base Zoom info")]
     [SerializeField] float BaseZoom;
     [SerializeField] float BaseSpeed;

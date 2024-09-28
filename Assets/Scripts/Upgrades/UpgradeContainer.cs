@@ -40,6 +40,7 @@ public class UpgradeContainer : MonoBehaviour
     }
     public void OnDispawnContainer()
     {
+        ownCollider.enabled = false;
        StartCoroutine( UsefullMethods.destroyWithDelay(1f, gameObject));
         containerAnimator.SetTrigger("Despawn");
     }

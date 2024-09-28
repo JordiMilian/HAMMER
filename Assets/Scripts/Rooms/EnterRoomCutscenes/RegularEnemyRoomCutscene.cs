@@ -27,6 +27,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         
         //Find the references
         CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
+        Player_FollowMouse_alwaysFocus followMouse = GlobalPlayerReferences.Instance.references.followMouse;
 
         //Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
         //playerEvents.CallDisable();
@@ -46,8 +47,11 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         {
             enemy.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
         }
+        
+        followMouse.FocusedEnemy = enemyRoomLogic.CurrentlySpawnedEnemies[0];
+        followMouse.OnLookAtEnemy();
 
-            yield return new WaitForSeconds(0.9f);
+        yield return new WaitForSeconds(0.5f);
 
             //Return to normal zoom
             zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
