@@ -24,7 +24,7 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
         GlobalPlayerReferences.Instance.references.healthSystem.RestoreAllHealth();
         dialoguer.SetActive(false);
     }
-    void killDude()
+    void killDude(int i)
     {
         tiedEvents.OnReceiveDamage?.Invoke(this, new Generic_EventSystem.ReceivedAttackInfo(
             Vector2.zero,

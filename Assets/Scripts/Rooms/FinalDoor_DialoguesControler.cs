@@ -30,13 +30,13 @@ public class FinalDoor_DialoguesControler : MonoBehaviour
             finalDoor_Dialoguer.onFinishedReading += onReadBossFinished;
         }
 
-        void onReadFirst()
+        void onReadFirst(int i)
         {
             SetStateDialoguer(1);
             finalDoor_Dialoguer.onFinishedReading -= onReadFirst;
         }
 
-        void onReadBossFinished()
+        void onReadBossFinished(int i)
         {
             SetStateDialoguer(4);
             finalDoor_Dialoguer.onFinishedReading -= onReadBossFinished;
