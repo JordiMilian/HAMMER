@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Generic_TypeOFGroundDetector : MonoBehaviour
 {
+    public Generic_References references; //We have this here so the proximity detector can get the root Transform
     public enum TypesOfGround
     {
         defaultGround, puddle

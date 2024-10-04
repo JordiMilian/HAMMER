@@ -17,9 +17,10 @@ public class Player_ProximityDetector : MonoBehaviour
     Vector2 ownPosition, mousePosition;
     private void OnEnable()
     {
-        proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
-        proximityTrigger.AddActivatorTag(TagsCollection.Enemy_notFocus);
+        //proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
+        //proximityTrigger.AddActivatorTag(TagsCollection.Enemy_notFocus);
         proximityTrigger.AddActivatorTag(TagsCollection.UpgradeContainer); //Aixo donara problemes en algun moment
+        proximityTrigger.AddActivatorTag(TagsCollection.Enemy_SinglePointCollider);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
         mouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
@@ -51,6 +52,8 @@ public class Player_ProximityDetector : MonoBehaviour
             return; 
         }
 
+        //If there are enemies:
+
         CheckClosest(); //Given the list of near enemies, check who is closests
         isDistanceToMouse.Value = false;
 
@@ -59,12 +62,19 @@ public class Player_ProximityDetector : MonoBehaviour
     void AddEnemy(Collider2D collision)
     {
         InRangeEnemies.Add(collision.gameObject.transform);
-        collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath += EnemyDied;
+
+        //Enemies have a type of ground in the singlePointCollider 
+        Generic_TypeOFGroundDetector typeOfGround = collision.gameObject.GetComponent<Generic_TypeOFGroundDetector>();
+        if (typeOfGround != null) { typeOfGround.references.genericEvents.OnDeath += EnemyDied; }
+        //collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath += EnemyDied;
     }
     void RemoveEnemy(Collider2D collision)
     {
         InRangeEnemies.Remove(collision.gameObject.transform);
-        collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath -= EnemyDied;
+
+        Generic_TypeOFGroundDetector typeOfGround = collision.gameObject.GetComponent<Generic_TypeOFGroundDetector>();
+        if (typeOfGround != null) { typeOfGround.references.genericEvents.OnDeath -= EnemyDied; }
+        //collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath -= EnemyDied;
     }
     void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {

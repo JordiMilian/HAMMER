@@ -16,6 +16,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     public float maxDistance = 3f;
     [SerializeField] float minForce = -0.5f;
     [SerializeField] float maxForce = 1f;
+    [SerializeField] AnimationCurve attackCurve;
+    [SerializeField] float addForceTime;
 
     //This is set from the weapon info holder
     [HideInInspector] public float Base_Damage;
@@ -67,13 +69,28 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         if (distanceToEnemy.Value > maxDistance*multiplier) { equivalent = CalculateEquivalent(defaultDistance.Value); } //If the player is too far, behave with default. Estic multiplicant la max distance pel multiplier no se si va be aixo
         else { equivalent = CalculateEquivalent(distanceToEnemy.Value); } // Else calculate with distance
 
-        Vector3 tempForce = playerRefs.followMouse.gameObject.transform.up * Force * equivalent;
-        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForce * multiplier, 0.1f));
+        
+        Vector3 tempForceDirection = playerRefs.followMouse.gameObject.transform.up;
+        //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForceDirection * multiplier, 0.1f));
+        StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+            playerRefs.characterMover,
+            Force * equivalent,
+            addForceTime,
+            attackCurve,
+            tempForceDirection
+            ));
     }
     public void EV_JustAddForce(float multiplier)
     {
-        Vector3 forceDirection = playerRefs.followMouse.gameObject.transform.up * Force * multiplier;
-        StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, forceDirection, 0.1f));
+        Vector3 forceDirection = playerRefs.followMouse.gameObject.transform.up;
+        //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, forceDirection, 0.1f));
+        StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+            playerRefs.characterMover,
+            Force * multiplier,
+            addForceTime,
+            attackCurve,
+            forceDirection
+            ));
     }
     float CalculateEquivalent(float Distance)
     {

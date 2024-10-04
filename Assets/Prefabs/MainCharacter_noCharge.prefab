@@ -3192,7 +3192,8 @@ GameObject:
   - component: {fileID: 4999310393955818504}
   - component: {fileID: 131155159506509890}
   - component: {fileID: 738973075402885668}
-  m_Layer: 0
+  - component: {fileID: 5563275663953165858}
+  m_Layer: 20
   m_Name: MainCharacter_noCharge
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3293,7 +3294,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7653426975249963383}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3316,10 +3317,10 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008108139, y: 0.05}
+  m_Offset: {x: 0, y: 0.05}
   serializedVersion: 2
   m_Radius: 0.12628174
 --- !u!95 &7653426975249963390
@@ -3355,15 +3356,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
-  CurrentSpeed: 20
-  BaseSpeed: 20
+  CurrentSpeed: 2
+  BaseSpeed: 2
   velocityMultiplier: 1
-  RunningSpeed: 40
+  RunningSpeed: 3
   RunInputDelayTime: 0.4
-  canDash: 1
-  isDashing: 0
   RollTime: 1.06
-  RollMaxForce: 8000
+  RollMaxForce: 6
   RollCooldown: 0
   RollCurve:
     serializedVersion: 2
@@ -3371,15 +3370,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 8.983906
-      outSlope: 8.983906
+      inSlope: 1.4763619
+      outSlope: 1.4763619
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.05002416
+      outWeight: 0.84982324
     - serializedVersion: 3
-      time: 0.025954872
-      value: 0.98929787
+      time: 0.11272779
+      value: 0.8525295
       inSlope: -0.13939235
       outSlope: -0.13939235
       tangentMode: 0
@@ -3387,31 +3386,22 @@ MonoBehaviour:
       inWeight: 0.22462551
       outWeight: 0.10284466
     - serializedVersion: 3
-      time: 0.24981326
-      value: 0.18052274
-      inSlope: -1.3166178
-      outSlope: -1.3166178
+      time: 0.4077256
+      value: 0.34160185
+      inSlope: -1.1379651
+      outSlope: -1.1379651
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.0578404
-      outWeight: 0.138316
+      outWeight: 0.18082272
     - serializedVersion: 3
-      time: 0.57532
-      value: 0.22691405
-      inSlope: -1.6593312
-      outSlope: -1.6593312
+      time: 0.9934679
+      value: 0.0061454773
+      inSlope: 0.083659016
+      outSlope: 0.083659016
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10962871
-      outWeight: 0.045497376
-    - serializedVersion: 3
-      time: 0.9916979
-      value: 0.010066986
-      inSlope: -0.43002015
-      outSlope: -0.43002015
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.20252913
+      inWeight: 0.16192949
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -3429,13 +3419,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
-  Force: 1200
+  Force: 15
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   defaultDistance: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
   minDistance: 0.2
   maxDistance: 3
-  minForce: -0.75
+  minForce: -0.6
   maxForce: 1.25
+  attackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.024155222
+      value: 0.9907837
+      inSlope: 0.07050627
+      outSlope: 0.07050627
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.10249715
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.00000098444
+      outSlope: -0.00000098444
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10714263
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  addForceTime: 0.25
   Base_Damage: 1
   Base_Knockback: 3000
   Base_HitStop: 0.1
@@ -3646,6 +3670,7 @@ MonoBehaviour:
   positionCollider: {fileID: 7653426975249963388}
   _rigidbody: {fileID: 7653426975249963380}
   stateMachine: {fileID: 0}
+  characterMover: {fileID: 5563275663953165858}
   events: {fileID: 3383090570821903391}
   actionPerformer: {fileID: 399182982499736661}
   comboSystem: {fileID: 864485886040288406}
@@ -3753,6 +3778,23 @@ MonoBehaviour:
   playersWeaponSpriteRenderer: {fileID: 7653426974887384910}
   weaponPickerDetector: {fileID: 9009123525477702090}
   playerRefs: {fileID: 3175104005493510322}
+--- !u!114 &5563275663953165858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementVectorsPerSecond: []
+  RootMotionMultiplier: 1
+  animator: {fileID: 7653426975249963390}
+  TestDirectionToMove: {x: 0, y: 0}
+  speedMultiplier: 0
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -3837,6 +3879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfb5040fd1f5614cba7053f27ad1470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  references: {fileID: 0}
   currentGround: 0
 --- !u!114 &9009123525477702090
 MonoBehaviour:

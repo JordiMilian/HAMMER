@@ -14,6 +14,20 @@ public class UsefullMethods : MonoBehaviour
             yield return null;
         }
     }
+    public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float maxForce, float timeSeconds, AnimationCurve curve, Vector2 direction)
+    {
+        float timer = 0;
+        float normalizedTime = 0;
+        while(timer < timeSeconds)
+        {
+            timer += Time.deltaTime;
+            normalizedTime = timer/timeSeconds;
+            float forceThisFrame = curve.Evaluate(normalizedTime) * maxForce;
+            mover.MovementVectorsPerSecond.Add(direction * forceThisFrame);
+            yield return null;
+        }
+       
+    }
     public static IEnumerator AddTorkeOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
         float startTime = Time.time;

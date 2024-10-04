@@ -62,7 +62,6 @@ public class Player_FeedbackManager : MonoBehaviour
         Player_ComboSystem_chargeless comboSystem = GetComponent<Player_ComboSystem_chargeless>();
         comboSystem.EV_HideWeaponCollider();
         playerRefs.playerMovement.EV_ReturnSpeed();
-        playerRefs.playerMovement.EV_CanDash();
         playerRefs.animator.SetTrigger("Parried");
     }
      IEnumerator InvulnerableAfterDamage()

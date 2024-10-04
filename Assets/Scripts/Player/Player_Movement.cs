@@ -17,14 +17,10 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] float RunningSpeed = 40;
     [SerializeField] float RunInputDelayTime = 0.5f;
     float TimerDelay;
-    bool isDelaying;
     bool IsWaitingInputDelay;
     bool isRunning = false;
 
-
     [Header("ROLL")]
-    public bool canDash = true;
-    public bool isDashing;
     [SerializeField] float RollTime;
     [SerializeField] float RollMaxForce;
     [SerializeField] float RollCooldown;
@@ -117,22 +113,20 @@ public class Player_Movement : MonoBehaviour
     }
     void Move(Vector2 vector2)
     {
-        playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100 * velocityMultiplier);
+        //playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100 * velocityMultiplier);
+        playerRefs.characterMover.MovementVectorsPerSecond.Add(vector2.normalized * CurrentSpeed * velocityMultiplier);
         WalkingAnimation();
     }
   
     void WalkingAnimation()
     {
-        if (!isDashing)
+        if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
         {
-            if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0))
-            {
-                playerRefs.animator.SetBool("Walking", true);
-            }
-            else
-            {
-                playerRefs.animator.SetBool("Walking", false);
-            }
+            playerRefs.animator.SetBool("Walking", true);
+        }
+        else
+        {
+            playerRefs.animator.SetBool("Walking", false);
         }
     }
     void CallDashMovement()
@@ -164,16 +158,15 @@ public class Player_Movement : MonoBehaviour
         {
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
-            playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime * velocityMultiplier);
+            //playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime * velocityMultiplier);
+            playerRefs.characterMover.MovementVectorsPerSecond.Add(direction * RollMaxForce * weight * velocityMultiplier);
             yield return null;
         }
         playerRefs.spriteFliper.canFlip = true; //sprite can flip after roll
     }
     
-    public void EV_SlowDownSpeed() { CurrentSpeed /= 2; }
+    public void EV_SlowDownSpeed() { CurrentSpeed /= 5; }
     public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
-    public void EV_CantDash() { canDash = false; }
-    public void EV_CanDash() { canDash = true; }
     public void EV_HidePlayerCollider() { gameObject.layer = 15; playerRefs.damageDetectorCollider.enabled = false; }
-    public void EV_ShowPlayerCollider() { gameObject.layer = 0; playerRefs.damageDetectorCollider.enabled = true; }
+    public void EV_ShowPlayerCollider() { gameObject.layer = 20; playerRefs.damageDetectorCollider.enabled = true; }
 }

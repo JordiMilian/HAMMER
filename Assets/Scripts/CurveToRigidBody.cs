@@ -18,6 +18,6 @@ public class CurveToRigidBody : MonoBehaviour
         Vector2 CurrentWorldPosition = Pivot.TransformPoint(CurrentLocalPosition);
         Vector2 NewLocalPosition = Base.InverseTransformPoint(CurrentWorldPosition) - Pivot.localPosition;
 
-        _rigidbody.velocity = NewLocalPosition * Strengh * Time.deltaTime;
+        //_rigidbody.velocity = NewLocalPosition * Strengh * Time.deltaTime;
     }
 }

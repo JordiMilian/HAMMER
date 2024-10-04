@@ -6,6 +6,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
 {
     public Transform Target;
     [SerializeField] Rigidbody2D _rigidBody;
+    [SerializeField] Generic_References references;
     public float Velocity;
     Vector2 finalDirection;
     Vector2 DirectionToTarget;
@@ -77,7 +78,8 @@ public class Enemy_MoveToTarget : MonoBehaviour
             else { finalDirection = (Target.position - transform.position).normalized; }
 
             //Add the force
-            _rigidBody.AddForce( finalDirection * Velocity * Time.fixedDeltaTime);
+            //_rigidBody.AddForce( finalDirection * Velocity * Time.fixedDeltaTime);
+            references.characterMover.MovementVectorsPerSecond.Add(finalDirection * Velocity);
         }
     }
 

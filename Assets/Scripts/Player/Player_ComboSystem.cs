@@ -82,7 +82,6 @@ public class Player_ComboSystem : MonoBehaviour //DEPRECATED PLS DELETE
     void SetReleaseTriggers()
     {
         isCharging = false;
-        playerMovement.canDash = false;
         switch (nextAttack)
         {
             case NextAttack.NextAttack01:
