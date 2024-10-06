@@ -49,7 +49,7 @@ public class TargetGroupSingleton : MonoBehaviour
         targetGroup.m_Targets[emptySlotIndex].weight = weight;
         targetGroup.m_Targets[emptySlotIndex].radius = radius;
    
-        Debug.Log("Added target: " + target.name);
+        //Debug.Log("Added target: " + target.name);
     }
     public void RemoveTarget(Transform target, Transform extraTarget = null)
     {
@@ -62,7 +62,7 @@ public class TargetGroupSingleton : MonoBehaviour
                 targetGroup.m_Targets[i].radius = 0;
             }
         }
-        Debug.Log("Removed target: " + target.name);
+        //Debug.Log("Removed target: " + target.name);
     }
     public void EditTarget(Transform target, float newWeight, float  newRadius)
     {

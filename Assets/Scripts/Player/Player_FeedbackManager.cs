@@ -52,7 +52,14 @@ public class Player_FeedbackManager : MonoBehaviour
             playerRefs.flasher.CallFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
-            StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack, 0.3f));
+            //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack, 0.3f));
+            StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+                playerRefs.characterMover,
+                receivedAttackinfo.KnockBack,
+                0.2f,
+                receivedAttackinfo.ConcreteDirection,
+                AnimationCurve.Linear(0, 1, 1, 0)
+                ));
             playerRefs.animator.SetTrigger("GetHit");
             StartCoroutine(InvulnerableAfterDamage());
         }

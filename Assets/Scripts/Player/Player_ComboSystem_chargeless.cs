@@ -76,8 +76,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
             playerRefs.characterMover,
             Force * equivalent,
             addForceTime,
-            attackCurve,
-            tempForceDirection
+            tempForceDirection,
+            attackCurve
             ));
     }
     public void EV_JustAddForce(float multiplier)
@@ -88,8 +88,8 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
             playerRefs.characterMover,
             Force * multiplier,
             addForceTime,
-            attackCurve,
-            forceDirection
+            forceDirection,
+            attackCurve
             ));
     }
     float CalculateEquivalent(float Distance)

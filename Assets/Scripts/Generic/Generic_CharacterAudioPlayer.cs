@@ -37,7 +37,6 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
     void playSwordSwing()
     {
         SFX_Player.playSFX(SwordSwingSFX,0.1f,0,basePitchModifier);
-        Debug.Log("Played swing effect");
     }
     void playSwordHit(object sender, Generic_EventSystem.DealtDamageInfo info)
     {

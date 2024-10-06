@@ -32,13 +32,13 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     private void OnEnable()
     {
-        enemyRefs.enemyEvents.OnGettingParried += EV_ReturnAllSpeed;
+        enemyRefs.enemyEvents.OnGettingParried += (int i)=>EV_SlowMovingSpeed();
         enemyRefs.enemyEvents.OnEnterIdle += returnSpeedOnIdle;
         StartAgroo();
     }
     private void OnDisable()
     {
-        enemyRefs.enemyEvents.OnGettingParried -= EV_ReturnAllSpeed;
+        enemyRefs.enemyEvents.OnGettingParried -= (int i) => EV_SlowMovingSpeed();
         enemyRefs.enemyEvents.OnEnterIdle -= returnSpeedOnIdle;
         EndAgroo();
     }

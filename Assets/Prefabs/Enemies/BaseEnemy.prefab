@@ -156,7 +156,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!95 &2195041901401652145
 Animator:
   serializedVersion: 4
@@ -204,6 +204,30 @@ MonoBehaviour:
   enemyRefs: {fileID: 7568110113479188649}
   SlowMoPercentage: {fileID: 11400000, guid: 9a94119ce51c63f4ebab6cbbebb7ca8a, type: 2}
   hasMultipleParries: 0
+  damagedMovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.0857438
+      outSlope: -0.0857438
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09546539
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.915279
+      outSlope: -2.915279
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.023866355
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3881809578619784559
 MonoBehaviour:
   m_ObjectHideFlags: 0

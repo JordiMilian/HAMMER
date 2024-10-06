@@ -1179,6 +1179,10 @@ PrefabInstance:
       propertyPath: ChanceToChangeDirection
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3040402446266967765, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_Radius
+      value: 0.025051903
+      objectReference: {fileID: 0}
     - target: {fileID: 3457608814812501881, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: FocusSprite
       value: 
@@ -1763,6 +1767,10 @@ PrefabInstance:
       propertyPath: _rigidbody
       value: 
       objectReference: {fileID: 8632942276664811417}
+    - target: {fileID: 7619558403456288951, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: SpriteObject
+      value: 
+      objectReference: {fileID: 5650692692070585858}
     - target: {fileID: 7654662553848504304, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: _rigidbody
       value: 
@@ -1859,6 +1867,10 @@ PrefabInstance:
       propertyPath: m_RotationOffset.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8775765544101597181, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_Sources.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: AttackToDebug
       value: 4
@@ -1893,15 +1905,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].KnockBack
-      value: 300
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[1].KnockBack
-      value: 300
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[2].KnockBack
-      value: 300
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].Probability
@@ -2241,7 +2253,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7424939523629538921}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

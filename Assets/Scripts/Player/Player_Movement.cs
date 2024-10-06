@@ -22,8 +22,9 @@ public class Player_Movement : MonoBehaviour
 
     [Header("ROLL")]
     [SerializeField] float RollTime;
-    [SerializeField] float RollMaxForce;
-    [SerializeField] float RollCooldown;
+    [SerializeField] float RollDistance;
+    [SerializeField] bool updateAverageSize_trigger;
+    float rollCurve_averageValue = 0;
     public AnimationCurve RollCurve;
 
 
@@ -38,6 +39,7 @@ public class Player_Movement : MonoBehaviour
         InputDetector.Instance.OnRollPressed += OnRollPressed;
         InputDetector.Instance.OnRollPressing += OnRollPressing;
         InputDetector.Instance.OnRollUnpressed += OnRollUnpressed;
+        rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10);
     }
     private void OnDisable()
     {
@@ -64,6 +66,10 @@ public class Player_Movement : MonoBehaviour
         {
             CurrentSpeed = RunningSpeed;
             playerRefs.animator.SetBool("Running", true);
+        }
+        if(updateAverageSize_trigger)
+        {
+            rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10);
         }
     }
     void OnRollPressed()
@@ -143,12 +149,27 @@ public class Player_Movement : MonoBehaviour
         if (Axis.magnitude == 0) 
         {
             Vector2 opositeDirectionToSword = -playerRefs.followMouse.SwordDirection;
-            StartCoroutine(DashMovement(opositeDirectionToSword));
+            StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+             playerRefs.characterMover,
+             RollDistance,
+             RollTime,
+             opositeDirectionToSword,
+             RollCurve,
+             rollCurve_averageValue
+             ));
             return;
         }
 
         //Else roll towards imput direction
-        StartCoroutine(DashMovement(Axis));
+        //StartCoroutine(DashMovement(Axis));
+        StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+            playerRefs.characterMover,
+            RollDistance,
+            RollTime,
+            Axis,
+            RollCurve,
+            rollCurve_averageValue
+            ));
     }
     IEnumerator DashMovement(Vector2 direction)
     {
@@ -159,7 +180,7 @@ public class Player_Movement : MonoBehaviour
             time = time + Time.deltaTime;
             weight = RollCurve.Evaluate(time/RollTime);
             //playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime * velocityMultiplier);
-            playerRefs.characterMover.MovementVectorsPerSecond.Add(direction * RollMaxForce * weight * velocityMultiplier);
+            playerRefs.characterMover.MovementVectorsPerSecond.Add(direction * RollDistance * weight * velocityMultiplier);
             yield return null;
         }
         playerRefs.spriteFliper.canFlip = true; //sprite can flip after roll

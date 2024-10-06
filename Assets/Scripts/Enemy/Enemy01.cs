@@ -9,16 +9,18 @@ public class Enemy01 : MonoBehaviour
 {
     [SerializeField] Enemy_References enemyRefs;
 
-
     [SerializeField] FloatVariable SlowMoPercentage;
     AnimationClip parriedClip00, parriedClip01;
     [SerializeField] bool hasMultipleParries;
+    [SerializeField] AnimationCurve damagedMovementCurve;
+    float damagedCurveAverage;
 
     public virtual void OnEnable()
     {
         enemyRefs.enemyEvents.OnReceiveDamage += ReceiveDamage;
         enemyRefs.enemyEvents.OnGettingParried += GettingParried;
         enemyRefs.enemyEvents.OnDeath += slowMoOnDeath;
+        damagedCurveAverage = UsefullMethods.GetAverageValueOfCurve(damagedMovementCurve, 10);
     }
     public virtual void OnDisable()
     {
@@ -41,7 +43,14 @@ public class Enemy01 : MonoBehaviour
         StartCoroutine(WaitReceiveDamage());
         //Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
         //enemyRefs._rigidbody.AddForce(AttackerDirection * receivedAttackinfo.KnockBack);
-        StartCoroutine(UsefullMethods.ApplyForceOverTime(enemyRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack ,0.2f));
+        //StartCoroutine(UsefullMethods.ApplyForceOverTime(enemyRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack ,0.2f));
+        StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+            enemyRefs.characterMover,
+            receivedAttackinfo.KnockBack,
+            0.25f,
+            receivedAttackinfo.ConcreteDirection,
+            damagedMovementCurve,
+            damagedCurveAverage));
        
     }  
     IEnumerator WaitReceiveDamage()
@@ -92,6 +101,13 @@ public class Enemy01 : MonoBehaviour
         enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
 
         GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
+        StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+           enemyRefs.characterMover,
+          1,
+           0.4f,
+           -transform.right,
+           AnimationCurve.Linear(0, 1, 1, 0)));
+
     }
     public void EndHitShield()
     {

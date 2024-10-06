@@ -5975,9 +5975,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6571774140527061516, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: MaxHealth
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 7424939523629538921, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
       propertyPath: m_Name
       value: Enemy02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089243640097067738, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: m_IsLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089243640097067738, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: m_IsContraintActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
@@ -6117,6 +6129,10 @@ PrefabInstance:
     - target: {fileID: 7653426975249963383, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
       propertyPath: m_Name
       value: MainCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653426975249963384, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
+      propertyPath: RollDistance
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
@@ -6822,6 +6838,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d76016a276f2e41a04d3e4dca9b883, type: 3}
+--- !u!1 &2122648752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2122648753}
+  m_Layer: 0
+  m_Name: ApplyMovementOverTime_testing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2122648753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122648752}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.9566324, y: 15.802745, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 56
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129315654
 GameObject:
   m_ObjectHideFlags: 0

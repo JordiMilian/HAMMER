@@ -3306,7 +3306,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &7653426975249963388
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3362,8 +3362,8 @@ MonoBehaviour:
   RunningSpeed: 3
   RunInputDelayTime: 0.4
   RollTime: 1.06
-  RollMaxForce: 6
-  RollCooldown: 0
+  RollDistance: 2
+  updateAverageSize_trigger: 0
   RollCurve:
     serializedVersion: 2
     m_Curve:
@@ -3419,7 +3419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
-  Force: 15
+  Force: 2
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   defaultDistance: {fileID: 11400000, guid: 1781163ef8801254a905984424b24105, type: 2}
   minDistance: 0.2
@@ -4375,7 +4375,7 @@ GameObject:
   - component: {fileID: 1022069164156102680}
   - component: {fileID: 285086702692713560}
   - component: {fileID: 8382717615291115365}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: ProximityTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

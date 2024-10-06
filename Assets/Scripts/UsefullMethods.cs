@@ -14,20 +14,46 @@ public class UsefullMethods : MonoBehaviour
             yield return null;
         }
     }
-    public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float maxForce, float timeSeconds, AnimationCurve curve, Vector2 direction)
+    //This is framerate independent now
+    //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
+    public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
     {
         float timer = 0;
         float normalizedTime = 0;
-        while(timer < timeSeconds)
+        float normalizedTimeLastFrame = 0;
+        float finalDistanceForDebug = 0;
+        while (timer < timeSeconds)
         {
             timer += Time.deltaTime;
-            normalizedTime = timer/timeSeconds;
-            float forceThisFrame = curve.Evaluate(normalizedTime) * maxForce;
-            mover.MovementVectorsPerSecond.Add(direction * forceThisFrame);
+            normalizedTime = timer / timeSeconds;
+            float normalizedTimeBetweenFrames = normalizedTime - normalizedTimeLastFrame;
+            float evaluatedThisFrame = curve.Evaluate(normalizedTime);
+            float evaluatedLastFrame = curve.Evaluate(normalizedTimeLastFrame);
+            float finalForce = ((evaluatedLastFrame + evaluatedThisFrame) / 2) * normalizedTimeBetweenFrames / Time.deltaTime * totalDistance / averageValueOfCurve;
+
+            mover.MovementVectorsPerSecond.Add(direction * finalForce);
+
+            finalDistanceForDebug += (evaluatedLastFrame + evaluatedThisFrame / 2) * normalizedTimeBetweenFrames * totalDistance * 2;
+            normalizedTimeLastFrame = normalizedTime;
             yield return null;
         }
        
     }
+    public static float GetAverageValueOfCurve(AnimationCurve curve, int samplePoints)
+    {
+        float evaluatePerSample = 1 / (float)samplePoints;
+        float lastValue = curve.Evaluate(0);
+        float totalSum = 0;
+        for (int i = 0; i < samplePoints; i++)
+        {
+            float thisValue = curve.Evaluate(evaluatePerSample * (i + 1));
+            float averageValue = (thisValue + lastValue) / 2;
+            totalSum += averageValue;
+            lastValue = thisValue;
+        }
+        return totalSum / samplePoints;
+    }
+        
     public static IEnumerator AddTorkeOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
         float startTime = Time.time;
@@ -91,7 +117,7 @@ public class UsefullMethods : MonoBehaviour
         List<Vector2> positions = new List<Vector2>(); 
         for (int i = 0; i < sides; i++)
         {
-            float sidesF = intToFloat(sides);
+            float sidesF = (float)sides;
             float divider = (1.0f / sidesF * i) + offsetNormalized;
 
             Vector2 CurrentPoint = angle2Vector(divider * Mathf.PI * 2);
@@ -245,6 +271,6 @@ public class UsefullMethods : MonoBehaviour
 
     public static float getCurrentAnimationLenght(Animator animator, int layer = 0)
     {
-        return animator.GetCurrentAnimatorClipInfo(0).Length;
+        return animator.GetCurrentAnimatorClipInfo(layer).Length;
     }
 }

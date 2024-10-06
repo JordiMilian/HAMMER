@@ -80,6 +80,7 @@ public class Generic_CharacterMover : MonoBehaviour
         {
             if (collider.OverlapPoint(transform.position))
             {
+                Debug.Log("Collider inside of: " + collider.name + " let's teleport");
                 Vector2 exitVector = Vector2.positiveInfinity;
                 //Aixo es una mica guarro i s'haurie de fer amb interfaces o yo que se, cada tipo de calcul potser s'haurie de fer en un script apart
                 if (collider is PolygonCollider2D)
@@ -109,7 +110,11 @@ public class Generic_CharacterMover : MonoBehaviour
                 calculatedDirection += exitVector + radiusVector;
             }
         }
-
+        if (float.IsNaN(calculatedDirection.x) || float.IsNaN(calculatedDirection.y))
+        {
+            Debug.LogWarning("Fallo de calculas al moure???¿?¿?¿: " + gameObject.name);
+            return;
+        }
         transform.position += (Vector3)calculatedDirection;
     }
     private void OnAnimatorMove()
@@ -140,11 +145,13 @@ public class Generic_CharacterMover : MonoBehaviour
         {
             Gizmos.DrawWireSphere(position, 0.1f);
         }
+        /*
         foreach (Collider2D collider in collidersInside)
         {
             Vector2 closestPoint = collider.ClosestPoint(transform.position);
             Gizmos.DrawWireSphere(closestPoint, 0.2f);
-        }
+        
+        */
     }
     #region Polygon Colision Detection
     public Vector2 GetExitVector_Polygon(PolygonCollider2D polygon, Vector2 positionInside)
