@@ -50,7 +50,6 @@ public class KILLENEMIESAROUND : MonoBehaviour
     }
     void CheckEnemiesDistanceAndKill()
     {
-        Debug.Log("Checking enemies distance");
         UpdateEnemiesHealthList();
         Vector2 roomPos = currentRoom.transform.position;
         foreach(Generic_HealthSystem health in  enemiesHealth)

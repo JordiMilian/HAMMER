@@ -11,6 +11,12 @@ public class Generic_CharacterMover : MonoBehaviour
 
     public List<Vector2> MovementVectorsPerSecond = new List<Vector2>(); //Any movement stuff must be added here everyframe
     public float RootMotionMultiplier = 1; //This could be useful to adapt attacks to distance of player
+    Vector2 _currentVelocity;
+    float _currentMagnitude;
+    public Vector2 currentVelocity
+    {
+        get { return _currentVelocity; }
+    }
 
     [SerializeField] Animator animator;
 
@@ -19,9 +25,13 @@ public class Generic_CharacterMover : MonoBehaviour
 
     CircleCollider2D ownCollider;
 
+    [Range(0,1)]
+    [SerializeField] float lerpStrenght;
+    [SerializeField] float velocityLimit;
     [Header("Testing")]
     [SerializeField] Vector2 TestDirectionToMove;
     [SerializeField] float speedMultiplier = 0.01f;
+
 
 
     private void Awake()
@@ -115,7 +125,18 @@ public class Generic_CharacterMover : MonoBehaviour
             Debug.LogWarning("Fallo de calculas al moure???¿?¿?¿: " + gameObject.name);
             return;
         }
-        transform.position += (Vector3)calculatedDirection;
+        
+        _currentVelocity = calculatedDirection;
+
+        _currentMagnitude = _currentVelocity.magnitude;
+        if(_currentMagnitude > velocityLimit)
+        {
+            Debug.LogWarning("Either a math bug or an attack variable is too hight. Anyway, " + _currentMagnitude + " is too much, so fuck you I won't move");
+            return;
+        }
+        transform.position += (Vector3)_currentVelocity;
+        //Vector2 lerpedPos = Vector2.Lerp((Vector2)transform.position, (Vector2)transform.position + calculatedDirection, lerpStrenght);
+        //transform.position = (Vector3)lerpedPos;
     }
     private void OnAnimatorMove()
     {

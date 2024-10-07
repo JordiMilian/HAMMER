@@ -690,6 +690,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6706549770842171762, guid: 284900fd709658a468d08016e4bea5f5, type: 3}
   m_PrefabInstance: {fileID: 5357289513953533040}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5602237908120419789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: 284900fd709658a468d08016e4bea5f5, type: 3}
+  m_PrefabInstance: {fileID: 5357289513953533040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5877516706334194712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7221020487405985688, guid: 284900fd709658a468d08016e4bea5f5, type: 3}
@@ -706,6 +711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VeryShort
       objectReference: {fileID: 0}
+    - target: {fileID: 6388427133975961431, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+      propertyPath: ownCollider
+      value: 
+      objectReference: {fileID: 2517912029748604595}
     - target: {fileID: 7252429959553766649, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -783,6 +792,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &2517912029748604595 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8318725024180381522, guid: 8a4eb76fdc635984eb73002b09b162b5, type: 3}
+  m_PrefabInstance: {fileID: 5873652633716492769}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6155436045409050282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1650,6 +1664,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.30358315
       objectReference: {fileID: 0}
+    - target: {fileID: 7619558403456288951, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: SpriteObject
+      value: 
+      objectReference: {fileID: 5602237908120419789}
     - target: {fileID: 7654662553848504304, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: WeaponTrail
       value: 
@@ -1800,31 +1818,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].KnockBack
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[1].KnockBack
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[2].KnockBack
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[3].KnockBack
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[4].KnockBack
-      value: 15
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[5].KnockBack
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[6].KnockBack
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Enemy_Attacks.Array.data[0].Probability
