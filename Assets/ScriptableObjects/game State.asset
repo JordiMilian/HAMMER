@@ -13,29 +13,27 @@ MonoBehaviour:
   m_Name: game State
   m_EditorClassIdentifier: 
   FourDoors:
-  - isCompleted: 1
-    DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
-  LastEnteredDoor: 1
+  - isCompleted: 0
+    DoorController: {fileID: 0}
+  LastEnteredDoor: 0
   LastCompletedBoss: 0
   isFinalDoorOpen: 0
   isTutorialComplete: 1
   isSpawnWithouUpgrades: 0
-  justDefeatedBoss: 1
-  playerUpgrades:
-  - {fileID: 11400000, guid: e4d90ef32ddf4aa419461bcf729cc1be, type: 2}
-  - {fileID: 11400000, guid: 1f6be0e307206c844849d0085c738f80, type: 2}
+  justDefeatedBoss: 0
+  playerUpgrades: []
   lastLostUpgrade: {fileID: 0}
-  IndexOfLostUpgradeRoom: {x: 1, y: 0, z: 2}
+  IndexOfLostUpgradeRoom: {x: 4, y: 0, z: 1}
   isLostUpgradeAvailable: 0
   currentPlayersRooms: []
   currentPlayerRooms_index: []
-  IndexOfCurrentWeapon: 2
+  IndexOfCurrentWeapon: 0
   WeaponInfosList:
   - weaponPrefab: {fileID: 3524697448897787556, guid: 70834cc068778ad47a9d51aad406fb0e, type: 3}
     isUnlocked: 1
@@ -49,5 +47,5 @@ MonoBehaviour:
   finalDoor_DialogueIndex: 2
   hasPickedFirstUpgrade: 1
   hasPickedFirstWeapon: 0
-  MusicVolum: 0.51
+  MusicVolum: 0
   SFXVolum: 0.269

@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class SMB_Enemy_Attacking : StateMachineBehaviour
 {
+    Enemy_References references;
     Generic_EventSystem events;
+    Enemy_AgrooMovement agrooMovement;
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("Attacking", false);
-        if(events == null) { events = animator.gameObject.GetComponent<Generic_EventSystem>(); }
+        if(references == null) { references = animator.gameObject.GetComponent<Enemy_References>(); }
 
-        events.OnAttackFinished?.Invoke();
+        references.enemyEvents.OnAttackFinished?.Invoke();
+       
     }
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (events == null) { events = animator.gameObject.GetComponent<Generic_EventSystem>(); }
+        if (references == null) { references = animator.gameObject.GetComponent<Enemy_References>(); }
 
-        events.OnStartAttack?.Invoke();
+        references.enemyEvents.OnStartAttack?.Invoke();
+        references.agrooMovement.EV_SlowMovingSpeed();
     }
 }

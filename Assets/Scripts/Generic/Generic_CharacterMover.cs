@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Generic_CharacterMover : MonoBehaviour
@@ -8,6 +9,8 @@ public class Generic_CharacterMover : MonoBehaviour
     //Generic_CharacterMover
 
     //do not ROTATE square colliders
+
+    //The circle collider of charactesr should not be offseted by anything
 
     public List<Vector2> MovementVectorsPerSecond = new List<Vector2>(); //Any movement stuff must be added here everyframe
     public float RootMotionMultiplier = 1; //This could be useful to adapt attacks to distance of player
@@ -21,13 +24,13 @@ public class Generic_CharacterMover : MonoBehaviour
     [SerializeField] Animator animator;
 
     List<Vector2> collisionPositions = new List<Vector2>();
-    List<Collider2D> collidersInside = new List<Collider2D>();
+   public List<Collider2D> collidersInside = new List<Collider2D>();
 
     CircleCollider2D ownCollider;
 
-    [Range(0,1)]
-    [SerializeField] float lerpStrenght;
     [SerializeField] float velocityLimit;
+    [Range(0,1)]
+    [SerializeField] float collisionDampint = 0.77f;
     [Header("Testing")]
     [SerializeField] Vector2 TestDirectionToMove;
     [SerializeField] float speedMultiplier = 0.01f;
@@ -81,7 +84,7 @@ public class Generic_CharacterMover : MonoBehaviour
             float distanceToColisionPoint = (closestPoint - (Vector2)transform.position).magnitude;
 
             float collisionDepth = (ownCollider.radius * ownCollider.transform.localScale.x) - distanceToColisionPoint;
-            calculatedDirection += (-direction * (calculatedDirection.magnitude + collisionDepth));
+            calculatedDirection += (-direction * (calculatedDirection.magnitude + collisionDepth) ) *collisionDampint;
         }
 
 
@@ -117,7 +120,7 @@ public class Generic_CharacterMover : MonoBehaviour
                 //Add the radius of the own circle to the direction 
                 Vector2 exitDirection = exitVector.normalized;
                 Vector2 radiusVector = exitDirection * ownCollider.radius * ownCollider.transform.localScale.x;
-                calculatedDirection += exitVector + radiusVector;
+                calculatedDirection += (exitVector + radiusVector) * collisionDampint;
             }
         }
         if (float.IsNaN(calculatedDirection.x) || float.IsNaN(calculatedDirection.y))
@@ -131,8 +134,8 @@ public class Generic_CharacterMover : MonoBehaviour
         _currentMagnitude = _currentVelocity.magnitude;
         if(_currentMagnitude > velocityLimit)
         {
-            Debug.LogWarning("Either a math bug or an attack variable is too hight. Anyway, " + _currentMagnitude + " is too much, so fuck you I won't move");
-            return;
+            Debug.LogWarning("Either a math bug or an attack variable is too hight. Anyway, " + _currentMagnitude + " is too much, so chill out");
+            _currentVelocity = _currentVelocity.normalized * velocityLimit;
         }
         transform.position += (Vector3)_currentVelocity;
         //Vector2 lerpedPos = Vector2.Lerp((Vector2)transform.position, (Vector2)transform.position + calculatedDirection, lerpStrenght);
@@ -145,6 +148,7 @@ public class Generic_CharacterMover : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) //The Layers set-up must be cleaned
     {
+        if (collidersInside.Contains(collision)) { return; }
         if(collision.gameObject.layer == 20 || collision.gameObject.layer == 16) //mainCollision or JumpableWall
         {
             collidersInside.Add(collision);
@@ -166,6 +170,8 @@ public class Generic_CharacterMover : MonoBehaviour
         {
             Gizmos.DrawWireSphere(position, 0.1f);
         }
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + ((Vector3)_currentVelocity)*10);
         /*
         foreach (Collider2D collider in collidersInside)
         {
@@ -262,7 +268,7 @@ public class Generic_CharacterMover : MonoBehaviour
 
         return true;
     }
-    bool IsPerpendicular(Vector2 A, Vector2 P1, Vector2 P2)
+    bool IsPerpendicular(Vector2 A, Vector2 P1, Vector2 P2) //BASURA DE INTERNET QUE NO VA
     {
         Vector2 segment = P2 - P1;   // The segment direction vector
         Vector2 AP1 = A - P1;        // Vector from P1 to A

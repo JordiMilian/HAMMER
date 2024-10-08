@@ -5,7 +5,7 @@ using UnityEngine;
 public class AttackTesting : MonoBehaviour
 {
     [SerializeField] GameObject Enemy;
-    [SerializeField] Enemy_AttacksProviderV2 AttackProviderV2;
+    Enemy_AttacksProviderV2 AttackProviderV2;
     [SerializeField] string AttackName;
     BoxCollider2D AttackCollider;
     Transform StartingPosition;
@@ -17,6 +17,7 @@ public class AttackTesting : MonoBehaviour
     private void Awake()
     {
         Enemy.GetComponent<Generic_ShowHideAttackCollider>().isTesting = true;
+        AttackProviderV2 = Enemy.GetComponent<Enemy_AttacksProviderV2>();
     }
     void RestartPosition()
     {
