@@ -25,7 +25,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     private void Awake()
     {
         BaseRotationSpeed = CurrentRotationSpeed;
-        SlowRotationSpeed = CurrentRotationSpeed / 5;
+        SlowRotationSpeed = CurrentRotationSpeed / 10;
 
         BaseSpeed = enemyRefs.moveToTarget.Velocity;
         SlowSpeedF = BaseSpeed / 3;
