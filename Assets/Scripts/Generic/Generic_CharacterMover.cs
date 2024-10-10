@@ -14,6 +14,7 @@ public class Generic_CharacterMover : MonoBehaviour
 
     public List<Vector2> MovementVectorsPerSecond = new List<Vector2>(); //Any movement stuff must be added here everyframe
     public float RootMotionMultiplier = 1; //This could be useful to adapt attacks to distance of player
+    [SerializeField] bool drawLines;
     Vector2 _currentVelocity;
     float _currentMagnitude;
     public Vector2 currentVelocity
@@ -31,6 +32,8 @@ public class Generic_CharacterMover : MonoBehaviour
     [SerializeField] float velocityLimit;
     [Range(0,1)]
     [SerializeField] float collisionDampint = 0.77f;
+    [Range(0, 1)]
+    [SerializeField] float collisioninsideDampint = 0.25f;
     [Header("Testing")]
     [SerializeField] Vector2 TestDirectionToMove;
     [SerializeField] float speedMultiplier = 0.01f;
@@ -77,21 +80,19 @@ public class Generic_CharacterMover : MonoBehaviour
         //Coliding colliders
         foreach (var collider in collidersInside)
         {
-            Vector2 closestPoint = collider.ClosestPoint(transform.position);
-            Vector2 direction = (closestPoint - (Vector2)transform.position).normalized;
-            collisionPositions.Add(closestPoint);
+            if (!collider.OverlapPoint(transform.position))
+            {
+                Vector2 closestPoint = collider.ClosestPoint(transform.position);
+                Vector2 direction = (closestPoint - (Vector2)transform.position).normalized;
+                collisionPositions.Add(closestPoint);
 
-            float distanceToColisionPoint = (closestPoint - (Vector2)transform.position).magnitude;
+                float distanceToColisionPoint = (closestPoint - (Vector2)transform.position).magnitude;
 
-            float collisionDepth = (ownCollider.radius * ownCollider.transform.localScale.x) - distanceToColisionPoint;
-            calculatedDirection += (-direction * (calculatedDirection.magnitude + collisionDepth) ) *collisionDampint;
-        }
+                float collisionDepth = (ownCollider.radius * ownCollider.transform.localScale.x) - distanceToColisionPoint;
+                calculatedDirection += (-direction * (calculatedDirection.magnitude + collisionDepth)) * collisionDampint;
+            }
 
-
-        //Being inside a collider
-        foreach (var collider in collidersInside)
-        {
-            if (collider.OverlapPoint(transform.position))
+            else
             {
                 Debug.Log("Collider inside of: " + collider.name + " let's teleport");
                 Vector2 exitVector = Vector2.positiveInfinity;
@@ -119,10 +120,18 @@ public class Generic_CharacterMover : MonoBehaviour
 
                 //Add the radius of the own circle to the direction 
                 Vector2 exitDirection = exitVector.normalized;
+                
                 Vector2 radiusVector = exitDirection * ownCollider.radius * ownCollider.transform.localScale.x;
-                calculatedDirection += (exitVector + radiusVector) * collisionDampint;
+                calculatedDirection += (exitVector + radiusVector) * collisioninsideDampint;
+
+                if (drawLines)
+                {
+                    Debug.DrawLine(transform.position, transform.position + (Vector3)exitVector, Color.blue);
+                    Debug.DrawLine(transform.position + (Vector3)exitVector, transform.position + (Vector3)exitVector + (Vector3)radiusVector, Color.yellow);
+                }
             }
         }
+
         if (float.IsNaN(calculatedDirection.x) || float.IsNaN(calculatedDirection.y))
         {
             Debug.LogWarning("Fallo de calculas al moure???¿?¿?¿: " + gameObject.name);
@@ -137,9 +146,10 @@ public class Generic_CharacterMover : MonoBehaviour
             Debug.LogWarning("Either a math bug or an attack variable is too hight. Anyway, " + _currentMagnitude + " is too much, so chill out");
             _currentVelocity = _currentVelocity.normalized * velocityLimit;
         }
+    }
+    private void LateUpdate()
+    {
         transform.position += (Vector3)_currentVelocity;
-        //Vector2 lerpedPos = Vector2.Lerp((Vector2)transform.position, (Vector2)transform.position + calculatedDirection, lerpStrenght);
-        //transform.position = (Vector3)lerpedPos;
     }
     private void OnAnimatorMove()
     {
@@ -171,7 +181,7 @@ public class Generic_CharacterMover : MonoBehaviour
             Gizmos.DrawWireSphere(position, 0.1f);
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + ((Vector3)_currentVelocity)*10);
+        Gizmos.DrawLine(transform.position, transform.position + ((Vector3)_currentVelocity));
         /*
         foreach (Collider2D collider in collidersInside)
         {
@@ -313,9 +323,13 @@ public class Generic_CharacterMover : MonoBehaviour
     #region Circle Colision Detection
     public Vector2 GetExitVector_Circle(CircleCollider2D otherCollider, Vector2 insidePositon)
     {
+       
         Vector2 otherCenterPos = (Vector2)otherCollider.transform.position + otherCollider.offset;
+        Vector2 directionfromOtherCenter = (insidePositon - otherCenterPos).normalized;
 
-        Vector2 otherRadiusVector = (insidePositon - otherCenterPos).normalized * otherCollider.radius * otherCollider.transform.localScale.x;
+        //Debug.DrawLine(otherCenterPos, insidePositon, Color.magenta);
+
+        Vector2 otherRadiusVector = directionfromOtherCenter * otherCollider.radius * otherCollider.transform.localScale.x;
         Vector2 exitVector = otherRadiusVector - (insidePositon - otherCenterPos);
 
         return exitVector;

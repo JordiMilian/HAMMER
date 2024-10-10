@@ -101,12 +101,6 @@ public class Enemy01 : MonoBehaviour
         enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
 
         GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
-        StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
-           enemyRefs.characterMover,
-          1,
-           0.4f,
-           -transform.right,
-           AnimationCurve.Linear(0, 1, 1, 0)));
 
     }
     public void EndHitShield()
