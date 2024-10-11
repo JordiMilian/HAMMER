@@ -12,9 +12,9 @@ public class Generic_CharacterMover : MonoBehaviour
 
     //The circle collider of charactesr should not be offseted by anything
 
-    public List<Vector2> MovementVectorsPerSecond = new List<Vector2>(); //Any movement stuff must be added here everyframe
+    
     public float RootMotionMultiplier = 1; //This could be useful to adapt attacks to distance of player
-    [SerializeField] bool drawLines;
+    [SerializeField] bool drawLines, stopMove;
     Vector2 _currentVelocity;
     float _currentMagnitude;
     public Vector2 currentVelocity
@@ -50,13 +50,17 @@ public class Generic_CharacterMover : MonoBehaviour
         MovementVectorsPerSecond.Add(TestDirectionToMove);
         MovementVectorsPerSecond.Add(Vector2.zero);
     }
+
+
+    public List<Vector2> MovementVectorsPerSecond = new List<Vector2>(); //Any movement stuff must be added here everyframe
+
     private void Update()
     {
         collisionPositions.Clear();
+        float ownRadius = ownCollider.radius * Mathf.Max(ownCollider.transform.localScale.x, ownCollider.transform.localScale.y);
+        MovementVectorsPerSecond.Add(TestDirectionToMove * speedMultiplier); //For testing delete
 
         Vector2 calculatedDirection = Vector2.zero;
-
-        MovementVectorsPerSecond.Add(TestDirectionToMove * speedMultiplier); //For testing delete
 
         // ----  MOVEMENTS  ----
 
@@ -64,22 +68,18 @@ public class Generic_CharacterMover : MonoBehaviour
         {
             calculatedDirection += movement * Time.deltaTime;
         }
-        MovementVectorsPerSecond.Clear(); //Not sure if I should clear this here
+
+        MovementVectorsPerSecond.Clear();
 
         // ----  ROOT MOTION  ----
-        /*
-        float currentRotationRad = UsefullMethods.vector2Angle(transform.right);
-        Debug.Log("Rotation is: " + currentRotationRad);
-        Vector2 newRotation = Quaternion.AngleAxis(currentRotationRad * Mathf.Rad2Deg, Vector3.forward) * (Vector3)animator.deltaPosition;
-        calculatedDirection += newRotation;
-        */
+
         calculatedDirection += (Vector2)animator.deltaPosition * RootMotionMultiplier;
 
         // ----  COLISIONS  ---- 
 
-        //Coliding colliders
         foreach (var collider in collidersInside)
         {
+            //Colliders outside
             if (!collider.OverlapPoint(transform.position))
             {
                 Vector2 closestPoint = collider.ClosestPoint(transform.position);
@@ -88,10 +88,11 @@ public class Generic_CharacterMover : MonoBehaviour
 
                 float distanceToColisionPoint = (closestPoint - (Vector2)transform.position).magnitude;
 
-                float collisionDepth = (ownCollider.radius * ownCollider.transform.localScale.x) - distanceToColisionPoint;
+                float collisionDepth = ownRadius - distanceToColisionPoint;
                 calculatedDirection += (-direction * (calculatedDirection.magnitude + collisionDepth)) * collisionDampint;
             }
 
+            //Colliders inside
             else
             {
                 Debug.Log("Collider inside of: " + collider.name + " let's teleport");
@@ -121,7 +122,7 @@ public class Generic_CharacterMover : MonoBehaviour
                 //Add the radius of the own circle to the direction 
                 Vector2 exitDirection = exitVector.normalized;
                 
-                Vector2 radiusVector = exitDirection * ownCollider.radius * ownCollider.transform.localScale.x;
+                Vector2 radiusVector = exitDirection * ownRadius;
                 calculatedDirection += (exitVector + radiusVector) * collisioninsideDampint;
 
                 if (drawLines)
@@ -141,6 +142,7 @@ public class Generic_CharacterMover : MonoBehaviour
         _currentVelocity = calculatedDirection;
 
         _currentMagnitude = _currentVelocity.magnitude;
+
         if(_currentMagnitude > velocityLimit)
         {
             Debug.LogWarning("Either a math bug or an attack variable is too hight. Anyway, " + _currentMagnitude + " is too much, so chill out");
@@ -149,6 +151,7 @@ public class Generic_CharacterMover : MonoBehaviour
     }
     private void LateUpdate()
     {
+        if (stopMove) { return; }
         transform.position += (Vector3)_currentVelocity;
     }
     private void OnAnimatorMove()
