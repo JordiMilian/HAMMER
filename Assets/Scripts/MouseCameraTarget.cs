@@ -17,10 +17,12 @@ public class MouseCameraTarget : MonoBehaviour
 
         if (Instance != null && Instance != this)
         {
+            Debug.Log("Destroyed here:" + gameObject.name);
             Destroy(this);
         }
         else
         {
+            Debug.Log("Singleton Here: " + gameObject.name);
             Instance = this;
         }
     }
