@@ -3602,7 +3602,7 @@ MonoBehaviour:
   isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
   ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
   proximityTrigger: {fileID: 285086702692713560}
-  followMouse: {fileID: 7800534874906703369}
+  followMouse: {fileID: 441638044159238565}
 --- !u!114 &399182982499736661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3675,7 +3675,7 @@ MonoBehaviour:
   actionPerformer: {fileID: 399182982499736661}
   comboSystem: {fileID: 864485886040288406}
   feedbackManager: {fileID: 7653426975249963379}
-  followMouse: {fileID: 7800534874906703369}
+  followMouse: {fileID: 0}
   healthSystem: {fileID: 7653426975249963391}
   playerMovement: {fileID: 7653426975249963384}
   parryPerformer: {fileID: 7653426975249963328}
@@ -3790,14 +3790,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 1
+  drawLines: 0
+  stopMove: 0
   animator: {fileID: 7653426975249963390}
   collidersInside: []
   velocityLimit: 3
   collisionDampint: 0.77
+  collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 0, y: 0}
   speedMultiplier: 0
+  MovementVectorsPerSecond: []
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,7 +3911,7 @@ GameObject:
   - component: {fileID: 7653426975497917574}
   - component: {fileID: 5855810409125178880}
   - component: {fileID: 8904201443306655597}
-  - component: {fileID: 7800534874906703369}
+  - component: {fileID: 441638044159238565}
   m_Layer: 0
   m_Name: Weapons_Pivot
   m_TagString: Untagged
@@ -3962,7 +3965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpritesConstraint: {fileID: 5855810409125178880}
---- !u!114 &7800534874906703369
+--- !u!114 &441638044159238565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3971,23 +3974,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7653426975497917625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292bb5ef08c31ab46af71723201abdb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 60a6428d10d41d946855899d580a6948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FollowMouse_Speed_Keyboard: 8
-  FollowMouse_Speed_Controller: 8
-  FocusMaxDistance_Keyboard: 3
-  FocusMinMaxDistance_Controller: {x: 3, y: 5}
-  FocusDistanceWithController: 5
   playerRefs: {fileID: 3175104005493510322}
+  followingSpeed_Mouse: 8
+  followingSpeed_Controller: 8
+  JoystickRegularFocusAttempt_Radius: 6
+  OnFocusedEnemyDied_Radius: 10
+  JoystickJoystickRefocus_Radius: 6
   distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
   isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
   ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
-  FocusedEnemy: {fileID: 0}
-  PositionToLook: {x: 0, y: 0}
-  IsFocusingEnemy: 0
-  SwordDirection: {x: 0, y: 0}
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!1 &7653426975970030029
 GameObject:
   m_ObjectHideFlags: 0
@@ -5010,7 +5008,7 @@ MonoBehaviour:
   HeadBone: {fileID: 1097975357195865740}
   SpritesRoot: {fileID: 2036163816277594816}
   constraint: {fileID: 7852253558543688479}
-  followMouse: {fileID: 7800534874906703369}
+  followMouse: {fileID: 441638044159238565}
   ConstrainedBone: {fileID: 5747662590253632156}
   FlippingRoot: {fileID: 2036163816277594816}
 --- !u!1001 &1267035628588403748

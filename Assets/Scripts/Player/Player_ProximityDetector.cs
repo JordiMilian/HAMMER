@@ -8,7 +8,7 @@ public class Player_ProximityDetector : MonoBehaviour
     [SerializeField] BoolVariable isDistanceToMouse;
     [SerializeField] TransformVariable ClosestEnemy;
     [SerializeField] Generic_OnTriggerEnterEvents proximityTrigger;
-    [SerializeField] Player_FollowMouse_alwaysFocus followMouse;
+    [SerializeField] Player_FollowMouseWithFocus_V2 followMouse;
 
      Transform mouseTarget;
 

@@ -9,7 +9,7 @@ public class SpinningEyes : MonoBehaviour
     [SerializeField] Transform HeadBone;
     [SerializeField] Transform SpritesRoot;
     [SerializeField] RotationConstraint constraint;
-    [SerializeField] Player_FollowMouse_alwaysFocus followMouse;
+    [SerializeField] Player_FollowMouseWithFocus_V2 followMouse;
     [SerializeField] Transform ConstrainedBone;
     [SerializeField] Transform FlippingRoot;
     ConstraintSource constranitSource = new ConstraintSource();
@@ -30,7 +30,7 @@ public class SpinningEyes : MonoBehaviour
         Vector2 rootPos = transform.position;
 
         //If there is a focused enemy, look at enemy, else look at mouse
-        if(followMouse.FocusedEnemy != null) { targetPos = followMouse.FocusedEnemy.transform.position; }
+        if(followMouse.CurrentlyFocusedEnemy != null) { targetPos = followMouse.CurrentlyFocusedEnemy.transform.position; }
         else { targetPos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition); }
 
         //Find the direction to the target, whatever it is

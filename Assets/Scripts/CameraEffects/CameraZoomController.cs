@@ -11,7 +11,7 @@ public class CameraZoomController : MonoBehaviour
     [SerializeField] float lerpingZoom, targetZoom, zoomSpeed;
 
     [SerializeField] CinemachineVirtualCamera virtualCamera;
-    Player_FollowMouse_alwaysFocus followMouse;
+    Player_FollowMouseWithFocus_V2 followMouse;
     [Header("Base Zoom info")]
     [SerializeField] float BaseZoom;
     [SerializeField] float BaseSpeed;
@@ -55,7 +55,7 @@ public class CameraZoomController : MonoBehaviour
     private void Update()
     {
         //Lerp the zoom towards targetZoom, whatever it is. If we are focusing, we calculate the proper zoom with the focused enemy
-        if (isFocusingZoom) { targetZoom = CalculateFocusZoom(followMouse.FocusedEnemy.transform.position); } 
+        if (isFocusingZoom) { targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedEnemy.transform.position); } 
         else if(!checkedLatestZoom)
         {
             GetLatestZoomInfoAndUpdateTarget();

@@ -9,7 +9,7 @@ public class Player_References : Generic_References
     public Player_ActionPerformer actionPerformer;
     public Player_ComboSystem_chargeless comboSystem;
     public Player_FeedbackManager feedbackManager;
-    public Player_FollowMouse_alwaysFocus followMouse;
+    public Player_FollowMouseWithFocus_V2 followMouse;
     public Player_HealthSystem healthSystem;
     public Player_Movement playerMovement;
     public Player_ParryPerformer parryPerformer;

@@ -5,16 +5,16 @@ using UnityEngine;
 public class FocusLimit : MonoBehaviour
 {
     [SerializeField] GameObject FocuseTarget;
-    Player_FollowMouse_alwaysFocus playerFocus;
+    Player_FollowMouseWithFocus_V2 playerFocus;
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (playerFocus == null) { playerFocus = GlobalPlayerReferences.Instance.references.followMouse; }
 
         if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
         {
-            if(playerFocus.FocusedEnemy == FocuseTarget)
+            if(playerFocus.CurrentlyFocusedEnemy == FocuseTarget)
             {
-                playerFocus.OnLookAtMouse(FocuseTarget);
+                playerFocus.UnfocusCurrentEnemy();
             }
         }
     }

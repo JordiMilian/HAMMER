@@ -23,10 +23,8 @@ public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
     }
     void AutoFocusMannequin(Collider2D collider)
     {
-        Player_FollowMouse_alwaysFocus playerFocus = GlobalPlayerReferences.Instance.references.followMouse;
-        playerFocus.FocusedEnemy = StartingFocusMannequin.gameObject;
-        playerFocus.OnLookAtEnemy();
-
+        Player_FollowMouseWithFocus_V2 playerFocus = GlobalPlayerReferences.Instance.references.followMouse;
+        playerFocus.FocusNewEnemy(StartingFocusMannequin.gameObject);
     }
     void FocusedEnemy(GameObject focusedGO)
     {

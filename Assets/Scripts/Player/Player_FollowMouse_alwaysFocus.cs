@@ -297,19 +297,19 @@ public class Player_FollowMouse_alwaysFocus : MonoBehaviour
 
         playerRefs.spriteFliper.FocusVector = targetPos;
     }
-    GameObject ClosestEnemyToCenterWithinRange(Vector2 center, float range, GameObject IgnoredEnemy = null)
+    GameObject ClosestEnemyToCenterWithinRange(Vector2 center, float radius, GameObject IgnoredEnemy = null)
     {
 
         List<GameObject> InrangeEnemies = new List<GameObject>();
         List<float> InrangeDistances = new List<float>();
 
-        StartCoroutine(DrawAttemptDebug(center, range, 2f));
+        StartCoroutine(DrawAttemptDebug(center, radius, 2f));
 
         //Add to a list every enemy within range and its distance
         for (int i = 0; i < CurrentEnemies.Count; i++)
         {
             if (IgnoredEnemy != null && CurrentEnemies[i] == IgnoredEnemy) { continue; } //Ignore enemy to ignore if not null
-            if (Vector2.Distance(center, CurrentEnemies[i].transform.position) < range)
+            if (Vector2.Distance(center, CurrentEnemies[i].transform.position) < radius)
             {
                 InrangeEnemies.Add(CurrentEnemies[i]);
                 InrangeDistances.Add(Vector2.Distance(center, CurrentEnemies[i].transform.position));

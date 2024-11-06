@@ -68,6 +68,7 @@ public class Generic_DamageDealer : MonoBehaviour
 
         eventSystem.OnDealtDamage?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
         collision.ClosestPoint(gameObject.transform.position),
+        collision.gameObject,
         Damage,
         charge
         ));
@@ -76,6 +77,7 @@ public class Generic_DamageDealer : MonoBehaviour
     {
         eventSystem.OnHitObject?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position),
+            collision.gameObject,
             Damage
             ));
     }
