@@ -70,7 +70,7 @@ public class Enemy_StateMachine : Generic_StateMachine
     }
     IEnumerator delayDestroy()
     {
-        yield return new WaitForSecondsRealtime(0.08f);
+        yield return new WaitForSecondsRealtime(0.1f);
         Destroy(gameObject);
     }
 }

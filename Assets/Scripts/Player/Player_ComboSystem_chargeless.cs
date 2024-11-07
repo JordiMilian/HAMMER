@@ -70,7 +70,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         else { equivalent = CalculateEquivalent(distanceToEnemy.Value); } // Else calculate with distance
 
         
-        Vector3 tempForceDirection = playerRefs.followMouse.gameObject.transform.up;
+        Vector3 tempForceDirection = playerRefs.followMouse.SwordDirection;
         //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForceDirection * multiplier, 0.1f));
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
             playerRefs.characterMover,

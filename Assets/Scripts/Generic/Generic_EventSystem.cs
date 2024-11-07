@@ -10,13 +10,13 @@ public class Generic_EventSystem : MonoBehaviour
         public Vector3 CollisionPosition;
         public float DamageDealt;
         public float ChargeGiven;
-        public GameObject AttackedEntity;
+        public GameObject AttackedRoot;
         public DealtDamageInfo(Vector3 collisionPosition, GameObject attacked, float damageDealt, float chargeGiven = 0)
         {
             CollisionPosition = collisionPosition;
             DamageDealt = damageDealt;
             ChargeGiven = chargeGiven;
-            AttackedEntity = attacked;
+            AttackedRoot = attacked;
         }
     }
     public class ReceivedAttackInfo : EventArgs

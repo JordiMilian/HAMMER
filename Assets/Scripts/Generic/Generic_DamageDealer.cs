@@ -28,7 +28,7 @@ public class Generic_DamageDealer : MonoBehaviour
 
 
     public EventHandler OnGettingParried;
-    [SerializeField] Generic_EventSystem eventSystem;
+    public Generic_EventSystem eventSystem;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag(TagsCollection.Object_Hurtbox))
@@ -68,7 +68,7 @@ public class Generic_DamageDealer : MonoBehaviour
 
         eventSystem.OnDealtDamage?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
         collision.ClosestPoint(gameObject.transform.position),
-        collision.gameObject,
+        collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
         Damage,
         charge
         ));
@@ -77,7 +77,7 @@ public class Generic_DamageDealer : MonoBehaviour
     {
         eventSystem.OnHitObject?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position),
-            collision.gameObject,
+            collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
             Damage
             ));
     }

@@ -11,7 +11,7 @@ public class Generic_DamageDetector : MonoBehaviour
     }
     public Team EntityTeam;
     public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
-    [SerializeField] Generic_EventSystem eventSystem;
+    public Generic_EventSystem eventSystem;
     bool isInCooldown;
     float CooldownTime = 0.2f;
     Coroutine cooldownRoutine;

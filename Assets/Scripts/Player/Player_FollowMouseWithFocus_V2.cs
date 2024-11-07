@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 {
-    public bool isCurrentlyFocusing { get; private set; }
-    public GameObject CurrentlyFocusedEnemy { get; private set; }
-    public Vector2 SwordDirection { get; private set; } //This is so it can be accessed from other scripts 
+     public bool isCurrentlyFocusing { get; private set; }
+     public GameObject CurrentlyFocusedEnemy { get; private set; }
+    public Vector2 SwordDirection { get; private set; }
+
     [SerializeField] Player_References playerRefs;
 
     [Header("Focus Stats")]
@@ -15,6 +16,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     [SerializeField] float JoystickRegularFocusAttempt_Radius;
     [SerializeField] float OnFocusedEnemyDied_Radius;
     [SerializeField] float JoystickJoystickRefocus_Radius;
+    [SerializeField] float MouseRegularFocus_Radius;
 
     [Header("Scriptable Object Variables")]
     [SerializeField] FloatVariable distanceToEnemy;
@@ -26,6 +28,12 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     List<GameObject> spawnedEnemies = new List<GameObject>();
     bool attemptedJoystickRefocus;
     CameraZoomController zoomController;
+
+    //The Update is constantly checking if we are focusing or not and looking at near stuff
+    //At any moment we can call FocusNewEnemy or UnfocusCurrentEnemy and the Update will act accordingly
+    //We have the method AttemptFocus which looks around a circle area and focuses the nearest enemy to the center.
+    //We call this method from diferent functions depending on context and adapt the circle position and radius accordingly 
+    //For now AttemptFocus is private, but it could perfectly become public if we need to call it from somewhere else, just as we do with FocusEnemy and UnfocusCurrentEnemy
 
     private void Awake()
     {
@@ -50,7 +58,11 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 
         if (isCurrentlyFocusing) //Look at enemy if focusing enemy
         {
-            PosToLook = CurrentlyFocusedEnemy.transform.position;
+            if(CurrentlyFocusedEnemy != null)
+            {
+                PosToLook = CurrentlyFocusedEnemy.transform.position;
+            }
+            else { Debug.LogError("Focusing null enemy wtf"); }
         }
         else if (distanceToEnemy.Value < 2.5f && !isDistanceToMouse.Value) //Look at closest enemy if everything is alright
         {
@@ -113,6 +125,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         TargetGroupSingleton.Instance.AddTarget(enemy.transform, 3, 2);
         zoomController.onFocusedEnemy();
         playerRefs.events.OnFocusEnemy?.Invoke(enemy); //For tutorial now
+        Debug.Log("Focused " + enemy.name);
 
         //
         void SubscribeToEnemy(GameObject subscribed)
@@ -174,8 +187,9 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         //If no enemies in range
         if (InrangeEnemies.Count == 0)
         {
+            Debug.Log("Attempted focus but no enemies near");
             if (canUnfocus) { return; }
-            else { FocusNewEnemy(lastFocusedEnemy); return; }
+            else { if (lastFocusedEnemy != null) { FocusNewEnemy(lastFocusedEnemy); return; } }
         }
 
         //Check which index has the shortest distance and return
@@ -187,8 +201,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
                 minIndex = o;
             }
         }
-
-        FocusNewEnemy(spawnedEnemies[minIndex]);
+        FocusNewEnemy(InrangeEnemies[minIndex]);
 
         //
         IEnumerator DrawAttemptDebug(Vector2 center, float radius, float time)
@@ -219,19 +232,25 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     {
         if(inputDetector.isControllerDetected)
         {
-            Vector2 center = inputDetector.PlayerPos + (lastValidDirection.normalized * JoystickRegularFocusAttempt_Radius);
-            AttemptFocus(center, JoystickRegularFocusAttempt_Radius, false, false);
+            if (isCurrentlyFocusing) { UnfocusCurrentEnemy(); }
+            else
+            {
+                AttemptFocus(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, true, true);
+            }
         }
         else
         {
-            AttemptFocus(MouseCameraTarget.Instance.transform.position, 3, false, false);
+            AttemptFocus(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, true, false);
         }
     }
     void OnAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
-        if(info.AttackedEntity.CompareTag(TagsCollection.Enemy))
+        Enemy_HealthSystem enemyHealth = info.AttackedRoot.GetComponent<Enemy_HealthSystem>();
+        if ( enemyHealth!= null && enemyHealth.CurrentHP.GetValue() <= 0) { return; }
+
+        if(info.AttackedRoot.CompareTag(TagsCollection.Enemy))
         {
-            FocusNewEnemy(info.AttackedEntity);
+            FocusNewEnemy(info.AttackedRoot);
         }
     }
 }

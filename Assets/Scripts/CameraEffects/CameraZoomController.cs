@@ -44,18 +44,27 @@ public class CameraZoomController : MonoBehaviour
     //This is what happens unless the player is focusing an enemy. In which case ignore everything and focus on enemy (Player_FollowMouse will notify)
     private void Awake()
     {
-        playerTf = GameObject.Find(TagsCollection.MainCharacter).transform;
-        followMouse = playerTf.GetComponent<Player_References>().followMouse;
+        
     }
     private void Start()
     {
+        playerTf = GlobalPlayerReferences.Instance.playerTf;
+        followMouse = GlobalPlayerReferences.Instance.references.followMouse;
         ZoomInfo BaseInfo = new ZoomInfo(BaseZoom, BaseSpeed, "Base");
         AddZoomInfoAndUpdate(BaseInfo);
     }
     private void Update()
     {
         //Lerp the zoom towards targetZoom, whatever it is. If we are focusing, we calculate the proper zoom with the focused enemy
-        if (isFocusingZoom) { targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedEnemy.transform.position); } 
+        if (isFocusingZoom) 
+        { 
+            if(followMouse.CurrentlyFocusedEnemy != null)
+            {
+                targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedEnemy.transform.position);
+            }
+
+            
+        } 
         else if(!checkedLatestZoom)
         {
             GetLatestZoomInfoAndUpdateTarget();
