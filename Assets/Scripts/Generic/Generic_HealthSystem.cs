@@ -17,6 +17,13 @@ public class Generic_HealthSystem : MonoBehaviour
     void Awake()
     {
         if (!isPlayers) { MaxHP.ChangeValue(Refs.stats.MaxHealth); }
+        else
+        {
+            Player_References playerRefs = (Player_References)Refs;
+            MaxHP.ChangeValue(
+                playerRefs.statsController.GetStatByType(Player_StatsV2.statTypes.MaxHealth).GetCurrentValue()
+                );
+        }
         BaseHP.ChangeValue(MaxHP.GetValue());
         if (FillHealthOnStart) { RestoreAllHealth(); }
     }

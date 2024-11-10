@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 1
   drawLines: 1
   stopMove: 0
@@ -324,6 +323,7 @@ MonoBehaviour:
   collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 1, y: 0}
   speedMultiplier: 0.5
+  MovementVectorsPerSecond: []
 --- !u!58 &123788950
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -918,6 +918,52 @@ Transform:
   m_Father: {fileID: 1961885775}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &187139200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 187139202}
+  - component: {fileID: 187139201}
+  m_Layer: 0
+  m_Name: StatsV2Testing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &187139201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187139200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1843ead24d232874babfbabb991f1c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsList: []
+  PointsToRandomize: 0
+--- !u!4 &187139202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187139200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.1648834, y: -85.00656, z: -0.10977738}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187177170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,7 +1446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 0
   drawLines: 1
   stopMove: 0
@@ -1411,6 +1456,7 @@ MonoBehaviour:
   collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 1, y: 0}
   speedMultiplier: 0.5
+  MovementVectorsPerSecond: []
 --- !u!114 &433439985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4499,7 +4545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 1
   drawLines: 1
   stopMove: 0
@@ -4510,6 +4555,7 @@ MonoBehaviour:
   collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 1, y: 0}
   speedMultiplier: 0.5
+  MovementVectorsPerSecond: []
 --- !u!58 &1936938915
 CircleCollider2D:
   m_ObjectHideFlags: 0
