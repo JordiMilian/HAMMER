@@ -40,18 +40,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         zoomController = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>(); //MAL FEO FATAL potser hauria de ser un signleton
         inputDetector = InputDetector.Instance;
     }
-    private void OnEnable()
-    {
-        inputDetector.OnFocusPressed += OnFocusInputPressed;
-        playerRefs.events.OnDeath += OnPlayerDied;
-        playerRefs.events.OnDealtDamage += OnAttackedEnemy;
-    }
-    private void OnDisable()
-    {
-        inputDetector.OnFocusPressed -= OnFocusInputPressed;
-        playerRefs.events.OnDeath -= OnPlayerDied;
-        playerRefs.events.OnDealtDamage -= OnAttackedEnemy;
-    }
+
     private void Update()
     {
         Vector2 PosToLook = Vector2.zero;
@@ -105,7 +94,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
                 if (!attemptedJoystickRefocus)
                 {
                     Vector2 center = (Vector2)CurrentlyFocusedEnemy.transform.position + (inputDetector.LookingDirectionInput.normalized * JoystickJoystickRefocus_Radius);
-                    AttemptFocus(center, JoystickJoystickRefocus_Radius, false, false);
+                    AttemptCircleFocus(center, JoystickJoystickRefocus_Radius, false, false);
                     attemptedJoystickRefocus = true;
                 }
             }
@@ -158,7 +147,19 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             unsubscribedEvents.OnDeath -= OnFocusedEnemyDied;
         }
     }
-    void AttemptFocus(Vector2 circleCenter, float radius, bool canUnfocus, bool ignoreCurrent)
+    private void OnEnable()
+    {
+        inputDetector.OnFocusPressed += OnFocusInputPressed;
+        playerRefs.events.OnDeath += OnPlayerDied;
+        playerRefs.events.OnDealtDamage += OnAttackedEnemy;
+    }
+    private void OnDisable()
+    {
+        inputDetector.OnFocusPressed -= OnFocusInputPressed;
+        playerRefs.events.OnDeath -= OnPlayerDied;
+        playerRefs.events.OnDealtDamage -= OnAttackedEnemy;
+    }
+    void AttemptCircleFocus(Vector2 circleCenter, float radius, bool canUnfocus, bool ignoreCurrent)
     {
         spawnedEnemies.Clear();
         spawnedEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
@@ -218,7 +219,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     void OnFocusedEnemyDied( object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
         const float diedRadius = 5;
-        AttemptFocus(
+        AttemptCircleFocus(
             info.DeadGameObject.transform.position,
             diedRadius,
             true,
@@ -235,12 +236,12 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             if (isCurrentlyFocusing) { UnfocusCurrentEnemy(); }
             else
             {
-                AttemptFocus(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, true, true);
+                AttemptCircleFocus(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, true, true);
             }
         }
         else
         {
-            AttemptFocus(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, true, false);
+            AttemptCircleFocus(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, true, false);
         }
     }
     void OnAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)
