@@ -33,7 +33,8 @@ public class PuddleCreatureLogiuc : MonoBehaviour
             ontrigger.OnTriggerEntered += onPlayerEnteredPuddle;
             ontrigger.OnTriggerExited += onPLayerExitedPuddle;
         }
-        roomWithEnemies.onRoomCompleted += (BaseRoomWithDoorLogic doorLogic) => DeactivatePuddle();
+        if(roomWithEnemies != null) { roomWithEnemies.onRoomCompleted += (BaseRoomWithDoorLogic doorLogic) => DeactivatePuddle(); }
+        
     }
     void onPlayerEnteredPuddle(Collider2D collision)
     {

@@ -16,11 +16,12 @@ public class PlayersLastDeathManager : MonoBehaviour
     
     private void OnEnable()
     {
-        GameEvents.OnPlayerDeath += SetRoomsUpgrade;
+        //Disabled for exploration levels
+        //GameEvents.OnPlayerDeath += SetRoomsUpgrade;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerDeath -= SetRoomsUpgrade;
+        //GameEvents.OnPlayerDeath -= SetRoomsUpgrade;
     }
     void SetRoomsUpgrade()
     {

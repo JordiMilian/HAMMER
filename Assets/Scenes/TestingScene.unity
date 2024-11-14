@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 1
   drawLines: 1
   stopMove: 0
@@ -324,6 +323,7 @@ MonoBehaviour:
   collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 1, y: 0}
   speedMultiplier: 0.5
+  MovementVectorsPerSecond: []
 --- !u!58 &123788950
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1380,7 +1380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433439977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.49, y: -0.53, z: 0}
+  m_LocalPosition: {x: 16.42, y: 5.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1400,7 +1400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 0
   drawLines: 1
   stopMove: 0
@@ -1409,8 +1408,9 @@ MonoBehaviour:
   velocityLimit: 2
   collisionDampint: 0.77
   collisioninsideDampint: 0.25
-  TestDirectionToMove: {x: 1, y: 0}
-  speedMultiplier: 0.5
+  TestDirectionToMove: {x: 0, y: -1}
+  speedMultiplier: 20
+  MovementVectorsPerSecond: []
 --- !u!114 &433439985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4499,7 +4499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 1
   drawLines: 1
   stopMove: 0
@@ -4510,6 +4509,7 @@ MonoBehaviour:
   collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 1, y: 0}
   speedMultiplier: 0.5
+  MovementVectorsPerSecond: []
 --- !u!58 &1936938915
 CircleCollider2D:
   m_ObjectHideFlags: 0
