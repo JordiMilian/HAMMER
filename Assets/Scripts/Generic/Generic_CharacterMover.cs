@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Generic_CharacterMover : MonoBehaviour
 {
-    //Generic_CharacterMover
-
     //do not ROTATE square colliders
 
     //The circle collider of charactesr should not be offseted by anything
@@ -23,6 +21,7 @@ public class Generic_CharacterMover : MonoBehaviour
     }
 
     [SerializeField] Animator animator;
+    [SerializeField] bool ignoreCollisions;
 
     List<Vector2> collisionPositions = new List<Vector2>();
    public List<Collider2D> collidersInside = new List<Collider2D>();
@@ -57,7 +56,9 @@ public class Generic_CharacterMover : MonoBehaviour
     private void Update()
     {
         collisionPositions.Clear();
-        float ownRadius = ownCollider.radius * Mathf.Max(ownCollider.transform.localScale.x, ownCollider.transform.localScale.y);
+        float ownRadius = 0;
+        if(ownCollider != null) { ownRadius = ownCollider.radius * Mathf.Max(ownCollider.transform.localScale.x, ownCollider.transform.localScale.y); }
+        
         MovementVectorsPerSecond.Add(TestDirectionToMove * speedMultiplier); //For testing delete
 
         Vector2 calculatedDirection = Vector2.zero;
@@ -73,7 +74,11 @@ public class Generic_CharacterMover : MonoBehaviour
 
         // ----  ROOT MOTION  ----
 
-        calculatedDirection += (Vector2)animator.deltaPosition * RootMotionMultiplier;
+        if(animator != null)
+        {
+            calculatedDirection += (Vector2)animator.deltaPosition * RootMotionMultiplier;
+        }
+        
 
         // ----  COLISIONS  ---- 
 
@@ -161,6 +166,7 @@ public class Generic_CharacterMover : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) //The Layers set-up must be cleaned
     {
+        if (ignoreCollisions) { return; }
         if (collidersInside.Contains(collision)) { return; }
         if(collision.gameObject.layer == 20 || collision.gameObject.layer == 16) //mainCollision or JumpableWall
         {
@@ -170,6 +176,7 @@ public class Generic_CharacterMover : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (ignoreCollisions) { return; }
         if (collision.gameObject.layer == 20 || collision.gameObject.layer == 16)
         {
             collidersInside.Remove(collision);

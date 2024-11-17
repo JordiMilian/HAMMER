@@ -3193,6 +3193,7 @@ GameObject:
   - component: {fileID: 131155159506509890}
   - component: {fileID: 738973075402885668}
   - component: {fileID: 5563275663953165858}
+  - component: {fileID: 7191289767090938885}
   m_Layer: 20
   m_Name: MainCharacter_noCharge
   m_TagString: Player
@@ -3243,7 +3244,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 3
-  BaseSpeed: 20
   DamageMultiplier: 1
   BaseDamageMultiplier: 1
 --- !u!114 &7653426975249963391
@@ -3686,6 +3686,7 @@ MonoBehaviour:
   specialAttack: {fileID: 4068002304790719456}
   singlePointCollider: {fileID: 9009123525477702090}
   disableController: {fileID: 3372783210703460156}
+  statsController: {fileID: 0}
   currentHealth: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
   maxHealth: {fileID: 11400000, guid: 49c3ecc0c8b70b948b721b739b6528ec, type: 2}
   baseHealth: {fileID: 11400000, guid: 8811fb1ca515d0e4180c69eaac9440e0, type: 2}
@@ -3695,6 +3696,7 @@ MonoBehaviour:
   parryCollider: {fileID: 7653426975970030027}
   weaponScalingRoot: {fileID: 7653426974895600710}
   weaponPivot: {fileID: 7653426975497917625}
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!114 &7235723769753228221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3794,6 +3796,7 @@ MonoBehaviour:
   drawLines: 0
   stopMove: 0
   animator: {fileID: 7653426975249963390}
+  ignoreCollisions: 0
   collidersInside: []
   velocityLimit: 3
   collisionDampint: 0.77
@@ -3801,6 +3804,18 @@ MonoBehaviour:
   TestDirectionToMove: {x: 0, y: 0}
   speedMultiplier: 0
   MovementVectorsPerSecond: []
+--- !u!114 &7191289767090938885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6bfa398cf5457642ad5efdf22ed3cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0

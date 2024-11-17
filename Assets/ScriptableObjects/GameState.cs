@@ -53,6 +53,9 @@ public class GameState : ScriptableObject
     [Header("Audio")]
     [Range(0,1)] public float MusicVolum;
     [Range(0, 1)] public float SFXVolum;
+
+    [Header("Levels and XP")]
+    public int xpPoints;
     public void ResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)

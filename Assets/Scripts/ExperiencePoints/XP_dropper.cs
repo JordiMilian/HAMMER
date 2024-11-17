@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class XP_dropper : MonoBehaviour
+public abstract class XP_dropper : MonoBehaviour
 {
     [SerializeField] List<XP_script> xpPrefabs = new List<XP_script>();
 
@@ -11,23 +11,21 @@ public class XP_dropper : MonoBehaviour
 
     List<Vector2Int> sortedPrefabsBySize = new List<Vector2Int>(); //X = index in xpPrefabs, Y is amount Of Xp
 
-    
     List<int> chosenXps = new List<int>();
-    private void Awake()
+    public void Awake()
     {
-        sortPrefabs();
+        sortPrefabsList();
     }
-    private void Update()
+    public void Update()
     {
         if(triggerChoseXp)
         {
-             choosePrefabs();
+            spawnExperiences();
             triggerChoseXp = false;
         }
     }
-    void sortPrefabs()
+    void sortPrefabsList()
     {
-        
         for (int p = 0; p < xpPrefabs.Count; p++)
         {
             sortedPrefabsBySize.Add(new Vector2Int(p,xpPrefabs[p].XpAmount));
@@ -56,15 +54,24 @@ public class XP_dropper : MonoBehaviour
             sortedPrefabsBySize[indexB] = middleMan;
         }
     }
-    XP_script[] choosePrefabs()
+    public void spawnExperiences()
+    {
+        XP_script[] scriptsToSpawn = GetRandomXpScripts(xpToDrop);
+        foreach(XP_script script in scriptsToSpawn)
+        {
+            GameObject newXpInstance = Instantiate(script.gameObject, transform.position, Quaternion.identity);
+            newXpInstance.GetComponent<XP_script>().onSpawn();
+        }
+    }
+    XP_script[] GetRandomXpScripts(int XpToDrop)
     {
         chosenXps.Clear();//for debugging, this list can be deleted
         List<XP_script> chosenPrefabs = new List<XP_script>();
         int countedXp = 0;
-        while(countedXp < xpToDrop)
+        while(countedXp < XpToDrop)
         {
             int largestIndex = sortedPrefabsBySize.Count- 1;
-            int minAmountNeeded = xpToDrop - countedXp;
+            int minAmountNeeded = XpToDrop - countedXp;
             for (int i = 0; i < sortedPrefabsBySize.Count; i++)
             {
                 if(minAmountNeeded < sortedPrefabsBySize[i].y)
@@ -80,14 +87,12 @@ public class XP_dropper : MonoBehaviour
             chosenPrefabs.Add(xpPrefabs[sortedPrefabsBySize[randomIndex].x]);
             /*
             Debug.Log("Min required size: " + minAmountNeeded);
-            Debug.Log("Largest posible amount: " + sortedPrefabsBySize[largestIndex].y);
+            Debug.Log("Largest posible prefab: " + sortedPrefabsBySize[largestIndex].y);
             Debug.Log("Added amount: " + sortedPrefabsBySize[randomIndex].y);
             */
             chosenXps.Add(sortedPrefabsBySize[randomIndex].y);
 
         }
-
-
         return chosenPrefabs.ToArray();
     }
 }

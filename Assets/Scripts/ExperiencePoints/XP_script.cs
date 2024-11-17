@@ -6,21 +6,23 @@ public class XP_script : MonoBehaviour
 {
     public int XpAmount;
     [SerializeField] Animator xpAnimator;
+    [SerializeField] float minDistance, maxDistance, minTime, maxTime;
+    [SerializeField] AnimationCurve spawnMovementCurve;
 
-    private void OnEnable()
+    public void onSpawn() //Called from XP_dropper
     {
-        onSpawn();
+        float averageValueOfCurve = UsefullMethods.GetAverageValueOfCurve(spawnMovementCurve,10);
+        StartCoroutine( UsefullMethods.ApplyCurveMovementOverTime(
+            GetComponent<Generic_CharacterMover>(),
+            Random.Range(minDistance, maxDistance),
+            Random.Range(minTime, maxTime),
+            UsefullMethods.angle2Vector(Random.Range((float)0, (float)1) * Mathf.PI * 2),
+            spawnMovementCurve,
+            averageValueOfCurve
+            ));
     }
-    private void OnDisable()
+    public void onPickedUp() //Called from player_experienceCollector
     {
-        onPickedUp();
-    }
-    void onSpawn()
-    {
-        //xp spawned
-    }
-    void onPickedUp()
-    {
-        //xp picked up
+        Destroy(gameObject);
     }
 }
