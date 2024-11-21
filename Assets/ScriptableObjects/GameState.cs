@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "GameState")]
+[CreateAssetMenu(menuName = "GameState")]
 public class GameState : ScriptableObject
 {
     [Serializable]
@@ -39,7 +39,7 @@ public class GameState : ScriptableObject
         //public bool isCurrent;
     }
     public List<weaponInfos> WeaponInfosList = new List<weaponInfos>();
-    
+
 
     public int[] FurthestDoorsArray = new int[5];
 
@@ -51,11 +51,23 @@ public class GameState : ScriptableObject
     public bool hasPickedFirstWeapon;
 
     [Header("Audio")]
-    [Range(0,1)] public float MusicVolum;
+    [Range(0, 1)] public float MusicVolum;
     [Range(0, 1)] public float SFXVolum;
 
     [Header("Levels and XP")]
-    public int xpPoints;
+    int xpPoints;
+    public Action<int> OnXpPointsSet;
+    public int XpPoints 
+    {
+        get { return xpPoints; }
+        set
+        {
+            if(xpPoints == value) { return; }
+            xpPoints = value;
+            OnXpPointsSet?.Invoke(value);
+        }
+    }
+    
     public void ResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)
@@ -97,6 +109,8 @@ public class GameState : ScriptableObject
 
         hasPickedFirstUpgrade = false;
         hasPickedFirstWeapon = false;
+
+        XpPoints = 0;
 
     }
 }

@@ -11,11 +11,11 @@ public class Player_ExperienceCollector : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        XP_script xpScript = collision.GetComponent<XP_script>();
-        if(xpScript != null )
+        XP_script script = collision.GetComponent<XP_script>();
+        if(script != null )
         {
-            playerRefs.gameState.xpPoints += xpScript.XpAmount;
-            xpScript.onPickedUp();
+            playerRefs.gameState.XpPoints += script.XpAmount;
+            script.onPickedUp();
         }
     }
 }

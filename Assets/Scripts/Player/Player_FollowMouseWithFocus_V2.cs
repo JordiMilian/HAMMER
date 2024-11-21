@@ -164,7 +164,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         spawnedEnemies.Clear();
         spawnedEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        GameObject lastFocusedEnemy = CurrentlyFocusedEnemy; //Unfocus current enemy but keep a reference just in case
+        GameObject lastFocusedEnemy = CurrentlyFocusedEnemy; //Unfocus current enemy but keep a reference
         UnfocusCurrentEnemy();
 
         List<GameObject> InrangeEnemies = new List<GameObject>();

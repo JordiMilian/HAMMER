@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7568110113479188649}
   - component: {fileID: 892060832174240504}
   - component: {fileID: 7622995783535628857}
+  - component: {fileID: 353780160083487405}
   m_Layer: 16
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -241,7 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 1
-  BaseSpeed: 1
   DamageMultiplier: 1
   BaseDamageMultiplier: 1
 --- !u!114 &6932147153519873058
@@ -605,14 +605,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementVectorsPerSecond: []
   RootMotionMultiplier: 1
+  drawLines: 0
+  stopMove: 0
   animator: {fileID: 2195041901401652145}
+  ignoreCollisions: 0
   collidersInside: []
   velocityLimit: 3
   collisionDampint: 0.77
+  collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 0, y: 0}
   speedMultiplier: 0.01
+  MovementVectorsPerSecond: []
+--- !u!114 &353780160083487405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8199d1d57f99dff47a9f60dfdd53ef04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpPrefabs:
+  - {fileID: 2115158258501815051, guid: 87664fa20dfcb8343a7d4bbf96c0ed3f, type: 3}
+  - {fileID: 2115158258501815051, guid: 4e2b317dfad2f1646b5f8ef8979b5eaa, type: 3}
+  - {fileID: 2115158258501815051, guid: acb54ab29ddb6df4eb9d3b927f3f6b8d, type: 3}
+  xpToDrop: 0
+  triggerChoseXp: 0
+  enemyEvents: {fileID: 627058440868749388}
 --- !u!1 &848200506690117509
 GameObject:
   m_ObjectHideFlags: 0

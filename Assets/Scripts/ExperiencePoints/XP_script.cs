@@ -8,9 +8,13 @@ public class XP_script : MonoBehaviour
     [SerializeField] Animator xpAnimator;
     [SerializeField] float minDistance, maxDistance, minTime, maxTime;
     [SerializeField] AnimationCurve spawnMovementCurve;
+    [SerializeField] AudioClip pickedAudio;
 
     public void onSpawn() //Called from XP_dropper
     {
+        xpAnimator = GetComponent<Animator>();
+        xpAnimator.speed = Random.Range(0.8f, 1.2f);
+        xpAnimator.SetTrigger("spawn");
         float averageValueOfCurve = UsefullMethods.GetAverageValueOfCurve(spawnMovementCurve,10);
         StartCoroutine( UsefullMethods.ApplyCurveMovementOverTime(
             GetComponent<Generic_CharacterMover>(),
@@ -23,6 +27,9 @@ public class XP_script : MonoBehaviour
     }
     public void onPickedUp() //Called from player_experienceCollector
     {
-        Destroy(gameObject);
+        SFX_PlayerSingleton.Instance.playSFX(pickedAudio, 0.2f);
+        GetComponent<CircleCollider2D>().enabled = false;
+        xpAnimator.SetTrigger("pickedUp");
+        StartCoroutine(UsefullMethods.destroyWithDelay(0.3f, gameObject));
     }
 }
