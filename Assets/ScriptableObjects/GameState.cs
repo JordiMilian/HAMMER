@@ -55,8 +55,15 @@ public class GameState : ScriptableObject
     [Range(0, 1)] public float SFXVolum;
 
     [Header("Levels and XP")]
+    public int level;
+    public float level_currentMaxHp;
+    public float level_currentDamge;
+    public float level_currentMaxStamina;
+
+    
     int xpPoints;
     public Action<int> OnXpPointsSet;
+
     public int XpPoints 
     {
         get { return xpPoints; }
