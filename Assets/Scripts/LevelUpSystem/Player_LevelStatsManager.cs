@@ -12,7 +12,7 @@ public class Player_LevelStatsManager : MonoBehaviour
     [Space]
     [Header("Stats upgrades per level")]
     [SerializeField] int hpPerLevel = 1;
-    [SerializeField] int dmgPerLevel = 1;
+    [SerializeField] int damagePerLevel = 1;
     [SerializeField] int staminaPerLevel = 1;
 
     public void LevelUpHP()
@@ -38,7 +38,20 @@ public class Player_LevelStatsManager : MonoBehaviour
 
     public void LevelUpDamage()
     {
-        if (!canLevelUp()) return; //No puede subir de nivelript yu
+        if (!canLevelUp()) return; //No puede subir de nivel
+
+        gameState.XpPoints -= levelUpCost();
+        gameState.level++;
+
+        Debug.Log("Level up! " + gameState.level);
+        Debug.Log("Level Up Stamina");
+        int currentDamage = Mathf.RoundToInt(GetComponent<Generic_Stats>().DamageMultiplier);
+
+        int newDamage = (currentDamage + damagePerLevel);
+
+        GetComponent<Generic_Stats>().DamageMultiplier = newDamage;
+
+
     }
 
     public void LevelUpStamina()
@@ -90,5 +103,7 @@ public class Player_LevelStatsManager : MonoBehaviour
 
         GlobalPlayerReferences.Instance.references.maxStamina.SetValue(gameState.level_currentMaxStamina);
         GlobalPlayerReferences.Instance.references.currentStamina.SetValue(gameState.level_currentMaxStamina);
+
+        GetComponent<Generic_Stats>().DamageMultiplier = 1; //No utilizo la referencia a BaseDamage en Generic_Stats por si la quitas, que esto se mantenga como 1, ya que ese numero siempre es 1
     }
 }
