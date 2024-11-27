@@ -20,7 +20,6 @@ public class SFX_PlayerSingleton : MonoBehaviour
         {
             Instance = this;
         }
-
         audioSourcesList = GetComponentsInChildren<AudioSource>().ToList<AudioSource>();
     }
     public void playSFX(AudioClip clip, float pitchVariationAdder = 0, float addedVolum = 0, float addedPitch = 0)//added volum should be a percent probably

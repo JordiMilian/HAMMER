@@ -23,7 +23,7 @@ public class Player_ProximityDetector : MonoBehaviour
         proximityTrigger.AddActivatorTag(TagsCollection.Enemy_SinglePointCollider);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
-        mouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
+        mouseTarget = MouseCameraTarget.Instance.transform;
     }
     private void Update()
     {

@@ -19,10 +19,8 @@ public class CameraShake : MonoBehaviour
         {
             Instance = this;
         }
-
         CMVCx = CMVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
-
     public void ShakeCamera(float Intensity, float Time)
     {
         StartCoroutine(ShakeCoroutine(Intensity, Time));

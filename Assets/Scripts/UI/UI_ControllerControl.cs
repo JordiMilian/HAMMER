@@ -6,7 +6,7 @@ using UnityEngine;
 public class UI_ControllerControl : MonoBehaviour
 {
     [SerializeField] List<Animator> ButtonAnimators = new List<Animator>();
-    [SerializeField] InputDetector inputDetector;
+    InputDetector inputDetector;
     [SerializeField] int currentSelectedIndex;
     [HideInInspector] public bool isReadingInput = true;
     [SerializeField] bool startReadingInput;
@@ -23,6 +23,7 @@ public class UI_ControllerControl : MonoBehaviour
     }
     private void OnEnable()
     {
+        inputDetector = InputDetector.Instance;
         inputDetector.OnDownPressed += selectLowerButton;
         inputDetector.OnUpPressed += selectUpperButton;
         inputDetector.OnSelectPressed += SelectCurrentHighlight;

@@ -20,10 +20,6 @@ public class PauseGame : MonoBehaviour
     [Header("Buttons references")]
     [SerializeField] Player_EventSystem playerEventSystem;
 
-    private void Awake()
-    {
-        MouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
-    }
     private void OnEnable()
     {
         InputDetector.Instance.OnPausePressed += onPausePresed;
@@ -32,7 +28,7 @@ public class PauseGame : MonoBehaviour
     {
         InputDetector.Instance.OnPausePressed -= onPausePresed;
     }
-    private void Start()
+    public void Initialize()
     {
         Unpause();
     }
@@ -55,7 +51,7 @@ public class PauseGame : MonoBehaviour
 
         Time.timeScale = 0; //stop time
 
-        TargetGroupSingleton.Instance.RemoveTarget(MouseTarget); //Remove mouse influence to TargetGroup
+        TargetGroupSingleton.Instance.RemovePlayersTarget(); //Remove mouse influence to TargetGroup
 
         pauseCanvas.enabled = true; //show UIs
 

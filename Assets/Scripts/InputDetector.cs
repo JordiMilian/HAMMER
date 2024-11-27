@@ -43,6 +43,7 @@ public class InputDetector : MonoBehaviour
     bool rightTriggerPressed;
     bool madeJoystickMovementInput;
 
+    bool readyToRead;
     public static InputDetector Instance;
     private void Awake()
     {   
@@ -55,19 +56,15 @@ public class InputDetector : MonoBehaviour
         {
             Instance = this;
         }
-
-        OnRollPressed += OnRollPressedDebug;
-        OnFocusPressed += OnFocusPressedDebug;
-        OnPausePressed += OnPausePressedDebug;
-        OnAttackPressed += OnAttackPresedDebug;
         mainCamera = Camera.main;
-        //PlayerTf = GameObject.Find(TagsCollection.MainCharacter).transform;
     }
     void Update()
     {
+        if (!readyToRead) { return; }
         CheckForController();
-        if(PlayerTf != null) { PlayerPos = PlayerTf.position; }
-        else { PlayerTf = transform; }
+        if(GlobalPlayerReferences.Instance == null) { PlayerPos = Camera.main.transform.position; }
+        else if(PlayerTf == null) { PlayerTf = GlobalPlayerReferences.Instance.playerTf; PlayerPos = PlayerTf.position; }
+        else { PlayerPos =  PlayerTf.position; }
         
 
         //CONTROLLER STUFF
@@ -158,9 +155,9 @@ public class InputDetector : MonoBehaviour
         }
 
         
-        Debug.DrawLine(PlayerPos, PlayerPos + MouseDirection);
+        //Debug.DrawLine(PlayerPos, PlayerPos + MouseDirection);
         
-        Debug.DrawLine(PlayerPos, PlayerPos + LookingDirectionInput);
+        //Debug.DrawLine(PlayerPos, PlayerPos + LookingDirectionInput);
 
     }
     void TriggerInputs(Action OnPressed, Action OnPressing, Action OnUnpressed, string AxisName, ref bool isPressed)

@@ -13,7 +13,7 @@ public class Player_DisableController : MonoBehaviour
 
     private void Awake()
     {
-        MouseTarget = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
+        MouseTarget = MouseCameraTarget.Instance.transform;
     }
     private void OnEnable()
     {

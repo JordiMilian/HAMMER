@@ -18,13 +18,15 @@ public class FurthestDoor_Manager : MonoBehaviour
         else
         {
             Instance = this;
-        }
-
-        gameState.LastEnteredDoor = roomGenerator.AreaIndex - 1;
+        }  
     }
-    private void Start()
+    public void Initialize()
     {
-        Debug.Log("Activated door");
+        gameState.LastEnteredDoor = RoomGenerator_Manager.Instance.AreaIndex - 1; 
+        
+    }
+    public void GetAllDoorsAndActivateFurthest() //Called from sceneStarter
+    {
         SubscribeToDoors();
         sortDoorsByDistance();
         ActivateGameStatesDoor();

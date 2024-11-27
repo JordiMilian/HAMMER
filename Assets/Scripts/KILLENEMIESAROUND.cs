@@ -18,7 +18,7 @@ public class KILLENEMIESAROUND : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating("CheckEnemiesDistanceAndKill", 0, 5);
+        InvokeRepeating("CheckEnemiesDistanceAndKill", 1, 5);
     }
     void UpdateEnemiesHealthList()
     {

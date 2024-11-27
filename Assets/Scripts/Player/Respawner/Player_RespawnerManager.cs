@@ -15,21 +15,14 @@ public class Player_RespawnerManager : MonoBehaviour
     [SerializeField] GameState gameState;
     [SerializeField] RoomGenerator_Manager roomGenerator;
     
-    
-    private void OnEnable()
+    public void Initialize()
     {
+        eventSystem = GlobalPlayerReferences.Instance.references.events;
         eventSystem.CallRespawnToLastRespawner += RespawnPlayer;
-        //sortRespawners();
-    }
-    private void OnDisable()
-    {
-        eventSystem.CallRespawnToLastRespawner -= RespawnPlayer;
     }
     public static Player_RespawnerManager Instance;
     private void Awake()
     {
-        //ActivateSavedRespawner();
-
         if (Instance != null && Instance != this)
         {
             Destroy(this);

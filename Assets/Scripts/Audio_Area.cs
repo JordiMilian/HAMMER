@@ -11,10 +11,6 @@ public class Audio_Area : MonoBehaviour
     [SerializeField] float FadesSeconds;
     [SerializeField] bool isStartingArea;
     [SerializeField] Generic_OnTriggerEnterEvents audioTriggerCollider;
-    private void Awake()
-    {
-        
-    }
     private void OnEnable()
     {
         audioTriggerCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);

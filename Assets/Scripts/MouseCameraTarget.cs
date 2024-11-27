@@ -10,11 +10,10 @@ public class MouseCameraTarget : MonoBehaviour
     Vector2 lerpedDirection;
     Coroutine currentReturnToCenter;
     bool coroutineStarted;
+
     public static MouseCameraTarget Instance;
     private void Awake()
     {
-        inputDetector = InputDetector.Instance;
-
         if (Instance != null && Instance != this)
         {
             Debug.Log("Destroyed here:" + gameObject.name);
@@ -25,6 +24,7 @@ public class MouseCameraTarget : MonoBehaviour
             Debug.Log("Singleton Here: " + gameObject.name);
             Instance = this;
         }
+        inputDetector = InputDetector.Instance;
     }
     private void Update()
     {

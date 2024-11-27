@@ -17,8 +17,11 @@ public class GlobalPlayerReferences : MonoBehaviour
         {
             Instance = this;
         }
-        references = GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_References>();
-        playerTf = references.transform;
+    }
+    public void SetPlayerReferences(GameObject player)
+    {
+        references = player.GetComponent<Player_References>();
+        playerTf = player.transform;
     }
 
 }

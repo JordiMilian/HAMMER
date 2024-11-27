@@ -35,7 +35,6 @@ public class simpleVfxPlayer : MonoBehaviour
         {
             Instance = this;
         }
-
         vfxDictionary[simpleVFXkeys.HitEnemy] = HitEnemyVFX;
         vfxDictionary[simpleVFXkeys.HitEnemyParry] = HitEnemyParryVFX;
         vfxDictionary[simpleVFXkeys.HitPlayer] = HitPlayerVFX;
@@ -43,7 +42,6 @@ public class simpleVfxPlayer : MonoBehaviour
         vfxDictionary[simpleVFXkeys.StanceBroken] = StanceBrokenVFX;
         vfxDictionary[simpleVFXkeys.BigPuddleStep] = BigPuddleStepVFX;
     }
-
     public void playSimpleVFX(simpleVFXkeys vfxKey, Vector2 position)
     {
         if(vfxDictionary.ContainsKey(vfxKey))

@@ -7,8 +7,8 @@ public class TargetGroupSingleton : MonoBehaviour
 {
     public static TargetGroupSingleton Instance;
     CinemachineTargetGroup targetGroup;
-    Vector2 DefaultPlayerStats;
-    Vector2 DefaultMouseStats;
+    [SerializeField] Vector2 DefaultPlayerStats;
+    [SerializeField] Vector2 DefaultMouseStats;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,10 +19,14 @@ public class TargetGroupSingleton : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void Initialize()
+    {
         targetGroup = GetComponent<CinemachineTargetGroup>();
 
-        DefaultPlayerStats =new Vector2(  targetGroup.m_Targets[0].weight, targetGroup.m_Targets[0].radius );
-        DefaultMouseStats =new Vector2(  targetGroup.m_Targets[1].weight, targetGroup.m_Targets[1].radius );
+        //DefaultPlayerStats = new Vector2(targetGroup.m_Targets[0].weight, targetGroup.m_Targets[0].radius);
+        //DefaultMouseStats = new Vector2(targetGroup.m_Targets[1].weight, targetGroup.m_Targets[1].radius);
     }
 
     public static int FindEmptyTargetgroupSlot(CinemachineTargetGroup group)

@@ -42,38 +42,39 @@ public class CameraZoomController : MonoBehaviour
 
     //We have a list of all the zoom infos, the lates zoom info is king. We can remove and add to the list but only listen to the last.
     //This is what happens unless the player is focusing an enemy. In which case ignore everything and focus on enemy (Player_FollowMouse will notify)
-    private void Awake()
-    {
-        
-    }
-    private void Start()
+
+    public void Initialize()
     {
         playerTf = GlobalPlayerReferences.Instance.playerTf;
         followMouse = GlobalPlayerReferences.Instance.references.followMouse;
         ZoomInfo BaseInfo = new ZoomInfo(BaseZoom, BaseSpeed, "Base");
         AddZoomInfoAndUpdate(BaseInfo);
+        StartCoroutine(zoomUpdate());
     }
-    private void Update()
+    IEnumerator zoomUpdate()
     {
-        //Lerp the zoom towards targetZoom, whatever it is. If we are focusing, we calculate the proper zoom with the focused enemy
-        if (isFocusingZoom) 
-        { 
-            if(followMouse.CurrentlyFocusedEnemy != null)
+        while(true)
+        {
+            //Lerp the zoom towards targetZoom, whatever it is. If we are focusing, we calculate the proper zoom with the focused enemy
+            if (isFocusingZoom)
             {
-                targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedEnemy.transform.position);
+                if (followMouse.CurrentlyFocusedEnemy != null)
+                {
+                    targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedEnemy.transform.position);
+                }
+            }
+            else if (!checkedLatestZoom)
+            {
+                GetLatestZoomInfoAndUpdateTarget();
+                checkedLatestZoom = true;
             }
 
-            
-        } 
-        else if(!checkedLatestZoom)
-        {
-            GetLatestZoomInfoAndUpdateTarget();
-            checkedLatestZoom = true;
+            lerpingZoom = Mathf.Lerp(lerpingZoom, targetZoom, Time.deltaTime * zoomSpeed);
+
+            virtualCamera.m_Lens.OrthographicSize = lerpingZoom;
+
+            yield return null;
         }
-
-        lerpingZoom = Mathf.Lerp(lerpingZoom, targetZoom, Time.deltaTime * zoomSpeed); 
-
-        virtualCamera.m_Lens.OrthographicSize = lerpingZoom;
     }
     public void AddZoomInfoAndUpdate(ZoomInfo info)
     {
