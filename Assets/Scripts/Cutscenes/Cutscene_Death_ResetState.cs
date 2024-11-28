@@ -34,7 +34,7 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
 
         yield return null;
 
-        playerRefs.events.CallRespawnToLastRespawner?.Invoke();
+        RespawnersManager.Instance.RespawnPlayer();
 
         onCutsceneOver?.Invoke();
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class XP_dropper : MonoBehaviour
+public class XP_dropper : MonoBehaviour
 {
     [SerializeField] List<XP_script> xpPrefabs = new List<XP_script>();
 

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RespawnerSaveMove : MonoBehaviour
 {
-    [SerializeField] Player_RespawnerManager respawnerManager;
-    [SerializeField] GameObject playerGO;
+    [SerializeField] RespawnersManager respawnerManager;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -20,6 +19,10 @@ public class RespawnerSaveMove : MonoBehaviour
     }
     void checkIfNullAndRespawn(Player_Respawner respawner)
     {
-        if(respawner != null) { respawner.RespawnFromHere(playerGO); }
+        if(respawner != null) 
+        {
+            GameObject playerGO = GlobalPlayerReferences.Instance.references.gameObject;
+            respawner.RespawnFromHere(playerGO); 
+        }
     }
 }

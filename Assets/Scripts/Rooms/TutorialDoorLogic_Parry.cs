@@ -13,7 +13,7 @@ public class TutorialDoorLogic_Parry : BaseRoomWithDoorLogic
     {
         base.OnEnable();
 
-        playerEvents = GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_EventSystem>(); //GUARRROO
+        playerEvents = GlobalPlayerReferences.Instance.references.events;
 
         playerEvents.OnSuccessfulParry += Count1Parry;
     }

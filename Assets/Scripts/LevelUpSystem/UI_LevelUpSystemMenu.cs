@@ -39,7 +39,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
         InputDetector.Instance.OnSelectPressed += LevelUpSystemMenu;
 
-        OnLevelUpSystemActivated();
+        OnLevelUpSystemActivated?.Invoke();
         playerRespawner.OnRespawnerActivated -= ActivateLevelUpSystemUI;
     }
 

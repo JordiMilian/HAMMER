@@ -34,10 +34,10 @@ public class Cutscene_Death_NoResetState : BaseCutsceneLogic
 
         iconAnimator.SetTrigger("Lost");
 
-        yield return new WaitForSeconds(3.5f); 
+        yield return new WaitForSeconds(3.5f);
 
 
-        playerRefs.events.CallRespawnToLastRespawner?.Invoke();
+        RespawnersManager.Instance.RespawnPlayer();
         playerRefs.healthSystem.RestoreAllHealth();
 
         yield return new WaitForSeconds(.25f);
@@ -49,7 +49,7 @@ public class Cutscene_Death_NoResetState : BaseCutsceneLogic
         yield return new WaitForSeconds(0.1f);
 
         playerRefs.events.CallDisable();
-        playerRefs.events.CallRespawnToLastRespawner?.Invoke();
+        RespawnersManager.Instance.RespawnPlayer();
         playerRefs.healthSystem.RestoreAllHealth();
 
         yield return new WaitForSeconds(.25f);

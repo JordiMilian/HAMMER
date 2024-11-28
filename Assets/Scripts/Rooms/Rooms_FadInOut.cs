@@ -37,16 +37,11 @@ public class Rooms_FadInOut : MonoBehaviour
                 AllRoomShapes.Add(thisShape);
             }
         }
+
+        Rooms_FadeInOut_StartingRoomsCheck.Instance.roomsFades.Add(this);
         
     }
-    private void Start()
-    {
-
-        Invoke("checkCurrentRoom", 0.1f);
-        
-
-    }
-    void checkCurrentRoom()
+    public void checkCurrentRoom()
     {
         Vector2 playerPos = GlobalPlayerReferences.Instance.playerTf.position;
         Collider2D roomCollider = RoomTrigger.GetComponent<Collider2D>();

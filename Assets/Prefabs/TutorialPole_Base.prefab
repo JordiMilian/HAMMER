@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3819510353225946223}
   - component: {fileID: 3997652725707455408}
   - component: {fileID: 7408653523327847293}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: TutorialPole_Base
   m_TagString: Enemy_notFocus
   m_Icon: {fileID: 0}
@@ -68,7 +68,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 500
-  BaseSpeed: 1
   DamageMultiplier: 1
   BaseDamageMultiplier: 1
 --- !u!95 &4174781769410761570
@@ -170,6 +169,7 @@ MonoBehaviour:
   positionCollider: {fileID: 0}
   _rigidbody: {fileID: 0}
   stateMachine: {fileID: 0}
+  characterMover: {fileID: 0}
   attackProvider: {fileID: 0}
   enemyEvents: {fileID: 0}
   healthSystem: {fileID: 0}
@@ -987,6 +987,10 @@ PrefabInstance:
     - target: {fileID: 3143310112689085150, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Name
       value: Dialoguer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143310112689085150, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3143310112689085151, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: Name

@@ -1,26 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player_RespawnerManager : MonoBehaviour
+public class RespawnersManager : MonoBehaviour
 {
 
     public List<Player_Respawner> Respawners = new List<Player_Respawner>();
     bool isSorted;
-    [SerializeField] Player_Respawner CurrentFurthestRespawner;
+     Player_Respawner CurrentFurthestRespawner;
     //[SerializeField] GameObject PlayerGO;
-    [SerializeField] Player_EventSystem eventSystem;
     [SerializeField] GameState gameState;
-    [SerializeField] RoomGenerator_Manager roomGenerator;
     
-    public void Initialize()
-    {
-        eventSystem = GlobalPlayerReferences.Instance.references.events;
-        eventSystem.CallRespawnToLastRespawner += RespawnPlayer;
-    }
-    public static Player_RespawnerManager Instance;
+    public static RespawnersManager Instance;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,11 +22,11 @@ public class Player_RespawnerManager : MonoBehaviour
             Instance = this;
         }
     }
-    void RespawnPlayer()
+    public void RespawnPlayer()
     {
         CheckFurthestRespawner();
         CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
-        CurrentFurthestRespawner.RespawnFromHere(eventSystem.gameObject); //Go to Player_Respawn
+        CurrentFurthestRespawner.RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject); //Go to Player_Respawn
     }
     void CheckFurthestRespawner()
     {
@@ -85,6 +75,13 @@ public class Player_RespawnerManager : MonoBehaviour
             Respawners[closestIndex] = Respawners[i];
             Respawners[i] = tempRespawner;
         }
+    }
+    public void ForceSpawnInIndex(int indexByDistance)
+    {
+        if(indexByDistance > Respawners.Count) { Debug.LogError("respawner out of range"); return; }
+        sortRespawners();
+        Respawners[indexByDistance].ExternallyActivateRespawner();
+        Respawners[indexByDistance].RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject);
     }
     void setDistancesOfRespawners()
     {

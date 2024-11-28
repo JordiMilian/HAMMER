@@ -44,7 +44,7 @@ public class CameraZoomController : MonoBehaviour
     //This is what happens unless the player is focusing an enemy. In which case ignore everything and focus on enemy (Player_FollowMouse will notify)
 
 
-    public void Initialize()
+    public void SetBaseZoomAndReferences()
     {
         ZoomInfo BaseInfo = new ZoomInfo(BaseZoom, BaseSpeed, "Base");
         AddZoomInfoAndUpdate(BaseInfo);

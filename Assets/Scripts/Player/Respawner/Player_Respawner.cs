@@ -14,12 +14,12 @@ public class Player_Respawner : MonoBehaviour
     
     
     GameObject RespawnedPlayer;
-    Player_RespawnerManager respawnerManager;
+    RespawnersManager respawnerManager;
     [HideInInspector] public float distanceToManager;
     [HideInInspector] public int managerIndex;
     private void OnEnable()
     {
-        respawnerManager =  Player_RespawnerManager.Instance;
+        respawnerManager =  RespawnersManager.Instance;
         respawnerManager.Respawners.Add(this);
         eventSystem.OnDeath += OnTiedEnemyKilled;
     }
