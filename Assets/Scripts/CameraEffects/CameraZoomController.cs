@@ -43,12 +43,13 @@ public class CameraZoomController : MonoBehaviour
     //We have a list of all the zoom infos, the lates zoom info is king. We can remove and add to the list but only listen to the last.
     //This is what happens unless the player is focusing an enemy. In which case ignore everything and focus on enemy (Player_FollowMouse will notify)
 
+
     public void Initialize()
     {
-        playerTf = GlobalPlayerReferences.Instance.playerTf;
-        followMouse = GlobalPlayerReferences.Instance.references.followMouse;
         ZoomInfo BaseInfo = new ZoomInfo(BaseZoom, BaseSpeed, "Base");
         AddZoomInfoAndUpdate(BaseInfo);
+        playerTf = GlobalPlayerReferences.Instance.playerTf;
+        followMouse = GlobalPlayerReferences.Instance.references.followMouse;
         StartCoroutine(zoomUpdate());
     }
     IEnumerator zoomUpdate()

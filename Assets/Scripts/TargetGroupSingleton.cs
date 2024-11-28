@@ -21,7 +21,7 @@ public class TargetGroupSingleton : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    public void GetTargetGroupReference()
     {
         targetGroup = GetComponent<CinemachineTargetGroup>();
 

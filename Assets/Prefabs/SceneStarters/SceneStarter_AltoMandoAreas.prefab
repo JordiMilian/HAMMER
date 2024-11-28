@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &654120377091326788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 654120377091326790}
+  - component: {fileID: 664673625798251841}
+  m_Layer: 0
+  m_Name: SceneStarter_AltoMandoAreas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &654120377091326790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654120377091326788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5585195, y: 3.0854578, z: -0.05590601}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &664673625798251841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654120377091326788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7618e3a8f6060084cbce82fb94d3b2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCharacter: {fileID: 7653426975249963383, guid: 8921a8421fc929546abdbc71d50baae6, type: 3}
+  pauseCanvas: {fileID: 4807916172619018050, guid: 09e85497160e5a946b72d87509c873a2, type: 3}
+  globalPlayerReference: {fileID: 478903634884320152, guid: 78cdc1d1bc6896844b282a195d7b2b1e, type: 3}
+  targetGroupSingleton: {fileID: 6412540055385677793, guid: 41fca294b296c3b4c8b74a740dadf3ce, type: 3}
+  playerRespawnerManager: {fileID: 4145425793216329583, guid: c015a232865b10c438609fb15cb4c80f, type: 3}
+  deadParts_Manager: {fileID: 2948142268850064468, guid: 1604f0046f7a1604ca5d3ceee0cc4e93, type: 3}
+  roomGeneratorPrefab: {fileID: 0}
+  cinemachineCamera: {fileID: 0}

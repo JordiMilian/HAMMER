@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class KILLENEMIESAROUND : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    List< Generic_HealthSystem> enemiesHealth = new List<Generic_HealthSystem>();
+    List<Generic_HealthSystem> enemiesHealth = new List<Generic_HealthSystem>();
     [SerializeField] float InstaKillEnemiesOnDistance;
      Room_script currentRoom;
     void Update()
@@ -20,37 +21,38 @@ public class KILLENEMIESAROUND : MonoBehaviour
     {
         InvokeRepeating("CheckEnemiesDistanceAndKill", 1, 5);
     }
-    void UpdateEnemiesHealthList()
+    List<Generic_HealthSystem> GetEnemiesHealths()
     {
-        enemiesHealth.Clear();
+        if (gameState.currentPlayerRooms_index.Count == 0) { return new List<Generic_HealthSystem>(); }
+
         RoomGenerator_Manager roomsGenerator = RoomGenerator_Manager.Instance;
-
-        if(gameState.currentPlayerRooms_index.Count == 0) { return; }
-
         Vector3Int currentRoomsIndex = gameState.currentPlayerRooms_index[gameState.currentPlayerRooms_index.Count - 1];
         currentRoom = roomsGenerator.CompleteList_spawnedRooms[currentRoomsIndex.x].list[currentRoomsIndex.y];
 
         RoomWithEnemiesLogic currentRoomWithEnemies = currentRoom.GetComponent<RoomWithEnemiesLogic>();
-        if(currentRoomWithEnemies == null) { return; }
+        if(currentRoomWithEnemies == null) { return new List<Generic_HealthSystem>(); }
         GameObject[] enemiesGO = currentRoomWithEnemies.CurrentlySpawnedEnemies.ToArray();
-        enemiesHealth = new List<Generic_HealthSystem>();
+
+        List<Generic_HealthSystem> enemiesHealthListTemp = new List<Generic_HealthSystem>();
         foreach (GameObject enem in enemiesGO)
         {
             Generic_HealthSystem enemieHealth = enem.GetComponent<Generic_HealthSystem>();
 
             if (enemieHealth == null) { continue; }
 
-            enemiesHealth.Add(enemieHealth);
+            enemiesHealthListTemp.Add(enemieHealth);
         }
+        return enemiesHealthListTemp;
     }
     void KILLEMALL()
     {
-        UpdateEnemiesHealthList();
+        GetEnemiesHealths();
         StartCoroutine(KillEmSlowly(enemiesHealth.ToArray()));
     }
     void CheckEnemiesDistanceAndKill()
     {
-        UpdateEnemiesHealthList();
+        enemiesHealth = GetEnemiesHealths();
+        if(enemiesHealth.Count == 0) { return; };
         Vector2 roomPos = currentRoom.transform.position;
         foreach(Generic_HealthSystem health in  enemiesHealth)
         {

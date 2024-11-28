@@ -21,6 +21,7 @@ public class Player_References : Generic_References
     public Generic_OnTriggerEnterEvents singlePointCollider;
     public Player_DisableController disableController;
     public Player_StatsV2 statsController;
+    public Player_LevelStatsManager levelStatsManager;
 
     public FloatVariable currentHealth;
     public FloatVariable maxHealth;

@@ -20,8 +20,9 @@ public class FurthestDoor_Manager : MonoBehaviour
             Instance = this;
         }  
     }
-    public void Initialize()
+    public void GetGeneratorReference()
     {
+        roomGenerator = RoomGenerator_Manager.Instance;
         gameState.LastEnteredDoor = RoomGenerator_Manager.Instance.AreaIndex - 1; 
         
     }

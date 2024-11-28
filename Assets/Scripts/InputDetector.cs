@@ -43,7 +43,6 @@ public class InputDetector : MonoBehaviour
     bool rightTriggerPressed;
     bool madeJoystickMovementInput;
 
-    bool readyToRead;
     public static InputDetector Instance;
     private void Awake()
     {   
@@ -60,12 +59,13 @@ public class InputDetector : MonoBehaviour
     }
     void Update()
     {
-        if (!readyToRead) { return; }
+
         CheckForController();
-        if(GlobalPlayerReferences.Instance == null) { PlayerPos = Camera.main.transform.position; }
-        else if(PlayerTf == null) { PlayerTf = GlobalPlayerReferences.Instance.playerTf; PlayerPos = PlayerTf.position; }
-        else { PlayerPos =  PlayerTf.position; }
-        
+        if(GlobalPlayerReferences.Instance == null) { PlayerTf = Camera.main.transform; }
+        else if(GlobalPlayerReferences.Instance.playerTf == null) { PlayerTf = Camera.main.transform; }
+        else { PlayerTf = GlobalPlayerReferences.Instance.playerTf; }
+
+        PlayerPos = PlayerTf.position;
 
         //CONTROLLER STUFF
         if (isControllerDetected)

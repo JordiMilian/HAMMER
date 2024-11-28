@@ -28,10 +28,6 @@ public class PauseGame : MonoBehaviour
     {
         InputDetector.Instance.OnPausePressed -= onPausePresed;
     }
-    public void Initialize()
-    {
-        Unpause();
-    }
     void onPausePresed()
     {
         switch (isPaused)

@@ -63,7 +63,6 @@ public class GameState : ScriptableObject
     
     int xpPoints;
     public Action<int> OnXpPointsSet;
-
     public int XpPoints 
     {
         get { return xpPoints; }

@@ -27,7 +27,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         go_LevelUpMenu.SetActive(false);
 
         playerRespawner = GetComponentInParent<Player_Respawner>();
-        playerStatPointsManager = FindObjectOfType<Player_LevelStatsManager>();
+        playerStatPointsManager = GlobalPlayerReferences.Instance.references.levelStatsManager;
         playerRespawner.OnRespawnerActivated += ActivateLevelUpSystemUI;
     }
 

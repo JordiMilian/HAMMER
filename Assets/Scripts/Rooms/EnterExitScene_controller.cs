@@ -9,13 +9,11 @@ public class EnterExitScene_controller : MonoBehaviour
     public string SceneName;
     [SerializeField] BaseCutsceneLogic enterCutscene;
     public bool playEnteringCutsceneOnLoad;
+    [SerializeField] Transform enterPosition;
 
-    private void Start()
+    public void EnterPlayerFromHere()
     {
-        if(playEnteringCutsceneOnLoad)
-        {
-            Invoke( "OnPlayerEnteredFromHere",0.1f);
-        }
+        GlobalPlayerReferences.Instance.playerTf.position = enterPosition.position;
     }
     public void OnPlayerEnteredFromHere()
     {
