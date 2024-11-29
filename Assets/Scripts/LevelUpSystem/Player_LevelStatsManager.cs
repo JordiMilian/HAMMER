@@ -15,6 +15,7 @@ public class Player_LevelStatsManager : MonoBehaviour
     [SerializeField] int damagePerLevel = 1;
     [SerializeField] int staminaPerLevel = 1;
 
+    [SerializeField] EntityStats currentPlayerStats;
     public void LevelUpHP()
     {
         if (!canLevelUp()) return; //No puede subir de nivel
@@ -33,7 +34,7 @@ public class Player_LevelStatsManager : MonoBehaviour
 
         gameState.level_currentMaxHp = newMaxHealth;
 
-        
+        currentPlayerStats.MaxHp = newMaxHealth;
     }
 
     public void LevelUpDamage()
@@ -106,4 +107,6 @@ public class Player_LevelStatsManager : MonoBehaviour
 
         GetComponent<Generic_Stats>().DamageMultiplier = 1; //No utilizo la referencia a BaseDamage en Generic_Stats por si la quitas, que esto se mantenga como 1, ya que ese numero siempre es 1
     }
+
+
 }
