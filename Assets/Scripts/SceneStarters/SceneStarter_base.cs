@@ -16,14 +16,16 @@ public class SceneStarter_base : MonoBehaviour
     [Header("Already Instantiated")]
     [SerializeField] CinemachineVirtualCamera cinemachineCamera;
 
-    IEnumerator Start()
+    public IEnumerator Start()
     {
         yield return StartCoroutine(Binding());
         yield return StartCoroutine(Initialization());
         yield return StartCoroutine(Creation());
         yield return StartCoroutine(Preparation());
-        
+        ReturnControlToPlayer();
     }
+    //TO DO - Loading screen
+
     public virtual IEnumerator Binding() //Crear els scripts basics necesaris
     {
         globalPlayerReference = Instantiate(globalPlayerReference,transform);
@@ -36,9 +38,10 @@ public class SceneStarter_base : MonoBehaviour
 
         mainCharacter = Instantiate(mainCharacter);
         globalPlayerReference.SetPlayerReferences(mainCharacter);
+        globalPlayerReference.references.disableController.DisablePlayerScripts();
         yield return null;
     }
-    public virtual IEnumerator Initialization() //Cridar les funcions basiques d'estos scripts
+    public virtual IEnumerator Initialization() //Cridar les funcions basiques d'estos scripts (buscar referencies principalment)
     {
         targetGroupSingleton.GetTargetGroupReference();
         cameraZoomController.SetBaseZoomAndReferences();
@@ -53,13 +56,15 @@ public class SceneStarter_base : MonoBehaviour
     }
     public virtual IEnumerator Preparation() //Colocar els objectes de Creation on toque
     {
-
         //Look at player and mouse
         TargetGroupSingleton.Instance.ReturnPlayersTarget();
         cinemachineCamera.Follow = targetGroupSingleton.transform;
 
         //Spawn player on proper door
-        //Logic of currency?
         yield return null;
+    }
+    public virtual void ReturnControlToPlayer()
+    {
+        globalPlayerReference.references.disableController.EnablePlayerScripts();
     }
 }
