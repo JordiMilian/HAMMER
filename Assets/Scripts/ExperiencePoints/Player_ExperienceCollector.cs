@@ -14,7 +14,7 @@ public class Player_ExperienceCollector : MonoBehaviour
         XP_script script = collision.GetComponent<XP_script>();
         if(script != null )
         {
-            playerRefs.gameState.XpPoints += script.XpAmount;
+            playerRefs.currentStats.ExperiencePoints += script.XpAmount;
             script.onPickedUp();
         }
     }

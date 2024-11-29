@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,22 +9,23 @@ public class PlayerStats : EntityStats
 {
     [SerializeField] private float _currentHp;
     [SerializeField] private float _attackSpeed;
-    [SerializeField] private float _stamina;
+    [SerializeField] private float _maxStamina;
+    [SerializeField] private float _currentStamina;
     [SerializeField] private float _recoveryStaminaSpeed;
     [SerializeField] private float _weaponSize;
     [SerializeField] private float _chargeGain;
-    [SerializeField] private int _playerLevel;
-    [SerializeField] private int _playerExperiencePoints;
+    [SerializeField] private int _level;
+    [SerializeField] private int _experiencePoints;
 
     // Eventos
-    [HideInInspector] public UnityEvent<float> OnCurrentHpChange;
-    [HideInInspector] public UnityEvent<float> OnAttackSpeedChange;
-    [HideInInspector] public UnityEvent<float> OnStaminaChange;
-    [HideInInspector] public UnityEvent<float> OnRecoveryStaminaSpeedChange;
-    [HideInInspector] public UnityEvent<float> OnWeaponSizeChange;
-    [HideInInspector] public UnityEvent<float> OnChargeGainChange;
-    [HideInInspector] public UnityEvent<float> OnPlayerLevelChange;
-    [HideInInspector] public UnityEvent<float> OnPayerExperiencePointsChange;
+    [HideInInspector] public Action<float> OnCurrentHpChange;
+    [HideInInspector] public Action<float> OnAttackSpeedChange;
+    [HideInInspector] public Action<float> OnStaminaChange;
+    [HideInInspector] public Action<float> OnRecoveryStaminaSpeedChange;
+    [HideInInspector] public Action<float> OnWeaponSizeChange;
+    [HideInInspector] public Action<float> OnChargeGainChange;
+    [HideInInspector] public Action<int> OnPlayerLevelChange;
+    [HideInInspector] public Action<int> OnPayerExperiencePointsChange;
 
     public float CurrentHp
     {
@@ -47,14 +49,24 @@ public class PlayerStats : EntityStats
         }
     }
 
-    public float Stamina
+    public float MaxStamina
     {
-        get => _stamina;
+        get => _maxStamina;
         set
         {
-            if (Mathf.Approximately(_attackSpeed, value)) return;
-            _stamina = value;
-            OnStaminaChange?.Invoke(_stamina);
+            if (Mathf.Approximately(_maxStamina, value)) return;
+            _maxStamina = value;
+            OnStaminaChange?.Invoke(_maxStamina);
+        }
+    }
+    public float CurrentStamina
+    {
+        get => _currentStamina;
+        set
+        {
+            if (Mathf.Approximately(_currentStamina, value)) return;
+            _maxStamina = value;
+            OnStaminaChange?.Invoke(_currentStamina);
         }
     }
 
@@ -63,7 +75,7 @@ public class PlayerStats : EntityStats
         get => _recoveryStaminaSpeed;
         set
         {
-            if (Mathf.Approximately(_attackSpeed, value)) return;
+            if (Mathf.Approximately(_recoveryStaminaSpeed, value)) return;
             _recoveryStaminaSpeed = value;
             OnRecoveryStaminaSpeedChange?.Invoke(_recoveryStaminaSpeed);
         }
@@ -89,23 +101,23 @@ public class PlayerStats : EntityStats
         }
     }
 
-    public float PlayerLevel
+    public int Level
     {
-        get => _playerLevel;
+        get => _level;
         set
         {
             //_playerLevel = value;
-            OnPlayerLevelChange?.Invoke(_playerLevel);
+            OnPlayerLevelChange?.Invoke(_level);
         }
     }
 
-    public float PlayerExperiencePoints
+    public int ExperiencePoints
     {
-        get => _playerExperiencePoints;
+        get => _experiencePoints;
         set
         {
             //_playerExperiencePoints = value;
-            OnPayerExperiencePointsChange?.Invoke(_playerExperiencePoints);
+            OnPayerExperiencePointsChange?.Invoke(_experiencePoints);
         }
     }
     public void CopyData(PlayerStats importedData) //Funcion que simplemente copia TODAS las variables de una función a otra
@@ -115,11 +127,11 @@ public class PlayerStats : EntityStats
         DamageMultiplicator = importedData.DamageMultiplicator;
         CurrentHp = importedData.CurrentHp;
         AttackSpeed = importedData.AttackSpeed;
-        Stamina = importedData.Stamina;
+        MaxStamina = importedData.MaxStamina;
         RecoveryStaminaSpeed = importedData.RecoveryStaminaSpeed;
         WeaponSize = importedData.WeaponSize;
         ChargeGain = importedData.ChargeGain;
-        PlayerLevel = importedData.PlayerLevel;
-        PlayerExperiencePoints = importedData.PlayerExperiencePoints;
+        Level = importedData.Level;
+        ExperiencePoints = importedData.ExperiencePoints;
     }
 }

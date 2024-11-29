@@ -23,6 +23,10 @@ public class Player_References : Generic_References
     public Player_StatsV2 statsController;
     public Player_LevelStatsManager levelStatsManager;
 
+    public PlayerStats currentStats;
+    public PlayerStats baseStats;
+
+    /*
     public FloatVariable currentHealth;
     public FloatVariable maxHealth;
     public FloatVariable baseHealth;
@@ -30,6 +34,7 @@ public class Player_References : Generic_References
     public FloatVariable maxStamina;
     public FloatVariable baseStamina;
 
+    */
     public Collider2D parryCollider;
 
     public GameObject weaponScalingRoot;

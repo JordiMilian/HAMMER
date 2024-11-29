@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,9 @@ public class EntityStats : ScriptableObject
     [SerializeField] private float _damageMultiplicator;
 
     // Eventos
-    [HideInInspector] public UnityEvent<float> OnMaxHpChange;
-    [HideInInspector] public UnityEvent<float> OnSpeedChange;
-    [HideInInspector] public UnityEvent<float> OnDamageMultiplicatorChange;
+    [HideInInspector] public Action<float> OnMaxHpChange;
+    [HideInInspector] public Action<float> OnSpeedChange;
+    [HideInInspector] public Action<float> OnDamageMultiplicatorChange;
 
     public float MaxHp
     {

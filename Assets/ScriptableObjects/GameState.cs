@@ -53,7 +53,7 @@ public class GameState : ScriptableObject
     [Header("Audio")]
     [Range(0, 1)] public float MusicVolum;
     [Range(0, 1)] public float SFXVolum;
-
+    /*
     [Header("Levels and XP")]
     public int level;
     public float level_currentMaxHp;
@@ -73,6 +73,7 @@ public class GameState : ScriptableObject
             OnXpPointsSet?.Invoke(value);
         }
     }
+    */
     public int PermanentCurrency;
     
     public void ResetState()
@@ -117,7 +118,6 @@ public class GameState : ScriptableObject
         hasPickedFirstUpgrade = false;
         hasPickedFirstWeapon = false;
 
-        XpPoints = 0;
 
     }
 }

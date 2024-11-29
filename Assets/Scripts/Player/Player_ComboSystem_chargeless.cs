@@ -42,7 +42,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
     void onAttackPressed()
     {
-        if (playerRefs.currentStamina.Value > 0)
+        if (playerRefs.currentStats.CurrentStamina > 0)
         {
             playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Attack"));
         }

@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Player_LevelStatsManager : MonoBehaviour
 {
-    [SerializeField] GameState gameState;
+    //SerializeField] PlayerStats currentStats;
+    //[SerializeField] PlayerStats baseStats;
+    [SerializeField] Player_References playerRefs;
     [Space]
     [Header("Level up Settings")]
     [SerializeField] int baseLevelCost;
@@ -20,31 +22,31 @@ public class Player_LevelStatsManager : MonoBehaviour
     {
         if (!canLevelUp()) return; //No puede subir de nivel
 
-        gameState.XpPoints -= levelUpCost();
-        gameState.level++;
+        playerRefs.currentStats.ExperiencePoints -= levelUpCost();
+        playerRefs.currentStats.Level++;
 
-        Debug.Log("Level up! " + gameState.level);
+        Debug.Log("Level up! " + playerRefs.currentStats.Level);
         Debug.Log("Level Up Hp");
-        int currentMaxHealth = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.maxHealth.Value);
-        int currentHealth = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.currentHealth.Value);
+        int currentMaxHealth = Mathf.RoundToInt(playerRefs.currentStats.MaxHp);
+        int currentHealth = Mathf.RoundToInt(playerRefs.currentStats.CurrentHp);
 
         int newMaxHealth = (currentMaxHealth + hpPerLevel);
-        GlobalPlayerReferences.Instance.references.maxHealth.SetValue(newMaxHealth);
-        GlobalPlayerReferences.Instance.references.currentHealth.SetValue(currentHealth + hpPerLevel);
+        playerRefs.currentStats.MaxHp = newMaxHealth;
+        playerRefs.currentStats.CurrentHp = currentHealth + hpPerLevel;
 
-        gameState.level_currentMaxHp = newMaxHealth;
+        playerRefs.currentStats.CurrentHp = newMaxHealth;
 
-        currentPlayerStats.MaxHp = newMaxHealth;
+        playerRefs.currentStats.MaxHp = newMaxHealth;
     }
 
     public void LevelUpDamage()
     {
         if (!canLevelUp()) return; //No puede subir de nivel
 
-        gameState.XpPoints -= levelUpCost();
-        gameState.level++;
+        playerRefs.currentStats.ExperiencePoints -= levelUpCost();
+        playerRefs.currentStats.Level++;
 
-        Debug.Log("Level up! " + gameState.level);
+        Debug.Log("Level up! " + playerRefs.currentStats.Level);
         Debug.Log("Level Up Stamina");
         int currentDamage = Mathf.RoundToInt(GetComponent<Generic_Stats>().DamageMultiplier);
 
@@ -59,53 +61,41 @@ public class Player_LevelStatsManager : MonoBehaviour
     {
         if (!canLevelUp()) return; //No puede subir de nivel
 
-        gameState.XpPoints -= levelUpCost();
-        gameState.level++;
+        playerRefs.currentStats.ExperiencePoints -= levelUpCost();
+        playerRefs.currentStats.Level++;
 
-        Debug.Log("Level up! " + gameState.level);
+        Debug.Log("Level up! " + playerRefs.currentStats.Level);
         Debug.Log("Level Up Stamina");
-        int currentStaminaMax = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.maxStamina.Value);
-        int currentStamina = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.currentStamina.Value);
+        int currentStaminaMax = Mathf.RoundToInt(playerRefs.currentStats.MaxStamina);
+        int currentStamina = Mathf.RoundToInt(playerRefs.currentStats.CurrentStamina);
 
         int newMaxStamina = (currentStaminaMax + staminaPerLevel);
-        GlobalPlayerReferences.Instance.references.maxStamina.SetValue(currentStaminaMax + staminaPerLevel);
-        GlobalPlayerReferences.Instance.references.currentStamina.SetValue(currentStamina + staminaPerLevel);
+        playerRefs.currentStats.MaxStamina = currentStaminaMax + staminaPerLevel;
+        playerRefs.currentStats.CurrentStamina = currentStamina + staminaPerLevel;
 
-        gameState.level_currentMaxStamina = newMaxStamina;
+        playerRefs.currentStats.MaxStamina = newMaxStamina;
     }
     bool canLevelUp()
     {
-        int xpPoints = gameState.XpPoints;
+        int xpPoints = playerRefs.currentStats.ExperiencePoints;
 
         return xpPoints - levelUpCost() >= 0 ? true: false;
     }
 
     public int xpPoints()
     {
-        return gameState.XpPoints;
+        return playerRefs.currentStats.ExperiencePoints;
     }
     public int levelUpCost()
     {
-        if (gameState.level <= 0) gameState.level = 1;
+        if (playerRefs.currentStats.Level <= 0) playerRefs.currentStats.Level = 1;
 
-        return Mathf.RoundToInt(baseLevelCost * Mathf.Pow(costMult, gameState.level -1));
+        return Mathf.RoundToInt(baseLevelCost * Mathf.Pow(costMult, playerRefs.currentStats.Level -1));
     }
 
     public void ResetLevel1()
     {
-        gameState.level = 1;
-        gameState.XpPoints = 0;
-        gameState.level_currentMaxHp = GlobalPlayerReferences.Instance.references.baseHealth.Value;
-        //gameState.level_currentDamge = hay que mover esto a float reference 
-        gameState.level_currentMaxStamina = GlobalPlayerReferences.Instance.references.baseStamina.Value;
-
-        GlobalPlayerReferences.Instance.references.maxHealth.SetValue(gameState.level_currentMaxHp);
-        GlobalPlayerReferences.Instance.references.currentHealth.SetValue(gameState.level_currentMaxHp);
-
-        GlobalPlayerReferences.Instance.references.maxStamina.SetValue(gameState.level_currentMaxStamina);
-        GlobalPlayerReferences.Instance.references.currentStamina.SetValue(gameState.level_currentMaxStamina);
-
-        GetComponent<Generic_Stats>().DamageMultiplier = 1; //No utilizo la referencia a BaseDamage en Generic_Stats por si la quitas, que esto se mantenga como 1, ya que ese numero siempre es 1
+        playerRefs.currentStats.CopyData(playerRefs.baseStats);
     }
 
 

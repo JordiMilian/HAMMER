@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class XP_CounterDisplay : MonoBehaviour
 {
-    [SerializeField] GameState gameState;
+    [SerializeField] PlayerStats currentPlayerState;
     [SerializeField] float timeBeforeDisappear, timeToDisappear;
     [SerializeField] TextMeshProUGUI displayText;
     Coroutine fadeCoroutine;
 
     private void OnEnable()
     {
-        gameState.OnXpPointsSet += onUpdatedCounter;
-        onUpdatedCounter(gameState.XpPoints);
+        currentPlayerState.OnPayerExperiencePointsChange += onUpdatedCounter;
     }
     private void OnDisable()
     {
-        gameState.OnXpPointsSet -= onUpdatedCounter;
+        currentPlayerState.OnPayerExperiencePointsChange -= onUpdatedCounter;
     }
     void onUpdatedCounter(int newAmount)
     {

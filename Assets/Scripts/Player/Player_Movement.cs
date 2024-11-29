@@ -92,7 +92,7 @@ public class Player_Movement : MonoBehaviour
     }
     void OnRollUnpressed()
     {
-        if (playerRefs.currentStamina.Value <= 0) { return; }
+        if (playerRefs.currentStats.CurrentStamina <= 0) { return; }
 
         StopRunning();
 

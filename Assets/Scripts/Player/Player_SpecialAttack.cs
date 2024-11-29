@@ -45,7 +45,7 @@ public class Player_SpecialAttack : MonoBehaviour
     void onSpecialHealPressed()
     {
         if (SpCharge_Current.Value < SpCharge_Max.Value) { Debug.Log("not enough charge try again"); return; }
-        if(playerRefs.currentStamina.GetValue() == 0) { return; }
+        if(playerRefs.currentStats.CurrentStamina <= 0) { return; }
         playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
         
         amountToHeal = Health_Max.Value - Health_Current.Value;
