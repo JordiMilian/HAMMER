@@ -15,36 +15,60 @@ public class SceneStarter_base : MonoBehaviour
 
     [Header("Already Instantiated")]
     [SerializeField] CinemachineVirtualCamera cinemachineCamera;
+    [SerializeField] LoadingScreenController loadingScreenController;
 
     public IEnumerator Start()
     {
+        loadingScreenController.ShowLoadingScreen();
+
+        Debug.Log("SceneStarter: reached 00");
+        loadingScreenController.UpdateLoadingBar(0);
+
         yield return StartCoroutine(Binding());
+        Debug.Log("SceneStarter: reached 01");
+        loadingScreenController.UpdateLoadingBar(20);
+
         yield return StartCoroutine(Initialization());
+        Debug.Log("SceneStarter: reached 02");
+        loadingScreenController.UpdateLoadingBar(40);
+
         yield return StartCoroutine(Creation());
+        Debug.Log("SceneStarter: reached 03");
+        loadingScreenController.UpdateLoadingBar(60);
+
         yield return StartCoroutine(Preparation());
+        Debug.Log("SceneStarter: reached 04");
+        loadingScreenController.UpdateLoadingBar(80);
+
         ReturnControlToPlayer();
+        Debug.Log("SceneStarter: reached 05");
+        loadingScreenController.UpdateLoadingBar(100);
+
+        yield return new WaitForSeconds(0.3f);
+        loadingScreenController.HideLoadingScreen();
     }
-    //TO DO - Loading screen
 
     public virtual IEnumerator Binding() //Crear els scripts basics necesaris
     {
         globalPlayerReference = Instantiate(globalPlayerReference,transform);
 
         targetGroupSingleton = Instantiate(targetGroupSingleton, transform);
-        targetGroupSingleton.AddComponent<CinemachineTargetGroup>();
 
         cameraZoomController = cinemachineCamera.GetComponent<CameraZoomController>();
 
 
         mainCharacter = Instantiate(mainCharacter);
         globalPlayerReference.SetPlayerReferences(mainCharacter);
-        globalPlayerReference.references.disableController.DisablePlayerScripts();
+
         yield return null;
     }
     public virtual IEnumerator Initialization() //Cridar les funcions basiques d'estos scripts (buscar referencies principalment)
     {
         targetGroupSingleton.GetTargetGroupReference();
+        
         cameraZoomController.SetBaseZoomAndReferences();
+
+        globalPlayerReference.references.disableController.DisablePlayerScripts();
         yield return null;
     }
     public virtual IEnumerator Creation() //Crear els objectes necesaris (character, escenaris)

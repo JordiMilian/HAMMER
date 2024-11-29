@@ -73,6 +73,7 @@ public class GameState : ScriptableObject
             OnXpPointsSet?.Invoke(value);
         }
     }
+    public int PermanentCurrency;
     
     public void ResetState()
     {

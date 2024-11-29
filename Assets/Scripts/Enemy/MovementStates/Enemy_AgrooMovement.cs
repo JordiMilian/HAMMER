@@ -48,7 +48,7 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     void StartAgroo()
     {
-        PlayerTransform = GameObject.Find("MainCharacter").transform;
+        PlayerTransform = GlobalPlayerReferences.Instance.playerTf;
         UIAnimator.SetTrigger("AgrooAlert");
 
         enemyRefs.moveToTarget.Target = PlayerTransform;

@@ -12,7 +12,7 @@ public class Tomato_Spawner : MonoBehaviour
     [SerializeField] Enemy_EventSystem enemyEvents;
     void Awake()
     {
-        Player = GameObject.Find(TagsCollection.MainCharacter).transform;
+        Player = GlobalPlayerReferences.Instance.playerTf;
     }
     public void SpawnTomato()
     {
