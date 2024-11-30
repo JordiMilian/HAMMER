@@ -10,21 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16def4844d1b7a143a733417cd1faa9d, type: 3}
-  m_Name: Enemy_01
+  m_Name: EnemyBaseStats_GreenBoss
   m_EditorClassIdentifier: 
-  _maxHp: 0
-  _speed: 0
-  _damageMultiplicator: 0
-  OnMaxHpChange:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSpeedChange:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDamageMultiplicatorChange:
-    m_PersistentCalls:
-      m_Calls: []
-  _xpDrop: 0
+  _maxHp: 30
+  _currentHp: 30
+  _speed: 1
+  _damageMultiplicator: 1
+  _xpDrop: 40
   OnXpDropChange:
     m_PersistentCalls:
       m_Calls: []

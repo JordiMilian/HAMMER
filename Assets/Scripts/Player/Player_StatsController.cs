@@ -8,7 +8,6 @@ public class Player_StatsController : MonoBehaviour
     Player_StatsV2 playerStats;
     private void Awake()
     {
-        playerStats = playerRefs.statsController;
         playerRefs.singlePointCollider.AddActivatorTag("Recompensa?¿¿?");
     }
     private void OnEnable()
@@ -24,7 +23,6 @@ public class Player_StatsController : MonoBehaviour
     void OnPlayerRespawned()
     {
         //Aqui li falte molta cosa
-        playerStats.RandomizeAllBasePoints();
     }
     void OnPickedUpgrade(Collider2D collider)
     {

@@ -9,20 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05362513900fb5b458ddbb110e1949d4, type: 3}
-  m_Name: BasePlayerStats
+  m_Script: {fileID: 11500000, guid: 16def4844d1b7a143a733417cd1faa9d, type: 3}
+  m_Name: EnemyBaseStats_Enemy_01
   m_EditorClassIdentifier: 
-  _maxHp: 7
-  _currentHp: 7
+  _maxHp: 20
+  _currentHp: 20
   _speed: 1
   _damageMultiplicator: 1
-  _attackSpeed: 1
-  _maxStamina: 10
-  _currentStamina: 10
-  _recoveryStaminaSpeed: 1
-  _weaponSize: 1
-  _chargeGain: 1
-  _currentBloodflow: 10
-  _maxBloodflow: 10
-  _level: 1
-  _experiencePoints: 0
+  _xpDrop: 30
+  OnXpDropChange:
+    m_PersistentCalls:
+      m_Calls: []

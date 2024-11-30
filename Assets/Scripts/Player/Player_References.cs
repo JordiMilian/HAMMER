@@ -20,7 +20,6 @@ public class Player_References : Generic_References
     public Player_SpecialAttack specialAttack;
     public Generic_OnTriggerEnterEvents singlePointCollider;
     public Player_DisableController disableController;
-    public Player_StatsV2 statsController;
     public Player_LevelStatsManager levelStatsManager;
 
     

@@ -60,7 +60,7 @@ public class PlayerStats : EntityStats
         set
         {
             if (Mathf.Approximately(_currentStamina, value)) return;
-            _maxStamina = value;
+            _currentStamina = value;
             OnStaminaChange?.Invoke(_currentStamina);
         }
     }
