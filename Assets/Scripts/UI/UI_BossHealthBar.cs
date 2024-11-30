@@ -11,7 +11,7 @@ public class UI_BossHealthBar : MonoBehaviour
     [SerializeField] Canvas displayCanvas;
     [SerializeField] TextMeshProUGUI textMeshPro;
 
-    List<Generic_HealthSystem> healthsList = new List<Generic_HealthSystem>();
+    List<EnemyStats> currentStatsList = new List<EnemyStats>();
 
     float MaxHealth;
 
@@ -38,11 +38,11 @@ public class UI_BossHealthBar : MonoBehaviour
     void RefillHealthBar()
     {
         //Unsubscribe from old health and remove them
-        foreach (Generic_HealthSystem thisHealth in healthsList)
+        foreach (EnemyStats thisCurrentStat in currentStatsList)
         {
-            thisHealth.CurrentHP.OnValueChanged -= UpdateHealthBarSize;
+            thisCurrentStat.OnCurrentHpChange -= UpdateHealthBarSize;
         }
-        healthsList.Clear();
+        currentStatsList.Clear();
 
         MaxHealth = 0;
         size1HealthBar.localScale = Vector3.one;
@@ -51,23 +51,23 @@ public class UI_BossHealthBar : MonoBehaviour
         {
             enemy.transform.Find("Sprites").Find("BasicHealthbarLogic").gameObject.SetActive(false);
 
-            Generic_HealthSystem thisHealth = enemy.GetComponent<Generic_HealthSystem>();
-            healthsList.Add(thisHealth);
+            EnemyStats thisCurrentStats = enemy.GetComponent<Enemy_References>().currentEnemyStats;
+            currentStatsList.Add(thisCurrentStats);
             
-            MaxHealth += thisHealth.MaxHP.GetValue();
+            MaxHealth += thisCurrentStats.MaxHp;
 
-            thisHealth.CurrentHP.OnValueChanged += UpdateHealthBarSize;
+            thisCurrentStats.OnCurrentHpChange += UpdateHealthBarSize;
         }
     }
 
-    void UpdateHealthBarSize()
+    void UpdateHealthBarSize(float notUsed)
     {
         
         float CurrentHealth = 0;
 
-        foreach (Generic_HealthSystem thisHealth in healthsList)
+        foreach (EnemyStats thisCurrentStats in currentStatsList)
         {
-            CurrentHealth += thisHealth.CurrentHP.GetValue();
+            CurrentHealth += thisCurrentStats.CurrentHp;
         }
         float normalizedSize = Mathf.InverseLerp(0, MaxHealth, CurrentHealth);
 

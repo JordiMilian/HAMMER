@@ -53,7 +53,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
 
         foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList) //Get the damage dealers back to base stats
         {
-            dealer.Damage = Base_Damage * playerRefs.stats.DamageMultiplier;
+            dealer.Damage = Base_Damage * playerRefs.currentStats.DamageMultiplicator;
             dealer.HitStop = Base_HitStop;
             dealer.Knockback = Base_Knockback;
             dealer.isChargingSpecialAttack = true;

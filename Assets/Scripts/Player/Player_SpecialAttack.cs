@@ -3,17 +3,13 @@ using UnityEngine;
 public class Player_SpecialAttack : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
-    [SerializeField] FloatVariable SpCharge_Max;
-    [SerializeField] FloatVariable SpCharge_Current;
-    [SerializeField] FloatVariable Health_Current;
-    [SerializeField] FloatVariable Health_Max;
+
     [HideInInspector] public float Sp_Damage; //This is set from the weapon info holder
     [HideInInspector] public float Sp_Knockback;
     [HideInInspector] public float Sp_HitStop;
     [HideInInspector] public float StaminaCost;
-    public float ChargeGainMultiplier = 1;
     float amountToHeal;
-
+    PlayerStats stats;
 
     private void OnEnable()
     {
@@ -25,6 +21,7 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnSuccessfulParry += onSuccesfullParry;
         GameEvents.OnPlayerDeath += restartCharge;
         restartCharge();
+        stats = playerRefs.currentStats;
     }
     private void OnDisable()
     {
@@ -38,25 +35,25 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void onSpecialAttackPressed()
     {
-        if (SpCharge_Current.Value < SpCharge_Max.Value) { Debug.Log("not enough charge try again"); return; }
+        if (stats.CurrentBloodFlow < stats.MaxBloodFlow) { Debug.Log("not enough charge try again"); return; }
 
         playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Special01"));
     }
     void onSpecialHealPressed()
     {
-        if (SpCharge_Current.Value < SpCharge_Max.Value) { Debug.Log("not enough charge try again"); return; }
+        if (stats.CurrentBloodFlow < stats.MaxBloodFlow) { Debug.Log("not enough charge try again"); return; }
         if(playerRefs.currentStats.CurrentStamina <= 0) { return; }
         playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Heal"));
         
-        amountToHeal = Health_Max.Value - Health_Current.Value;
+        amountToHeal = stats.MaxHp - stats.CurrentHp;
     }
     void onPerformedSpecialAttack()
     {
-        SpCharge_Current.SetValue(0);
+        stats.CurrentBloodFlow = 0;
         playerRefs.events.CallStaminaAction(StaminaCost);
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
-            dealer.Damage = Sp_Damage * playerRefs.stats.DamageMultiplier;
+            dealer.Damage = Sp_Damage * playerRefs.currentStats.DamageMultiplicator;
             dealer.HitStop = Sp_HitStop;
             dealer.Knockback = Sp_Knockback;
             dealer.isChargingSpecialAttack = false;
@@ -77,16 +74,16 @@ public class Player_SpecialAttack : MonoBehaviour
     }
     void addCharge(float amount)
     {
-        float temporalValue = SpCharge_Current.Value + (amount * ChargeGainMultiplier);
+        float temporalValue = stats.CurrentBloodFlow + (amount * stats.BloodflowMultiplier);
         
-        if (temporalValue > SpCharge_Max.Value) { temporalValue = SpCharge_Max.Value; }
+        if (temporalValue > stats.MaxBloodFlow) { temporalValue = stats.MaxBloodFlow; }
         else if (temporalValue < 0) { temporalValue = 0; }
 
-        SpCharge_Current.SetValue(temporalValue);
+        stats.CurrentBloodFlow =temporalValue;
     }
     void restartCharge()
     {
-        SpCharge_Current.SetValue(0);
+        stats.CurrentBloodFlow = 0;
     }
     public void EV_ActuallyHeal()
     {

@@ -8,8 +8,7 @@ public class Generic_HealthBarController : MonoBehaviour
     //[SerializeField] FloatVariable Bg_Value;
 
     [SerializeField] Generic_HealthSystem health;
-    FloatReference currentHP;
-    FloatReference MaxHP;
+    EntityStats currentStats;
 
     [SerializeField] Transform Bar_Tf;
     [SerializeField] Transform Bg_Tf;

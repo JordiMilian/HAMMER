@@ -6,22 +6,22 @@ using UnityEngine;
 public class Upgrade_MaxHP : Upgrade
 {
     [SerializeField] float Percent;
-    Player_HealthSystem playerHealth;
+    Player_References playerRefs;
     public override void onAdded(GameObject entity)
     {
-        playerHealth = entity.GetComponent<Player_HealthSystem>();
+        playerRefs = entity.GetComponent<Player_References>();
 
-        float addedValue = (playerHealth.BaseHP.GetValue() * UsefullMethods.normalizePercentage(Percent,false,true));
-        playerHealth.MaxHP.ChangeValue(playerHealth.MaxHP.GetValue() + addedValue);
-        playerHealth.CurrentHP.ChangeValue(playerHealth.CurrentHP.GetValue() + addedValue);
+        float addedValue = (playerRefs.baseStats.MaxHp * UsefullMethods.normalizePercentage(Percent,false,true));
+        playerRefs.currentStats.MaxHp +=  addedValue;
+        playerRefs.currentStats.CurrentHp = playerRefs.currentStats.CurrentHp + addedValue;
 
     }
     public override void onRemoved(GameObject entity)
     {
-        float removedValue = (playerHealth.BaseHP.GetValue() * UsefullMethods.normalizePercentage(Percent,false, true));
+        float removedValue = (playerRefs.baseStats.MaxHp * UsefullMethods.normalizePercentage(Percent,false, true));
         //float newValue = playerHealth.MaxHP.GetValue() / (1 + (Percent / 100));
-        playerHealth.MaxHP.ChangeValue(playerHealth.MaxHP.GetValue() - removedValue);
-        playerHealth.CurrentHP.ChangeValue (playerHealth.CurrentHP.GetValue() - removedValue);
+        playerRefs.currentStats.MaxHp -= removedValue;
+        playerRefs.currentStats.CurrentHp = playerRefs.currentStats.CurrentHp - removedValue;
     }
     public override string shortDescription()
     {

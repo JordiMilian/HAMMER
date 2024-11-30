@@ -5,29 +5,30 @@ using UnityEngine;
 public class SpecialAttackUI : MonoBehaviour
 {
     [SerializeField] Transform Size01;
-    [SerializeField] FloatVariable MaxSpecialAttack;
-    [SerializeField] FloatVariable CurrentSpecialAttack;
     [SerializeField] Color FullColor, ChargingColor;
     [SerializeField] Transform TutorialsRoot, StarRoot;
     [SerializeField] SpriteRenderer BarSprite;
     [SerializeField] Animator animator;
+    PlayerStats currentStats;
 
     private void OnEnable()
     {
+        currentStats = GlobalPlayerReferences.Instance.references.currentStats;
+
         GetComponent<Canvas>().worldCamera = Camera.main;
-        CurrentSpecialAttack.OnValueSet += updateBar;
-        updateBar();
+        currentStats.OnCurrentBloodFlowChange += onBloodflowUpdated;
+        onBloodflowUpdated(currentStats.CurrentBloodFlow);
     }
     private void OnDisable()
     {
-        CurrentSpecialAttack.OnValueSet -= updateBar;
+        currentStats.OnCurrentBloodFlowChange -= onBloodflowUpdated;
     }
-    void updateBar()
+    void onBloodflowUpdated(float newValue)
     {
         animator.SetTrigger("Update");
-        float normalizedSpAt = Mathf.InverseLerp(0, MaxSpecialAttack.Value, CurrentSpecialAttack.Value);
+        float normalizedSpAt = Mathf.InverseLerp(0, currentStats.MaxBloodFlow, currentStats.CurrentBloodFlow);
         Size01.localScale = new Vector3(normalizedSpAt, 1, 1);
-        if(CurrentSpecialAttack.Value >= MaxSpecialAttack.Value) { OnFullyCharged(); }
+        if(currentStats.CurrentBloodFlow >= currentStats.MaxBloodFlow) { OnFullyCharged(); }
         else { OnNotFullyCharged() ; }
     }
     void OnFullyCharged()

@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_AttacksProvider : MonoBehaviour
-{
+{/* DELETABLE
+  * 
+  * 
+  * 
+  * 
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Animator enemyAnimator;
     public bool isAttacking;
     [SerializeField] bool ShowDebug;
     [SerializeField] Generic_Stats stats;
+    [SerializeField] Enemy_References enemyRefs;
 
     public EnemyAttack[] Enemy_Attacks = new EnemyAttack[4];
 
@@ -186,4 +191,5 @@ public class Enemy_AttacksProvider : MonoBehaviour
     {
         if (ShowDebug) { Debug.Log(text); }
     }
+    */
 }

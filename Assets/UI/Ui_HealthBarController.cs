@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class Ui_HealthBarController : MonoBehaviour
 {
+    /* DELETE THIS 
     public Player_HealthSystem _HealthSystem;
     public FloatVariable PlayerHP;
     public FloatVariable PlayerMaxHP;
@@ -31,5 +32,6 @@ public class Ui_HealthBarController : MonoBehaviour
     {
         HealthBar.value = PlayerHP.Value;
     }
+    */
 
 }

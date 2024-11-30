@@ -7,36 +7,31 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "Entity Stats", menuName = "Entity Stats/PlayerStats")]
 public class PlayerStats : EntityStats
 {
-    [SerializeField] private float _currentHp;
     [SerializeField] private float _attackSpeed;
     [SerializeField] private float _maxStamina;
     [SerializeField] private float _currentStamina;
     [SerializeField] private float _recoveryStaminaSpeed;
     [SerializeField] private float _weaponSize;
     [SerializeField] private float _chargeGain;
+    [SerializeField] private float _currentBloodflow;
+    [SerializeField] private float _maxBloodflow;
     [SerializeField] private int _level;
     [SerializeField] private int _experiencePoints;
 
     // Eventos
-    [HideInInspector] public Action<float> OnCurrentHpChange;
+   
     [HideInInspector] public Action<float> OnAttackSpeedChange;
+    [HideInInspector] public Action<float> OnMaxStaminaChange;
     [HideInInspector] public Action<float> OnStaminaChange;
     [HideInInspector] public Action<float> OnRecoveryStaminaSpeedChange;
     [HideInInspector] public Action<float> OnWeaponSizeChange;
-    [HideInInspector] public Action<float> OnChargeGainChange;
+    [HideInInspector] public Action<float> OnBloodflowMultiplierChanged;
+    [HideInInspector] public Action<float> OnCurrentBloodFlowChange;
+    [HideInInspector] public Action<float> OnMaxBloodFlowChange;
     [HideInInspector] public Action<int> OnPlayerLevelChange;
     [HideInInspector] public Action<int> OnPayerExperiencePointsChange;
 
-    public float CurrentHp
-    {
-        get => _currentHp;
-        set
-        {
-            if (Mathf.Approximately(_currentHp, value)) return;
-            _currentHp = value;
-            OnCurrentHpChange?.Invoke(_currentHp);
-        }
-    }
+  
 
     public float AttackSpeed
     {
@@ -56,7 +51,7 @@ public class PlayerStats : EntityStats
         {
             if (Mathf.Approximately(_maxStamina, value)) return;
             _maxStamina = value;
-            OnStaminaChange?.Invoke(_maxStamina);
+            OnMaxStaminaChange?.Invoke(_maxStamina);
         }
     }
     public float CurrentStamina
@@ -91,13 +86,31 @@ public class PlayerStats : EntityStats
         }
     }
 
-    public float ChargeGain
+    public float BloodflowMultiplier
     {
         get => _chargeGain;
         set
         {
             _chargeGain = value;
-            OnChargeGainChange?.Invoke(_chargeGain);
+            OnBloodflowMultiplierChanged?.Invoke(_chargeGain);
+        }
+    }
+    public float CurrentBloodFlow
+    {
+        get => _currentBloodflow;
+        set
+        {
+            _currentBloodflow = value;
+            OnCurrentBloodFlowChange?.Invoke(_currentBloodflow);
+        }
+    }
+    public float MaxBloodFlow
+    {
+        get => _maxBloodflow;
+        set
+        {
+            _maxBloodflow = value;
+            OnMaxBloodFlowChange?.Invoke(_maxBloodflow);
         }
     }
 
@@ -130,7 +143,7 @@ public class PlayerStats : EntityStats
         MaxStamina = importedData.MaxStamina;
         RecoveryStaminaSpeed = importedData.RecoveryStaminaSpeed;
         WeaponSize = importedData.WeaponSize;
-        ChargeGain = importedData.ChargeGain;
+        BloodflowMultiplier = importedData.BloodflowMultiplier;
         Level = importedData.Level;
         ExperiencePoints = importedData.ExperiencePoints;
     }

@@ -5,18 +5,18 @@ using UnityEngine;
 public class Upgrade_GainCharge : Upgrade
 {
     [SerializeField] float Percent;
-    Player_SpecialAttack specialScript;
+    PlayerStats currentStats;
     public override void onAdded(GameObject entity)
     {
-        specialScript = entity.GetComponent<Player_SpecialAttack>();
+        currentStats = entity.GetComponent<Player_References>().currentStats;
 
         float addedValue = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
-        specialScript.ChargeGainMultiplier += addedValue;
+        currentStats.BloodflowMultiplier += addedValue;
     }
     public override void onRemoved(GameObject entity)
     {
         float removedValue = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
-        specialScript.ChargeGainMultiplier -= removedValue;
+        currentStats.BloodflowMultiplier -= removedValue;
     }
     public override string shortDescription()
     {

@@ -246,8 +246,8 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     }
     void OnAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
-        Enemy_HealthSystem enemyHealth = info.AttackedRoot.GetComponent<Enemy_HealthSystem>();
-        if ( enemyHealth!= null && enemyHealth.CurrentHP.GetValue() <= 0) { return; }
+        EnemyStats currentEnemyStats = info.AttackedRoot.GetComponent<Enemy_References>().currentEnemyStats;
+        if ( currentEnemyStats!= null && currentEnemyStats.CurrentHp <= 0) { return; }
 
         if(info.AttackedRoot.CompareTag(TagsCollection.Enemy))
         {

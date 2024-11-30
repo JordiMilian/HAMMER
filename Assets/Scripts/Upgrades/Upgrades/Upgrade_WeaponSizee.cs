@@ -7,11 +7,11 @@ public class Upgrade_WeaponSizee : Upgrade
 {
     [SerializeField] float Percent;
     GameObject playerWeapon;
-    Generic_Stats stats;
+    Player_References playerRefs;
     public override void onAdded(GameObject entity)
     {
         playerWeapon = entity.GetComponent<Player_References>().weaponScalingRoot;
-        stats = entity.GetComponent<Generic_Stats>();
+        playerRefs = entity.GetComponent<Player_References>();
 
         float addedScale = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
         playerWeapon.transform.localScale = new Vector3(
@@ -21,8 +21,8 @@ public class Upgrade_WeaponSizee : Upgrade
             );
 
         float StrongerPercent = Percent / 3;
-        float addedDamage = stats.BaseDamageMultiplier * UsefullMethods.normalizePercentage(StrongerPercent, false, true);
-        stats.DamageMultiplier += addedDamage;
+        float addedDamage = playerRefs.baseStats.DamageMultiplicator * UsefullMethods.normalizePercentage(StrongerPercent, false, true);
+        playerRefs.currentStats.DamageMultiplicator += addedDamage;
     }
     public override void onRemoved(GameObject entity)
     {
@@ -35,8 +35,8 @@ public class Upgrade_WeaponSizee : Upgrade
             );
 
         float StrongerPercent = Percent / 3;
-        float removedDamage = stats.BaseDamageMultiplier * UsefullMethods.normalizePercentage(StrongerPercent, false, true);
-        stats.DamageMultiplier -= removedDamage;
+        float removedDamage = playerRefs.baseStats.DamageMultiplicator * UsefullMethods.normalizePercentage(StrongerPercent, false, true);
+        playerRefs.currentStats.DamageMultiplicator -= removedDamage;
     }
     public override string shortDescription()
     {

@@ -8,23 +8,19 @@ using static Generic_EventSystem;
 public class Generic_HealthSystem : MonoBehaviour
 {
     [SerializeField] Generic_References Refs;
+    [SerializeField] EntityStats baseStats;
+    [SerializeField] EntityStats currentStats;
+    
+    /*
     public FloatReference MaxHP;
     public FloatReference CurrentHP;
     public FloatReference BaseHP;
+    */
     [SerializeField] bool FillHealthOnStart = true;
     [SerializeField] bool isPlayers;
 
-    void Awake()
+    private void Start()
     {
-        if (!isPlayers) { MaxHP.ChangeValue(Refs.stats.MaxHealth); }
-        else
-        {
-            Player_References playerRefs = (Player_References)Refs;
-            //MaxHP.ChangeValue(
-                //playerRefs.statsController.GetStatByType(Player_StatsV2.statTypes.MaxHealth).GetCurrentValue()
-                //);
-        }
-        BaseHP.ChangeValue(MaxHP.GetValue());
         if (FillHealthOnStart) { RestoreAllHealth(); }
     }
     private void OnEnable()
@@ -37,23 +33,23 @@ public class Generic_HealthSystem : MonoBehaviour
     }
     public void RemoveLife(float damage, GameObject damager)
     {
-        if(CurrentHP.GetValue() <= 0) { Debug.LogWarning("Tried to kill what is already dead wtf?"); return; }
+        if(currentStats.CurrentHp <= 0) { Debug.LogWarning("Tried to kill what is already dead wtf?"); return; }
 
-        CurrentHP.ChangeValue(CurrentHP.GetValue() - damage);
+        currentStats.CurrentHp = (currentStats.CurrentHp - damage);
 
-        if (CurrentHP.GetValue() <= 0f)
+        if (currentStats.CurrentHp <= 0f)
         {
             Death(damager);
-            CurrentHP.ChangeValue(0);
+            currentStats.CurrentHp = 0;
         }
-        else if (CurrentHP.GetValue() > MaxHP.GetValue())
+        else if (currentStats.CurrentHp > currentStats.MaxHp)
         {
-            CurrentHP.ChangeValue(MaxHP.Variable.Value);
+            currentStats.CurrentHp = (currentStats.MaxHp);
         }
     }
     public void RestoreAllHealth()
     {
-        CurrentHP.ChangeValue(MaxHP.GetValue());
+        currentStats.CurrentHp = (currentStats.MaxHp);
     }
     public virtual void Death(GameObject killer)
     {

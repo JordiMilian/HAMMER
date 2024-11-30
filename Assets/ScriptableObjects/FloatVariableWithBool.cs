@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class FloatVariableWithBool : FloatVariable
+public class FloatVariableWithBool
 {
-    public bool boolValue;
 }

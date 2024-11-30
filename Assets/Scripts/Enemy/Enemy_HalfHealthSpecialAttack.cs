@@ -23,7 +23,7 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
     void checkIfAttack(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
         //Debug.Log("Current Health: " + refs.healthSystem.CurrentHP.GetValue() + "Desired Health: " + refs.healthSystem.MaxHP.GetValue() * (PercentOfHealthToActivate / 100));
-        if (refs.healthSystem.CurrentHP.GetValue() < refs.healthSystem.MaxHP.GetValue() * (PercentOfHealthToActivate/100 ))
+        if (refs.currentEnemyStats.CurrentHp < refs.currentEnemyStats.MaxHp * (PercentOfHealthToActivate/100 ))
         {
             refs.attackProvider.ForceNextAttack(SpecialAttack);
 

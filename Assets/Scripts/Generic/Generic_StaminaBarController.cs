@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Generic_StaminaBarController : MonoBehaviour
 {
-    [SerializeField] FloatVariable currentStamina;
-    [SerializeField] FloatVariable maxStamina;
+    [SerializeField] PlayerStats currentStats;
     [SerializeField] Player_Stamina stamina;
 
     [SerializeField] Transform Bar_Tf;
@@ -22,32 +21,32 @@ public class Generic_StaminaBarController : MonoBehaviour
     {
         if(!stamina.isFilled)
         {
-            UpdateBarSize();
+            UpdateBarSize(currentStats.CurrentStamina);
         }
         
     }
     private void OnEnable()
     {
-        maxStamina.OnValueSet += UpdateBgSize;
+        currentStats.OnMaxStaminaChange += UpdateBgSize;
 
         Bar_BaseScale = Bar_Tf.localScale;
         Bg_BaseScale = Bg_Tf.localScale;
 
-        UpdateBarSize();
-        UpdateBgSize();
+        UpdateBarSize(currentStats.CurrentStamina);
+        UpdateBgSize(currentStats.MaxStamina);
     }
     private void OnDisable()
     {
-        maxStamina.OnValueSet -= UpdateBgSize;
+        currentStats.OnMaxStaminaChange += UpdateBgSize;
     }
-    void UpdateBarSize()
+    void UpdateBarSize(float currentStamina)
     {
-        Bar_Tf.localScale = new Vector3(currentStamina.GetValue() * HorizontalSizePerUnit, Bar_BaseScale.y, Bar_BaseScale.z);
+        Bar_Tf.localScale = new Vector3(currentStamina * HorizontalSizePerUnit, Bar_BaseScale.y, Bar_BaseScale.z);
     }
 
-    void UpdateBgSize()
+    void UpdateBgSize(float newMaxStamina)
     {
-        Bg_Tf.localScale = new Vector3((maxStamina.GetValue() * HorizontalSizePerUnit) + Bg_HorizontalOffset, Bg_BaseScale.y, Bg_BaseScale.z);
+        Bg_Tf.localScale = new Vector3((newMaxStamina * HorizontalSizePerUnit) + Bg_HorizontalOffset, Bg_BaseScale.y, Bg_BaseScale.z);
     }
 
 

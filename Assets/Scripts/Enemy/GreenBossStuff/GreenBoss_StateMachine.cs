@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GreenBoss_StateMachine : Generic_StateMachine
 {
+    //NOT USED PLS DESTROY
+
+    /*
     [SerializeField] Generic_HealthSystem bossHealthSystem;
 
     [SerializeField] Enemy_IdleMovement idleMovement;
@@ -144,4 +147,5 @@ public class GreenBoss_StateMachine : Generic_StateMachine
         //Set Enum
         CurrentState = States.Transitioning;
     }
+    */
 }

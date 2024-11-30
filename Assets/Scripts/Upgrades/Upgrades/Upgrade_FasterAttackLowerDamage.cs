@@ -8,25 +8,25 @@ public class Upgrade_FasterAttackLowerDamage : Upgrade
     [SerializeField] float FasterPercent;
     [SerializeField] float WeakerPercent;
     Player_AnimationSpeedControler animationSpeedController;
-    Generic_Stats stats;
+    Player_References playerRefs;
     public override void onAdded(GameObject entity)
     {
         animationSpeedController = entity.GetComponent<Player_AnimationSpeedControler>();
-        stats = entity.GetComponent<Generic_Stats>();
+        playerRefs = entity.GetComponent<Player_References>();
 
         float addedSpeed = animationSpeedController.BaseSpeed * UsefullMethods.normalizePercentage(FasterPercent, false, true) ;
         animationSpeedController.attackingSpeed += addedSpeed;
 
-        float removedDamage = stats.BaseDamageMultiplier * UsefullMethods.normalizePercentage(WeakerPercent, false, true);
-        stats.DamageMultiplier -= removedDamage;
+        float removedDamage = playerRefs.baseStats.DamageMultiplicator * UsefullMethods.normalizePercentage(WeakerPercent, false, true);
+        playerRefs.currentStats.DamageMultiplicator -= removedDamage;
     }
     public override void onRemoved(GameObject entity)
     {
         float removedSpeed = animationSpeedController.BaseSpeed * UsefullMethods.normalizePercentage(FasterPercent, false, true);
         animationSpeedController.attackingSpeed -= removedSpeed;
 
-        float addedDamage = stats.BaseDamageMultiplier * UsefullMethods.normalizePercentage(WeakerPercent, false, true);
-        stats.DamageMultiplier += addedDamage;
+        float addedDamage = playerRefs.baseStats.DamageMultiplicator * UsefullMethods.normalizePercentage(WeakerPercent, false, true);
+        playerRefs.currentStats.DamageMultiplicator += addedDamage;
     }
     public override string shortDescription()
     {

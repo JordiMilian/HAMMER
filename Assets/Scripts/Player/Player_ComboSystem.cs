@@ -21,7 +21,7 @@ public class Player_ComboSystem : MonoBehaviour //DEPRECATED PLS DELETE
     [SerializeField] Collider2D weaponDamageCollider;
     [SerializeField] Rigidbody2D playerRigidbody;
     [SerializeField] Generic_DamageDealer damageDealer;
-    [SerializeField] Generic_Stats stats;
+    [SerializeField] Player_References playerRefs;
 
     public bool isCurrentAttackCanceled;
     public bool canAttack;
@@ -139,7 +139,7 @@ public class Player_ComboSystem : MonoBehaviour //DEPRECATED PLS DELETE
 
     void SetdamageDealer()
     {
-        damageDealer.Damage = CurrentDamage * stats.DamageMultiplier;
+        damageDealer.Damage = CurrentDamage * playerRefs.currentStats.DamageMultiplicator;
     }
     public void EV_OnStartCharge() { isCharging = true; Adder = 0; }
     public void ComboOver()

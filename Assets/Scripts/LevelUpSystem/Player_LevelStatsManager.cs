@@ -48,11 +48,11 @@ public class Player_LevelStatsManager : MonoBehaviour
 
         Debug.Log("Level up! " + playerRefs.currentStats.Level);
         Debug.Log("Level Up Stamina");
-        int currentDamage = Mathf.RoundToInt(GetComponent<Generic_Stats>().DamageMultiplier);
+        int currentDamage = Mathf.RoundToInt(playerRefs.currentStats.DamageMultiplicator);
 
         int newDamage = (currentDamage + damagePerLevel);
 
-        GetComponent<Generic_Stats>().DamageMultiplier = newDamage;
+        playerRefs.currentStats.DamageMultiplicator = newDamage;
 
 
     }

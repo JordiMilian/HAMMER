@@ -20,4 +20,9 @@ public class EnemyStats : EntityStats
             OnXpDropChange?.Invoke(_xpDrop);
         }
     }
+    public void CopyStats(EnemyStats importedStats)
+    {
+        MaxHp = importedStats.MaxHp;
+
+    }
 }

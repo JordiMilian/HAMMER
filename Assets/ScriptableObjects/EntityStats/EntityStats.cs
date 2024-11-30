@@ -8,11 +8,13 @@ public class EntityStats : ScriptableObject
 {
 
     [SerializeField] private float _maxHp;
+    [SerializeField] private float _currentHp;
     [SerializeField] private float _speed;
     [SerializeField] private float _damageMultiplicator;
 
     // Eventos
     [HideInInspector] public Action<float> OnMaxHpChange;
+    [HideInInspector] public Action<float> OnCurrentHpChange;
     [HideInInspector] public Action<float> OnSpeedChange;
     [HideInInspector] public Action<float> OnDamageMultiplicatorChange;
 
@@ -23,6 +25,16 @@ public class EntityStats : ScriptableObject
         {
             _maxHp = value;
             OnMaxHpChange?.Invoke(_maxHp);
+        }
+    }
+    public float CurrentHp
+    {
+        get => _currentHp;
+        set
+        {
+            if (Mathf.Approximately(_currentHp, value)) return;
+            _currentHp = value;
+            OnCurrentHpChange?.Invoke(_currentHp);
         }
     }
 
