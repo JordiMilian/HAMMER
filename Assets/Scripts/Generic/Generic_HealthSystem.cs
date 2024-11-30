@@ -8,16 +8,10 @@ using static Generic_EventSystem;
 public class Generic_HealthSystem : MonoBehaviour
 {
     [SerializeField] Generic_References Refs;
-    [SerializeField] EntityStats baseStats;
-    [SerializeField] EntityStats currentStats;
+    [HideInInspector] public EntityStats baseStats;
+    [HideInInspector] public EntityStats currentStats;
     
-    /*
-    public FloatReference MaxHP;
-    public FloatReference CurrentHP;
-    public FloatReference BaseHP;
-    */
     [SerializeField] bool FillHealthOnStart = true;
-    [SerializeField] bool isPlayers;
 
     private void Start()
     {

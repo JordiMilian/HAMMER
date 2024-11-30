@@ -8,7 +8,6 @@ public class Generic_References : MonoBehaviour
     public Generic_EventSystem genericEvents;
     public List<Generic_DamageDealer> DamageDealersList;
     public Generic_DamageDetector damageDetector;
-    public Generic_Stats stats;
     public Generic_FlipSpriteWithFocus spriteFliper;
     public Generic_Flash flasher;
     public Animator animator;

@@ -13,6 +13,8 @@ public class Player_SpecialAttack : MonoBehaviour
 
     private void OnEnable()
     {
+        stats = playerRefs.currentStats;
+
         InputDetector.Instance.OnSpecialAttackPressed += onSpecialAttackPressed;
         InputDetector.Instance.OnSpecialHealPressed += onSpecialHealPressed;
         playerRefs.events.OnDealtDamage += onAttackedEnemy;
@@ -21,7 +23,7 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnSuccessfulParry += onSuccesfullParry;
         GameEvents.OnPlayerDeath += restartCharge;
         restartCharge();
-        stats = playerRefs.currentStats;
+        
     }
     private void OnDisable()
     {

@@ -9,11 +9,10 @@ public class SpecialAttackUI : MonoBehaviour
     [SerializeField] Transform TutorialsRoot, StarRoot;
     [SerializeField] SpriteRenderer BarSprite;
     [SerializeField] Animator animator;
-    PlayerStats currentStats;
+    [SerializeField] PlayerStats currentStats;
 
     private void OnEnable()
     {
-        currentStats = GlobalPlayerReferences.Instance.references.currentStats;
 
         GetComponent<Canvas>().worldCamera = Camera.main;
         currentStats.OnCurrentBloodFlowChange += onBloodflowUpdated;

@@ -6,7 +6,7 @@ public class XP_dropper : MonoBehaviour
 {
     [SerializeField] List<XP_script> xpPrefabs = new List<XP_script>();
 
-    [SerializeField] int xpToDrop;
+    [SerializeField] int testingXpToDrop;
     [SerializeField] bool triggerChoseXp;
 
     List<Vector2Int> sortedPrefabsBySize = new List<Vector2Int>(); //X = index in xpPrefabs, Y is amount Of Xp
@@ -20,7 +20,7 @@ public class XP_dropper : MonoBehaviour
     {
         if(triggerChoseXp)
         {
-            spawnExperiences();
+            spawnExperiences(testingXpToDrop);
             triggerChoseXp = false;
         }
     }
@@ -54,7 +54,7 @@ public class XP_dropper : MonoBehaviour
             sortedPrefabsBySize[indexB] = middleMan;
         }
     }
-    public void spawnExperiences()
+    public void spawnExperiences(int xpToDrop)
     {
         XP_script[] scriptsToSpawn = GetRandomXpScripts(xpToDrop);
         foreach(XP_script script in scriptsToSpawn)
@@ -62,37 +62,40 @@ public class XP_dropper : MonoBehaviour
             GameObject newXpInstance = Instantiate(script.gameObject, transform.position, Quaternion.identity);
             newXpInstance.GetComponent<XP_script>().onSpawn();
         }
-    }
-    XP_script[] GetRandomXpScripts(int XpToDrop)
-    {
-        chosenXps.Clear();//for debugging, this list can be deleted
-        List<XP_script> chosenPrefabs = new List<XP_script>();
-        int countedXp = 0;
-        while(countedXp < XpToDrop)
+
+        //
+        XP_script[] GetRandomXpScripts(int XpToDrop)
         {
-            int largestIndex = sortedPrefabsBySize.Count- 1;
-            int minAmountNeeded = XpToDrop - countedXp;
-            for (int i = 0; i < sortedPrefabsBySize.Count; i++)
+            chosenXps.Clear();//for debugging, this list can be deleted
+            List<XP_script> chosenPrefabs = new List<XP_script>();
+            int countedXp = 0;
+            while (countedXp < XpToDrop)
             {
-                if(minAmountNeeded < sortedPrefabsBySize[i].y)
+                int largestIndex = sortedPrefabsBySize.Count - 1;
+                int minAmountNeeded = XpToDrop - countedXp;
+                for (int i = 0; i < sortedPrefabsBySize.Count; i++)
                 {
-                    largestIndex = i - 1;
-                    break;
+                    if (minAmountNeeded < sortedPrefabsBySize[i].y)
+                    {
+                        largestIndex = i - 1;
+                        break;
+                    }
                 }
+                if (largestIndex < 0) { Debug.LogWarning("No Prefab small enough for that amount"); break; }
+
+                int randomIndex = UnityEngine.Random.Range(0, largestIndex + 1);
+                countedXp += sortedPrefabsBySize[randomIndex].y;
+                chosenPrefabs.Add(xpPrefabs[sortedPrefabsBySize[randomIndex].x]);
+                /*
+                Debug.Log("Min required size: " + minAmountNeeded);
+                Debug.Log("Largest posible prefab: " + sortedPrefabsBySize[largestIndex].y);
+                Debug.Log("Added amount: " + sortedPrefabsBySize[randomIndex].y);
+                */
+                chosenXps.Add(sortedPrefabsBySize[randomIndex].y);
+
             }
-            if (largestIndex < 0) { Debug.LogWarning("No Prefab small enough for that amount"); break; }
-
-            int randomIndex = UnityEngine.Random.Range(0, largestIndex+1);
-            countedXp += sortedPrefabsBySize[randomIndex].y;
-            chosenPrefabs.Add(xpPrefabs[sortedPrefabsBySize[randomIndex].x]);
-            /*
-            Debug.Log("Min required size: " + minAmountNeeded);
-            Debug.Log("Largest posible prefab: " + sortedPrefabsBySize[largestIndex].y);
-            Debug.Log("Added amount: " + sortedPrefabsBySize[randomIndex].y);
-            */
-            chosenXps.Add(sortedPrefabsBySize[randomIndex].y);
-
+            return chosenPrefabs.ToArray();
         }
-        return chosenPrefabs.ToArray();
     }
+    
 }

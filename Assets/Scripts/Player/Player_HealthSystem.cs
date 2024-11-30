@@ -8,6 +8,11 @@ public class Player_HealthSystem : Generic_HealthSystem
 {
     [SerializeField] Player_References playerRefs;
 
+    private void Awake()
+    {
+        currentStats = playerRefs.currentStats;
+        baseStats = playerRefs.baseStats;
+    }
     public override void Death(GameObject killer)
     {
         playerRefs.events.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(gameObject, killer));

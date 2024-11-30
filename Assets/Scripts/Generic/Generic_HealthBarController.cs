@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Generic_HealthBarController : MonoBehaviour
 {
-    //[SerializeField] FloatVariable Bar_Value;
-    //[SerializeField] FloatVariable Bg_Value;
 
     [SerializeField] Generic_HealthSystem health;
     EntityStats currentStats;
@@ -28,35 +26,34 @@ public class Generic_HealthBarController : MonoBehaviour
     {
         if(testTrigger)
         {
-            currentHP.ChangeValue(Bar_testValue);
-            MaxHP.ChangeValue(BG_testValue);
+            currentStats.CurrentHp = Bar_testValue;
+            currentStats.MaxHp = BG_testValue;
 
             testTrigger = false;
         }
     }
     private void OnEnable()
     {
-        currentHP = health.CurrentHP;
-        MaxHP = health.MaxHP;
+        currentStats = health.currentStats;
 
-        currentHP.OnValueChanged += UpdateBarSize;
-        MaxHP.OnValueChanged += UpdateBgSize;
+        currentStats.OnCurrentHpChange += UpdateBarSize;
+        currentStats.OnMaxHpChange += UpdateBgSize;
 
         Bar_BaseScale = Bar_Tf.localScale;
         Bg_BaseScale = Bg_Tf.localScale;
 
-        UpdateBarSize();
-        UpdateBgSize();
+        UpdateBarSize(currentStats.CurrentHp);
+        UpdateBgSize(currentStats.MaxHp);
     }
 
-    void UpdateBarSize()
+    void UpdateBarSize(float newCurrentHp)
     {
-        Bar_Tf.localScale = new Vector3(currentHP.GetValue() * HorizontalSizePerUnit, Bar_BaseScale.y, Bar_BaseScale.z);
+        Bar_Tf.localScale = new Vector3(newCurrentHp * HorizontalSizePerUnit, Bar_BaseScale.y, Bar_BaseScale.z);
     }
 
-    void UpdateBgSize()
+    void UpdateBgSize(float newMaxHp)
     {
-        Bg_Tf.localScale = new Vector3((MaxHP.GetValue() * HorizontalSizePerUnit) + Bg_HorizontalOffset, Bg_BaseScale.y, Bg_BaseScale.z);
+        Bg_Tf.localScale = new Vector3((newMaxHp * HorizontalSizePerUnit) + Bg_HorizontalOffset, Bg_BaseScale.y, Bg_BaseScale.z);
     }
 
 

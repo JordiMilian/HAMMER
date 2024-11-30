@@ -17,12 +17,12 @@ public class Enemy_References : Generic_References
     public Collider2D damageCollider;
     public Enemy_ReusableStateMachine reusableStateMachine;
     public Transform lookingPivotTf;
-    public EnemyStats enemyStats;
+    public EnemyStats baseEnemyStats;
     [HideInInspector] public EnemyStats currentEnemyStats;
     private void Awake()
     {
         currentEnemyStats = new EnemyStats();
-        currentEnemyStats.CopyStats(enemyStats);
+        currentEnemyStats.CopyStats(baseEnemyStats);
     }
 }
 

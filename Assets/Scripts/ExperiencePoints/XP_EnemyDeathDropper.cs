@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class XP_EnemyDeathDropper : XP_dropper
 {
-    [SerializeField] Enemy_EventSystem enemyEvents;
+    [SerializeField] Enemy_References enemyRefs;
     private void OnEnable()
     {
-        enemyEvents.OnDeath += OnEnemyDied;
+        enemyRefs.enemyEvents.OnDeath += OnEnemyDied;
     }
     private void OnDisable()
     {
-        enemyEvents.OnDeath -= OnEnemyDied;
+        enemyRefs.enemyEvents.OnDeath -= OnEnemyDied;
     }
     void OnEnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
-        spawnExperiences();
+        spawnExperiences(enemyRefs.currentEnemyStats.XpToDrop);
     }
 }

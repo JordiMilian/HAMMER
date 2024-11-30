@@ -10,7 +10,7 @@ public class EnemyStats : EntityStats
 
     [HideInInspector] public UnityEvent<float> OnXpDropChange;
 
-    public int CurrentXPDrops
+    public int XpToDrop
     {
         get => _xpDrop;
         set
@@ -21,8 +21,13 @@ public class EnemyStats : EntityStats
         }
     }
     public void CopyStats(EnemyStats importedStats)
-    {
+    { 
+        if (importedStats == null) { Debug.LogError("BaseStats missing for Enemy"); return; }
         MaxHp = importedStats.MaxHp;
+        CurrentHp = importedStats.CurrentHp;
+        DamageMultiplicator = importedStats.DamageMultiplicator;
+        Speed = importedStats.Speed;
+        XpToDrop = importedStats.XpToDrop;
 
     }
 }

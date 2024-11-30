@@ -18,7 +18,7 @@ public class GlobalPlayerReferences : MonoBehaviour
             Instance = this;
         }
     }
-    public void SetPlayerReferences(GameObject player)
+    public void SetPlayerReferences(GameObject player) //Called from ScenStarter
     {
         references = player.GetComponent<Player_References>();
         playerTf = player.transform;

@@ -672,8 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c76b18dc4995642b57e386200df72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
-  maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
+  currentStats: {fileID: 11400000, guid: 083d58047c9af53449d810104949114f, type: 2}
   stamina: {fileID: 4128982462933193464}
   Bar_Tf: {fileID: 6375812545435196622}
   Bg_Tf: {fileID: 4051215045944010035}
@@ -1299,7 +1298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e00278f1a4130044ad45d8f44730b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  currentPlayerState: {fileID: 11400000, guid: 083d58047c9af53449d810104949114f, type: 2}
   timeBeforeDisappear: 3
   timeToDisappear: 2
   displayText: {fileID: 7162778338527388511}
@@ -2039,12 +2038,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5efd01ffe7b054ba7c851201ef3001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  playerRefs: {fileID: 0}
   baseLevelCost: 0
   costMult: 1.5
   hpPerLevel: 1
   damagePerLevel: 1
   staminaPerLevel: 1
+  currentPlayerStats: {fileID: 0}
 --- !u!1 &7568668169372958368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,7 +3371,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7653426975249963376}
-  - component: {fileID: 5265307542570127292}
   - component: {fileID: 7653426975249963391}
   - component: {fileID: 3383090570821903391}
   - component: {fileID: 7653426975249963380}
@@ -3436,21 +3435,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5265307542570127292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68561b2311f5dab4cba9cf226ebc4150, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 3
-  DamageMultiplier: 1
-  BaseDamageMultiplier: 1
 --- !u!114 &7653426975249963391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3464,20 +3448,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Refs: {fileID: 3175104005493510322}
-  MaxHP:
-    UseConstant: 0
-    ConstantValue: 3
-    Variable: {fileID: 11400000, guid: 49c3ecc0c8b70b948b721b739b6528ec, type: 2}
-  CurrentHP:
-    UseConstant: 0
-    ConstantValue: 3
-    Variable: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
-  BaseHP:
-    UseConstant: 0
-    ConstantValue: 3
-    Variable: {fileID: 11400000, guid: 8811fb1ca515d0e4180c69eaac9440e0, type: 2}
+  baseStats: {fileID: 0}
+  currentStats: {fileID: 0}
   FillHealthOnStart: 1
-  isPlayers: 1
   playerRefs: {fileID: 3175104005493510322}
 --- !u!114 &3383090570821903391
 MonoBehaviour:
@@ -3695,15 +3668,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
-  SpCharge_Max: {fileID: 11400000, guid: 899e6a5a616961844a44edb76441dab0, type: 2}
-  SpCharge_Current: {fileID: 11400000, guid: 698a21b7d0b9eb5428469970cff28aa1, type: 2}
-  Health_Current: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
-  Health_Max: {fileID: 11400000, guid: 49c3ecc0c8b70b948b721b739b6528ec, type: 2}
   Sp_Damage: 5
   Sp_Knockback: 5000
   Sp_HitStop: 0.5
   StaminaCost: 2
-  ChargeGainMultiplier: 1
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3787,7 +3755,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRecovering: 0
   isFilled: 0
-  RecoverSpeedMultiplier: 1
   playerRefs: {fileID: 3175104005493510322}
   RecoveryPerSecond: 7
   DelayToRecover: 0
@@ -3866,7 +3833,6 @@ MonoBehaviour:
   DamageDealersList:
   - {fileID: 489989574351239143}
   damageDetector: {fileID: 7653426974398778620}
-  stats: {fileID: 5265307542570127292}
   spriteFliper: {fileID: 7653426975249963385}
   flasher: {fileID: 8367639814930350914}
   animator: {fileID: 7653426975249963390}
@@ -3893,16 +3859,12 @@ MonoBehaviour:
   disableController: {fileID: 3372783210703460156}
   statsController: {fileID: 0}
   levelStatsManager: {fileID: 2481365138470066936}
-  currentHealth: {fileID: 11400000, guid: ef04a325fb8313b4e8bcabd0a5db7911, type: 2}
-  maxHealth: {fileID: 11400000, guid: 49c3ecc0c8b70b948b721b739b6528ec, type: 2}
-  baseHealth: {fileID: 11400000, guid: 8811fb1ca515d0e4180c69eaac9440e0, type: 2}
-  currentStamina: {fileID: 11400000, guid: bc1758d0421a5f0438224db19b662a5a, type: 2}
-  maxStamina: {fileID: 11400000, guid: 30d2a4ea54e644b41984220cce2badb5, type: 2}
-  baseStamina: {fileID: 11400000, guid: c3866d2a29b89f4469dbd600f099f2d2, type: 2}
   parryCollider: {fileID: 7653426975970030027}
   weaponScalingRoot: {fileID: 7653426974895600710}
   weaponPivot: {fileID: 7653426975497917625}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  currentStats: {fileID: 11400000, guid: 083d58047c9af53449d810104949114f, type: 2}
+  baseStats: {fileID: 11400000, guid: fe59c03127f5c2843936fdf01df141b7, type: 2}
 --- !u!114 &7235723769753228221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6239,6 +6201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecialAttackCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2279695838598030740, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
+      propertyPath: currentStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 083d58047c9af53449d810104949114f, type: 2}
     - target: {fileID: 2279695838598030742, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
       propertyPath: m_Enabled
       value: 1

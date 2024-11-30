@@ -23,8 +23,7 @@ public class Player_References : Generic_References
     public Player_StatsV2 statsController;
     public Player_LevelStatsManager levelStatsManager;
 
-    public PlayerStats currentStats;
-    public PlayerStats baseStats;
+    
 
     /*
     public FloatVariable currentHealth;
@@ -41,5 +40,8 @@ public class Player_References : Generic_References
     public GameObject weaponPivot;
 
     public GameState gameState;
-    
+    [Header("Stats")]
+    public PlayerStats currentStats;
+    public PlayerStats baseStats;
+
 }

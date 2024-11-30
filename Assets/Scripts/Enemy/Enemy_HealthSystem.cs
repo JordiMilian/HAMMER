@@ -10,6 +10,11 @@ public class Enemy_HealthSystem : Generic_HealthSystem
     [SerializeField] GameObject deadHead;
     [SerializeField] GameObject BloodCristals;
     [SerializeField] int AmountOfCristals;
+    private void Awake()
+    {
+        currentStats = enemyRefs.currentEnemyStats;
+        baseStats = enemyRefs.baseEnemyStats;
+    }
     public override void Death(GameObject killer)
     {
         if(enemyRefs.stateMachine.CurrentState == Enemy_StateMachine.States.Dead) { Debug.Log("already dead"); return; }
