@@ -31,6 +31,52 @@ public class Generic_DamageDealer : MonoBehaviour
     public Generic_EventSystem eventSystem;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
+        Generic_DamageDealer otherDealer = collision.gameObject.GetComponent<Generic_DamageDealer>();
+        Generic_DamageDetector otherDetector = collision.gameObject.GetComponent<Generic_DamageDetector>();
+        Generic_ParryDealer otherParryDealer = collision.gameObject.GetComponent<Generic_ParryDealer>();
+
+        if(otherDetector != null) //
+        {
+            if (otherDetector.EntityTeam == Generic_DamageDetector.Team.Object)
+            {
+                PublishHitObject(collision);
+            }
+            switch (EntityTeam)
+            {
+                case Team.Player:
+                    if (otherDetector.EntityTeam == Generic_DamageDetector.Team.Enemy)
+                    {
+                        PublishDealtDamageEvent(collision, otherDetector.canChargeSpecialAttack);
+                    }
+                    break;
+                case Team.Enemy:
+                    if(otherDetector.EntityTeam == Generic_DamageDetector.Team.Player)
+                    {
+                        PublishDealtDamageEvent(collision);
+                    }
+                    break;
+            }
+        }
+        if(otherParryDealer != null)
+        {
+            switch (EntityTeam)
+            {
+                case Team.Player:
+                    if(otherParryDealer.EntityTeam == Generic_ParryDealer.Team.Enemy)
+                    {
+                        PublishGettingParriedEvent();
+                    }
+                    break;
+            }
+        }
+
+
+
+
+
+
+
         if(collision.CompareTag(TagsCollection.Object_Hurtbox))
         {
             PublishHitObject(collision);

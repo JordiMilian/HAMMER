@@ -8,6 +8,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
     [SerializeField] Rigidbody2D _rigidBody;
     [SerializeField] Generic_References references;
     public float Velocity;
+    [SerializeField] Enemy_References enemyRefs;
     Vector2 finalDirection;
     Vector2 DirectionToTarget;
     Vector2 OpositeDirectionToClosest;
@@ -79,7 +80,7 @@ public class Enemy_MoveToTarget : MonoBehaviour
 
             //Add the force
             //_rigidBody.AddForce( finalDirection * Velocity * Time.fixedDeltaTime);
-            references.characterMover.MovementVectorsPerSecond.Add(finalDirection * Velocity);
+            references.characterMover.MovementVectorsPerSecond.Add(finalDirection * enemyRefs.currentEnemyStats.Speed);
         }
     }
 

@@ -119,7 +119,7 @@ public class PlayerStats : EntityStats
         get => _level;
         set
         {
-            //_playerLevel = value;
+            _level = value;
             OnPlayerLevelChange?.Invoke(_level);
         }
     }
@@ -129,7 +129,7 @@ public class PlayerStats : EntityStats
         get => _experiencePoints;
         set
         {
-            //_playerExperiencePoints = value;
+            _experiencePoints = value;
             OnPayerExperiencePointsChange?.Invoke(_experiencePoints);
         }
     }

@@ -15,6 +15,7 @@ public class Player_ExperienceCollector : MonoBehaviour
         if(script != null )
         {
             playerRefs.currentStats.ExperiencePoints += script.XpAmount;
+            Debug.Log("Xp to add: " + script.XpAmount + " Total is: " + playerRefs.currentStats.ExperiencePoints);
             script.onPickedUp();
         }
     }

@@ -9,7 +9,6 @@ using Pathfinding;
 public class Enemy_AgrooMovement : MonoBehaviour
 {
 
-    float BaseSpeed;
     float SlowSpeedF;
 
     public float CurrentRotationSpeed;
@@ -25,10 +24,9 @@ public class Enemy_AgrooMovement : MonoBehaviour
     private void Awake()
     {
         BaseRotationSpeed = CurrentRotationSpeed;
-        SlowRotationSpeed = CurrentRotationSpeed / 10;
+        SlowRotationSpeed = CurrentRotationSpeed / 5;
 
-        BaseSpeed = enemyRefs.moveToTarget.Velocity;
-        SlowSpeedF = BaseSpeed / 3;
+        SlowSpeedF = enemyRefs.currentEnemyStats.BaseSpeed / 4;
     }
     private void OnEnable()
     {
@@ -74,8 +72,8 @@ public class Enemy_AgrooMovement : MonoBehaviour
 
     public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.1f)); enemyRefs.spriteFliper.canFlip = false; }
     public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.1f)); enemyRefs.spriteFliper.canFlip = true; }
-    public void EV_SlowMovingSpeed() { enemyRefs.moveToTarget.Velocity = SlowSpeedF; }
-    public void EV_ReturnMovingSpeed() { enemyRefs.moveToTarget.Velocity = BaseSpeed; }
+    public void EV_SlowMovingSpeed() { enemyRefs.currentEnemyStats.Speed = SlowSpeedF; }
+    public void EV_ReturnMovingSpeed() { enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed; }
                                          
     public void EV_ReturnAllSpeed(int i)
     {
