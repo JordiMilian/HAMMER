@@ -31,8 +31,6 @@ public class Generic_DamageDealer : MonoBehaviour
     public Generic_EventSystem eventSystem;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        Generic_DamageDealer otherDealer = collision.gameObject.GetComponent<Generic_DamageDealer>();
         Generic_DamageDetector otherDetector = collision.gameObject.GetComponent<Generic_DamageDetector>();
         Generic_ParryDealer otherParryDealer = collision.gameObject.GetComponent<Generic_ParryDealer>();
 
@@ -45,13 +43,13 @@ public class Generic_DamageDealer : MonoBehaviour
             switch (EntityTeam)
             {
                 case Team.Player:
-                    if (otherDetector.EntityTeam == Generic_DamageDetector.Team.Enemy)
+                    if (otherDetector.EntityTeam == Generic_DamageDetector.Team.Enemy || otherDetector.EntityTeam == Generic_DamageDetector.Team.Object)
                     {
                         PublishDealtDamageEvent(collision, otherDetector.canChargeSpecialAttack);
                     }
                     break;
                 case Team.Enemy:
-                    if(otherDetector.EntityTeam == Generic_DamageDetector.Team.Player)
+                    if(otherDetector.EntityTeam == Generic_DamageDetector.Team.Player || otherDetector.EntityTeam == Generic_DamageDetector.Team.Object)
                     {
                         PublishDealtDamageEvent(collision);
                     }
@@ -68,9 +66,18 @@ public class Generic_DamageDealer : MonoBehaviour
                         PublishGettingParriedEvent();
                     }
                     break;
+                case Team.Enemy:
+                    if(otherParryDealer.EntityTeam == Generic_ParryDealer.Team.Player)
+                    {
+                        PublishGettingParriedEvent();
+                    }
+                    break;
+                case Team.Object:
+                    PublishGettingParriedEvent();
+                    break;
             }
         }
-
+        return;
 
 
 

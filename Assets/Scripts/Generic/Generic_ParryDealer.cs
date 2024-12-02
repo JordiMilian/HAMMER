@@ -13,6 +13,27 @@ public class Generic_ParryDealer : MonoBehaviour
     public Team EntityTeam;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
+
+        if(otherDealer != null)
+        {
+            switch(EntityTeam)
+            {
+                case Team.Enemy:
+                    if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Player)
+                    {
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer, dealer.isCharginSpecialAttack_whenParried);
+                    }
+                    break;
+                case Team.Player:
+                    if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Enemy)
+                    {
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer, dealer.isCharginSpecialAttack_whenParried);
+                    }
+                    break;
+            }
+        }
+        return;
         switch (EntityTeam)
         {
             case Team.Player:

@@ -36,11 +36,39 @@ public class Generic_DamageDetector : MonoBehaviour
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(isInCooldown) 
-        { 
+        if (isInCooldown)
+        {
             //Debug.Log("damage detector was in cooldown"); 
-            return; 
+            return;
         }
+
+        Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
+
+        if (otherDealer != null)
+        {
+            switch (EntityTeam)
+            {
+                case Team.Player:
+                    if (otherDealer.EntityTeam == Generic_DamageDealer.Team.Enemy || otherDealer.EntityTeam == Generic_DamageDealer.Team.Object)
+                    {
+                        PublishAttackedEvent(collision);
+                    }
+                    break;
+                case Team.Enemy:
+                    if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Player || otherDealer.EntityTeam == Generic_DamageDealer.Team.Object)
+                    {
+                        PublishAttackedEvent(collision);
+                    }
+                    break;
+                case Team.Object:
+                    PublishAttackedEvent(collision);
+                    break;
+            }
+        }
+
+
+        return;
+        
         switch (EntityTeam)
         {
             case Team.Object:
