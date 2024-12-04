@@ -1438,7 +1438,7 @@ GameObject:
   - component: {fileID: 46438836940467434}
   - component: {fileID: 489989574351239143}
   - component: {fileID: 3030397079455606687}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: DamageDealer
   m_TagString: Attack_Hitbox
   m_Icon: {fileID: 0}
@@ -2038,13 +2038,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5efd01ffe7b054ba7c851201ef3001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRefs: {fileID: 0}
-  baseLevelCost: 0
+  playerRefs: {fileID: 3175104005493510322}
+  baseLevelCost: 2
   costMult: 1.5
   hpPerLevel: 1
-  damagePerLevel: 1
+  damagePerLevel: 0.2
   staminaPerLevel: 1
-  currentPlayerStats: {fileID: 0}
 --- !u!1 &7568668169372958368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,7 +2577,7 @@ GameObject:
   - component: {fileID: 7653426974398778623}
   - component: {fileID: 7653426974398778621}
   - component: {fileID: 7653426974398778620}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: P_DamageCollider
   m_TagString: PlayerDamageCollider
   m_Icon: {fileID: 0}
@@ -3857,7 +3856,6 @@ MonoBehaviour:
   specialAttack: {fileID: 4068002304790719456}
   singlePointCollider: {fileID: 9009123525477702090}
   disableController: {fileID: 3372783210703460156}
-  statsController: {fileID: 0}
   levelStatsManager: {fileID: 2481365138470066936}
   parryCollider: {fileID: 7653426975970030027}
   weaponScalingRoot: {fileID: 7653426974895600710}
@@ -4181,7 +4179,7 @@ GameObject:
   - component: {fileID: 7653426975970030026}
   - component: {fileID: 7653426975970030027}
   - component: {fileID: 7631733328338548649}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ParryCollider
   m_TagString: ParryCollider
   m_Icon: {fileID: 0}

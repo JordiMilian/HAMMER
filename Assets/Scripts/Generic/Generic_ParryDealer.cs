@@ -22,13 +22,13 @@ public class Generic_ParryDealer : MonoBehaviour
                 case Team.Enemy:
                     if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Player)
                     {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer, dealer.isCharginSpecialAttack_whenParried);
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
                     }
                     break;
                 case Team.Player:
                     if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Enemy)
                     {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer, dealer.isCharginSpecialAttack_whenParried);
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
                     }
                     break;
             }

@@ -14,10 +14,9 @@ public class Player_LevelStatsManager : MonoBehaviour
     [Space]
     [Header("Stats upgrades per level")]
     [SerializeField] int hpPerLevel = 1;
-    [SerializeField] int damagePerLevel = 1;
+    [SerializeField] float damagePerLevel = 1;
     [SerializeField] int staminaPerLevel = 1;
 
-    [SerializeField] EntityStats currentPlayerStats;
     public void LevelUpHP()
     {
         if (!canLevelUp()) return; //No puede subir de nivel
@@ -50,7 +49,7 @@ public class Player_LevelStatsManager : MonoBehaviour
         Debug.Log("Level Up Stamina");
         int currentDamage = Mathf.RoundToInt(playerRefs.currentStats.DamageMultiplicator);
 
-        int newDamage = (currentDamage + damagePerLevel);
+        float newDamage = (currentDamage + damagePerLevel);
 
         playerRefs.currentStats.DamageMultiplicator = newDamage;
 

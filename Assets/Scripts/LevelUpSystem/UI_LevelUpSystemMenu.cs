@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UI_LevelUpSystemMenu : MonoBehaviour
 {
@@ -14,23 +15,23 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     [SerializeField] float interactionRadius = 1f;
     private Player_Respawner playerRespawner;
 
+
     public event Action OnLevelUpSystemActivated, OnLevelUpMenuActivated, OnLevelUpMenuClosed;
 
     private bool isEnabled = false;
     private bool isMenuOpened = false;
 
     Player_LevelStatsManager playerStatPointsManager;
-    private void Awake()
+    private void OnEnable()
     {
         isEnabled = false;
         go_UILevelUpSystem.SetActive(false);
         go_LevelUpMenu.SetActive(false);
-
+ 
         playerRespawner = GetComponentInParent<Player_Respawner>();
         playerStatPointsManager = GlobalPlayerReferences.Instance.references.levelStatsManager;
         playerRespawner.OnRespawnerActivated += ActivateLevelUpSystemUI;
     }
-
     void ActivateLevelUpSystemUI() //Activa la UI del check point
     {
         go_UILevelUpSystem.SetActive(true);
@@ -98,6 +99,10 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     public void ResetLevel1()
     {
         playerStatPointsManager.ResetLevel1();
+    }
+    public void ReturnToOutOfRun()
+    {
+        SceneManager.LoadScene("OutOfRunWorld");
     }
     #endregion
 }

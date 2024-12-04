@@ -13,6 +13,7 @@ public class XP_CounterDisplay : MonoBehaviour
     private void OnEnable()
     {
         currentPlayerState.OnPayerExperiencePointsChange += onUpdatedCounter;
+        onUpdatedCounter(currentPlayerState.ExperiencePoints);
     }
     private void OnDisable()
     {

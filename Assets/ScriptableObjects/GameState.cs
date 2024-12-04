@@ -53,27 +53,7 @@ public class GameState : ScriptableObject
     [Header("Audio")]
     [Range(0, 1)] public float MusicVolum;
     [Range(0, 1)] public float SFXVolum;
-    /*
-    [Header("Levels and XP")]
-    public int level;
-    public float level_currentMaxHp;
-    public float level_currentDamge;
-    public float level_currentMaxStamina;
 
-    
-    int xpPoints;
-    public Action<int> OnXpPointsSet;
-    public int XpPoints 
-    {
-        get { return xpPoints; }
-        set
-        {
-            if(xpPoints == value) { return; }
-            xpPoints = value;
-            OnXpPointsSet?.Invoke(value);
-        }
-    }
-    */
     public int PermanentCurrency;
     
     public void ResetState()
@@ -117,7 +97,23 @@ public class GameState : ScriptableObject
 
         hasPickedFirstUpgrade = false;
         hasPickedFirstWeapon = false;
+    }
+    public void FinishedRun()
+    {
+        foreach (BossAreaDoor bossAreaDoor in FourDoors)
+        {
+            bossAreaDoor.isCompleted = false;
+        }
+        isFinalDoorOpen = false;
+        justDefeatedBoss = false;
 
+        LastEnteredDoor = -1;
+
+        playerUpgrades.Clear();
+
+        actuallyUnlockedSkulls = 0;
+        SkullsThatShouldBeUnlocked = 0;
+        finalDoor_DialogueIndex = 0;
 
     }
 }

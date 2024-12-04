@@ -37,7 +37,7 @@ public class Generic_StaminaBarController : MonoBehaviour
     }
     private void OnDisable()
     {
-        currentStats.OnMaxStaminaChange += UpdateBgSize;
+        currentStats.OnMaxStaminaChange -= UpdateBgSize;
     }
     void UpdateBarSize(float currentStamina)
     {

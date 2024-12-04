@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class SceneStarter_OutOfRunWorld : SceneStarter_base
 {
+    [Header("OutOfRun")]
     [SerializeField] GameState gameState;
-    [SerializeField] Animator UITransitionAnimator;
+    [SerializeField] PlayerStats currentPlayerStats;
+    [SerializeField] PlayerStats basePlayerStats;
+    [SerializeField] GameObject LevelPrefab;
+    public override IEnumerator Creation()
+    {
+        yield return base.Creation();
+        LevelPrefab = Instantiate(LevelPrefab);
+    }
     public override IEnumerator Preparation()
     {
         yield return StartCoroutine( base.Preparation());
         TransformLevelsToCurrency();
-
+        gameState.FinishedRun();
     }
     void TransformLevelsToCurrency()
     {
-        //Transform currencies and play animation
-        //Reset upgrades and stuff
-        //Reset XP
+        gameState.PermanentCurrency += currentPlayerStats.Level;
+        currentPlayerStats.CopyData(basePlayerStats);
+        
     }
 }

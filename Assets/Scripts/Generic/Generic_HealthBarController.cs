@@ -45,6 +45,11 @@ public class Generic_HealthBarController : MonoBehaviour
         UpdateBarSize(currentStats.CurrentHp);
         UpdateBgSize(currentStats.MaxHp);
     }
+    private void OnDisable()
+    {
+        currentStats.OnCurrentHpChange -= UpdateBarSize;
+        currentStats.OnMaxHpChange -= UpdateBgSize;
+    }
 
     void UpdateBarSize(float newCurrentHp)
     {

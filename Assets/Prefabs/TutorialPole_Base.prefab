@@ -10,14 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 787175008504657096}
   - component: {fileID: 3021011115089880420}
-  - component: {fileID: 8972844658158011290}
   - component: {fileID: 4174781769410761570}
-  - component: {fileID: 6005491816409808355}
   - component: {fileID: 8478310027064708778}
-  - component: {fileID: 8628862862033143543}
   - component: {fileID: 3819510353225946223}
   - component: {fileID: 3997652725707455408}
   - component: {fileID: 7408653523327847293}
+  - component: {fileID: 6253509384159431475}
   m_Layer: 19
   m_Name: TutorialPole_Base
   m_TagString: Enemy_notFocus
@@ -55,21 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8972844658158011290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3126386608480748826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68561b2311f5dab4cba9cf226ebc4150, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 500
-  DamageMultiplier: 1
-  BaseDamageMultiplier: 1
 --- !u!95 &4174781769410761570
 Animator:
   serializedVersion: 4
@@ -90,38 +73,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6005491816409808355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3126386608480748826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae47ec02eda05448a39f7f2ffdbdca7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Refs: {fileID: 8628862862033143543}
-  MaxHP:
-    UseConstant: 1
-    ConstantValue: 500
-    Variable: {fileID: 11400000, guid: f5fd80be052232346a6a0a516b3b8927, type: 2}
-  CurrentHP:
-    UseConstant: 1
-    ConstantValue: 500
-    Variable: {fileID: 11400000, guid: db4fb3c9e2024f848873610e31056b69, type: 2}
-  BaseHP:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  FillHealthOnStart: 1
-  isPlayers: 0
-  enemyRefs: {fileID: 8628862862033143543}
-  deadBody: {fileID: 0}
-  deadHead: {fileID: 0}
-  BloodCristals: {fileID: 5308774821670971264, guid: ee77d54bae9746040992b11977385ba0, type: 3}
-  AmountOfCristals: 0
 --- !u!114 &8478310027064708778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,43 +96,6 @@ MonoBehaviour:
   TutorialAnimator: {fileID: 4174781769410761570}
   dialoguer: {fileID: 7500345709738653767}
   breakEffect: {fileID: 8322183221100727027}
---- !u!114 &8628862862033143543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3126386608480748826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d80c444077571f64bab04e8f52c5bcf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  genericEvents: {fileID: 3021011115089880420}
-  DamageDealersList: []
-  damageDetector: {fileID: 3840898667399410523}
-  stats: {fileID: 8972844658158011290}
-  spriteFliper: {fileID: 0}
-  flasher: {fileID: 0}
-  animator: {fileID: 4174781769410761570}
-  weaponCollider: {fileID: 0}
-  damageDetectorCollider: {fileID: 2402293854364523958}
-  positionCollider: {fileID: 0}
-  _rigidbody: {fileID: 0}
-  stateMachine: {fileID: 0}
-  characterMover: {fileID: 0}
-  attackProvider: {fileID: 0}
-  enemyEvents: {fileID: 0}
-  healthSystem: {fileID: 0}
-  moveToTarget: {fileID: 0}
-  stanceMeter: {fileID: 0}
-  VFXManager: {fileID: 0}
-  feedbackManager: {fileID: 0}
-  agrooMovement: {fileID: 0}
-  idleMovement: {fileID: 0}
-  damageCollider: {fileID: 0}
-  reusableStateMachine: {fileID: 0}
-  lookingPivotTf: {fileID: 0}
 --- !u!50 &3819510353225946223
 Rigidbody2D:
   serializedVersion: 4
@@ -235,6 +149,30 @@ MonoBehaviour:
   container: {fileID: 0}
   indexInContainer: 0
   newTextLines: []
+--- !u!114 &6253509384159431475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126386608480748826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511235ba59caa5c4db41952f06f5a341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  genericEvents: {fileID: 3021011115089880420}
+  DamageDealersList: []
+  damageDetector: {fileID: 3840898667399410523}
+  spriteFliper: {fileID: 0}
+  flasher: {fileID: 0}
+  animator: {fileID: 4174781769410761570}
+  weaponCollider: {fileID: 0}
+  damageDetectorCollider: {fileID: 2402293854364523958}
+  positionCollider: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  stateMachine: {fileID: 0}
+  characterMover: {fileID: 0}
 --- !u!1 &3198394192870802251
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +216,7 @@ GameObject:
   - component: {fileID: 8223209536551398223}
   - component: {fileID: 3840898667399410523}
   - component: {fileID: 2402293854364523958}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DamageDetector
   m_TagString: Enemy_Hurtbox
   m_Icon: {fileID: 0}

@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: game State
   m_EditorClassIdentifier: 
   FourDoors:
-  - isCompleted: 1
-    DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
   - isCompleted: 0
     DoorController: {fileID: 0}
-  LastEnteredDoor: 0
+  - isCompleted: 0
+    DoorController: {fileID: 0}
+  LastEnteredDoor: -1
   LastCompletedBoss: 0
   isFinalDoorOpen: 0
-  isTutorialComplete: 0
+  isTutorialComplete: 1
   isSpawnWithouUpgrades: 0
   justDefeatedBoss: 0
   playerUpgrades: []
@@ -42,15 +42,11 @@ MonoBehaviour:
   - weaponPrefab: {fileID: 6275606604221386586, guid: f91abc7aa258fd3498aee1d27942a784, type: 3}
     isUnlocked: 1
   FurthestDoorsArray: ffffffffffffffffffffffffffffffffffffffff
-  actuallyUnlockedSkulls: 1
-  SkullsThatShouldBeUnlocked: 2
-  finalDoor_DialogueIndex: 2
+  actuallyUnlockedSkulls: 0
+  SkullsThatShouldBeUnlocked: 0
+  finalDoor_DialogueIndex: 0
   hasPickedFirstUpgrade: 1
   hasPickedFirstWeapon: 0
   MusicVolum: 0
   SFXVolum: 0.269
-  level: 2
-  level_currentMaxHp: 5
-  level_currentDamge: 0
-  level_currentMaxStamina: 0
-  PermanentCurrency: 0
+  PermanentCurrency: 9
