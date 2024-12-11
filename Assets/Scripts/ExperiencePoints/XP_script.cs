@@ -10,6 +10,14 @@ public class XP_script : MonoBehaviour
     [SerializeField] AnimationCurve spawnMovementCurve;
     [SerializeField] AudioClip pickedAudio;
 
+    private void OnEnable()
+    {
+        GameEvents.OnPlayerRespawned += destroySelf;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnPlayerRespawned -= destroySelf;
+    }
     public void onSpawn() //Called from XP_dropper
     {
         xpAnimator = GetComponent<Animator>();
@@ -31,5 +39,13 @@ public class XP_script : MonoBehaviour
         GetComponent<CircleCollider2D>().enabled = false;
         xpAnimator.SetTrigger("pickedUp");
         StartCoroutine(UsefullMethods.destroyWithDelay(0.3f, gameObject));
+    }
+    void destroySelf()
+    {
+        Destroy(gameObject);
+    }
+    public void OnPlayerSpawn()
+    {
+        xpAnimator.SetTrigger("playerSpawn");
     }
 }

@@ -55,6 +55,11 @@ public class GameState : ScriptableObject
     [Range(0, 1)] public float SFXVolum;
 
     public int PermanentCurrency;
+
+    public int playerDeaths;
+    public float enemiesPercentHealthPerDeath;
+    public float enemiesPercentXpLossPerDeath;
+    public float enemiesPercentDamageMultiplyPerDeath;
     
     public void ResetState()
     {
@@ -97,6 +102,8 @@ public class GameState : ScriptableObject
 
         hasPickedFirstUpgrade = false;
         hasPickedFirstWeapon = false;
+
+        PermanentCurrency = 0;
     }
     public void FinishedRun()
     {
@@ -114,6 +121,5 @@ public class GameState : ScriptableObject
         actuallyUnlockedSkulls = 0;
         SkullsThatShouldBeUnlocked = 0;
         finalDoor_DialogueIndex = 0;
-
     }
 }

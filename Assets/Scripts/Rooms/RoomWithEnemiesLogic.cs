@@ -32,7 +32,8 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     Coroutine correctlySpawnedCoroutine;
     [SerializeField] EnterTriggerCutscene enterRoomCutscene;
     public Action onEnemiesSpawned;
- 
+
+    [SerializeField] GameState gameState;
 
     public override void OnEnable()
     {
@@ -105,51 +106,61 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
         onEnemiesSpawned?.Invoke();
         Debug.Log("Spawned enemies wtf");
 
-    }
-    void SpawnWeights(int Tier, int currentWeight, int maxWeight)
-    {
-        int attemptsToSpawn = 0;
-        int weightReference = currentWeight;
-        while (weightReference < maxWeight)
+        //
+        void SpawnWeights(int Tier, int currentWeight, int maxWeight)
         {
-            attemptsToSpawn++;
-            if (attemptsToSpawn == 30)
+            int attemptsToSpawn = 0;
+            int weightReference = currentWeight;
+            while (weightReference < maxWeight)
             {
-                Debug.LogError("Something wrong with Spawners, check min-max stuff");
-                break;
+                attemptsToSpawn++;
+                if (attemptsToSpawn == 30)
+                {
+                    Debug.LogError("Something wrong with Spawners, check min-max stuff");
+                    break;
+                }
+                //Pick a random index
+                int randomIndex = UnityEngine.Random.Range(0, SpawneableEnemies.Count);
+                if (SpawneableEnemies[randomIndex].Tier != Tier) { continue; } //If not in the proper Tier pick a diferent enemy
+                EnemySpawn thisSpawn = SpawneableEnemies[randomIndex];
+
+                //If already maxed, repeat
+                if (thisSpawn.currentInstances >= thisSpawn.maxInstances) { continue; }
+
+                //Spawn and add Weight
+                ActuallySpawn(thisSpawn);
+                weightReference += thisSpawn.Weight;
             }
-            //Pick a random index
-            int randomIndex = UnityEngine.Random.Range(0, SpawneableEnemies.Count);
-            if (SpawneableEnemies[randomIndex].Tier != Tier) { continue; } //If not in the proper Tier pick a diferent enemy
-            EnemySpawn thisSpawn = SpawneableEnemies[randomIndex];
-
-            //If already maxed, repeat
-            if (thisSpawn.currentInstances >= thisSpawn.maxInstances) { continue; }
-
-            //Spawn and add Weight
-            ActuallySpawn(thisSpawn);
-            weightReference += thisSpawn.Weight;
         }
-    }
-    void ActuallySpawn(EnemySpawn spawn)
-    {
-        // Find random point and Instantiate the Enemy
-        Vector2 SpawnPosition = UsefullMethods.RandomPointInCollider(SpawnArea);
+        void ActuallySpawn(EnemySpawn spawn)
+        {
+            // Find random point and Instantiate the Enemy
+            Vector2 SpawnPosition = UsefullMethods.RandomPointInCollider(SpawnArea);
 
-        GameObject SpawnedEnemy = Instantiate(
-          spawn.PrefabEnemy,
-          SpawnPosition,
-          Quaternion.identity,
-          EnemiesContainer.transform);
+            GameObject SpawnedEnemy = Instantiate(
+              spawn.PrefabEnemy,
+              SpawnPosition,
+              Quaternion.identity,
+              EnemiesContainer.transform);
 
-        CurrentlySpawnedEnemies.Add(SpawnedEnemy);
+            CurrentlySpawnedEnemies.Add(SpawnedEnemy);
 
-        //Subscribe to everything
-        Generic_EventSystem enemyEvent = SpawnedEnemy.GetComponent<Generic_EventSystem>();
-        enemyEvent.OnDeath += EnemyDied;
-        enemyEvent.OnReceiveDamage += EnemyDamaged;
+            //Subscribe to everything
+            Enemy_References enemyRefs = SpawnedEnemy.GetComponent<Enemy_References>();
+            Generic_EventSystem enemyEvent = enemyRefs.enemyEvents;
+            enemyEvent.OnDeath += EnemyDied;
+            enemyEvent.OnReceiveDamage += EnemyDamaged;
 
-        spawn.currentInstances++;
+            spawn.currentInstances++;
+
+            //Set values per Death
+            float hpPerDeath = UsefullMethods.normalizePercentage(gameState.enemiesPercentHealthPerDeath, false, true) * enemyRefs.baseEnemyStats.MaxHp;
+            enemyRefs.currentEnemyStats.MaxHp += gameState.playerDeaths * hpPerDeath;
+            enemyRefs.currentEnemyStats.CurrentHp += gameState.playerDeaths * hpPerDeath;
+
+            float damagePerDeath = UsefullMethods.normalizePercentage(gameState.enemiesPercentDamageMultiplyPerDeath, false, true) * enemyRefs.baseEnemyStats.DamageMultiplicator;
+            enemyRefs.currentEnemyStats.DamageMultiplicator += gameState.playerDeaths * damagePerDeath;
+        }
 
     }
     IEnumerator NotCorrectlySpawnedTimer()
