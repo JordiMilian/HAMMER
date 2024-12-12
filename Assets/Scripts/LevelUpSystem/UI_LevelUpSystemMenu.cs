@@ -58,8 +58,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
     private void Update()
     {
-        xpPointText.text = "Experience Points: " + playerStatPointsManager.xpPoints().ToString();
-        levelUpCostText.text = "Cost: " + playerStatPointsManager.levelUpCost().ToString();
+        xpPointText.text = GlobalPlayerReferences.Instance.references.currentStats.ExperiencePoints.ToString();
+        levelUpCostText.text = playerStatPointsManager.levelUpCost().ToString();
     }
     void OpenMenu()
     {
