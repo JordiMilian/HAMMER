@@ -60,7 +60,7 @@ public class PauseGame : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1;
-        TargetGroupSingleton.Instance.AddTarget(MouseTarget, 1f, 0);
+        TargetGroupSingleton.Instance.ReturnPlayersTarget();
         pauseCanvas.enabled = false;
         OnUnpauseMenu?.Invoke();
         controllerControls.isReadingInput = false;

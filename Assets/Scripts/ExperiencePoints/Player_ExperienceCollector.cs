@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class Player_ExperienceCollector : MonoBehaviour
 {
-    Player_References playerRefs;
-    private void Awake()
-    {
-        playerRefs = GetComponent<Player_References>();
-    }
+    [SerializeField] Player_References playerRefs;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         XP_script script = collision.GetComponent<XP_script>();
         if(script != null )
         {
             playerRefs.currentStats.ExperiencePoints += script.XpAmount;
-            Debug.Log("Xp to add: " + script.XpAmount + " Total is: " + playerRefs.currentStats.ExperiencePoints);
+            //Debug.Log("Xp to add: " + script.XpAmount + " Total is: " + playerRefs.currentStats.ExperiencePoints);
             script.onPickedUp();
         }
     }

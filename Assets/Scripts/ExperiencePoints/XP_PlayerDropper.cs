@@ -22,6 +22,7 @@ public class XP_PlayerDropper : XP_dropper
         foreach(GameObject xp in playersSpawnedXp)
         {
             xp.GetComponent<XP_script>().OnPlayerSpawn();
+            xp.GetComponent<CircleCollider2D>().enabled = false;
             xp.GetComponentInChildren<XP_MoveTowardsPlayer>().enabled = false;
         }
         playerRefs.currentStats.ExperiencePoints = 0;

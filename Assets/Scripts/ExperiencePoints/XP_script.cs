@@ -12,11 +12,11 @@ public class XP_script : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnPlayerRespawned += destroySelf;
+        GameEvents.OnPlayerReappear += destroySelf;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerRespawned -= destroySelf;
+        GameEvents.OnPlayerReappear -= destroySelf;
     }
     public void onSpawn() //Called from XP_dropper
     {

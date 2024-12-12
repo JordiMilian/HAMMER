@@ -17,7 +17,7 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
         SFX_Player = SFX_PlayerSingleton.Instance;
 
         playerEvents.OnPerformRoll += playRoll;
-        GameEvents.OnPlayerRespawned += playHeadReatached;
+        GameEvents.OnPlayerReappear += playHeadReatached;
         playerEvents.OnPerformParry += playAttemptParry;
         playerEvents.OnPickedNewUpgrade += playPickUpgrade;
         playerEvents.OnPickedNewWeapon += playPickUpWeapon;
@@ -27,7 +27,7 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     {
         base.OnDisable();
         playerEvents.OnPerformRoll -= playRoll;
-        GameEvents.OnPlayerRespawned -= playHeadReatached;
+        GameEvents.OnPlayerReappear -= playHeadReatached;
         playerEvents.OnPerformParry += playAttemptParry;
         playerEvents.OnPickedNewUpgrade -= playPickUpgrade;
         playerEvents.OnPickedNewWeapon -= playPickUpWeapon;

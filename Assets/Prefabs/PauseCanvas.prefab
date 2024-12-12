@@ -430,7 +430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: RESTART LEVEL
+  m_text: END RUN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2ea7aae7d3d86e43b3e979b1e06097a, type: 2}
   m_sharedMaterial: {fileID: -5350509942301854792, guid: b2ea7aae7d3d86e43b3e979b1e06097a, type: 2}
@@ -1179,7 +1179,6 @@ MonoBehaviour:
   - {fileID: 4807916173635319871}
   - {fileID: 4807916172398204079}
   - {fileID: 4807916172203535583}
-  inputDetector: {fileID: 0}
   currentSelectedIndex: 0
   isReadingInput: 1
   startReadingInput: 0
@@ -1616,7 +1615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -163.3, y: -0.29838228}
+  m_AnchoredPosition: {x: -104.1, y: -0.29838228}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4807916173062123318
@@ -2231,7 +2230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -17.99997}
+  m_AnchoredPosition: {x: 0, y: -18}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4807916173490186046
@@ -2643,7 +2642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161.1, y: -0.5}
+  m_AnchoredPosition: {x: 106.4, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4807916173621174666
@@ -2669,6 +2668,7 @@ GameObject:
   - component: {fileID: 4807916173635319871}
   - component: {fileID: 4807916173635319868}
   - component: {fileID: 1783883186}
+  - component: {fileID: 5352272611523327549}
   m_Layer: 5
   m_Name: button
   m_TagString: Untagged
@@ -2816,7 +2816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodEffect: {fileID: 4807916172260955910}
-  Action: {fileID: 0}
+  Action: {fileID: 5352272611523327549}
 --- !u!114 &1783883186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2827,6 +2827,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8fe99d8fb6e3cb4ebe5dad01beb0947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5352272611523327549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4807916173635319866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883832fb922a719498f38865192fcde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4807916173739306265

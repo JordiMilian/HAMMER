@@ -49,6 +49,7 @@ public class GameState : ScriptableObject
 
     public bool hasPickedFirstUpgrade;
     public bool hasPickedFirstWeapon;
+    public bool hadFirstDeath;
 
     [Header("Audio")]
     [Range(0, 1)] public float MusicVolum;
@@ -61,7 +62,7 @@ public class GameState : ScriptableObject
     public float enemiesPercentXpLossPerDeath;
     public float enemiesPercentDamageMultiplyPerDeath;
     
-    public void ResetState()
+    public void NewGameResetState()
     {
         foreach (BossAreaDoor bossAreaDoor in FourDoors)
         {
@@ -104,6 +105,7 @@ public class GameState : ScriptableObject
         hasPickedFirstWeapon = false;
 
         PermanentCurrency = 0;
+        playerDeaths = 0;
     }
     public void FinishedRun()
     {
@@ -121,5 +123,7 @@ public class GameState : ScriptableObject
         actuallyUnlockedSkulls = 0;
         SkullsThatShouldBeUnlocked = 0;
         finalDoor_DialogueIndex = 0;
+
+        playerDeaths = 0;
     }
 }

@@ -15,7 +15,7 @@ public class Generic_ParryDealer : MonoBehaviour
     {
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
 
-        if(otherDealer != null)
+        if(otherDealer != null && otherDealer.isParryable)
         {
             switch(EntityTeam)
             {

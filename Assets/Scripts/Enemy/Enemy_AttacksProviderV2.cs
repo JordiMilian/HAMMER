@@ -146,7 +146,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     }
     void SetDamageDealerStats(Generic_DamageDealer dealer, EnemyAttack selectedAttack)
     {
-        dealer.Damage = selectedAttack.Damage;
+        dealer.Damage = selectedAttack.Damage * enemyRefs.currentEnemyStats.DamageMultiplicator;
         dealer.Knockback = selectedAttack.KnockBack;
         dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
     }

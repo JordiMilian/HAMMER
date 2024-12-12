@@ -1562,7 +1562,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8433727092493903100}
   - component: {fileID: 1958924549324179819}
-  m_Layer: 0
+  - component: {fileID: 4149393019508523355}
+  - component: {fileID: 4561084035961506424}
+  m_Layer: 21
   m_Name: XP_Dropper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1577,7 +1579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6318128908313466623}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09618048, y: -0.14535016, z: -0.00019109249}
+  m_LocalPosition: {x: 0, y: 0.094, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1600,6 +1602,35 @@ MonoBehaviour:
   testingXpToDrop: 0
   triggerChoseXp: 0
   playerRefs: {fileID: 3175104005493510322}
+--- !u!114 &4149393019508523355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6318128908313466623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6bfa398cf5457642ad5efdf22ed3cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRefs: {fileID: 3175104005493510322}
+--- !u!58 &4561084035961506424
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6318128908313466623}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.14
 --- !u!1 &6850400280213929898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3443,7 +3474,6 @@ GameObject:
   - component: {fileID: 131155159506509890}
   - component: {fileID: 738973075402885668}
   - component: {fileID: 5563275663953165858}
-  - component: {fileID: 7191289767090938885}
   m_Layer: 20
   m_Name: MainCharacter
   m_TagString: Player
@@ -4019,18 +4049,6 @@ MonoBehaviour:
   TestDirectionToMove: {x: 0, y: 0}
   speedMultiplier: 0
   MovementVectorsPerSecond: []
---- !u!114 &7191289767090938885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6bfa398cf5457642ad5efdf22ed3cfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0

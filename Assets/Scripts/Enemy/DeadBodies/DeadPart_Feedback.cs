@@ -22,11 +22,11 @@ public class DeadPart_Feedback : MonoBehaviour
         eventSystem.OnReceiveDamage += GettingHitFeedback;
         eventSystem.OnBeingTouchedObject += GettingTouchedFeedback;
         eventSystem.OnHitWall += HittingWallFeedback;
-        GameEvents.OnPlayerRespawned += DestroyOnRespawn;
+        GameEvents.OnPlayerReappear += DestroyOnRespawn;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerRespawned -= DestroyOnRespawn;
+        GameEvents.OnPlayerReappear -= DestroyOnRespawn;
     }
     void spawnedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {

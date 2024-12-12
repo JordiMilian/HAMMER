@@ -26,6 +26,7 @@ public class EnemyStats : EntityStats
         MaxHp = importedStats.MaxHp;
         CurrentHp = importedStats.CurrentHp;
         DamageMultiplicator = importedStats.DamageMultiplicator;
+        BaseSpeed = importedStats.BaseSpeed;
         Speed = importedStats.Speed;
         XpToDrop = importedStats.XpToDrop;
 

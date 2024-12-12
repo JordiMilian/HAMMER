@@ -9,7 +9,7 @@ public class Cutscene_Death_SetUpResetState : BaseCutsceneLogic
     [SerializeField]
     public override void playThisCutscene()
     {
-        gameState.ResetState();
+        gameState.NewGameResetState();
 
         gameState.isSpawnWithouUpgrades = true;
 

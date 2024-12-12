@@ -23,7 +23,7 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
     }
     IEnumerator cutscene()
     {
-        if (!dontResetState) { gameState.ResetState(); }
+        if (!dontResetState) { gameState.NewGameResetState(); }
 
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 

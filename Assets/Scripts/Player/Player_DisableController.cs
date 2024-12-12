@@ -46,7 +46,7 @@ public class Player_DisableController : MonoBehaviour
         {
             root.SetActive(true);
         }
-        GameEvents.OnPlayerRespawned?.Invoke();
+        GameEvents.OnPlayerReappear?.Invoke();
     }
     public void DisablePlayerScripts()
     {

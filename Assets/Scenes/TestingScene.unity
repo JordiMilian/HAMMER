@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bfa398cf5457642ad5efdf22ed3cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRefs: {fileID: 0}
 --- !u!50 &8313339
 Rigidbody2D:
   serializedVersion: 4
@@ -342,7 +343,7 @@ GameObject:
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &123788948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,7 +500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!60 &142952693
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -785,7 +786,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &157449586
 Rigidbody2D:
   serializedVersion: 4
@@ -886,7 +887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!58 &169603003
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1019,7 +1020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &187177171
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1398,7 +1399,7 @@ GameObject:
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!58 &433439980
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1554,7 +1555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &441959168
 Rigidbody2D:
   serializedVersion: 4
@@ -1765,7 +1766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &547671522
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1903,14 +1904,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8199d1d57f99dff47a9f60dfdd53ef04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpPrefabs:
-  - {fileID: 2115158258501815051, guid: 4e2b317dfad2f1646b5f8ef8979b5eaa, type: 3}
-  - {fileID: 2115158258501815051, guid: 87664fa20dfcb8343a7d4bbf96c0ed3f, type: 3}
-  - {fileID: 2115158258501815051, guid: 8b5f56b2a0b1b734ea6e77fa2738b3d0, type: 3}
-  - {fileID: 2115158258501815051, guid: acb54ab29ddb6df4eb9d3b927f3f6b8d, type: 3}
-  xpToDrop: 50
+  prefabs: {fileID: 0}
+  testingXpToDrop: 0
   triggerChoseXp: 0
-  enemyEvents: {fileID: 0}
+  enemyRefs: {fileID: 0}
 --- !u!1 &596900385
 GameObject:
   m_ObjectHideFlags: 0
@@ -4014,11 +4011,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCharacter: {fileID: 0}
-  pausePrefab: {fileID: 0}
-  player_RespawnerManager: {fileID: 4145425793216329583, guid: c015a232865b10c438609fb15cb4c80f, type: 3}
-  roomGeneratorManager: {fileID: 0}
-  enemiesKiller: {fileID: 2367775913298132301, guid: b960e22a2b4efc844b054b52b311073d, type: 3}
+  pauseCanvas: {fileID: 0}
   globalPlayerReference: {fileID: 0}
+  targetGroupSingleton: {fileID: 0}
+  cinemachineCamera: {fileID: 0}
+  loadingScreenController: {fileID: 0}
 --- !u!4 &1357446523
 Transform:
   m_ObjectHideFlags: 0
@@ -4697,7 +4694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1683638705
 Transform:
   m_ObjectHideFlags: 0
@@ -4767,7 +4764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1864896423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4860,7 +4857,7 @@ GameObject:
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1936938913
 MonoBehaviour:
   m_ObjectHideFlags: 0

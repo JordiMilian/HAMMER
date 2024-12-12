@@ -9,11 +9,11 @@ public class GenerateRoomsOnRespawn : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnPlayerRespawned += GenerateRooms;
+        GameEvents.OnPlayerReappear += GenerateRooms;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerRespawned -= GenerateRooms;
+        GameEvents.OnPlayerReappear -= GenerateRooms;
     }
     void GenerateRooms()
     {
