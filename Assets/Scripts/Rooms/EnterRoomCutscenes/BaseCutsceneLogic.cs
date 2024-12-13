@@ -16,6 +16,9 @@ public abstract class BaseCutsceneLogic : MonoBehaviour
         {
             StopCoroutine(currentCutscene);
         }
+        //Transform testTf = transform;
+        //try { testTf.position = Vector2.zero; }
+        //catch(Exception e) { Debug.LogError(e); }
     }
 
 }

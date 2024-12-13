@@ -9,7 +9,7 @@ public class PlayerHead_RebornBegin : MonoBehaviour
     [SerializeField] List<SpriteRenderer> spritesList;
     float verticalForce;
     bool isPushing;
-    private IEnumerator Start()
+    public IEnumerator FlyAwayCoroutine()
     {
         yield return new WaitForSeconds(2);
         verticalForce = 0f;

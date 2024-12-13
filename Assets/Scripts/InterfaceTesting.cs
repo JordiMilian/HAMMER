@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InterfaceTesting : MonoBehaviour, iCutsceneable
+public class InterfaceTesting : MonoBehaviour
 {
     public event Action onFinished;
     public void playCutscene()

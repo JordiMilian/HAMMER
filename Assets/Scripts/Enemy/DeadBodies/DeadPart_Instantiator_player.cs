@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DeadPart_Instantiator;
 
-public class DeadPart_Instantiator : MonoBehaviour
+public class DeadPart_Instantiator_player : MonoBehaviour
 {
     [SerializeField] Generic_EventSystem eventSystem;
     [SerializeField] Transform OrientationGuide;
@@ -15,28 +16,20 @@ public class DeadPart_Instantiator : MonoBehaviour
     }
     [SerializeField] List<DeadPart> deadPartsList = new List<DeadPart>();
 
-    private void OnEnable()
-    {
-        eventSystem.OnDeath += InstantiateDeadParts;
-    }
-    private void OnDisable()
-    {
-        eventSystem.OnDeath -= InstantiateDeadParts;
-    }
-    public void InstantiateDeadParts(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    public GameObject[] InstantiateDeadParts(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         List<GameObject> deadParts = new List<GameObject>();
         foreach (DeadPart part in deadPartsList)
-        {   
+        {
             Vector2 direction = (transform.position - args.Killer.transform.position).normalized; //Find direction
-     
+
             GameObject InstantiatedDeadPart = Instantiate(part.deadPart_GO, transform.position, Quaternion.identity); //Instantiate
 
             Vector2 bonePosition = part.referenceBone_TF.position;
             Vector2 rootPosition = transform.position;
             float boneRotation = part.referenceBone_TF.rotation.z;
             Vector2 distanceRoot2Bone = bonePosition - rootPosition;
-            InstantiatedDeadPart.transform.Find("DeadPart_MovingParent").position = rootPosition + new Vector2( distanceRoot2Bone.x,0);
+            InstantiatedDeadPart.transform.Find("DeadPart_MovingParent").position = rootPosition + new Vector2(distanceRoot2Bone.x, 0);
             Rigidbody2D SimulatedChild = InstantiatedDeadPart.transform.Find("Simulated Child").GetComponent<Rigidbody2D>();
             SimulatedChild.isKinematic = true;
             SimulatedChild.position = bonePosition;
@@ -51,6 +44,7 @@ public class DeadPart_Instantiator : MonoBehaviour
 
             deadParts.Add(InstantiatedDeadPart);
         }
+        return deadParts.ToArray();
     }
     IEnumerator InvokeWithDelay(GameObject instantiated, Vector2 direction)
     {
