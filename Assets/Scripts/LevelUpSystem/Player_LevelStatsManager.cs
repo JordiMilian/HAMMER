@@ -21,9 +21,6 @@ public class Player_LevelStatsManager : MonoBehaviour
     {
         if (!canLevelUp()) return; //No puede subir de nivel
 
-        playerRefs.currentStats.ExperiencePoints -= levelUpCost();
-        playerRefs.currentStats.Level++;
-
         Debug.Log("Level up! " + playerRefs.currentStats.Level);
         Debug.Log("Level Up Hp");
         int currentMaxHealth = Mathf.RoundToInt(playerRefs.currentStats.MaxHp);
@@ -42,12 +39,9 @@ public class Player_LevelStatsManager : MonoBehaviour
     {
         if (!canLevelUp()) return; //No puede subir de nivel
 
-        playerRefs.currentStats.ExperiencePoints -= levelUpCost();
-        playerRefs.currentStats.Level++;
-
         Debug.Log("Level up! " + playerRefs.currentStats.Level);
-        Debug.Log("Level Up Stamina");
-        int currentDamage = Mathf.RoundToInt(playerRefs.currentStats.DamageMultiplicator);
+        Debug.Log("Level Up Damage");
+        float currentDamage = playerRefs.currentStats.DamageMultiplicator;
 
         float newDamage = (currentDamage + damagePerLevel);
 
@@ -59,9 +53,6 @@ public class Player_LevelStatsManager : MonoBehaviour
     public void LevelUpStamina()
     {
         if (!canLevelUp()) return; //No puede subir de nivel
-
-        playerRefs.currentStats.ExperiencePoints -= levelUpCost();
-        playerRefs.currentStats.Level++;
 
         Debug.Log("Level up! " + playerRefs.currentStats.Level);
         Debug.Log("Level Up Stamina");
@@ -89,13 +80,30 @@ public class Player_LevelStatsManager : MonoBehaviour
     {
         if (playerRefs.currentStats.Level <= 0) playerRefs.currentStats.Level = 1;
 
-        return Mathf.RoundToInt(baseLevelCost * Mathf.Pow(costMult, playerRefs.currentStats.Level -1));
+        return levelUpCostCalculation(playerRefs.currentStats.Level);
     }
 
+    public int levelUpCostCalculation(int level)
+    {
+        return Mathf.RoundToInt(baseLevelCost * Mathf.Pow(costMult, level - 1));
+    }
     public void ResetLevel1()
     {
         playerRefs.currentStats.CopyData(playerRefs.baseStats);
     }
 
+    public int GetHPLevel()
+    {
+        return Mathf.FloorToInt((playerRefs.currentStats.MaxHp - playerRefs.baseStats.MaxHp) / hpPerLevel);
+    }
 
+    public int GetStaminaLevel()
+    {
+        return Mathf.FloorToInt((playerRefs.currentStats.MaxStamina - playerRefs.baseStats.MaxStamina) / staminaPerLevel);
+    }
+
+    public int GetDamageLevel()
+    {
+        return Mathf.FloorToInt((playerRefs.currentStats.DamageMultiplicator - playerRefs.baseStats.DamageMultiplicator) / damagePerLevel);
+    }
 }

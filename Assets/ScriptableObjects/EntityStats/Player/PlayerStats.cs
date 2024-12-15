@@ -31,7 +31,11 @@ public class PlayerStats : EntityStats
     [HideInInspector] public Action<int> OnPlayerLevelChange;
     [HideInInspector] public Action<int> OnPayerExperiencePointsChange;
 
-  
+    [Space(20)]
+    [Tooltip("Optional variable to reset stats with Editor Button")]
+    public PlayerStats baseStats;
+
+
 
     public float AttackSpeed
     {
