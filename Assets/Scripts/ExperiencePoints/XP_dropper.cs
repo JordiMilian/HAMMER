@@ -58,9 +58,9 @@ public class XP_dropper : MonoBehaviour
                 countedXp += prefabs.sortedPrefabsBySize[randomIndex].y;
                 chosenPrefabs.Add(prefabs.xpPrefabs[prefabs.sortedPrefabsBySize[randomIndex].x]);
                 
-                Debug.Log("Min required size: " + minAmountNeeded);
-                Debug.Log("Largest posible prefab: " + prefabs.sortedPrefabsBySize[largestIndex].y);
-                Debug.Log("Added amount: " + prefabs.sortedPrefabsBySize[randomIndex].y);
+                //Debug.Log("Min required size: " + minAmountNeeded);
+                //Debug.Log("Largest posible prefab: " + prefabs.sortedPrefabsBySize[largestIndex].y);
+                //Debug.Log("Added amount: " + prefabs.sortedPrefabsBySize[randomIndex].y);
                 
                 chosenXps.Add(prefabs.sortedPrefabsBySize[randomIndex].y);
 
