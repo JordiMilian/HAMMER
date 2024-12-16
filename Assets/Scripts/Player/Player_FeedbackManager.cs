@@ -49,7 +49,7 @@ public class Player_FeedbackManager : MonoBehaviour
             
             CameraShake.Instance.ShakeCamera(1, 0.1f); ;
             TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
-            playerRefs.flasher.CallFlasher();
+            playerRefs.flasher.CallDefaultFlasher();
 
             Vector2 direction = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
             //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack, 0.3f));
@@ -98,19 +98,19 @@ public class Player_FeedbackManager : MonoBehaviour
     void HealFeedback()
     {
         CameraShake.Instance.ShakeCamera(.2f, 0.1f);
-        playerRefs.flasher.CallFlasher();
+        playerRefs.flasher.CallDefaultFlasher();
     }
     void PickUpUpgradeFeedback(UpgradeContainer upgrade)
     {
         CameraShake.Instance.ShakeCamera(.3f, 0.1f);
         TimeScaleEditor.Instance.HitStop(0.03f);
-        playerRefs.flasher.CallFlasher();
+        playerRefs.flasher.CallDefaultFlasher();
     }
     void PickUpWeaponFeedback(WeaponPrefab_infoHolder info)
     {
         CameraShake.Instance.ShakeCamera(.3f, 0.1f);
         TimeScaleEditor.Instance.HitStop(0.05f);
-        playerRefs.flasher.CallFlasher();
+        playerRefs.flasher.CallDefaultFlasher();
     }
     IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
     {

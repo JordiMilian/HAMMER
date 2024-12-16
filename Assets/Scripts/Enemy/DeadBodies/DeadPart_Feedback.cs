@@ -32,7 +32,7 @@ public class DeadPart_Feedback : MonoBehaviour
     {
         StartCoroutine(BloodStopper());
         deadPart_Animator.SetTrigger("Light");
-        flasher.CallFlasher();
+        flasher.CallDefaultFlasher();
     }
     void GettingHitFeedback(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {

@@ -20,20 +20,24 @@ public class Generic_Flash : MonoBehaviour
             materials[i] = spriteRenderers[i].material;
         }
     }
-    public void CallFlasher()
+    public void CallDefaultFlasher()
     {
-        StartCoroutine(Flasher());
+        StartCoroutine(Flasher(flashTime));
     }
-    private IEnumerator Flasher()
+    public void CallCustomFlash(float time)
+    {
+        StartCoroutine(Flasher(time));
+    }
+    private IEnumerator Flasher(float time)
     {
         SetFlashColors();
         float CurrentFlashAmount = 0;
         float elapsedTime = 0;
 
-        while (elapsedTime < flashTime)
+        while (elapsedTime < time)
         {
             elapsedTime += Time.deltaTime * Time.timeScale;
-            CurrentFlashAmount = Mathf.Lerp(1f,0f,elapsedTime/flashTime);
+            CurrentFlashAmount = Mathf.Lerp(1f,0f,elapsedTime/time);
             SetFlashAmount(CurrentFlashAmount);
             yield return null;
         }

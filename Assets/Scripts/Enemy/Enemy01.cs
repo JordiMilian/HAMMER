@@ -31,7 +31,7 @@ public class Enemy01 : MonoBehaviour
     {
         if(enemyRefs.stateMachine.CurrentState != Enemy_StateMachine.States.Dead)
         {
-            enemyRefs.flasher.CallFlasher();
+            enemyRefs.flasher.CallDefaultFlasher();
             TimeScaleEditor.Instance.HitStop(0.05f);
         }
 

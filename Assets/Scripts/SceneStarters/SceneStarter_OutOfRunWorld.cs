@@ -9,6 +9,7 @@ public class SceneStarter_OutOfRunWorld : SceneStarter_base
     [SerializeField] PlayerStats currentPlayerStats;
     [SerializeField] PlayerStats basePlayerStats;
     [SerializeField] GameObject LevelPrefab;
+    [SerializeField] AnimationClip spawnOutOfRunAnimation;
     public override IEnumerator Creation()
     {
         yield return base.Creation();
@@ -25,5 +26,14 @@ public class SceneStarter_OutOfRunWorld : SceneStarter_base
         gameState.PermanentCurrency += currentPlayerStats.Level;
         currentPlayerStats.CopyData(basePlayerStats);
         
+    }
+    public override IEnumerator StartPlaying()
+    {
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+
+        playerRefs.flasher.CallCustomFlash(spawnOutOfRunAnimation.length);
+        playerRefs.animator.SetTrigger("SpawnOutOfRun");
+        yield return new WaitForSeconds(spawnOutOfRunAnimation.length);
+        playerRefs.disableController.EnablePlayerScripts();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SceneStarter_base : MonoBehaviour
 {
-    [SerializeField] GameObject mainCharacter;
+    public GameObject mainCharacter; 
     [SerializeField] GameObject pauseCanvas;
 
     [SerializeField] GlobalPlayerReferences globalPlayerReference;
@@ -40,12 +40,14 @@ public class SceneStarter_base : MonoBehaviour
         Debug.Log("SceneStarter: reached 04");
         loadingScreenController.UpdateLoadingBar(80);
 
-        ReturnControlToPlayer();
+        
         Debug.Log("SceneStarter: reached 05");
         loadingScreenController.UpdateLoadingBar(100);
 
-        yield return new WaitForSeconds(0.3f);
         loadingScreenController.HideLoadingScreen();
+
+        yield return StartCoroutine(StartPlaying());
+        
     }
 
     public virtual IEnumerator Binding() //Crear els scripts basics necesaris
@@ -87,8 +89,9 @@ public class SceneStarter_base : MonoBehaviour
         //Spawn player on proper door
         yield return null;
     }
-    public virtual void ReturnControlToPlayer()
+    public virtual IEnumerator StartPlaying()
     {
         globalPlayerReference.references.disableController.EnablePlayerScripts();
+        yield return null;
     }
 }
