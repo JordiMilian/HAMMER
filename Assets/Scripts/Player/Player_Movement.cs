@@ -7,18 +7,21 @@ using UnityEngine.VFX;
 public class Player_Movement : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
+    PlayerStats currentStats;
 
     [Header("BASE MOVEMENT")]
-    public float CurrentSpeed;
-    public float BaseSpeed;
-    public float velocityMultiplier = 1;
+    //public float CurrentSpeed;
+    //public float BaseSpeed;
+    //public float velocityMultiplier = 1;
 
     [Header("RUN")]
     [SerializeField] float RunningSpeed = 40;
     [SerializeField] float RunInputDelayTime = 0.5f;
+    [SerializeField] float StaminaPerSecond = 1;
     float TimerDelay;
     bool IsWaitingInputDelay;
     bool isRunning = false;
+
 
     [Header("ROLL")]
     [SerializeField] float RollTime;
@@ -40,6 +43,8 @@ public class Player_Movement : MonoBehaviour
         InputDetector.Instance.OnRollPressing += OnRollPressing;
         InputDetector.Instance.OnRollUnpressed += OnRollUnpressed;
         rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10);
+
+        currentStats = playerRefs.currentStats;
     }
     private void OnDisable()
     {
@@ -52,10 +57,6 @@ public class Player_Movement : MonoBehaviour
         InputDetector.Instance.OnRollPressing -= OnRollPressing;
         InputDetector.Instance.OnRollUnpressed -= OnRollUnpressed;
     }
-    void Start()
-    {
-        CurrentSpeed = BaseSpeed;
-    }
 
     
     void Update()
@@ -64,8 +65,8 @@ public class Player_Movement : MonoBehaviour
 
         if (isRunning)
         {
-            CurrentSpeed = RunningSpeed;
-            playerRefs.animator.SetBool("Running", true);
+            playerRefs.events.CallStaminaAction(StaminaPerSecond * Time.deltaTime);
+            if(playerRefs.currentStats.CurrentStamina <= 0) { StopRunning(); }
         }
         if(updateAverageSize_trigger)
         {
@@ -86,7 +87,7 @@ public class Player_Movement : MonoBehaviour
             if (TimerDelay > RunInputDelayTime)
             {
                 IsWaitingInputDelay = false;
-                isRunning = true;
+                StartRunning();
             }
         }
     }
@@ -114,13 +115,20 @@ public class Player_Movement : MonoBehaviour
     public void StopRunning()
     {
         isRunning = false;
-        CurrentSpeed = BaseSpeed;
+        currentStats.Speed = currentStats.BaseSpeed;
         playerRefs.animator.SetBool("Running", false);
+        playerRefs.events.OnEnterIdle?.Invoke();
+    }
+    void StartRunning()
+    {
+        isRunning = true;
+        currentStats.Speed = RunningSpeed;
+        playerRefs.animator.SetBool("Running", true);
     }
     void Move(Vector2 vector2)
     {
         //playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100 * velocityMultiplier);
-        playerRefs.characterMover.MovementVectorsPerSecond.Add(vector2.normalized * CurrentSpeed * velocityMultiplier);
+        playerRefs.characterMover.MovementVectorsPerSecond.Add(vector2.normalized * currentStats.Speed);
         WalkingAnimation();
     }
   
@@ -171,23 +179,19 @@ public class Player_Movement : MonoBehaviour
             rollCurve_averageValue
             ));
     }
-    IEnumerator DashMovement(Vector2 direction)
-    {
-        float time = 0;
-        float weight = 0;
-        while (time < RollTime)
-        {
-            time = time + Time.deltaTime;
-            weight = RollCurve.Evaluate(time/RollTime);
-            //playerRefs._rigidbody.AddForce(direction * RollMaxForce * weight* Time.deltaTime * velocityMultiplier);
-            playerRefs.characterMover.MovementVectorsPerSecond.Add(direction * RollDistance * weight * velocityMultiplier);
-            yield return null;
-        }
-        playerRefs.spriteFliper.canFlip = true; //sprite can flip after roll
-    }
     
-    public void EV_SlowDownSpeed() { CurrentSpeed /= 5; }
-    public void EV_ReturnSpeed() { CurrentSpeed = BaseSpeed; }
-    public void EV_HidePlayerCollider() { gameObject.layer = 15; playerRefs.damageDetectorCollider.enabled = false; }
-    public void EV_ShowPlayerCollider() { gameObject.layer = 20; playerRefs.damageDetectorCollider.enabled = true; }
+    public void EV_SlowDownSpeed() { playerRefs.currentStats.Speed /= 5; }
+    public void EV_ReturnSpeed() { playerRefs.currentStats.Speed = playerRefs.currentStats.BaseSpeed; }
+    public void EV_HidePlayerCollider() 
+    { 
+        gameObject.layer = 15;
+        playerRefs.damageDetectorCollider.enabled = false;
+        playerRefs.characterMover.ignoreRay = true;
+    }
+    public void EV_ShowPlayerCollider() 
+    { 
+        gameObject.layer = 20; 
+        playerRefs.damageDetectorCollider.enabled = true;
+        playerRefs.characterMover.ignoreRay = false;
+    }
 }

@@ -16,14 +16,13 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI xpPointText;
     [SerializeField] TextMeshProUGUI levelUpCostText;
-    [SerializeField] float interactionRadius = 1f;
     private Player_Respawner playerRespawner;
 
 
     public event Action OnLevelUpSystemActivated, OnLevelUpMenuActivated, OnLevelUpMenuClosed;
 
-    private bool isEnabled = false;
     private bool isMenuOpened = false;
+    private bool isLevelUpAvailable;
 
     Player_LevelStatsManager playerStatPointsManager;
 
@@ -57,13 +56,15 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     int tempLevelUpCost;
     int tempLevel;
 
+    Player_References playerRefs;
+
     [Space]
     [SerializeField] int statDivider = 3;
     private void Start()
     {
-        defaultHp = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.baseStats.MaxHp / statDivider);
-        defaultStamina = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.baseStats.MaxStamina / statDivider);
-        defaultDamage = Mathf.RoundToInt(GlobalPlayerReferences.Instance.references.baseStats.DamageMultiplicator);
+        defaultHp = Mathf.RoundToInt(playerRefs.baseStats.MaxHp / statDivider);
+        defaultStamina = Mathf.RoundToInt(playerRefs.baseStats.MaxStamina / statDivider);
+        defaultDamage = Mathf.RoundToInt(playerRefs.baseStats.DamageMultiplicator);
 
         InstantiateProgressBar(healthBarProgressBarList, go_HealthBar_0, defaultHp);
         InstantiateProgressBar(staminaBarProgressBarList, go_StaminaBar_0, defaultStamina);
@@ -102,36 +103,56 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     }
     private void OnEnable()
     {
-        isEnabled = false;
+        playerRefs = GlobalPlayerReferences.Instance.references;
+
         go_UILevelUpSystem.SetActive(false);
         go_LevelUpMenu.SetActive(false);
  
         playerRespawner = GetComponentInParent<Player_Respawner>();
-        playerStatPointsManager = GlobalPlayerReferences.Instance.references.levelStatsManager;
-        playerRespawner.OnRespawnerActivated += ActivateLevelUpSystemUI;
+        playerStatPointsManager = playerRefs.levelStatsManager;
+        playerRespawner.OnRespawnerActivated += LevelUpSystemAvailable;
 
         tempLevelUpCost = playerStatPointsManager.levelUpCost();
-        tempLevel = GlobalPlayerReferences.Instance.references.currentStats.Level;
-        tempCurrentExperiencePoitns = GlobalPlayerReferences.Instance.references.currentStats.ExperiencePoints;
+        tempLevel = playerRefs.currentStats.Level;
+        tempCurrentExperiencePoitns = playerRefs.currentStats.ExperiencePoints;
     }
-    void ActivateLevelUpSystemUI() //Activa la UI del check point
+
+    private void OnTriggerEnter2D(Collider2D collision) 
+    { 
+        if (collision.CompareTag(TagsCollection.Player_SinglePointCollider)) { OnPlayerInRange(); }
+    }
+    private void OnTriggerExit2D(Collider2D collision) 
+    { 
+        if (collision.CompareTag(TagsCollection.Player_SinglePointCollider)) { OnPlayerOutOfRange(); } 
+    }
+
+    void LevelUpSystemAvailable()
     {
-        go_UILevelUpSystem.SetActive(true);
-        isEnabled = true;
-        isMenuOpened = false;
-
-        InputDetector.Instance.OnSelectPressed += LevelUpSystemMenu;
-
         OnLevelUpSystemActivated?.Invoke();
-        playerRespawner.OnRespawnerActivated -= ActivateLevelUpSystemUI;
+        playerRespawner.OnRespawnerActivated -= OnPlayerInRange;
+        isMenuOpened = false;
+        isLevelUpAvailable = true;
+
+        OnPlayerInRange();
     }
-
-    void LevelUpSystemMenu() //Activa el menú para el level up
+    void OnPlayerInRange() 
     {
-        float distFromPlayer = Vector3.Magnitude(GlobalPlayerReferences.Instance.playerTf.position - transform.position);
+        if (!isLevelUpAvailable) { return; }
 
-        if (distFromPlayer > interactionRadius) return; // El character está demasiado lejos para interactuar
+        go_UILevelUpSystem.SetActive(true);
 
+        InputDetector.Instance.OnSelectPressed += OnSelectPressed;
+    }
+    void OnPlayerOutOfRange()
+    {
+        if (!isLevelUpAvailable) { return; }
+
+        go_UILevelUpSystem.SetActive(false);
+
+        InputDetector.Instance.OnSelectPressed -= OnSelectPressed;
+    }
+    void OnSelectPressed() //Activa el menú para el level up
+    {
         if(!isMenuOpened)
         {
             OpenMenu();
@@ -151,7 +172,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         go_LevelUpMenu.SetActive(true);
         ResetMenu();
 
-        GlobalPlayerReferences.Instance.references.events.CallDisable(); //Desactivamos el control del jugador
+        playerRefs.events.CallDisable(); //Desactivamos el control del jugador
     }
 
 
@@ -164,7 +185,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
         go_LevelUpMenu.SetActive(false);
 
-        GlobalPlayerReferences.Instance.references.events.CallEnable(); //Activamos el control del jugador
+        playerRefs.events.CallEnable(); //Activamos el control del jugador
     }
 
     void ResetMenu()
@@ -177,8 +198,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         ResetProgressBar(damageBarProgressBarList);
 
         tempLevelUpCost = playerStatPointsManager.levelUpCost();
-        tempLevel = GlobalPlayerReferences.Instance.references.currentStats.Level;
-        tempCurrentExperiencePoitns = GlobalPlayerReferences.Instance.references.currentStats.ExperiencePoints;
+        tempLevel = playerRefs.currentStats.Level;
+        tempCurrentExperiencePoitns = playerRefs.currentStats.ExperiencePoints;
 
         SelectedHPBar.Clear();
         SelectedStaminaBar.Clear();
@@ -239,8 +260,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
             LevelUpDamage();
         }
 
-        GlobalPlayerReferences.Instance.references.currentStats.Level = tempLevel;
-        GlobalPlayerReferences.Instance.references.currentStats.ExperiencePoints = tempCurrentExperiencePoitns;
+        playerRefs.currentStats.Level = tempLevel;
+        playerRefs.currentStats.ExperiencePoints = tempCurrentExperiencePoitns;
 
         ConfirmProgressBarSelection(healthBarProgressBarList);
         ConfirmProgressBarSelection(staminaBarProgressBarList);

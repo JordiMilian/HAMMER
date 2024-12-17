@@ -103,6 +103,7 @@ public class GameState : ScriptableObject
 
         hasPickedFirstUpgrade = false;
         hasPickedFirstWeapon = false;
+        hadFirstDeath = false;
 
         PermanentCurrency = 0;
         playerDeaths = 0;

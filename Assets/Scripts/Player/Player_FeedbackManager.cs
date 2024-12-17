@@ -45,7 +45,7 @@ public class Player_FeedbackManager : MonoBehaviour
         {
             receivingDamage = true;
 
-            playerRefs.playerMovement.CurrentSpeed = 0;
+            playerRefs.currentStats.Speed = 0;
             
             CameraShake.Instance.ShakeCamera(1, 0.1f); ;
             TimeScaleEditor.Instance.HitStop(receivedAttackinfo.Hitstop);
@@ -74,7 +74,7 @@ public class Player_FeedbackManager : MonoBehaviour
      IEnumerator InvulnerableAfterDamage()
     {
         yield return new WaitForSeconds(staggerTime);
-        playerRefs.playerMovement.CurrentSpeed = playerRefs.playerMovement.BaseSpeed;
+        playerRefs.currentStats.Speed = playerRefs.currentStats.BaseSpeed;
         receivingDamage = false;
     }
     void OnActivationFeedback()

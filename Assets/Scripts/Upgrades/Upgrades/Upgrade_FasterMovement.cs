@@ -6,18 +6,18 @@ using UnityEngine;
 public class Upgrade_FasterMovement : Upgrade
 {
     [SerializeField] float Percent;
-    Player_Movement movement;
+    Player_References playerRefs;
     public override void onAdded(GameObject entity)
     {
-       movement = entity.GetComponent<Player_Movement>();
+        playerRefs = GlobalPlayerReferences.Instance.references;
 
-       float addedValue = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
-       movement.velocityMultiplier += addedValue;
+       float addedValue = playerRefs.baseStats.BaseSpeed * UsefullMethods.normalizePercentage(Percent, false, true);
+       playerRefs.currentStats.BaseSpeed += addedValue;
     }
     public override void onRemoved(GameObject entity)
     {
-        float removedValue = 1 * UsefullMethods.normalizePercentage(Percent, false, true);
-        movement.velocityMultiplier -= removedValue;
+        float removedValue = playerRefs.baseStats.BaseSpeed * UsefullMethods.normalizePercentage(Percent, false, true);
+        playerRefs.currentStats.BaseSpeed -= removedValue;
     }
     public override string shortDescription()
     {

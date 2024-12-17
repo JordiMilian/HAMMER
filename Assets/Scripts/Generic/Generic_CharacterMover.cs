@@ -38,7 +38,7 @@ public class Generic_CharacterMover : MonoBehaviour
     [SerializeField] Vector2 TestDirectionToMove;
     [SerializeField] float speedMultiplier = 0.01f;
     [SerializeField] LayerMask layersToHit;
-
+    public bool ignoreRay;
 
     private void Awake()
     {
@@ -82,27 +82,31 @@ public class Generic_CharacterMover : MonoBehaviour
 
         //  ---- RAYCAST TO NOT ENTER COLLIDERS ----
         
-        float currentMagnitude = calculatedDirection.magnitude;
-        Vector2 raycastOrigin = (Vector2)transform.position + (calculatedDirection.normalized * -ownCollider.radius);
-
-
-       
-        RaycastHit2D[] raycasts = Physics2D.RaycastAll(raycastOrigin
-            ,calculatedDirection.normalized
-            ,currentMagnitude + (ownCollider.radius * 2)
-            ,layersToHit
-            );
-        Debug.DrawLine(raycastOrigin, raycastOrigin + (calculatedDirection.normalized * ((ownCollider.radius * 2) + currentMagnitude)), Color.red);
-        foreach (RaycastHit2D ray in raycasts)
+        if(!ignoreRay)
         {
-            if (ray && ray.collider != ownCollider && currentMagnitude > 0)
-            {
-                float collisionDepth = (ownCollider.radius * 2) - ray.distance;
+            float currentMagnitude = calculatedDirection.magnitude;
+            Vector2 raycastOrigin = (Vector2)transform.position + (calculatedDirection.normalized * -ownCollider.radius);
 
-                calculatedDirection = calculatedDirection.normalized * -collisionDepth;
-                Debug.Log("I myself: " + gameObject.name + " detected a bad wall in " + ray.transform.gameObject.name);
+
+
+            RaycastHit2D[] raycasts = Physics2D.RaycastAll(raycastOrigin
+                , calculatedDirection.normalized
+                , currentMagnitude + (ownCollider.radius * 2)
+                , layersToHit
+                );
+            Debug.DrawLine(raycastOrigin, raycastOrigin + (calculatedDirection.normalized * ((ownCollider.radius * 2) + currentMagnitude)), Color.red);
+            foreach (RaycastHit2D ray in raycasts)
+            {
+                if (ray && ray.collider != ownCollider && currentMagnitude > 0)
+                {
+                    float collisionDepth = (ownCollider.radius * 2) - ray.distance;
+
+                    calculatedDirection = calculatedDirection.normalized * -collisionDepth;
+                    Debug.Log("I myself: " + gameObject.name + " detected a bad wall in " + ray.transform.gameObject.name);
+                }
             }
         }
+        
        
         
         

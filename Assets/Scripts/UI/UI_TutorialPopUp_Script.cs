@@ -11,7 +11,7 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
     public bool hasShown;
     private void Start()
     {
-        HidePopUp();
+        HideOnStart();
     }
     public void ShowPopUp()
     {
@@ -36,6 +36,11 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
         BG_Root.gameObject.SetActive(false);
 
         UnsubscribeToPress();
+    }
+    void HideOnStart()
+    {
+        PopUpRoot.gameObject.SetActive(false);
+        BG_Root.gameObject.SetActive(false);
     }
     void SubscribeToPress()
     {
