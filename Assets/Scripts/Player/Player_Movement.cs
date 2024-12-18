@@ -57,8 +57,6 @@ public class Player_Movement : MonoBehaviour
         InputDetector.Instance.OnRollPressing -= OnRollPressing;
         InputDetector.Instance.OnRollUnpressed -= OnRollUnpressed;
     }
-
-    
     void Update()
     {
         Move(InputDetector.Instance.MovementDirectionInput);
@@ -127,7 +125,6 @@ public class Player_Movement : MonoBehaviour
     }
     void Move(Vector2 vector2)
     {
-        //playerRefs._rigidbody.AddForce(vector2.normalized * CurrentSpeed * Time.deltaTime * 100 * velocityMultiplier);
         playerRefs.characterMover.MovementVectorsPerSecond.Add(vector2.normalized * currentStats.Speed);
         WalkingAnimation();
     }

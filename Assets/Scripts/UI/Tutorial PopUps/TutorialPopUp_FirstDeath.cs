@@ -7,6 +7,7 @@ public class TutorialPopUp_FirstDeath : MonoBehaviour
     [SerializeField] UI_TutorialPopUp_Script popUpScript;
     [SerializeField] GameState gameState;
 
+    UI_LevelUpSystemMenu levelUp;
     private void OnEnable()
     {
         GameEvents.OnPlayerReappear += OnPlayerRespawned;
@@ -22,6 +23,21 @@ public class TutorialPopUp_FirstDeath : MonoBehaviour
         {
             popUpScript.ShowPopUp();
             gameState.hadFirstDeath = true;
+
+            levelUp =  RespawnersManager.Instance.GetFurthestActiveRespawner().GetComponentInChildren<UI_LevelUpSystemMenu>();
+
+            levelUp.SetLevelUpSystemUnavailable();
+            popUpScript.OnHiddenPopUp += ReturnLevelUpAvailable;
         }
+    }
+    void ReturnLevelUpAvailable() //Hauriem de fer un UI o PopUp Manager plsss en comtes daixo
+    {
+        StartCoroutine(delayToActivateLevelUp());
+        popUpScript.OnHiddenPopUp -= ReturnLevelUpAvailable;
+    }
+    IEnumerator delayToActivateLevelUp()
+    {
+        yield return new WaitForSeconds(.5f);
+        levelUp.SetLevelUpSystemAvailable();
     }
 }

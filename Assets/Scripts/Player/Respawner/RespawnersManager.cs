@@ -30,10 +30,10 @@ public class RespawnersManager : MonoBehaviour
     }
     void CheckFurthestRespawner()
     {
-        CurrentFurthestRespawner = FindFurthestActiveRespawner();
+        CurrentFurthestRespawner = GetFurthestActiveRespawner();
     }
     
-    Player_Respawner FindFurthestActiveRespawner()
+    public Player_Respawner GetFurthestActiveRespawner()
     {
         if (!isSorted)
         {

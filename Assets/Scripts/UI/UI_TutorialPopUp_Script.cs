@@ -9,6 +9,7 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
     [SerializeField] Transform BG_Root;
     Player_EventSystem playerEvents;
     public bool hasShown;
+    public Action OnShownPopUp, OnHiddenPopUp;
     private void Start()
     {
         HideOnStart();
@@ -26,6 +27,8 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
         SubscribeToPress();
 
         hasShown = true;
+
+        OnShownPopUp?.Invoke();
     }
     void HidePopUp()
     {
@@ -36,6 +39,8 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
         BG_Root.gameObject.SetActive(false);
 
         UnsubscribeToPress();
+
+        OnHiddenPopUp?.Invoke();
     }
     void HideOnStart()
     {

@@ -110,7 +110,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
  
         playerRespawner = GetComponentInParent<Player_Respawner>();
         playerStatPointsManager = playerRefs.levelStatsManager;
-        playerRespawner.OnRespawnerActivated += LevelUpSystemAvailable;
+        playerRespawner.OnRespawnerActivated += SetLevelUpSystemAvailable;
 
         tempLevelUpCost = playerStatPointsManager.levelUpCost();
         tempLevel = playerRefs.currentStats.Level;
@@ -126,7 +126,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         if (collision.CompareTag(TagsCollection.Player_SinglePointCollider)) { OnPlayerOutOfRange(); } 
     }
 
-    void LevelUpSystemAvailable()
+    public void SetLevelUpSystemAvailable()
     {
         OnLevelUpSystemActivated?.Invoke();
         playerRespawner.OnRespawnerActivated -= OnPlayerInRange;
@@ -134,6 +134,11 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         isLevelUpAvailable = true;
 
         OnPlayerInRange();
+    }
+    public void SetLevelUpSystemUnavailable()
+    {
+        isLevelUpAvailable = false;
+        InputDetector.Instance.OnSelectPressed -= OnSelectPressed;
     }
     void OnPlayerInRange() 
     {
