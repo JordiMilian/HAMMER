@@ -87,14 +87,25 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 
             playerRefs.spriteFliper.FocusVector = targetPos;
         }
-        void ChangeFocusWithJoystick()
+        void ChangeFocusWithJoystick() //NEEDS TESTING
         {
             if (inputDetector.isControllerDetected && inputDetector.LookingDirectionInput.sqrMagnitude > .8f && isCurrentlyFocusing  )
             {
                 if (!attemptedJoystickRefocus)
                 {
+                    GameObject oldEnemy = CurrentlyFocusedEnemy;
+
                     Vector2 center = (Vector2)CurrentlyFocusedEnemy.transform.position + (inputDetector.LookingDirectionInput.normalized * JoystickJoystickRefocus_Radius);
-                    AttemptCircleFocus(center, JoystickJoystickRefocus_Radius, false, false);
+
+                    GameObject newEnemy = GetClosestEnemyToCircle(center, JoystickJoystickRefocus_Radius, false);
+                    if(newEnemy != null && newEnemy != oldEnemy) 
+                    {
+                        if (UsefullMethods.IsOutsideCameraView(newEnemy.transform.position, Camera.main)
+                        {
+                            return;
+                        }
+                        FocusNewEnemy(newEnemy);
+                    }
                     attemptedJoystickRefocus = true;
                 }
             }
@@ -159,7 +170,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         playerRefs.events.OnDeath -= OnPlayerDied;
         playerRefs.events.OnDealtDamage -= OnAttackedEnemy;
     }
-    void AttemptCircleFocus(Vector2 circleCenter, float radius, bool canUnfocus, bool ignoreCurrent)
+    GameObject GetClosestEnemyToCircle(Vector2 circleCenter, float radius, bool ignoreCurrent) //work in pr
     {
         spawnedEnemies.Clear();
         spawnedEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
@@ -175,9 +186,9 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         //Add to a list every enemy within range and its distance
         for (int i = 0; i < spawnedEnemies.Count; i++)
         {
-            if (spawnedEnemies[i] == lastFocusedEnemy) 
-            { 
-                if (ignoreCurrent) { continue; } 
+            if (spawnedEnemies[i] == lastFocusedEnemy)
+            {
+                if (ignoreCurrent) { continue; }
             }
             if (Vector2.Distance(circleCenter, spawnedEnemies[i].transform.position) < radius)
             {
@@ -185,15 +196,11 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
                 InrangeDistances.Add(Vector2.Distance(circleCenter, spawnedEnemies[i].transform.position));
             }
         }
-        //If no enemies in range
         if (InrangeEnemies.Count == 0)
         {
-            Debug.Log("Attempted focus but no enemies near");
-            if (canUnfocus) { return; }
-            else { if (lastFocusedEnemy != null) { FocusNewEnemy(lastFocusedEnemy); return; } }
+            return null;
         }
 
-        //Check which index has the shortest distance and return
         int minIndex = 0;
         for (int o = 0; o < InrangeDistances.Count; o++)
         {
@@ -202,7 +209,8 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
                 minIndex = o;
             }
         }
-        FocusNewEnemy(InrangeEnemies[minIndex]);
+
+        return InrangeEnemies[minIndex];
 
         //
         IEnumerator DrawAttemptDebug(Vector2 center, float radius, float time)
@@ -216,14 +224,14 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             }
         }
     }
+
     void OnFocusedEnemyDied( object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
         const float diedRadius = 5;
-        AttemptCircleFocus(
-            info.DeadGameObject.transform.position,
+        GameObject newEnemy = GetClosestEnemyToCircle(info.DeadGameObject.transform.position,
             diedRadius,
-            true,
             true);
+        if (newEnemy != null) { FocusNewEnemy(newEnemy); }
     }
     void OnPlayerDied(object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
@@ -236,12 +244,14 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             if (isCurrentlyFocusing) { UnfocusCurrentEnemy(); }
             else
             {
-                AttemptCircleFocus(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, true, true);
+                GameObject newEnemy = GetClosestEnemyToCircle(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, true);
+                if(newEnemy != null) { FocusNewEnemy(newEnemy); }
             }
         }
         else
         {
-            AttemptCircleFocus(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, true, false);
+            GameObject newEnemy = GetClosestEnemyToCircle(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, false);
+            if (newEnemy != null) { FocusNewEnemy(newEnemy); }
         }
     }
     void OnAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)

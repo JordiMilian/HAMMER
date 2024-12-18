@@ -11,7 +11,6 @@ public class PlayerHead_RebornBegin : MonoBehaviour
     bool isPushing;
     public IEnumerator FlyAwayCoroutine()
     {
-        yield return new WaitForSeconds(2);
         verticalForce = 0f;
         float timer = 0;
         isPushing = true;

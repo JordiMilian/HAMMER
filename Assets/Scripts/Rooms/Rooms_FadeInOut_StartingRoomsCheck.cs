@@ -21,7 +21,9 @@ public class Rooms_FadeInOut_StartingRoomsCheck : MonoBehaviour
     {
         foreach (Rooms_FadInOut fadeIn in roomsFades)
         {
+            Debug.Log("Faded " + fadeIn.transform.parent.gameObject.name);
             fadeIn.checkCurrentRoom(); //es podrie fer mes limpio pero suda
+            
         }
     }
 }

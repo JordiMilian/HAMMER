@@ -38,9 +38,9 @@ public class Rooms_FadInOut : MonoBehaviour
             }
         }
 
-        Rooms_FadeInOut_StartingRoomsCheck.Instance.roomsFades.Add(this);
         
     }
+
     public void checkCurrentRoom()
     {
         Vector2 playerPos = GlobalPlayerReferences.Instance.playerTf.position;
@@ -60,11 +60,15 @@ public class Rooms_FadInOut : MonoBehaviour
         RoomTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
         RoomTrigger.OnTriggerEntered += playerEnteredRoom;
         RoomTrigger.OnTriggerExited += playerExitedRoom;
+
+        Rooms_FadeInOut_StartingRoomsCheck.Instance.roomsFades.Add(this);
     }
     private void OnDisable()
     {
         RoomTrigger.OnTriggerEntered -= playerEnteredRoom;
         RoomTrigger.OnTriggerExited -= playerExitedRoom;
+
+        Rooms_FadeInOut_StartingRoomsCheck.Instance.roomsFades.Remove(this);
     }
     void playerEnteredRoom(Collider2D collision)
     {

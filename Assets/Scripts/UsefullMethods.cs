@@ -273,4 +273,16 @@ public class UsefullMethods : MonoBehaviour
     {
         return animator.GetCurrentAnimatorClipInfo(layer).Length;
     }
+    public static bool IsOutsideCameraView(Vector2 worldPosition, Camera camera)
+    {
+
+        Vector2 viewportPosition = camera.WorldToViewportPoint(worldPosition);
+
+        if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -178,7 +178,14 @@ public class Player_Movement : MonoBehaviour
     }
     
     public void EV_SlowDownSpeed() { playerRefs.currentStats.Speed /= 5; }
-    public void EV_ReturnSpeed() { playerRefs.currentStats.Speed = playerRefs.currentStats.BaseSpeed; }
+    public void EV_ReturnSpeed() 
+    { 
+        playerRefs.currentStats.Speed = playerRefs.currentStats.BaseSpeed;
+        if(isRunning) //MAKE A CONSISTENT STATE MACHINE PLSS SPLS PSLSPLS aixo es asqueros
+        {
+            StartRunning();
+        }
+    }
     public void EV_HidePlayerCollider() 
     { 
         gameObject.layer = 15;

@@ -21,6 +21,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
     public event Action OnLevelUpSystemActivated, OnLevelUpMenuActivated, OnLevelUpMenuClosed;
 
+    [SerializeField] bool ignoreLevelUpSystem;
     private bool isMenuOpened = false;
     private bool isLevelUpAvailable;
 
@@ -47,6 +48,14 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     [SerializeField] List<GameObject> healthBarProgressBarList = new List<GameObject>();
     [SerializeField] List<GameObject> staminaBarProgressBarList = new List<GameObject>();
     [SerializeField] List<GameObject> damageBarProgressBarList = new List<GameObject>();
+
+    [Header("SFX")]
+    [SerializeField] AudioClip audio_confirmButton;
+    [SerializeField] AudioClip audio_cancelButton;
+    [SerializeField] AudioClip audio_ActivatePoint;
+    [SerializeField] AudioClip audio_OutOfCostPoint;
+    [SerializeField] AudioClip audio_OpenMenu;
+    [SerializeField] AudioClip audio_CloseMenu;
 
     int defaultHp = 1;
     int defaultStamina = 1;
@@ -128,6 +137,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
     public void SetLevelUpSystemAvailable()
     {
+        if (ignoreLevelUpSystem) { return; }
+
         OnLevelUpSystemActivated?.Invoke();
         playerRespawner.OnRespawnerActivated -= OnPlayerInRange;
         isMenuOpened = false;
@@ -178,6 +189,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         ResetMenu();
 
         playerRefs.events.CallDisable(); //Desactivamos el control del jugador
+
+        SFX_PlayerSingleton.Instance.playSFX(audio_OpenMenu);
     }
 
 
@@ -191,6 +204,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         go_LevelUpMenu.SetActive(false);
 
         playerRefs.events.CallEnable(); //Activamos el control del jugador
+
+        SFX_PlayerSingleton.Instance.playSFX(audio_CloseMenu);
     }
 
     void ResetMenu()
@@ -213,6 +228,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         ApplyProgressBarLevels(healthBarProgressBarList, playerStatPointsManager.GetHPLevel(), defaultHp);
         ApplyProgressBarLevels(staminaBarProgressBarList, playerStatPointsManager.GetStaminaLevel(), defaultStamina);
         ApplyProgressBarLevels(damageBarProgressBarList, playerStatPointsManager.GetDamageLevel(), defaultDamage);
+
     }
 
     void ApplyProgressBarLevels(List<GameObject> progressBar, int level, int baseLevel)
@@ -236,16 +252,22 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     void LevelUpHP()
     {
         playerStatPointsManager.LevelUpHP();
+
+        SFX_PlayerSingleton.Instance.playSFX(audio_ActivatePoint);
     }
 
     void LevelUpDamage()
     {
         playerStatPointsManager.LevelUpDamage();
+
+        SFX_PlayerSingleton.Instance.playSFX(audio_ActivatePoint);
     }
 
     void LevelUpStamina()
     {
         playerStatPointsManager.LevelUpStamina();
+
+        SFX_PlayerSingleton.Instance.playSFX(audio_ActivatePoint);
     }
 
     public void ConfirmLevelUp()
@@ -274,6 +296,20 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
         xpPointText.color = color_DefaultText;
         levelText.color = color_DefaultText;
+
+        SFX_PlayerSingleton.Instance.playSFX(audio_confirmButton);
+
+        //
+        void ConfirmProgressBarSelection(List<GameObject> progressBar)
+        {
+            for (int i = 0; i < progressBar.Count; i++)
+            {
+                RawImage rawImage = progressBar[i].GetComponent<RawImage>();
+
+                if (rawImage.color == color_SelectedProgressBar) rawImage.color = color_ActivatedProgressBar;
+                if (rawImage.color == color_OutOfCostProgressBar) rawImage.color = color_DeactivatedProgressBar;
+            }
+        }
     }
 
     public void ResetLevel1()
@@ -305,16 +341,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         ChangeLevelUpBar(damageBarProgressBarList, SelectedDamageBar);
     }
 
-    void ConfirmProgressBarSelection(List<GameObject> progressBar)
-    {
-        for (int i = 0; i < progressBar.Count; i++)
-        {
-            RawImage rawImage = progressBar[i].GetComponent<RawImage>();
-
-            if (rawImage.color == color_SelectedProgressBar) rawImage.color = color_ActivatedProgressBar;
-            if (rawImage.color == color_OutOfCostProgressBar) rawImage.color = color_DeactivatedProgressBar;
-        }
-    }
+    
     void ChangeLevelUpBar(List<GameObject> originalProgressBarList, List<GameObject> selectedList)
     {
         for (int i = 0; i < originalProgressBarList.Count; i++)
