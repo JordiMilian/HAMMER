@@ -100,11 +100,15 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
                     GameObject newEnemy = GetClosestEnemyToCircle(center, JoystickJoystickRefocus_Radius, false);
                     if(newEnemy != null && newEnemy != oldEnemy) 
                     {
-                        if (UsefullMethods.IsOutsideCameraView(newEnemy.transform.position, Camera.main)
+                        if (UsefullMethods.IsOutsideCameraView(newEnemy.transform.position, Camera.main))
                         {
                             return;
                         }
                         FocusNewEnemy(newEnemy);
+                    }
+                    else
+                    {
+                        FocusNewEnemy(oldEnemy);
                     }
                     attemptedJoystickRefocus = true;
                 }

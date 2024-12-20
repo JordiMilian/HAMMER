@@ -26,7 +26,7 @@ public class SceneStarter_AltoMando : SceneStarter_base
         if (gameState.isTutorialComplete) 
         {
             Debug.Log("tutorial is complete so spawn in HUB");
-            RespawnersManager.Instance.ForceSpawnInIndex(RespawnersManager.Instance.Respawners.Count -1); 
+            RespawnersManager.Instance.ForceSpawnInIndex(RespawnersManager.Instance.Respawners.Count -3); 
 
         }
         else { GlobalPlayerReferences.Instance.playerTf.position = Vector2.zero; Debug.Log("tutorial is NOT complete so spawn in zero"); }
