@@ -299,6 +299,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
         SFX_PlayerSingleton.Instance.playSFX(audio_confirmButton);
 
+        CloseMenu();
         //
         void ConfirmProgressBarSelection(List<GameObject> progressBar)
         {
