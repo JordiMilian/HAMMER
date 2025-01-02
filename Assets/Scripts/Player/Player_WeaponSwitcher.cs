@@ -24,14 +24,14 @@ public class Player_WeaponSwitcher : MonoBehaviour
     [SerializeField] Player_References playerRefs;
     private void OnEnable()
     {
-        weaponPickerDetector.AddActivatorTag(TagsCollection.Pickeable);
+        weaponPickerDetector.AddActivatorTag(Tags.Pickeable);
 
         weaponPickerDetector.OnTriggerEntered += OnFoundPickeable;
 
     }
     private void OnDisable()
     {
-        weaponPickerDetector.RemoveActivatorTag(TagsCollection.Pickeable);
+        weaponPickerDetector.RemoveActivatorTag(Tags.Pickeable);
         weaponPickerDetector.OnTriggerEntered -= OnFoundPickeable;
     }
     void OnFoundPickeable(Collider2D collider)

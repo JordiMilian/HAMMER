@@ -9,7 +9,7 @@ public class Enemy07_BehindShield : MonoBehaviour
     Coroutine Deactivator;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag(TagsCollection.Player_Hitbox))
+        if(collision.CompareTag(Tags.Player_Hitbox))
         {
             if (Deactivator != null) { StopCoroutine(Deactivator); }
             Deactivator = StartCoroutine(DeactivateShield());

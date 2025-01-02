@@ -37,7 +37,7 @@ public class Generic_ParryDealer : MonoBehaviour
         switch (EntityTeam)
         {
             case Team.Player:
-                if (collision.CompareTag(TagsCollection.Enemy_Hitbox))
+                if (collision.CompareTag(Tags.Enemy_Hitbox))
                 {
                     Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
                     if (dealer.isParryable)
@@ -47,7 +47,7 @@ public class Generic_ParryDealer : MonoBehaviour
                 }
                 break;
             case Team.Enemy:
-                if(collision.CompareTag(TagsCollection.Player_Hitbox))
+                if(collision.CompareTag(Tags.Player_Hitbox))
                 {
                     Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
                     if (dealer.isParryable)

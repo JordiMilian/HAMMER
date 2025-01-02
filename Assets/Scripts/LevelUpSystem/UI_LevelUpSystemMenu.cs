@@ -128,11 +128,11 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) 
     { 
-        if (collision.CompareTag(TagsCollection.Player_SinglePointCollider)) { OnPlayerInRange(); }
+        if (collision.CompareTag(Tags.Player_SinglePointCollider)) { OnPlayerInRange(); }
     }
     private void OnTriggerExit2D(Collider2D collision) 
     { 
-        if (collision.CompareTag(TagsCollection.Player_SinglePointCollider)) { OnPlayerOutOfRange(); } 
+        if (collision.CompareTag(Tags.Player_SinglePointCollider)) { OnPlayerOutOfRange(); } 
     }
 
     public void SetLevelUpSystemAvailable()

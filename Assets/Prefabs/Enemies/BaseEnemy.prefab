@@ -77,8 +77,6 @@ GameObject:
   - component: {fileID: 627058440868749388}
   - component: {fileID: 7654662553848504304}
   - component: {fileID: 6932147153519873058}
-  - component: {fileID: 2829660713819239201}
-  - component: {fileID: 1484837429054597437}
   - component: {fileID: 7929925186517721759}
   - component: {fileID: 9036491661720074360}
   - component: {fileID: 7073730092788972273}
@@ -240,49 +238,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fe5235e2f53714f8c1d2fecdb43b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  _rigidBody: {fileID: 1771262554875931710}
+  MovementTarget: {fileID: 0}
+  LookingTarget: {fileID: 0}
   enemyRefs: {fileID: 7568110113479188649}
-  Velocity: 1
   DoMove: 1
+  DoLook: 0
   MaxDistance: 3
   MinDistance: 0.3
   proximityTrigger: {fileID: 7846950220777717017}
   inRangeEnemies: []
---- !u!114 &2829660713819239201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7043884e9fa7838409e350ed77d13f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentRotationSpeed: 4
-  Weapon_Pivot: {fileID: 4802207913274506029}
-  UIAnimator: {fileID: 5595212810533667070}
-  enemyRefs: {fileID: 7568110113479188649}
-  DoLooking: 1
---- !u!114 &1484837429054597437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764aabf1edb7ab442a0c1496ec2ede65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DelayBetweenChecks: 3
-  WalkingSpeed: 1000
-  RoamingRadios: 3
-  spriteFliper: {fileID: 7619558403456288951}
-  moveToTarget: {fileID: 6932147153519873058}
 --- !u!114 &7929925186517721759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,10 +264,6 @@ MonoBehaviour:
   currentStats: {fileID: 0}
   FillHealthOnStart: 1
   enemyRefs: {fileID: 7568110113479188649}
-  deadBody: {fileID: 3025069177316709613, guid: 248fd0c2dc09e864187be6a45e555cb1, type: 3}
-  deadHead: {fileID: 8859067774969576514, guid: f4ef956303255b9498f259d59895984a, type: 3}
-  BloodCristals: {fileID: 5308774821670971264, guid: ee77d54bae9746040992b11977385ba0, type: 3}
-  AmountOfCristals: 1
 --- !u!114 &9036491661720074360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,9 +433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 627058440868749388}
   CurrentState: 2
-  enemyRefs: {fileID: 7568110113479188649}
-  inRangeDetectionTrigger: {fileID: 8290111105923011726}
-  outOfRangeDetectionTrigger: {fileID: 6476646031714194823}
 --- !u!114 &6132185481060562800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,12 +495,11 @@ MonoBehaviour:
   stanceMeter: {fileID: 695697341023069215}
   VFXManager: {fileID: 3450134641583009566}
   feedbackManager: {fileID: 7654662553848504304}
-  agrooMovement: {fileID: 2829660713819239201}
-  idleMovement: {fileID: 1484837429054597437}
   damageCollider: {fileID: 7350678567647433300}
   reusableStateMachine: {fileID: 892060832174240504}
   lookingPivotTf: {fileID: 8543705226525020148}
   baseEnemyStats: {fileID: 0}
+  playerInAgrooCollider: {fileID: 8290111105923011726}
   currentEnemyStats: {fileID: 0}
 --- !u!114 &892060832174240504
 MonoBehaviour:
@@ -593,6 +549,7 @@ MonoBehaviour:
   layersToHit:
     serializedVersion: 2
     m_Bits: 1114112
+  ignoreRay: 0
   MovementVectorsPerSecond: []
 --- !u!114 &353780160083487405
 MonoBehaviour:
@@ -796,7 +753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4617263032900962171
 Transform:
   m_ObjectHideFlags: 0
@@ -840,7 +797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivatorTags: []
+  ActivatorTags:
+  - 
 --- !u!1 &1630673584959798655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1296,6 @@ MonoBehaviour:
   isCharginSpecialAttack_whenParried: 1
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 0
   eventSystem: {fileID: 627058440868749388}
 --- !u!1 &2343595759810818401
 GameObject:
@@ -2030,6 +1987,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3736275689294426710}
     m_Modifications:
+    - target: {fileID: 5753776559572061850, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
+      propertyPath: enemyRefs
+      value: 
+      objectReference: {fileID: 7568110113479188649}
     - target: {fileID: 7496329245301422006, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -2111,11 +2072,6 @@ PrefabInstance:
 --- !u!4 &5595212810533667057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7496329245535888253, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
-  m_PrefabInstance: {fileID: 2715248170792313740}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5595212810533667070 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7496329245535888242, guid: f11863dd462885c47b5920fc9822f3eb, type: 3}
   m_PrefabInstance: {fileID: 2715248170792313740}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4626600347995894287

@@ -12,7 +12,7 @@ public class XP_MoveTowardsPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
             Target = collision.transform;
             isPlayerInRange = true;
@@ -20,7 +20,7 @@ public class XP_MoveTowardsPlayer : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
             Target = null;
             isPlayerInRange = false;

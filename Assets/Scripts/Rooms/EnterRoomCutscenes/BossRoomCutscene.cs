@@ -18,7 +18,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
     IEnumerator bossCutscene()
     {
         //Find the references
-        CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
+        CameraZoomController zoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
 

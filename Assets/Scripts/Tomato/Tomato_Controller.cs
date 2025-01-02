@@ -24,7 +24,7 @@ public class Tomato_Controller : MonoBehaviour
     }
     private void OnEnable()
     {
-        TomatoTrigger.AddActivatorTag(TagsCollection.Player);
+        TomatoTrigger.AddActivatorTag(Tags.Player);
         TomatoTrigger.OnTriggerEntered += TomatoCrashed;
     }
     private void OnDisable()

@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_MoveToTarget : MonoBehaviour
+public class Enemy_MoveAndRotateToTarget : MonoBehaviour
 {
-    public Transform Target;
-    [SerializeField] Rigidbody2D _rigidBody;
+    [Header("Targets")]
+    public Transform MovementTarget;
+    public Transform LookingTarget;
+    [Space(2)]
     [SerializeField] Enemy_References enemyRefs;
-    public float Velocity;
     Vector2 finalDirection;
     Vector2 DirectionToTarget;
     Vector2 OpositeDirectionToClosest;
     public bool DoMove;
+    public bool DoLook;
 
     [Header("Avoid Other Enemies")]
     [SerializeField] float MaxDistance;
@@ -22,10 +24,18 @@ public class Enemy_MoveToTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
-        proximityTrigger.AddActivatorTag(TagsCollection.IA_Obstacle);
+        proximityTrigger.AddActivatorTag(Tags.Enemy);
+        proximityTrigger.AddActivatorTag(Tags.IA_Obstacle);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
+
+        enemyRefs.enemyEvents.OnGettingParried += (int i) => EV_SlowMovingSpeed();
+        enemyRefs.enemyEvents.OnEnterIdle += EV_ReturnAllSpeed;
+    }
+    private void OnDisable()
+    {
+        enemyRefs.enemyEvents.OnGettingParried -= (int i) => EV_SlowMovingSpeed();
+        enemyRefs.enemyEvents.OnEnterIdle -= EV_ReturnAllSpeed;
     }
     private void Start()
     {
@@ -44,16 +54,16 @@ public class Enemy_MoveToTarget : MonoBehaviour
 
     void CheckClosestTransform()
     {
-        if(inRangeEnemies.Count == 0) { return; }
+        if (inRangeEnemies.Count == 0) { return; }
 
         Transform currentClosest = transform;
         float closestDistance = 100;
-        foreach(Transform t in inRangeEnemies)
+        foreach (Transform t in inRangeEnemies)
         {
             float thisDistance = (t.position - transform.position).magnitude;
-            if ( thisDistance < closestDistance)
+            if (thisDistance < closestDistance)
             {
-                closestDistance  = thisDistance;
+                closestDistance = thisDistance;
                 currentClosest = t;
             }
         }
@@ -62,24 +72,45 @@ public class Enemy_MoveToTarget : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(DoMove)
+        if (DoMove)
         {
-            if (Target == null)
+            Move();
+        }
+        if (DoLook)
+        {
+            Look();
+        }
+
+        //
+        void Move()
+        {
+            if (MovementTarget == null)
             {
-                Debug.Log(gameObject.name + " has no target");
                 return;
             }
-            if(inRangeEnemies.Count > 0)
+            if (inRangeEnemies.Count > 0)
             {
                 //The size of the other gameObject multiplies the distance influence (bigger = close)
-                float otherSizeMultiplier = (ClosestEnemy.transform.localScale.x + ClosestEnemy.transform.localScale.y)/2;
-                finalDirection = CalculateNewDirection(transform.position, ClosestEnemy.position, Target.position, otherSizeMultiplier);
+                float otherSizeMultiplier = (ClosestEnemy.transform.localScale.x + ClosestEnemy.transform.localScale.y) / 2;
+                finalDirection = CalculateNewDirection(transform.position, ClosestEnemy.position, MovementTarget.position, otherSizeMultiplier);
             }
-            else { finalDirection = (Target.position - transform.position).normalized; }
+            else { finalDirection = (MovementTarget.position - transform.position).normalized; }
 
-            //Add the force
-            //_rigidBody.AddForce( finalDirection * Velocity * Time.fixedDeltaTime);
             enemyRefs.characterMover.MovementVectorsPerSecond.Add(finalDirection * enemyRefs.currentEnemyStats.Speed);
+        }
+        void Look()
+        {
+            if (LookingTarget == null) { return; }
+
+            Vector3 TargetPos = LookingTarget.position;
+            Vector3 EnemyPos = transform.position;
+
+            Vector3 rotateTowardsVector = Vector3.RotateTowards(enemyRefs.transform.up, TargetPos - EnemyPos, enemyRefs.currentEnemyStats.RotationSpeed * Time.deltaTime, 10);
+
+            Vector3 planeposition = (Vector3.ProjectOnPlane(rotateTowardsVector, Vector3.forward)).normalized;
+            enemyRefs.transform.up = planeposition;
+
+            enemyRefs.spriteFliper.FocusVector = TargetPos;
         }
     }
 
@@ -121,11 +152,11 @@ public class Enemy_MoveToTarget : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if(inRangeEnemies.Count > 0)
+        if (inRangeEnemies.Count > 0)
         {
             Vector2 tpos = transform.position;
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(tpos,tpos + finalDirection);
+            Gizmos.DrawLine(tpos, tpos + finalDirection);
         }
     }
     float Vector2Angle(Vector2 vector)
@@ -142,5 +173,24 @@ public class Enemy_MoveToTarget : MonoBehaviour
     {
         if (Dot >= 0) return -1;
         else { return 1; }
+    }
+
+
+    float slowRotationSpeed;
+    float slowMovingSpeed;
+    private void Awake()
+    {
+        slowRotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed / 5;
+        slowMovingSpeed = enemyRefs.baseEnemyStats.Speed / 4;
+    }
+    public void EV_SlowRotationSpeed() { enemyRefs.currentEnemyStats.RotationSpeed = slowRotationSpeed; enemyRefs.spriteFliper.canFlip = false; }
+    public void EV_ReturnRotationSpeed() { enemyRefs.currentEnemyStats.RotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed; enemyRefs.spriteFliper.canFlip = true; }
+    public void EV_SlowMovingSpeed() { enemyRefs.currentEnemyStats.Speed = slowMovingSpeed; }
+    public void EV_ReturnMovingSpeed() { enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed; }
+
+    public void EV_ReturnAllSpeed()
+    {
+        EV_ReturnMovingSpeed();
+        EV_ReturnRotationSpeed();
     }
 }

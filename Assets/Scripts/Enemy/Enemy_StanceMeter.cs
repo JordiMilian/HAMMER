@@ -50,7 +50,7 @@ public class Enemy_StanceMeter : MonoBehaviour
     {
         CurrentStance = MaxStance; 
 
-        animator.SetTrigger(TagsCollection.StanceBroken);
+        animator.SetTrigger(Tags.StanceBroken);
         if (eventSystem.OnStanceBroken != null) eventSystem.OnStanceBroken();
     }
     IEnumerator Cooldown(float cooldownSeconds)

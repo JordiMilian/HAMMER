@@ -16,12 +16,12 @@ public class ChangeCameraZoom : MonoBehaviour
     CameraZoomController.ZoomInfo ThisInfo;
     private void Awake()
     {
-        cameraZoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
+        cameraZoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
         ThisInfo = new CameraZoomController.ZoomInfo(newZoom, newZoomSpeed, zoomName);
     }
     private void OnEnable()
     {
-        triggerCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        triggerCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         triggerCollider.OnTriggerEntered += addZoom;
         triggerCollider.OnTriggerExited += removeZoom;
     }

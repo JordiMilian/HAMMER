@@ -21,7 +21,7 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
         if (isRoomPermanentlyCompleted) { RoomCompleted(false,true); }
 
         else { doorController.DisableAutoDoorOpener(); }
-        combinedCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        combinedCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         combinedCollider.OnTriggerEntered += FirstTimeEnteringRoom;
     }
     public virtual void OnDisable()

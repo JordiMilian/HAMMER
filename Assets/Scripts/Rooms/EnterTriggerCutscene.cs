@@ -12,7 +12,7 @@ public class EnterTriggerCutscene : MonoBehaviour
 
     private void OnEnable()
     {
-        enterRoomTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        enterRoomTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         enterRoomTrigger.OnTriggerEntered += callEntered;
     }
     private void OnDisable()

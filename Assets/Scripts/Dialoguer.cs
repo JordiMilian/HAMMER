@@ -49,7 +49,7 @@ public class Dialoguer : MonoBehaviour
     }
     private void OnEnable()
     {
-        PlayerCloseTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        PlayerCloseTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
         eventSystem.OnReceiveDamage += OnInteracted;

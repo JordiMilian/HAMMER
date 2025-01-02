@@ -15,7 +15,7 @@ public class EndScreen : MonoBehaviour
     private void OnEnable()
     {
         images = GetComponentsInChildren<MaskableGraphic>().ToList<MaskableGraphic>();
-        EndCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        EndCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         isDisplaying = false;
         EndCollider.OnTriggerEntered += playerEnteredEndCollider;
         InputDetector.Instance.OnPausePressed += onPausePressed;

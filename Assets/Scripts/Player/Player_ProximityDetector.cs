@@ -19,9 +19,9 @@ public class Player_ProximityDetector : MonoBehaviour
     {
         //proximityTrigger.AddActivatorTag(TagsCollection.Enemy);
         //proximityTrigger.AddActivatorTag(TagsCollection.Enemy_notFocus);
-        proximityTrigger.AddActivatorTag(TagsCollection.UpgradeContainer); //Aixo donara problemes en algun moment
-        proximityTrigger.AddActivatorTag(TagsCollection.Enemy_SinglePointCollider);
-        proximityTrigger.AddActivatorTag(TagsCollection.Enemy_notFocus);
+        proximityTrigger.AddActivatorTag(Tags.UpgradeContainer); //Aixo donara problemes en algun moment
+        proximityTrigger.AddActivatorTag(Tags.Enemy_SinglePointCollider);
+        proximityTrigger.AddActivatorTag(Tags.Enemy_notFocus);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
         mouseTarget = MouseCameraTarget.Instance.transform;

@@ -10,8 +10,8 @@ public class Enemy_EventSystem : Generic_EventSystem
     public Action OnUnfocused;
     public Action CallAgrooState;
     public Action CallIdleState;
-    public Action OnAgrooState;
-    public Action OnIdleState;
+    public Action OnEnterAgroo;
+    public Action OnExitAgroo;
     public Action OnStanceBroken;
     public Action OnThrowTomato;
     public Action OnThrowGreenProjectile;

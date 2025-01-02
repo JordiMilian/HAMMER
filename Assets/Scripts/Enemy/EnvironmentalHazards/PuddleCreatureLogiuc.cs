@@ -29,7 +29,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     {
         foreach (Generic_OnTriggerEnterEvents ontrigger in puddleTriggers)
         {
-            ontrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+            ontrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
             ontrigger.OnTriggerEntered += onPlayerEnteredPuddle;
             ontrigger.OnTriggerExited += onPLayerExitedPuddle;
         }
@@ -38,14 +38,14 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     }
     void onPlayerEnteredPuddle(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.gameObject.CompareTag(Tags.Player_SinglePointCollider))
         {
             currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayWhenEntered));
         } 
     }
     void onPLayerExitedPuddle(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.gameObject.CompareTag(Tags.Player_SinglePointCollider))
         {
             cancelEverything();
         }

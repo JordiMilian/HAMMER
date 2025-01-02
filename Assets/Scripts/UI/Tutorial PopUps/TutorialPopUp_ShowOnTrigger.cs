@@ -9,7 +9,7 @@ public class TutorialPopUp_ShowOnTrigger : MonoBehaviour
 
     private void OnEnable()
     {
-        onTriggerEnter.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        onTriggerEnter.AddActivatorTag(Tags.Player_SinglePointCollider);
         onTriggerEnter.OnTriggerEntered += ShowPopUp;
     }
     private void OnDisable()

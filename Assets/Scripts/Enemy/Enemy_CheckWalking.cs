@@ -19,13 +19,13 @@ public class Enemy_CheckWalking : MonoBehaviour
         lastPosition = rb.position;
         if (RBvelocity <= Threshold && isWalking)
         {
-            CheckNSetBool(TagsCollection.Walking, false);
+            CheckNSetBool(Tags.Walking, false);
             isWalking = false;
         }
 
         else if (RBvelocity > Threshold && !isWalking)
         {
-            CheckNSetBool(TagsCollection.Walking, true);
+            CheckNSetBool(Tags.Walking, true);
             isWalking = true;
         }
     }

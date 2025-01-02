@@ -37,7 +37,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 
     private void Awake()
     {
-        zoomController = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>(); //MAL FEO FATAL potser hauria de ser un signleton
+        zoomController = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>(); //MAL FEO FATAL potser hauria de ser un signleton
         inputDetector = InputDetector.Instance;
     }
 
@@ -228,7 +228,6 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             }
         }
     }
-
     void OnFocusedEnemyDied( object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
         const float diedRadius = 5;
@@ -263,7 +262,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         EnemyStats currentEnemyStats = info.AttackedRoot.GetComponent<Enemy_References>().currentEnemyStats;
         if ( currentEnemyStats!= null && currentEnemyStats.CurrentHp <= 0) { return; }
 
-        if(info.AttackedRoot.CompareTag(TagsCollection.Enemy))
+        if(info.AttackedRoot.CompareTag(Tags.Enemy))
         {
             FocusNewEnemy(info.AttackedRoot);
         }

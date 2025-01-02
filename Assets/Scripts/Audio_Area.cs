@@ -13,7 +13,7 @@ public class Audio_Area : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents audioTriggerCollider;
     private void OnEnable()
     {
-        audioTriggerCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        audioTriggerCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         audioTriggerCollider.OnTriggerEntered += onFadeInAudio;
         audioTriggerCollider.OnTriggerExited += onFadeOutAudio;
         MusicManager.Instance.AddMusicSource(audioSource);

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GreenBoss_AnimationEvents : MonoBehaviour
 {
+    /* DEPRECATED??
     [SerializeField] Enemy_AttacksProviderV2 fase01Provider;
     [SerializeField] Enemy_AttacksProviderV2 fase02Provider;
     Enemy_AttacksProviderV2 currentProvider;
@@ -39,4 +40,5 @@ public class GreenBoss_AnimationEvents : MonoBehaviour
     public void EV_SlowMovingSpeed() { currentMovement.EV_SlowMovingSpeed(); }
     public void EV_ReturnMovingSpeed() { currentMovement.EV_ReturnMovingSpeed(); }
     public void EV_ReturnAllSpeed() { currentMovement.EV_ReturnAllSpeed(0); }
+    */
 }

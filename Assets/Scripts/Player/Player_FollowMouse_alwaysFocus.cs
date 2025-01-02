@@ -41,9 +41,9 @@ public class Player_FollowMouse_alwaysFocus : MonoBehaviour
     [SerializeField] GameState gameState;
     private void Awake()
     {
-        MouseFocusTransform = GameObject.Find(TagsCollection.MouseCameraTarget).transform;
+        MouseFocusTransform = GameObject.Find(Tags.MouseCameraTarget).transform;
         //cinemachineTarget = GameObject.Find("TargetGroup").GetComponent<CinemachineTargetGroup>();
-        zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
+        zoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
         inputDetector = InputDetector.Instance;
     }
     private void OnEnable()

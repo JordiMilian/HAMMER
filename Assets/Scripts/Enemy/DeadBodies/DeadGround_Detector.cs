@@ -9,7 +9,7 @@ public class DeadGround_Detector : MonoBehaviour
     [SerializeField] float exitSpeed = 0.01f;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer(TagsCollection.BlockingWalls))
+        if (collision.gameObject.layer == LayerMask.NameToLayer(Tags.BlockingWalls))
         {
             
             /*
@@ -23,7 +23,7 @@ public class DeadGround_Detector : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer(TagsCollection.BlockingWalls))
+        if (collision.gameObject.layer == LayerMask.NameToLayer(Tags.BlockingWalls))
         {
 
 

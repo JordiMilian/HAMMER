@@ -30,26 +30,25 @@ public class Enemy_AgrooMovement : MonoBehaviour
     }
     private void OnEnable()
     {
-        enemyRefs.enemyEvents.OnGettingParried += (int i)=>EV_SlowMovingSpeed();
-        enemyRefs.enemyEvents.OnEnterIdle += returnSpeedOnIdle;
         StartAgroo();
     }
     private void OnDisable()
     {
-        enemyRefs.enemyEvents.OnGettingParried -= (int i) => EV_SlowMovingSpeed();
-        enemyRefs.enemyEvents.OnEnterIdle -= returnSpeedOnIdle;
         EndAgroo();
     }
     void EndAgroo()
     {
-        enemyRefs.moveToTarget.Target = null;
+        enemyRefs.moveToTarget.MovementTarget = null;
     }
     void StartAgroo()
     {
         PlayerTransform = GlobalPlayerReferences.Instance.playerTf;
+
         UIAnimator.SetTrigger("AgrooAlert");
 
-        enemyRefs.moveToTarget.Target = PlayerTransform;
+        enemyRefs.moveToTarget.LookingTarget = PlayerTransform;
+        enemyRefs.moveToTarget.DoLook = true;
+        enemyRefs.moveToTarget.MovementTarget = PlayerTransform;
         enemyRefs.moveToTarget.DoMove = true;
     }
     void Update()
@@ -70,20 +69,6 @@ public class Enemy_AgrooMovement : MonoBehaviour
         Weapon_Pivot.up = planeposition;
     }
 
-    public void EV_SlowRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, SlowRotationSpeed, 0.1f)); enemyRefs.spriteFliper.canFlip = false; }
-    public void EV_ReturnRotationSpeed() { StartCoroutine(ChangeRotation(CurrentRotationSpeed, BaseRotationSpeed, 0.1f)); enemyRefs.spriteFliper.canFlip = true; }
-    public void EV_SlowMovingSpeed() { enemyRefs.currentEnemyStats.Speed = SlowSpeedF; }
-    public void EV_ReturnMovingSpeed() { enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed; }
-                                         
-    public void EV_ReturnAllSpeed(int i)
-    {
-        EV_ReturnMovingSpeed();
-        EV_ReturnRotationSpeed();
-    }
-    void returnSpeedOnIdle()
-    {
-        EV_ReturnAllSpeed(0);
-    }
     IEnumerator ChangeRotation(float v_start, float v_end, float duration)
     {
         float elapsed = 0.0f;

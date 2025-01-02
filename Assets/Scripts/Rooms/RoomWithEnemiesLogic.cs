@@ -40,7 +40,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
         base.OnEnable();
 
         GameEvents.OnPlayerReappear += delayedDestroy;
-        SpawnTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        SpawnTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
     }
     public override void OnDisable()

@@ -20,11 +20,6 @@ public class Generic_DamageDealer : MonoBehaviour
         Player, Enemy, Object,
     }
     public Team EntityTeam;
-    public enum TypeofDamage
-    {
-        Weapon, Static,
-    }
-    public TypeofDamage typeOfDamage;
 
 
     public EventHandler OnGettingParried;
@@ -84,30 +79,30 @@ public class Generic_DamageDealer : MonoBehaviour
 
 
 
-        if(collision.CompareTag(TagsCollection.Object_Hurtbox))
+        if(collision.CompareTag(Tags.Object_Hurtbox))
         {
             PublishHitObject(collision);
         }
         switch (EntityTeam)
         {
             case Team.Player:                
-                if (collision.CompareTag(TagsCollection.Enemy_Hurtbox))// || collision.GetComponent<Generic_DamageDetector>().EntityTeam == Generic_DamageDetector.Team.Player)
+                if (collision.CompareTag(Tags.Enemy_Hurtbox))// || collision.GetComponent<Generic_DamageDetector>().EntityTeam == Generic_DamageDetector.Team.Player)
                 {
                     bool isChargeable = collision.GetComponent<Generic_DamageDetector>().canChargeSpecialAttack; //Find if the damage Detector is chargeable and pass the info
                     PublishDealtDamageEvent(collision,isChargeable);
                 }
-                else if (collision.CompareTag(TagsCollection.EnemyParryCollider))
+                else if (collision.CompareTag(Tags.EnemyParryCollider))
                 {
                     PublishGettingParriedEvent();
                 }
                 break;
                 
             case Team.Enemy:
-                if(collision.CompareTag(TagsCollection.Player_Hurtbox))
+                if(collision.CompareTag(Tags.Player_Hurtbox))
                 {
                     PublishDealtDamageEvent(collision);
                 }
-                if(collision.CompareTag(TagsCollection.ParryCollider) && isParryable) 
+                if(collision.CompareTag(Tags.ParryCollider) && isParryable) 
                 {
                     PublishGettingParriedEvent();
                 }

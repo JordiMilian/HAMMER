@@ -11,7 +11,7 @@ public class AddCameraTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        _onTriggerEnterEvents.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        _onTriggerEnterEvents.AddActivatorTag(Tags.Player_SinglePointCollider);
         _onTriggerEnterEvents.OnTriggerEntered += AddTarget;
         _onTriggerEnterEvents.OnTriggerExited += removeTarget;
     }

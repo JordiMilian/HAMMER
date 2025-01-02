@@ -10,7 +10,7 @@ public class FocusLimit : MonoBehaviour
     {
         if (playerFocus == null) { playerFocus = GlobalPlayerReferences.Instance.references.followMouse; }
 
-        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
             if(playerFocus.CurrentlyFocusedEnemy == FocuseTarget)
             {

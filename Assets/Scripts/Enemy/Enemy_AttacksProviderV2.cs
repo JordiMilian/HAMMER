@@ -38,7 +38,6 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public int Probability;
         public float KnockBack;
         [HideInInspector] public  float Hitstop;
-        //public string TriggerName;
         public AnimationClip animationClip;
         [Header("Cooldown")]
         public bool isInCooldown;
@@ -110,7 +109,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         //bastant guarro aixo
         if (PlayerIsInAnyRange)
         {
-            if (enemyRefs.animator.GetBool("inIdle") && isProviding && !enemyRefs.animator.GetBool("Attacking")) 
+            if (enemyRefs.animator.GetBool(Tags.InAgroo) && isProviding && !enemyRefs.animator.GetBool(Tags.Attacking)) 
             {
                 if(isNextAttackForced)
                 {
@@ -134,7 +133,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
         //Replace the StateMachines attack clip
         reusableStateMachine.ReplaceaStatesClip(reusableStateMachine.statesDictionary[Enemy_ReusableStateMachine.animationStates.BaseEnemy_Attacking], selectedAttack.animationClip);
-        enemyRefs.animator.SetBool("Attacking",true);
+        enemyRefs.animator.SetBool(Tags.Attacking,true);
 
 
         //Cooldown if it has it
@@ -188,13 +187,16 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 Debuguer(i + " failed chance");
             }
         }
+
+        //
+        float AddAttacksProbability(List<EnemyAttack> attacks)
+        {
+            float Probabilities = 0;
+            foreach (EnemyAttack attack in attacks) { Probabilities += attack.Probability; }
+            return Probabilities;
+        }
     }
-    float AddAttacksProbability(List<EnemyAttack> attacks)
-    {
-        float Probabilities = 0;
-        foreach (EnemyAttack attack in attacks) { Probabilities += attack.Probability; }
-        return Probabilities;
-    }
+    
     public static void ResetAllTriggers(Animator anim)
     {
         foreach (var param in anim.parameters)

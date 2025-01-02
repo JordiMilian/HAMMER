@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,10 @@ using UnityEngine.Events;
 public class EnemyStats : EntityStats
 {
     [SerializeField] private int _xpDrop;
+    [SerializeField] private float _rotationSpeed;
 
     [HideInInspector] public UnityEvent<float> OnXpDropChange;
+    [HideInInspector] public Action<float> OnRotationSpeedChange;
 
     public int XpToDrop
     {
@@ -18,6 +21,16 @@ public class EnemyStats : EntityStats
             if (Mathf.Approximately(_xpDrop, value)) return;
             _xpDrop = value;
             OnXpDropChange?.Invoke(_xpDrop);
+        }
+    }
+
+    public float RotationSpeed
+    {
+        get => _rotationSpeed;
+        set
+        {
+            _rotationSpeed = value;
+            OnRotationSpeedChange?.Invoke(_rotationSpeed);
         }
     }
     public void CopyStats(EnemyStats importedStats)

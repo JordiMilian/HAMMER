@@ -13,7 +13,7 @@ public class Enemy_invertOvniWhenClose : MonoBehaviour
     private void OnEnable()
     {
         originalStrengh = enemyOvniMaker.Strengh;
-        enterEvents.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        enterEvents.AddActivatorTag(Tags.Player_SinglePointCollider);
         enterEvents.OnTriggerEntered += playerEntered;
         enemyRefs.enemyEvents.OnAttackFinished += onAttackOver;
     }

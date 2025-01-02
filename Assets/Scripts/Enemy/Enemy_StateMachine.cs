@@ -7,6 +7,8 @@ using static Generic_OnTriggerEnterEvents;
 
 public class Enemy_StateMachine : Generic_StateMachine
 {
+    //THIS SCRIPT MUST BE KILLED
+    /*
     [SerializeField] Enemy_References enemyRefs;
     [SerializeField] Generic_OnTriggerEnterEvents inRangeDetectionTrigger;
     [SerializeField] Generic_OnTriggerEnterEvents outOfRangeDetectionTrigger;
@@ -43,7 +45,7 @@ public class Enemy_StateMachine : Generic_StateMachine
     {
         if (CurrentState != States.Idle)
         {
-            if (enemyRefs.enemyEvents.OnIdleState != null) enemyRefs.enemyEvents.OnIdleState();
+            if (enemyRefs.enemyEvents.OnEnterIdle != null) enemyRefs.enemyEvents.OnEnterIdle();
             enemyRefs.agrooMovement.enabled = false;
             enemyRefs.attackProvider.enabled = false;
 
@@ -55,7 +57,7 @@ public class Enemy_StateMachine : Generic_StateMachine
     {
         if(CurrentState != States.Agroo)
         {
-            if (enemyRefs.enemyEvents.OnAgrooState != null) enemyRefs.enemyEvents.OnAgrooState();
+            if (enemyRefs.enemyEvents.OnEnterAgroo != null) enemyRefs.enemyEvents.OnEnterAgroo();
             enemyRefs.agrooMovement.enabled = true;
             enemyRefs.attackProvider.enabled = true;
 
@@ -73,4 +75,5 @@ public class Enemy_StateMachine : Generic_StateMachine
         yield return new WaitForSecondsRealtime(0.1f);
         Destroy(gameObject);
     }
+    */
 }

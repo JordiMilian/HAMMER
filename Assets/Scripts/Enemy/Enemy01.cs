@@ -35,11 +35,11 @@ public class Enemy01 : MonoBehaviour
             TimeScaleEditor.Instance.HitStop(0.05f);
         }
 
-        enemyRefs.agrooMovement.EV_SlowRotationSpeed();
-        enemyRefs.agrooMovement.EV_SlowMovingSpeed();
+        enemyRefs.moveToTarget.EV_SlowRotationSpeed();
+        enemyRefs.moveToTarget.EV_SlowMovingSpeed();
         //enemyMovement.IsAgroo = true;
 
-        enemyRefs.animator.SetTrigger(TagsCollection.PushBack);
+        enemyRefs.animator.SetTrigger(Tags.PushBack);
         StartCoroutine(WaitReceiveDamage());
         //Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
         //enemyRefs._rigidbody.AddForce(AttackerDirection * receivedAttackinfo.KnockBack);
@@ -56,13 +56,13 @@ public class Enemy01 : MonoBehaviour
     IEnumerator WaitReceiveDamage()
     {
         yield return new WaitForSeconds(0.3f);
-        enemyRefs.agrooMovement.EV_ReturnAllSpeed(0);
+        enemyRefs.moveToTarget.EV_ReturnAllSpeed();
     }
     public void GettingParried(int i) // Go to Damage Dealer to set int
     {
         if (!hasMultipleParries)
         {
-            enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
+            enemyRefs.animator.SetTrigger(Tags.HitShield);
 
             GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
 
@@ -98,14 +98,14 @@ public class Enemy01 : MonoBehaviour
             );
         }
 
-        enemyRefs.animator.SetTrigger(TagsCollection.HitShield);
+        enemyRefs.animator.SetTrigger(Tags.HitShield);
 
         GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
 
     }
     public void EndHitShield()
     {
-        enemyRefs.animator.SetBool(TagsCollection.HitShield, false);
+        enemyRefs.animator.SetBool(Tags.HitShield, false);
     }
     void slowMoOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {

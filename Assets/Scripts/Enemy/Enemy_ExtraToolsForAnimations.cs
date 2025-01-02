@@ -19,11 +19,11 @@ public class Enemy_ExtraToolsForAnimations : MonoBehaviour
     }
     public void EV_StopLookingAtPlayer()
     {
-        enemyRefs.agrooMovement.DoLooking = false;
+        enemyRefs.moveToTarget.DoLook = false;
     }
     public void EV_ContinueLookingAtPlayer()
     {
-        enemyRefs.agrooMovement.DoLooking = true;
+        enemyRefs.moveToTarget.DoLook = true;
         Debug.Log("continue looking");
     }
     public void EV_SetWeaponPivotRotation(float rotation)

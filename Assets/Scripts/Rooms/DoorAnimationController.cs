@@ -25,7 +25,7 @@ public class DoorAnimationController : MonoBehaviour
      */  
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag(TagsCollection.Player_SinglePointCollider))
+        if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
             CloseDoor();
         }

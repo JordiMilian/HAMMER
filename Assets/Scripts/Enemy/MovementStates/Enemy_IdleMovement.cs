@@ -11,7 +11,7 @@ public class Enemy_IdleMovement : MonoBehaviour
     [SerializeField] float RoamingRadios = 2;
 
     [SerializeField] Generic_FlipSpriteWithFocus spriteFliper;
-    [SerializeField] Enemy_MoveToTarget moveToTarget;
+    [SerializeField] Enemy_MoveAndRotateToTarget moveToTarget;
 
     bool IsEnabled = false;
 
@@ -29,7 +29,7 @@ public class Enemy_IdleMovement : MonoBehaviour
         
         DecideWalk();
 
-        moveToTarget.Target = null;
+        moveToTarget.MovementTarget = null;
         moveToTarget.DoMove = false;
     }
     private void OnDisable()
@@ -57,7 +57,7 @@ public class Enemy_IdleMovement : MonoBehaviour
             Vector2 newDestination = RoaminCenterVector + (Random.insideUnitCircle * RoamingRadios);
 
             DestinationGO.transform.position = newDestination;
-            moveToTarget.Target = DestinationGO.transform;
+            moveToTarget.MovementTarget = DestinationGO.transform;
 
             spriteFliper.FocusVector = newDestination;
         }

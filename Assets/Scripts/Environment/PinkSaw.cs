@@ -25,7 +25,7 @@ public class PinkSaw : MonoBehaviour
     int currentPos;
     private void OnEnable()
     {
-        sawAreaTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        sawAreaTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         sawAreaTrigger.onAreaActive += startSawing;
         sawAreaTrigger.onAreaUnactive += stopSawing;
         currentPos = startingPos;

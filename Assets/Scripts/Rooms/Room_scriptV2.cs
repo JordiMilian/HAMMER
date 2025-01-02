@@ -34,7 +34,7 @@ public class Room_scriptV2 : MonoBehaviour //DEPRECATED SCPRIPT PLS DELETE
     }
     private void OnEnable()
     {
-        enterRoomCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        enterRoomCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         enterRoomCollider.OnTriggerEntered += playerEnteredRoom;
         enterRoomCollider.OnTriggerExited += playerExitedRoom;
     }

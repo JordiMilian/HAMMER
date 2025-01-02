@@ -10,7 +10,7 @@ public class TutorialMannequin : MonoBehaviour
     {
         if(!isAttackingMannequin) { return; }
 
-        proximityTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        proximityTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         proximityTrigger.OnTriggerEntered += startAttacking;
         proximityTrigger.OnTriggerExited += stopAttacking;
     }

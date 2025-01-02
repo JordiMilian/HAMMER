@@ -35,7 +35,7 @@ public class Room_script : MonoBehaviour
     }
     private void OnEnable()
     {
-        enterRoomCollider.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        enterRoomCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         enterRoomCollider.OnTriggerEntered += playerEnteredRoom;
         enterRoomCollider.OnTriggerExited += playerExitedRoom;
     }

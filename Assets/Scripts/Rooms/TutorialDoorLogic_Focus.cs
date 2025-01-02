@@ -18,7 +18,7 @@ public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
        
         playerEvents.OnFocusEnemy += FocusedEnemy;
 
-        getCloseToMannequinTrigger.AddActivatorTag(TagsCollection.Player_SinglePointCollider);
+        getCloseToMannequinTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         getCloseToMannequinTrigger.OnTriggerEntered += AutoFocusMannequin;
     }
     void AutoFocusMannequin(Collider2D collider)

@@ -26,7 +26,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
     {
         
         //Find the references
-        CameraZoomController zoomer = GameObject.Find(TagsCollection.CMvcam1).GetComponent<CameraZoomController>();
+        CameraZoomController zoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
         Player_FollowMouseWithFocus_V2 followMouse = GlobalPlayerReferences.Instance.references.followMouse;
 
         //Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
@@ -45,7 +45,9 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         //Activate the Agroo of the enemies
         foreach (GameObject enemy in enemyRoomLogic.CurrentlySpawnedEnemies)
         {
-            enemy.GetComponent<Enemy_EventSystem>().CallAgrooState?.Invoke();
+            Enemy_References enemyRefs = enemy.GetComponent<Enemy_References>();
+            enemyRefs.enemyEvents.CallAgrooState?.Invoke();
+            enemyRefs.animator.SetTrigger(Tags.playerDetected);
         }
         
         followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0]);

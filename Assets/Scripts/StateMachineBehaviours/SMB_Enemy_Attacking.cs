@@ -21,6 +21,6 @@ public class SMB_Enemy_Attacking : StateMachineBehaviour
         if (references == null) { references = animator.gameObject.GetComponent<Enemy_References>(); }
 
         references.enemyEvents.OnStartAttack?.Invoke();
-        references.agrooMovement.EV_SlowMovingSpeed();
+        references.moveToTarget.EV_SlowMovingSpeed();
     }
 }

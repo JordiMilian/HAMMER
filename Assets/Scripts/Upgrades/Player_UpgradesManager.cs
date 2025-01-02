@@ -11,7 +11,7 @@ public class Player_UpgradesManager : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents UpgradeColliderDetector;
     private void OnEnable()
     {
-        UpgradeColliderDetector.AddActivatorTag(TagsCollection.UpgradeContainer);
+        UpgradeColliderDetector.AddActivatorTag(Tags.UpgradeContainer);
         UpgradeColliderDetector.OnTriggerEntered += onSingleTriggerEnter;
 
         foreach (Upgrade upgrade in gameState.playerUpgrades)
@@ -30,7 +30,7 @@ public class Player_UpgradesManager : MonoBehaviour
     }
     private void onSingleTriggerEnter(Collider2D collision)
     {
-        if(collision.CompareTag(TagsCollection.UpgradeContainer))
+        if(collision.CompareTag(Tags.UpgradeContainer))
         {
             Debug.Log("upgrade:" +  collision.name);
             UpgradeContainer upgradeContainer = collision.GetComponent<UpgradeContainer>(); //CREA UN TAG O ALGUNA COSA PERFA
