@@ -37,13 +37,9 @@ public class Enemy01 : MonoBehaviour
 
         enemyRefs.moveToTarget.EV_SlowRotationSpeed();
         enemyRefs.moveToTarget.EV_SlowMovingSpeed();
-        //enemyMovement.IsAgroo = true;
 
         enemyRefs.animator.SetTrigger(Tags.PushBack);
         StartCoroutine(WaitReceiveDamage());
-        //Vector2 AttackerDirection = (transform.position - receivedAttackinfo.Attacker.transform.position).normalized;
-        //enemyRefs._rigidbody.AddForce(AttackerDirection * receivedAttackinfo.KnockBack);
-        //StartCoroutine(UsefullMethods.ApplyForceOverTime(enemyRefs._rigidbody, receivedAttackinfo.ConcreteDirection * receivedAttackinfo.KnockBack ,0.2f));
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
             enemyRefs.characterMover,
             receivedAttackinfo.KnockBack,
