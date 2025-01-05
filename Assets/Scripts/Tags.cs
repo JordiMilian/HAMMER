@@ -44,6 +44,7 @@ public class Tags
     public static int playerDetected = Animator.StringToHash("playerDetected");
     public static int death = Animator.StringToHash("death");
 
+    public static int BossIntro = Animator.StringToHash("BossIntro");
 
     //Player
     public static int canTransition = Animator.StringToHash("canTransition");

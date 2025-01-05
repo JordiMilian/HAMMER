@@ -38,20 +38,14 @@ public class Enemy_StanceMeter : MonoBehaviour
         CurrentStance -= receivedAttackInfo.Damage;
         if (CurrentStance <= 0)
         {
-            StanceBroken();
+            CurrentStance = MaxStance;
+            eventSystem.OnStanceBroken?.Invoke();
         }
         else
         {
             StartCoroutine(Cooldown(CooldownAfterDamage));
         }
         
-    }
-    void StanceBroken()
-    {
-        CurrentStance = MaxStance; 
-
-        animator.SetTrigger(Tags.StanceBroken);
-        if (eventSystem.OnStanceBroken != null) eventSystem.OnStanceBroken();
     }
     IEnumerator Cooldown(float cooldownSeconds)
     {

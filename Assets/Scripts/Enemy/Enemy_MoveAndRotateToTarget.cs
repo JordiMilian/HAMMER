@@ -29,13 +29,12 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
 
-        enemyRefs.enemyEvents.OnGettingParried += (int i) => EV_SlowMovingSpeed();
-        enemyRefs.enemyEvents.OnEnterIdle += EV_ReturnAllSpeed;
+        
     }
     private void OnDisable()
     {
-        enemyRefs.enemyEvents.OnGettingParried -= (int i) => EV_SlowMovingSpeed();
-        enemyRefs.enemyEvents.OnEnterIdle -= EV_ReturnAllSpeed;
+        proximityTrigger.OnTriggerEntered -= AddEnemy;
+        proximityTrigger.OnTriggerExited -= RemoveEnemy;
     }
     private void Start()
     {

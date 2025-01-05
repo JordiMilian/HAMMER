@@ -20,6 +20,8 @@ public class Enemy_References : Generic_References
     public EnemyStats baseEnemyStats;
     public Generic_OnTriggerEnterEvents playerInAgrooCollider;
     [HideInInspector] public EnemyStats currentEnemyStats;
+    public Enemy_ShowHideAttackCollider showHideAttackCollider;
+    public Enemy_StateController_BasicEnemy stateController;
     private void Awake()
     {
         currentEnemyStats = new EnemyStats();

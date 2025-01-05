@@ -120,7 +120,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 }
 
                 ResetAllTriggers(enemyRefs.animator); //Aixo crec que es pot borrar pero per si de cas nose
-                PickAvailableAttacks();
+                PickAvailableAttackAndPerform();
             }
         }
     }
@@ -149,7 +149,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         dealer.Knockback = selectedAttack.KnockBack;
         dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
     }
-    void PickAvailableAttacks()
+    void PickAvailableAttackAndPerform()
     {
         //Make a list of all active attacks and not in Cooldown
         List<EnemyAttack> ActiveAttacks = new List<EnemyAttack>();

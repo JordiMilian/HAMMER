@@ -47,20 +47,21 @@ public class Enemy01 : MonoBehaviour
             receivedAttackinfo.ConcreteDirection,
             damagedMovementCurve,
             damagedCurveAverage));
-       
+
+        IEnumerator WaitReceiveDamage()
+        {
+            yield return new WaitForSeconds(0.3f);
+            enemyRefs.moveToTarget.EV_ReturnAllSpeed();
+        }
     }  
-    IEnumerator WaitReceiveDamage()
-    {
-        yield return new WaitForSeconds(0.3f);
-        enemyRefs.moveToTarget.EV_ReturnAllSpeed();
-    }
+    
     public void GettingParried(int i) // Go to Damage Dealer to set int
     {
         if (!hasMultipleParries)
         {
             enemyRefs.animator.SetTrigger(Tags.HitShield);
 
-            GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
+            GetComponent<Enemy_ShowHideAttackCollider>().HideCollliderOnParry();
 
             return;
         }
@@ -96,7 +97,7 @@ public class Enemy01 : MonoBehaviour
 
         enemyRefs.animator.SetTrigger(Tags.HitShield);
 
-        GetComponent<Generic_ShowHideAttackCollider>().HideCollliderOnParry();
+        GetComponent<Enemy_ShowHideAttackCollider>().HideCollliderOnParry();
 
     }
     public void EndHitShield()

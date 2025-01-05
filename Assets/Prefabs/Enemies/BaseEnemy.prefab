@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 892060832174240504}
   - component: {fileID: 7622995783535628857}
   - component: {fileID: 353780160083487405}
+  - component: {fileID: 516590991064698706}
   m_Layer: 16
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -115,6 +116,7 @@ Transform:
   - {fileID: 5182215059924202484}
   - {fileID: 2054546243307670428}
   - {fileID: 1530135795851701840}
+  - {fileID: 2256147650382098256}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -501,6 +503,7 @@ MonoBehaviour:
   baseEnemyStats: {fileID: 0}
   playerInAgrooCollider: {fileID: 8290111105923011726}
   currentEnemyStats: {fileID: 0}
+  showHideAttackCollider: {fileID: 0}
 --- !u!114 &892060832174240504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +570,44 @@ MonoBehaviour:
   testingXpToDrop: 0
   triggerChoseXp: 0
   enemyRefs: {fileID: 7568110113479188649}
+--- !u!114 &516590991064698706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879d47014b284a64dbc32a03c5de1b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyRefs: {fileID: 7568110113479188649}
+  damagedMovementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.0857438
+      outSlope: -0.0857438
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09546539
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.915279
+      outSlope: -2.915279
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.023866355
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  agrooTrigger: {fileID: 8290111105923011726}
 --- !u!1 &848200506690117509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,6 +1605,37 @@ MonoBehaviour:
   ThrowTomatoSFX: {fileID: 8300000, guid: 98de09000614da74f8712bcb8c39be28, type: 3}
   ThrowGreenProjectileSFX: {fileID: 8300000, guid: 98de09000614da74f8712bcb8c39be28, type: 3}
   ThrowSingleSawSFX: {fileID: 0}
+--- !u!1 &4097821358489816859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2256147650382098256}
+  m_Layer: 0
+  m_Name: Scripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2256147650382098256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097821358489816859}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.044622, y: 0.8491699, z: 0.07470958}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4802207913274506029}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4606171930191014504
 GameObject:
   m_ObjectHideFlags: 0

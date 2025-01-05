@@ -46,8 +46,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         foreach (GameObject enemy in enemyRoomLogic.CurrentlySpawnedEnemies)
         {
             Enemy_References enemyRefs = enemy.GetComponent<Enemy_References>();
-            enemyRefs.enemyEvents.CallAgrooState?.Invoke();
-            enemyRefs.animator.SetTrigger(Tags.playerDetected);
+            enemyRefs.stateController.ForceAgroo();
         }
         
         followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0]);

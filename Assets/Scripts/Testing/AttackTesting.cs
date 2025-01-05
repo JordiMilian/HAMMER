@@ -16,7 +16,7 @@ public class AttackTesting : MonoBehaviour
     [SerializeField] int AttackToTest;
     private void Awake()
     {
-        Enemy.GetComponent<Generic_ShowHideAttackCollider>().isTesting = true;
+        Enemy.GetComponent<Enemy_ShowHideAttackCollider>().isTesting = true;
         AttackProviderV2 = Enemy.GetComponent<Enemy_AttacksProviderV2>();
     }
     void RestartPosition()

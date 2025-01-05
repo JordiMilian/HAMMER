@@ -11,20 +11,9 @@ public class SMB_Enemy_Agroo : StateMachineBehaviour
     {
         if (enemyRefs == null) { enemyRefs = animator.GetComponent<Enemy_References>(); }
 
-        Transform PlayerTransform = GlobalPlayerReferences.Instance.playerTf;
-
-        enemyRefs.moveToTarget.LookingTarget = PlayerTransform;
-        enemyRefs.moveToTarget.DoLook = true;
-        enemyRefs.moveToTarget.MovementTarget = PlayerTransform;
-        enemyRefs.moveToTarget.DoMove = true;
-        enemyRefs.attackProvider.isProviding = true;
-
         animator.SetBool("inAgroo", true);
 
         enemyRefs.enemyEvents.OnEnterAgroo?.Invoke();
-
-        
-       
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

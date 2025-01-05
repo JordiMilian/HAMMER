@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Generic_ShowHideAttackCollider : MonoBehaviour
+public class Enemy_ShowHideAttackCollider : Base_ShowHideAttackCollider
 {
     [SerializeField] List <Generic_DamageDealer> damageDealer = new List<Generic_DamageDealer>();
-    public Generic_EventSystem eventSystem;
+
+    public Enemy_References enemyRefs;
     public TrailRenderer trailrendered;
     public TrailRenderer testTrailrendered;
     [HideInInspector] public bool isTesting;
@@ -15,13 +16,13 @@ public class Generic_ShowHideAttackCollider : MonoBehaviour
     }
     private void OnEnable()
     {
-        eventSystem.OnEnterIdle += EV_Enemy_HideAttackCollider;
+        enemyRefs.enemyEvents.OnEnterAgroo += EV_Enemy_HideAttackCollider;
     }
     private void OnDisable()
     {
-        eventSystem.OnEnterIdle -= EV_Enemy_HideAttackCollider;
+        enemyRefs.enemyEvents.OnEnterAgroo -= EV_Enemy_HideAttackCollider;
     }
-    public  void EV_Enemy_ShowAttackCollider()
+    public override void EV_Enemy_ShowAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in damageDealer)
         {
@@ -30,9 +31,9 @@ public class Generic_ShowHideAttackCollider : MonoBehaviour
         
         if (isTesting) { testTrailrendered.emitting = true; return; }
         if (trailrendered != null) trailrendered.emitting = true;
-        eventSystem.OnShowCollider?.Invoke();
+        enemyRefs.enemyEvents.OnShowCollider?.Invoke();
     }
-    public  void EV_Enemy_HideAttackCollider()
+    public override void EV_Enemy_HideAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in damageDealer)
         {
