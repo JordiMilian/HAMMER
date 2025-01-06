@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Enemy_AttackRangeDetector : MonoBehaviour
 {
-    public EventHandler OnPlayerEntered;
-    public EventHandler OnPlayerExited;
+    public Action OnPlayerEntered;
+    public Action OnPlayerExited;
     public BoxCollider2D ownCollider;
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class Enemy_AttackRangeDetector : MonoBehaviour
     {
         if(collision.CompareTag("Player_SinglePointCollider"))
         {
-            if(OnPlayerEntered != null) OnPlayerEntered(this,EventArgs.Empty);
+            if(OnPlayerEntered != null) OnPlayerEntered();
         }
         
     }
@@ -25,7 +25,7 @@ public class Enemy_AttackRangeDetector : MonoBehaviour
     {
         if (collision.CompareTag("Player_SinglePointCollider"))
         {
-            if (OnPlayerExited != null) OnPlayerExited(this, EventArgs.Empty);
+            if (OnPlayerExited != null) OnPlayerExited();
         }
             
     }

@@ -11,13 +11,13 @@ public class SMB_Enemy_Agroo : StateMachineBehaviour
     {
         if (enemyRefs == null) { enemyRefs = animator.GetComponent<Enemy_References>(); }
 
-        animator.SetBool("inAgroo", true);
+        animator.SetBool(Tags.InAgroo, true);
 
         enemyRefs.enemyEvents.OnEnterAgroo?.Invoke();
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("inAgroo", false);
+        animator.SetBool(Tags.InAgroo, false);
 
         enemyRefs.enemyEvents.OnExitAgroo?.Invoke();
     }

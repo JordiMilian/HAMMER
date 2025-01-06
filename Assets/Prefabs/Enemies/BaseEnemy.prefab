@@ -79,7 +79,6 @@ GameObject:
   - component: {fileID: 6932147153519873058}
   - component: {fileID: 7929925186517721759}
   - component: {fileID: 9036491661720074360}
-  - component: {fileID: 7073730092788972273}
   - component: {fileID: 3457608814812501881}
   - component: {fileID: 3450134641583009566}
   - component: {fileID: 695697341023069215}
@@ -351,24 +350,6 @@ MonoBehaviour:
     isInCooldown: 0
     HasCooldown: 0
     CooldownTime: 0
---- !u!114 &7073730092788972273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageDealer:
-  - {fileID: 8393237760477941251}
-  eventSystem: {fileID: 627058440868749388}
-  trailrendered: {fileID: 0}
-  testTrailrendered: {fileID: 1062320051197155423}
-  isTesting: 0
 --- !u!114 &3457608814812501881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +485,7 @@ MonoBehaviour:
   playerInAgrooCollider: {fileID: 8290111105923011726}
   currentEnemyStats: {fileID: 0}
   showHideAttackCollider: {fileID: 0}
+  stateController: {fileID: 516590991064698706}
 --- !u!114 &892060832174240504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +590,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   agrooTrigger: {fileID: 8290111105923011726}
+  currentAttack:
+    ShortDescription: 
+    rangeDetector: {fileID: 0}
+    boxCollider: {fileID: 0}
+    isActive: 0
+    notOvniInvertable: 0
+    Damage: 0
+    Probability: 0
+    KnockBack: 0
+    Hitstop: 0
+    animationClip: {fileID: 0}
+    isInCooldown: 0
+    HasCooldown: 0
+    CooldownTime: 0
 --- !u!1 &848200506690117509
 GameObject:
   m_ObjectHideFlags: 0

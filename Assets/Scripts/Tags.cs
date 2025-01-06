@@ -43,6 +43,7 @@ public class Tags
     public static int AttackedWhileRecovering = Animator.StringToHash("AttackedWhileRecovering");
     public static int playerDetected = Animator.StringToHash("playerDetected");
     public static int death = Animator.StringToHash("death");
+    public static int PerformAttack = Animator.StringToHash("PerformAttack");
 
     public static int BossIntro = Animator.StringToHash("BossIntro");
 

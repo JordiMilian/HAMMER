@@ -2065,7 +2065,6 @@ MonoBehaviour:
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 0
-  typeOfDamage: 0
   eventSystem: {fileID: 3383090570821903391}
 --- !u!114 &3030397079455606687
 MonoBehaviour:
@@ -4098,12 +4097,12 @@ GameObject:
   - component: {fileID: 399182982499736661}
   - component: {fileID: 1686922545}
   - component: {fileID: 3175104005493510322}
-  - component: {fileID: 7235723769753228221}
   - component: {fileID: 4999310393955818504}
   - component: {fileID: 131155159506509890}
   - component: {fileID: 738973075402885668}
   - component: {fileID: 5563275663953165858}
   - component: {fileID: 3437038907371655252}
+  - component: {fileID: 4559768665079232811}
   m_Layer: 20
   m_Name: MainCharacter
   m_TagString: Player
@@ -4555,24 +4554,6 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   currentStats: {fileID: 11400000, guid: 083d58047c9af53449d810104949114f, type: 2}
   baseStats: {fileID: 11400000, guid: fe59c03127f5c2843936fdf01df141b7, type: 2}
---- !u!114 &7235723769753228221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageDealer:
-  - {fileID: 489989574351239143}
-  eventSystem: {fileID: 3383090570821903391}
-  trailrendered: {fileID: 7653426974077638565}
-  testTrailrendered: {fileID: 8966516321653951930}
-  isTesting: 0
 --- !u!114 &4999310393955818504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4666,6 +4647,22 @@ MonoBehaviour:
   deadPartsList:
   - referenceBone_TF: {fileID: 1097975357195865740}
     deadPart_GO: {fileID: 1522013482259629399, guid: 331cf5773a8541645b837a46d113a2c8, type: 3}
+--- !u!114 &4559768665079232811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acfbdbf066d2cb44d9887f1e6920792a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageDealer:
+  - {fileID: 489989574351239143}
+  playerRefs: {fileID: 3175104005493510322}
+  trailrendered: {fileID: 7653426974077638565}
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0

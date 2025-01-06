@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enemy_AttacksProviderV2;
 
 #region INTERFACES
 public interface IDamageReceiver
@@ -23,15 +24,20 @@ public interface IStanceBreakable
 {
     public void OnStanceBroken();
 }
+public interface IAttacker
+{
+    public void PerformAttack(EnemyAttack enemyAttack);
+}
 #endregion
 
-public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, IParryReceiver, IDeath, IStanceBreakable, IPlayerDetectable
+public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, IParryReceiver, IDeath, IStanceBreakable, IPlayerDetectable, IAttacker
 {
     public Enemy_References enemyRefs;
     Enemy_EventSystem enemyEvents;
     private void OnEnable()
     {
         enemyEvents = enemyRefs.enemyEvents;
+
         enemyEvents.OnReceiveDamage += OnReceiveDamage;
         enemyEvents.OnGettingParried += OnGettingParried;
         enemyEvents.OnDeath += OnDeath;
@@ -42,7 +48,7 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
         substribeToAgrooTrigger();
     }
 
-    #region Receive Damage
+    #region RECEIVE DAMAGE
 
     [SerializeField] AnimationCurve damagedMovementCurve;
     float damagedCurveAverage = 0;
@@ -72,6 +78,7 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
         }
     }
     #endregion
+    #region PARRY
     public virtual void OnGettingParried(int i)
     {
         enemyRefs.animator.SetTrigger(Tags.HitShield);
@@ -79,19 +86,22 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
         enemyRefs.moveToTarget.EV_SlowMovingSpeed();
         enemyRefs.moveToTarget.EV_SlowRotationSpeed();
     }
-
+    #endregion
+    #region DEATH
     public virtual void OnDeath(object sender, Generic_EventSystem.DeadCharacterInfo info)
     {
         StartCoroutine(UsefullMethods.destroyWithDelay(0.1f, enemyRefs.gameObject));
         TimeScaleEditor.Instance.SlowMotion(80, 1f); //This should be managed from the player or the room? not here som we can change the amount of slowmo depending on stuff
     }
+    #endregion
+    #region STANCE BROKEN
     public virtual void OnStanceBroken()
     {
         enemyRefs.animator.SetTrigger(Tags.StanceBroken);
         enemyRefs.moveToTarget.EV_SlowMovingSpeed();
         enemyRefs.moveToTarget.EV_SlowRotationSpeed();
     }
-
+    #endregion
     #region AGROO DETECTION
     [SerializeField] Generic_OnTriggerEnterEvents agrooTrigger;
     void substribeToAgrooTrigger()
@@ -126,6 +136,61 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
         agrooTrigger.OnTriggerEntered -= SomethingDetected;
 
         enemyEvents.OnPlayerDetected?.Invoke();
+    }
+    #endregion
+    #region ATTACKING
+
+    [HideInInspector] public EnemyAttack currentAttack;
+    bool isNextAttackForced;
+    EnemyAttack ForcedNextAttack;
+    private void FixedUpdate()
+    {
+        if (enemyRefs.attackProvider.PlayerIsInAnyRange && enemyRefs.animator.GetBool(Tags.InAgroo) && enemyRefs.attackProvider.isProviding)
+        {
+            if (isNextAttackForced)
+            {
+                Debug.Log("Attack has been forced: " + ForcedNextAttack.ShortDescription);
+                PerformAttack(ForcedNextAttack);
+                isNextAttackForced = false;
+                return;
+            }
+
+            //ResetAllTriggers(enemyRefs.animator); //Aixo crec que es pot borrar pero per si de cas nose
+            EnemyAttack randomAvailableAttack = enemyRefs.attackProvider.GetRandomAvailableAttack();
+            if (randomAvailableAttack != null) { PerformAttack(randomAvailableAttack); }
+        }
+    }
+    public virtual void PerformAttack(EnemyAttack selectedAttack)
+    {
+        foreach (Generic_DamageDealer dealer in enemyRefs.DamageDealersList)//Set stats to  damage dealers
+        {
+            SetDamageDealerStats(dealer, selectedAttack);
+        }
+
+        //Replace the StateMachines attack clip
+        enemyRefs.reusableStateMachine.ReplaceaStatesClip(enemyRefs.reusableStateMachine.statesDictionary[Enemy_ReusableStateMachine.animationStates.BaseEnemy_Attacking], selectedAttack.animationClip);
+        enemyRefs.animator.SetBool(Tags.InAgroo, false);
+
+
+        //Cooldown if it has it
+        if (selectedAttack.HasCooldown)
+        {
+            StartCoroutine(selectedAttack.Cooldown());
+        }
+        currentAttack = selectedAttack; //set current attack (this is used for the OVNI inverter currently
+
+        //
+        void SetDamageDealerStats(Generic_DamageDealer dealer, EnemyAttack selectedAttack)
+        {
+            dealer.Damage = selectedAttack.Damage * enemyRefs.currentEnemyStats.DamageMultiplicator;
+            dealer.Knockback = selectedAttack.KnockBack;
+            dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
+        }
+    }
+    public void ForceNextAttack(EnemyAttack forcedAttack)
+    {
+        ForcedNextAttack = forcedAttack;
+        isNextAttackForced = true;
     }
     #endregion
 }

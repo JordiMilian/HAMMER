@@ -44,8 +44,8 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
         public bool HasCooldown;
         public float CooldownTime;
   
-        public  void isInRange(object sender, EventArgs args) { isActive = true; }
-        public void isNotInRange(object sender, EventArgs args) { isActive = false; }
+        public  void isInRange() { isActive = true; }
+        public void isNotInRange() { isActive = false; }
          
         public IEnumerator Cooldown()
         {
@@ -78,7 +78,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             attack.rangeDetector.OnPlayerExited -= RunChecker;
         }
     }
-    void RunChecker(object sender, EventArgs args)
+    void RunChecker()
     {
         PlayerIsInAnyRange = CheckIfPlayerIsInAnyRange();
     }
@@ -86,9 +86,9 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     {
         foreach (EnemyAttack attack in Enemy_Attacks)
         {
-            if (attack.isActive) return (true);
+            if (attack.isActive) return true;
         }
-        return (false);
+        return false;
     }
     private void OnDrawGizmosSelected()
     {
@@ -107,22 +107,22 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
     void FixedUpdate()
     {
         //bastant guarro aixo
-        if (PlayerIsInAnyRange)
+        
+        if (PlayerIsInAnyRange && enemyRefs.animator.GetBool(Tags.InAgroo) && isProviding) 
         {
-            if (enemyRefs.animator.GetBool(Tags.InAgroo) && isProviding && !enemyRefs.animator.GetBool(Tags.Attacking)) 
+            if(isNextAttackForced)
             {
-                if(isNextAttackForced)
-                {
-                    Debug.Log("Attack has been forced: " + ForcedNextAttack.ShortDescription);
-                    PerformAttack(ForcedNextAttack);
-                    isNextAttackForced = false;
-                    return;
-                }
-
-                ResetAllTriggers(enemyRefs.animator); //Aixo crec que es pot borrar pero per si de cas nose
-                PickAvailableAttackAndPerform();
+                Debug.Log("Attack has been forced: " + ForcedNextAttack.ShortDescription);
+                PerformAttack(ForcedNextAttack);
+                isNextAttackForced = false;
+                return;
             }
+
+            //ResetAllTriggers(enemyRefs.animator); //Aixo crec que es pot borrar pero per si de cas nose
+            EnemyAttack randomAvailableAttack = GetRandomAvailableAttack();
+            if(randomAvailableAttack != null) { PerformAttack(randomAvailableAttack); }
         }
+        
     }
     public void PerformAttack(EnemyAttack selectedAttack)
     {
@@ -133,7 +133,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
 
         //Replace the StateMachines attack clip
         reusableStateMachine.ReplaceaStatesClip(reusableStateMachine.statesDictionary[Enemy_ReusableStateMachine.animationStates.BaseEnemy_Attacking], selectedAttack.animationClip);
-        enemyRefs.animator.SetBool(Tags.Attacking,true);
+        enemyRefs.animator.SetBool(Tags.InAgroo,false);
 
 
         //Cooldown if it has it
@@ -142,14 +142,17 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             StartCoroutine(selectedAttack.Cooldown());
         }
         currentAttack = selectedAttack; //set current attack (this is used for the OVNI inverter currently
+
+        //
+        void SetDamageDealerStats(Generic_DamageDealer dealer, EnemyAttack selectedAttack)
+        {
+            dealer.Damage = selectedAttack.Damage * enemyRefs.currentEnemyStats.DamageMultiplicator;
+            dealer.Knockback = selectedAttack.KnockBack;
+            dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
+        }
     }
-    void SetDamageDealerStats(Generic_DamageDealer dealer, EnemyAttack selectedAttack)
-    {
-        dealer.Damage = selectedAttack.Damage * enemyRefs.currentEnemyStats.DamageMultiplicator;
-        dealer.Knockback = selectedAttack.KnockBack;
-        dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
-    }
-    void PickAvailableAttackAndPerform()
+    
+    public EnemyAttack GetRandomAvailableAttack()
     {
         //Make a list of all active attacks and not in Cooldown
         List<EnemyAttack> ActiveAttacks = new List<EnemyAttack>();
@@ -160,7 +163,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
                 ActiveAttacks.Add(attack);
             }
         }
-        if(ActiveAttacks.Count <= 0) { return; } //If no attacks available return
+        if(ActiveAttacks.Count <= 0) { return null; } //If no attacks available return
 
         //Add up all the probabilities and take a random number
         float ActiveAttacksProbability = AddAttacksProbability(ActiveAttacks);
@@ -179,14 +182,15 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             }
             if ((randomFloat > probabilitatMinima) && ( randomFloat < probabilitatMinima + ActiveAttacks[i].Probability))
             {
-                PerformAttack(ActiveAttacks[i]);
                 Debuguer(i + " succede chance");
+                return ActiveAttacks[i];
             }
             else
             {
                 Debuguer(i + " failed chance");
             }
         }
+        return null;
 
         //
         float AddAttacksProbability(List<EnemyAttack> attacks)
@@ -207,33 +211,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             }
         }
     }
-    public void ForceNextAttack(EnemyAttack forcedAttack)
-    {
-        ForcedNextAttack = forcedAttack;
-        isNextAttackForced = true;
-    }
-    /*
-    void OnCancelAttack()
-    {
-        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
-        StartCoroutine(WaitForCurrentAnimation());
-    }
-    void OnCancelAttackParried(int i)
-    {
-        if (CurrentWaiting != null) { StopCoroutine(CurrentWaiting); }
-        StartCoroutine(WaitForCurrentAnimation());
-    }
-    IEnumerator WaitForCurrentAnimation()
-    {
-        float parryTime = 0;
-        while(enemyRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-        {
-            parryTime += Time.deltaTime;
-            yield return null;
-        }
-        Debug.Log("Parry time was: " + parryTime);
-    }
-    */
+    
     void Debuguer(string text)
     {
         if (ShowDebug) { Debug.Log(text); }

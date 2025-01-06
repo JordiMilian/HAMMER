@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SMB_EnemyInIndle : StateMachineBehaviour
 {
+    //KILL THIS SCRIPT??
+
     Enemy_EventSystem events;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

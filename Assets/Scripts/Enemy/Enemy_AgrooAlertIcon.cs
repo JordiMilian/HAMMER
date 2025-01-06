@@ -8,7 +8,7 @@ public class Enemy_AgrooAlertIcon : MonoBehaviour
 
     private void Awake()
     {
-        enemyRefs.enemyEvents.OnPlayerDetected += playAlertIcon; //Puede que de problemas por si hacemos transiciones de Idle?
+        enemyRefs.enemyEvents.OnPlayerDetected += playAlertIcon; 
     }
     void playAlertIcon()
     {
