@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Generic_HealthBarController : MonoBehaviour
+public class Generic_HealthBarController : MonoBehaviour 
 {
 
-    [SerializeField] Generic_HealthSystem health;
+    [SerializeField] Generic_CharacterHealthSystem health;
     EntityStats currentStats;
 
     [SerializeField] Transform Bar_Tf;

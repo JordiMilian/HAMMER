@@ -55,7 +55,7 @@ public class Enemy01 : MonoBehaviour
         }
     }  
     
-    public void GettingParried(int i) // Go to Damage Dealer to set int
+    public void GettingParried(GettingParriedInfo info) // Go to Damage Dealer to set int
     {
         if (!hasMultipleParries)
         {
@@ -68,7 +68,7 @@ public class Enemy01 : MonoBehaviour
 
         Enemy_ReusableStateMachine reusableStateMachine = enemyRefs.reusableStateMachine;
         
-        if (i == 0) 
+        if (info.WeaponIndex == 0) 
         { 
             //Find the 00 clip if null
             if(parriedClip00 == null)
@@ -82,7 +82,7 @@ public class Enemy01 : MonoBehaviour
             parriedClip00
             );
         }
-        else if(i == 1) 
+        else if(info.WeaponIndex == 1) 
         {
             if (parriedClip01 == null)
             {

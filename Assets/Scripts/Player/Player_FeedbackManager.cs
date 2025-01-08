@@ -64,7 +64,7 @@ public class Player_FeedbackManager : MonoBehaviour
             StartCoroutine(InvulnerableAfterDamage());
         }
     }
-    void GettingParriedEffects(int i)
+    void GettingParriedEffects(Generic_EventSystem.GettingParriedInfo info)
     {
         Player_ComboSystem_chargeless comboSystem = GetComponent<Player_ComboSystem_chargeless>();
         comboSystem.EV_HideWeaponCollider();

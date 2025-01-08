@@ -58,55 +58,19 @@ public class Generic_DamageDealer : MonoBehaviour
                 case Team.Player:
                     if(otherParryDealer.EntityTeam == Generic_ParryDealer.Team.Enemy)
                     {
-                        PublishGettingParriedEvent();
+                        PublishGettingParriedEvent(otherParryDealer.gameObject);
                     }
                     break;
                 case Team.Enemy:
                     if(otherParryDealer.EntityTeam == Generic_ParryDealer.Team.Player)
                     {
-                        PublishGettingParriedEvent();
+                        PublishGettingParriedEvent(otherParryDealer.gameObject);
                     }
                     break;
                 case Team.Object:
-                    PublishGettingParriedEvent();
+                    PublishGettingParriedEvent(otherParryDealer.gameObject);
                     break;
             }
-        }
-        return;
-
-
-
-
-
-
-        if(collision.CompareTag(Tags.Object_Hurtbox))
-        {
-            PublishHitObject(collision);
-        }
-        switch (EntityTeam)
-        {
-            case Team.Player:                
-                if (collision.CompareTag(Tags.Enemy_Hurtbox))// || collision.GetComponent<Generic_DamageDetector>().EntityTeam == Generic_DamageDetector.Team.Player)
-                {
-                    bool isChargeable = collision.GetComponent<Generic_DamageDetector>().canChargeSpecialAttack; //Find if the damage Detector is chargeable and pass the info
-                    PublishDealtDamageEvent(collision,isChargeable);
-                }
-                else if (collision.CompareTag(Tags.EnemyParryCollider))
-                {
-                    PublishGettingParriedEvent();
-                }
-                break;
-                
-            case Team.Enemy:
-                if(collision.CompareTag(Tags.Player_Hurtbox))
-                {
-                    PublishDealtDamageEvent(collision);
-                }
-                if(collision.CompareTag(Tags.ParryCollider) && isParryable) 
-                {
-                    PublishGettingParriedEvent();
-                }
-                break;
         }
     }
     void PublishDealtDamageEvent(Collider2D collision, bool isChargeable = false)
@@ -129,9 +93,9 @@ public class Generic_DamageDealer : MonoBehaviour
             Damage
             ));
     }
-    void PublishGettingParriedEvent()
+    void PublishGettingParriedEvent(GameObject parrier)
     {
-        if (eventSystem.OnGettingParried != null) eventSystem.OnGettingParried(weaponIndex);
+        eventSystem.OnGettingParried?.Invoke(new Generic_EventSystem.GettingParriedInfo(parrier, weaponIndex));
     }
    
 }

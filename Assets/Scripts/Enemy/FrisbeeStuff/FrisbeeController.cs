@@ -15,7 +15,7 @@ public class FrisbeeController : MonoBehaviour
     Transform originTf;
     private void OnEnable()
     {
-        events.OnGettingParried += (int i) => GotParried();
+        events.OnGettingParried += (Generic_EventSystem.GettingParriedInfo info) => GotParried();
     }
     public void throwFrisbee(Vector2 direction, Transform origin)
     {

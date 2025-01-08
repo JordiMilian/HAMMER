@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy_CheckWalking : MonoBehaviour
 {
+
+    /* MAYBE DELETEABLE LET ME CHECK
+     * 
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float Threshold;
     [SerializeField] Animator animator;
@@ -45,4 +48,5 @@ public class Enemy_CheckWalking : MonoBehaviour
         }
         return false;
     }
+    */
 }

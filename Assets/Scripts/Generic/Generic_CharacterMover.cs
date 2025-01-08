@@ -102,15 +102,10 @@ public class Generic_CharacterMover : MonoBehaviour
                     float collisionDepth = (ownCollider.radius * 2) - ray.distance;
 
                     calculatedDirection = calculatedDirection.normalized * -collisionDepth;
-                    Debug.Log("I myself: " + gameObject.name + " detected a bad wall in " + ray.transform.gameObject.name);
+                    //Debug.Log("I myself: " + gameObject.name + " detected a bad wall in " + ray.transform.gameObject.name);
                 }
             }
         }
-        
-       
-        
-        
-
 
        // ----  COLISIONS  ---- 
 

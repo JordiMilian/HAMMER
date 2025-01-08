@@ -98,8 +98,8 @@ GameObject:
   - component: {fileID: 6476284241555231533}
   - component: {fileID: 7697261271829785414}
   - component: {fileID: 3365757155640488515}
-  - component: {fileID: 3743211899964416575}
   - component: {fileID: 1853594557032123590}
+  - component: {fileID: 6281501276623282264}
   m_Layer: 14
   m_Name: Tomato_Destination
   m_TagString: Enemy_Attack_hitbox
@@ -210,7 +210,6 @@ MonoBehaviour:
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 1
   eventSystem: {fileID: 3365757155640488515}
 --- !u!114 &3365757155640488515
 MonoBehaviour:
@@ -224,24 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3743211899964416575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449027988912000722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageDealer:
-  - {fileID: 7697261271829785414}
-  eventSystem: {fileID: 3365757155640488515}
-  trailrendered: {fileID: 0}
-  testTrailrendered: {fileID: 0}
-  isTesting: 0
 --- !u!114 &1853594557032123590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +236,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TomatoSplash: {fileID: 6495307580921942063}
+--- !u!114 &6281501276623282264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449027988912000722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f731b003e34a8194ca614fc22b477ccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageCollider: {fileID: 6476284241555231533}
 --- !u!1 &9099042240102043568
 GameObject:
   m_ObjectHideFlags: 0

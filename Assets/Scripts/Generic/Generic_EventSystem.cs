@@ -64,12 +64,24 @@ public class Generic_EventSystem : MonoBehaviour
             Killer = killer;
         }
     }
+    public struct GettingParriedInfo
+    {
+        public GameObject Parrier;
+        public int WeaponIndex;
+        public GettingParriedInfo(GameObject parrier, int weaponIndex)
+        {
+            Parrier = parrier;
+            WeaponIndex = weaponIndex;
+        }
+    }
     public class ObjectDirectionArgs : EventArgs
     {
         public Vector2 GeneralDirection;
+        
         public ObjectDirectionArgs(Vector2 Gdirection)
         {
             GeneralDirection = Gdirection;
+            
         }
     }
 
@@ -78,7 +90,7 @@ public class Generic_EventSystem : MonoBehaviour
     public Action OnStartAttack;
     public EventHandler<DealtDamageInfo> OnDealtDamage;
     public EventHandler<ReceivedAttackInfo> OnReceiveDamage;
-    public Action<int> OnGettingParried;
+    public Action<GettingParriedInfo> OnGettingParried;
     public EventHandler<SuccesfulParryInfo> OnSuccessfulParry;
     public EventHandler<DealtDamageInfo> OnHitObject;
     public EventHandler<ObjectDirectionArgs> OnBeingTouchedObject;

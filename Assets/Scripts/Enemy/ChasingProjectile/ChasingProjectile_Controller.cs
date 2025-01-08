@@ -4,71 +4,96 @@ using UnityEngine;
 
 public class ChasingProjectile_Controller : MonoBehaviour
 {
-    public Transform TargetTf;
-    [SerializeField] float defaultVelocityPerSecond;
-    [SerializeField] float rotationRadiantSpeed;
-    [SerializeField] float accelerationPerSecond;
-    [SerializeField] float rotationDecelerationPerSecond;
-    Transform ownTransform;
-    [Header("Testing")]
-    [SerializeField] float startingBoostVelocity;
-    [SerializeField] float startingBoostDuration;
-    [SerializeField] Transform startingBoostDirectionTf;
-    [SerializeField] bool TestingStartingBoost;
-
+    [HideInInspector] public Transform TargetTf;
+    [SerializeField] Generic_EventSystem genericChaserEvents;
     Coroutine currentMovement;
+    [SerializeField] Generic_DamageDealer damageDealer;
+    [SerializeField] Generic_DamageDetector damageDetector;
+
     private void Awake()
     {
-        ownTransform = transform;
+        genericChaserEvents.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => BounceAway(info.ConcreteDirection, info.Attacker.transform);
+        genericChaserEvents.OnDealtDamage += (object sender, Generic_EventSystem.DealtDamageInfo info) => DamagedPlayer();
+        genericChaserEvents.OnGettingParried += (Generic_EventSystem.GettingParriedInfo info) => BounceAway((transform.position - info.Parrier.transform.position).normalized, info.Parrier.transform);
     }
-    private void Update()
-    {
-        if(TestingStartingBoost)
-        {
-            if (currentMovement != null) { StopCoroutine(currentMovement); }
 
-            Vector2 startingDirection = (startingBoostDirectionTf.position - ownTransform.position).normalized;
-            StartingBoost(startingBoostVelocity, startingBoostDuration, startingDirection);
-            TestingStartingBoost = false;
-        }
-    }
-    public void StartingBoost(float startingVelocityPerSecond, float duration, Vector2 direction)
+    [Header("Chasing Stats")]
+    [SerializeField] float startingVelocity;
+    [SerializeField] float accelerationPerSecond;
+    [SerializeField] float maxVelocity;
+    [SerializeField] float startingRotation;
+    [SerializeField] float rotationDecelerationPerSecond;
+    public void startChasing (Transform target)
     {
-        currentMovement = StartCoroutine(startingBoostCoroutine(startingVelocityPerSecond, duration, direction));
-    }
-    IEnumerator startingBoostCoroutine(float startingVelocityPerSecond, float duration, Vector2 direction)
-    {
-        float timer = 0;
-        ownTransform.up = direction;
-        while (timer < duration)
-        {
-            timer += Time.deltaTime;
-            float normalizedTime = timer / duration;
-            float equivalentVelocity = Mathf.Lerp(startingVelocityPerSecond, defaultVelocityPerSecond, normalizedTime);
-            Vector2 movingSpeed = ownTransform.up * equivalentVelocity * Time.deltaTime;
-            ownTransform.position += (Vector3)movingSpeed;
+        TargetTf = target;
 
-            rotateTowardTarget();
+        if (currentMovement != null) { StopCoroutine(currentMovement); }
 
-            yield return null;
-        }
-        currentMovement = StartCoroutine(defaultMovement());
+        currentMovement = StartCoroutine(chaseCoroutine());
     }
-    void rotateTowardTarget()
+    IEnumerator chaseCoroutine()
     {
-        ownTransform.up = Vector3.RotateTowards(ownTransform.up, TargetTf.position - ownTransform.position, rotationRadiantSpeed, 10);
-    }
-    IEnumerator defaultMovement()
-    {
+        StartCoroutine(UsefullMethods.destroyWithDelay(10, gameObject));
+        
         while (true)
         {
-            defaultVelocityPerSecond += accelerationPerSecond * Time.deltaTime;
-            rotationRadiantSpeed -= rotationDecelerationPerSecond * Time.deltaTime;
-            ownTransform.position += ownTransform.up * defaultVelocityPerSecond * Time.deltaTime;
+            startingVelocity += accelerationPerSecond * Time.deltaTime;
+            if(rotationDecelerationPerSecond > 0)
+            {
+                startingRotation -= rotationDecelerationPerSecond * Time.deltaTime;
+            }
 
-            rotateTowardTarget();
+            moveForward(startingVelocity);
+
+            rotateTowardTarget(startingRotation);
+
+            yield return null;
+        } 
+    }
+    
+
+    [Header("Bounce away Stats")]
+    [SerializeField] float bounceDuration;
+    [SerializeField] float bounceInitialSpeed;
+    [SerializeField] float bounceInitialRotation;
+    public void BounceAway(Vector2 directionAway, Transform target)
+    {
+        TargetTf = target;
+        if (currentMovement != null) { StopCoroutine(currentMovement); }
+        StartCoroutine(BounceAwayCoroutine(directionAway));
+
+        damageDealer.EntityTeam = Generic_DamageDealer.Team.Player;
+        damageDetector.GetComponent<Collider2D>().enabled = false;
+    }
+    
+    IEnumerator BounceAwayCoroutine(Vector2 initialDirection)
+    {
+        transform.up = initialDirection;
+        float timer = 0;
+        while(timer < bounceDuration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = timer / bounceDuration;
+            float thisVelocity = Mathf.Lerp(bounceInitialSpeed, 0, normalizedTime);
+            float thisRotation = Mathf.Lerp(bounceInitialRotation, 0, normalizedTime);
+
+            rotateTowardTarget(thisRotation);
+            moveForward(thisVelocity);
 
             yield return null;
         }
+        Destroy(gameObject);
+    }
+    public void DamagedPlayer()
+    {
+        Destroy(gameObject);
+    }
+    void rotateTowardTarget(float rotationMaxRadiant)
+    {
+        transform.up = Vector3.RotateTowards(transform.up, TargetTf.position - transform.position, rotationMaxRadiant, 10);
+    }
+    void moveForward(float Speed)
+    {
+        transform.position += transform.up * Speed * Time.deltaTime;
     }
 }

@@ -50,7 +50,7 @@ public class Generic_CharacterAudioPlayer : MonoBehaviour
     {
         SFX_Player.playSFX(DeathSFX, 0.2f);
     }
-    void playParried(int i)
+    void playParried(Generic_EventSystem.GettingParriedInfo info)
     {
         SFX_Player.playSFX(GotParriedSFX,0.1f, 0, basePitchModifier);
     }

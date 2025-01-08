@@ -401,7 +401,6 @@ MonoBehaviour:
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 0
   eventSystem: {fileID: 93972030}
 --- !u!4 &93972029
 Transform:
@@ -984,9 +983,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7424939523629538921, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7639712264223362510, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
       propertyPath: xpToDrop
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844275789963399650, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
@@ -2172,6 +2179,57 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0210703e42518dc4f877a23dc2cf54e1, type: 3}
+--- !u!1 &757404702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 757404704}
+  - component: {fileID: 757404703}
+  m_Layer: 0
+  m_Name: ChasersSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &757404703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757404702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ec86f105a7ad044b5cf2ef8a5c5304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawningOriginPos: {fileID: 757404704}
+  ChaserController_Prefab: {fileID: 7857541802485047913, guid: 47c28d825b351c04a9ba6df08b541396, type: 3}
+  SpreadSpawnTrigger: 0
+  amountToSpread: 4
+  angleDegToSpread: 90
+  DistanceFromCenterOnSpawn: 1
+  delayBetweenProjectiles: 0.1
+--- !u!4 &757404704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757404702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.02, y: -1.46, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 40
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &788477503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3716,9 +3774,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy02
       objectReference: {fileID: 0}
+    - target: {fileID: 7424939523629538921, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7639712264223362510, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
       propertyPath: xpToDrop
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844275789963399650, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}

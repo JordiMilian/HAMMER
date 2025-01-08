@@ -6,6 +6,7 @@ public class AttackTesting : MonoBehaviour
 {
     [SerializeField] GameObject Enemy;
     Enemy_AttacksProviderV2 AttackProviderV2;
+    Enemy_References enemyRefs;
     [SerializeField] string AttackName;
     BoxCollider2D AttackCollider;
     Transform StartingPosition;
@@ -18,6 +19,7 @@ public class AttackTesting : MonoBehaviour
     {
         Enemy.GetComponent<Enemy_ShowHideAttackCollider>().isTesting = true;
         AttackProviderV2 = Enemy.GetComponent<Enemy_AttacksProviderV2>();
+        enemyRefs = Enemy.GetComponent<Enemy_References>();
     }
     void RestartPosition()
     {
@@ -26,7 +28,7 @@ public class AttackTesting : MonoBehaviour
     }
     void TestAttack()
     {
-        AttackProviderV2.PerformAttack(AttackProviderV2.Enemy_Attacks[AttackToTest]);
+        enemyRefs.stateController.PerformAttack(AttackProviderV2.Enemy_Attacks[AttackToTest]);
         AttackName = AttackProviderV2.Enemy_Attacks[AttackToTest].animationClip.name;
     }
 

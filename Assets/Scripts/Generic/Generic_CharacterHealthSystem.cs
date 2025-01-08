@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Generic_EventSystem;
 
-public class Generic_HealthSystem : MonoBehaviour
+public class Generic_CharacterHealthSystem : MonoBehaviour
 {
     [SerializeField] Generic_References Refs;
     [HideInInspector] public EntityStats baseStats;

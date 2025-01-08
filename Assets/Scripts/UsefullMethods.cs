@@ -14,6 +14,7 @@ public class UsefullMethods : MonoBehaviour
             yield return null;
         }
     }
+    /*
     //This is framerate independent now
     //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
     public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
@@ -34,10 +35,42 @@ public class UsefullMethods : MonoBehaviour
             mover.MovementVectorsPerSecond.Add(direction * finalForce);
 
             finalDistanceForDebug += (evaluatedLastFrame + evaluatedThisFrame / 2) * normalizedTimeBetweenFrames * totalDistance * 2;
+
+            evaluatedLastFrame = evaluatedThisFrame;
             normalizedTimeLastFrame = normalizedTime;
             yield return null;
         }
        
+    }
+    */
+
+    //This is framerate independent now
+    //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
+    public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
+    {
+        float timer = 0;
+        float normalizedTime;
+        float normalizedTimeLastFrame = 0;
+        float finalDistanceForDebug = 0;
+        float evaluatedLastFrame = curve.Evaluate(0);
+        while (timer < timeSeconds)
+        {
+            timer += Time.deltaTime;
+            normalizedTime = timer / timeSeconds;
+            float normalizedTimeBetweenFrames = normalizedTime - normalizedTimeLastFrame;
+            float evaluatedThisFrame = curve.Evaluate(normalizedTime);
+            
+            float finalForce = ((evaluatedLastFrame + evaluatedThisFrame) / 2) * normalizedTimeBetweenFrames / Time.deltaTime * totalDistance / averageValueOfCurve;
+
+            mover.MovementVectorsPerSecond.Add(direction * finalForce);
+
+            finalDistanceForDebug += (evaluatedLastFrame + evaluatedThisFrame / 2) * normalizedTimeBetweenFrames * totalDistance * 2;
+
+            evaluatedLastFrame = evaluatedThisFrame;
+            normalizedTimeLastFrame = normalizedTime;
+            yield return null;
+        }
+
     }
     public static float GetAverageValueOfCurve(AnimationCurve curve, int samplePoints)
     {
@@ -231,7 +264,7 @@ public class UsefullMethods : MonoBehaviour
     }
     public static IEnumerator destroyWithDelay(float delaySeconds, GameObject objectToDestroy)
     {
-        yield return new WaitForSeconds(delaySeconds);
+        yield return new WaitForSecondsRealtime(delaySeconds);
         Destroy(objectToDestroy);
     }
 

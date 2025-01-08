@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_HealthSystem : Generic_HealthSystem
+public class Enemy_HealthSystem : Generic_CharacterHealthSystem
 {
     [SerializeField] Enemy_References enemyRefs;
     private void Awake()

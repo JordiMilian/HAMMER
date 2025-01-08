@@ -7,7 +7,7 @@ using UnityEngine;
 public class KILLENEMIESAROUND : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    List<Generic_HealthSystem> enemiesHealth = new List<Generic_HealthSystem>();
+    List<Generic_CharacterHealthSystem> enemiesHealth = new List<Generic_CharacterHealthSystem>();
     [SerializeField] float InstaKillEnemiesOnDistance;
      Room_script currentRoom;
     void Update()
@@ -21,22 +21,22 @@ public class KILLENEMIESAROUND : MonoBehaviour
     {
         InvokeRepeating("CheckEnemiesDistanceAndKill", 1, 5);
     }
-    List<Generic_HealthSystem> GetEnemiesHealths()
+    List<Generic_CharacterHealthSystem> GetEnemiesHealths()
     {
-        if (gameState.currentPlayerRooms_index.Count == 0) { return new List<Generic_HealthSystem>(); }
+        if (gameState.currentPlayerRooms_index.Count == 0) { return new List<Generic_CharacterHealthSystem>(); }
 
         RoomGenerator_Manager roomsGenerator = RoomGenerator_Manager.Instance;
         Vector3Int currentRoomsIndex = gameState.currentPlayerRooms_index[gameState.currentPlayerRooms_index.Count - 1];
         currentRoom = roomsGenerator.CompleteList_spawnedRooms[currentRoomsIndex.x].list[currentRoomsIndex.y];
 
         RoomWithEnemiesLogic currentRoomWithEnemies = currentRoom.GetComponent<RoomWithEnemiesLogic>();
-        if(currentRoomWithEnemies == null) { return new List<Generic_HealthSystem>(); }
+        if(currentRoomWithEnemies == null) { return new List<Generic_CharacterHealthSystem>(); }
         GameObject[] enemiesGO = currentRoomWithEnemies.CurrentlySpawnedEnemies.ToArray();
 
-        List<Generic_HealthSystem> enemiesHealthListTemp = new List<Generic_HealthSystem>();
+        List<Generic_CharacterHealthSystem> enemiesHealthListTemp = new List<Generic_CharacterHealthSystem>();
         foreach (GameObject enem in enemiesGO)
         {
-            Generic_HealthSystem enemieHealth = enem.GetComponent<Generic_HealthSystem>();
+            Generic_CharacterHealthSystem enemieHealth = enem.GetComponent<Generic_CharacterHealthSystem>();
 
             if (enemieHealth == null) { continue; }
 
@@ -54,7 +54,7 @@ public class KILLENEMIESAROUND : MonoBehaviour
         enemiesHealth = GetEnemiesHealths();
         if(enemiesHealth.Count == 0) { return; };
         Vector2 roomPos = currentRoom.transform.position;
-        foreach(Generic_HealthSystem health in  enemiesHealth)
+        foreach(Generic_CharacterHealthSystem health in  enemiesHealth)
         {
             Vector2 enemyPos = health.transform.position;
             if((enemyPos - roomPos).magnitude > InstaKillEnemiesOnDistance)
@@ -65,9 +65,9 @@ public class KILLENEMIESAROUND : MonoBehaviour
         }
 
     }
-    IEnumerator KillEmSlowly(Generic_HealthSystem[] healthsArray)
+    IEnumerator KillEmSlowly(Generic_CharacterHealthSystem[] healthsArray)
     {
-        foreach(Generic_HealthSystem health in healthsArray)
+        foreach(Generic_CharacterHealthSystem health in healthsArray)
         {
             health.RemoveLife(50, gameObject);
             yield return new WaitForSeconds(0.1f);

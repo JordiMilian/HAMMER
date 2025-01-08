@@ -10,7 +10,7 @@ public interface IDamageReceiver
 }
 public interface IParryReceiver
 {
-    public void OnGettingParried(int ownWeaponIndex);
+    public void OnGettingParried(Generic_EventSystem.GettingParriedInfo info);
 }
 public interface IDeath
 {
@@ -51,12 +51,13 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
     #region RECEIVE DAMAGE
 
     [SerializeField] AnimationCurve damagedMovementCurve;
-    float damagedCurveAverage = 0;
+    float damagedCurveAverage = .5f;
+    bool calculatedAverage;
     public virtual void OnReceiveDamage(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
         enemyRefs.animator.SetTrigger(Tags.PushBack);
 
-        if (damagedCurveAverage !> 0) { damagedCurveAverage = UsefullMethods.GetAverageValueOfCurve(damagedMovementCurve, 10); }
+        if (!calculatedAverage) { damagedCurveAverage = UsefullMethods.GetAverageValueOfCurve(damagedMovementCurve, 10); calculatedAverage = true; }
 
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
         enemyRefs.characterMover,
@@ -79,7 +80,7 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
     }
     #endregion
     #region PARRY
-    public virtual void OnGettingParried(int i)
+    public virtual void OnGettingParried(Generic_EventSystem.GettingParriedInfo info)
     {
         enemyRefs.animator.SetTrigger(Tags.HitShield);
         enemyRefs.showHideAttackCollider.EV_Enemy_HideAttackCollider();
@@ -170,6 +171,7 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
         //Replace the StateMachines attack clip
         enemyRefs.reusableStateMachine.ReplaceaStatesClip(enemyRefs.reusableStateMachine.statesDictionary[Enemy_ReusableStateMachine.animationStates.BaseEnemy_Attacking], selectedAttack.animationClip);
         enemyRefs.animator.SetBool(Tags.InAgroo, false);
+        enemyRefs.animator.SetTrigger(Tags.PerformAttack);
 
 
         //Cooldown if it has it

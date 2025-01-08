@@ -259,7 +259,9 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     }
     void OnAttackedEnemy(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
-        EnemyStats currentEnemyStats = info.AttackedRoot.GetComponent<Enemy_References>().currentEnemyStats;
+        Enemy_References otherReferences = info.AttackedRoot.GetComponent<Enemy_References>();
+        if(otherReferences == null) { return; }
+        EnemyStats currentEnemyStats = otherReferences.currentEnemyStats;
         if ( currentEnemyStats!= null && currentEnemyStats.CurrentHp <= 0) { return; }
 
         if(info.AttackedRoot.CompareTag(Tags.Enemy))

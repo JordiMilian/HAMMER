@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,41 +7,43 @@ public class ChasingProjectile_Spawner : MonoBehaviour
 {
     [SerializeField] Transform SpawningOriginPos;
     [SerializeField] GameObject ChaserController_Prefab;
-    List<ChasingProjectile_Controller> chasersList = new List<ChasingProjectile_Controller>();
-
-    [Header("Testign")]
-    [SerializeField] bool SpawnTrigger;
-    [SerializeField] int amountToSpawn;
-    [SerializeField] float startingBoostVelocity;
-    [SerializeField] float startingBoostDuration;
+  
+    [Header("Spread")]
+    [SerializeField] bool SpreadSpawnTrigger;
+    [SerializeField] int amountToSpread;
+    [SerializeField] float angleDegToSpread;
     [SerializeField] float DistanceFromCenterOnSpawn;
+    [SerializeField] float delayBetweenProjectiles;
 
 
     private void Update()
     {
-        if(SpawnTrigger)
+        if(SpreadSpawnTrigger || Input.GetKeyDown(KeyCode.O))
         {
-            StartCoroutine(MultiSpawnCoroutine());
-
-            SpawnTrigger = false;
+            StartCoroutine(SpreadSpawnCoroutine());
+            SpreadSpawnTrigger = false;
         }
     }
-    IEnumerator MultiSpawnCoroutine()
+    IEnumerator SpreadSpawnCoroutine()
     {
-        foreach(ChasingProjectile_Controller chaser in chasersList) { Destroy(chaser.gameObject); } 
+        Transform playerTf = GlobalPlayerReferences.Instance.playerTf;
+        Vector2 directionToPlayer = (playerTf.position - transform.position).normalized;
+        Vector2[] SpreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(directionToPlayer, amountToSpread, Mathf.Deg2Rad * angleDegToSpread);
 
-        Vector2[] CIrclePositions = UsefullMethods.GetPolygonPositions(SpawningOriginPos.position, amountToSpawn, DistanceFromCenterOnSpawn);
-        chasersList = new List<ChasingProjectile_Controller>();
-        for (int p = 0; p < amountToSpawn; p++)
+        List<ChasingProjectile_Controller> chasersList = new List<ChasingProjectile_Controller>();
+        for (int p = 0; p < amountToSpread; p++)
         {
-            GameObject newChaserGO = Instantiate(ChaserController_Prefab, CIrclePositions[p], Quaternion.identity);
+            Vector2 newPosition = (Vector2)transform.position + (SpreadDirections[p] * DistanceFromCenterOnSpawn);
+            GameObject newChaserGO = Instantiate(ChaserController_Prefab, newPosition, Quaternion.identity);
+            newChaserGO.transform.up = SpreadDirections[p];
             chasersList.Add(newChaserGO.GetComponent<ChasingProjectile_Controller>());
+            yield return new WaitForSeconds(delayBetweenProjectiles);
         }
-        yield return new WaitForSeconds(1);
-        for (int c = 0; c < amountToSpawn; c++)
+        //yield return new WaitForSeconds(1);
+        for (int c = 0; c < amountToSpread; c++)
         {
-            Vector2 thisDirection = (CIrclePositions[c] - (Vector2)SpawningOriginPos.position).normalized;
-            chasersList[c].StartingBoost(startingBoostVelocity, startingBoostDuration, thisDirection);
+            chasersList[c].startChasing(playerTf);
+            yield return new WaitForSeconds(delayBetweenProjectiles);
         }
     }
 }
