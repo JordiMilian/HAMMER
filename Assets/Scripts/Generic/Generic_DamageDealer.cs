@@ -95,7 +95,8 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishGettingParriedEvent(GameObject parrier)
     {
-        eventSystem.OnGettingParried?.Invoke(new Generic_EventSystem.GettingParriedInfo(parrier, weaponIndex));
+        Vector2 ParrierDirection = (gameObject.transform.position - parrier.transform.position).normalized;
+        eventSystem.OnGettingParried?.Invoke(new Generic_EventSystem.GettingParriedInfo(parrier, weaponIndex, ParrierDirection));
     }
    
 }

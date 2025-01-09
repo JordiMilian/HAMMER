@@ -14,7 +14,7 @@ public class ChasingProjectile_Controller : MonoBehaviour
     {
         genericChaserEvents.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => BounceAway(info.ConcreteDirection, info.Attacker.transform);
         genericChaserEvents.OnDealtDamage += (object sender, Generic_EventSystem.DealtDamageInfo info) => DamagedPlayer();
-        genericChaserEvents.OnGettingParried += (Generic_EventSystem.GettingParriedInfo info) => BounceAway((transform.position - info.Parrier.transform.position).normalized, info.Parrier.transform);
+        genericChaserEvents.OnGettingParried += (Generic_EventSystem.GettingParriedInfo info) => BounceAway(info.ParryDirection, info.Parrier.transform);
     }
 
     [Header("Chasing Stats")]

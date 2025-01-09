@@ -68,10 +68,12 @@ public class Generic_EventSystem : MonoBehaviour
     {
         public GameObject Parrier;
         public int WeaponIndex;
-        public GettingParriedInfo(GameObject parrier, int weaponIndex)
+        public Vector2 ParryDirection;
+        public GettingParriedInfo(GameObject parrier, int weaponIndex, Vector2 direction)
         {
             Parrier = parrier;
             WeaponIndex = weaponIndex;
+            ParryDirection = direction;
         }
     }
     public class ObjectDirectionArgs : EventArgs
