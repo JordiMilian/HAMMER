@@ -20,11 +20,11 @@ public class ChasingProjectile_Spawner : MonoBehaviour
     {
         if(SpreadSpawnTrigger || Input.GetKeyDown(KeyCode.O))
         {
-            StartCoroutine(SpreadSpawnCoroutine());
+            StartCoroutine(SpreadSpawnCoroutine(999));
             SpreadSpawnTrigger = false;
         }
     }
-    IEnumerator SpreadSpawnCoroutine()
+    IEnumerator SpreadSpawnCoroutine(int amount) //Decide amount from here millor
     {
         Transform playerTf = GlobalPlayerReferences.Instance.playerTf;
         Vector2 directionToPlayer = (playerTf.position - transform.position).normalized;

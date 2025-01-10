@@ -28,7 +28,11 @@ public class GoRoundProjectile_Controller : MonoBehaviour
     [SerializeField] float bounceInitialSpeed;
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Generic_DamageDetector damageDetector;
-    public void BounceAway(Vector2 directionAway)
+    public void SetStartingRotation(float startingRotationDeg)
+    {
+        RotationRoot.eulerAngles = new Vector3(0, 0, startingRotationDeg);
+    }
+     void BounceAway(Vector2 directionAway)
     {
         if (currentMovement != null) { StopCoroutine(currentMovement);}; 
 
