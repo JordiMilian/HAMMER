@@ -7,7 +7,8 @@ using UnityEngine;
 public class SFX_PlayerSingleton : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    List<AudioSource> audioSourcesList = new List<AudioSource>();
+    List<AudioSource> audioSourcePool = new List<AudioSource>();
+    [SerializeField] private int initialPoolSize = 5;
 
     public static SFX_PlayerSingleton Instance;
     private void Awake()
@@ -20,12 +21,28 @@ public class SFX_PlayerSingleton : MonoBehaviour
         {
             Instance = this;
         }
-        audioSourcesList = GetComponentsInChildren<AudioSource>().ToList<AudioSource>();
+        InitializeInitialAudioSourcePool();
+
+        //
+        void InitializeInitialAudioSourcePool()
+        {
+            for (int i = 0; i < initialPoolSize; i++)
+            {
+                CreateNewAudioSource();
+            }
+        }
     }
+
+    AudioSource CreateNewAudioSource()
+    {
+        AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
+        audioSourcePool.Add(newAudioSource);
+        return newAudioSource;
+    }
+   
     public void playSFX(AudioClip clip, float pitchVariationAdder = 0, float addedVolum = 0, float addedPitch = 0)//added volum should be a percent probably
     {
-        AudioSource audioSource = GetFreeAudioSource();
-        if(audioSource == null) { Debug.LogError("Not enough AudioSources, add more child sources to the singleton");return; }
+        AudioSource audioSource = GetAvailableAudioSource();
 
         if (clip == null) { Debug.LogWarning("Missing audio clip: " + clip.name); return; }
         audioSource.pitch = 1;
@@ -39,30 +56,29 @@ public class SFX_PlayerSingleton : MonoBehaviour
         audioSource.clip = clip;
         audioSource.Play();
 
-    }
-    AudioSource GetFreeAudioSource()
-    {
-        AudioSource freeAudioSource = null;
 
-        foreach (AudioSource source in audioSourcesList)
+        //
+        AudioSource GetAvailableAudioSource()
         {
-            if (source.isPlaying) { continue; }
+            foreach (var source in audioSourcePool)
+            {
+                if (!source.isPlaying) // Si no está reproduciendo, está disponible
+                {
+                    return source;
+                }
+            }
 
-            freeAudioSource = source;
-            break;
+            return CreateNewAudioSource();
         }
-
-        if(freeAudioSource == null) { Debug.LogWarning("No free audio source available, consider adding more source childs to the singleton"); }
-
-        return freeAudioSource;
-    }
-    void SetGlobalVolume(ref AudioSource audioSource)
-    {
-        if (gameState == null)
+        void SetGlobalVolume(ref AudioSource audioSource)
         {
-            Debug.LogWarning("Missing GameState reference to get Global SFX Volume in: " + gameObject.name);
-            audioSource.volume = .5f;
+            if (gameState == null)
+            {
+                Debug.LogWarning("Missing GameState reference to get Global SFX Volume in: " + gameObject.name);
+                audioSource.volume = .5f;
+            }
+            else { audioSource.volume = gameState.SFXVolum; }
         }
-        else { audioSource.volume = gameState.SFXVolum; }
     }
+    
 }

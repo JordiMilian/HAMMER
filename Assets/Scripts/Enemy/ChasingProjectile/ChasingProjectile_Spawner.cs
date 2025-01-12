@@ -11,16 +11,16 @@ public class ChasingProjectile_Spawner : MonoBehaviour
     [Header("Spread")]
     [SerializeField] bool SpreadSpawnTrigger;
     [SerializeField] int amountToSpread;
-    [SerializeField] float angleDegToSpread;
     [SerializeField] float DistanceFromCenterOnSpawn;
     [SerializeField] float delayBetweenProjectiles;
+    [SerializeField] float angleBetweenProjectiles;
 
 
     private void Update()
     {
         if(SpreadSpawnTrigger || Input.GetKeyDown(KeyCode.O))
         {
-            StartCoroutine(SpreadSpawnCoroutine(999));
+            StartCoroutine(SpreadSpawnCoroutine(amountToSpread));
             SpreadSpawnTrigger = false;
         }
     }
@@ -28,7 +28,8 @@ public class ChasingProjectile_Spawner : MonoBehaviour
     {
         Transform playerTf = GlobalPlayerReferences.Instance.playerTf;
         Vector2 directionToPlayer = (playerTf.position - transform.position).normalized;
-        Vector2[] SpreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(directionToPlayer, amountToSpread, Mathf.Deg2Rad * angleDegToSpread);
+        float totalAngle = (amount) * angleBetweenProjectiles;
+        Vector2[] SpreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(directionToPlayer, amountToSpread, Mathf.Deg2Rad * totalAngle);
 
         List<ChasingProjectile_Controller> chasersList = new List<ChasingProjectile_Controller>();
         for (int p = 0; p < amountToSpread; p++)

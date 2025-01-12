@@ -23,6 +23,7 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
         //GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
         GlobalPlayerReferences.Instance.references.healthSystem.RestoreAllHealth();
         dialoguer.SetActive(false);
+        
     }
     void killDude(int i)
     {

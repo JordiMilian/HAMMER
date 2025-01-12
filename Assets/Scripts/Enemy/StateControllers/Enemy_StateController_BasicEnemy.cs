@@ -56,11 +56,11 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
     public virtual void OnReceiveDamage(object sender, Generic_EventSystem.ReceivedAttackInfo info)
     {
         enemyRefs.animator.SetTrigger(Tags.PushBack);
-
+        enemyRefs.flasher.CallDefaultFlasher();
         if (!calculatedAverage) { damagedCurveAverage = UsefullMethods.GetAverageValueOfCurve(damagedMovementCurve, 10); calculatedAverage = true; }
 
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
-        enemyRefs.characterMover,
+            enemyRefs.characterMover,
             info.KnockBack,
         0.25f,
             info.ConcreteDirection,
