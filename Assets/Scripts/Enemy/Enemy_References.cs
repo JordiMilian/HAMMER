@@ -22,6 +22,7 @@ public class Enemy_References : Generic_References
     [HideInInspector] public EnemyStats currentEnemyStats;
     public Enemy_ShowHideAttackCollider showHideAttackCollider;
     public Enemy_StateController_BasicEnemy stateController;
+    public Transform ownSinglePointCollider;
     private void Awake()
     {
         currentEnemyStats = new EnemyStats();

@@ -9,6 +9,7 @@ public class EnemyStats : EntityStats
 {
     [SerializeField] private int _xpDrop;
     [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _maxStance;   
 
     [HideInInspector] public UnityEvent<float> OnXpDropChange;
     [HideInInspector] public Action<float> OnRotationSpeedChange;
@@ -33,6 +34,14 @@ public class EnemyStats : EntityStats
             OnRotationSpeedChange?.Invoke(_rotationSpeed);
         }
     }
+    public float MaxStance
+    {
+        get => _maxStance;
+        set
+        {
+            _maxStance = value;
+        }
+    }
     public void CopyStats(EnemyStats importedStats)
     { 
         if (importedStats == null) { Debug.LogError("BaseStats missing for Enemy"); return; }
@@ -42,6 +51,7 @@ public class EnemyStats : EntityStats
         BaseSpeed = importedStats.BaseSpeed;
         Speed = importedStats.Speed;
         XpToDrop = importedStats.XpToDrop;
+        MaxStance = importedStats.MaxStance;
 
     }
 }

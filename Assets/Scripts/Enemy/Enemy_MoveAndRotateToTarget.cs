@@ -24,7 +24,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        proximityTrigger.AddActivatorTag(Tags.Enemy);
+        proximityTrigger.AddActivatorTag(Tags.Enemy_SinglePointCollider);
         proximityTrigger.AddActivatorTag(Tags.IA_Obstacle);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
@@ -42,6 +42,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
     }
     void AddEnemy(Collider2D collision)
     {
+        if(collision.gameObject.transform == enemyRefs.ownSinglePointCollider) { return; }
         inRangeEnemies.Add(collision.gameObject.transform);
         CheckClosestTransform();
     }
