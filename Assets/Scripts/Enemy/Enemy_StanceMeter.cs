@@ -6,8 +6,8 @@ using static Generic_EventSystem;
 
 public class Enemy_StanceMeter : MonoBehaviour
 {
-    [SerializeField] float MaxStance;
-    float BaseMaxStance;
+    [SerializeField] Enemy_References enemyRefs;
+    
     [SerializeField] float CurrentStance;
     [SerializeField] float CooldownAfterDamage;
     [SerializeField] float RecoveryPerSecond;
@@ -30,7 +30,7 @@ public class Enemy_StanceMeter : MonoBehaviour
     }
     private void Start()
     {
-        CurrentStance = MaxStance;
+        CurrentStance = enemyRefs.baseEnemyStats.MaxStance;
     }
     void RemoveStance(object sender, ReceivedAttackInfo receivedAttackInfo)
     {
@@ -38,7 +38,7 @@ public class Enemy_StanceMeter : MonoBehaviour
         CurrentStance -= receivedAttackInfo.Damage;
         if (CurrentStance <= 0)
         {
-            CurrentStance = MaxStance;
+            CurrentStance = enemyRefs.baseEnemyStats.MaxStance;
             eventSystem.OnStanceBroken?.Invoke();
         }
         else
@@ -58,22 +58,23 @@ public class Enemy_StanceMeter : MonoBehaviour
         if(isRecovering)
         {
             CurrentStance += Time.deltaTime * RecoveryPerSecond;
-            if (CurrentStance > MaxStance) 
+            if (CurrentStance > enemyRefs.baseEnemyStats.MaxStance) 
             {
-                CurrentStance = MaxStance; 
+                CurrentStance = enemyRefs.baseEnemyStats.MaxStance; 
                 isRecovering = false;
             }
         }
     }
+    float TemporalBaseMaxStance;
     public void MakeStanceUnbreakeable()
     {
-        BaseMaxStance = MaxStance;
-        MaxStance = 9999;
+        TemporalBaseMaxStance = enemyRefs.baseEnemyStats.MaxStance;
+        enemyRefs.baseEnemyStats.MaxStance = 9999;
         CurrentStance = 9999;
     }
     public void ReturnToRegularStance()
     {
-        MaxStance = BaseMaxStance;
-        CurrentStance = MaxStance;
+        enemyRefs.baseEnemyStats.MaxStance = TemporalBaseMaxStance;
+        CurrentStance = enemyRefs.baseEnemyStats.MaxStance;
     }
 }

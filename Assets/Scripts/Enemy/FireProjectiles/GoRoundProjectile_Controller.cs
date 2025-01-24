@@ -12,6 +12,7 @@ public class GoRoundProjectile_Controller : MonoBehaviour
     [SerializeField] float rotationSpeed_DegPerSec;
 
     [SerializeField] Generic_EventSystem events;
+    [SerializeField] float timeToSelfDestroy;
     private void OnEnable()
     {
         events.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => BounceAway(info.GeneralDirection);
@@ -22,6 +23,7 @@ public class GoRoundProjectile_Controller : MonoBehaviour
     {
         if (currentMovement != null) { StopCoroutine(currentMovement); }
         currentMovement = StartCoroutine(followRotationCoroutine());
+        StartCoroutine(selfDestroyInSeconds(timeToSelfDestroy));
     }
     [Header("Bounce")]
     [SerializeField] float bounceDuration;
@@ -56,9 +58,18 @@ public class GoRoundProjectile_Controller : MonoBehaviour
         }
         Destroy(gameObject);
     }
+    IEnumerator selfDestroyInSeconds(float secondsToDie)
+    {
+        yield return new WaitForSeconds(secondsToDie);
+        destroyItself(this, new Generic_EventSystem.DealtDamageInfo(Vector3.zero, gameObject, 0));
+    }
     void destroyItself(object sender, Generic_EventSystem.DealtDamageInfo info)
     {
-        Destroy(gameObject);
+        damageDealer.GetComponent<Collider2D>().enabled = false;
+        damageDetector.GetComponent<Collider2D>().enabled = false;
+        ProjectileTf.GetComponentInChildren<TrailRenderer>().emitting = false;
+        ProjectileTf.GetComponent<Animator>().SetTrigger("Impact");
+        Destroy(gameObject,2);
     }
 
 
