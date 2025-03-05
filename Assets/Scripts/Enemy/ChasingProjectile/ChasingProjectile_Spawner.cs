@@ -14,6 +14,7 @@ public class ChasingProjectile_Spawner : MonoBehaviour
     [SerializeField] float angleDegToSpread;
     [SerializeField] float DistanceFromCenterOnSpawn;
     [SerializeField] float delayBetweenProjectiles;
+    [SerializeField] Transform weaponPivot;
 
 
     private void Update()
@@ -41,13 +42,13 @@ public class ChasingProjectile_Spawner : MonoBehaviour
     public void EV_Chaser_SpreadSpawn(int amount)
     {
         StartCoroutine(SpreadSpawnCoroutine(amount));
-
+        
         //
         IEnumerator SpreadSpawnCoroutine(int amount) //Decide amount from here millor
         {
             Transform playerTf = GlobalPlayerReferences.Instance.playerTf;
-            Vector2 directionToPlayer = (playerTf.position - transform.position).normalized;
-            Vector2[] SpreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(directionToPlayer, amountToSpread, Mathf.Deg2Rad * angleDegToSpread);
+            Vector2 weaponDirection = weaponPivot.up;
+            Vector2[] SpreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(weaponDirection, amountToSpread, Mathf.Deg2Rad * angleDegToSpread);
 
             for (int p = 0; p < amountToSpread; p++)
             {
