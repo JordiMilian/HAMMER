@@ -12,8 +12,6 @@ public class Enemy_References : Generic_References
     public Enemy_StanceMeter stanceMeter;
     public Enemy_VFXManager VFXManager;
     public Enemy01 feedbackManager;
-    //public Enemy_AgrooMovement agrooMovement;
-    //public Enemy_IdleMovement idleMovement;
     public Collider2D damageCollider;
     public Enemy_ReusableStateMachine reusableStateMachine;
     public Transform lookingPivotTf;
@@ -21,7 +19,6 @@ public class Enemy_References : Generic_References
     public Generic_OnTriggerEnterEvents playerInAgrooCollider;
     [HideInInspector] public EnemyStats currentEnemyStats;
     public Enemy_ShowHideAttackCollider showHideAttackCollider;
-    public Enemy_StateController_BasicEnemy stateController;
     public Transform ownSinglePointCollider;
     private void Awake()
     {

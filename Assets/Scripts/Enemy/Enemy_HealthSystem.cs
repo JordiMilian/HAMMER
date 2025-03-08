@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy_HealthSystem : Generic_CharacterHealthSystem
 {
+    /*
     [SerializeField] Enemy_References enemyRefs;
     private void Awake()
     {
@@ -19,4 +20,5 @@ public class Enemy_HealthSystem : Generic_CharacterHealthSystem
 
         enemyRefs.animator.SetTrigger(Tags.death);
     }
+    */
 }

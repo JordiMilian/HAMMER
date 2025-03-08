@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ public class Enemy01 : MonoBehaviour
     [SerializeField] bool hasMultipleParries;
     [SerializeField] AnimationCurve damagedMovementCurve;
     float damagedCurveAverage;
-
+    /*
     public virtual void OnEnable()
     {
         enemyRefs.enemyEvents.OnReceiveDamage += ReceiveDamage;
@@ -108,5 +109,5 @@ public class Enemy01 : MonoBehaviour
     {
         TimeScaleEditor.Instance.SlowMotion(SlowMoPercentage.Value, 1f);
     }
-
+    */
 }

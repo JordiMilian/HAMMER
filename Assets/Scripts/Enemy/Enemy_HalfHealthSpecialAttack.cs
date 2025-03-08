@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
-{
+{/*
     [SerializeField] Enemy_References refs;
     [SerializeField] Enemy_AttacksProviderV2.EnemyAttack SpecialAttack;
     float BaseMaxStance;
@@ -46,4 +46,5 @@ public class Enemy_HalfHealthSpecialAttack : MonoBehaviour
         refs.enemyEvents.OnAttackFinished -= EndedChangePerform;
         refs.stanceMeter.ReturnToRegularStance();
     }
+    */
 }

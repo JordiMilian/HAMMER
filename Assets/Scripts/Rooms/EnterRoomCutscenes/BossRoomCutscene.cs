@@ -22,7 +22,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
         Enemy_References bossRefs = bossTf.GetComponent<Enemy_References>();
-        Enemy_StateController_BossEnemy bossState = (Enemy_StateController_BossEnemy)bossRefs.stateController;
+        
 
         //disable player
         Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
@@ -33,7 +33,12 @@ public class BossRoomCutscene : BaseCutsceneLogic
 
         //ACTIVATE ANIMATOR TRIGGER FOR INTENDED ANIMATION
 
-        yield return StartCoroutine(bossState.BossIntroAnimation());
+        bossTf.GetComponent<IChangeStateByType>().ChangeStateByType(StateTags.BossIntro);
+        Generic_StateMachine bossStateMachine = bossTf.GetComponent<Generic_StateMachine>();
+        while (bossStateMachine.currentState.stateTag == StateTags.BossIntro)
+        {
+            yield return null;
+        }
 
         //Zoom as intended
         zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(zoomToBoss, 3, "enterCutscene"));
@@ -47,7 +52,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
         yield return new WaitForSeconds(1f);
 
 
-        bossState.ForceAgroo();
+        bossTf.GetComponent<IChangeStateByType>().ChangeStateByType(StateTags.Agroo);
         
         yield return new WaitForSeconds(.3f);
 

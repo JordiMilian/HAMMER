@@ -86,7 +86,15 @@ public class UsefullMethods : MonoBehaviour
         }
         return totalSum / samplePoints;
     }
-        
+    public static IEnumerator WaitForAnimationTime(AnimationClip clip)
+    {
+        float timer = 0;
+        while (timer < clip.length)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
     public static IEnumerator AddTorkeOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
         float startTime = Time.time;

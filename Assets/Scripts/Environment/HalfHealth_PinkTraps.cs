@@ -82,10 +82,12 @@ public class HalfHealth_PinkTraps : MonoBehaviour
     }
     void subscribeToHalfHealth()
     {
-        roomWithEnemies.CurrentlySpawnedEnemies[0].GetComponent<Enemy_HalfHealthSpecialAttack>().OnChangePhase += startSecondPhase;
+        roomWithEnemies.CurrentlySpawnedEnemies[0].GetComponent<Generic_StateMachine>().OnStateChanged += onBossStateChangeCheck;
     }
-    void startSecondPhase()
+    void onBossStateChangeCheck(State newState)
     {
+        if(newState.stateTag != StateTags.BossPhaseTransition) { return; }
+
         foreach(trapInfo trap in trapInfosList)
         {
             StartCoroutine(appearPinkTrap(trap));

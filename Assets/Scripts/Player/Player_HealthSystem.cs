@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Player_HealthSystem : Generic_CharacterHealthSystem
 {
+    /* TO DELETE
     [SerializeField] Player_References playerRefs;
 
     private void Awake()
@@ -20,5 +21,5 @@ public class Player_HealthSystem : Generic_CharacterHealthSystem
 
         TimeScaleEditor.Instance.SlowMotion(80, 2);
     }
-
+    */
 }

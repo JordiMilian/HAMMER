@@ -29,7 +29,7 @@ public class HalfHealth_PuddleCreature : MonoBehaviour
     void subscribeToHalfHealth()
     {
         halfHealthAttack = roomWithEnemies.CurrentlySpawnedEnemies[0].GetComponent<Enemy_HalfHealthSpecialAttack>();
-        halfHealthAttack.OnChangePhase += startSecondPhase;
+        //this should look for the boss_controller and get a reference when phase changing instead of this. HalfHealthAttack should be DELETED
     }
     void startSecondPhase()
     {

@@ -35,6 +35,10 @@ public class Player_SpecialAttack : MonoBehaviour
         playerRefs.events.OnSuccessfulParry -= onSuccesfullParry;
         GameEvents.OnPlayerDeath -= restartCharge;
     }
+    public bool isChargeFilled()
+    {
+        return stats.CurrentBloodFlow !< stats.MaxBloodFlow;
+    }
     void onSpecialAttackPressed()
     {
         if (stats.CurrentBloodFlow < stats.MaxBloodFlow) { Debug.Log("not enough charge try again"); return; }
@@ -91,7 +95,7 @@ public class Player_SpecialAttack : MonoBehaviour
     {
         //Health_Current.SetValue(Health_Current.Value + amountToHeal);
         restartCharge();
-        playerRefs.healthSystem.RemoveLife(-amountToHeal, gameObject);
+        playerRefs.GetComponent<IHealth>().RemoveHealth(-amountToHeal);
         playerRefs.events.OnActuallySpecialHeal?.Invoke();
     }
 }

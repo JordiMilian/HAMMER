@@ -45,8 +45,8 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         //Activate the Agroo of the enemies
         foreach (GameObject enemy in enemyRoomLogic.CurrentlySpawnedEnemies)
         {
-            Enemy_References enemyRefs = enemy.GetComponent<Enemy_References>();
-            enemyRefs.stateController.ForceAgroo();
+            IChangeStateByType stateChanger = enemy.GetComponent<IChangeStateByType>();
+            stateChanger.ChangeStateByType(StateTags.Agroo);
         }
         
         followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0]);

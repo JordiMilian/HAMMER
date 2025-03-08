@@ -112,17 +112,6 @@ public class Player_FeedbackManager : MonoBehaviour
         TimeScaleEditor.Instance.HitStop(0.05f);
         playerRefs.flasher.CallDefaultFlasher();
     }
-    IEnumerator ApplyForceOverTime(Vector3 forceVector, float duration)
-    {
-        float startTime = Time.time;
-        while (Time.time - startTime < duration)
-        {
-            playerRefs._rigidbody.AddForce(forceVector / duration * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-
 }
 
    

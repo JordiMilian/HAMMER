@@ -9,6 +9,7 @@ public class Player_ActionPerformer : MonoBehaviour
     public class Action
     {
         public string triggerName;
+        State state;
         public Action(string triggername)
         {
             triggerName = triggername;

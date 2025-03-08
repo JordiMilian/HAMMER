@@ -5,7 +5,21 @@ using UnityEngine;
 public class Generic_HealthBarController : MonoBehaviour 
 {
 
-    [SerializeField] Generic_CharacterHealthSystem health;
+    IStats istats;
+    [SerializeField] Component iStats_Holder;
+    private void OnValidate()
+    {
+        if (iStats_Holder != null)
+        {
+            if (iStats_Holder.GetComponent<IStats>() == null)
+            {
+                iStats_Holder = null;
+            }
+            else { istats = iStats_Holder.GetComponent<IStats>(); }
+
+        }
+    }
+
     EntityStats currentStats;
 
     [SerializeField] Transform Bar_Tf;
@@ -34,7 +48,7 @@ public class Generic_HealthBarController : MonoBehaviour
     }
     private void OnEnable()
     {
-        currentStats = health.currentStats;
+        currentStats = istats.GetCurrentStats();
 
         currentStats.OnCurrentHpChange += UpdateBarSize;
         currentStats.OnMaxHpChange += UpdateBgSize;

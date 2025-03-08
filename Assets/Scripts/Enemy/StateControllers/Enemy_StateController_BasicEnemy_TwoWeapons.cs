@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_StateController_BasicEnemy_TwoWeapons : Enemy_StateController_BasicEnemy
+public class Enemy_StateController_BasicEnemy_TwoWeapons { } /* : Enemy_StateController_BasicEnemy
 {
     public override void OnGettingParried(Generic_EventSystem.GettingParriedInfo info)
     {
@@ -12,3 +12,4 @@ public class Enemy_StateController_BasicEnemy_TwoWeapons : Enemy_StateController
         
     }
 }
+    */

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class E_AttackedWhileRecovering : MonoBehaviour
-{
+{/* MOVE THIS TO ENEMY CONTROLLER
+  * 
     [SerializeField] Enemy_References enemyRefs;
     [SerializeField] int ResponseAttackIndex;
     [SerializeField] float CooldownSeconds = 2;
@@ -45,4 +46,5 @@ public class E_AttackedWhileRecovering : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         isInCooldown = false;
     }
+    */
 }

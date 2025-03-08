@@ -20,32 +20,24 @@ public class Enemy_StanceMeter : MonoBehaviour
     //If the stance reaches 0 the stance event is called and the animation, which cancels the current attack or action.
     //After breaking the stance the enemy will recover all their stance instantly 
 
-    private void OnEnable()
-    {
-        eventSystem.OnReceiveDamage += RemoveStance;
-    }
-    private void OnDisable()
-    {
-        eventSystem.OnReceiveDamage -= RemoveStance;
-    }
+    
     private void Start()
     {
         CurrentStance = enemyRefs.baseEnemyStats.MaxStance;
     }
-    void RemoveStance(object sender, ReceivedAttackInfo receivedAttackInfo)
+    public bool IsStanceBrokenAfterRemoval(float Damage)
     {
-
-        CurrentStance -= receivedAttackInfo.Damage;
+        CurrentStance -= Damage;
         if (CurrentStance <= 0)
         {
             CurrentStance = enemyRefs.baseEnemyStats.MaxStance;
-            eventSystem.OnStanceBroken?.Invoke();
+            return true;
         }
         else
         {
             StartCoroutine(Cooldown(CooldownAfterDamage));
+            return false;
         }
-        
     }
     IEnumerator Cooldown(float cooldownSeconds)
     {
@@ -77,4 +69,5 @@ public class Enemy_StanceMeter : MonoBehaviour
         enemyRefs.baseEnemyStats.MaxStance = TemporalBaseMaxStance;
         CurrentStance = enemyRefs.baseEnemyStats.MaxStance;
     }
+    
 }

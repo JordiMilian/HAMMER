@@ -10,21 +10,7 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
     [SerializeField] GameObject dialoguer;
     [SerializeField] Dialoguer dialoguerScript;
     [SerializeField] Generic_EventSystem tiedEvents;
-    private void OnEnable()
-    {
-        eventSystem.OnDeath += OnDeathState;
-        dialoguerScript.onFinishedReading += killDude;
-    }
-    public override void OnDeathState(object sender, Generic_EventSystem.DeadCharacterInfo args)
-    {
-        CurrentState = States.Dead;
-        HeadSprite.enabled = false;
-        vfxManager.groundBloodIntensity = 0.4f;
-        //GameObject.Find(TagsCollection.MainCharacter).GetComponent<Player_HealthSystem>().RestoreAllHealth();
-        GlobalPlayerReferences.Instance.references.healthSystem.RestoreAllHealth();
-        dialoguer.SetActive(false);
-        
-    }
+ 
     void killDude(int i)
     {
         tiedEvents.OnReceiveDamage?.Invoke(this, new Generic_EventSystem.ReceivedAttackInfo(

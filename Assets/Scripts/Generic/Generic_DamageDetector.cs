@@ -69,36 +69,6 @@ public class Generic_DamageDetector : MonoBehaviour
 
         return;
         
-        switch (EntityTeam)
-        {
-            case Team.Object:
-                if(collision.CompareTag(Tags.Enemy_Hitbox) || collision.CompareTag(Tags.Player_Hitbox))
-                {
-                    PublishAttackedEvent(collision);
-                }
-                if(collision.CompareTag(Tags.Player) || collision.CompareTag(Tags.Enemy))
-                {
-                    PublishBeingTouched(collision);
-                }
-                break;
-            case Team.Player:
-                if (collision.CompareTag("Static_Attack_hitbox") || collision.CompareTag(Tags.Enemy_Hitbox) || collision.CompareTag("Neutral_Hitbox"))
-                {
-                    PublishAttackedEvent(collision); 
-                }
-                break;
-
-            case Team.Enemy:
-                if (collision.CompareTag(Tags.Player_Hitbox))
-                {
-                    PublishAttackedEvent(collision);
-                }
-                else if(collision.CompareTag("Neutral_Hitbox"))
-                {
-                    PublishAttackedEvent(collision);
-                }
-                break;
-        }  
     }
     void PublishAttackedEvent(Collider2D collision)
     {

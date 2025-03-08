@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TiedEnemy_StateController : MonoBehaviour, IDeath, IDamageReceiver
+public class TiedEnemy_StateController : MonoBehaviour
 {
+    /* STATE CONTROLLERS MUST ALL DIE 
+     * 
     [SerializeField] Generic_References genericRefs;
     [SerializeField] Player_Respawner ownRespawner;
     [SerializeField] SpriteRenderer HeadSprite;
@@ -64,4 +66,5 @@ public class TiedEnemy_StateController : MonoBehaviour, IDeath, IDamageReceiver
         }
 
     }
+    */
 }

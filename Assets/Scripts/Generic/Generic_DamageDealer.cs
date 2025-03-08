@@ -23,7 +23,26 @@ public class Generic_DamageDealer : MonoBehaviour
 
 
     public EventHandler OnGettingParried;
-    public Generic_EventSystem eventSystem;
+    IDamageDealer IdamageDealer;
+    IParryReceiver IparryReceiver;
+    [SerializeField] Component damageDealer_InterfaceHolder;
+    [SerializeField] Component parryReceiver_InterfaceHolder;
+    private void OnValidate()
+    {
+        if(damageDealer_InterfaceHolder != null && damageDealer_InterfaceHolder.GetComponent<IDamageDealer>() == null)
+        {
+            damageDealer_InterfaceHolder = null;
+        }
+        if(parryReceiver_InterfaceHolder != null && parryReceiver_InterfaceHolder.GetComponent<IParryReceiver>() == null)
+        {
+            parryReceiver_InterfaceHolder = null;
+            isParryable = false;
+        }
+        else
+        {
+            isParryable = true;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Generic_DamageDetector otherDetector = collision.gameObject.GetComponent<Generic_DamageDetector>();
@@ -78,25 +97,28 @@ public class Generic_DamageDealer : MonoBehaviour
         float charge = 0;
         if (isChargeable && isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
 
-        eventSystem.OnDealtDamage?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
-        collision.ClosestPoint(gameObject.transform.position),
-        collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
-        Damage,
-        charge
-        ));
+        IdamageDealer.OnDamageDealt(new DealtDamageInfo(
+            collision.ClosestPoint(gameObject.transform.position),
+            collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
+            Damage,
+            collision.GetComponent<Generic_DamageDetector>(),
+            charge
+            ));
     }
     void PublishHitObject(Collider2D collision)
     {
+        /*
         eventSystem.OnHitObject?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position),
             collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
             Damage
             ));
+        */
     }
     void PublishGettingParriedEvent(GameObject parrier)
     {
         Vector2 ParrierDirection = (gameObject.transform.position - parrier.transform.position).normalized;
-        eventSystem.OnGettingParried?.Invoke(new Generic_EventSystem.GettingParriedInfo(parrier, weaponIndex, ParrierDirection));
+        IparryReceiver.OnParryReceived(new GettingParriedInfo(parrier, weaponIndex, ParrierDirection));
     }
    
 }

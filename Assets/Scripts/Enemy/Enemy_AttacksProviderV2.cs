@@ -104,7 +104,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
         }
     }
-    /*
+    
     void FixedUpdate()
     {
         //bastant guarro aixo
@@ -152,7 +152,7 @@ public class Enemy_AttacksProviderV2 : MonoBehaviour
             dealer.HitStop = selectedAttack.Damage * 0.1f; //Hitstop now depends on damage 
         }
     }
-    */
+    
     
     public EnemyAttack GetRandomAvailableAttack()
     {

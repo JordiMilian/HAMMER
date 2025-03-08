@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RandomThunderPlayer : MonoBehaviour
 {
+    /*
     public bool isPlaying;
 
     [SerializeField] GameObject ThunderPrefab;
@@ -53,4 +54,5 @@ public class RandomThunderPlayer : MonoBehaviour
         halfHealth.OnChangePhase -= StartThunders;
         isPlaying = true;
     }
+    */
 }

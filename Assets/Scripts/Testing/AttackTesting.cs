@@ -28,7 +28,8 @@ public class AttackTesting : MonoBehaviour
     }
     void TestAttack()
     {
-        enemyRefs.stateController.PerformAttack(AttackProviderV2.Enemy_Attacks[AttackToTest]);
+        //IDK THIS WILL HAVE TO BE DONE 
+        //enemyRefs.stateController.PerformAttack(AttackProviderV2.Enemy_Attacks[AttackToTest]);
         AttackName = AttackProviderV2.Enemy_Attacks[AttackToTest].animationClip.name;
     }
 

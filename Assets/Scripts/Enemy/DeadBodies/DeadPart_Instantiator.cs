@@ -15,14 +15,6 @@ public class DeadPart_Instantiator : MonoBehaviour
     }
     [SerializeField] List<DeadPart> deadPartsList = new List<DeadPart>();
 
-    private void OnEnable()
-    {
-        eventSystem.OnDeath += InstantiateDeadParts;
-    }
-    private void OnDisable()
-    {
-        eventSystem.OnDeath -= InstantiateDeadParts;
-    }
     public void InstantiateDeadParts(object sender, Generic_EventSystem.DeadCharacterInfo args)
     {
         List<GameObject> deadParts = new List<GameObject>();

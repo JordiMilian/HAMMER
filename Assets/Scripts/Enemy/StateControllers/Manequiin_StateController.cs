@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manequiin_StateController : MonoBehaviour, IParryReceiver, IDamageReceiver
+public class Manequiin_StateController : MonoBehaviour
 {
     Generic_References genericRefs;
     [SerializeField] Enemy_ShowHideAttackCollider showHideAttackCollider;

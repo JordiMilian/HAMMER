@@ -7,7 +7,7 @@ using UnityEngine;
 public class KILLENEMIESAROUND : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    List<Generic_CharacterHealthSystem> enemiesHealth = new List<Generic_CharacterHealthSystem>();
+    List<IHealth> enemiesHealth = new List<IHealth>();
     [SerializeField] float InstaKillEnemiesOnDistance;
      Room_script currentRoom;
     void Update()
@@ -21,22 +21,22 @@ public class KILLENEMIESAROUND : MonoBehaviour
     {
         InvokeRepeating("CheckEnemiesDistanceAndKill", 1, 5);
     }
-    List<Generic_CharacterHealthSystem> GetEnemiesHealths()
+    List<IHealth> GetEnemiesHealths()
     {
-        if (gameState.currentPlayerRooms_index.Count == 0) { return new List<Generic_CharacterHealthSystem>(); }
+        if (gameState.currentPlayerRooms_index.Count == 0) { return new List<IHealth>(); }
 
         RoomGenerator_Manager roomsGenerator = RoomGenerator_Manager.Instance;
         Vector3Int currentRoomsIndex = gameState.currentPlayerRooms_index[gameState.currentPlayerRooms_index.Count - 1];
         currentRoom = roomsGenerator.CompleteList_spawnedRooms[currentRoomsIndex.x].list[currentRoomsIndex.y];
 
         RoomWithEnemiesLogic currentRoomWithEnemies = currentRoom.GetComponent<RoomWithEnemiesLogic>();
-        if(currentRoomWithEnemies == null) { return new List<Generic_CharacterHealthSystem>(); }
+        if(currentRoomWithEnemies == null) { return new List<IHealth>(); }
         GameObject[] enemiesGO = currentRoomWithEnemies.CurrentlySpawnedEnemies.ToArray();
 
-        List<Generic_CharacterHealthSystem> enemiesHealthListTemp = new List<Generic_CharacterHealthSystem>();
+        List<IHealth> enemiesHealthListTemp = new List<IHealth>();
         foreach (GameObject enem in enemiesGO)
         {
-            Generic_CharacterHealthSystem enemieHealth = enem.GetComponent<Generic_CharacterHealthSystem>();
+            IHealth enemieHealth = enem.GetComponent<IHealth>();
 
             if (enemieHealth == null) { continue; }
 
@@ -54,22 +54,21 @@ public class KILLENEMIESAROUND : MonoBehaviour
         enemiesHealth = GetEnemiesHealths();
         if(enemiesHealth.Count == 0) { return; };
         Vector2 roomPos = currentRoom.transform.position;
-        foreach(Generic_CharacterHealthSystem health in  enemiesHealth)
+        foreach(IHealth health in enemiesHealth)
         {
-            Vector2 enemyPos = health.transform.position;
+            Vector2 enemyPos = (health as MonoBehaviour).transform.position;
             if((enemyPos - roomPos).magnitude > InstaKillEnemiesOnDistance)
             {
-                health.RemoveLife(50, gameObject);
-                Debug.Log("Killed: " + health.gameObject.name + "because he got too far");
+                health.RemoveHealth(50);
+                Debug.Log("Killed: " + (health as MonoBehaviour).gameObject.name + "because he got too far");
             }
         }
-
     }
-    IEnumerator KillEmSlowly(Generic_CharacterHealthSystem[] healthsArray)
+    IEnumerator KillEmSlowly(IHealth[] healthsArray)
     {
-        foreach(Generic_CharacterHealthSystem health in healthsArray)
+        foreach(IHealth health in healthsArray)
         {
-            health.RemoveLife(50, gameObject);
+            health.RemoveHealth(50);
             yield return new WaitForSeconds(0.1f);
         }
     }

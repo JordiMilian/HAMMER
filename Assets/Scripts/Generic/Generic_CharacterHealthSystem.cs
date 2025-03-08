@@ -7,6 +7,7 @@ using static Generic_EventSystem;
 
 public class Generic_CharacterHealthSystem : MonoBehaviour
 {
+    /* TO DELETE?
     [SerializeField] Generic_References Refs;
     [HideInInspector] public EntityStats baseStats;
     [HideInInspector] public EntityStats currentStats;
@@ -50,4 +51,5 @@ public class Generic_CharacterHealthSystem : MonoBehaviour
         if (Refs.genericEvents.OnDeath != null) Refs.genericEvents.OnDeath(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,killer));
         Destroy(gameObject);
     }
+    */
 }

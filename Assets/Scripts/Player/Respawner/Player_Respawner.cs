@@ -37,8 +37,7 @@ public class Player_Respawner : MonoBehaviour
     {
         ActivateRespawner();
         //THere should be something to controll the visible sprites and shi. Mainly the head should disspear if activated
-        GetComponent<TiedEnemy_StateMachine>().OnDeathState(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,gameObject));
-        tiedStateController.OnDeath(this, new Generic_EventSystem.DeadCharacterInfo(gameObject,gameObject));
+        GetComponent<IChangeStateByType>().ChangeStateByType(StateTags.Dead);
     }
     public void ActivateRespawner()
     {

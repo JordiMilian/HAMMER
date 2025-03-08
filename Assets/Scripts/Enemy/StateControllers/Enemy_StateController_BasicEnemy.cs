@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Enemy_AttacksProviderV2;
-
+/*
 #region INTERFACES
 public interface IDamageReceiver
 {
@@ -196,3 +196,4 @@ public class Enemy_StateController_BasicEnemy : MonoBehaviour, IDamageReceiver, 
     }
     #endregion
 }
+*/

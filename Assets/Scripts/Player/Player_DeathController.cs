@@ -45,7 +45,7 @@ public class Player_DeathController : MonoBehaviour
         SetupForRespawn();
 
         RespawnersManager.Instance.RespawnPlayer();
-        playerRefs.healthSystem.RestoreAllHealth();
+        playerRefs.GetComponent<IHealth>().RestoreAllHealth();
 
         //
         void SetupForRespawn()

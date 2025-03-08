@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Cutscene_Death_NoResetState : BaseCutsceneLogic
 {
+    public override void playThisCutscene() { }
+    /* I HATE THE CUTSCENES
+     * 
+     * 
+     * 
     [SerializeField] GameState gameState;
     [SerializeField] Animator iconAnimator;
     [SerializeField] SpriteRenderer iconRenderer;
@@ -55,5 +60,5 @@ public class Cutscene_Death_NoResetState : BaseCutsceneLogic
         yield return new WaitForSeconds(.25f);
         onCutsceneOver?.Invoke();
     }
-
+    */
 }

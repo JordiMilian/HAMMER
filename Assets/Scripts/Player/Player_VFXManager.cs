@@ -16,7 +16,7 @@ public class Player_VFXManager : MonoBehaviour
     [SerializeField] TrailRenderer rollTrail;
     [Header("Puddle")]
     [SerializeField] Generic_TypeOFGroundDetector groundDetector;
-
+    /*
     private void OnEnable()
     {
         eventSystem.OnSuccessfulParry += InstantiateParryVFX;
@@ -41,6 +41,7 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnAttackStarted -= PlayBigPuddleStep;
         eventSystem.OnPerformRoll -= PlayBigPuddleStep;
     }
+    */
     public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
     {
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, parryInfo.ParryPosition);

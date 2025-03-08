@@ -5,6 +5,7 @@ using UnityEngine;
 public class Generic_ParryDealer : MonoBehaviour
 {
     [SerializeField] Generic_EventSystem eventSystem;
+    IParryDealer IparryDealer;
     [SerializeField] Transform VFXPositionTransform;
     public enum Team
     {
@@ -34,29 +35,6 @@ public class Generic_ParryDealer : MonoBehaviour
             }
         }
         return;
-        switch (EntityTeam)
-        {
-            case Team.Player:
-                if (collision.CompareTag(Tags.Enemy_Hitbox))
-                {
-                    Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
-                    if (dealer.isParryable)
-                    {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position),dealer,dealer.isCharginSpecialAttack_whenParried);
-                    }    
-                }
-                break;
-            case Team.Enemy:
-                if(collision.CompareTag(Tags.Player_Hitbox))
-                {
-                    Generic_DamageDealer dealer = collision.GetComponent<Generic_DamageDealer>();
-                    if (dealer.isParryable)
-                    {
-                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), dealer,dealer.isCharginSpecialAttack_whenParried);
-                    }
-                }
-                break;
-        }
     }
     void PublishSuccesfullParry(Vector3 collisionPoint, Generic_DamageDealer dealer, bool canCharge)
     {
