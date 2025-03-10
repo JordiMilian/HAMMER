@@ -59,7 +59,6 @@ public class InputDetector : MonoBehaviour
     }
     void Update()
     {
-
         CheckForController();
         if(GlobalPlayerReferences.Instance == null) { PlayerTf = Camera.main.transform; }
         else if(GlobalPlayerReferences.Instance.playerTf == null) { PlayerTf = Camera.main.transform; }

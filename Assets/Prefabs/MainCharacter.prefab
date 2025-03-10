@@ -410,6 +410,38 @@ Transform:
   m_Father: {fileID: 7653426974895600711}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1304279572381726672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3487887569468735037}
+  m_Layer: 0
+  m_Name: STATES
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3487887569468735037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304279572381726672}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.16393603, y: 0.46157295, z: -0.012268709}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3059016130449261395}
+  m_Father: {fileID: 7653426975249963376}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1498234951240920988
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +518,57 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1527775182635497710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3059016130449261395}
+  - component: {fileID: 1251543061657691909}
+  m_Layer: 0
+  m_Name: Idle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3059016130449261395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527775182635497710}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3487887569468735037}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1251543061657691909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527775182635497710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154e28208c4a35a4eace5395fae0726f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 1
+  doesRequireStamina: 0
+  StaminaCost: 0
+  PlayerState_PerformParry: {fileID: 0}
+  PlayerState_Rolling: {fileID: 0}
+  PlayerState_SpecialHeal: {fileID: 0}
+  PlayerState_SpecialAttack: {fileID: 0}
 --- !u!1 &1655432678466414714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,13 +2142,14 @@ MonoBehaviour:
   Damage: 1
   Knockback: 2000
   HitStop: 1
-  isParryable: 0
+  isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 0
-  eventSystem: {fileID: 3383090570821903391}
+  damageDealer_InterfaceHolder: {fileID: 0}
+  parryReceiver_InterfaceHolder: {fileID: 0}
 --- !u!114 &3030397079455606687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4141,6 +4225,7 @@ Transform:
   - {fileID: 8433727092493903100}
   - {fileID: 53183938296472220}
   - {fileID: 7776157864701565945}
+  - {fileID: 3487887569468735037}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4156,11 +4241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a58e8a6e308c0a4199a7e040ff94ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Refs: {fileID: 3175104005493510322}
-  baseStats: {fileID: 0}
-  currentStats: {fileID: 0}
-  FillHealthOnStart: 1
-  playerRefs: {fileID: 3175104005493510322}
 --- !u!114 &3383090570821903391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4460,11 +4540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf27c9bfad50034a87835e90a5a04d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRecovering: 0
-  isFilled: 0
   playerRefs: {fileID: 3175104005493510322}
   RecoveryPerSecond: 7
-  DelayToRecover: 0
 --- !u!114 &1631478559803088520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4548,6 +4625,7 @@ MonoBehaviour:
   singlePointCollider: {fileID: 9009123525477702090}
   disableController: {fileID: 3372783210703460156}
   levelStatsManager: {fileID: 2481365138470066936}
+  weaponStatesHolder: {fileID: 0}
   parryCollider: {fileID: 7653426975970030027}
   weaponScalingRoot: {fileID: 7653426974895600710}
   weaponPivot: {fileID: 7653426975497917625}
@@ -5468,9 +5546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d9717292bf8c84fa746c61d7a72f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  iconAnimator: {fileID: 5454370268145376699}
-  iconRenderer: {fileID: 7292725115317866645}
 --- !u!1001 &823664196182813470
 PrefabInstance:
   m_ObjectHideFlags: 0

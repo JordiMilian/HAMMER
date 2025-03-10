@@ -9,6 +9,8 @@ public class PlayerState : MonoBehaviour
     protected Player_StateMachine stateMachine;
     protected Animator animator;
     protected GameObject rootGameObject;
+    [SerializeField] protected Player_References playerRefs;
+    [SerializeField] protected string AnimatorStateName;
 
     [Header("STAMINA")]
     public bool doesRequireStamina;
@@ -18,8 +20,56 @@ public class PlayerState : MonoBehaviour
         stateMachine = machine;
         animator = anim;
         rootGameObject = animator.gameObject;
+        playerRefs = rootGameObject.GetComponent<Player_References>();
     }
     public virtual void OnEnable() { }
     public virtual void OnDisable() { }
     public virtual void Update() { }
+
+    //When implementing this coroutine, remember to stop de coroutine when the state is disabled
+    protected IEnumerator AutoTransitionToStateOnAnimationOver(string stateName, PlayerState stateToChange)
+    {
+        animator.CrossFade(stateName, 0.1f);
+        AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(stateName, animator);
+        yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(thisClip));
+        stateMachine.ForceChangeState(stateToChange);
+    }
+
+    #region ACTION REQUESTS
+    //ALL STATES THAT READ INPUT MUST CALL SUBSCRIBE ON ENABLE AND UNSUBSCRIBE ON DISABLE
+    //OVERRIDE ANY REQUEST THAT NEED CHANGE
+    protected virtual void subscribeToRequests()
+    {
+        InputDetector.Instance.OnParryPressed += RequestParry;
+        InputDetector.Instance.OnRollPressed += RequestRoll;
+        InputDetector.Instance.OnSpecialHealPressed += RequestSpecialHeal;
+        InputDetector.Instance.OnSpecialAttackPressed += RequestSpecialAttack;
+        InputDetector.Instance.OnAttackPressed += RequestAttack;
+    }
+    protected virtual void unsubscribeToRequests()
+    {
+        InputDetector.Instance.OnParryPressed -= RequestParry;
+        InputDetector.Instance.OnRollPressed -= RequestRoll;
+        InputDetector.Instance.OnSpecialHealPressed -= RequestSpecialHeal;
+        InputDetector.Instance.OnSpecialAttackPressed -= RequestSpecialAttack;
+        InputDetector.Instance.OnAttackPressed -= RequestAttack;
+    }
+    protected virtual void RequestParry() { stateMachine.RequestChangeState(playerRefs.ParryingState); }
+    protected virtual void RequestRoll() { stateMachine.RequestChangeState(playerRefs.RollingState); }
+    protected virtual void RequestAttack() { stateMachine.RequestChangeState(playerRefs.StartingComboAttackState); }
+    protected virtual void RequestSpecialHeal()
+    {
+        if (playerRefs.specialAttack.isChargeFilled())
+        {
+            stateMachine.RequestChangeState(playerRefs.SpecialHealState);
+        }
+    }
+    protected virtual void RequestSpecialAttack()
+    {
+        if (playerRefs.specialAttack.isChargeFilled())
+        {
+            stateMachine.RequestChangeState(playerRefs.SpecialAttackState);
+        }
+    }
+    #endregion
 }

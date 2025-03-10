@@ -22,7 +22,9 @@ public class Player_References : Generic_References
     public Player_DisableController disableController;
     public Player_LevelStatsManager levelStatsManager;
     public Player_WeaponStatesHolder weaponStatesHolder;
-    
+    public Player_Movement2 movement2;
+    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState;
+    public PlayerState StartingComboAttackState, RollingAttackState, ParryAttackState, SpecialAttackState; //Each weapon picked should changes these states
 
     /*
     public FloatVariable currentHealth;
