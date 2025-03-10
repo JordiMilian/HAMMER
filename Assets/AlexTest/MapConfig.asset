@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944a553e86ed974786f726978fb92df, type: 3}
+  m_Name: MapConfig
+  m_EditorClassIdentifier: 
+  totalFloors: 8
+  floors:
+  - minRooms: 1
+    maxRooms: 1
+    nodeTypeChances:
+    - type: 0
+      percentage: 100
+  - minRooms: 2
+    maxRooms: 2
+    nodeTypeChances:
+    - type: 0
+      percentage: 0
+    - type: 1
+      percentage: 0
+    - type: 2
+      percentage: 0
+    - type: 3
+      percentage: 50
+    - type: 4
+      percentage: 33
+    - type: 5
+      percentage: 12
+    - type: 6
+      percentage: 1
+    - type: 7
+      percentage: 1
+  - minRooms: 1
+    maxRooms: 4
+    nodeTypeChances:
+    - type: 0
+      percentage: 0
+    - type: 1
+      percentage: 0
+    - type: 2
+      percentage: 0
+    - type: 3
+      percentage: 30
+    - type: 4
+      percentage: 30
+    - type: 5
+      percentage: 15
+    - type: 6
+      percentage: 10
+    - type: 7
+      percentage: 1
+  - minRooms: 2
+    maxRooms: 4
+    nodeTypeChances:
+    - type: 0
+      percentage: 0
+    - type: 1
+      percentage: 0
+    - type: 2
+      percentage: 0
+    - type: 3
+      percentage: 15
+    - type: 4
+      percentage: 25
+    - type: 5
+      percentage: 40
+    - type: 6
+      percentage: 20
+    - type: 7
+      percentage: 1
+  - minRooms: 3
+    maxRooms: 3
+    nodeTypeChances:
+    - type: 0
+      percentage: 0
+    - type: 1
+      percentage: 0
+    - type: 2
+      percentage: 0
+    - type: 3
+      percentage: 5
+    - type: 4
+      percentage: 15
+    - type: 5
+      percentage: 40
+    - type: 6
+      percentage: 40
+    - type: 7
+      percentage: 1
+  - minRooms: 2
+    maxRooms: 4
+    nodeTypeChances:
+    - type: 0
+      percentage: 0
+    - type: 1
+      percentage: 0
+    - type: 2
+      percentage: 0
+    - type: 3
+      percentage: 1
+    - type: 4
+      percentage: 1
+    - type: 5
+      percentage: 40
+    - type: 6
+      percentage: 40
+    - type: 7
+      percentage: 20
+  - minRooms: 2
+    maxRooms: 2
+    nodeTypeChances:
+    - type: 0
+      percentage: 0
+    - type: 1
+      percentage: 0
+    - type: 2
+      percentage: 0
+    - type: 3
+      percentage: 0
+    - type: 4
+      percentage: 0
+    - type: 5
+      percentage: 10
+    - type: 6
+      percentage: 60
+    - type: 7
+      percentage: 30
+  - minRooms: 1
+    maxRooms: 1
+    nodeTypeChances:
+    - type: 2
+      percentage: 100
+  possibleNodeTypes:
+  - {fileID: 11400000, guid: 054fad80ce5e13b4ea2b0c655b80f7f5, type: 2}
+  - {fileID: 11400000, guid: 8cc3e3e1f4c7aec4091ead3b5769a041, type: 2}
+  - {fileID: 11400000, guid: 0f3e5e4731872b24f901080fd196061b, type: 2}
+  - {fileID: 11400000, guid: 7eec2b1b94c96664fb6c5492248e9a45, type: 2}
+  - {fileID: 11400000, guid: 1d8071734d0410f43a142fdbb82d7f2c, type: 2}
+  startNodeType: {fileID: 11400000, guid: 90ce4392afde7a245955030005b20a41, type: 2}
+  bossNodeType: {fileID: 11400000, guid: d3b7b00364071d04fb80da6964fcb218, type: 2}
