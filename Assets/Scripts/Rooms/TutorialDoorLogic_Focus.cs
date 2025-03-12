@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
 {
-    [SerializeField] GameObject TargetFocusMannequin;
-    [SerializeField] GameObject StartingFocusMannequin;
-     Player_EventSystem playerEvents;
+    [SerializeField] FocusIcon TargetFocusMannequin;
+    [SerializeField] FocusIcon StartingFocusMannequin;
     [SerializeField] Generic_OnTriggerEnterEvents getCloseToMannequinTrigger;
-    bool isCompleted;
 
     public override void OnEnable()
     {
         base.OnEnable();
 
-        playerEvents = GlobalPlayerReferences.Instance.references.events;
-       
-        playerEvents.OnFocusEnemy += FocusedEnemy;
+        TargetFocusMannequin.OnFocused += OnFocusedTarget;
 
         getCloseToMannequinTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         getCloseToMannequinTrigger.OnTriggerEntered += AutoFocusMannequin;
@@ -24,15 +20,12 @@ public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
     void AutoFocusMannequin(Collider2D collider)
     {
         Player_FollowMouseWithFocus_V2 playerFocus = GlobalPlayerReferences.Instance.references.followMouse;
-        playerFocus.FocusNewEnemy(StartingFocusMannequin.gameObject);
+        playerFocus.FocusNewEnemy(StartingFocusMannequin);
     }
-    void FocusedEnemy(GameObject focusedGO)
+    void OnFocusedTarget()
     {
-        if(focusedGO == TargetFocusMannequin)
-        {
-            RoomCompleted(true, true);
-            playerEvents.OnFocusEnemy -= FocusedEnemy;
-        }
+        RoomCompleted(true, true);
+        TargetFocusMannequin.OnFocused -= OnFocusedTarget;
     }
     
 

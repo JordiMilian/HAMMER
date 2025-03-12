@@ -34,10 +34,6 @@ public class Player_Movement : MonoBehaviour
     private void OnEnable()
     {
         Physics.IgnoreLayerCollision(15, 16);
-        playerRefs.events.OnPerformRoll += CallDashMovement;
-        playerRefs.events.OnDeath += StopRunningOnDeath;
-        playerRefs.events.OnAttackStarted += StopRunning;
-        playerRefs.events.OnEnterIdle += EV_ReturnSpeed;
 
         InputDetector.Instance.OnRollPressed += OnRollPressed;
         InputDetector.Instance.OnRollPressing += OnRollPressing;
@@ -48,10 +44,6 @@ public class Player_Movement : MonoBehaviour
     }
     private void OnDisable()
     {
-        playerRefs.events.OnPerformRoll -= CallDashMovement;
-        playerRefs.events.OnDeath -= StopRunningOnDeath;
-        playerRefs.events.OnAttackStarted -= StopRunning;
-        playerRefs.events.OnEnterIdle -= EV_ReturnSpeed;
 
         InputDetector.Instance.OnRollPressed -= OnRollPressed;
         InputDetector.Instance.OnRollPressing -= OnRollPressing;

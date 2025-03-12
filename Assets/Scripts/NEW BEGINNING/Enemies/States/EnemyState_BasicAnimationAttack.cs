@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class EnemyState_BasicAnimationAttack : EnemyState_Attack
 {
-    [SerializeField] AnimationClip attackAnimationClip;
     Coroutine animationLenghtWaiterCoroutine;
     public override void OnEnable()
     {
-        animator.CrossFade(attackAnimationClip.name, 0.1f);
+        base.OnEnable();
+
+        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Slow);
+        animator.CrossFade(AnimatorStateName, 0.1f);
         animationLenghtWaiterCoroutine = StartCoroutine(animationLenghtWaiter());
     }
     IEnumerator animationLenghtWaiter()
     {
-        float timer = 0;
-        while (timer < attackAnimationClip.length)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(UsefullMethods.GetAnimationClipByStateName(AnimatorStateName, animator).length);
         OnAttackFinished();
     }
     public override void OnDisable()
@@ -28,6 +25,8 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
         {
             StopCoroutine(animationLenghtWaiterCoroutine);
         }
+
+        //hide attack collider to do
     }
     
 }

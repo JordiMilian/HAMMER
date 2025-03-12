@@ -10,27 +10,14 @@ public class Tomato_Spawner : MonoBehaviour
     [SerializeField] GameObject DestinationGO;
     [SerializeField] float MaxDistance;
     [SerializeField] Enemy_EventSystem enemyEvents;
+    [SerializeField] AudioClip ThrowTomatoSFX;
     void Awake()
     {
         Player = GlobalPlayerReferences.Instance.playerTf;
     }
-    public void SpawnTomato()
-    {
-        //Get direction to Player and move the hand towards it
-        Vector2 PlayerPos = Player.position;
-        Vector2 HandPosition = TomatoHandTransform.position;
-        Vector3 DirectionToPlayer = PlayerPos - HandPosition;
-        TomatoHandTransform.up = Vector3.RotateTowards(TomatoHandTransform.up, DirectionToPlayer, 100 * Time.deltaTime, 10);
 
-        //Instantiante the tomato
-        var Tomato = Instantiate(TomatoPrefab, TomatoHandTransform.position, TomatoHandTransform.rotation);
-
-        //Call event for Sound effect currently
-        enemyEvents.OnThrowTomato?.Invoke();
-    }
     public void EV_newSpawnTomato()
     {
-        
         Vector2 PlayerPos = Player.position;
         Vector2 destination = PlayerPos;
         Vector2 HandPosition = TomatoHandTransform.position;
@@ -47,8 +34,7 @@ public class Tomato_Spawner : MonoBehaviour
 
         newTomato.GetComponent<Tomato_NewController>().ThrowItself(newDestination, HandPosition, destination);
 
-        //Call event for Sound effect currently
-        enemyEvents.OnThrowTomato?.Invoke();
+        SFX_PlayerSingleton.Instance.playSFX(ThrowTomatoSFX);
     }
 
 }

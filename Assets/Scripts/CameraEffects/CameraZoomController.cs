@@ -59,9 +59,9 @@ public class CameraZoomController : MonoBehaviour
             //Lerp the zoom towards targetZoom, whatever it is. If we are focusing, we calculate the proper zoom with the focused enemy
             if (isFocusingZoom)
             {
-                if (followMouse.CurrentlyFocusedEnemy != null)
+                if (followMouse.CurrentlyFocusedIcon != null)
                 {
-                    targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedEnemy.transform.position);
+                    targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedIcon.transform.position);
                 }
             }
             else if (!checkedLatestZoom)

@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyState_StanceBroken : State
+public class EnemyState_StanceBroken : EnemyState
 {
-    [SerializeField] AnimationClip stanceBrokenAnimationClip;
     Coroutine currentAnimCoroutine;
 
     public override void OnEnable()
     {
-        animator.CrossFade(stanceBrokenAnimationClip.name, 0.1f);
-        currentAnimCoroutine = StartCoroutine(stanceBrokenCoroutine());
-    }
-    IEnumerator stanceBrokenCoroutine()
-    {
-        yield return StartCoroutine( UsefullMethods.WaitForAnimationTime(stanceBrokenAnimationClip));
-        
-        rootGameObject.GetComponent<IChangeStateByType>().ChangeStateByType(StateTags.Agroo);
+        base.OnEnable();
+
+        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.VerySlow);
+        animator.CrossFade(AnimatorStateName, 0.1f);
+        currentAnimCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName,EnemyRefs.AgrooState,0.1f));
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.StanceBroken, transform.position);
     }
     public override void OnDisable()
     {

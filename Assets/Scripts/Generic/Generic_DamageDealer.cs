@@ -15,32 +15,39 @@ public class Generic_DamageDealer : MonoBehaviour
     public bool isCharginSpecialAttack_whenParried;
     [SerializeField] int weaponIndex = 0;
 
-    public enum Team
-    {
-        Player, Enemy, Object,
-    }
-    public Team EntityTeam;
+    public DamagersTeams EntityTeam;
 
-
-    public EventHandler OnGettingParried;
-    IDamageDealer IdamageDealer;
-    IParryReceiver IparryReceiver;
-    [SerializeField] Component damageDealer_InterfaceHolder;
-    [SerializeField] Component parryReceiver_InterfaceHolder;
+    public IDamageDealer thisDamageDealer;
+    public IParryReceiver thisParryReceiver;
+    public Transform rootGameObject_DamageDealerTf;
+    public Transform rootGameObject_ParryReceiver;
     private void OnValidate()
     {
-        if(damageDealer_InterfaceHolder != null && damageDealer_InterfaceHolder.GetComponent<IDamageDealer>() == null)
+        if (rootGameObject_DamageDealerTf != null)
         {
-            damageDealer_InterfaceHolder = null;
+            IDamageDealer damageDealerTemp = rootGameObject_DamageDealerTf.GetComponent<IDamageDealer>();
+            if(damageDealerTemp == null)
+            {
+                Debug.LogWarning("Root doesn't implement IDamageDealer");
+                rootGameObject_DamageDealerTf = null;
+            }
+            else { thisDamageDealer = damageDealerTemp; }
+               
         }
-        if(parryReceiver_InterfaceHolder != null && parryReceiver_InterfaceHolder.GetComponent<IParryReceiver>() == null)
+        if (rootGameObject_ParryReceiver != null)
         {
-            parryReceiver_InterfaceHolder = null;
-            isParryable = false;
-        }
-        else
-        {
-            isParryable = true;
+            IParryReceiver parryReceiverTemp = rootGameObject_ParryReceiver.GetComponent<IParryReceiver>();
+            if (parryReceiverTemp == null)
+            {
+                Debug.LogWarning("Root doesn't implement IParryReceiver");
+                rootGameObject_ParryReceiver = null;
+                isParryable = false;
+            }
+            else
+            {
+                thisParryReceiver = parryReceiverTemp;
+                isParryable = true;
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,20 +57,20 @@ public class Generic_DamageDealer : MonoBehaviour
 
         if(otherDetector != null) //
         {
-            if (otherDetector.EntityTeam == Generic_DamageDetector.Team.Object)
+            if (otherDetector.EntityTeam == DamagersTeams.Neutral)
             {
                 PublishHitObject(collision);
             }
             switch (EntityTeam)
             {
-                case Team.Player:
-                    if (otherDetector.EntityTeam == Generic_DamageDetector.Team.Enemy || otherDetector.EntityTeam == Generic_DamageDetector.Team.Object)
+                case DamagersTeams.Player:
+                    if (otherDetector.EntityTeam == DamagersTeams.Enemy || otherDetector.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishDealtDamageEvent(collision, otherDetector.canChargeSpecialAttack);
                     }
                     break;
-                case Team.Enemy:
-                    if(otherDetector.EntityTeam == Generic_DamageDetector.Team.Player || otherDetector.EntityTeam == Generic_DamageDetector.Team.Object)
+                case DamagersTeams.Enemy:
+                    if(otherDetector.EntityTeam == DamagersTeams.Player || otherDetector.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishDealtDamageEvent(collision);
                     }
@@ -72,21 +79,23 @@ public class Generic_DamageDealer : MonoBehaviour
         }
         if(otherParryDealer != null)
         {
+            if (!isParryable) { return; }
+
             switch (EntityTeam)
             {
-                case Team.Player:
-                    if(otherParryDealer.EntityTeam == Generic_ParryDealer.Team.Enemy)
+                case DamagersTeams.Player:
+                    if(otherParryDealer.EntityTeam == DamagersTeams.Enemy)
                     {
                         PublishGettingParriedEvent(otherParryDealer.gameObject);
                     }
                     break;
-                case Team.Enemy:
-                    if(otherParryDealer.EntityTeam == Generic_ParryDealer.Team.Player)
+                case DamagersTeams.Enemy:
+                    if(otherParryDealer.EntityTeam == DamagersTeams.Player)
                     {
                         PublishGettingParriedEvent(otherParryDealer.gameObject);
                     }
                     break;
-                case Team.Object:
+                case DamagersTeams.Neutral:
                     PublishGettingParriedEvent(otherParryDealer.gameObject);
                     break;
             }
@@ -94,15 +103,17 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishDealtDamageEvent(Collider2D collision, bool isChargeable = false)
     {
+        Generic_DamageDetector otherDetector = collision.GetComponent<Generic_DamageDetector>();
         float charge = 0;
+
         if (isChargeable && isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
 
-        IdamageDealer.OnDamageDealt(new DealtDamageInfo(
-            collision.ClosestPoint(gameObject.transform.position),
-            collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
-            Damage,
-            collision.GetComponent<Generic_DamageDetector>(),
-            charge
+        thisDamageDealer.OnDamageDealt(new DealtDamageInfo(
+            collision.ClosestPoint(gameObject.transform.position), //collision point
+            otherDetector.rootGameObject.gameObject, //root of detector
+            Damage, //Damage
+            otherDetector, //damage detector
+            charge //charge
             ));
     }
     void PublishHitObject(Collider2D collision)
@@ -118,7 +129,7 @@ public class Generic_DamageDealer : MonoBehaviour
     void PublishGettingParriedEvent(GameObject parrier)
     {
         Vector2 ParrierDirection = (gameObject.transform.position - parrier.transform.position).normalized;
-        IparryReceiver.OnParryReceived(new GettingParriedInfo(parrier, weaponIndex, ParrierDirection));
+        thisParryReceiver.OnParryReceived(new GettingParriedInfo(parrier, weaponIndex, ParrierDirection));
     }
    
 }

@@ -3,23 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyState_Agroo : State
+public class EnemyState_Agroo : EnemyState
 {
     [SerializeField] bool showDebug;
+    [SerializeField] Enemy_AgrooAlertIcon alertIconScript;
     public bool PlayerIsInAnyRange;
-
+    public bool isPlayerDetected = false;
 
     [HideInInspector] public EnemyState_Attack currentAttack;
-    EnemyState_Attack ForcedNextAttack;
+    EnemyState ForcedNextAttack;
     bool isNextAttackForced;
 
 
-
+    public void ForceNextAttack(EnemyState ForcedState)
+    {
+        ForcedNextAttack = ForcedState;
+        isNextAttackForced = true;
+    }
     List<EnemyState_Attack> List_EnemyAttacks = new List<EnemyState_Attack>();
     public override void OnEnable()
     {
+        base.OnEnable();
+
+        if (!isPlayerDetected)
+        {
+            alertIconScript.playAlertIcon();
+            isPlayerDetected = true;
+        }
+
         //Find the player and chase him. Set the moveToTarget and stuff
-        if(List_EnemyAttacks.Count == 0)
+
+        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Regular);
+
+        if (List_EnemyAttacks.Count == 0)
         {
             List_EnemyAttacks = GetComponentsInChildren<EnemyState_Attack>().ToList();
         }

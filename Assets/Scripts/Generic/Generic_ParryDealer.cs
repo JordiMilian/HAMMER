@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class Generic_ParryDealer : MonoBehaviour
 {
-    [SerializeField] Generic_EventSystem eventSystem;
-    IParryDealer IparryDealer;
+    IParryDealer thisParryDealer;
+    public Transform rootGameObject;
     [SerializeField] Transform VFXPositionTransform;
-    public enum Team
+
+    private void OnValidate()
     {
-        Player, Enemy,
+        if (rootGameObject != null)
+        {
+            IParryDealer parryDealerTemp = rootGameObject.GetComponent<IParryDealer>();
+
+            if (parryDealerTemp == null) 
+            {
+                Debug.LogWarning("Root Game)Object doesn't implement IParryDealer");
+                rootGameObject = null;
+                return;
+            }
+        }
     }
-    public Team EntityTeam;
+
+    public DamagersTeams EntityTeam;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
@@ -20,14 +32,14 @@ public class Generic_ParryDealer : MonoBehaviour
         {
             switch(EntityTeam)
             {
-                case Team.Enemy:
-                    if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Player)
+                case DamagersTeams.Enemy:
+                    if(otherDealer.EntityTeam == DamagersTeams.Player)
                     {
                         PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
                     }
                     break;
-                case Team.Player:
-                    if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Enemy)
+                case DamagersTeams.Player:
+                    if(otherDealer.EntityTeam == DamagersTeams.Enemy)
                     {
                         PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
                     }
@@ -38,7 +50,7 @@ public class Generic_ParryDealer : MonoBehaviour
     }
     void PublishSuccesfullParry(Vector3 collisionPoint, Generic_DamageDealer dealer, bool canCharge)
     {
-        if(eventSystem.OnSuccessfulParry != null) { eventSystem.OnSuccessfulParry(this, new Generic_EventSystem.SuccesfulParryInfo(collisionPoint,dealer, canCharge)); }
+        thisParryDealer.OnParryDealt(new SuccesfulParryInfo(collisionPoint,dealer, canCharge, dealer.rootGameObject_ParryReceiver.gameObject));
         
     }
 }

@@ -5,97 +5,89 @@ using UnityEngine;
 
 public class Generic_DamageDetector : MonoBehaviour
 {
-    public enum Team
-    {
-        Player, Enemy, Object,
-    }
-    public Team EntityTeam;
-    public EventHandler<EventArgs_ReceivedAttackInfo> OnReceiveDamage;
-    public Generic_EventSystem eventSystem;
-    bool isInCooldown;
-    float CooldownTime = 0.2f;
-    Coroutine cooldownRoutine;
-    public bool canChargeSpecialAttack;
+
+    public DamagersTeams EntityTeam;
+    //public Generic_EventSystem eventSystem;
+    IDamageReceiver thisIDamageReceiver;
+    public Transform rootGameObject;
+
    
-    public class EventArgs_ReceivedAttackInfo : EventArgs
+    public bool canChargeSpecialAttack;
+    private void OnValidate()
     {
-        public Vector3 CollisionPosition;
-        public GameObject Attacker;
-        public float Damage;
-        public float KnockBack;
-        public float Hitstop;
-        public EventArgs_ReceivedAttackInfo(Vector2 collisionPosition, GameObject attacker, float damage, float knockBack, float hitstop)
+        if (rootGameObject != null)
         {
-            CollisionPosition = collisionPosition;
-            Attacker = attacker;
-            Damage = damage;
-            KnockBack = knockBack;
-            Hitstop = hitstop;
+            IDamageReceiver tempDamageReceiver = rootGameObject.GetComponent<IDamageReceiver>();
+
+            if (tempDamageReceiver == null)
+            {
+                rootGameObject = null;
+                Debug.LogWarning("Root gameobject doesn't implement IDamageReceiver");
+                return;
+            }
+            thisIDamageReceiver = tempDamageReceiver;
         }
+      
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isInCooldown)
-        {
-            //Debug.Log("damage detector was in cooldown"); 
-            return;
-        }
-
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
 
         if (otherDealer != null)
         {
             switch (EntityTeam)
             {
-                case Team.Player:
-                    if (otherDealer.EntityTeam == Generic_DamageDealer.Team.Enemy || otherDealer.EntityTeam == Generic_DamageDealer.Team.Object)
+                case DamagersTeams.Player:
+                    if (otherDealer.EntityTeam == DamagersTeams.Enemy || otherDealer.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishAttackedEvent(collision);
                     }
                     break;
-                case Team.Enemy:
-                    if(otherDealer.EntityTeam == Generic_DamageDealer.Team.Player || otherDealer.EntityTeam == Generic_DamageDealer.Team.Object)
+                case DamagersTeams.Enemy:
+                    if(otherDealer.EntityTeam == DamagersTeams.Player || otherDealer.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishAttackedEvent(collision);
                     }
                     break;
-                case Team.Object:
+                case DamagersTeams.Neutral:
                     PublishAttackedEvent(collision);
                     break;
             }
         }
-
-
         return;
-        
     }
-    void PublishAttackedEvent(Collider2D collision)
+    void PublishAttackedEvent(Collider2D attackerCollider)
     {
-        if (eventSystem.OnReceiveDamage != null)
-        {
-            Generic_DamageDealer damageDealer = collision.gameObject.GetComponent<Generic_DamageDealer>();
+        Generic_DamageDealer damageDealer = attackerCollider.gameObject.GetComponent<Generic_DamageDealer>();
 
-            eventSystem.OnReceiveDamage(this, new Generic_EventSystem.ReceivedAttackInfo
-                (
-                collision.ClosestPoint(gameObject.transform.position), //position
-                (transform.position - collision.gameObject.transform.root.position).normalized, //general direction
-                (transform.position - collision.gameObject.transform.position).normalized, //concrete direction
-                collision.gameObject, //attacker
-                damageDealer.Damage,
-                damageDealer.Knockback,
-                damageDealer.HitStop,
-                damageDealer.isBloody
-                )) ;
-        }
-        CooldownCall();
+        thisIDamageReceiver.OnDamageReceived(new ReceivedAttackInfo
+            (
+            attackerCollider.ClosestPoint(gameObject.transform.position), //position
+            (rootGameObject.transform.position - damageDealer.rootGameObject_DamageDealerTf.position).normalized, //roots direction
+            (transform.position - attackerCollider.transform.position).normalized, //colliders direction
+            attackerCollider.gameObject, //attacker Root
+            damageDealer,
+            damageDealer.Damage,
+            damageDealer.Knockback,
+            damageDealer.HitStop,
+            damageDealer.isBloody
+            ));
+        //CooldownCall();
     }
+    //What is this????
     void PublishBeingTouched(Collider2D collider)
     {
-        Vector2 direction = (transform.position - collider.transform.root.position).normalized;
-        eventSystem.OnBeingTouchedObject?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
-        CooldownCall();
+        //Vector2 direction = (transform.position - collider.transform.root.position).normalized;
+        //eventSystem.OnBeingTouchedObject?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
+        //CooldownCall();
     }
+
+    //LETS TRY WITHOUT COOLDOWN
+    /* 
+    bool isInCooldown;
+    float CooldownTime = 0.2f;
+    Coroutine cooldownRoutine;
     void CooldownCall()
     {
         if(gameObject.activeInHierarchy == false) { return; }
@@ -113,5 +105,6 @@ public class Generic_DamageDetector : MonoBehaviour
         }
         isInCooldown = false;
     }
+    */
 }
 

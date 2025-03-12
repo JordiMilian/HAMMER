@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SMB_AttackAction : SMB_BaseAction
 {
+    /* KILLLLL
     Player_EventSystem playerEvents;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -21,5 +22,5 @@ public class SMB_AttackAction : SMB_BaseAction
     {
         playerEvents.OnAttackFinished?.Invoke();
     }
-
+    */
 }

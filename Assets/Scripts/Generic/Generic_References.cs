@@ -15,6 +15,5 @@ public class Generic_References : MonoBehaviour
     public Collider2D damageDetectorCollider;
     public Collider2D positionCollider;
     public Rigidbody2D _rigidbody;
-    public Generic_StateMachine stateMachine;
     public Generic_CharacterMover characterMover;
 }

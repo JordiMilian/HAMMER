@@ -11,7 +11,6 @@ public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
     [SerializeField] GameObject DestinationPrefab;
     [SerializeField] GameObject BigDestinationPrefab;
     [SerializeField] Transform ThrowingOrigin;
-    [SerializeField] Enemy_EventSystem enemyEvents;
 
     [Header("Polygon Throw")]
     [SerializeField] int pointsAround;
@@ -35,6 +34,8 @@ public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
     [SerializeField] float delayBetweenThrows_tornado;
     [SerializeField] bool testTornado;
     [SerializeField] float testOffset;
+    [Header("SFX")]
+    [SerializeField] AudioClip ThrowGreenProjectileSFX;
 
 
     private void Update()
@@ -50,7 +51,9 @@ public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
         GameObject Instantiated_DestinationUI = Instantiate(DestinationPrefab, destination, Quaternion.identity);
         GameObject InstantiatedProjectile = Instantiate(ProjectilePrefab, ThrowingOrigin.position, Quaternion.identity);
         InstantiatedProjectile.GetComponent<GreenBoss_ProjectileLogic>().ThrowItself(Instantiated_DestinationUI, ThrowingOrigin.position, destination);
-        enemyEvents.OnThrowGreenProjectile?.Invoke();
+
+        SFX_PlayerSingleton.Instance.playSFX(ThrowGreenProjectileSFX, 0.1f);
+
     }
     void TransitionThrow(Vector2 destination)
     {

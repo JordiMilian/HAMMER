@@ -14,14 +14,6 @@ public class Enemy_ShowHideAttackCollider : Base_ShowHideAttackCollider
     {
         EV_Enemy_HideAttackCollider();
     }
-    private void OnEnable()
-    {
-        enemyRefs.enemyEvents.OnEnterAgroo += EV_Enemy_HideAttackCollider;
-    }
-    private void OnDisable()
-    {
-        enemyRefs.enemyEvents.OnEnterAgroo -= EV_Enemy_HideAttackCollider;
-    }
     public override void EV_Enemy_ShowAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in damageDealer)

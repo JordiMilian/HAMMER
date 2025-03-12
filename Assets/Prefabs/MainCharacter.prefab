@@ -563,12 +563,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 1
+  playerRefs: {fileID: 0}
+  AnimatorStateName: 
   doesRequireStamina: 0
   StaminaCost: 0
-  PlayerState_PerformParry: {fileID: 0}
-  PlayerState_Rolling: {fileID: 0}
-  PlayerState_SpecialHeal: {fileID: 0}
-  PlayerState_SpecialAttack: {fileID: 0}
 --- !u!1 &1655432678466414714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,8 +2146,8 @@ MonoBehaviour:
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 0
-  damageDealer_InterfaceHolder: {fileID: 0}
-  parryReceiver_InterfaceHolder: {fileID: 0}
+  rootGameObject_DamageDealerTf: {fileID: 7653426975249963376}
+  rootGameObject_ParryReceiver: {fileID: 7653426975249963376}
 --- !u!114 &3030397079455606687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3434,7 +3432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityTeam: 0
-  eventSystem: {fileID: 3383090570821903391}
+  rootGameObject: {fileID: 7653426975249963376}
   canChargeSpecialAttack: 0
 --- !u!1 &7653426974726293687
 GameObject:
@@ -4163,14 +4161,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7653426975249963376}
-  - component: {fileID: 7653426975249963391}
   - component: {fileID: 3383090570821903391}
   - component: {fileID: 7653426975249963380}
   - component: {fileID: 7653426975249963388}
   - component: {fileID: 7653426975249963390}
-  - component: {fileID: 7653426975249963384}
   - component: {fileID: 864485886040288406}
-  - component: {fileID: 7653426975249963328}
   - component: {fileID: 4068002304790719456}
   - component: {fileID: 7653426975249963379}
   - component: {fileID: 7653426975249963331}
@@ -4187,6 +4182,7 @@ GameObject:
   - component: {fileID: 5563275663953165858}
   - component: {fileID: 3437038907371655252}
   - component: {fileID: 4559768665079232811}
+  - component: {fileID: 7549310352900070775}
   m_Layer: 20
   m_Name: MainCharacter
   m_TagString: Player
@@ -4229,18 +4225,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7653426975249963391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a58e8a6e308c0a4199a7e040ff94ad3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3383090570821903391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4310,67 +4294,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7653426975249963384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49415b7158f7b244ab4832af27a9c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRefs: {fileID: 3175104005493510322}
-  RunningSpeed: 3.5
-  RunInputDelayTime: 0.4
-  StaminaPerSecond: 2
-  RollTime: 1.06
-  RollDistance: 2.2
-  updateAverageSize_trigger: 0
-  RollCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1.4763619
-      outSlope: 1.4763619
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.84982324
-    - serializedVersion: 3
-      time: 0.11272779
-      value: 0.8525295
-      inSlope: -0.13939235
-      outSlope: -0.13939235
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.22462551
-      outWeight: 0.10284466
-    - serializedVersion: 3
-      time: 0.4077256
-      value: 0.34160185
-      inSlope: -1.1379651
-      outSlope: -1.1379651
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.0578404
-      outWeight: 0.18082272
-    - serializedVersion: 3
-      time: 0.9934679
-      value: 0.0061454773
-      inSlope: 0.083659016
-      outSlope: 0.083659016
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.16192949
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &864485886040288406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4429,19 +4352,6 @@ MonoBehaviour:
   Base_Knockback: 3000
   Base_HitStop: 0.1
   StaminaUse: 0
---- !u!114 &7653426975249963328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87acafbd1f740f4987cba0204c9bde1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRefs: {fileID: 3175104005493510322}
 --- !u!114 &4068002304790719456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4455,10 +4365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
-  Sp_Damage: 5
-  Sp_Knockback: 5000
-  Sp_HitStop: 0.5
-  StaminaCost: 2
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4607,16 +4513,15 @@ MonoBehaviour:
   damageDetectorCollider: {fileID: 7653426974398778621}
   positionCollider: {fileID: 7653426975249963388}
   _rigidbody: {fileID: 7653426975249963380}
-  stateMachine: {fileID: 0}
   characterMover: {fileID: 5563275663953165858}
   events: {fileID: 3383090570821903391}
   actionPerformer: {fileID: 399182982499736661}
   comboSystem: {fileID: 864485886040288406}
   feedbackManager: {fileID: 7653426975249963379}
   followMouse: {fileID: 441638044159238565}
-  healthSystem: {fileID: 7653426975249963391}
-  playerMovement: {fileID: 7653426975249963384}
-  parryPerformer: {fileID: 7653426975249963328}
+  healthSystem: {fileID: 0}
+  playerMovement: {fileID: 0}
+  parryPerformer: {fileID: 0}
   proximityDetector: {fileID: 1631478559803088520}
   playerStamina: {fileID: 4128982462933193464}
   playerVFX: {fileID: 7653426975249963331}
@@ -4625,7 +4530,20 @@ MonoBehaviour:
   singlePointCollider: {fileID: 9009123525477702090}
   disableController: {fileID: 3372783210703460156}
   levelStatsManager: {fileID: 2481365138470066936}
-  weaponStatesHolder: {fileID: 0}
+  movement2: {fileID: 0}
+  stateMachine: {fileID: 0}
+  IdleState: {fileID: 0}
+  RollingState: {fileID: 0}
+  ParryingState: {fileID: 0}
+  SpecialHealState: {fileID: 0}
+  RunningState: {fileID: 0}
+  ParriedState: {fileID: 0}
+  DeadState: {fileID: 0}
+  StartingComboAttackState: {fileID: 0}
+  RollingAttackState: {fileID: 0}
+  ParryAttackState: {fileID: 0}
+  SpecialAttackState: {fileID: 0}
+  weaponTrail: {fileID: 0}
   parryCollider: {fileID: 7653426975970030027}
   weaponScalingRoot: {fileID: 7653426974895600710}
   weaponPivot: {fileID: 7653426975497917625}
@@ -4737,10 +4655,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfbdbf066d2cb44d9887f1e6920792a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer:
-  - {fileID: 489989574351239143}
-  playerRefs: {fileID: 3175104005493510322}
-  trailrendered: {fileID: 7653426974077638565}
+--- !u!114 &7549310352900070775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20d52e15149d2b4cb068bd877cb5c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,7 +4929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3169442d79b07b4baa7408de1b796e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 3383090570821903391}
+  rootGameObject: {fileID: 7653426975249963376}
   VFXPositionTransform: {fileID: 8094939585006820728}
   EntityTeam: 0
 --- !u!1 &8015289354975398362
@@ -7126,7 +7052,7 @@ PrefabInstance:
     - target: {fileID: 2361237269639904750, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: health
       value: 
-      objectReference: {fileID: 7653426975249963391}
+      objectReference: {fileID: 0}
     - target: {fileID: 2361237269639904750, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: HorizontalSizePerUnit
       value: 0.4
@@ -7198,7 +7124,7 @@ PrefabInstance:
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: healthSystem
       value: 
-      objectReference: {fileID: 7653426975249963391}
+      objectReference: {fileID: 0}
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: HealthBarSize1
       value: 

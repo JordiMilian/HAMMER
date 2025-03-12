@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyState_Attack : State
+public abstract class EnemyState_Attack : EnemyState
 {
     //Any class inheriting from this should call at some point OnAttackFinished() to change to return to Agroo
     //Also, in the OnDisable remember to call base.OnDisable() for the cooldowb
-    //Also, in the Editor, the AGROO State should be the direct parent of all ATTACK States
 
 
     //Revisa lo que sigue o no necesari aqui 
@@ -43,7 +42,6 @@ public abstract class EnemyState_Attack : State
     }
     public void OnAttackFinished()
     {
-        EnemyState_Agroo AgrooState = transform.parent.GetComponent<EnemyState_Agroo>(); //Una mica fragil?
-        stateMachine.ChangeState(AgrooState);
+        stateMachine.ChangeState(EnemyRefs.AgrooState);
     }
 }

@@ -9,7 +9,7 @@ public class PlayerState_Idle : PlayerState
         stateMachine.EV_ReturnInput();
         stateMachine.EV_CanTransition();
 
-        animator.CrossFade("Idle", 0.1f);
+        animator.CrossFade(AnimatorStateName, transitionTime_long);
 
         subscribeToRequests();
 

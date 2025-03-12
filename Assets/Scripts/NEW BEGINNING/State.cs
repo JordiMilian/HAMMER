@@ -8,7 +8,6 @@ public enum StateTags
 }
 public abstract class State : MonoBehaviour
 {
-    
     public StateTags stateTag = StateTags.Unknown;
 
     protected Generic_StateMachine stateMachine;
@@ -23,4 +22,5 @@ public abstract class State : MonoBehaviour
     public virtual void OnEnable() { }
     public virtual void OnDisable() { }
     public virtual void Update() { }
+    
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiver, IParryReceiver, IHealth, IStats, IChangeStateByType
+public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiver, IParryReceiver, IHealth, IStats
 { 
     [SerializeField] protected Generic_StateMachine enemyStateMachine;
     [SerializeField] protected Enemy_References enemyRefs;
@@ -17,7 +17,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     {
         SetCurrentStats(baseStats);
         SetBaseStats(baseStats);
-        enemyStateMachine.ChangeState(GetStateByTag(StateTags.Idle));
+        enemyStateMachine.ChangeState(enemyRefs.IdleState);
 
     }
     #region DAMAGE RECEIVED
@@ -35,9 +35,19 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         enemyRefs.characterMover,
            info.KnockBack,
         0.25f,
-           info.ConcreteDirection,
+           info.CollidersDirection,
            damagedMovementCurve,
            damagedCurveAverage));
+
+        if (info.IsBloody)
+        {
+            GroundBloodPlayer.Instance.PlayGroundBlood(transform.position, info.CollidersDirection, 0.9f);
+        }
+
+        if (enemyRefs.groundDetector.currentGround == Generic_TypeOFGroundDetector.TypesOfGround.puddle)
+        {
+            simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BigPuddleStep, transform.position);
+        }
 
         #endregion
 
@@ -45,7 +55,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
         if(enemyRefs.stanceMeter.IsStanceBrokenAfterRemoval(info.Damage) && enemyStateMachine.currentState.stateTag != StateTags.Dead)
         {
-            enemyStateMachine.ChangeState(GetStateByTag(StateTags.StanceBroken));
+            enemyStateMachine.ChangeState(enemyRefs.StanceBrokenState);
         }
     }
     #endregion
@@ -58,6 +68,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
         if (enemyRefs.currentEnemyStats.CurrentHp <= 0)
         {
+            enemyRefs.currentEnemyStats.CurrentHp = 0;
             OnZeroHealth();
         }
         else if (enemyRefs.currentEnemyStats.CurrentHp > enemyRefs.currentEnemyStats.MaxHp)
@@ -68,8 +79,8 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
     public void OnZeroHealth()
     {
-        enemyStateMachine.ChangeState(GetStateByTag(StateTags.Dead));
-        enemyRefs.currentEnemyStats.CurrentHp = 0;
+        enemyStateMachine.ChangeState(enemyRefs.DeathState);
+        Event_OnZeroHealth?.Invoke();
     }
 
     public void RestoreAllHealth()
@@ -84,6 +95,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     {
         return enemyRefs.currentEnemyStats.MaxHp;
     }
+    public Action Event_OnZeroHealth { get; set; }
     #endregion
     #region DAMAGE DEALT
     public virtual void OnDamageDealt(DealtDamageInfo info)
@@ -94,7 +106,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     #region PARRY RECEIVED
     public virtual void OnParryReceived(GettingParriedInfo info)
     {
-        enemyStateMachine.ChangeState(GetStateByTag(StateTags.Parried));
+        enemyStateMachine.ChangeState(enemyRefs.ParriedState);
     }
     #endregion
     #region STATS
@@ -119,14 +131,21 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         enemyRefs.baseEnemyStats = (EnemyStats)stats;
     }
 
+    #region FOCUS ICON
+    public virtual void OnFocused()
+    {
+        enemyRefs.focusIcon.ShowFocusIcon();
+    }
+
+    public virtual void OnUnfocused()
+    {
+       enemyRefs.focusIcon.HideFocusIcon();
+    }
+    #endregion
+
     #endregion
     #region CHANGE STATE BY TYPE
-    [SerializeField] List<StateReference> BasicStates = new List<StateReference>();
-    [Serializable]
-    public struct StateReference
-    {
-        public State state;
-    }
+    /*
     protected State GetStateByTag(StateTags tag)
     {
         foreach (StateReference stateRef in BasicStates)
@@ -143,6 +162,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     {
         enemyStateMachine.ChangeState(GetStateByTag(tag));
     }
+    */
     #endregion
 
 }

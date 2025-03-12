@@ -49,7 +49,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
             stateChanger.ChangeStateByType(StateTags.Agroo);
         }
         
-        followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0]);
+        followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0].GetComponent<Enemy_References>().focusIcon);
 
         yield return new WaitForSeconds(0.5f);
 

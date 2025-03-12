@@ -12,13 +12,6 @@ public class Generic_ShowHideAttacks_2Weapons : Enemy_ShowHideAttackCollider
     {
         EV_Enemy_HideAttackCollider();
         EV_Enemy_HideAttackCollider_W2();
-        enemyRefs.enemyEvents.OnEnterAgroo += EV_Enemy_HideAttackCollider;
-        enemyRefs.enemyEvents.OnEnterAgroo += EV_Enemy_HideAttackCollider_W2;
-    }
-    private void OnDisable()
-    {
-        enemyRefs.enemyEvents.OnEnterAgroo -= EV_Enemy_HideAttackCollider;
-        enemyRefs.enemyEvents.OnEnterAgroo -= EV_Enemy_HideAttackCollider_W2;
     }
     public override void HideCollliderOnParry()
     {

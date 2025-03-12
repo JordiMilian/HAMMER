@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Animations;
 using System.Security.Cryptography.X509Certificates;
+using UnityEngine.VFX;
 
 public class PlayerState_Rolling : PlayerState
 {
@@ -10,6 +11,8 @@ public class PlayerState_Rolling : PlayerState
     [SerializeField] float RollTime; //This should depend on the animation I think?
     [SerializeField] float RollDistance;
     [SerializeField] bool updateAverageSize_trigger;
+    [SerializeField] VisualEffect VFX_RollDust;
+    [SerializeField] AudioClip SFX_RollSound;
     float rollCurve_averageValue = 0;
 
     [SerializeField] AnimationCurve RollCurve;
@@ -23,6 +26,9 @@ public class PlayerState_Rolling : PlayerState
         //Handle which direction it's facing and play proper animation
 
         PerformRollMovement();
+
+        VFX_RollDust.Play();
+        SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
         rollAnimationCoroutine = StartCoroutine(RollAutoTransition());
         subscribeToRequests();
@@ -58,7 +64,7 @@ public class PlayerState_Rolling : PlayerState
         InputDetector.Instance.OnRollPressing += pressing;
         InputDetector.Instance.OnRollUnpressed += unpressed;
 
-        animator.CrossFade(AnimatorStateName, 0.1f);
+        animator.CrossFade(AnimatorStateName, transitionTime_short);
         AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(AnimatorStateName, animator);
         yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(thisClip));
 

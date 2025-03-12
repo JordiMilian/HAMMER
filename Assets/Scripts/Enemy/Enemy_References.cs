@@ -20,6 +20,11 @@ public class Enemy_References : Generic_References
     [HideInInspector] public EnemyStats currentEnemyStats;
     public Enemy_ShowHideAttackCollider showHideAttackCollider;
     public Transform ownSinglePointCollider;
+    public Generic_StateMachine stateMachine;
+    public FocusIcon focusIcon;
+    public Generic_TypeOFGroundDetector groundDetector;
+
+    public EnemyState IdleState, AgrooState, ParriedState, StanceBrokenState, DeathState;
     private void Awake()
     {
         currentEnemyStats = new EnemyStats();

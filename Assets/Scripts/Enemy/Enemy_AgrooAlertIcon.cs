@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class Enemy_AgrooAlertIcon : MonoBehaviour
 {
-    [SerializeField] Enemy_References enemyRefs;
 
-    private void Awake()
-    {
-        enemyRefs.enemyEvents.OnPlayerDetected += playAlertIcon; 
-    }
-    void playAlertIcon()
+    public void playAlertIcon()
     {
         Animator iconAnimator = GetComponent<Animator>();
         iconAnimator.SetTrigger("AgrooAlert");

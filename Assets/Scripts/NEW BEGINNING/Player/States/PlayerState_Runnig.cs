@@ -10,19 +10,17 @@ public class PlayerState_Runnig : PlayerState
         stateMachine.EV_ReturnInput();
         stateMachine.EV_CanTransition();
 
-        animator.CrossFade(AnimatorStateName, 0.1f);
+        animator.CrossFade(AnimatorStateName, transitionTime_long);
 
         subscribeToRequests();
 
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Running);
+        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Fast);
 
         InputDetector.Instance.OnRollUnpressed += OnUnpressedRun;
     }
     public override void OnDisable()
     {
         unsubscribeToRequests();
-
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Regular);
 
         InputDetector.Instance.OnRollUnpressed -= OnUnpressedRun;
 

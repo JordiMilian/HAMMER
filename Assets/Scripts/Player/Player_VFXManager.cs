@@ -42,25 +42,11 @@ public class Player_VFXManager : MonoBehaviour
         eventSystem.OnPerformRoll -= PlayBigPuddleStep;
     }
     */
-    public void InstantiateParryVFX(object sender, SuccesfulParryInfo parryInfo)
-    {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, parryInfo.ParryPosition);
-    }
-    void InstantiateDealDamageVFX(object sender, Player_EventSystem.DealtDamageInfo dealtDamageInfo)
-    {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemy, dealtDamageInfo.CollisionPosition);
-    }
-    void InstantiateReceiveDamageVFX(object sender, Player_EventSystem.ReceivedAttackInfo receivedDamageInfo)
-    {
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitPlayer, receivedDamageInfo.CollisionPosition);
-    }
+
+
     void InstantiateBloodExplosion()
     {
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
-    }
-    void PlayDustVFX()
-    {
-        VFX_Roll.Play();
     }
     void PlayBigPuddleStep()
     {
@@ -69,21 +55,7 @@ public class Player_VFXManager : MonoBehaviour
             simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BigPuddleStep, transform.position);
         }
     }
-    void PlayGroundBlood(object sender, Generic_EventSystem.ReceivedAttackInfo args)
-    {
-        if (!args.IsBloody) { return; } //if its not bloody pa casa
 
-        Vector2 thisPosition = transform.position;
-        Vector2 otherPosition = args.Attacker.transform.root.position;
-        Vector2 opositeDirection = (thisPosition - otherPosition).normalized;
-
-        if (simpleVfxPlayer.Instance == null)
-        {
-            Debug.LogWarning("No Ground Blood instance");
-            return;
-        }
-        GroundBloodPlayer.Instance.PlayGroundBlood(thisPosition, opositeDirection,0.9f);
-    }
     public void EV_HideTrail() { WeaponTrail.emitting = false; }
     public void EV_ShowTrail() { WeaponTrail.emitting = true; }
     public void EV_ShowRollTrail() { rollTrail.enabled = true; }

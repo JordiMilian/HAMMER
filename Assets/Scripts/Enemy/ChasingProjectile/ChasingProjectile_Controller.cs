@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChasingProjectile_Controller : MonoBehaviour
+public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDamageReceiver, IParryReceiver
 {
     [HideInInspector] public Transform TargetTf;
     [SerializeField] Generic_EventSystem genericChaserEvents;
@@ -11,12 +11,54 @@ public class ChasingProjectile_Controller : MonoBehaviour
     [SerializeField] Generic_DamageDetector damageDetector;
     [SerializeField] AudioClip spawnAudioClip;
      Transform originalSender;
+    [Header("Damaged Stats")]
+    [SerializeField] float bounceDuration;
+    [SerializeField] float bounceInitialSpeed;
+    [SerializeField] float bounceInitialRotation;
 
-    private void Awake()
+    public void OnDamageDealt(DealtDamageInfo info)
     {
-        genericChaserEvents.OnReceiveDamage +=DamagedProjectile;
-        genericChaserEvents.OnDealtDamage += DamagedPlayer;
-        genericChaserEvents.OnGettingParried += ParriedProjectile;
+        Destroy(gameObject);
+    }
+    public void OnDamageReceived(ReceivedAttackInfo info)
+    {
+        if (currentMovement != null) { StopCoroutine(currentMovement); }
+        StartCoroutine(BounceAwayCoroutine(info.CollidersDirection));
+
+        damageDealer.EntityTeam = DamagersTeams.Player;
+        damageDetector.GetComponent<Collider2D>().enabled = false;
+
+        //
+        IEnumerator BounceAwayCoroutine(Vector2 initialDirection)
+        {
+            transform.up = initialDirection;
+            float timer = 0;
+            while (timer < bounceDuration)
+            {
+                timer += Time.deltaTime;
+                float normalizedTime = timer / bounceDuration;
+                float thisVelocity = Mathf.Lerp(bounceInitialSpeed, 0, normalizedTime);
+                float thisRotation = Mathf.Lerp(bounceInitialRotation, 0, normalizedTime);
+
+                rotateTowardTarget(thisRotation);
+                moveForward(thisVelocity);
+
+                yield return null;
+            }
+            Destroy(gameObject);
+        }
+    }
+    public void OnParryReceived(GettingParriedInfo info)
+    {
+        TargetTf = originalSender;
+        originalSender = info.Parrier.transform;
+
+
+        damageDealer.EntityTeam = DamagersTeams.Player;
+        damageDetector.EntityTeam = DamagersTeams.Player;
+
+        transform.up = info.ParryDirection;
+        startChasing();
     }
     void rotateTowardTarget(float rotationMaxRadiant)
     {
@@ -51,10 +93,6 @@ public class ChasingProjectile_Controller : MonoBehaviour
             startChasing();
         }
     }
-    public void SpawnAndRotateAround()
-    {
-
-    }
      void startChasing()
     {
         if(currentMovement != null) { StopCoroutine(currentMovement); }
@@ -84,54 +122,7 @@ public class ChasingProjectile_Controller : MonoBehaviour
     
   
    
-    [Header("Damaged Stats")]
-    [SerializeField] float bounceDuration;
-    [SerializeField] float bounceInitialSpeed;
-    [SerializeField] float bounceInitialRotation;
-    void DamagedProjectile( object sender, Generic_EventSystem.ReceivedAttackInfo info)
-    {
-        if (currentMovement != null) { StopCoroutine(currentMovement); }
-        StartCoroutine(BounceAwayCoroutine(info.ConcreteDirection));
-
-        damageDealer.EntityTeam = Generic_DamageDealer.Team.Player;
-        damageDetector.GetComponent<Collider2D>().enabled = false;
-
-        //
-        IEnumerator BounceAwayCoroutine(Vector2 initialDirection)
-        {
-            transform.up = initialDirection;
-            float timer = 0;
-            while (timer < bounceDuration)
-            {
-                timer += Time.deltaTime;
-                float normalizedTime = timer / bounceDuration;
-                float thisVelocity = Mathf.Lerp(bounceInitialSpeed, 0, normalizedTime);
-                float thisRotation = Mathf.Lerp(bounceInitialRotation, 0, normalizedTime);
-
-                rotateTowardTarget(thisRotation);
-                moveForward(thisVelocity);
-
-                yield return null;
-            }
-            Destroy(gameObject);
-        }
-
-    }
-    void ParriedProjectile(Generic_EventSystem.GettingParriedInfo info)
-    {
-        TargetTf = originalSender;
-        originalSender = info.Parrier.transform;
-        
-
-        damageDealer.EntityTeam = Generic_DamageDealer.Team.Player;
-        damageDetector.EntityTeam = Generic_DamageDetector.Team.Player;
-
-        transform.up = info.ParryDirection;
-        startChasing();
-    }
-    void DamagedPlayer(object sender, Generic_EventSystem.DealtDamageInfo info)
-    {
-        Destroy(gameObject);
-    }
+    
+    
    
 }

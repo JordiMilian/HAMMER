@@ -30,7 +30,7 @@ public class SpinningEyes : MonoBehaviour
         Vector2 rootPos = transform.position;
 
         //If there is a focused enemy, look at enemy, else look at mouse
-        if(followMouse.CurrentlyFocusedEnemy != null) { targetPos = followMouse.CurrentlyFocusedEnemy.transform.position; }
+        if(followMouse.CurrentlyFocusedIcon != null) { targetPos = followMouse.CurrentlyFocusedIcon.transform.position; }
         else { targetPos = (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition); }
 
         //Find the direction to the target, whatever it is

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoRoundProjectile_Controller : MonoBehaviour
+public class GoRoundProjectile_Controller : MonoBehaviour , IDamageDealer, IDamageReceiver, IParryReceiver
 {
     [SerializeField] Transform RotatingPos;
     [SerializeField] Transform RotationRoot;
@@ -11,13 +11,19 @@ public class GoRoundProjectile_Controller : MonoBehaviour
     [SerializeField] float timeToReachFinalRadius;
     [SerializeField] float rotationSpeed_DegPerSec;
 
-    [SerializeField] Generic_EventSystem events;
     [SerializeField] float timeToSelfDestroy;
-    private void OnEnable()
+
+    public void OnDamageDealt(DealtDamageInfo info)
     {
-        events.OnReceiveDamage += (object sender, Generic_EventSystem.ReceivedAttackInfo info) => BounceAway(info.GeneralDirection);
-        events.OnGettingParried += (Generic_EventSystem.GettingParriedInfo info) => BounceAway(info.ParryDirection);
-        events.OnDealtDamage += destroyItself;
+        destroyItself();
+    }
+    public void OnDamageReceived(ReceivedAttackInfo info)
+    {
+        BounceAway(info.RootsDirection);
+    }
+    public void OnParryReceived(GettingParriedInfo info)
+    {
+        BounceAway(info.ParryDirection);
     }
     private void Awake()
     {
@@ -40,7 +46,7 @@ public class GoRoundProjectile_Controller : MonoBehaviour
 
         StartCoroutine(BounceAwayCoroutine(directionAway));
 
-        damageDealer.EntityTeam = Generic_DamageDealer.Team.Player;
+        damageDealer.EntityTeam = DamagersTeams.Player;
         damageDetector.GetComponent<Collider2D>().enabled = false;
     }
     IEnumerator BounceAwayCoroutine(Vector2 directionAway)
@@ -61,9 +67,9 @@ public class GoRoundProjectile_Controller : MonoBehaviour
     IEnumerator selfDestroyInSeconds(float secondsToDie)
     {
         yield return new WaitForSeconds(secondsToDie);
-        destroyItself(this, new Generic_EventSystem.DealtDamageInfo(Vector3.zero, gameObject, 0));
+        destroyItself();
     }
-    void destroyItself(object sender, Generic_EventSystem.DealtDamageInfo info)
+    void destroyItself()
     {
         damageDealer.GetComponent<Collider2D>().enabled = false;
         damageDetector.GetComponent<Collider2D>().enabled = false;

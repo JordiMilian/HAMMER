@@ -21,20 +21,12 @@ public class Player_References : Generic_References
     public Generic_OnTriggerEnterEvents singlePointCollider;
     public Player_DisableController disableController;
     public Player_LevelStatsManager levelStatsManager;
-    public Player_WeaponStatesHolder weaponStatesHolder;
     public Player_Movement2 movement2;
-    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState;
+    public Player_StateMachine stateMachine;
+    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState;
     public PlayerState StartingComboAttackState, RollingAttackState, ParryAttackState, SpecialAttackState; //Each weapon picked should changes these states
+    public TrailRenderer weaponTrail;
 
-    /*
-    public FloatVariable currentHealth;
-    public FloatVariable maxHealth;
-    public FloatVariable baseHealth;
-    public FloatVariable currentStamina;
-    public FloatVariable maxStamina;
-    public FloatVariable baseStamina;
-
-    */
     public Collider2D parryCollider;
 
     public GameObject weaponScalingRoot;
@@ -44,5 +36,7 @@ public class Player_References : Generic_References
     [Header("Stats")]
     public PlayerStats currentStats;
     public PlayerStats baseStats;
+
+
 
 }

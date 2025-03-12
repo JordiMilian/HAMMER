@@ -70,10 +70,8 @@ public class Player_WeaponSwitcher : MonoBehaviour
         playerRefs.comboSystem.Base_Damage = infoHolder.BaseDamage;
         playerRefs.comboSystem.Base_Knockback = infoHolder.BaseKnockback;
         playerRefs.comboSystem.Base_HitStop = infoHolder.BaseHitstop;
-
-        playerRefs.specialAttack.Sp_Damage = infoHolder.Sp_Damage;
-        playerRefs.specialAttack.Sp_Knockback = infoHolder.Sp_Knockback;
-        playerRefs.specialAttack.StaminaCost = infoHolder.Sp_StaminaCost;
+        
+        //Needs to replace the states on the playerRefs
 
         playerRefs.comboSystem.StaminaUse = infoHolder.StaminaUsePerSwing;
 

@@ -6,24 +6,32 @@ using UnityEngine;
 public class InterfacesStorage : MonoBehaviour
 {
 }
+public enum DamagersTeams
+{
+    Player,Enemy,Neutral
+}
 #region INFO STRUCTS
 public struct ReceivedAttackInfo
 {
     public Vector3 CollisionPosition;
-    public Vector2 GeneralDirection;
-    public Vector2 ConcreteDirection;
-    public GameObject Attacker;
+    public Vector2 RootsDirection;
+    public Vector2 CollidersDirection;
+    public GameObject AttackerRoot_Go;
+    public Generic_DamageDealer OtherDamageDealer;
+
     public float Damage;
     public float KnockBack;
     public float Hitstop;
     public bool IsBloody;
-    public ReceivedAttackInfo(Vector2 collisionPosition,
-        Vector2 Gdirection, Vector2 Cdirection, GameObject attacker, float damage, float knockBack, float hitstop, bool isBloody)
+    public ReceivedAttackInfo(Vector2 collisionPosition,Vector2 rootsDirection, Vector2 colldiersDirection, 
+        GameObject attackerRoot, Generic_DamageDealer dealer, float damage, float knockBack, float hitstop, bool isBloody)
     {
         CollisionPosition = collisionPosition;
-        GeneralDirection = Gdirection;
-        ConcreteDirection = Cdirection;
-        Attacker = attacker;
+        RootsDirection = rootsDirection;
+        CollidersDirection = colldiersDirection;
+        AttackerRoot_Go = attackerRoot;
+        OtherDamageDealer = dealer;
+
         Damage = damage;
         KnockBack = knockBack;
         Hitstop = hitstop;
@@ -36,14 +44,14 @@ public struct DealtDamageInfo
     public float DamageDealt;
     public float ChargeGiven;
     public GameObject AttackedRoot;
-    public Generic_DamageDetector OtherDetector;
-    public DealtDamageInfo(Vector3 collisionPosition, GameObject attacked, float damageDealt, Generic_DamageDetector otherDetector, float chargeGiven = 0)
+    public Generic_DamageDetector OtherDamageDetector;
+    public DealtDamageInfo(Vector3 collisionPosition, GameObject attackerRoot, float damageDealt, Generic_DamageDetector otherDetector, float chargeGiven = 0)
     {
         CollisionPosition = collisionPosition;
         DamageDealt = damageDealt;
         ChargeGiven = chargeGiven;
-        AttackedRoot = attacked;
-        OtherDetector = otherDetector;
+        AttackedRoot = attackerRoot;
+        OtherDamageDetector = otherDetector;
     }
 }
 public struct GettingParriedInfo
@@ -63,11 +71,13 @@ public struct SuccesfulParryInfo
     public Vector3 ParryPosition;
     public Generic_DamageDealer ParriedDamageDealer;
     public bool canChargeSpecialAttack;
-    public SuccesfulParryInfo(Vector3 data, Generic_DamageDealer parriedDealer, bool canCharge)
+    public GameObject ParriedRootGameObject;
+    public SuccesfulParryInfo(Vector3 position, Generic_DamageDealer parriedDealer, bool canCharge, GameObject parriedRoot)
     {
-        ParryPosition = data;
+        ParryPosition = position;
         ParriedDamageDealer = parriedDealer;
         canChargeSpecialAttack = canCharge;
+        ParriedRootGameObject = parriedRoot;
     }
 }
 public struct DeadCharacterInfo
@@ -100,13 +110,9 @@ public interface IParryDealer
 {
     public void OnParryDealt(SuccesfulParryInfo info);
 }
-public interface IFocuseable
-{
-    public void OnFocused();
-    public void OnUnfocused();
-}
 public interface IHealth
 {
+    public Action Event_OnZeroHealth { get; set; }
     public void RemoveHealth(float health);
     public void OnZeroHealth();
     public void RestoreAllHealth();

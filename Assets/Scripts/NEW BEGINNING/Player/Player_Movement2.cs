@@ -5,7 +5,7 @@ using UnityEngine;
 public enum MovementSpeeds
 {
     Regular,
-    Running,
+    Fast,
     Slow,
     VerySlow,
     Stopped
@@ -25,7 +25,7 @@ public class Player_Movement2 : MonoBehaviour
             case MovementSpeeds.Regular:
                 currentStats.Speed = currentStats.BaseSpeed;
                 break;
-            case MovementSpeeds.Running:
+            case MovementSpeeds.Fast:
                 currentStats.Speed = currentStats.BaseSpeed * 1.5f;
                 break;
             case MovementSpeeds.Slow:

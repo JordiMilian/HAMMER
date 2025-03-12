@@ -12,7 +12,7 @@ public class FocusLimit : MonoBehaviour
 
         if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
-            if(playerFocus.CurrentlyFocusedEnemy == FocuseTarget)
+            if(playerFocus.CurrentlyFocusedIcon == FocuseTarget)
             {
                 playerFocus.UnfocusCurrentEnemy();
             }

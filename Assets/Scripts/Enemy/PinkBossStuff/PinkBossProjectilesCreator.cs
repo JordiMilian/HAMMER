@@ -24,6 +24,8 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
     [Header("PinkSaw_spread")]
     [SerializeField] float spreadAngleDeg;
     [SerializeField] float delayBetweenSaws_spread;
+    [Header("SFX")]
+    [SerializeField] AudioClip ThrowSingleSawSFX;
 
 
     void ThrowGeneralProjectile(Vector3 Position)
@@ -92,14 +94,14 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
             projectile.startSawing(originPosition, sawDirections[i]);
 
             sawsCount++;
-            if(sawsCount == sfxEach) { sawsCount = 0; events.OnThrowSingleSaw?.Invoke(); }
+            if(sawsCount == sfxEach) { sawsCount = 0; SFX_PlayerSingleton.Instance.playSFX(ThrowSingleSawSFX, 0.2f); }
             yield return new WaitForSeconds(delayBetweenSaws_polygon);
         }
     }
     public IEnumerator EV_SawProjectile_Spread(int amountOfSaws)
     {
         UpdateVectorData();
-        events.OnThrowSingleSaw?.Invoke();
+        SFX_PlayerSingleton.Instance.playSFX(ThrowSingleSawSFX, 0.2f);
         float spreadAngleRad = spreadAngleDeg * Mathf.Deg2Rad;
 
         Vector2[] spreadDirections = UsefullMethods.GetSpreadDirectionsFromCenter(-weaponDirection, amountOfSaws, spreadAngleRad);

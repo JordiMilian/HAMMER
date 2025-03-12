@@ -28,8 +28,6 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         proximityTrigger.AddActivatorTag(Tags.IA_Obstacle);
         proximityTrigger.OnTriggerEntered += AddEnemy;
         proximityTrigger.OnTriggerExited += RemoveEnemy;
-
-        
     }
     private void OnDisable()
     {
@@ -51,7 +49,48 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         inRangeEnemies.Remove(collision.gameObject.transform);
         CheckClosestTransform();
     }
-
+    public void SetMovementSpeed(MovementSpeeds speedType)
+    {
+        switch (speedType)
+        {
+            case MovementSpeeds.Regular:
+                enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed;
+                break;
+            case MovementSpeeds.Fast:
+                enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed * 1.5f;
+                break;
+            case MovementSpeeds.Slow:
+                enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed * 0.5f;
+                break;
+            case MovementSpeeds.VerySlow:
+                enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed * 0.25f;
+                break;
+            case MovementSpeeds.Stopped:
+                enemyRefs.currentEnemyStats.Speed = 0;
+                break;
+        }
+    }
+    public void SetRotatinSpeed(MovementSpeeds speedType)
+    {
+        switch (speedType)
+        {
+            case MovementSpeeds.Regular:
+                enemyRefs.currentEnemyStats.RotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed;
+                break;
+            case MovementSpeeds.Fast:
+                enemyRefs.currentEnemyStats.RotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed * 1.5f;
+                break;
+            case MovementSpeeds.Slow:
+                enemyRefs.currentEnemyStats.RotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed * 0.5f;
+                break;
+            case MovementSpeeds.VerySlow:
+                enemyRefs.currentEnemyStats.RotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed * 0.25f;
+                break;
+            case MovementSpeeds.Stopped:
+                enemyRefs.currentEnemyStats.RotationSpeed = 0;
+                break;
+        }
+    }
     void CheckClosestTransform()
     {
         if (inRangeEnemies.Count == 0) { return; }

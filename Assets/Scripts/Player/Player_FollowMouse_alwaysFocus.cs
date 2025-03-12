@@ -219,27 +219,13 @@ public class Player_FollowMouse_alwaysFocus : MonoBehaviour
     void UnsubscribeToEnemy(GameObject unsubscribed)
     {
         Enemy_EventSystem unsubscribedEvents = unsubscribed.GetComponent<Enemy_EventSystem>();
-        unsubscribedEvents.OnUnfocused?.Invoke();
         unsubscribedEvents.OnDeath -= CallDeathFocusAttempt;
     }
     void SubscribeToEnemy(GameObject subscribed)
     {
         Enemy_EventSystem subscribedEvents = subscribed.GetComponent<Enemy_EventSystem>();
-        subscribedEvents.OnFocused?.Invoke();
         subscribedEvents.OnDeath += CallDeathFocusAttempt;
     }
-    //Deprecated seems
-    /*
-    void callOnLookatMouse(object sender, Generic_EventSystem.DeadCharacterInfo args)
-    {
-        if (FocusedEnemy != null) FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
-        if (IsFocusingEnemy)
-        {
-            FocusedEnemy = null;
-            OnLookAtMouse();
-        }
-    }
-    */
     public void OnLookAtMouse(GameObject UnfocusedEnemy)
     {
         if (!IsFocusingEnemy) { return; } //Just in case pero no fa res crec
@@ -339,7 +325,7 @@ public class Player_FollowMouse_alwaysFocus : MonoBehaviour
         if (IsFocusingEnemy)
         {
             TargetGroupSingleton.Instance.RemoveTarget(FocusedEnemy.transform);
-            FocusedEnemy.GetComponent<Enemy_FocusIcon>().OnUnfocus();
+            FocusedEnemy.GetComponent<FocusIcon>().HideFocusIcon();
             FocusedEnemy = null;
             zoomer.onUnfocusedEnemy();
             IsFocusingEnemy = false;
