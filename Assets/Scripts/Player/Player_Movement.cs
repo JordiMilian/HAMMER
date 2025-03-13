@@ -35,57 +35,14 @@ public class Player_Movement : MonoBehaviour
     {
         Physics.IgnoreLayerCollision(15, 16);
 
-        InputDetector.Instance.OnRollPressed += OnRollPressed;
-        InputDetector.Instance.OnRollPressing += OnRollPressing;
-        InputDetector.Instance.OnRollUnpressed += OnRollUnpressed;
-        rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10);
+       
+    }
 
-        currentStats = playerRefs.currentStats;
-    }
-    private void OnDisable()
-    {
 
-        InputDetector.Instance.OnRollPressed -= OnRollPressed;
-        InputDetector.Instance.OnRollPressing -= OnRollPressing;
-        InputDetector.Instance.OnRollUnpressed -= OnRollUnpressed;
-    }
-    void Update()
-    {
-        Move(InputDetector.Instance.MovementDirectionInput);
-
-        if (isRunning)
-        {
-            playerRefs.events.CallStaminaAction(StaminaPerSecond * Time.deltaTime);
-            if(playerRefs.currentStats.CurrentStamina <= 0) { StopRunning(); }
-        }
-        if(updateAverageSize_trigger)
-        {
-            rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10);
-        }
-    }
-    void OnRollPressed()
-    {
-        IsWaitingInputDelay = true;
-        TimerDelay = 0;
-    }
-    void OnRollPressing()
-    {
-        if (IsWaitingInputDelay)
-        {
-            TimerDelay += Time.deltaTime;
-
-            if (TimerDelay > RunInputDelayTime)
-            {
-                IsWaitingInputDelay = false;
-                StartRunning();
-            }
-        }
-    }
     void OnRollUnpressed()
     {
         if (playerRefs.currentStats.CurrentStamina <= 0) { return; }
 
-        StopRunning();
 
         if (IsWaitingInputDelay)
         {
@@ -101,20 +58,7 @@ public class Player_Movement : MonoBehaviour
             playerRefs.actionPerformer.AddAction(new Player_ActionPerformer.Action("Act_Roll"));
         }
     }
-    void StopRunningOnDeath(object sender, Generic_EventSystem.DeadCharacterInfo args) { StopRunning(); }
-    public void StopRunning()
-    {
-        isRunning = false;
-        currentStats.Speed = currentStats.BaseSpeed;
-        playerRefs.animator.SetBool("Running", false);
-        playerRefs.events.OnEnterIdle?.Invoke();
-    }
-    void StartRunning()
-    {
-        isRunning = true;
-        currentStats.Speed = RunningSpeed;
-        playerRefs.animator.SetBool("Running", true);
-    }
+   
     void Move(Vector2 vector2)
     {
         playerRefs.characterMover.MovementVectorsPerSecond.Add(vector2.normalized * currentStats.Speed);
@@ -169,15 +113,6 @@ public class Player_Movement : MonoBehaviour
             ));
     }
     
-    public void EV_SlowDownSpeed() { playerRefs.currentStats.Speed /= 5; }
-    public void EV_ReturnSpeed() 
-    { 
-        playerRefs.currentStats.Speed = playerRefs.currentStats.BaseSpeed;
-        if(isRunning) //MAKE A CONSISTENT STATE MACHINE PLSS SPLS PSLSPLS aixo es asqueros
-        {
-            StartRunning();
-        }
-    }
     public void EV_HidePlayerCollider() 
     { 
         gameObject.layer = 15;

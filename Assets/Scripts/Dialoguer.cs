@@ -30,6 +30,16 @@ public class Dialoguer : MonoBehaviour
     Coroutine currentRead;
     Coroutine currentLinesReseter;
 
+    IDamageReceiver damageReceiver;
+    [SerializeField]GameObject damageReceiverRoot;
+    private void OnValidate()
+    {
+        if(damageReceiverRoot != null)
+        {
+            UsefullMethods.CheckIfGameobjectImplementsInterface<IDamageReceiver>(ref damageReceiverRoot, ref damageReceiver);
+        }
+    }
+
     private void Awake()
     {
         TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
@@ -52,7 +62,7 @@ public class Dialoguer : MonoBehaviour
         PlayerCloseTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
-        eventSystem.OnReceiveDamage += OnInteracted;
+        damageReceiver.OnDamageReceived_Event += OnInteracted;
 
         isDisplaying = true;
         InstaHideDialogueBubble();
@@ -65,9 +75,9 @@ public class Dialoguer : MonoBehaviour
 
         HideDialogueBubble();
         RemoveDialoguerFromTargetGroup();
-        eventSystem.OnReceiveDamage -= OnInteracted;
+        damageReceiver.OnDamageReceived_Event -= OnInteracted;
     }
-    void OnInteracted(object sender, Generic_EventSystem.ReceivedAttackInfo info)
+    void OnInteracted(ReceivedAttackInfo info)
     {
         if (currentlyReading) { CompleteCurrentRead(); }
         else if (playerIsInside) NextLine();

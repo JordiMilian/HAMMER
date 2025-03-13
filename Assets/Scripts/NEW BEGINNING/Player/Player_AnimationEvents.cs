@@ -6,6 +6,7 @@ public class Player_AnimationEvents : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
     #region DAMAGE COLLIDERS
+    [SerializeField] AudioClip SFX_SwordSwing;
     public void EV_Enemy_ShowAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
@@ -13,6 +14,7 @@ public class Player_AnimationEvents : MonoBehaviour
             dealer.GetComponent<Collider2D>().enabled = true;
         }
         playerRefs.weaponTrail.emitting = true;
+        SFX_PlayerSingleton.Instance.playSFX(SFX_SwordSwing,0.1f);
     }
     public void EV_Enemy_HideAttackCollider()
     {
@@ -49,5 +51,12 @@ public class Player_AnimationEvents : MonoBehaviour
     public void EV_SetMovementSpeed(MovementSpeeds speedType)
     {
         playerRefs.movement2.SetMovementSpeed(speedType);
+    }
+
+    [SerializeField] PlayerState_SpecialHeal specialHealState;
+    public void EV_ActuallyHeal()
+    {
+        specialHealState.ActuallyHeal();
+        
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrisbeeController : MonoBehaviour
+public class FrisbeeController : MonoBehaviour, IParryReceiver
 { 
     [SerializeField] float frisbeeTime;
     [SerializeField] float frisbeeDistance;

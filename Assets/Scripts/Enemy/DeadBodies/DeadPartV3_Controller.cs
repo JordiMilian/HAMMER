@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.VFX;
 
-public class DeadPartV3 : MonoBehaviour
+public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
 {
     [SerializeField] Rigidbody2D DeadPart_RB;
     [SerializeField] List<Rigidbody2D> ChildDeadParts = new List<Rigidbody2D>();
@@ -43,11 +43,12 @@ public class DeadPartV3 : MonoBehaviour
     Vector2 currentDirection;
     public Coroutine currentPush;
 
+    public System.Action<ReceivedAttackInfo> OnDamageReceived_Event { get ; set; }
+
     private void OnEnable()
     {
         //Subscribe to everyting
         eventSystem.OnSpawned += SpawnedPush;
-        eventSystem.OnReceiveDamage += AttackPush;
         eventSystem.OnBeingTouchedObject += TouchedPush;
         eventSystem.OnHitWall += HitWallPush;
         
@@ -99,10 +100,10 @@ public class DeadPartV3 : MonoBehaviour
         //Debug.Log("spawn pushed");
         CallVertical(args.GeneralDirection, 1f, 1f);
     }
-    void AttackPush(object sender, Generic_EventSystem.ReceivedAttackInfo args)
+    void AttackPush(ReceivedAttackInfo args)
     {
         //Debug.Log("attackedPush");
-        CallHorizontal(args.GeneralDirection, 1f, 1f);
+        CallHorizontal(args.CollidersDirection, 1f, 1f);
     }
     void TouchedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
@@ -190,6 +191,10 @@ public class DeadPartV3 : MonoBehaviour
         damageDetector.enabled = true;
         isPushed = false;
     }
-    
-    
+
+    public void OnDamageReceived(ReceivedAttackInfo info)
+    {
+        AttackPush(info);
+        OnDamageReceived_Event?.Invoke(info);
+    }
 }

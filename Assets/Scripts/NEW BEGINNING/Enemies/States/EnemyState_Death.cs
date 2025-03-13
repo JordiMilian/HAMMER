@@ -15,6 +15,7 @@ public class EnemyState_Death : EnemyState
         //unfocus itself?
         xP_Dropper.spawnExperiences(rootGameObject.GetComponent<Enemy_References>().currentEnemyStats.XpToDrop);
         //Spawn Head
+        //play sound
         //SlowMo?
         stateMachine.gameObject.SetActive(false);
         Destroy(rootGameObject,1);

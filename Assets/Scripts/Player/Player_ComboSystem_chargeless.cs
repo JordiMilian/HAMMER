@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player_ComboSystem_chargeless : MonoBehaviour
 {
+    
 
     [SerializeField] Player_References playerRefs;
 
@@ -25,20 +26,6 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [HideInInspector] public float Base_HitStop;
     [HideInInspector] public float StaminaUse;
 
-
-    private void OnEnable()
-    {
-        playerRefs.events.OnAttackStarted += onPerformedAttack;
-        playerRefs.events.OnEnterIdle += EV_HideWeaponCollider;
-        InputDetector.Instance.OnAttackPressed += onAttackPressed;
-        
-    }
-    private void OnDisable()
-    {
-        playerRefs.events.OnAttackStarted -= onPerformedAttack;
-        playerRefs.events.OnEnterIdle -= EV_HideWeaponCollider;
-        InputDetector.Instance.OnAttackPressed -= onAttackPressed;
-    }
 
     void onAttackPressed()
     {

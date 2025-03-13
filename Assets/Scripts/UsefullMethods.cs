@@ -12,6 +12,7 @@ public class UsefullMethods : MonoBehaviour
         {
             rigidbody.AddForce((forceVector / duration) * Time.deltaTime);
             yield return null;
+            yield return new WaitForSeconds(.1f);
         }
     }
     /*
@@ -221,6 +222,20 @@ public class UsefullMethods : MonoBehaviour
     {
         float normalizedA = Mathf.InverseLerp(minA, maxA, initialValueA);
         return Mathf.Lerp(minB,maxB, normalizedA);
+    }
+    public static void CheckIfGameobjectImplementsInterface<T>(ref GameObject root, ref T interfaceReference ) where T : class
+    {
+        var component = root.GetComponent<T>();
+
+        if (component == null)
+        {
+            Debug.LogWarning($"{root.name} doesn't implement {typeof(T).Name}");
+            root = null;
+        }
+        else
+        {
+            interfaceReference = component;
+        }
     }
     public static void ResetAllTriggersInAnimator(Animator anim)
     {

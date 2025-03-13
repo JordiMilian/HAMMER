@@ -51,7 +51,6 @@ public class Player_DisableController : MonoBehaviour
     public void DisablePlayerScripts()
     {
         playerRefs.animator.SetBool("Walking", false);
-        playerRefs.playerMovement.StopRunning();
         playerRefs.playerMovement.enabled = false;
         playerRefs.followMouse.enabled = false;
         playerRefs.comboSystem.enabled = false;

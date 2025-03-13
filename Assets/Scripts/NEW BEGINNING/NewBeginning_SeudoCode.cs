@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NewBeginning_SeudoCode : MonoBehaviour
 {
+    /*
     public enum GenericEnemyStateTypes
     {
         enemyState_Idle,
@@ -163,4 +164,5 @@ public class NewBeginning_SeudoCode : MonoBehaviour
     {
 
     }
+    */
 }

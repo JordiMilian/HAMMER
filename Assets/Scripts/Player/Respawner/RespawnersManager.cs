@@ -25,8 +25,15 @@ public class RespawnersManager : MonoBehaviour
     public void RespawnPlayer()
     {
         CheckFurthestRespawner();
-        CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
+        //CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
         CurrentFurthestRespawner.RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject); //Go to Player_Respawn
+    }
+    public void ForceSpawnInIndex(int indexByDistance)
+    {
+        if (indexByDistance > Respawners.Count) { Debug.LogError("respawner out of range"); return; }
+        sortRespawners();
+        Respawners[indexByDistance].ExternallyActivateRespawner();
+        Respawners[indexByDistance].RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject);
     }
     void CheckFurthestRespawner()
     {
@@ -41,20 +48,23 @@ public class RespawnersManager : MonoBehaviour
             isSorted = true;
         }
         return Respawners[GetFurthestActiveRespawnerIndex()];
-    }
-    int GetFurthestActiveRespawnerIndex()
-    {
-        int furthestIndex = 0;
-        for (int i = 0; i < Respawners.Count; i++)
+
+        //
+        int GetFurthestActiveRespawnerIndex()
         {
-            if (Respawners[i].IsActivated)
+            int furthestIndex = 0;
+            for (int i = 0; i < Respawners.Count; i++)
             {
-                furthestIndex = i;
+                if (Respawners[i].IsActivated)
+                {
+                    furthestIndex = i;
+                }
             }
+            //gameState.FurthestDoorsArray[roomGenerator.AreaIndex] = furthestIndex;
+            return furthestIndex;
         }
-        //gameState.FurthestDoorsArray[roomGenerator.AreaIndex] = furthestIndex;
-        return furthestIndex;
     }
+    
     void sortRespawners()
     {
         setDistancesOfRespawners();
@@ -76,13 +86,7 @@ public class RespawnersManager : MonoBehaviour
             Respawners[i] = tempRespawner;
         }
     }
-    public void ForceSpawnInIndex(int indexByDistance)
-    {
-        if(indexByDistance > Respawners.Count) { Debug.LogError("respawner out of range"); return; }
-        sortRespawners();
-        Respawners[indexByDistance].ExternallyActivateRespawner();
-        Respawners[indexByDistance].RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject);
-    }
+    
     void setDistancesOfRespawners()
     {
         foreach (Player_Respawner respawner in Respawners)

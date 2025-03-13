@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,13 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
     [SerializeField] float bounceInitialSpeed;
     [SerializeField] float bounceInitialRotation;
 
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
     public void OnDamageDealt(DealtDamageInfo info)
     {
         Destroy(gameObject);
+        OnDamageDealt_event?.Invoke(info);
     }
+    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         if (currentMovement != null) { StopCoroutine(currentMovement); }
@@ -28,6 +32,7 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
         damageDealer.EntityTeam = DamagersTeams.Player;
         damageDetector.GetComponent<Collider2D>().enabled = false;
 
+        OnDamageReceived_Event?.Invoke(info);
         //
         IEnumerator BounceAwayCoroutine(Vector2 initialDirection)
         {
@@ -48,6 +53,8 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
             Destroy(gameObject);
         }
     }
+
+    public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
     public void OnParryReceived(GettingParriedInfo info)
     {
         TargetTf = originalSender;
@@ -59,6 +66,7 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
 
         transform.up = info.ParryDirection;
         startChasing();
+        OnParryReceived_event?.Invoke(info);
     }
     void rotateTowardTarget(float rotationMaxRadiant)
     {
@@ -119,10 +127,6 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
             }
         }
     }
-    
-  
-   
-    
-    
-   
+
+
 }

@@ -5,28 +5,6 @@ using UnityEngine;
 
 public class Generic_EventSystem : MonoBehaviour
 {
-    public class DeadCharacterInfo
-    {
-        public GameObject DeadGameObject;
-        public GameObject Killer;
-        public DeadCharacterInfo(GameObject deadGameObject, GameObject killer)
-        {
-            DeadGameObject = deadGameObject;
-            Killer = killer;
-        }
-    }
-    public struct GettingParriedInfo
-    {
-        public GameObject Parrier;
-        public int WeaponIndex;
-        public Vector2 ParryDirection;
-        public GettingParriedInfo(GameObject parrier, int weaponIndex, Vector2 direction)
-        {
-            Parrier = parrier;
-            WeaponIndex = weaponIndex;
-            ParryDirection = direction;
-        }
-    }
     public class ObjectDirectionArgs : EventArgs
     {
         public Vector2 GeneralDirection;
@@ -46,7 +24,4 @@ public class Generic_EventSystem : MonoBehaviour
     public EventHandler<SuccesfulParryInfo> OnSuccessfulParry;
     public EventHandler<DealtDamageInfo> OnHitObject;
     public EventHandler<ObjectDirectionArgs> OnBeingTouchedObject;
-    public Action OnShowCollider; //Currently for sounds
-    public Action OnEnterIdle;
-    public Action OnExitIdle; //This is currently used for Stamina control of Player
 }

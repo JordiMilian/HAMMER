@@ -18,9 +18,6 @@ public class Player_FeedbackManager : MonoBehaviour
     private void OnEnable()
     {
 
-        playerRefs.events.OnReceiveDamage += ReceiveDamageEffects;
-
-        playerRefs.events.OnGettingParried += GettingParriedEffects;
         playerRefs.events.CallShowAndEnable += OnActivationFeedback;
         playerRefs.events.OnActuallySpecialHeal += HealFeedback;
         playerRefs.events.OnPickedNewUpgrade += PickUpUpgradeFeedback;
@@ -28,31 +25,12 @@ public class Player_FeedbackManager : MonoBehaviour
     }
     private void OnDisable()
     {
-
-        playerRefs.events.OnReceiveDamage -= ReceiveDamageEffects;
-
-        playerRefs.events.OnGettingParried -= GettingParriedEffects;
         playerRefs.events.CallShowAndEnable -= OnActivationFeedback;
         playerRefs.events.OnActuallySpecialHeal -= HealFeedback;
         playerRefs.events.OnPickedNewUpgrade -= PickUpUpgradeFeedback;
         playerRefs.events.OnPickedNewWeapon -= PickUpWeaponFeedback;
     }
 
-    public void ReceiveDamageEffects(object sender, Player_EventSystem.ReceivedAttackInfo receivedAttackinfo)
-    {
-        if(!receivingDamage)
-        {
-            receivingDamage = true;
-            StartCoroutine(InvulnerableAfterDamage());
-        }
-    }
-    void GettingParriedEffects(Generic_EventSystem.GettingParriedInfo info)
-    {
-        Player_ComboSystem_chargeless comboSystem = GetComponent<Player_ComboSystem_chargeless>();
-        comboSystem.EV_HideWeaponCollider();
-        playerRefs.playerMovement.EV_ReturnSpeed();
-        playerRefs.animator.SetTrigger("Parried");
-    }
      IEnumerator InvulnerableAfterDamage()
     {
         yield return new WaitForSeconds(staggerTime);

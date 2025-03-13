@@ -141,13 +141,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             focusedEnemy_StateMachine.OnStateChanged += OnFocusedEnemyChangeState;
         }
     }
-    void OnFocusedEnemyChangeState(State newState)
-    {
-        if(newState.stateTag == StateTags.Dead)
-        {
-            UnfocusCurrentEnemy();
-        }
-    }
+   
     public void UnfocusCurrentEnemy()
     {
         if (!isCurrentlyFocusing) { return; }
@@ -232,13 +226,17 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             }
         }
     }
-    void OnFocusedEnemyDied( object sender, Generic_EventSystem.DeadCharacterInfo info)
+    void OnFocusedEnemyChangeState(State newState)
     {
-        const float diedRadius = 5;
-        FocusIcon newEnemy = GetClosestEnemyToCircle(info.DeadGameObject.transform.position,
-            diedRadius,
-            true);
-        if (newEnemy != null) { FocusNewEnemy(newEnemy); }
+        if (newState.stateTag == StateTags.Dead)
+        {
+            const float diedRadius = 5;
+            FocusIcon newEnemy = GetClosestEnemyToCircle(newState.gameObject.transform.position,
+                diedRadius,
+                true);
+            if (newEnemy != null) { FocusNewEnemy(newEnemy); }
+            else { UnfocusCurrentEnemy(); }
+        }
     }
     void OnFocusInputPressed()
     {

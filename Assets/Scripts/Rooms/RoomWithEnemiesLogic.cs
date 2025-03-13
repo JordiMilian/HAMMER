@@ -146,20 +146,22 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
             CurrentlySpawnedEnemies.Add(SpawnedEnemy);
 
             //Subscribe to everything
-            Enemy_References enemyRefs = SpawnedEnemy.GetComponent<Enemy_References>();
-            Generic_EventSystem enemyEvent = enemyRefs.enemyEvents;
-            enemyEvent.OnDeath += EnemyDied;
-            enemyEvent.OnReceiveDamage += EnemyDamaged;
+            IDamageReceiver enemy_damageReceiver = SpawnedEnemy.GetComponent<IDamageReceiver>();
+            IKilleable enemy_killeable = SpawnedEnemy.GetComponent<IKilleable>();
+            IStats enemyStats = SpawnedEnemy.GetComponent<IStats>();
+            
+            enemy_killeable.OnKilled_event += EnemyDied;
+            enemy_damageReceiver.OnDamageReceived_Event += EnemyDamaged;
 
             spawn.currentInstances++;
 
             //Set values per Death
-            float hpPerDeath = UsefullMethods.normalizePercentage(gameState.enemiesPercentHealthPerDeath, false, true) * enemyRefs.baseEnemyStats.MaxHp;
-            enemyRefs.currentEnemyStats.MaxHp += gameState.playerDeaths * hpPerDeath;
-            enemyRefs.currentEnemyStats.CurrentHp += gameState.playerDeaths * hpPerDeath;
+            float hpPerDeath = UsefullMethods.normalizePercentage(gameState.enemiesPercentHealthPerDeath, false, true) * enemyStats.GetBaseStats().MaxHp;
+            enemyStats.GetCurrentStats().MaxHp += gameState.playerDeaths * hpPerDeath;
+            enemyStats.GetCurrentStats().CurrentHp += gameState.playerDeaths * hpPerDeath;
 
-            float damagePerDeath = UsefullMethods.normalizePercentage(gameState.enemiesPercentDamageMultiplyPerDeath, false, true) * enemyRefs.baseEnemyStats.DamageMultiplicator;
-            enemyRefs.currentEnemyStats.DamageMultiplicator += gameState.playerDeaths * damagePerDeath;
+            float damagePerDeath = UsefullMethods.normalizePercentage(gameState.enemiesPercentDamageMultiplyPerDeath, false, true) * enemyStats.GetBaseStats().DamageMultiplicator;
+            enemyStats.GetCurrentStats().DamageMultiplicator += gameState.playerDeaths * damagePerDeath;
         }
 
     }
@@ -168,14 +170,14 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
         yield return new WaitForSeconds(5);
         areCorrectlySpawned = false;
     }
-    void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    void EnemyDied(DeadCharacterInfo info)
     {
         EnemiesAlive--;
         areCorrectlySpawned = false;
-        CurrentlySpawnedEnemies.Remove(args.DeadGameObject);
+        CurrentlySpawnedEnemies.Remove(info.DeadGameObject);
         if (EnemiesAlive <= 0) { RoomCompleted(true,false); }
     }
-    void EnemyDamaged(object sender, Generic_EventSystem.ReceivedAttackInfo args)
+    void EnemyDamaged(ReceivedAttackInfo info)
     {
         areCorrectlySpawned = false;
     }

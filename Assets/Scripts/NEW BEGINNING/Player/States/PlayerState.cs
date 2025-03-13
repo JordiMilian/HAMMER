@@ -26,8 +26,8 @@ public class PlayerState : MonoBehaviour
         rootGameObject = animator.gameObject;
         playerRefs = rootGameObject.GetComponent<Player_References>();
     }
-    public virtual void OnEnable() { }
-    public virtual void OnDisable() { }
+    public virtual void OnEnable() { subscribeToRequests(); }
+    public virtual void OnDisable() { unsubscribeToRequests(); }
     public virtual void Update() { }
 
     //When implementing this coroutine, remember to stop de coroutine when the state is disabled
@@ -40,7 +40,7 @@ public class PlayerState : MonoBehaviour
     }
 
     #region ACTION REQUESTS
-    //ALL STATES THAT READ INPUT MUST CALL SUBSCRIBE ON ENABLE AND UNSUBSCRIBE ON DISABLE
+    //ALL STATES THAT READ INPUT MUST CALL SUBSCRIBE BASE.ONENABLE IT THEY OVERRIDE
     //OVERRIDE ANY REQUEST THAT NEED CHANGE
     protected virtual void subscribeToRequests()
     {
@@ -63,14 +63,14 @@ public class PlayerState : MonoBehaviour
     protected virtual void RequestAttack() { stateMachine.RequestChangeState(playerRefs.StartingComboAttackState); }
     protected virtual void RequestSpecialHeal()
     {
-        if (playerRefs.specialAttack.isChargeFilled())
+        if (playerRefs.currentStats.CurrentBloodFlow! < playerRefs.currentStats.MaxBloodFlow)
         {
             stateMachine.RequestChangeState(playerRefs.SpecialHealState);
         }
     }
     protected virtual void RequestSpecialAttack()
     {
-        if (playerRefs.specialAttack.isChargeFilled())
+        if (playerRefs.currentStats.CurrentBloodFlow! < playerRefs.currentStats.MaxBloodFlow)
         {
             stateMachine.RequestChangeState(playerRefs.SpecialAttackState);
         }

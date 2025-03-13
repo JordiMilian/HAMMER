@@ -8,7 +8,7 @@ using System.Linq;
 
 public class Player_FollowMouse_alwaysFocus : MonoBehaviour
 {
-
+    /*
     public float FollowMouse_Speed_Keyboard = 8f;
     public float FollowMouse_Speed_Controller = 8f;
     [SerializeField] float FocusMaxDistance_Keyboard;
@@ -259,7 +259,7 @@ public class Player_FollowMouse_alwaysFocus : MonoBehaviour
         cinemachineTarget.m_Targets[1].target = FocusedEnemy.transform;
         cinemachineTarget.m_Targets[1].weight = 3;
         cinemachineTarget.m_Targets[1].radius = 2;
-        */
+        
         TargetGroupSingleton.Instance.AddTarget(FocusedEnemy.transform, 2, 1);
 
         zoomer.onFocusedEnemy(); //Avisar al zoomer que tenim un focus
@@ -342,4 +342,5 @@ public class Player_FollowMouse_alwaysFocus : MonoBehaviour
             yield return null;
         }
     }
+    */
 }

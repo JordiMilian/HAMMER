@@ -22,14 +22,13 @@ public class Player_Respawner : MonoBehaviour
     {
         respawnerManager =  RespawnersManager.Instance;
         respawnerManager.Respawners.Add(this);
-        eventSystem.OnDeath += OnTiedEnemyKilled;
     }
     private void OnDisable()
     {
         respawnerManager.Respawners.Remove(this);
-        eventSystem.OnDeath -= OnTiedEnemyKilled;
+        
     }
-    void OnTiedEnemyKilled(object sender, Enemy_EventSystem.DeadCharacterInfo info)
+    void OnTiedEnemyKilled(DeadCharacterInfo info)
     {
         ActivateRespawner();
     }

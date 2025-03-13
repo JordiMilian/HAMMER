@@ -23,7 +23,6 @@ public class Enemy_ShowHideAttackCollider : Base_ShowHideAttackCollider
         
         if (isTesting) { testTrailrendered.emitting = true; return; }
         if (trailrendered != null) trailrendered.emitting = true;
-        enemyRefs.enemyEvents.OnShowCollider?.Invoke();
     }
     public override void EV_Enemy_HideAttackCollider()
     {

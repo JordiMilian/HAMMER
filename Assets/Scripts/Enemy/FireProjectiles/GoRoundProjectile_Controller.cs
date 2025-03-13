@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,17 +14,23 @@ public class GoRoundProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
 
     [SerializeField] float timeToSelfDestroy;
 
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
     public void OnDamageDealt(DealtDamageInfo info)
     {
         destroyItself();
+        OnDamageDealt_event?.Invoke(info);
     }
+    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         BounceAway(info.RootsDirection);
+        OnDamageReceived_Event?.Invoke(info);
     }
+    public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
     public void OnParryReceived(GettingParriedInfo info)
     {
         BounceAway(info.ParryDirection);
+        OnParryReceived_event?.Invoke(info);
     }
     private void Awake()
     {

@@ -15,12 +15,12 @@ public class DeadPart_Instantiator : MonoBehaviour
     }
     [SerializeField] List<DeadPart> deadPartsList = new List<DeadPart>();
 
-    public void InstantiateDeadParts(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    public void InstantiateDeadParts(DeadCharacterInfo args)
     {
         List<GameObject> deadParts = new List<GameObject>();
         foreach (DeadPart part in deadPartsList)
         {   
-            Vector2 direction = (transform.position - args.Killer.transform.position).normalized; //Find direction
+            Vector2 direction = (transform.position - args.KillerRootGO.transform.position).normalized; //Find direction
      
             GameObject InstantiatedDeadPart = Instantiate(part.deadPart_GO, transform.position, Quaternion.identity); //Instantiate
 

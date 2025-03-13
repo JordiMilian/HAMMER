@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeadGround_Detector : MonoBehaviour
 {
-    [SerializeField] DeadPartV3 deadPartV3;
+    [SerializeField] DeadPartV3_Controller deadPartV3;
     [SerializeField] DeadPart_EventSystem eventSystem;
     [SerializeField] float exitSpeed = 0.01f;
     private void OnTriggerEnter2D(Collider2D collision)

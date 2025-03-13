@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Manequiin_StateController : MonoBehaviour
 {
+    /* STATE CONTROLLERS MUST DIE
     Generic_References genericRefs;
     [SerializeField] Enemy_ShowHideAttackCollider showHideAttackCollider;
     private void OnEnable()
@@ -21,4 +22,5 @@ public class Manequiin_StateController : MonoBehaviour
         genericRefs.animator.SetTrigger(Tags.PushBack);
 
     }
+    */
 }

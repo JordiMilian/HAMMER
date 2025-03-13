@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiver, IParryReceiver, IHealth, IStats
+public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiver, IParryReceiver, IHealth, IStats, IKilleable
 { 
     [SerializeField] protected Generic_StateMachine enemyStateMachine;
     [SerializeField] protected Enemy_References enemyRefs;
@@ -21,9 +21,14 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
     }
     #region DAMAGE RECEIVED
+    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
     public virtual void OnDamageReceived(ReceivedAttackInfo info)
     {
         RemoveHealth(info.Damage);
+        if(GetCurrentHealth() <= 0)
+        {
+            OnKilled(new DeadCharacterInfo(gameObject, info.AttackerRoot_Go, info.OtherDamageDealer));
+        }
 
         #region Push Feedback
         if (damagedCurveAverage < 0)
@@ -57,6 +62,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         {
             enemyStateMachine.ChangeState(enemyRefs.StanceBrokenState);
         }
+        OnDamageReceived_Event?.Invoke(info);
     }
     #endregion
     #region HP MANAGEMENT
@@ -69,7 +75,6 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         if (enemyRefs.currentEnemyStats.CurrentHp <= 0)
         {
             enemyRefs.currentEnemyStats.CurrentHp = 0;
-            OnZeroHealth();
         }
         else if (enemyRefs.currentEnemyStats.CurrentHp > enemyRefs.currentEnemyStats.MaxHp)
         {
@@ -77,11 +82,6 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         }
     }
 
-    public void OnZeroHealth()
-    {
-        enemyStateMachine.ChangeState(enemyRefs.DeathState);
-        Event_OnZeroHealth?.Invoke();
-    }
 
     public void RestoreAllHealth()
     {
@@ -95,18 +95,22 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     {
         return enemyRefs.currentEnemyStats.MaxHp;
     }
-    public Action Event_OnZeroHealth { get; set; }
     #endregion
     #region DAMAGE DEALT
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
     public virtual void OnDamageDealt(DealtDamageInfo info)
     {
-
+        OnDamageDealt_event?.Invoke(info);
     }
     #endregion
     #region PARRY RECEIVED
+    public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
+   
+
     public virtual void OnParryReceived(GettingParriedInfo info)
     {
         enemyStateMachine.ChangeState(enemyRefs.ParriedState);
+        OnParryReceived_event?.Invoke(info);
     }
     #endregion
     #region STATS
@@ -131,18 +135,15 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         enemyRefs.baseEnemyStats = (EnemyStats)stats;
     }
 
-    #region FOCUS ICON
-    public virtual void OnFocused()
-    {
-        enemyRefs.focusIcon.ShowFocusIcon();
-    }
 
-    public virtual void OnUnfocused()
-    {
-       enemyRefs.focusIcon.HideFocusIcon();
-    }
-    #endregion
 
+
+    public Action<DeadCharacterInfo> OnKilled_event { get; set; }
+    public void OnKilled(DeadCharacterInfo info)
+    {
+        enemyRefs.stateMachine.ChangeState(enemyRefs.DeathState);
+        OnKilled_event?.Invoke(info);
+    }
     #endregion
     #region CHANGE STATE BY TYPE
     /*

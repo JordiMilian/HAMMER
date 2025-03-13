@@ -8,12 +8,12 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     [SerializeField] AudioClip RebornSFX;
     [SerializeField] AudioClip AttemptParrySFX;
     [SerializeField] AudioClip PickWeapon, PickUpgrade; 
-    [SerializeField] AudioClip HealSFX; 
+
     [SerializeField] Player_EventSystem playerEvents;
     SFX_PlayerSingleton SFX_Player;
-    public override void OnEnable()
+    public  void OnEnable()
     {
-        base.OnEnable();
+        
         SFX_Player = SFX_PlayerSingleton.Instance;
 
 
@@ -21,24 +21,17 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
         playerEvents.OnPerformParry += playAttemptParry;
         playerEvents.OnPickedNewUpgrade += playPickUpgrade;
         playerEvents.OnPickedNewWeapon += playPickUpWeapon;
-        playerEvents.OnActuallySpecialHeal += playHeal;
     }
-    public override void OnDisable()
+    public  void OnDisable()
     {
-        base.OnDisable();
         GameEvents.OnPlayerReappear -= playHeadReatached;
         playerEvents.OnPerformParry += playAttemptParry;
         playerEvents.OnPickedNewUpgrade -= playPickUpgrade;
         playerEvents.OnPickedNewWeapon -= playPickUpWeapon;
-        playerEvents.OnActuallySpecialHeal -= playHeal;
     }
     void playAttemptParry()
     {
         SFX_Player.playSFX(AttemptParrySFX, 0.1f,-0.5f,0.5f);
-    }
-    void playRoll()
-    {
-        SFX_Player.playSFX(RollSFX, 0.1f);
     }
     void playHeadReatached()
     {
@@ -52,8 +45,5 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     {
         SFX_Player.playSFX(PickUpgrade);
     }
-    void playHeal()
-    {
-        SFX_Player.playSFX(HealSFX);
-    }
+
 }

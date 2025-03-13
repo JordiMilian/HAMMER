@@ -11,27 +11,12 @@ public class Player_DeathController : MonoBehaviour
     GameObject playerDeadHead;
     private void OnEnable()
     {
-        playerRefs.events.OnDeath += StartDeath;
         DeathUIRoot.gameObject.SetActive(false);
     }
     private void OnDisable()
     {
-        playerRefs.events.OnDeath -= StartDeath;
     }
-    void StartDeath(object sender, Generic_EventSystem.DeadCharacterInfo info)
-    {
-        gameState.playerDeaths++;
-        playerRefs.events.CallHideAndDisable();
-        DeadPart_Instantiator_player deadPartInst = playerRefs.gameObject.GetComponent<DeadPart_Instantiator_player>();
-        playerDeadHead = deadPartInst.InstantiateDeadParts(this, info)[0];
 
-        StartCoroutine(startDeathCoroutine());
-    }
-    IEnumerator startDeathCoroutine()
-    {
-        yield return new WaitForSeconds(3);
-        DeathUIRoot.gameObject.SetActive(true);
-    }
 
     //Called from UI
     public void SpawnAgain()

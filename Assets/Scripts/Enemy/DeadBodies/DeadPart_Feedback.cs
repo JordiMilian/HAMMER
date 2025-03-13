@@ -5,6 +5,8 @@ using UnityEngine.VFX;
 
 public class DeadPart_Feedback : MonoBehaviour
 {
+    //THIS ALL SHOULD PROBABLY BE INSIDE CONTROLLER?
+
     [SerializeField] DeadPart_EventSystem eventSystem;
     [SerializeField] Transform Ground_TF;
     [SerializeField] Animator deadPart_Animator;
@@ -19,7 +21,7 @@ public class DeadPart_Feedback : MonoBehaviour
     private void OnEnable()
     {
         eventSystem.OnSpawned += spawnedFeedback;
-        eventSystem.OnReceiveDamage += GettingHitFeedback;
+//eventSystem.OnReceiveDamage += GettingHitFeedback;
         eventSystem.OnBeingTouchedObject += GettingTouchedFeedback;
         eventSystem.OnHitWall += HittingWallFeedback;
         GameEvents.OnPlayerReappear += DestroyOnRespawn;
@@ -34,6 +36,7 @@ public class DeadPart_Feedback : MonoBehaviour
         deadPart_Animator.SetTrigger("Light");
         flasher.CallDefaultFlasher();
     }
+    /*
     void GettingHitFeedback(object sender, Generic_EventSystem.ReceivedAttackInfo args)
     {
         TimeScaleEditor.Instance.HitStop(0.05f);
@@ -41,6 +44,7 @@ public class DeadPart_Feedback : MonoBehaviour
         GroundBloodPlayer.Instance.PlayGroundBlood(Ground_TF.position, args.GeneralDirection, bloodSplashIntensity);
         deadPart_Animator.SetTrigger("Strong");
     }
+    */
     void GettingTouchedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
     {
         deadPart_Animator.SetTrigger("Light");

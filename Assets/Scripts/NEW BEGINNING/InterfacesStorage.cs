@@ -83,12 +83,12 @@ public struct SuccesfulParryInfo
 public struct DeadCharacterInfo
 {
     public GameObject DeadGameObject;
-    public GameObject Killer;
-    public IDamageDealer damageDealer;
-    public DeadCharacterInfo(GameObject deadGameObject, GameObject killer, IDamageDealer damageD)
+    public GameObject KillerRootGO;
+    public Generic_DamageDealer damageDealer;
+    public DeadCharacterInfo(GameObject deadGameObject, GameObject KillerRoot, Generic_DamageDealer damageD)
     {
         DeadGameObject = deadGameObject;
-        Killer = killer;
+        KillerRootGO = KillerRoot;
         damageDealer = damageD;
     }
 }
@@ -96,25 +96,43 @@ public struct DeadCharacterInfo
 #region INTERFACES
 public interface IDamageReceiver
 {
+    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info);
+
+    
 }
+/* COPY AND PASTES THIS?
+ 
+    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public void OnDamageReceived(ReceivedAttackInfo info)
+    {
+        OnDamageReceived_Event?.Invoke(info);
+    }
+*/
 public interface IDamageDealer
 {
     public void OnDamageDealt(DealtDamageInfo info);
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
 }
 public interface IParryReceiver
 {
     public void OnParryReceived(GettingParriedInfo info);
+    public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
 }
 public interface IParryDealer
 {
     public void OnParryDealt(SuccesfulParryInfo info);
+    public Action<SuccesfulParryInfo> OnParryDealt_event { get; set; }
+}
+public interface IKilleable
+{
+    public Action <DeadCharacterInfo> OnKilled_event { get; set; }
+    public void OnKilled(DeadCharacterInfo info);
+
 }
 public interface IHealth
 {
-    public Action Event_OnZeroHealth { get; set; }
     public void RemoveHealth(float health);
-    public void OnZeroHealth();
     public void RestoreAllHealth();
     public float GetCurrentHealth();
     public float GetMaxHealth();

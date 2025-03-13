@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TiedEnemy_StateMachine : Generic_StateMachine
 {
+    
+    /* KILL
+     * 
     [SerializeField] SpriteRenderer HeadSprite;
     [SerializeField] List<SpriteRenderer> BodySprites;
     [SerializeField] Enemy_VFXManager vfxManager;
@@ -37,4 +40,5 @@ public class TiedEnemy_StateMachine : Generic_StateMachine
             sprite.enabled = false;
         }
     }
+    */
 }

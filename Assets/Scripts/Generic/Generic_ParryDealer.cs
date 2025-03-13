@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class Generic_ParryDealer : MonoBehaviour
 {
-    IParryDealer thisParryDealer;
-    public Transform rootGameObject;
+    
     [SerializeField] Transform VFXPositionTransform;
 
+
+    IParryDealer thisParryDealer;
+    public GameObject rootGameObject;
     private void OnValidate()
     {
         if (rootGameObject != null)
         {
-            IParryDealer parryDealerTemp = rootGameObject.GetComponent<IParryDealer>();
-
-            if (parryDealerTemp == null) 
-            {
-                Debug.LogWarning("Root Game)Object doesn't implement IParryDealer");
-                rootGameObject = null;
-                return;
-            }
+            UsefullMethods.CheckIfGameobjectImplementsInterface<IParryDealer>(ref rootGameObject, ref thisParryDealer);
         }
     }
+    
+
 
     public DamagersTeams EntityTeam;
     private void OnTriggerEnter2D(Collider2D collision)

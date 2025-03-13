@@ -8,25 +8,29 @@ public class TutorialDoorLogic_Parry : BaseRoomWithDoorLogic
     int parriesDone;
     [SerializeField] int parriesToOpen;
     [SerializeField] Generic_DamageDealer MannequinDamageDealer;
+    [SerializeField] IParryReceiver ManequiinParryReceiver;
+    [SerializeField] GameObject Manequiin;
+    private void OnValidate()
+    {
+        if(ManequiinParryReceiver != null)
+        {
+            UsefullMethods.CheckIfGameobjectImplementsInterface<IParryReceiver>(ref Manequiin, ref ManequiinParryReceiver);
+        }
+    }
 
     public override void OnEnable()
     {
         base.OnEnable();
-
-        playerEvents = GlobalPlayerReferences.Instance.references.events;
-
-        playerEvents.OnSuccessfulParry += Count1Parry;
+        ManequiinParryReceiver.OnParryReceived_event += Count1Parry;
     }
-    void Count1Parry(object sender, Generic_EventSystem.SuccesfulParryInfo info)
+    void Count1Parry(GettingParriedInfo info)
     {
-        if(info.ParriedDamageDealer == MannequinDamageDealer)
+        parriesDone++;
+        if (parriesDone == parriesToOpen)
         {
-            parriesDone++;
-            if (parriesDone == parriesToOpen) 
-            {
-                RoomCompleted(true, true);
-                playerEvents.OnSuccessfulParry -= Count1Parry;
-            }
+            RoomCompleted(true, true);
+            ManequiinParryReceiver.OnParryReceived_event -= Count1Parry;
         }
+
     }
 }

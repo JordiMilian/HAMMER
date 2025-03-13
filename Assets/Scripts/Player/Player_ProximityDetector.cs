@@ -66,7 +66,7 @@ public class Player_ProximityDetector : MonoBehaviour
 
         //Enemies have a type of ground in the singlePointCollider 
         Generic_TypeOFGroundDetector typeOfGround = collision.gameObject.GetComponent<Generic_TypeOFGroundDetector>();
-        if (typeOfGround != null) { typeOfGround.references.genericEvents.OnDeath += EnemyDied; }
+        if (typeOfGround != null) { typeOfGround.references.GetComponent<IKilleable>().OnKilled_event += EnemyDied; }
         //collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath += EnemyDied;
     }
     void RemoveEnemy(Collider2D collision)
@@ -77,7 +77,7 @@ public class Player_ProximityDetector : MonoBehaviour
         if (typeOfGround != null) { typeOfGround.references.genericEvents.OnDeath -= EnemyDied; }
         //collision.gameObject.GetComponent<Generic_EventSystem>().OnDeath -= EnemyDied;
     }
-    void EnemyDied(object sender, Generic_EventSystem.DeadCharacterInfo args)
+    void EnemyDied(DeadCharacterInfo args)
     {
         InRangeEnemies.Remove(args.DeadGameObject.transform);
     }

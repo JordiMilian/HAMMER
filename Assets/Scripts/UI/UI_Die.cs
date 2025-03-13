@@ -7,12 +7,13 @@ public class UI_Die : UI_BaseAction
     public override void Action(UI_Button button)
     {
         //Find the player and kill it
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-        playerEvents.OnReceiveDamage(this, new Generic_EventSystem.ReceivedAttackInfo(
+        IDamageReceiver playerReceiver = GlobalPlayerReferences.Instance.playerTf.gameObject.GetComponent<IDamageReceiver>();
+        playerReceiver.OnDamageReceived( new ReceivedAttackInfo(
             Vector2.zero,
             Vector2.zero,
             Vector2.zero,
             gameObject,
+            null,
             100,
             0,
             0,

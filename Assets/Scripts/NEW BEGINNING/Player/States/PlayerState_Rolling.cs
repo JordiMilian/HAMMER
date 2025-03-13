@@ -19,6 +19,8 @@ public class PlayerState_Rolling : PlayerState
     Coroutine rollCoroutine, rollAnimationCoroutine;
     public override void OnEnable()
     {
+        base.OnEnable();
+
         playerRefs.spriteFliper.canFlip = false; //sprite can not flip during roll
 
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.VerySlow);
@@ -31,7 +33,7 @@ public class PlayerState_Rolling : PlayerState
         SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
         rollAnimationCoroutine = StartCoroutine(RollAutoTransition());
-        subscribeToRequests();
+        
     }
     
     void PerformRollMovement()
@@ -87,7 +89,7 @@ public class PlayerState_Rolling : PlayerState
 
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Regular);
 
-        unsubscribeToRequests();
+        base.OnDisable();  
     }
     #region ACTION REQUESTS
 
