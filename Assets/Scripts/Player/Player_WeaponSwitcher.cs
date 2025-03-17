@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_WeaponSwitcher : MonoBehaviour
@@ -78,6 +79,7 @@ public class Player_WeaponSwitcher : MonoBehaviour
         playerRefs.animator.runtimeAnimatorController = infoHolder.animatorController;
 
         playersWeaponSpriteRenderer.sprite = infoHolder.weaponSprite;
+        
     }
     void CopyPolygonCollider(PolygonCollider2D sourceCollider, PolygonCollider2D targetCollider)
     {

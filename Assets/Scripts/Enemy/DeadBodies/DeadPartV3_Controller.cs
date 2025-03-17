@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.VFX;
+
 
 public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
 {
+    //AL DEAD PART ROOT LI FIQUES UN CHARACTER MOVER I A PENDRE PEL CUL
+
     [SerializeField] Rigidbody2D DeadPart_RB;
     [SerializeField] List<Rigidbody2D> ChildDeadParts = new List<Rigidbody2D>();
     public Transform movingParent;
@@ -48,9 +47,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     private void OnEnable()
     {
         //Subscribe to everyting
-        eventSystem.OnSpawned += SpawnedPush;
-        eventSystem.OnBeingTouchedObject += TouchedPush;
-        eventSystem.OnHitWall += HitWallPush;
+        //eventSystem.OnSpawned += SpawnedPush;
         
         //Get the ground and add it to the list of the manager
         DeadParts_Manager.Instance.GroundsList.Add(groundCollider);
@@ -76,7 +73,6 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     }
     private void OnDisable()
     {
-        eventSystem.OnBeingTouchedObject -= TouchedPush;
         DeadParts_Manager.Instance.GroundsList.Remove(groundCollider);
         DeadParts_Manager.Instance.OnDeadPartInstantiated -= IgnoreOtherGrounds;
     }
@@ -95,27 +91,17 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
         DeadPart_RB.position = DeadPart_RB.position + parentVelocity;
 
     }
-    void SpawnedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
+    void SpawnedPush()
     {
         //Debug.Log("spawn pushed");
-        CallVertical(args.GeneralDirection, 1f, 1f);
+        //CallVertical( 1f, 1f);
     }
     void AttackPush(ReceivedAttackInfo args)
     {
         //Debug.Log("attackedPush");
         CallHorizontal(args.CollidersDirection, 1f, 1f);
     }
-    void TouchedPush(object sender, Generic_EventSystem.ObjectDirectionArgs args)
-    {
-       // Debug.Log("touchedPush");
-        CallHorizontal(args.GeneralDirection, 0.2f, 0.5f);
-    }
-    void HitWallPush()
-    {
-        //Debug.Log("wallPush");
-        damageDetector.enabled = true;
-        CallHorizontal(-currentDirection, 0.4f, 1f);
-    }
+
     public void CallHorizontal(Vector2 direction, float intencity, float durationMultiplier)
     {
         damageDetector.enabled = false;

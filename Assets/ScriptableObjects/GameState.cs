@@ -36,7 +36,6 @@ public class GameState : ScriptableObject
     {
         public GameObject weaponPrefab;
         public bool isUnlocked;
-        //public bool isCurrent;
     }
     public List<weaponInfos> WeaponInfosList = new List<weaponInfos>();
 

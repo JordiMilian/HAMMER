@@ -21,6 +21,8 @@ public class WeaponPrefab_infoHolder : MonoBehaviour
     public int indexInGameState;
     CircleCollider2D detectionCollider;
 
+    public PlayerState ComboAttack_01, SpecialAttack, RollAttack, ParryAttack;
+
     private void OnEnable()
     {
         OnSpawned();

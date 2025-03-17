@@ -78,10 +78,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 0
-  playerRefs: {fileID: 0}
   AnimatorStateName: 
   doesRequireStamina: 0
   StaminaCost: 0
+  SFX_Heal: {fileID: 0}
 --- !u!1 &315539790252691044
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +615,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 1
-  playerRefs: {fileID: 0}
   AnimatorStateName: 
   doesRequireStamina: 0
   StaminaCost: 0
@@ -740,18 +739,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 0
-  playerRefs: {fileID: 0}
   AnimatorStateName: 
-  doesRequireStamina: 0
-  StaminaCost: 0
-  RollTime: 0
-  RollDistance: 0
+  doesRequireStamina: 1
+  StaminaCost: 1.25
+  RollTime: 1
+  RollDistance: 2.2
   updateAverageSize_trigger: 0
   VFX_RollDust: {fileID: 0}
   SFX_RollSound: {fileID: 0}
   RollCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.024155222
+      value: 0.9907837
+      inSlope: 0.07050627
+      outSlope: 0.07050627
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.10249715
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.00000098444
+      outSlope: -0.00000098444
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10714263
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -841,6 +866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6412195249486219000}
   - component: {fileID: 6688792410331491047}
+  - component: {fileID: 6066249044990702576}
   m_Layer: 0
   m_Name: Dead
   m_TagString: Untagged
@@ -876,10 +902,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 3
-  playerRefs: {fileID: 0}
   AnimatorStateName: 
   doesRequireStamina: 0
   StaminaCost: 0
+  xpDropper: {fileID: 0}
+  deadPartsInstantiator: {fileID: 0}
+  gameState: {fileID: 0}
+  DeathUIRoot: {fileID: 0}
+--- !u!114 &6066249044990702576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769096167277511253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94298c6955b9a2b48a54020fbd1fb64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 3383090570821903391}
+  OrientationGuide: {fileID: 2036163816277594816}
+  deadPartsList:
+  - referenceBone_TF: {fileID: 1097975357195865740}
+    deadPart_GO: {fileID: 1522013482259629399, guid: 331cf5773a8541645b837a46d113a2c8, type: 3}
 --- !u!1 &2169018732571411553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,6 +2336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!1 &6318128908313466623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,7 +2386,6 @@ MonoBehaviour:
   prefabs: {fileID: 11400000, guid: bdf4d07914d6bfd44bcfd76a2f33f4a4, type: 2}
   testingXpToDrop: 0
   triggerChoseXp: 0
-  playerRefs: {fileID: 3175104005493510322}
 --- !u!114 &4149393019508523355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2900,7 +2946,7 @@ MonoBehaviour:
   - {fileID: 4839914882623853790}
   distanceBetweenIcons: 55
   triggerUpdateUI: 0
-  playerEvents: {fileID: 3383090570821903391}
+  upgradesManger: {fileID: 0}
 --- !u!114 &7571122762221070247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3111,7 +3157,6 @@ MonoBehaviour:
   AttemptParrySFX: {fileID: 8300000, guid: 090d72a3dfebdc541a1e0de05653c2ca, type: 3}
   PickWeapon: {fileID: 8300000, guid: cd3af04f81ca9184aa356cbd062b98b1, type: 3}
   PickUpgrade: {fileID: 8300000, guid: cdd0676bee739394ea85f231ed9d5147, type: 3}
-  HealSFX: {fileID: 8300000, guid: f9c5bc6b3e60c0048ba4444135d39d88, type: 3}
   playerEvents: {fileID: 3383090570821903391}
 --- !u!1 &7653426974019842421
 GameObject:
@@ -4177,7 +4222,6 @@ GameObject:
   - component: {fileID: 7653426975249963388}
   - component: {fileID: 7653426975249963390}
   - component: {fileID: 864485886040288406}
-  - component: {fileID: 4068002304790719456}
   - component: {fileID: 7653426975249963379}
   - component: {fileID: 7653426975249963331}
   - component: {fileID: 7653426975249963385}
@@ -4191,9 +4235,9 @@ GameObject:
   - component: {fileID: 131155159506509890}
   - component: {fileID: 738973075402885668}
   - component: {fileID: 5563275663953165858}
-  - component: {fileID: 3437038907371655252}
   - component: {fileID: 4559768665079232811}
   - component: {fileID: 7549310352900070775}
+  - component: {fileID: 1439151477469121342}
   m_Layer: 20
   m_Name: MainCharacter
   m_TagString: Player
@@ -4361,19 +4405,6 @@ MonoBehaviour:
   Base_Knockback: 3000
   Base_HitStop: 0.1
   StaminaUse: 0
---- !u!114 &4068002304790719456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af9ac0981b806340bf43d335a04dfe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRefs: {fileID: 3175104005493510322}
 --- !u!114 &7653426975249963379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4535,7 +4566,7 @@ MonoBehaviour:
   playerStamina: {fileID: 4128982462933193464}
   playerVFX: {fileID: 7653426975249963331}
   upgradesManager: {fileID: 4999310393955818504}
-  specialAttack: {fileID: 4068002304790719456}
+  specialAttack: {fileID: 0}
   singlePointCollider: {fileID: 9009123525477702090}
   disableController: {fileID: 3372783210703460156}
   levelStatsManager: {fileID: 2481365138470066936}
@@ -4573,8 +4604,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger_DeleteRandomUpgrade: 0
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  playerEvents: {fileID: 3383090570821903391}
+  playerRefs: {fileID: 0}
   UpgradeColliderDetector: {fileID: 3030397079455606687}
+  SFX_PickedUpgrade: {fileID: 0}
 --- !u!114 &131155159506509890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4635,23 +4667,6 @@ MonoBehaviour:
     m_Bits: 1114112
   ignoreRay: 0
   MovementVectorsPerSecond: []
---- !u!114 &3437038907371655252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94298c6955b9a2b48a54020fbd1fb64c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 3383090570821903391}
-  OrientationGuide: {fileID: 2036163816277594816}
-  deadPartsList:
-  - referenceBone_TF: {fileID: 1097975357195865740}
-    deadPart_GO: {fileID: 1522013482259629399, guid: 331cf5773a8541645b837a46d113a2c8, type: 3}
 --- !u!114 &4559768665079232811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4679,6 +4694,34 @@ MonoBehaviour:
   SFX_DealtDamage: {fileID: 0}
   SFX_ReceiveDamage: {fileID: 0}
   SFX_ParryDealt: {fileID: 0}
+--- !u!114 &1439151477469121342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975249963383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd91dbedf7e00fd43ae5a8dcbf0ca4ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRefs: {fileID: 0}
+  SFX_SwordSwing: {fileID: 0}
+  specialHealState: {fileID: 0}
+  minDistance: 0
+  maxDistance: 0
+  minForce: 0
+  maxForce: 0
+  defaulDistance: 0
+  addForceTime: 0
+  attackCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  forceMultiplier: 0
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -4778,6 +4821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!1 &7653426975497917625
 GameObject:
   m_ObjectHideFlags: 0
@@ -5424,6 +5468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!58 &8382717615291115365
 CircleCollider2D:
   m_ObjectHideFlags: 0

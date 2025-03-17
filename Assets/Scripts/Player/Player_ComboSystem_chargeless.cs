@@ -36,7 +36,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     }
     void onPerformedAttack()
     {
-        playerRefs.events.CallStaminaAction?.Invoke(StaminaUse); //Remove stamina
+        //playerRefs.events.CallStaminaAction?.Invoke(StaminaUse); //Remove stamina
 
         foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList) //Get the damage dealers back to base stats
         {

@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Generic_OnTriggerEnterEvents : MonoBehaviour
 {
     public List<string> ActivatorTags = new List<string>();
-    public List<Tags> ActivatorTagsTags = new List<Tags>();
+    public List<TagsEnum> ActivatorTagsTags = new List<TagsEnum>();
     public class EventArgsCollisionInfo
     {
         public Collider2D Collision;
@@ -43,6 +44,14 @@ public class Generic_OnTriggerEnterEvents : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        foreach (TagsEnum tag in ActivatorTagsTags)
+        {
+            if (Tags.TagsDictionary[tag] == collision.tag)
+            {
+                OnTriggerEntered?.Invoke(collision);
+                break;
+            }
+        }
         foreach (string tag in ActivatorTags)
         {
             if(collision.CompareTag(tag))

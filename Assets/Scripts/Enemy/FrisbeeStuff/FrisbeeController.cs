@@ -13,10 +13,7 @@ public class FrisbeeController : MonoBehaviour, IParryReceiver
     Coroutine FrisbeThrowCoroutine;
     
     Transform originTf;
-    private void OnEnable()
-    {
-        events.OnGettingParried += (Generic_EventSystem.GettingParriedInfo info) => GotParried();
-    }
+
     public void throwFrisbee(Vector2 direction, Transform origin)
     {
         FrisbeThrowCoroutine = StartCoroutine(throwFrisbeeCoroutine(direction, origin));
@@ -70,11 +67,14 @@ public class FrisbeeController : MonoBehaviour, IParryReceiver
 
         StartCoroutine(UsefullMethods.destroyWithDelay(0, gameObject));
     }
-    void GotParried()
+    public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
+    public void OnParryReceived(GettingParriedInfo info)
     {
         StopCoroutine(FrisbeThrowCoroutine);
         events.gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine(ParriedCorroutine(originTf));
+
+        OnParryReceived_event?.Invoke(info);
     }
     IEnumerator ParriedCorroutine(Transform origin)
     {

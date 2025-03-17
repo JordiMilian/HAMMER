@@ -19,15 +19,13 @@ public class Player_FeedbackManager : MonoBehaviour
     {
 
         playerRefs.events.CallShowAndEnable += OnActivationFeedback;
-        playerRefs.events.OnActuallySpecialHeal += HealFeedback;
-        playerRefs.events.OnPickedNewUpgrade += PickUpUpgradeFeedback;
+
         playerRefs.events.OnPickedNewWeapon += PickUpWeaponFeedback;
     }
     private void OnDisable()
     {
         playerRefs.events.CallShowAndEnable -= OnActivationFeedback;
-        playerRefs.events.OnActuallySpecialHeal -= HealFeedback;
-        playerRefs.events.OnPickedNewUpgrade -= PickUpUpgradeFeedback;
+
         playerRefs.events.OnPickedNewWeapon -= PickUpWeaponFeedback;
     }
 
@@ -42,17 +40,7 @@ public class Player_FeedbackManager : MonoBehaviour
         playerRefs.animator.SetTrigger("Reactivated");
         CameraShake.Instance.ShakeCamera(0.5f, 0.3f);
     }
-    void HealFeedback()
-    {
-        CameraShake.Instance.ShakeCamera(.2f, 0.1f);
-        playerRefs.flasher.CallDefaultFlasher();
-    }
-    void PickUpUpgradeFeedback(UpgradeContainer upgrade)
-    {
-        CameraShake.Instance.ShakeCamera(.3f, 0.1f);
-        TimeScaleEditor.Instance.HitStop(0.03f);
-        playerRefs.flasher.CallDefaultFlasher();
-    }
+
     void PickUpWeaponFeedback(WeaponPrefab_infoHolder info)
     {
         CameraShake.Instance.ShakeCamera(.3f, 0.1f);

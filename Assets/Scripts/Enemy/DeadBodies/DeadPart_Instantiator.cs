@@ -47,6 +47,6 @@ public class DeadPart_Instantiator : MonoBehaviour
     IEnumerator InvokeWithDelay(GameObject instantiated, Vector2 direction)
     {
         yield return new WaitForSecondsRealtime(0.02f);
-        instantiated.GetComponent<DeadPart_EventSystem>().OnSpawned?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
+        //instantiated.GetComponent<DeadPart_EventSystem>().OnSpawned?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
     }
 }

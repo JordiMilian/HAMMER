@@ -20,9 +20,8 @@ public class DeadPart_Feedback : MonoBehaviour
 
     private void OnEnable()
     {
-        eventSystem.OnSpawned += spawnedFeedback;
-//eventSystem.OnReceiveDamage += GettingHitFeedback;
-        eventSystem.OnBeingTouchedObject += GettingTouchedFeedback;
+        
+        
         eventSystem.OnHitWall += HittingWallFeedback;
         GameEvents.OnPlayerReappear += DestroyOnRespawn;
     }
@@ -30,7 +29,7 @@ public class DeadPart_Feedback : MonoBehaviour
     {
         GameEvents.OnPlayerReappear -= DestroyOnRespawn;
     }
-    void spawnedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
+    void spawnedFeedback()
     {
         StartCoroutine(BloodStopper());
         deadPart_Animator.SetTrigger("Light");
@@ -45,7 +44,7 @@ public class DeadPart_Feedback : MonoBehaviour
         deadPart_Animator.SetTrigger("Strong");
     }
     */
-    void GettingTouchedFeedback(object sender, Generic_EventSystem.ObjectDirectionArgs args)
+    void GettingTouchedFeedback()
     {
         deadPart_Animator.SetTrigger("Light");
     }

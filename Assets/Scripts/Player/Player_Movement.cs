@@ -79,7 +79,7 @@ public class Player_Movement : MonoBehaviour
     void CallDashMovement()
     {
         //Call the event to remove Stamina
-        playerRefs.events.CallStaminaAction?.Invoke(1.25f);
+        //playerRefs.events.CallStaminaAction?.Invoke(1.25f);
 
         //Find the direction. If there is no direction, return???? maybe nose
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
@@ -113,16 +113,6 @@ public class Player_Movement : MonoBehaviour
             ));
     }
     
-    public void EV_HidePlayerCollider() 
-    { 
-        gameObject.layer = 15;
-        playerRefs.damageDetectorCollider.enabled = false;
-        playerRefs.characterMover.ignoreRay = true;
-    }
-    public void EV_ShowPlayerCollider() 
-    { 
-        gameObject.layer = 20; 
-        playerRefs.damageDetectorCollider.enabled = true;
-        playerRefs.characterMover.ignoreRay = false;
-    }
+    
+  
 }

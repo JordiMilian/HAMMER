@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_UpgradesManager : MonoBehaviour
 {
     [SerializeField] bool trigger_DeleteRandomUpgrade;
     [SerializeField] GameState gameState;
-    [SerializeField] Player_EventSystem playerEvents;
+    [SerializeField] Player_References playerRefs;
     [SerializeField] Generic_OnTriggerEnterEvents UpgradeColliderDetector;
+    public Action OnUpdatedUpgrades;
+    [SerializeField] AudioClip SFX_PickedUpgrade;
     private void OnEnable()
     {
         UpgradeColliderDetector.AddActivatorTag(Tags.UpgradeContainer);
@@ -32,11 +34,24 @@ public class Player_UpgradesManager : MonoBehaviour
     {
         if(collision.CompareTag(Tags.UpgradeContainer))
         {
-            Debug.Log("upgrade:" +  collision.name);
+            
             UpgradeContainer upgradeContainer = collision.GetComponent<UpgradeContainer>(); //CREA UN TAG O ALGUNA COSA PERFA
-            upgradeContainer.OnPickedUpContainer();
-            AddNewUpgrade(upgradeContainer.upgradeEffect);
-            playerEvents.OnPickedNewUpgrade?.Invoke(upgradeContainer);
+            if(upgradeContainer != null)
+            {
+                Debug.Log("upgrade:" + collision.name);
+                upgradeContainer.OnPickedUpContainer();
+                AddNewUpgrade(upgradeContainer.upgradeEffect);
+
+                //Audio and Visual feedback (should we make a new state?)
+                SFX_PlayerSingleton.Instance.playSFX(SFX_PickedUpgrade);
+                CameraShake.Instance.ShakeCamera(.3f, 0.1f);
+                TimeScaleEditor.Instance.HitStop(0.03f);
+                playerRefs.flasher.CallDefaultFlasher();
+
+                //event just in case (UI?)
+                OnUpdatedUpgrades?.Invoke();
+            }
+           
         }
     }
     void AddNewUpgrade(Upgrade upgrade)
@@ -48,7 +63,7 @@ public class Player_UpgradesManager : MonoBehaviour
     public void deleteRandomUpgrade()
     {
         if(gameState.playerUpgrades.Count == 0) { Debug.Log("No upgrades to delete"); return;}
-        int randomIndex = Random.Range(0, gameState.playerUpgrades.Count-1);
+        int randomIndex = UnityEngine.Random.Range(0, gameState.playerUpgrades.Count-1);
         deleteUpgrade(randomIndex);
 
     }
@@ -59,7 +74,7 @@ public class Player_UpgradesManager : MonoBehaviour
 
         gameState.playerUpgrades[i].onRemoved(gameObject); //remove effect
         gameState.playerUpgrades.RemoveAt(i); //remove from list
-        playerEvents.OnRemovedUpgrade?.Invoke(); //Call the event
+        OnUpdatedUpgrades?.Invoke();
     }
     private void Update()
     {

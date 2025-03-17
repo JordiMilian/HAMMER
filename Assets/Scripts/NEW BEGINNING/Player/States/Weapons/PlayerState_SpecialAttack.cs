@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_BasicSpecialAttack : PlayerState
+public class PlayerState_SpecialAttack : PlayerState
 {
     [SerializeField] float Damage, Knockback, HitStop;
     Coroutine currentAttackCoroutine;

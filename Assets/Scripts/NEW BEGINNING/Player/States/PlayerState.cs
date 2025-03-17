@@ -9,7 +9,7 @@ public class PlayerState : MonoBehaviour
     protected Player_StateMachine stateMachine;
     protected Animator animator;
     protected GameObject rootGameObject;
-    [SerializeField] protected Player_References playerRefs;
+    protected Player_References playerRefs;
     [SerializeField] protected string AnimatorStateName;
 
     protected const float transitionTime_short = 0.1f;

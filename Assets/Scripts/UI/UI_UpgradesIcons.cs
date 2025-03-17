@@ -8,19 +8,17 @@ public class UI_UpgradesIcons : MonoBehaviour
     [SerializeField] List<UnityEngine.UI.Image> iconsImages = new List<UnityEngine.UI.Image>();
     [SerializeField] float distanceBetweenIcons;
     [SerializeField] bool triggerUpdateUI = true;
-    [SerializeField] Player_EventSystem playerEvents;
+    [SerializeField] Player_UpgradesManager upgradesManger;
 
     private void OnEnable()
     {
-        playerEvents.OnPickedNewUpgrade += (UpgradeContainer container) => updateIcons();
-        playerEvents.OnRemovedUpgrade += updateIcons;
+        upgradesManger.OnUpdatedUpgrades += updateIcons;
 
         updateIcons();
     }
     private void OnDisable()
     {
-        playerEvents.OnPickedNewUpgrade -= (UpgradeContainer container) => updateIcons();
-        playerEvents.OnRemovedUpgrade -= updateIcons;
+        upgradesManger.OnUpdatedUpgrades -= updateIcons;
     }
     void updateIcons()
     {

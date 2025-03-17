@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class Player_AnimationSpeedControler : MonoBehaviour
 {
+    //ALGO SHA DE FER AMB AIXO
+
     [SerializeField] Player_References playerRefs;
     public float attackingSpeed = 1;
     public float BaseSpeed = 1;
     bool overlappingAttack;
     bool isAttacking;
-    private void OnEnable()
-    {
-        playerRefs.events.OnAttackStarted += AttackPerformed;
-        playerRefs.events.OnAttackFinished += AttackEnded;
-    }
     void AttackPerformed()
     {
         if (isAttacking) { overlappingAttack = true; }

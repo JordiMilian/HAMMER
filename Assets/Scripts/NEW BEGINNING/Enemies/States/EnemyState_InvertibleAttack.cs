@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Generic_EventSystem : MonoBehaviour
+public class EnemyState_InvertibleAttack : EnemyState_Attack
 {
-
 
 }

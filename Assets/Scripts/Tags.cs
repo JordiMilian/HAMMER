@@ -2,8 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TagsEnum
+{
+   Empty,Player,Enemy, Enemy_SinglePointCollider, Player_SinglePointCollider
+}
+
 public class Tags
 {
+    public static Dictionary<TagsEnum, string> TagsDictionary = new Dictionary<TagsEnum, string>()
+    {
+        {TagsEnum.Empty,"" },
+        {TagsEnum.Player,"Player" },
+        {TagsEnum.Enemy, "Enemy" },
+        {TagsEnum.Enemy_SinglePointCollider, "Enemy_SinglePointCollider" },
+        {TagsEnum.Player_SinglePointCollider,"Player_SinglePointCollider" }
+
+    };
     public static string MainCharacter = "MainCharacter";
     public static string Player = "Player";
     public static string Player_SinglePointCollider = "Player_SinglePointCollider";
@@ -33,6 +47,9 @@ public class Tags
 
     public static string UpgradeContainer = "UpgradeContainer";
     public static string Pickeable = "Pickeable";
+
+
+    
 
 
     //Enemy

@@ -73,7 +73,9 @@ public class PauseGame : MonoBehaviour
     public void die()
     {
         Unpause();
-        playerEventSystem.OnDeath?.Invoke(this, new Generic_EventSystem.DeadCharacterInfo(playerEventSystem.gameObject, gameObject));
+        Player_StateMachine playerStateMachine = GlobalPlayerReferences.Instance.playerTf.GetComponent<Player_StateMachine>();
+        PlayerState deathState = playerStateMachine.GetComponent<Player_References>().DeadState;
+        playerStateMachine.ForceChangeState(deathState);
     }
     public void restartLevel()
     {

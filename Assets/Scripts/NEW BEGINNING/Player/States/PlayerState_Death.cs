@@ -17,7 +17,7 @@ public class PlayerState_Death : PlayerState
 
         gameState.playerDeaths++;
 
-        playerDeadHead = deadPartsInstantiator.InstantiateDeadParts(info)[0];
+       // playerDeadHead = deadPartsInstantiator.InstantiateDeadParts(info)[0];
 
 
         //Hide sprites

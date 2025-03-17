@@ -154,7 +154,6 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         }
         TargetGroupSingleton.Instance.ReturnPlayersTarget();
         zoomController.onUnfocusedEnemy();
-        playerRefs.events.OnUnfocusEnemy?.Invoke(); //For tutorial now
         CurrentlyFocusedIcon = null;
 
         //
@@ -175,7 +174,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     FocusIcon GetClosestEnemyToCircle(Vector2 circleCenter, float radius, bool ignoreCurrent)
     {
         spawnedFocusIcons.Clear();
-        spawnedFocusIcons = FindObjectsOfType<FocusIcon>().ToList(); // UFFFFFFFFFFFFF que asco
+        spawnedFocusIcons = FindObjectsOfType<FocusIcon>().ToList();// UFFFFFFFFFFFFF que asco
 
         FocusIcon lastFocusedEnemy = CurrentlyFocusedIcon; //Unfocus current enemy but keep a reference
         UnfocusCurrentEnemy();
