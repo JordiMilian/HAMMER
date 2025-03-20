@@ -38,7 +38,7 @@ public class Player_Movement : MonoBehaviour
        
     }
 
-
+    /* KILL
     void OnRollUnpressed()
     {
         if (playerRefs.currentStats.CurrentStamina <= 0) { return; }
@@ -113,6 +113,6 @@ public class Player_Movement : MonoBehaviour
             ));
     }
     
-    
+    */
   
 }

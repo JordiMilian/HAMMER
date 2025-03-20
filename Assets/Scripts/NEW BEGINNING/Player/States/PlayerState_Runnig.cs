@@ -28,6 +28,10 @@ public class PlayerState_Runnig : PlayerState
     public override void Update()
     {
         playerRefs.playerStamina.RemoveStamina(StaminaCostPerSecond * Time.deltaTime);
+        if(playerRefs.currentStats.CurrentStamina <= 0)
+        {
+            stateMachine.ForceChangeState(playerRefs.IdleState);
+        }
     }
     void OnUnpressedRun()
     {

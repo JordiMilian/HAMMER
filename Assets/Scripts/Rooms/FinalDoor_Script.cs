@@ -80,12 +80,16 @@ public class FinalDoor_Script : BaseCutsceneLogic
     }
     IEnumerator UnlockSkull01Cutscene()
     {
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-        Transform playerTf = playerEvents.transform;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        Transform playerTf = playerRefs.transform;
         TargetGroupSingleton targetGroups = TargetGroupSingleton.Instance;
         Vector2 basePlayerTargetStats = targetGroups.GetTargetStats(playerTf);
     
-        playerEvents.CallDisable();
+ 
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
+        
         targetGroups.EditTarget(playerTf, .5f, 1);
 
         doorAnimator.SetTrigger("Unlock01");
@@ -98,7 +102,7 @@ public class FinalDoor_Script : BaseCutsceneLogic
             IterativeCheck();
         }
 
-        playerEvents.CallEnable();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
         targetGroups.EditTarget(playerTf,basePlayerTargetStats.x, basePlayerTargetStats.y);
 
 
@@ -106,12 +110,13 @@ public class FinalDoor_Script : BaseCutsceneLogic
     }
     IEnumerator UnlockSkull02Cutscene()
     {
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-        Transform playerTf = playerEvents.transform;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+        Transform playerTf = playerRefs.transform;
         TargetGroupSingleton targetGroups = TargetGroupSingleton.Instance;
         Vector2 basePlayerTargetStats = targetGroups.GetTargetStats(playerTf);
 
-        playerEvents.CallDisable();
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
         targetGroups.EditTarget(playerTf, .5f, 1);
 
         doorAnimator.SetTrigger("Unlock02");
@@ -124,19 +129,20 @@ public class FinalDoor_Script : BaseCutsceneLogic
             IterativeCheck();
         }
 
-        playerEvents.CallEnable();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
         targetGroups.EditTarget(playerTf, basePlayerTargetStats.x, basePlayerTargetStats.y);
 
         onCutsceneOver?.Invoke();
     }
     IEnumerator UnlockSkull03Cutscene()
-    {
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-        Transform playerTf = playerEvents.transform;
+    { 
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+        Transform playerTf = playerRefs.transform;
         TargetGroupSingleton targetGroups = TargetGroupSingleton.Instance;
         Vector2 basePlayerTargetStats = targetGroups.GetTargetStats(playerTf);
 
-        playerEvents.CallDisable();
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
         targetGroups.EditTarget(playerTf, .5f, 1);
 
         doorAnimator.SetTrigger("Unlock03");
@@ -149,7 +155,7 @@ public class FinalDoor_Script : BaseCutsceneLogic
             IterativeCheck();
         }
 
-        playerEvents.CallEnable();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
         targetGroups.EditTarget(playerTf, basePlayerTargetStats.x, basePlayerTargetStats.y);
 
         onCutsceneOver?.Invoke(); ;

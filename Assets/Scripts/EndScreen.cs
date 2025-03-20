@@ -43,7 +43,10 @@ public class EndScreen : MonoBehaviour
 
         FadeIn(1f);
 
-        collision.transform.root.GetComponent<Player_EventSystem>().CallDisable?.Invoke(); //Disable player movement and such
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
     }
     void FadeOut(float time)
     {

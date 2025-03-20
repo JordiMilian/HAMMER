@@ -19,15 +19,11 @@ public class Player_DisableController : MonoBehaviour
     {
         playerRefs.events.CallHideAndDisable += HideAndDisablePlayer;
         playerRefs.events.CallShowAndEnable += ShowAndEnablePlayer;
-        playerRefs.events.CallDisable += DisablePlayerScripts;
-        playerRefs.events.CallEnable += EnablePlayerScripts;
     }
     private void OnDisable()
     {
         playerRefs.events.CallHideAndDisable -= HideAndDisablePlayer;
         playerRefs.events.CallShowAndEnable -= ShowAndEnablePlayer;
-        playerRefs.events.CallDisable -= DisablePlayerScripts;
-        playerRefs.events.CallEnable -= EnablePlayerScripts;
     }
     public void HideAndDisablePlayer()
     {
@@ -46,12 +42,12 @@ public class Player_DisableController : MonoBehaviour
         {
             root.SetActive(true);
         }
-        GameEvents.OnPlayerReappear?.Invoke();
+        GameEvents.OnPlayerRespawned?.Invoke();
     }
     public void DisablePlayerScripts()
     {
         playerRefs.animator.SetBool("Walking", false);
-        playerRefs.playerMovement.enabled = false;
+        //playerRefs.playerMovement.enabled = false;
         playerRefs.followMouse.enabled = false;
         playerRefs.comboSystem.enabled = false;
         TargetGroupSingleton.Instance.RemoveTarget(MouseTarget);
@@ -61,7 +57,7 @@ public class Player_DisableController : MonoBehaviour
     }
    public void EnablePlayerScripts()
     {
-        playerRefs.playerMovement.enabled = true;
+        //playerRefs.playerMovement.enabled = true;
         playerRefs.followMouse.enabled = true;
         playerRefs.comboSystem.enabled = true;
         TargetGroupSingleton.Instance.AddTarget(MouseTarget, 1, 0);

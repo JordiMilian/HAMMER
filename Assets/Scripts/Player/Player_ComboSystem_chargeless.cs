@@ -25,7 +25,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
     [HideInInspector] public float Base_Knockback;
     [HideInInspector] public float Base_HitStop;
     [HideInInspector] public float StaminaUse;
-
+    /*
 
     void onAttackPressed()
     {
@@ -47,8 +47,6 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         }
 
     }
-    public void EV_ShowWeaponCollider() { playerRefs.weaponCollider.enabled = true; playerRefs.playerVFX.EV_ShowTrail(); }
-    public void EV_HideWeaponCollider() { playerRefs.weaponCollider.enabled = false; playerRefs.playerVFX.EV_HideTrail(); }
     public void EV_AddForce(float multiplier = 1)
     {
         //Make equivalent between min and max distance to -0,5 and 1 (normalize)
@@ -85,6 +83,7 @@ public class Player_ComboSystem_chargeless : MonoBehaviour
         float lerpF = Mathf.Lerp(minForce, maxForce, inverseF);
         return lerpF;
     }
+    */
 }
  
 

@@ -23,11 +23,11 @@ public class DeadPart_Feedback : MonoBehaviour
         
         
         eventSystem.OnHitWall += HittingWallFeedback;
-        GameEvents.OnPlayerReappear += DestroyOnRespawn;
+        GameEvents.OnPlayerRespawned += DestroyOnRespawn;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerReappear -= DestroyOnRespawn;
+        GameEvents.OnPlayerRespawned -= DestroyOnRespawn;
     }
     void spawnedFeedback()
     {

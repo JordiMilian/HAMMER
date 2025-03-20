@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyState_Parried : EnemyState
 {
     Coroutine currentStateCoroutine;
+    [SerializeField] BasicEnemy_AnimationEvents animationEvents;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -12,9 +13,12 @@ public class EnemyState_Parried : EnemyState
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.VerySlow);
         EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.VerySlow);
         currentStateCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName,EnemyRefs.AgrooState,0.1f));
+
+        animationEvents.EV_HideWeaponCollider();
     }
     public override void OnDisable()
     {
+        base.OnDisable();
         if(currentStateCoroutine != null)
         {
             StopCoroutine(currentStateCoroutine);

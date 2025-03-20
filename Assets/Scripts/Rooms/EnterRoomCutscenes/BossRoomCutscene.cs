@@ -22,11 +22,13 @@ public class BossRoomCutscene : BaseCutsceneLogic
         Transform bossTf = enemyRoomLogic.CurrentlySpawnedEnemies[0].transform;
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
         Enemy_References bossRefs = bossTf.GetComponent<Enemy_References>();
-        
+
 
         //disable player
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-        playerEvents.CallDisable();
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
 
         //Wait just in case for enemies to spawn
         yield return new WaitForSeconds(0.1f);
@@ -63,7 +65,7 @@ public class BossRoomCutscene : BaseCutsceneLogic
 
 
         //enable player again
-        playerEvents.CallEnable();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
 
         //Focus the boss
         //Player_FollowMouseWithFocus_V2 followMouse = GlobalPlayerReferences.Instance.references.followMouse;

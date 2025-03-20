@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_Parried : MonoBehaviour
+public class PlayerState_Parried : PlayerState
 {
-    // Start is called before the first frame update
-    void Start()
+    Coroutine currentCoroutine;
+  public override void OnEnable()
     {
-        
-    }
+        base.OnEnable();
+        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Slow);
 
-    // Update is called once per frame
-    void Update()
+
+        currentCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));
+        playerRefs.animationEvents.EV_Enemy_HideAttackCollider();
+    }
+    public override void OnDisable()
     {
-        
+        base.OnDisable();
+        if(currentCoroutine != null) { StopCoroutine(currentCoroutine); }
     }
 }

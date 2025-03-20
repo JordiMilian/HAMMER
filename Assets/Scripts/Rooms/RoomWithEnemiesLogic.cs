@@ -33,13 +33,13 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     [SerializeField] EnterTriggerCutscene enterRoomCutscene;
     public Action onEnemiesSpawned;
 
-    [SerializeField] GameState gameState;
+    public GameState gameState;
 
     public override void OnEnable()
     {
         base.OnEnable();
 
-        GameEvents.OnPlayerReappear += delayedDestroy;
+        GameEvents.OnPlayerRespawned += delayedDestroy;
         SpawnTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         SpawnTrigger.OnTriggerEntered += SpawnEnemies;
     }
@@ -47,7 +47,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
     {
         base.OnDisable();
 
-        GameEvents.OnPlayerReappear -= delayedDestroy;
+        GameEvents.OnPlayerRespawned -= delayedDestroy;
         SpawnTrigger.OnTriggerEntered -= SpawnEnemies;
     }
     void delayedDestroy()

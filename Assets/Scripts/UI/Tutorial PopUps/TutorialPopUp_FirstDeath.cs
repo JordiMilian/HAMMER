@@ -10,11 +10,11 @@ public class TutorialPopUp_FirstDeath : MonoBehaviour
     UI_LevelUpSystemMenu levelUp;
     private void OnEnable()
     {
-        GameEvents.OnPlayerReappear += OnPlayerRespawned;
+        GameEvents.OnPlayerRespawned += OnPlayerRespawned;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerReappear -= OnPlayerRespawned;
+        GameEvents.OnPlayerRespawned -= OnPlayerRespawned;
     }
 
     void OnPlayerRespawned()

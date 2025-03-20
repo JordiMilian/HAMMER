@@ -35,7 +35,7 @@ public class Cutscene_PlayersStartingDeath : BaseCutsceneLogic
     IEnumerator cutsceneCoroutine()
     {
         gameState.playerDeaths++;
-        playerRefs.events.CallHideAndDisable?.Invoke();
+        //playerRefs.events.CallHideAndDisable?.Invoke(); WE ARE USING STATE MACHINE NOW
 
         SetupForRespwan();
 

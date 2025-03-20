@@ -67,16 +67,16 @@ public class Player_AnimationEvents : MonoBehaviour
     {
         playerRefs.movement2.SetMovementSpeed(speedType);
     }
-
-    [SerializeField] PlayerState_SpecialHeal specialHealState;
     public void EV_ActuallyHeal()
     {
-        specialHealState.ActuallyHeal();
+        PlayerState_SpecialHeal specialHeal = (PlayerState_SpecialHeal)playerRefs.SpecialHealState;
+        specialHeal.ActuallyHeal();
         
     }
     #region ADD FORCES
     [Header("Add Force Stats")]
-    [SerializeField] float minDistance, maxDistance;
+    [SerializeField] float minDistance;
+    [SerializeField] float maxDistance;
     [SerializeField] float minForce, maxForce;
     [SerializeField] float defaulDistance;
     [SerializeField] float addForceTime;

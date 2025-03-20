@@ -15,7 +15,7 @@ public class Enemy_AttackRangeDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player_SinglePointCollider"))
+        if (collision.CompareTag(Tags.Player_SinglePointCollider))
         {
             if(OnPlayerEntered != null) OnPlayerEntered();
         }
@@ -23,7 +23,7 @@ public class Enemy_AttackRangeDetector : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player_SinglePointCollider"))
+        if (collision.CompareTag(Tags.Player_SinglePointCollider))
         {
             if (OnPlayerExited != null) OnPlayerExited();
         }

@@ -24,18 +24,22 @@ public class LookAtSideDoorAfterMainDoorDialogue : BaseCutsceneLogic
     }
     IEnumerator cutsceneLookAtDoor()
     {
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+       
 
         yield return new WaitForSeconds(0.2f);
-        playerEvents.CallDisable();
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
         targetGroup.SetOnlyOneTarget(sideDoorTargetTf, 1, 1);
         yield return new WaitForSeconds(2.5f);
         targetGroup.ReturnPlayersTarget();
         targetGroup.RemoveTarget(sideDoorTargetTf);
 
         yield return new WaitForSeconds(0.2f);
-        playerEvents.CallEnable();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+
 
 
     }

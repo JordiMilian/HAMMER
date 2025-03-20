@@ -7,7 +7,7 @@ public enum TagsEnum
    Empty,Player,Enemy, Enemy_SinglePointCollider, Player_SinglePointCollider
 }
 
-public class Tags
+public static class Tags
 {
     public static Dictionary<TagsEnum, string> TagsDictionary = new Dictionary<TagsEnum, string>()
     {

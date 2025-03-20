@@ -188,7 +188,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         go_LevelUpMenu.SetActive(true);
         ResetMenu();
 
-        playerRefs.events.CallDisable(); //Desactivamos el control del jugador
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
 
         SFX_PlayerSingleton.Instance.playSFX(audio_OpenMenu);
     }
@@ -203,7 +204,8 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
 
         go_LevelUpMenu.SetActive(false);
 
-        playerRefs.events.CallEnable(); //Activamos el control del jugador
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
 
         SFX_PlayerSingleton.Instance.playSFX(audio_CloseMenu);
     }

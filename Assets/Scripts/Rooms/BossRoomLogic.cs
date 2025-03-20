@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossRoomLogic : RoomWithEnemiesLogic
 {
-    [SerializeField] GameState gameState;
+
     [SerializeField] bool dontEffectSkulls;
     public Action<int> OnBossDefeated;
     public int BossIndex;

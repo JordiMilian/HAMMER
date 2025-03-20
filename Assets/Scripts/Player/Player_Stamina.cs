@@ -6,9 +6,10 @@ public class Player_Stamina : MonoBehaviour
 {
     public bool isRecovering { get; private set; }
     public bool isFilled{ get; private set; }
+    public bool isEmpty { get; private set; }
 
     [SerializeField] Player_References playerRefs;
-    [SerializeField] float RecoveryPerSecond;
+    [SerializeField] float RecoveryPerSecond; //This should be in Stats probably
     private void Start()
     {
         playerRefs.currentStats.CurrentStamina = playerRefs.currentStats.MaxStamina;
@@ -16,12 +17,10 @@ public class Player_Stamina : MonoBehaviour
     }
     private void OnEnable()
     {
-        //playerRefs.events.CallStaminaAction += RemoveStamina;
         playerRefs.currentStats.OnStaminaChange += onMaxStaminaUpdated;
     }
     private void OnDisable()
     {
-        //playerRefs.events.CallStaminaAction -= RemoveStamina;
         playerRefs.currentStats.OnStaminaChange -= onMaxStaminaUpdated;
     }
     public void RemoveStamina(float stamina)
@@ -30,7 +29,7 @@ public class Player_Stamina : MonoBehaviour
         playerRefs.currentStats.CurrentStamina -= stamina;
 
         //Set to max or min in case of overflow
-        if (playerRefs.currentStats.CurrentStamina < 0) { playerRefs.currentStats.CurrentStamina = 0; }
+        if (playerRefs.currentStats.CurrentStamina <= 0) { playerRefs.currentStats.CurrentStamina = 0; isEmpty = true; }
         else if (playerRefs.currentStats.CurrentStamina > playerRefs.currentStats.MaxStamina)
         {
             playerRefs.currentStats.CurrentStamina = playerRefs.currentStats.MaxStamina;
@@ -67,6 +66,7 @@ public class Player_Stamina : MonoBehaviour
         if (isRecovering)
         {
             playerRefs.currentStats.CurrentStamina += Time.deltaTime * RecoveryPerSecond * playerRefs.currentStats.RecoveryStaminaSpeed;
+            isEmpty = true;
 
             if (playerRefs.currentStats.CurrentStamina > playerRefs.currentStats.MaxStamina)
             {
@@ -74,6 +74,7 @@ public class Player_Stamina : MonoBehaviour
                 isRecovering = false;
                 isFilled = true;
             }
+            
         }
     }
 }

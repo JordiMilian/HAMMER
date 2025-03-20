@@ -12,12 +12,12 @@ public class Player_StatsController : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameEvents.OnPlayerReappear += OnPlayerRespawned;
+        GameEvents.OnPlayerRespawned += OnPlayerRespawned;
         playerRefs.singlePointCollider.OnTriggerEntered += OnPickedUpgrade;
     }
     private void OnDisable()
     {
-        GameEvents.OnPlayerReappear -= OnPlayerRespawned;
+        GameEvents.OnPlayerRespawned -= OnPlayerRespawned;
         playerRefs.singlePointCollider.OnTriggerEntered -= OnPickedUpgrade;
     }
     void OnPlayerRespawned()

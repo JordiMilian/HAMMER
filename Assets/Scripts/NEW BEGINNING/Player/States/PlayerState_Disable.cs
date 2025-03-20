@@ -8,5 +8,9 @@ public class PlayerState_Disable : PlayerState
     //Dont subscribte
     //movement to zero
     //idle animation
+    public override void OnEnable()
+    {
+        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
+    }
 
 }

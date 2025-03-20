@@ -43,7 +43,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
     private void OnEnable()
     {
         roomWithEnemies.onEnemiesSpawned += subscribeToHalfHealth;
-        GameEvents.OnPlayerReappear += restartState;
+        GameEvents.OnPlayerRespawned += restartState;
 
         if (trapInfosList.Count != pinkTrapsList.Count)
         {
@@ -78,7 +78,7 @@ public class HalfHealth_PinkTraps : MonoBehaviour
     private void OnDisable()
     {
         roomWithEnemies.onEnemiesSpawned -= subscribeToHalfHealth;
-        GameEvents.OnPlayerReappear -= restartState;
+        GameEvents.OnPlayerRespawned -= restartState;
     }
     void subscribeToHalfHealth()
     {

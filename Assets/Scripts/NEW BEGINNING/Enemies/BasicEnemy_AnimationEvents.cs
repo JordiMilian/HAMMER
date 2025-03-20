@@ -7,10 +7,14 @@ public class BasicEnemy_AnimationEvents : MonoBehaviour
    //set rotation speed
    //set movement speed
    //hide and show weapon colliders
-   public void Enemy_ShowWeaponCollider()
+   public void EV_ShowWeaponCollider()
     {
         //hide collider
         //stop trail
         //play sound
+    }
+    public void EV_HideWeaponCollider()
+    {
+
     }
 }

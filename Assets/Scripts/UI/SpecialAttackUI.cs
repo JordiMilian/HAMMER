@@ -13,7 +13,6 @@ public class SpecialAttackUI : MonoBehaviour
 
     private void OnEnable()
     {
-
         GetComponent<Canvas>().worldCamera = Camera.main;
         currentStats.OnCurrentBloodFlowChange += onBloodflowUpdated;
         onBloodflowUpdated(currentStats.CurrentBloodFlow);

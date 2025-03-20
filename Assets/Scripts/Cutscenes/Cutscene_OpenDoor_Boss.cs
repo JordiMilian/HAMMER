@@ -26,7 +26,6 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
     IEnumerator BossRoomFinishedCutscene()
     {
         Transform doorTransform = doorController.transform;
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
 
         //Fade out music when boss defeated
@@ -37,7 +36,10 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
 
         yield return new WaitForSeconds(delayBeforeUI);
 
-        playerEvents.CallDisable();
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
         BossDefeatedUI_animator.SetTrigger("BossDefeated");//Placeholder name?
         yield return new WaitForSeconds(BossDefeatedUiClip.length);
 
@@ -53,8 +55,8 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
         targetGroup.ReturnPlayersTarget();
         targetGroup.RemoveTarget(doorTransform); // Stop looking at camera
 
-        
-        playerEvents.CallEnable();
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
         upgradeGroup.StartSpawnCutscene(); //Cutrada maxima aixo ho hauries de cridar desde algun altre lloc. Arreglaho quan refactoritses les cutscenes pls
 
         onCutsceneOver?.Invoke();
@@ -63,7 +65,10 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
     IEnumerator BossRoomFinishCutscene_NoUpgrades()
     {
         Transform doorTransform = doorController.transform;
-        Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+       
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
 
         //Fade out music when boss defeated
@@ -74,7 +79,7 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
 
         yield return new WaitForSeconds(delayBeforeUI);
 
-        playerEvents.CallDisable();
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
         BossDefeatedUI_animator.SetTrigger("BossDefeated");//Placeholder name?
         yield return new WaitForSeconds(BossDefeatedUiClip.length);
 
@@ -91,7 +96,7 @@ public class Cutscene_OpenDoor_Boss : BaseCutsceneLogic
         targetGroup.RemoveTarget(doorTransform); // Stop looking at camera
 
 
-        playerEvents.CallEnable();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
         //upgradeGroup.StartSpawnCutscene(); //Cutrada maxima aixo ho hauries de cridar desde algun altre lloc. Arreglaho quan refactoritses les cutscenes pls
         onCutsceneOver?.Invoke();
 

@@ -15,14 +15,12 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     {
         
         SFX_Player = SFX_PlayerSingleton.Instance;
-
-
-        GameEvents.OnPlayerReappear += playHeadReatached;
+        GameEvents.OnPlayerRespawned += playHeadReatached;
         playerEvents.OnPickedNewWeapon += playPickUpWeapon;
     }
     public  void OnDisable()
     {
-        GameEvents.OnPlayerReappear -= playHeadReatached;
+        GameEvents.OnPlayerRespawned -= playHeadReatached;
 
         playerEvents.OnPickedNewWeapon -= playPickUpWeapon;
     }

@@ -13,16 +13,17 @@ public class enterSceneCutscene : BaseCutsceneLogic
     {
         Debug.Log("moving player");
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
         Transform playerTf = playerRefs.gameObject.transform;
 
-        playerRefs.events.CallDisable?.Invoke();
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
         playerTf.position = enteringPos.position;
 
         //playerRefs.animator.SetTrigger("EnterRoom Lo que sigue etc"); 
 
         yield return new WaitForSeconds(.5f); // esperar a que acabe l'animacio
 
-        playerRefs.events.CallEnable?.Invoke();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
 
         onCutsceneOver?.Invoke();
     }

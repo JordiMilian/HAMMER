@@ -17,14 +17,14 @@ public class HalfHealth_PuddleCreature : MonoBehaviour
     private void OnEnable()
     {
         roomWithEnemies.onEnemiesSpawned += subscribeToHalfHealth;
-        GameEvents.OnPlayerReappear += restartState;
+        GameEvents.OnPlayerRespawned += restartState;
         puddleCollider = puddleShape.gameObject.GetComponent<PolygonCollider2D>();
         restartState();
     }
     private void OnDisable()
     {
         roomWithEnemies.onEnemiesSpawned -= subscribeToHalfHealth;
-        GameEvents.OnPlayerReappear -= restartState;
+        GameEvents.OnPlayerRespawned -= restartState;
     }
     void subscribeToHalfHealth()
     {

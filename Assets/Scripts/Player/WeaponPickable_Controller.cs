@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponPickable_Controller : MonoBehaviour
 {
+    CircleCollider2D detectionCollider;
+    public Action<WeaponPickable_Controller> OnPickedUpEvent;
     Animator animator;
     private void OnEnable()
     {

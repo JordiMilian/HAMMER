@@ -25,7 +25,7 @@ public class Player_StateMachine : MonoBehaviour
         #region MANAGE STAMINA
         if (newState.doesRequireStamina)
         {
-            if(playerRefs.currentStats.CurrentStamina <= 0)
+            if(playerRefs.playerStamina.isEmpty)
             {
                 Debug.Log("Not enough stamina for: " + newState.name);
                 return;

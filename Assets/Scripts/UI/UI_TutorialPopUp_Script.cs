@@ -7,7 +7,6 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
 {
     [SerializeField] Transform PopUpRoot;
     [SerializeField] Transform BG_Root;
-    Player_EventSystem playerEvents;
     public bool hasShown;
     public Action OnShownPopUp, OnHiddenPopUp;
     private void Start()
@@ -21,8 +20,10 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
         PopUpRoot.gameObject.SetActive(true);
         BG_Root.gameObject.SetActive(true);
 
-        if (playerEvents == null) { playerEvents = GlobalPlayerReferences.Instance.references.events; }
-        playerEvents.CallDisable?.Invoke();
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
 
         SubscribeToPress();
 
@@ -32,8 +33,10 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
     }
     void HidePopUp()
     {
-        if (playerEvents == null) { playerEvents = GlobalPlayerReferences.Instance.references.events; }
-        playerEvents.CallEnable?.Invoke();
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
 
         PopUpRoot.gameObject.SetActive(false);
         BG_Root.gameObject.SetActive(false);
