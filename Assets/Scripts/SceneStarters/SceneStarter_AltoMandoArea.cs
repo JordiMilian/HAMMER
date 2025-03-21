@@ -16,6 +16,7 @@ public class SceneStarter_AltoMandoArea : SceneStarter_base
         roomGeneratorPrefab = Instantiate(roomGeneratorPrefab);
         RoomGenerator_Manager roomManager = roomGeneratorPrefab.GetComponent<RoomGenerator_Manager>();
         roomManager.Call_GenerateAllRoomsFromPosition?.Invoke(Vector2.zero);
+
         
     }
     public override IEnumerator Preparation() //Colocar els objectes de Creation on toque

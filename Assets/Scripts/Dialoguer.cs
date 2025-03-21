@@ -20,7 +20,6 @@ public class Dialoguer : MonoBehaviour
     [SerializeField] GameObject DialogueBubblePosition;
     [SerializeField] Generic_OnTriggerEnterEvents PlayerCloseTrigger;
     [SerializeField] Animator bubbleAnimator;
-    [SerializeField] Generic_EventSystem eventSystem;
 
     int CurrentLineToRead;
     bool playerIsInside;

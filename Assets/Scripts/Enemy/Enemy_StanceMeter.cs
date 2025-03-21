@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Generic_EventSystem;
 
 public class Enemy_StanceMeter : MonoBehaviour
 {
@@ -11,7 +10,6 @@ public class Enemy_StanceMeter : MonoBehaviour
     [SerializeField] float CurrentStance;
     [SerializeField] float CooldownAfterDamage;
     [SerializeField] float RecoveryPerSecond;
-    [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Animator animator;
     bool isRecovering;
 

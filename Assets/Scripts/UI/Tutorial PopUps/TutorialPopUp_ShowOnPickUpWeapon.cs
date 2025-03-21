@@ -14,7 +14,7 @@ public class TutorialPopUp_ShowOnPickUpWeapon : MonoBehaviour
     {
         GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon -= showPopUp;
     }
-    void showPopUp(WeaponPrefab_infoHolder info)
+    void showPopUp(Weapon_InfoHolder info)
     {
         if (!gameState.hasPickedFirstUpgrade)
         {

@@ -6,7 +6,6 @@ using UnityEngine;
 public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDamageReceiver, IParryReceiver
 {
     [HideInInspector] public Transform TargetTf;
-    [SerializeField] Generic_EventSystem genericChaserEvents;
     Coroutine currentMovement;
     [SerializeField] Generic_DamageDealer damageDealer;
     [SerializeField] Generic_DamageDetector damageDetector;

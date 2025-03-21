@@ -16,10 +16,13 @@ public class Player_References : Generic_References
     public Player_LevelStatsManager levelStatsManager;
     public Player_Movement2 movement2;
     public Player_StateMachine stateMachine;
-    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState;
+    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState, RespawningState;
     public PlayerState StartingComboAttackState, RollingAttackState, ParryAttackState, SpecialAttackState; //Each weapon picked should changes these states
+    public GameObject WeaponStatesHolder;
+    public Transform StatesRoots;
     public TrailRenderer weaponTrail;
     public Player_AnimationEvents animationEvents;
+    public Player_WeaponSwitcher weaponSwitcher;
 
     public Collider2D parryCollider;
 

@@ -48,7 +48,7 @@ MonoBehaviour:
   AnimatorStateName: 
   doesRequireStamina: 0
   StaminaCost: 0
-  nextComboAttack: {fileID: 0}
+  nextComboAttack: {fileID: 4864539902464239311}
   Damage: 0
   Knockback: 0
   HitStop: 0
@@ -61,6 +61,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3148351025081847115}
+  - component: {fileID: 8035614572951653533}
   m_Layer: 18
   m_Name: SpecialAttack
   m_TagString: Untagged
@@ -83,6 +84,26 @@ Transform:
   m_Father: {fileID: 62214367505474618}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8035614572951653533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451215479473182451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 0
+  AnimatorStateName: 
+  doesRequireStamina: 0
+  StaminaCost: 0
+  nextComboAttack: {fileID: 0}
+  Damage: 0
+  Knockback: 0
+  HitStop: 0
 --- !u!1 &7288545152001580545
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,8 +113,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 62214367505474618}
-  - component: {fileID: 5410925017853230199}
+  - component: {fileID: 4486973320311297674}
   - component: {fileID: 3589356947549653219}
+  - component: {fileID: 5204031756510583580}
   m_Layer: 0
   m_Name: WEAPON STATES
   m_TagString: Untagged
@@ -119,7 +141,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5410925017853230199
+--- !u!114 &4486973320311297674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,25 +150,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7288545152001580545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56e6face5f4902149b007d994cce78d1, type: 3}
+  m_Script: {fileID: 11500000, guid: cc8fdccbbe656874893e8231bf466245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponsCollider: {fileID: 0}
-  weaponSprite: {fileID: 0}
-  BaseDamage: 0
-  BaseKnockback: 0
-  BaseHitstop: 0
-  StaminaUsePerSwing: 0
-  Sp_Damage: 0
-  Sp_Knockback: 0
-  Sp_StaminaCost: 0
-  animatorController: {fileID: 0}
-  animator: {fileID: 0}
-  indexInGameState: 0
-  ComboAttack_01: {fileID: 0}
-  SpecialAttack: {fileID: 0}
-  RollAttack: {fileID: 0}
-  ParryAttack: {fileID: 0}
+  WeaponCollider: {fileID: 3589356947549653219}
+  WeaponSprite: {fileID: 21300000, guid: 5d1b226b728780349834dd2474a117e2, type: 3}
+  SpecialAttack: {fileID: 8035614572951653533}
+  RollAttack: {fileID: 4864539902464239311}
+  ParryAttack: {fileID: 4864539902464239311}
+  ComboAttacksList:
+  - {fileID: 4864539902464239311}
+  - {fileID: 1063394520105019839}
 --- !u!60 &3589356947549653219
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -177,6 +191,58 @@ PolygonCollider2D:
       - {x: -0.5877852, y: -0.80901706}
       - {x: 0.58778536, y: -0.80901694}
       - {x: 0.9510565, y: 0.30901712}
+--- !u!212 &5204031756510583580
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7288545152001580545}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &7447083368818760799
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +291,7 @@ MonoBehaviour:
   AnimatorStateName: 
   doesRequireStamina: 0
   StaminaCost: 0
-  nextComboAttack: {fileID: 0}
+  nextComboAttack: {fileID: 1063394520105019839}
   Damage: 0
   Knockback: 0
   HitStop: 0

@@ -133,16 +133,15 @@ public interface IKilleable
 public interface IHealth
 {
     public void RemoveHealth(float health);
-    public void RestoreAllHealth();
     public float GetCurrentHealth();
     public float GetMaxHealth();
+    public void RestoreAllHealth();
 }
 public interface IStats
 {
     public EntityStats GetCurrentStats();
     public void SetCurrentStats(EntityStats stats);
     public EntityStats GetBaseStats();
-
     public void SetBaseStats(EntityStats stats);
 
 }

@@ -6,7 +6,6 @@ using static DeadPart_Instantiator;
 
 public class DeadPart_Instantiator_player : MonoBehaviour
 {
-    [SerializeField] Generic_EventSystem eventSystem;
     [SerializeField] Transform OrientationGuide;
     [Serializable]
     public class DeadPart

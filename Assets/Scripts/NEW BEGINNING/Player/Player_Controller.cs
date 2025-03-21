@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Generic_EventSystem;
 
 public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, IHealth, IStats, IParryDealer, IParryReceiver, IKilleable
 {

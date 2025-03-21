@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door_SfxPlayer : Base_SfxPlayer
+public class Door_SfxPlayer : MonoBehaviour
 {
     [SerializeField] AudioClip OpenDoorSFX, CloseDoorSFX;
     [SerializeField] DoorAnimationController doorController;

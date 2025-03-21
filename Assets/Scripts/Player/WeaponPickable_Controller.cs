@@ -8,6 +8,7 @@ public class WeaponPickable_Controller : MonoBehaviour
     CircleCollider2D detectionCollider;
     public Action<WeaponPickable_Controller> OnPickedUpEvent;
     Animator animator;
+    public int indexInGameState;
     private void OnEnable()
     {
         animator = GetComponent<Animator>();

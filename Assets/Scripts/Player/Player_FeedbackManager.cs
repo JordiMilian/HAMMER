@@ -17,16 +17,13 @@ public class Player_FeedbackManager : MonoBehaviour
 
     private void OnEnable()
     {
-
         playerRefs.events.CallShowAndEnable += OnActivationFeedback;
-
-        playerRefs.events.OnPickedNewWeapon += PickUpWeaponFeedback;
     }
     private void OnDisable()
     {
         playerRefs.events.CallShowAndEnable -= OnActivationFeedback;
 
-        playerRefs.events.OnPickedNewWeapon -= PickUpWeaponFeedback;
+
     }
 
      IEnumerator InvulnerableAfterDamage()
@@ -39,13 +36,6 @@ public class Player_FeedbackManager : MonoBehaviour
     {
         playerRefs.animator.SetTrigger("Reactivated");
         CameraShake.Instance.ShakeCamera(0.5f, 0.3f);
-    }
-
-    void PickUpWeaponFeedback(WeaponPrefab_infoHolder info)
-    {
-        CameraShake.Instance.ShakeCamera(.3f, 0.1f);
-        TimeScaleEditor.Instance.HitStop(0.05f);
-        playerRefs.flasher.CallDefaultFlasher();
     }
 }
 

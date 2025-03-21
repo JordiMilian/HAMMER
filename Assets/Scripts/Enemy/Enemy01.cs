@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
-using static Generic_EventSystem;
+
 
 public class Enemy01 : MonoBehaviour
 {

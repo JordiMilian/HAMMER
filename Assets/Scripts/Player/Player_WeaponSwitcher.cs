@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,13 +17,17 @@ public class Player_WeaponSwitcher : MonoBehaviour
     -Add the prefab to the gameState and set the indexInGameState of InfoHolder to where its in the list
     -Go to AltoMando_Room prefab, find weaponInfo_Spawns and add a new element. Make sure the areaIndex is the proper area
 
+
     */
+    public Action<int> OnPickedNewWeapon; //passes the index in gamestate?
+
     [SerializeField] GameState gameState;
     [SerializeField] PolygonCollider2D playersWeaponCollider;
     [SerializeField] SpriteRenderer playersWeaponSpriteRenderer;
 
     [SerializeField] Generic_OnTriggerEnterEvents weaponPickerDetector;
     [SerializeField] Player_References playerRefs;
+    [SerializeField] AudioClip SFX_FoundWeapon;
     private void OnEnable()
     {
         weaponPickerDetector.AddActivatorTag(Tags.Pickeable);
@@ -37,51 +42,54 @@ public class Player_WeaponSwitcher : MonoBehaviour
     }
     void OnFoundPickeable(Collider2D collider)
     {
-        WeaponPrefab_infoHolder infoHolder = collider.GetComponent<WeaponPrefab_infoHolder>();
+        WeaponPickable_Controller WeaponPickable = collider.GetComponent<WeaponPickable_Controller>();
 
-        if (infoHolder != null)
+
+        //The pickable prefab only hold an index. This index is a reference to the List of all weapons in the gameState
+        if (WeaponPickable != null)
         {
-            OnPickedNewWeapon(infoHolder);
+            WeaponPickable.OnPickedUp();//Maybe this should be in the prefab Controller?
+
+            int indexInGameState = WeaponPickable.indexInGameState;
+            GameObject WeaponStatesPrefab = gameState.WeaponInfosList[indexInGameState].weaponStatesHolderPrefab;
+            gameState.WeaponInfosList[indexInGameState].isUnlocked = true;
+            gameState.IndexOfCurrentWeapon = indexInGameState;
+            SetNewWeapon(WeaponStatesPrefab);
+
+
+            //Audio and Visual Feedback here
+            PickedWeaponFeedback();
+
+            OnPickedNewWeapon?.Invoke(indexInGameState);
         }
     }
-    void OnPickedNewWeapon(WeaponPrefab_infoHolder infoHolder)
+    void PickedWeaponFeedback()
     {
-        gameState.IndexOfCurrentWeapon = infoHolder.indexInGameState;
+        CameraShake.Instance.ShakeCamera(.3f, 0.1f);
+        TimeScaleEditor.Instance.HitStop(0.05f);
+        playerRefs.flasher.CallDefaultFlasher();
 
-        GameState.weaponInfos thisWeaponInfoInState = gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon];
-        
-        //SetGameStateWeapon(infoHolder.ownPrefab);
-        SetNewWeapon(thisWeaponInfoInState.weaponPrefab);
-
-        thisWeaponInfoInState.isUnlocked = true;
-
-        playerRefs.events.OnPickedNewWeapon?.Invoke(infoHolder);
-        infoHolder.OnPickedUp();
+        SFX_PlayerSingleton.Instance.playSFX(SFX_FoundWeapon);
     }
     private void Awake()
     {
-        SetNewWeapon(gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon].weaponPrefab);
+        SetNewWeapon(gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon].weaponStatesHolderPrefab);
     }
-    public void SetNewWeapon(GameObject newWeaponPrefab)
+    public void SetNewWeapon(GameObject weaponPrefab)
     {
-        WeaponPrefab_infoHolder infoHolder = newWeaponPrefab.GetComponent<WeaponPrefab_infoHolder>();
+        if (playerRefs.WeaponStatesHolder != null) { Destroy(playerRefs.WeaponStatesHolder); }
 
-        CopyPolygonCollider(infoHolder.weaponsCollider, playersWeaponCollider);
-
-        playerRefs.comboSystem.Base_Damage = infoHolder.BaseDamage;
-        playerRefs.comboSystem.Base_Knockback = infoHolder.BaseKnockback;
-        playerRefs.comboSystem.Base_HitStop = infoHolder.BaseHitstop;
-        
-        //Needs to replace the states on the playerRefs
-
-        playerRefs.comboSystem.StaminaUse = infoHolder.StaminaUsePerSwing;
-
-        playerRefs.animator.runtimeAnimatorController = infoHolder.animatorController;
-
-        playersWeaponSpriteRenderer.sprite = infoHolder.weaponSprite;
-        
+        playerRefs.WeaponStatesHolder = Instantiate(weaponPrefab, playerRefs.StatesRoots);
+        Weapon_InfoHolder thisInfoHolder = playerRefs.WeaponStatesHolder.GetComponent<Weapon_InfoHolder>();
+        playerRefs.RollingAttackState = thisInfoHolder.RollAttack;
+        playerRefs.ParryAttackState = thisInfoHolder.ParryAttack;
+        playerRefs.SpecialAttackState = thisInfoHolder.SpecialAttack;
+        playerRefs.StartingComboAttackState = thisInfoHolder.ComboAttacksList[0];
+        //Collider and sprite
+        playersWeaponSpriteRenderer.sprite = thisInfoHolder.WeaponSprite;
+        CopyPolygonCollider(thisInfoHolder.WeaponCollider, playersWeaponCollider);
     }
-    void CopyPolygonCollider(PolygonCollider2D sourceCollider, PolygonCollider2D targetCollider)
+    static void CopyPolygonCollider(PolygonCollider2D sourceCollider, PolygonCollider2D targetCollider)
     {
         targetCollider.pathCount = sourceCollider.pathCount;
         for (int i = 0; i < sourceCollider.pathCount; i++)

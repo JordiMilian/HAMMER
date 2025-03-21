@@ -8,7 +8,7 @@ public class FrisbeeController : MonoBehaviour, IParryReceiver
     [SerializeField] float frisbeeTime;
     [SerializeField] float frisbeeDistance;
     [SerializeField] float ParriedReturnTime;
-    [SerializeField] Generic_EventSystem events;
+    [SerializeField] Generic_DamageDealer damageDealer;
     public Action onReturnedFrisbee;
     Coroutine FrisbeThrowCoroutine;
     
@@ -71,7 +71,7 @@ public class FrisbeeController : MonoBehaviour, IParryReceiver
     public void OnParryReceived(GettingParriedInfo info)
     {
         StopCoroutine(FrisbeThrowCoroutine);
-        events.gameObject.GetComponent<Collider2D>().enabled = false;
+        damageDealer.EntityTeam = DamagersTeams.Player;
         StartCoroutine(ParriedCorroutine(originTf));
 
         OnParryReceived_event?.Invoke(info);

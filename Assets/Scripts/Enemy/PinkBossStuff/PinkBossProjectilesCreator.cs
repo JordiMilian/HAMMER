@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
 {
-    [SerializeField] Enemy_EventSystem events;
 
     [SerializeField] GameObject PinkProjectile_General;
     [SerializeField] GameObject PinkProjectile_General_Big;

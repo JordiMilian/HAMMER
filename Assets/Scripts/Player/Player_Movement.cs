@@ -34,8 +34,6 @@ public class Player_Movement : MonoBehaviour
     private void OnEnable()
     {
         Physics.IgnoreLayerCollision(15, 16);
-
-       
     }
 
     /* KILL

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DeadPart_Instantiator : MonoBehaviour
 {
-    [SerializeField] Generic_EventSystem eventSystem;
     [SerializeField] Transform OrientationGuide;
     [Serializable]
     public class DeadPart

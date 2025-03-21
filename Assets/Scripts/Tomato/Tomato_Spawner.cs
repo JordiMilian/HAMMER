@@ -9,7 +9,6 @@ public class Tomato_Spawner : MonoBehaviour
     [SerializeField] GameObject TomatoPrefab;
     [SerializeField] GameObject DestinationGO;
     [SerializeField] float MaxDistance;
-    [SerializeField] Enemy_EventSystem enemyEvents;
     [SerializeField] AudioClip ThrowTomatoSFX;
     void Awake()
     {

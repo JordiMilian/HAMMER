@@ -16,7 +16,7 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
     private void OnEnable()
     {
         checkUnlockedWeapons();
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += OnPickedAnyWeapon;
+        GlobalPlayerReferences.Instance.references.weaponSwitcher.OnPickedNewWeapon += OnPickedAnyWeapon;
     }
     void checkUnlockedWeapons()
     {
@@ -27,7 +27,7 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
                 if (!weaponSpawnersList[i].isSpawned) //if its not already spawned
                 {
                     GameObject InstantiatedWeapon = Instantiate(
-                        gameState.WeaponInfosList[i].weaponPrefab,
+                        gameState.WeaponInfosList[i].weaponStatesHolderPrefab,
                         weaponSpawnersList[i].SpawnPositionTf.position,
                         Quaternion.identity,
                         transform
@@ -40,9 +40,9 @@ public class WeaponsInfos_AltoMandoSpawns : MonoBehaviour
             }
         }
     }
-    void OnPickedAnyWeapon(WeaponPrefab_infoHolder infoHolder)
+    void OnPickedAnyWeapon(int indexInGameState)
     {
-        weaponSpawnersList[infoHolder.indexInGameState].isSpawned = false;
+        weaponSpawnersList[indexInGameState].isSpawned = false;
         checkUnlockedWeapons();
     }
 }

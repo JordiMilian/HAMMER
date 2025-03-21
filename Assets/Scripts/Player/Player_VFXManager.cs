@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
-using static Generic_EventSystem;
 
 public class Player_VFXManager : MonoBehaviour
 {

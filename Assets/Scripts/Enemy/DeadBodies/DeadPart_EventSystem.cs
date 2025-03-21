@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeadPart_EventSystem : Generic_EventSystem
+public class DeadPart_EventSystem : MonoBehaviour
 {
 
     //public EventHandler<DeadPartArgs> OnBeingAttacked;

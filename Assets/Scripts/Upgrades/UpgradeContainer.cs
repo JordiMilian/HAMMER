@@ -9,7 +9,6 @@ public class UpgradeContainer : MonoBehaviour
     public SpriteRenderer iconRenderer;
     public Action<int> OnPickedUp; //it passes the Index in group 
     public int IndexInGroup;
-    bool picked;
     //If its an upgrade with group, we call directly OnSpawnContainer from the Group. 
     //If its an upgrade on its own, we call it on Start
     public bool isSoloUpgrade;
@@ -32,7 +31,6 @@ public class UpgradeContainer : MonoBehaviour
     }
     public void OnPickedUpContainer()
     {
-        picked = true;
         OnPickedUp?.Invoke(IndexInGroup);
         ownCollider.enabled = false;
         StartCoroutine(UsefullMethods.destroyWithDelay(1.5f,gameObject));

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_AudioPlayer : Generic_CharacterAudioPlayer
+public class Player_AudioPlayer : MonoBehaviour
 {
     [SerializeField] AudioClip RollSFX;
     [SerializeField] AudioClip RebornSFX;
@@ -28,7 +28,7 @@ public class Player_AudioPlayer : Generic_CharacterAudioPlayer
     {
         SFX_Player.playSFX(RebornSFX);
     }
-    void playPickUpWeapon(WeaponPrefab_infoHolder info)
+    void playPickUpWeapon(Weapon_InfoHolder info)
     {
         SFX_Player.playSFX(PickWeapon);
     }

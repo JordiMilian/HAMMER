@@ -10,7 +10,7 @@ public class WeaponsRune_control : MonoBehaviour
     private void OnEnable()
     {
         SetRunesSprites();
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += (WeaponPrefab_infoHolder info) => SetRunesSprites();
+        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += (Weapon_InfoHolder info) => SetRunesSprites();
     }
     public void SetRunesSprites()
     {

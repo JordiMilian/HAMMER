@@ -9,7 +9,6 @@ public class Player_Respawner : MonoBehaviour
     public bool IsActivated = false;
 
     [SerializeField] Transform respawnPosition;
-    [SerializeField] Enemy_EventSystem eventSystem;
     [SerializeField] Animator TiedEnemyAnimator;
     [SerializeField] TiedEnemy_StateController tiedStateController;
     
@@ -47,15 +46,11 @@ public class Player_Respawner : MonoBehaviour
     {
         player.transform.position = respawnPosition.position;
         RespawnedPlayer = player;
-        StartCoroutine(delayedAnimation());
-    }
-    IEnumerator delayedAnimation()
-    {
-        yield return new WaitForSeconds(0.8f);
-        TiedEnemyAnimator.SetTrigger("Reborn");
+        //animation?
     }
     public void EV_ActivatePlayer()
     {
-        RespawnedPlayer.GetComponent<Player_EventSystem>().CallShowAndEnable?.Invoke(); // Go to Player_StateMachine
+        PlayerState_Respawning playerRespawnState = (PlayerState_Respawning)RespawnedPlayer.GetComponent<Player_References>().RespawningState;
+        playerRespawnState.EV_ActuallyRespawn();
     }
 }

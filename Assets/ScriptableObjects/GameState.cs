@@ -34,7 +34,7 @@ public class GameState : ScriptableObject
     [Serializable]
     public class weaponInfos
     {
-        public GameObject weaponPrefab;
+        public GameObject weaponStatesHolderPrefab;
         public bool isUnlocked;
     }
     public List<weaponInfos> WeaponInfosList = new List<weaponInfos>();
