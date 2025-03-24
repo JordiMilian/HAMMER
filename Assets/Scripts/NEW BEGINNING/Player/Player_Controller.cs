@@ -43,8 +43,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
        addSpecialCharge(info.ChargeGiven);
 
         // This should not depend on damage. Lets make enums of shake amounts pls
-        CameraShake.Instance.ShakeCamera(1 * playerRefs.DamageDealersList[0].Damage, 0.1f * playerRefs.DamageDealersList[0].Damage);
-        TimeScaleEditor.Instance.HitStop(0.1f);
+        UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemy, info.CollisionPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_DealtDamage, 0.1f);
 
@@ -71,7 +70,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
             OnKilled(new DeadCharacterInfo(gameObject, info.AttackerRoot_Go, info.OtherDamageDealer));
         }
 
-        playerRefs.playerStamina.RemoveStamina(0.1f); //make it depend on damage
+        playerRefs.playerStamina.RemoveStamina(0.1f * info.Damage); //make it depend on damage
 
         playerRefs.flasher.CallDefaultFlasher();
 
@@ -120,8 +119,8 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     {
         if (info.canChargeSpecialAttack) { addSpecialCharge(1.25f); }
 
-        TimeScaleEditor.Instance.HitStop(0.3f);
-        CameraShake.Instance.ShakeCamera(0.6f, 0.1f);
+        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VeryBig);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, info.ParryPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ParryDealt);
 

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum IntensitiesEnum
+{
+    VerySmall, Small, Medium, Big, VeryBig
+}
 public class TimeScaleEditor : MonoBehaviour
 {
     public static TimeScaleEditor Instance;
@@ -36,13 +40,31 @@ public class TimeScaleEditor : MonoBehaviour
     }
 
     bool waiting;
-    public void HitStop(float StopSeconds)
+    public void HitStop(IntensitiesEnum lenght)
     {
         if (!waiting)
         {
-            StartCoroutine(Hitstopper(StopSeconds));
+            switch (lenght)
+            {
+                case IntensitiesEnum.VerySmall:
+                    StartCoroutine(Hitstopper(0.05f));
+                    break;
+                case IntensitiesEnum.Small:
+                    StartCoroutine(Hitstopper(0.1f));
+                    break;
+                case IntensitiesEnum.Medium:
+                    StartCoroutine(Hitstopper(0.15f));
+                    break;
+                case IntensitiesEnum.Big:
+                    StartCoroutine(Hitstopper(0.2f));
+                    break;
+                case IntensitiesEnum.VeryBig:
+                    StartCoroutine(Hitstopper(0.3f));
+                    break;
+            }
         }
     }
+
     IEnumerator Hitstopper(float StopSeconds)
     {
         waiting = true;

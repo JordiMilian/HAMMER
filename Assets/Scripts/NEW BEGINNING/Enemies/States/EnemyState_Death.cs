@@ -12,11 +12,12 @@ public class EnemyState_Death : EnemyState
 
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Stopped);
-        //unfocus itself?
+        //unfocus itself? NO
         xP_Dropper.spawnExperiences(EnemyRefs.currentEnemyStats.XpToDrop);
         //Spawn Head
         //play sound
         //SlowMo?
+        //Hide sprites
         stateMachine.gameObject.SetActive(false);
         Destroy(rootGameObject,1);
     }

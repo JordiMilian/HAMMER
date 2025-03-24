@@ -70,7 +70,8 @@ public class SceneStarter_base : MonoBehaviour
         
         cameraZoomController.SetBaseZoomAndReferences();
 
-        globalPlayerReference.references.disableController.DisablePlayerScripts();
+        Player_References playerRefs = globalPlayerReference.references;
+        playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
         yield return null;
     }
     public virtual IEnumerator Creation() //Crear els objectes necesaris (character, escenaris)
@@ -91,7 +92,8 @@ public class SceneStarter_base : MonoBehaviour
     }
     public virtual IEnumerator StartPlaying()
     {
-        globalPlayerReference.references.disableController.EnablePlayerScripts();
+        Player_References playerRefs = globalPlayerReference.references;
+        playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
         yield return null;
     }
 }

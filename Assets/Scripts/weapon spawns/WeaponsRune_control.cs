@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class WeaponsRune_control : MonoBehaviour
 {
+    //This controls the runes signs below the weapons in the Alto Mando room
+
     [SerializeField] GameState gameState;
     [SerializeField] List<SpriteRenderer> RunesSprites = new List<SpriteRenderer>();
     [SerializeField] Sprite SpriteOn, SpriteOff;
     private void OnEnable()
     {
         SetRunesSprites();
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += (Weapon_InfoHolder info) => SetRunesSprites();
+        GlobalPlayerReferences.Instance.references.weaponSwitcher.OnPickedNewWeapon += (int info) => SetRunesSprites();
     }
     public void SetRunesSprites()
     {

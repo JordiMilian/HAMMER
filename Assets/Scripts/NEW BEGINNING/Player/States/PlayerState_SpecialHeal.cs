@@ -33,7 +33,7 @@ public class PlayerState_SpecialHeal : PlayerState
 
         playerRefs.flasher.CallDefaultFlasher();
 
-        CameraShake.Instance.ShakeCamera(.2f, 0.1f);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.VerySmall);
 
         
     }

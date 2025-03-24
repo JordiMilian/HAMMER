@@ -15,35 +15,6 @@ public class UsefullMethods : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
     }
-    /*
-    //This is framerate independent now
-    //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
-    public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
-    {
-        float timer = 0;
-        float normalizedTime = 0;
-        float normalizedTimeLastFrame = 0;
-        float finalDistanceForDebug = 0;
-        while (timer < timeSeconds)
-        {
-            timer += Time.deltaTime;
-            normalizedTime = timer / timeSeconds;
-            float normalizedTimeBetweenFrames = normalizedTime - normalizedTimeLastFrame;
-            float evaluatedThisFrame = curve.Evaluate(normalizedTime);
-            float evaluatedLastFrame = curve.Evaluate(normalizedTimeLastFrame);
-            float finalForce = ((evaluatedLastFrame + evaluatedThisFrame) / 2) * normalizedTimeBetweenFrames / Time.deltaTime * totalDistance / averageValueOfCurve;
-
-            mover.MovementVectorsPerSecond.Add(direction * finalForce);
-
-            finalDistanceForDebug += (evaluatedLastFrame + evaluatedThisFrame / 2) * normalizedTimeBetweenFrames * totalDistance * 2;
-
-            evaluatedLastFrame = evaluatedThisFrame;
-            normalizedTimeLastFrame = normalizedTime;
-            yield return null;
-        }
-       
-    }
-    */
 
     //This is framerate independent now
     //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
@@ -56,7 +27,7 @@ public class UsefullMethods : MonoBehaviour
         float evaluatedLastFrame = curve.Evaluate(0);
         while (timer < timeSeconds)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime* Time.timeScale;
             normalizedTime = timer / timeSeconds;
             float normalizedTimeBetweenFrames = normalizedTime - normalizedTimeLastFrame;
             float evaluatedThisFrame = curve.Evaluate(normalizedTime);
@@ -146,6 +117,18 @@ public class UsefullMethods : MonoBehaviour
     {
         if(scale >= 0) { return 1; }
         else { return -1; }
+    }
+    public static void CameraShakeAndHitstopFromDamage(float damage)
+    {
+        IntensitiesEnum intensity;
+        if(damage < 0.3f) { intensity = IntensitiesEnum.VerySmall; }
+        else if(damage < 0.75f) { intensity = IntensitiesEnum.Small; }
+        else if(damage < 1.25) { intensity = IntensitiesEnum.Medium; }
+        else if(damage < 2f) { intensity = IntensitiesEnum.Big; }
+        else { intensity = IntensitiesEnum.VeryBig; }
+
+        CameraShake.Instance.ShakeCamera(intensity);
+        TimeScaleEditor.Instance.HitStop(intensity);
     }
     public static int normalizeFloat(float F)
     {

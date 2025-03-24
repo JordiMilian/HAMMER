@@ -5,14 +5,11 @@ using UnityEngine;
 public class Player_References : Generic_References
 {
     [Header("Specific")]
-    public Player_EventSystem events;
-    public Player_ComboSystem_chargeless comboSystem;
     public Player_FollowMouseWithFocus_V2 followMouse;
     public Player_ProximityDetector proximityDetector;
     public Player_Stamina playerStamina;
     public Player_UpgradesManager upgradesManager;
     public Generic_OnTriggerEnterEvents singlePointCollider;
-    public Player_DisableController disableController;
     public Player_LevelStatsManager levelStatsManager;
     public Player_Movement2 movement2;
     public Player_StateMachine stateMachine;
@@ -23,6 +20,7 @@ public class Player_References : Generic_References
     public TrailRenderer weaponTrail;
     public Player_AnimationEvents animationEvents;
     public Player_WeaponSwitcher weaponSwitcher;
+    public Player_HideSprites hideSprites;
 
     public Collider2D parryCollider;
 

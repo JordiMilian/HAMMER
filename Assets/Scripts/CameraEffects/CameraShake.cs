@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+
 public class CameraShake : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera CMVC;
@@ -21,9 +22,26 @@ public class CameraShake : MonoBehaviour
         }
         CMVCx = CMVC.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
-    public void ShakeCamera(float Intensity, float Time)
+    public void ShakeCamera(IntensitiesEnum intensity)
     {
-        StartCoroutine(ShakeCoroutine(Intensity, Time));
+        switch (intensity)
+        {
+            case IntensitiesEnum.VerySmall:
+                StartCoroutine(ShakeCoroutine(.2f,.05f));
+                break;
+            case IntensitiesEnum.Small:
+                StartCoroutine(ShakeCoroutine(.3f, .1f));
+                break;
+            case IntensitiesEnum.Medium:
+                StartCoroutine(ShakeCoroutine(.4f, .2f));
+                break;
+            case IntensitiesEnum.Big:
+                StartCoroutine(ShakeCoroutine(.5f, .4f));
+                break;
+            case IntensitiesEnum.VeryBig:
+                StartCoroutine(ShakeCoroutine(.6f, .6f));
+                break;
+        }
     }
     IEnumerator ShakeCoroutine(float Intensity, float sTime)
     {

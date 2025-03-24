@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player_AnimationSpeedControler : MonoBehaviour
 {
-    //ALGO SHA DE FER AMB AIXO
-
+    //KILLLLLLLKILKILKILKKILLLKILLKILL
+    /*
     [SerializeField] Player_References playerRefs;
     public float attackingSpeed = 1;
     public float BaseSpeed = 1;
@@ -37,5 +37,6 @@ public class Player_AnimationSpeedControler : MonoBehaviour
     {
         playerRefs.animator.speed = 1;
     }
+    */
 
 }

@@ -9,6 +9,7 @@ public class PlayerState_BasicComboAttack : PlayerState
     Coroutine currentAttackCoroutine;
     public override void OnEnable()
     {
+        playerRefs.animator.speed = playerRefs.currentStats.AttackSpeed;
         subscribeToRequests();
 
         currentAttackCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_short));
@@ -24,6 +25,7 @@ public class PlayerState_BasicComboAttack : PlayerState
     {
         if(currentAttackCoroutine != null) { StopCoroutine(currentAttackCoroutine); }
         unsubscribeToRequests();
+        playerRefs.animator.speed = 1;
     }
     protected override void RequestAttack()
     {

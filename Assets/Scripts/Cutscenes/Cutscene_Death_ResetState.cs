@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cutscene_Death_ResetState : BaseCutsceneLogic
 {
+    //DEATH CUTSCENES MUST BE ERRADICATED ONCE FOR ALL
     [SerializeField] GameState gameState;
     public bool dontResetState;
     public override void playThisCutscene()
@@ -28,7 +29,7 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
         //playerRefs.events.CallHideAndDisable?.Invoke();
-        playerRefs.disableController.HideAndDisablePlayer();
+        //disableController.HideAndDisablePlayer();
 
         SetupForRespwan();
 
@@ -37,7 +38,5 @@ public class Cutscene_Death_ResetState : BaseCutsceneLogic
         RespawnersManager.Instance.RespawnPlayer();
 
         onCutsceneOver?.Invoke();
-
-
     }
 }

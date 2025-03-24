@@ -11,6 +11,7 @@ public class Player_UpgradesManager : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents UpgradeColliderDetector;
     public Action OnUpdatedUpgrades;
     [SerializeField] AudioClip SFX_PickedUpgrade;
+
     private void OnEnable()
     {
         UpgradeColliderDetector.AddActivatorTag(Tags.UpgradeContainer);
@@ -44,8 +45,8 @@ public class Player_UpgradesManager : MonoBehaviour
 
                 //Audio and Visual feedback (should we make a new state?)
                 SFX_PlayerSingleton.Instance.playSFX(SFX_PickedUpgrade);
-                CameraShake.Instance.ShakeCamera(.3f, 0.1f);
-                TimeScaleEditor.Instance.HitStop(0.03f);
+                CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
+                TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VerySmall);
                 playerRefs.flasher.CallDefaultFlasher();
 
                 //event just in case (UI?)

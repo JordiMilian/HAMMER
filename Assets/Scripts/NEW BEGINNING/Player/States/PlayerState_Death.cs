@@ -17,10 +17,10 @@ public class PlayerState_Death : PlayerState
 
         gameState.playerDeaths++;
 
-       // playerDeadHead = deadPartsInstantiator.InstantiateDeadParts(info)[0];
+        // playerDeadHead = deadPartsInstantiator.InstantiateDeadParts(info)[0];
 
 
-        //Hide sprites
+        playerRefs.hideSprites.HidePlayerSprites();
 
         
 
@@ -29,9 +29,8 @@ public class PlayerState_Death : PlayerState
         StartCoroutine(delayAndShowUI());
 
         //Wait and show UI
-
-        //Change state to respawning?
-        //Or load new scene?
+            //Change state to respawning?
+            //Or load new scene?
     }
     IEnumerator delayAndShowUI()
     {

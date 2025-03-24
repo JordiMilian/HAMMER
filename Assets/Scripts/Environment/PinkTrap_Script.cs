@@ -50,7 +50,7 @@ public class PinkTrap_Script : MonoBehaviour
         SFX_PlayerSingleton.Instance.playSFX(ActivationSFX, 0.1f);
 
         yield return new WaitForSeconds(delayBeforeShake);
-        CameraShake.Instance.ShakeCamera(.5f, 0.07f);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
     }
 
 }

@@ -10,20 +10,20 @@ public class TutorialPopUp_ShowOnPickUpgrade : MonoBehaviour
     {
         if (gameState.hasPickedFirstUpgrade) { return; }
 
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewUpgrade += showPopUp;
+        GlobalPlayerReferences.Instance.references.upgradesManager.OnUpdatedUpgrades += showPopUp;
     }
     private void OnDisable()
     {
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewUpgrade -= showPopUp;
+        GlobalPlayerReferences.Instance.references.upgradesManager.OnUpdatedUpgrades -= showPopUp;
     }
-    void showPopUp(UpgradeContainer upgrade)
+    void showPopUp()
     {
         if (!gameState.hasPickedFirstUpgrade) 
         { 
             popUpScript.ShowPopUp();
             gameState.hasPickedFirstWeapon = true;
         }
-        
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewUpgrade -= showPopUp;
+
+        GlobalPlayerReferences.Instance.references.upgradesManager.OnUpdatedUpgrades -= showPopUp;
     }
 }

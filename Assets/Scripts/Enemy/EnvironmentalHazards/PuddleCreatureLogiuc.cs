@@ -89,7 +89,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour
         puddleCreatureAnimator.SetBool("Chasing", false);
         currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayBetweenAttacks));
         BigStepVFX.Play();
-        CameraShake.Instance.ShakeCamera(.5f, 0.4f);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Big);
         SFX_PlayerSingleton.Instance.playSFX(CreatureSFX);
     }
     void cancelEverything()

@@ -18,7 +18,6 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         SetCurrentStats(baseStats);
         SetBaseStats(baseStats);
         enemyStateMachine.ChangeState(enemyRefs.IdleState);
-
     }
     #region DAMAGE RECEIVED
     public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
@@ -100,6 +99,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
     public virtual void OnDamageDealt(DealtDamageInfo info)
     {
+        UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt);
         OnDamageDealt_event?.Invoke(info);
     }
     #endregion

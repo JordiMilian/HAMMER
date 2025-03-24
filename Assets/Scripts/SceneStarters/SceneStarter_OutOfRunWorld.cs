@@ -34,6 +34,6 @@ public class SceneStarter_OutOfRunWorld : SceneStarter_base
         playerRefs.flasher.CallCustomFlash(spawnOutOfRunAnimation.length);
         playerRefs.animator.SetTrigger("SpawnOutOfRun");
         yield return new WaitForSeconds(spawnOutOfRunAnimation.length);
-        playerRefs.disableController.EnablePlayerScripts();
+        playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
     }
 }

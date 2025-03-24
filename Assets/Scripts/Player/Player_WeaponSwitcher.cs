@@ -65,8 +65,8 @@ public class Player_WeaponSwitcher : MonoBehaviour
     }
     void PickedWeaponFeedback()
     {
-        CameraShake.Instance.ShakeCamera(.3f, 0.1f);
-        TimeScaleEditor.Instance.HitStop(0.05f);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.VerySmall);
+        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VerySmall);
         playerRefs.flasher.CallDefaultFlasher();
 
         SFX_PlayerSingleton.Instance.playSFX(SFX_FoundWeapon);

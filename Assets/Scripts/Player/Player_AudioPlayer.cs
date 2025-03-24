@@ -16,21 +16,15 @@ public class Player_AudioPlayer : MonoBehaviour
         
         SFX_Player = SFX_PlayerSingleton.Instance;
         GameEvents.OnPlayerRespawned += playHeadReatached;
-        playerEvents.OnPickedNewWeapon += playPickUpWeapon;
     }
     public  void OnDisable()
     {
         GameEvents.OnPlayerRespawned -= playHeadReatached;
 
-        playerEvents.OnPickedNewWeapon -= playPickUpWeapon;
+ 
     }
     void playHeadReatached()
     {
         SFX_Player.playSFX(RebornSFX);
     }
-    void playPickUpWeapon(Weapon_InfoHolder info)
-    {
-        SFX_Player.playSFX(PickWeapon);
-    }
-
 }

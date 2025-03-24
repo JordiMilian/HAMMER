@@ -31,8 +31,9 @@ public class PlayerState_Respawning : PlayerState
     Coroutine currentCorotine;
     public void EV_ActuallyRespawn()
     {
+        playerRefs.hideSprites.ShowPlayerSprites();
         currentCorotine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));
-        CameraShake.Instance.ShakeCamera(0.5f, 0.3f);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         //Show sprites
 
     }

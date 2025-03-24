@@ -8,13 +8,13 @@ public class TutorialPopUp_ShowOnPickUpWeapon : MonoBehaviour
     [SerializeField] GameState gameState;
     private void OnEnable()
     {
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon += showPopUp;
+        GlobalPlayerReferences.Instance.references.weaponSwitcher.OnPickedNewWeapon += showPopUp;
     }
     private void OnDisable()
     {
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon -= showPopUp;
+        GlobalPlayerReferences.Instance.references.weaponSwitcher.OnPickedNewWeapon -= showPopUp;
     }
-    void showPopUp(Weapon_InfoHolder info)
+    void showPopUp(int indexInGameState)
     {
         if (!gameState.hasPickedFirstUpgrade)
         {
@@ -22,6 +22,6 @@ public class TutorialPopUp_ShowOnPickUpWeapon : MonoBehaviour
             gameState.hasPickedFirstUpgrade = true;
         }
 
-        GlobalPlayerReferences.Instance.references.events.OnPickedNewWeapon -= showPopUp;
+        GlobalPlayerReferences.Instance.references.weaponSwitcher.OnPickedNewWeapon -= showPopUp;
     }
 }
