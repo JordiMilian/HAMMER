@@ -8,7 +8,6 @@ public class Generic_DamageDealer : MonoBehaviour
 {
     public float Damage;
     public float Knockback;
-    public float HitStop;
     public bool isParryable;
     public bool isBloody;
     public bool isChargingSpecialAttack; // I think this is used by the player. For example de special attack shouldnt charge

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_References : Generic_References
 {
-    [Header("Specific")]
+    [Header("PLAYER SCRIPTS")]
     public Player_FollowMouseWithFocus_V2 followMouse;
     public Player_ProximityDetector proximityDetector;
     public Player_Stamina playerStamina;
@@ -12,15 +12,18 @@ public class Player_References : Generic_References
     public Generic_OnTriggerEnterEvents singlePointCollider;
     public Player_LevelStatsManager levelStatsManager;
     public Player_Movement2 movement2;
+    public Player_AnimationEvents animationEvents;
+    public Player_WeaponSwitcher weaponSwitcher;
+    public Player_HideSprites hideSprites;
+    [Header("STATES")]
     public Player_StateMachine stateMachine;
     public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState, RespawningState;
     public PlayerState StartingComboAttackState, RollingAttackState, ParryAttackState, SpecialAttackState; //Each weapon picked should changes these states
     public GameObject WeaponStatesHolder;
     public Transform StatesRoots;
+    [Header("OTHERS")]
     public TrailRenderer weaponTrail;
-    public Player_AnimationEvents animationEvents;
-    public Player_WeaponSwitcher weaponSwitcher;
-    public Player_HideSprites hideSprites;
+
 
     public Collider2D parryCollider;
 

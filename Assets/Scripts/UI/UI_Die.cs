@@ -16,7 +16,6 @@ public class UI_Die : UI_BaseAction
             null,
             100,
             0,
-            0,
             false
             ));
 

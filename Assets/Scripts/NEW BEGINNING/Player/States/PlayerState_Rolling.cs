@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEditor.Animations;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine.VFX;
+using UnityEditor.ShaderGraph.Internal;
 
 public class PlayerState_Rolling : PlayerState
 {
-
+    [SerializeField] string AnimatorStateName_frontRoll;
+    [SerializeField] string AnimatorStateName_backRoll;
     [SerializeField] float RollTime; //This should depend on the animation I think?
     [SerializeField] float RollDistance;
     [SerializeField] bool updateAverageSize_trigger;
     [SerializeField] VisualEffect VFX_RollDust;
     [SerializeField] AudioClip SFX_RollSound;
-    float rollCurve_averageValue = 0;
+    float rollCurve_averageValue = -1;
 
     [SerializeField] AnimationCurve RollCurve;
-    Coroutine rollCoroutine, rollAnimationCoroutine;
+    Coroutine rollCoroutine, rollAnimationCoroutine, checkForRunning_Coroutine;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -25,53 +27,70 @@ public class PlayerState_Rolling : PlayerState
 
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.VerySlow);
 
-        //Handle which direction it's facing and play proper animation
+        Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
 
-        PerformRollMovement();
+        //Handle which direction it's facing and play proper animation
+        float DotProductWithFacingDirection = Vector2.Dot(Axis, playerRefs.spriteFliper.lookingVector);
+        string stateName;
+        if (DotProductWithFacingDirection >= 0) { stateName = AnimatorStateName_frontRoll; }
+        else { stateName = AnimatorStateName_backRoll;}
+        rollAnimationCoroutine = StartCoroutine(RollAutoTransition(stateName));
+
+        PerformRollMovement(Axis);
 
         VFX_RollDust.Play();
         SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
-        rollAnimationCoroutine = StartCoroutine(RollAutoTransition());
-        
+        checkForRunning_Coroutine = StartCoroutine(checkForRunning());
     }
     
-    void PerformRollMovement()
+    void PerformRollMovement(Vector2 direction)
     {
         //Maybe InputDetector should be involced in this??
-        Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
-
-        Vector2 directionToRoll = Axis;
 
         //If the player is not imputing a direction, rotate to the oposite of the sword
-        if (Axis.magnitude < 0.1f)
+        if (direction.magnitude < 0.1f)
         {
             Vector2 opositeDirectionToSword = -playerRefs.followMouse.SwordDirection;
-            directionToRoll = opositeDirectionToSword;
+            direction = opositeDirectionToSword;
         }
 
+        if (rollCurve_averageValue < 0) { rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10); }
         rollCoroutine = StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
             playerRefs.characterMover,
             RollDistance,
             RollTime,
-            directionToRoll,
+            direction,
             RollCurve,
             rollCurve_averageValue
             ));
     }
-    IEnumerator RollAutoTransition()
+    IEnumerator RollAutoTransition(string animationStateName)
+    {
+       
+        animator.CrossFadeInFixedTime(animationStateName, transitionTime_short);
+        AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(animationStateName, animator);
+        yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(thisClip));
+
+        stateMachine.ForceChangeState(playerRefs.IdleState); 
+
+    }
+    IEnumerator checkForRunning()
     {
         bool isPressingRun = false;
 
         InputDetector.Instance.OnRollPressing += pressing;
         InputDetector.Instance.OnRollUnpressed += unpressed;
 
-        animator.CrossFade(AnimatorStateName, transitionTime_short);
-        AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(AnimatorStateName, animator);
-        yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(thisClip));
-
-        if (isPressingRun) { stateMachine.ForceChangeState(playerRefs.RunningState); }
-        else { stateMachine.ForceChangeState(playerRefs.IdleState); }
+        yield return new WaitForSeconds(0.1f);
+        while(stateMachine.CanTransition == false)
+        {
+            yield return null;
+        }
+        if(isPressingRun)
+        {
+            stateMachine.RequestChangeState(playerRefs.RunningState);
+        }
 
         InputDetector.Instance.OnRollPressing -= pressing;
         InputDetector.Instance.OnRollUnpressed -= unpressed;
@@ -80,12 +99,12 @@ public class PlayerState_Rolling : PlayerState
         void pressing() { isPressingRun = true; }
         void unpressed() { isPressingRun = false; }
     }
-    
 
     public override void OnDisable()
     {
         if(rollCoroutine != null) { StopCoroutine(rollCoroutine); }
         if(rollAnimationCoroutine != null) { StopCoroutine(rollAnimationCoroutine); }
+        if(checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
 
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Regular);
 

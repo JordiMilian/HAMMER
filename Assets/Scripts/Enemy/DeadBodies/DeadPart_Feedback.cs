@@ -15,7 +15,6 @@ public class DeadPart_Feedback : MonoBehaviour
     [SerializeField] GameObject spritesRoot;
     [SerializeField] SpriteRenderer shadowSprite;
     [SerializeField] bool dontDestroyOnRespawn;
-    float bloodSplashIntensity;
     [SerializeField] float secondsToFadeOut = 8;
 
     private void OnEnable()
@@ -52,6 +51,7 @@ public class DeadPart_Feedback : MonoBehaviour
     {
         deadPart_Animator.SetTrigger("Light");
     }
+    float bloodSplashIntensity;
     IEnumerator BloodStopper()
     {
         bloodSplashIntensity = 0.75f;

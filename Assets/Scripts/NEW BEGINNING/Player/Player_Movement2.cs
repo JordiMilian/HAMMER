@@ -26,7 +26,7 @@ public class Player_Movement2 : MonoBehaviour
                 currentStats.Speed = currentStats.BaseSpeed;
                 break;
             case MovementSpeeds.Fast:
-                currentStats.Speed = currentStats.BaseSpeed * 1.5f;
+                currentStats.Speed = currentStats.BaseSpeed * 2f;
                 break;
             case MovementSpeeds.Slow:
                 currentStats.Speed = currentStats.BaseSpeed * 0.5f;

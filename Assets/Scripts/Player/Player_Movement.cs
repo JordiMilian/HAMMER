@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 
 public class Player_Movement : MonoBehaviour
 {
+    /* KILL
     [SerializeField] Player_References playerRefs;
     PlayerStats currentStats;
 
@@ -36,7 +37,7 @@ public class Player_Movement : MonoBehaviour
         Physics.IgnoreLayerCollision(15, 16);
     }
 
-    /* KILL
+    
     void OnRollUnpressed()
     {
         if (playerRefs.currentStats.CurrentStamina <= 0) { return; }
@@ -112,5 +113,5 @@ public class Player_Movement : MonoBehaviour
     }
     
     */
-  
+
 }

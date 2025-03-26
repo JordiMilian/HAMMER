@@ -48,6 +48,7 @@ public class Generic_HealthBarController : MonoBehaviour
     }
     private void OnEnable()
     {
+        OnValidate();
         currentStats = istats.GetCurrentStats();
 
         currentStats.OnCurrentHpChange += UpdateBarSize;

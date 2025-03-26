@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 5
-  AnimatorStateName: 
+  AnimatorStateName: Parried
+  animationEvents: {fileID: 7666102949945393891}
 --- !u!1 &28465624009246107
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +175,6 @@ GameObject:
   - component: {fileID: 6932147153519873058}
   - component: {fileID: 7622995783535628857}
   - component: {fileID: 7666102949945393891}
-  - component: {fileID: 627058440868749388}
   m_Layer: 16
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -324,37 +324,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c444077571f64bab04e8f52c5bcf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  genericEvents: {fileID: 627058440868749388}
   DamageDealersList:
   - {fileID: 8393237760477941251}
   damageDetector: {fileID: 8503966058725397229}
   spriteFliper: {fileID: 7619558403456288951}
   flasher: {fileID: 4868621688972523929}
   animator: {fileID: 2195041901401652145}
-  weaponCollider: {fileID: 7332707543437145030}
   damageDetectorCollider: {fileID: 7350678567647433300}
   positionCollider: {fileID: 6792726357816075657}
   _rigidbody: {fileID: 1771262554875931710}
   characterMover: {fileID: 7622995783535628857}
-  enemyEvents: {fileID: 627058440868749388}
   moveToTarget: {fileID: 6932147153519873058}
-  stanceMeter: {fileID: 0}
+  stanceMeter: {fileID: 5639760252644540281}
   damageCollider: {fileID: 7350678567647433300}
-  reusableStateMachine: {fileID: 0}
   lookingPivotTf: {fileID: 8543705226525020148}
   baseEnemyStats: {fileID: 0}
-  playerInAgrooCollider: {fileID: 8290111105923011726}
   currentEnemyStats: {fileID: 0}
-  showHideAttackCollider: {fileID: 0}
   ownSinglePointCollider: {fileID: 1530135795851701840}
-  stateMachine: {fileID: 0}
-  focusIcon: {fileID: 0}
-  groundDetector: {fileID: 0}
-  IdleState: {fileID: 0}
-  AgrooState: {fileID: 0}
-  ParriedState: {fileID: 0}
-  StanceBrokenState: {fileID: 0}
-  DeathState: {fileID: 0}
+  focusIcon: {fileID: 1126560795829570645}
+  groundDetector: {fileID: 8387963849232553166}
+  stateMachine: {fileID: 5622157128156225732}
+  IdleState: {fileID: 5695862195726077469}
+  AgrooState: {fileID: 8900272320762531221}
+  ParriedState: {fileID: 3473498437535998235}
+  StanceBrokenState: {fileID: 1037243609939012785}
+  DeathState: {fileID: 5956665756705928250}
 --- !u!114 &6932147153519873058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,18 +408,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c59ba4cc18bce54b9d4926b8bce70c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &627058440868749388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &848200506690117509
@@ -673,7 +655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e22bda6deeacb746b7d7a462c30d540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 627058440868749388}
   OrientationGuide: {fileID: 3736275689294426710}
   deadPartsList: []
 --- !u!1 &1280522450137198729
@@ -1118,7 +1099,7 @@ MonoBehaviour:
   SpriteObject: {fileID: 1685913343309174426}
   FlipDelay: 0.4
   canFlip: 1
-  lookingDirection: 0
+  lookingVector: {x: 0, y: 0}
 --- !u!1 &1702773185622547034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,7 +1313,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Knockback: 0
-  HitStop: 0
   isParryable: 1
   isBloody: 1
   isChargingSpecialAttack: 0
@@ -1405,7 +1385,6 @@ Transform:
   - {fileID: 269460246276090252}
   - {fileID: 2997077783660287073}
   - {fileID: 5589510406200898377}
-  - {fileID: 6419444522535875704}
   m_Father: {fileID: 4802207913274506029}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1454,7 +1433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 6
-  AnimatorStateName: 
+  AnimatorStateName: StanceBroken
 --- !u!1 &3743297723615564557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,7 +1597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTag: 2
-  AnimatorStateName: 
+  AnimatorStateName: Agroo
   showDebug: 0
   alertIconScript: {fileID: 0}
   PlayerIsInAnyRange: 0
@@ -1792,37 +1771,6 @@ MonoBehaviour:
   EntityTeam: 1
   rootGameObject: {fileID: 4802207913274506029}
   canChargeSpecialAttack: 1
---- !u!1 &7119565985329075849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6419444522535875704}
-  m_Layer: 0
-  m_Name: WEAPON STATES
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6419444522535875704
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7119565985329075849}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1528115628968044978}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7380386514068848870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,8 +1850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad561f3db8ba8b40bc1e62d7e8945b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateTag: 0
-  AnimatorStateName: 
+  stateTag: 1
+  AnimatorStateName: Idle
 --- !u!1 &7608762712847713275
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,7 +1900,6 @@ MonoBehaviour:
   CurrentStance: 3
   CooldownAfterDamage: 3
   RecoveryPerSecond: 0.5
-  eventSystem: {fileID: 627058440868749388}
   animator: {fileID: 2195041901401652145}
 --- !u!1 &8186222616927864388
 GameObject:
@@ -2463,7 +2410,7 @@ PrefabInstance:
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 627058440868749388}
+      objectReference: {fileID: 0}
     - target: {fileID: 5309733073026282587, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: healthSystem
       value: 

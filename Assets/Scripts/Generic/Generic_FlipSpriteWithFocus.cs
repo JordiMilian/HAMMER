@@ -10,7 +10,7 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     public GameObject SpriteObject;
     public float FlipDelay = 0.2f;
     [HideInInspector] public bool canFlip = true;
-    [HideInInspector] public int lookingDirection;
+    [HideInInspector] public Vector2 lookingVector;
     public Action OnFlipped;
     Coroutine currentDelay;
     public void FixedUpdate()
@@ -26,7 +26,7 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
                 flipSprite(SpriteObject);
                 if (currentDelay != null) { StopCoroutine(currentDelay); }
                 currentDelay = StartCoroutine(FlipCooldown());
-                lookingDirection = 1; // 1 = right, -1 = left
+                lookingVector = Vector2.right;
             }
         }
         else if (focus.x < gameObject.transform.position.x)
@@ -37,7 +37,7 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
 
                 if(currentDelay != null) { StopCoroutine(currentDelay); }
                 currentDelay = StartCoroutine(FlipCooldown());
-                lookingDirection = -1;
+                lookingVector = Vector2.left;
             }   
         }
     }

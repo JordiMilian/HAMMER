@@ -70,7 +70,6 @@ public class Generic_DamageDetector : MonoBehaviour
             damageDealer,
             damageDealer.Damage,
             damageDealer.Knockback,
-            damageDealer.HitStop,
             damageDealer.isBloody
             ));
         //CooldownCall();

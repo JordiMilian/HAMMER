@@ -18,7 +18,6 @@ public class PlayerState_BasicComboAttack : PlayerState
         {
             dealer.Damage = Damage;
             dealer.Knockback = Knockback;
-            dealer.HitStop = HitStop;
         }
     }
     public override void OnDisable()

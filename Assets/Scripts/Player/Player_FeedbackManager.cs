@@ -9,8 +9,6 @@ using UnityEngine;
 
 public class Player_FeedbackManager : MonoBehaviour
 {
-    [SerializeField] Player_References playerRefs;
-    [SerializeField] float staggerTime = 1;
 
     
 

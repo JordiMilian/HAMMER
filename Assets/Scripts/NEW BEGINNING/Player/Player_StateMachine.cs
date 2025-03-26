@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Player_StateMachine : MonoBehaviour
 {
     // ALL player state animations must implement (or must transition to a state animation that implements) the Animation events EV_ReturnInput and EV_CanTransition
@@ -11,8 +12,8 @@ public class Player_StateMachine : MonoBehaviour
     [SerializeField] Animator animator;
     public Action<PlayerState> OnStateChanged;
     PlayerState NextRequestedState;
-
-    bool CanTransition;
+    
+    public bool CanTransition { get; private set; }
     bool isReadingInput;
 
     public PlayerState currentState
@@ -40,12 +41,14 @@ public class Player_StateMachine : MonoBehaviour
         }
         currentState = newState;
 
-        currentState.InitializeState(this, animator);
-        currentState.gameObject.SetActive(true);
-
         CanTransition = false;
         isReadingInput = false;
         NextRequestedState = null;
+
+        currentState.InitializeState(this, animator);
+        currentState.gameObject.SetActive(true);
+
+        
 
         OnStateChanged?.Invoke(currentState); //No use for this yet, but maybe some day
     }

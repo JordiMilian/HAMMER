@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, IHealth, IStats, IParryDealer, IParryReceiver, IKilleable
 {
-    Player_References playerRefs;
+   [SerializeField] Player_References playerRefs;
     [SerializeField] AudioClip SFX_DealtDamage, SFX_ReceiveDamage, SFX_ParryDealt;
+    private void Start()
+    {
+        playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
+    }
 
     #region HEALTH MANAGEMENT
     public float GetCurrentHealth()
@@ -96,13 +100,16 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     }
     #endregion
     #region STATS
+    [Header("Stats")]
+    [SerializeField] PlayerStats currentStats;
+    [SerializeField] PlayerStats baseStats;
     public EntityStats GetBaseStats()
     {
-        throw new System.NotImplementedException();
+        return playerRefs.baseStats;
     }
     public EntityStats GetCurrentStats()
     {
-        throw new System.NotImplementedException();
+        return playerRefs.currentStats;
     }
     public void SetBaseStats(EntityStats stats)
     {

@@ -21,10 +21,9 @@ public struct ReceivedAttackInfo
 
     public float Damage;
     public float KnockBack;
-    public float Hitstop;
     public bool IsBloody;
     public ReceivedAttackInfo(Vector2 collisionPosition,Vector2 rootsDirection, Vector2 colldiersDirection, 
-        GameObject attackerRoot, Generic_DamageDealer dealer, float damage, float knockBack, float hitstop, bool isBloody)
+        GameObject attackerRoot, Generic_DamageDealer dealer, float damage, float knockBack, bool isBloody)
     {
         CollisionPosition = collisionPosition;
         RootsDirection = rootsDirection;
@@ -34,7 +33,6 @@ public struct ReceivedAttackInfo
 
         Damage = damage;
         KnockBack = knockBack;
-        Hitstop = hitstop;
         IsBloody = isBloody;
     }
 }

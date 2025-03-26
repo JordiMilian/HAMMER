@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState_SpecialAttack : PlayerState
 {
-    [SerializeField] float Damage, Knockback, HitStop;
+    [SerializeField] float Damage, Knockback;
     Coroutine currentAttackCoroutine;
     public override void OnEnable()
     {
@@ -18,7 +18,6 @@ public class PlayerState_SpecialAttack : PlayerState
         {
             dealer.Damage = Damage;
             dealer.Knockback = Knockback;
-            dealer.HitStop = HitStop;
         }
     }
     public override void OnDisable()

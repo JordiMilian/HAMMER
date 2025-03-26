@@ -53,11 +53,11 @@ public class Player_AnimationEvents : MonoBehaviour
     }
     #endregion
     #region STATE MACHINE CAN TRANSITION AND INPUT 
-    public void EV_CanTransition()
+    public void EV_canTransition()
     {
         playerRefs.stateMachine.EV_CanTransition();
     }
-    public void EV_ReturnInput()
+    public void EV_returnInput()
     {
         playerRefs.stateMachine.EV_ReturnInput();
     }
