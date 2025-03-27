@@ -10,7 +10,7 @@ public class dialoguePole_animator : MonoBehaviour, IDamageReceiver
     [SerializeField] VisualEffect breakEffect;
 
    
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         animator.SetTrigger("hit");

@@ -48,4 +48,14 @@ public class PlayerState_Death : PlayerState
         }
         playerRefs.currentStats.ExperiencePoints = 0;
     }
+    public void Button_RespawnPlayer()
+    {
+        //deadHead go up
+        //delay
+        //Change state to respawn
+    }
+    public void Button_RestartRun()
+    {
+        //Load scene
+    }
 }

@@ -61,7 +61,7 @@ public class Dialoguer : MonoBehaviour
         PlayerCloseTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         PlayerCloseTrigger.OnTriggerEntered += PlayerEnterDialogue;
         PlayerCloseTrigger.OnTriggerExited += PlayerExitedDialogue;
-        damageReceiver.OnDamageReceived_Event += OnInteracted;
+        damageReceiver.OnDamageReceived_event += OnInteracted;
 
         isDisplaying = true;
         InstaHideDialogueBubble();
@@ -74,7 +74,7 @@ public class Dialoguer : MonoBehaviour
 
         HideDialogueBubble();
         RemoveDialoguerFromTargetGroup();
-        damageReceiver.OnDamageReceived_Event -= OnInteracted;
+        damageReceiver.OnDamageReceived_event -= OnInteracted;
     }
     void OnInteracted(ReceivedAttackInfo info)
     {

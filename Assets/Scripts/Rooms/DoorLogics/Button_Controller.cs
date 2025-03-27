@@ -11,10 +11,10 @@ public class Button_Controller : MonoBehaviour, IDamageReceiver
     {
         buttonAnimator = GetComponent<Animator>();
     }
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         buttonAnimator.SetTrigger("Hit");
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
     }
 }

@@ -22,7 +22,7 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
         Destroy(gameObject);
         OnDamageDealt_event?.Invoke(info);
     }
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         if (currentMovement != null) { StopCoroutine(currentMovement); }
@@ -31,7 +31,7 @@ public class ChasingProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
         damageDealer.EntityTeam = DamagersTeams.Player;
         damageDetector.GetComponent<Collider2D>().enabled = false;
 
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
         //
         IEnumerator BounceAwayCoroutine(Vector2 initialDirection)
         {

@@ -48,8 +48,8 @@ public static class Tags
     public static string UpgradeContainer = "UpgradeContainer";
     public static string Pickeable = "Pickeable";
 
+    public static string FocuseableObject = "FocuseableObject";
 
-    
 
 
     //Enemy

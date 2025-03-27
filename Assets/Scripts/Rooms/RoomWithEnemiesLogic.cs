@@ -151,7 +151,7 @@ public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
             IStats enemyStats = SpawnedEnemy.GetComponent<IStats>();
             
             enemy_killeable.OnKilled_event += EnemyDied;
-            enemy_damageReceiver.OnDamageReceived_Event += EnemyDamaged;
+            enemy_damageReceiver.OnDamageReceived_event += EnemyDamaged;
 
             spawn.currentInstances++;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 {
-     public bool isCurrentlyFocusing { get; private set; }
+    public bool isCurrentlyFocusing{ get; private set; }
      public FocusIcon CurrentlyFocusedIcon { get; private set; }
     public Vector2 SwordDirection { get; private set; }
 
@@ -174,9 +174,16 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     FocusIcon GetClosestEnemyToCircle(Vector2 circleCenter, float radius, bool ignoreCurrent)
     {
         spawnedFocusIcons.Clear();
-        spawnedFocusIcons = FindObjectsOfType<FocusIcon>().ToList();// UFFFFFFFFFFFFF que asco
+        GameObject[] allFocuseables = GameObject.FindGameObjectsWithTag(Tags.FocuseableObject);
+        foreach(GameObject focuseable in  allFocuseables)
+        {
+            FocusIcon thisFocus = focuseable.GetComponent<FocusIcon>();
+            if (thisFocus != null) { spawnedFocusIcons.Add(thisFocus); }
+        }
 
-        FocusIcon lastFocusedEnemy = CurrentlyFocusedIcon; //Unfocus current enemy but keep a reference
+        //Unfocus current enemy but keep a reference
+        FocusIcon lastFocusedEnemy = null;
+        if (CurrentlyFocusedIcon != null) { lastFocusedEnemy = CurrentlyFocusedIcon; }
         UnfocusCurrentEnemy();
 
         List<FocusIcon> InrangeEnemies = new List<FocusIcon>();
@@ -252,6 +259,18 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         {
             FocusIcon newEnemy = GetClosestEnemyToCircle(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, false);
             if (newEnemy != null) { FocusNewEnemy(newEnemy); }
+        }
+    }
+    public void AttemptFocusAttackedEnemy(DealtDamageInfo info)
+    {
+        FocusIcon maybeIcon = info.AttackedRoot.GetComponentInChildren<FocusIcon>();
+        if (maybeIcon != null)
+        {
+            playerRefs.followMouse.FocusNewEnemy(maybeIcon);
+            if (info.AttackedRoot.GetComponent<IHealth>().GetCurrentHealth() <= 0)
+            {
+                UnfocusCurrentEnemy();
+            }
         }
     }
 }

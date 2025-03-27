@@ -94,7 +94,7 @@ public struct DeadCharacterInfo
 #region INTERFACES
 public interface IDamageReceiver
 {
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info);
 
     

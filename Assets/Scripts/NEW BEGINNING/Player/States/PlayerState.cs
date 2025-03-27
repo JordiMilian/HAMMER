@@ -61,14 +61,14 @@ public class PlayerState : MonoBehaviour
     protected virtual void RequestAttack() { stateMachine.RequestChangeState(playerRefs.StartingComboAttackState); }
     protected virtual void RequestSpecialHeal()
     {
-        if (playerRefs.currentStats.CurrentBloodFlow! < playerRefs.currentStats.MaxBloodFlow)
+        if (Mathf.Approximately(playerRefs.currentStats.CurrentBloodFlow, playerRefs.currentStats.MaxBloodFlow))
         {
             stateMachine.RequestChangeState(playerRefs.SpecialHealState);
         }
     }
     protected virtual void RequestSpecialAttack()
     {
-        if (playerRefs.currentStats.CurrentBloodFlow! < playerRefs.currentStats.MaxBloodFlow)
+        if (Mathf.Approximately(playerRefs.currentStats.CurrentBloodFlow, playerRefs.currentStats.MaxBloodFlow))
         {
             stateMachine.RequestChangeState(playerRefs.SpecialAttackState);
         }

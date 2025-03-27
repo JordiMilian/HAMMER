@@ -11,12 +11,12 @@ public class ParryManequin_Controller : MonoBehaviour, IParryReceiver, IDamageRe
     {
         manequinStateMachine.ChangeState(AttackingState);
     }
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         //Trigger damaged animation
         //Flasher
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
     }
     public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
     public void OnParryReceived(GettingParriedInfo info)

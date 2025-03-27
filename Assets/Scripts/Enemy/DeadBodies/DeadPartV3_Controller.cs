@@ -42,7 +42,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     Vector2 currentDirection;
     public Coroutine currentPush;
 
-    public System.Action<ReceivedAttackInfo> OnDamageReceived_Event { get ; set; }
+    public System.Action<ReceivedAttackInfo> OnDamageReceived_event { get ; set; }
 
     private void OnEnable()
     {
@@ -181,6 +181,6 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         AttackPush(info);
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
     }
 }

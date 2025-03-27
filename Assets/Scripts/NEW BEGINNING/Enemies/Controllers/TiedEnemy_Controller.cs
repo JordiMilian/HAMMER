@@ -15,13 +15,13 @@ public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver, IKilleable
     {
         tiedStateMachine.ChangeState(AliveState); //This state should just control the sprites to show and the amount of hits to die. also the transition to dead
     }
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     
 
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         //play animation from animator directament o que? vfx si eso i ja, coses generiques
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
     }
     public Action<DeadCharacterInfo> OnKilled_event { get ; set; }
     public void OnKilled(DeadCharacterInfo info)

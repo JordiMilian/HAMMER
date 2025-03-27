@@ -20,11 +20,11 @@ public class GoRoundProjectile_Controller : MonoBehaviour , IDamageDealer, IDama
         destroyItself();
         OnDamageDealt_event?.Invoke(info);
     }
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
         BounceAway(info.RootsDirection);
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
     }
     public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
     public void OnParryReceived(GettingParriedInfo info)

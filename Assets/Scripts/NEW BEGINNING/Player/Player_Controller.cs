@@ -52,19 +52,13 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         SFX_PlayerSingleton.Instance.playSFX(SFX_DealtDamage, 0.1f);
 
         //Focus enemy on attacked
-        FocusIcon maybeIcon = info.AttackedRoot.GetComponentInChildren<FocusIcon>();
-        if (maybeIcon != null)
-        {
-            if(info.AttackedRoot.GetComponent<IHealth>().GetCurrentHealth() > 0)
-            {
-                playerRefs.followMouse.FocusNewEnemy(maybeIcon);
-            }
-        }
+        playerRefs.followMouse.AttemptFocusAttackedEnemy(info);
+
         OnDamageDealt_event?.Invoke(info);
     }
     #endregion
     #region DAMAGE RECEIVED
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
 
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
@@ -93,7 +87,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitPlayer, info.CollisionPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ReceiveDamage, .1f);
 
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
 
         // STANCE?
 

@@ -49,6 +49,10 @@ public class Generic_DamageDealer : MonoBehaviour
             }
         }
     }
+    private void OnEnable()
+    {
+        OnValidate();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Generic_DamageDetector otherDetector = collision.gameObject.GetComponent<Generic_DamageDetector>();

@@ -20,7 +20,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         enemyStateMachine.ChangeState(enemyRefs.IdleState);
     }
     #region DAMAGE RECEIVED
-    public Action<ReceivedAttackInfo> OnDamageReceived_Event { get; set; }
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
     public virtual void OnDamageReceived(ReceivedAttackInfo info)
     {
         RemoveHealth(info.Damage);
@@ -61,7 +61,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         {
             enemyStateMachine.ChangeState(enemyRefs.StanceBrokenState);
         }
-        OnDamageReceived_Event?.Invoke(info);
+        OnDamageReceived_event?.Invoke(info);
     }
     #endregion
     #region HP MANAGEMENT

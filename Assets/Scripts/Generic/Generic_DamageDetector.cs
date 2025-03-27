@@ -15,6 +15,7 @@ public class Generic_DamageDetector : MonoBehaviour
     public bool canChargeSpecialAttack;
     private void OnValidate()
     {
+        Debug.Log("validating "+ gameObject.name);
         if (rootGameObject != null)
         {
             IDamageReceiver tempDamageReceiver = rootGameObject.GetComponent<IDamageReceiver>();
@@ -27,9 +28,12 @@ public class Generic_DamageDetector : MonoBehaviour
             }
             thisIDamageReceiver = tempDamageReceiver;
         }
-      
     }
-   
+    private void OnEnable()
+    {
+        OnValidate();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
@@ -61,12 +65,13 @@ public class Generic_DamageDetector : MonoBehaviour
     {
         Generic_DamageDealer damageDealer = attackerCollider.gameObject.GetComponent<Generic_DamageDealer>();
 
+
         thisIDamageReceiver.OnDamageReceived(new ReceivedAttackInfo
             (
             attackerCollider.ClosestPoint(gameObject.transform.position), //position
             (rootGameObject.transform.position - damageDealer.rootGameObject_DamageDealerTf.position).normalized, //roots direction
             (transform.position - attackerCollider.transform.position).normalized, //colliders direction
-            attackerCollider.gameObject, //attacker Root
+            rootGameObject.gameObject, //attacker Root
             damageDealer,
             damageDealer.Damage,
             damageDealer.Knockback,
