@@ -17,7 +17,10 @@ public class Generic_ParryDealer : MonoBehaviour
             UsefullMethods.CheckIfGameobjectImplementsInterface<IParryDealer>(ref rootGameObject, ref thisParryDealer);
         }
     }
-    
+    private void OnEnable()
+    {
+        OnValidate();
+    }
 
 
     public DamagersTeams EntityTeam;

@@ -15,8 +15,6 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     
     public virtual void Awake()
     {
-        SetCurrentStats(baseStats);
-        SetBaseStats(baseStats);
         enemyStateMachine.ChangeState(enemyRefs.IdleState);
     }
     #region DAMAGE RECEIVED
@@ -114,7 +112,6 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     }
     #endregion
     #region STATS
-    [SerializeField] EnemyStats baseStats;
     public EntityStats GetCurrentStats()
     {
         return enemyRefs.currentEnemyStats;
@@ -128,7 +125,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
     public EntityStats GetBaseStats()
     {
-        return baseStats;
+        return enemyRefs.baseEnemyStats ;
     }
     public void SetBaseStats(EntityStats stats)
     {

@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class TutorialDoorLogic_Parry : BaseRoomWithDoorLogic
 {
-    Player_EventSystem playerEvents;
     int parriesDone;
     [SerializeField] int parriesToOpen;
-    [SerializeField] Generic_DamageDealer MannequinDamageDealer;
-    [SerializeField] IParryReceiver ManequiinParryReceiver;
-    [SerializeField] GameObject Manequiin;
+     IParryReceiver Manequin_IParryReceiver;
+    [SerializeField] GameObject ManequinWithParryReceiver;
     private void OnValidate()
     {
-        if(ManequiinParryReceiver != null)
+        if(ManequinWithParryReceiver != null)
         {
-            UsefullMethods.CheckIfGameobjectImplementsInterface<IParryReceiver>(ref Manequiin, ref ManequiinParryReceiver);
+            UsefullMethods.CheckIfGameobjectImplementsInterface<IParryReceiver>(ref ManequinWithParryReceiver, ref Manequin_IParryReceiver);
         }
     }
 
     public override void OnEnable()
     {
         base.OnEnable();
-        ManequiinParryReceiver.OnParryReceived_event += Count1Parry;
+        OnValidate();
+        Manequin_IParryReceiver.OnParryReceived_event += Count1Parry;
     }
     void Count1Parry(GettingParriedInfo info)
     {
@@ -29,7 +28,7 @@ public class TutorialDoorLogic_Parry : BaseRoomWithDoorLogic
         if (parriesDone == parriesToOpen)
         {
             RoomCompleted(true, true);
-            ManequiinParryReceiver.OnParryReceived_event -= Count1Parry;
+            Manequin_IParryReceiver.OnParryReceived_event -= Count1Parry;
         }
 
     }

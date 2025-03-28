@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FocusLimit : MonoBehaviour
 {
-    [SerializeField] GameObject FocuseTarget;
+    [SerializeField] FocusIcon FocuseTarget;
     Player_FollowMouseWithFocus_V2 playerFocus;
     private void OnTriggerExit2D(Collider2D collision)
     {

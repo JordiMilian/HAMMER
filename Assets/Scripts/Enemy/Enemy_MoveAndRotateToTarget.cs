@@ -7,6 +7,12 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
     [Header("Targets")]
     public Transform MovementTarget;
     public Transform LookingTarget;
+    public void SetTargets(Transform movementTarget, Transform lookingTarget = null)
+    {
+        MovementTarget = movementTarget;
+        if(lookingTarget == null) { LookingTarget = movementTarget; }
+        else { LookingTarget = lookingTarget; }
+    }
     [Space(2)]
     [SerializeField] Enemy_References enemyRefs;
     Vector2 finalDirection;
@@ -49,6 +55,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         inRangeEnemies.Remove(collision.gameObject.transform);
         CheckClosestTransform();
     }
+    #region Set Movement and Rotation Speed (Enum)
     public void SetMovementSpeed(MovementSpeeds speedType)
     {
         switch (speedType)
@@ -91,6 +98,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
                 break;
         }
     }
+    #endregion
     void CheckClosestTransform()
     {
         if (inRangeEnemies.Count == 0) { return; }
@@ -108,7 +116,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         }
         ClosestEnemy = currentClosest;
     }
-
+    #region DoMove DoLook
     private void FixedUpdate()
     {
         if (DoMove)
@@ -152,6 +160,8 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
             enemyRefs.spriteFliper.FocusVector = TargetPos;
         }
     }
+    #endregion
+    #region Calculate New Direction
 
     Vector2 CalculateNewDirection(Vector2 ownPosition, Vector2 closestPosition, Vector2 targetPosition, float closestPositionMultiplier)
     {
@@ -189,15 +199,9 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
 
         return Angle2Vector(finalAngle);
     }
-    private void OnDrawGizmos()
-    {
-        if (inRangeEnemies.Count > 0)
-        {
-            Vector2 tpos = transform.position;
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(tpos, tpos + finalDirection);
-        }
-    }
+    #endregion
+   
+    #region Static tools
     float Vector2Angle(Vector2 vector)
     {
         return Mathf.Atan2(vector.y, vector.x);
@@ -213,8 +217,21 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         if (Dot >= 0) return -1;
         else { return 1; }
     }
+    #endregion
 
+    #region Draw Gizmo
+    private void OnDrawGizmos()
+    {
+        if (inRangeEnemies.Count > 0)
+        {
+            Vector2 tpos = transform.position;
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(tpos, tpos + finalDirection);
+        }
+    }
+    #endregion
 
+    #region (Deprecated) Slow down speeds
     float slowRotationSpeed;
     float slowMovingSpeed;
     private void Awake()
@@ -226,10 +243,10 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
     public void EV_ReturnRotationSpeed() { enemyRefs.currentEnemyStats.RotationSpeed = enemyRefs.baseEnemyStats.RotationSpeed; enemyRefs.spriteFliper.canFlip = true; }
     public void EV_SlowMovingSpeed() { enemyRefs.currentEnemyStats.Speed = slowMovingSpeed; }
     public void EV_ReturnMovingSpeed() { enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed; }
-
     public void EV_ReturnAllSpeed()
     {
         EV_ReturnMovingSpeed();
         EV_ReturnRotationSpeed();
     }
+    #endregion
 }

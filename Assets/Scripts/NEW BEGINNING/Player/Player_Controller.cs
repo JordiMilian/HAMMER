@@ -10,6 +10,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     private void Start()
     {
         playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
+        RestoreAllHealth();
     }
 
     #region HEALTH MANAGEMENT
@@ -46,7 +47,6 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     {
        addSpecialCharge(info.ChargeGiven);
 
-        // This should not depend on damage. Lets make enums of shake amounts pls
         UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemy, info.CollisionPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_DealtDamage, 0.1f);
@@ -71,6 +71,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         playerRefs.playerStamina.RemoveStamina(0.1f * info.Damage); //make it depend on damage
 
         playerRefs.flasher.CallDefaultFlasher();
+        UsefullMethods.CameraShakeAndHitstopFromDamage(info.Damage);
 
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
         playerRefs.characterMover,
@@ -120,7 +121,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     {
         if (info.canChargeSpecialAttack) { addSpecialCharge(1.25f); }
 
-        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VeryBig);
+        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.Big);
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, info.ParryPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ParryDealt);

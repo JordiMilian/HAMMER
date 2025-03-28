@@ -23,8 +23,11 @@ public class TutorialManequin_Attacker_Controller : MonoBehaviour, IDamageReceiv
     {
         OnDamageDealt_event?.Invoke(info);
     }
+    [SerializeField] Generic_Flash flasher;
     public void OnDamageReceived(ReceivedAttackInfo info)
     {
+        animator.SetTrigger("Hit");
+        flasher.CallDefaultFlasher();
         OnDamageReceived_event?.Invoke(info);
     }
     public void OnParryReceived(GettingParriedInfo info)

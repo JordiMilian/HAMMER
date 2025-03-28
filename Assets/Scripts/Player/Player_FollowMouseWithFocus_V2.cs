@@ -267,7 +267,9 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         if (maybeIcon != null)
         {
             playerRefs.followMouse.FocusNewEnemy(maybeIcon);
-            if (info.AttackedRoot.GetComponent<IHealth>().GetCurrentHealth() <= 0)
+
+            IHealth thisHealth = info.AttackedRoot.GetComponent<IHealth>();
+            if (thisHealth != null && thisHealth.GetCurrentHealth() <= 0)
             {
                 UnfocusCurrentEnemy();
             }

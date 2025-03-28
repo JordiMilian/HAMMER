@@ -31,9 +31,10 @@ public class EnemyState_Agroo : EnemyState
             isPlayerDetected = true;
         }
 
-        //Find the player and chase him. Set the moveToTarget and stuff
+        EnemyRefs.moveToTarget.SetTargets(GlobalPlayerReferences.Instance.playerTf);
 
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Regular);
+        EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.Regular);
 
         if (List_EnemyAttacks.Count == 0)
         {

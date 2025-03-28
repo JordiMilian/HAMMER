@@ -41,6 +41,7 @@ public class Dialoguer : MonoBehaviour
 
     private void Awake()
     {
+        OnValidate();
         TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
     }
     public void UpdateDialogues()

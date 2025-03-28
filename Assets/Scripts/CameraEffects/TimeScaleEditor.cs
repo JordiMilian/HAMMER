@@ -40,11 +40,11 @@ public class TimeScaleEditor : MonoBehaviour
     }
 
     bool waiting;
-    public void HitStop(IntensitiesEnum lenght)
+    public void HitStop(IntensitiesEnum intensity)
     {
         if (!waiting)
         {
-            switch (lenght)
+            switch (intensity)
             {
                 case IntensitiesEnum.VerySmall:
                     StartCoroutine(Hitstopper(0.05f));

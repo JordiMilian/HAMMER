@@ -33,13 +33,13 @@ public class CameraShake : MonoBehaviour
                 StartCoroutine(ShakeCoroutine(.3f, .1f));
                 break;
             case IntensitiesEnum.Medium:
-                StartCoroutine(ShakeCoroutine(.4f, .2f));
+                StartCoroutine(ShakeCoroutine(.4f, .15f));
                 break;
             case IntensitiesEnum.Big:
-                StartCoroutine(ShakeCoroutine(.5f, .4f));
+                StartCoroutine(ShakeCoroutine(.5f, .2f));
                 break;
             case IntensitiesEnum.VeryBig:
-                StartCoroutine(ShakeCoroutine(.6f, .6f));
+                StartCoroutine(ShakeCoroutine(.6f, .25f));
                 break;
         }
     }
@@ -48,9 +48,9 @@ public class CameraShake : MonoBehaviour
         float timer = 0;
         while(timer < sTime)
         {
-            timer += Time.deltaTime * Time.timeScale;
+            timer += Time.deltaTime;
 
-            CMVCx.m_AmplitudeGain = Intensity * Time.timeScale; //multiply intensity with timescale so when the game pauses it stops
+            CMVCx.m_AmplitudeGain = Intensity; //multiply intensity with timescale so when the game pauses it stops
 
             yield return null;
         }

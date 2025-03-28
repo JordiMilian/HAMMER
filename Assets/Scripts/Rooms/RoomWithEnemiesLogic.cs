@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static Generic_OnTriggerEnterEvents;
 
 public class RoomWithEnemiesLogic : BaseRoomWithDoorLogic
 {
