@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyState_Death : EnemyState
 {
     [SerializeField] XP_dropper xP_Dropper;
+    [SerializeField] AudioClip SFX_DeathSound;
+    [SerializeField] DeadPart_Instantiator deadPartInstantiator;
 
     public override void OnEnable()
     {
@@ -14,9 +16,10 @@ public class EnemyState_Death : EnemyState
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Stopped);
         //unfocus itself? NO
         xP_Dropper.spawnExperiences(EnemyRefs.currentEnemyStats.XpToDrop);
-        //Spawn Head
+
+        deadPartInstantiator.InstantiateDeadParts();
         //play sound
-        //SlowMo?
+        TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.Medium); //Slow mo feels weird here
         //Hide sprites
         stateMachine.gameObject.SetActive(false);
         Destroy(rootGameObject,1);

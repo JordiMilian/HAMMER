@@ -24,8 +24,27 @@ public class TimeScaleEditor : MonoBehaviour
     }
 
     float BaseScale = 1f;
-    public void SlowMotion(float SlowPercent, float DurationSeconts)
-    { StartCoroutine(SlowMoCorroutine(SlowPercent, DurationSeconts)); }
+    public void SlowMotion(IntensitiesEnum intensity)
+    {
+        switch (intensity)
+        {
+            case IntensitiesEnum.VerySmall:
+                StartCoroutine(SlowMoCorroutine(70,.5f));
+                break;
+            case IntensitiesEnum.Small:
+                StartCoroutine(SlowMoCorroutine(80,0.75f));
+                break;
+            case IntensitiesEnum.Medium:
+                StartCoroutine(SlowMoCorroutine(85,1f));
+                break;
+            case IntensitiesEnum.Big:
+                StartCoroutine(SlowMoCorroutine(90,1.5f));
+                break;
+            case IntensitiesEnum.VeryBig:
+                StartCoroutine(SlowMoCorroutine(90,2));
+                break;
+        }
+    }
 
     IEnumerator SlowMoCorroutine(float SlowPercent, float DurationSeconts)
     {

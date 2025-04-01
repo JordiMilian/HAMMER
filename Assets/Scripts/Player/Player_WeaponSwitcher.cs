@@ -28,8 +28,14 @@ public class Player_WeaponSwitcher : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents weaponPickerDetector;
     [SerializeField] Player_References playerRefs;
     [SerializeField] AudioClip SFX_FoundWeapon;
+
+    private void Awake()
+    {
+        SetNewWeapon(gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon].weaponStatesHolderPrefab);
+    }
     private void OnEnable()
     {
+       
         weaponPickerDetector.AddActivatorTag(Tags.Pickeable);
 
         weaponPickerDetector.OnTriggerEntered += OnFoundPickeable;
@@ -71,10 +77,7 @@ public class Player_WeaponSwitcher : MonoBehaviour
 
         SFX_PlayerSingleton.Instance.playSFX(SFX_FoundWeapon);
     }
-    private void Awake()
-    {
-        SetNewWeapon(gameState.WeaponInfosList[gameState.IndexOfCurrentWeapon].weaponStatesHolderPrefab);
-    }
+   
     public void SetNewWeapon(GameObject weaponPrefab)
     {
         if (playerRefs.WeaponStatesHolder != null) { Destroy(playerRefs.WeaponStatesHolder); }

@@ -35,7 +35,15 @@ public abstract class EnemyState_Attack : EnemyState
 
     public void isInRange() { isActive = true; }
     public void isNotInRange() { isActive = false; }
-
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        foreach(Generic_DamageDealer dealer in EnemyRefs.DamageDealersList)
+        {
+            dealer.Damage = Damage;
+            dealer.Knockback = KnockBack;
+        }
+    }
     public override void OnDisable()
     {
         lastAttackFinishedTime = Time.time;

@@ -10,7 +10,7 @@ public class Generic_Flash : MonoBehaviour
 
     SpriteRenderer[] spriteRenderers;
     Material[] materials;
-    void Start()
+    void Awake()
     {
         spriteRenderers = SpritesRoot.GetComponentsInChildren<SpriteRenderer>();
 

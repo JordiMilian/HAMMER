@@ -14,6 +14,7 @@ public class Enemy_References : Generic_References
     public Transform ownSinglePointCollider;
     public FocusIcon focusIcon;
     public Generic_TypeOFGroundDetector groundDetector;
+    public BasicEnemy_AnimationEvents basicAnimationEvents;
 
     [Header("STATES")]
     public Generic_StateMachine stateMachine;

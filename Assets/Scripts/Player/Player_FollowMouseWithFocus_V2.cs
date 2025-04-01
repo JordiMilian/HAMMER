@@ -130,7 +130,6 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         SubscribeToEnemy(newIcon);
         TargetGroupSingleton.Instance.AddTarget(newIcon.transform, 3, 2);
         zoomController.onFocusedEnemy();
-        Debug.Log("Focused " + newIcon.name);
 
         //
         void SubscribeToEnemy(FocusIcon newICon)

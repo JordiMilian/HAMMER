@@ -954,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2558135753159906450, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2701670711092211608, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
@@ -1390,6 +1390,10 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 983ed09b21b364448a4b445d4514e86d, type: 3}
     - target: {fileID: 6661202020507442343, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754073259599786910, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6792726357816075657, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2053,17 +2057,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8702800584861139629, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 6155436045409050282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4353807062061956611 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 6155436045409050282}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6668559658928465824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d80c444077571f64bab04e8f52c5bcf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4758353416499300400 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1685913343309174426, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2086,9 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRefs: {fileID: 4353807062061956611}
-  ResponseAttackIndex: 5
-  CooldownSeconds: 2
 --- !u!114 &3425963875698714635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2101,22 +2091,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed2f29b28ba2254b882e9fcb3b414a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refs: {fileID: 4353807062061956611}
-  SpecialAttack:
-    ShortDescription: 
-    rangeDetector: {fileID: 0}
-    boxCollider: {fileID: 0}
-    isActive: 0
-    notOvniInvertable: 0
-    Damage: 1
-    Probability: 1
-    KnockBack: 1000
-    Hitstop: 0
-    animationClip: {fileID: 7400000, guid: f2c4eb1e56c358040bb0e239bb0214ed, type: 2}
-    isInCooldown: 0
-    HasCooldown: 0
-    CooldownTime: 0
-  PercentOfHealthToActivate: 0
 --- !u!114 &7047688672657639639 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3792853293050386045, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}

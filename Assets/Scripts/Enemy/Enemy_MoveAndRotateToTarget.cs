@@ -232,6 +232,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
     #endregion
 
     #region (Deprecated) Slow down speeds
+    /*
     float slowRotationSpeed;
     float slowMovingSpeed;
     private void Awake()
@@ -248,5 +249,6 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
         EV_ReturnMovingSpeed();
         EV_ReturnRotationSpeed();
     }
+    */
     #endregion
 }

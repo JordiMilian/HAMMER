@@ -16,7 +16,7 @@ public class PlayerState_BasicComboAttack : PlayerState
        
         foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
-            dealer.Damage = Damage;
+            dealer.Damage = Damage * playerRefs.currentStats.DamageMultiplicator;
             dealer.Knockback = Knockback;
         }
     }

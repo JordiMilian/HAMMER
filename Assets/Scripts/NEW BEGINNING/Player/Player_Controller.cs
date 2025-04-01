@@ -66,6 +66,8 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         if(GetCurrentHealth() <= 0)
         {
             OnKilled(new DeadCharacterInfo(gameObject, info.AttackerRoot_Go, info.OtherDamageDealer));
+            OnDamageReceived_event?.Invoke(info);
+            return;
         }
 
         playerRefs.playerStamina.RemoveStamina(0.1f * info.Damage); //make it depend on damage
@@ -74,7 +76,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         UsefullMethods.CameraShakeAndHitstopFromDamage(info.Damage);
 
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
-        playerRefs.characterMover,
+                playerRefs.characterMover,
                 info.KnockBack,
                 0.2f,
                 info.CollidersDirection,

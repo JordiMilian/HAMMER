@@ -10,8 +10,7 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     public GameObject SpriteObject;
     public float FlipDelay = 0.2f;
     [HideInInspector] public bool canFlip = true;
-    [HideInInspector] public Vector2 lookingVector;
-    public Action OnFlipped;
+    [HideInInspector] public Vector2 lookingVector { get; private set; }
     Coroutine currentDelay;
     public void FixedUpdate()
     {
@@ -43,9 +42,8 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     }
     void flipSprite(GameObject objecto)
     {
-        objecto.transform.eulerAngles = new Vector3(objecto.transform.eulerAngles.x, objecto.transform.eulerAngles.y +180, objecto.transform.eulerAngles.z);
+        objecto.transform.localEulerAngles = new Vector3(objecto.transform.eulerAngles.x, objecto.transform.eulerAngles.y +180, objecto.transform.eulerAngles.z);
         FlipOnce = !FlipOnce;
-        OnFlipped?.Invoke();
     }
     IEnumerator FlipCooldown()
     {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5572652785573848547}
   - component: {fileID: 3681321110318502647}
   - component: {fileID: 4880938030161370114}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Damage Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityTeam: 2
-  rootGameObject: {fileID: 0}
+  rootGameObject: {fileID: 5541261590543252257}
   canChargeSpecialAttack: 0
 --- !u!1 &5541261589564976852
 GameObject:
@@ -405,7 +405,8 @@ GameObject:
   - component: {fileID: 5541261590469208457}
   - component: {fileID: 3330194677458635478}
   - component: {fileID: 58039836084190207}
-  m_Layer: 0
+  - component: {fileID: 4598711877437108157}
+  m_Layer: 16
   m_Name: DeadPart_MovingParent
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -449,7 +450,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   ignoreCollisions: 0
   collidersInside: []
-  velocityLimit: 0
+  velocityLimit: 5
   collisionDampint: 0.77
   collisioninsideDampint: 0.25
   TestDirectionToMove: {x: 0, y: 0}
@@ -475,6 +476,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!50 &4598711877437108157
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541261590469208459}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5541261590543252258
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,37 +567,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00eed5ea6b57741499faac377f62f509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeadPart_RB: {fileID: 5541261590350098415}
+  simulatedRigidBody: {fileID: 5541261590350098415}
   ChildDeadParts: []
   movingParent: {fileID: 5541261590469208457}
   groundCollider: {fileID: 5541261589564976849}
   damageDetector: {fileID: 3681321110318502647}
-  isPushed: 0
-  eventSystem: {fileID: 1705429221236731783}
+  animator_DeadPart: {fileID: 8284637122495033914}
+  flasher: {fileID: 8598444412644154160}
   groundAnimationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 9.527058
-      outSlope: 9.527058
+      value: 1
+      inSlope: -0.5727012
+      outSlope: -0.5727012
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.0502358
-    - serializedVersion: 3
-      time: 0.14252594
-      value: 0.7478586
-      inSlope: 0.8432451
-      outSlope: 0.8432451
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.06758384
+      outWeight: 0.19440857
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 0
       inSlope: -0
       outSlope: -0
       tangentMode: 0
@@ -585,16 +598,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  hor_Duration: 1
+  averageOfCurve: 0
+  hor_Duration: 0.5
   hor_maxRandomRotation: 1
   hor_verticalForce: 30
-  hor_groundDistance: 2
+  hor_groundDistance: 1.5
   hor_directionRandom: 10
-  ver_Duration: 1
+  ver_Duration: 0.75
   ver_maxRandomRotation: 3
   ver_verticalForce: 60
   ver_groundDistance: 1
   ver_directionRandom: 30
+  groundMover: {fileID: 3330194677458635478}
 --- !u!114 &2961501569116425281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,7 +886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2234361762892813034
 Transform:
   m_ObjectHideFlags: 0

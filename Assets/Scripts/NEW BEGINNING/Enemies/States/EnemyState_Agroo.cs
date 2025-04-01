@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Enemy_AttacksProviderV2;
 
 public class EnemyState_Agroo : EnemyState
 {
@@ -13,6 +14,7 @@ public class EnemyState_Agroo : EnemyState
     [HideInInspector] public EnemyState_Attack currentAttack;
     EnemyState ForcedNextAttack;
     bool isNextAttackForced;
+    [SerializeField] Transform TF_AttackStatets;
 
 
     public void ForceNextAttack(EnemyState ForcedState)
@@ -24,6 +26,10 @@ public class EnemyState_Agroo : EnemyState
     public override void OnEnable()
     {
         base.OnEnable();
+        if (List_EnemyAttacks.Count == 0)
+        {
+            List_EnemyAttacks = TF_AttackStatets.GetComponentsInChildren<EnemyState_Attack>(true).ToList();
+        }
 
         if (!isPlayerDetected)
         {
@@ -36,10 +42,11 @@ public class EnemyState_Agroo : EnemyState
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Regular);
         EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.Regular);
 
-        if (List_EnemyAttacks.Count == 0)
-        {
-            List_EnemyAttacks = GetComponentsInChildren<EnemyState_Attack>().ToList();
-        }
+        EnemyRefs.moveToTarget.DoLook = true;
+        EnemyRefs.moveToTarget.DoMove = true;
+
+
+ 
 
         foreach (EnemyState_Attack attack in List_EnemyAttacks)
         {
@@ -151,6 +158,20 @@ public class EnemyState_Agroo : EnemyState
                 Debug.Log(message);
             }
                 
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        foreach (EnemyState_Attack attack in List_EnemyAttacks)
+        {
+            if (attack.isActive) Gizmos.color = Color.blue;
+            else Gizmos.color = Color.red;
+
+            BoxCollider2D boxCollider = attack.rangeDetector.ownCollider;
+
+            Matrix4x4 rotationMatrix = Matrix4x4.TRS(boxCollider.transform.position, boxCollider.transform.rotation, boxCollider.transform.lossyScale);
+            Gizmos.matrix = rotationMatrix;
+            Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
         }
     }
 }

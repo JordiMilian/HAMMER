@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiver, IParryReceiver, IHealth, IStats, IKilleable
+public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiver, IParryReceiver, IHealth, IStats, IKilleable, IAttackedWhileRecovery
 { 
     [SerializeField] protected Generic_StateMachine enemyStateMachine;
     [SerializeField] protected Enemy_References enemyRefs;
-   
+
     [Header("Damaged feedback")]
     [SerializeField] AnimationCurve damagedMovementCurve;
     float damagedCurveAverage = -1;
@@ -25,6 +25,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         if(GetCurrentHealth() <= 0)
         {
             OnKilled(new DeadCharacterInfo(gameObject, info.AttackerRoot_Go, info.OtherDamageDealer));
+            return;
         }
 
         #region Push Feedback
@@ -35,7 +36,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
         enemyRefs.characterMover,
-           info.KnockBack,
+           info.KnockBack * (1-enemyRefs.currentEnemyStats.KnockBackResistance),
         0.25f,
            info.CollidersDirection,
            damagedMovementCurve,
@@ -59,6 +60,12 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         {
             enemyStateMachine.ChangeState(enemyRefs.StanceBrokenState);
         }
+
+        if(isInRecovery)
+        {
+            OnAttackedWhileRecovery();
+        }
+
         OnDamageReceived_event?.Invoke(info);
     }
     #endregion
@@ -136,10 +143,34 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
 
     public Action<DeadCharacterInfo> OnKilled_event { get; set; }
+    
+
     public void OnKilled(DeadCharacterInfo info)
     {
         enemyRefs.stateMachine.ChangeState(enemyRefs.DeathState);
         OnKilled_event?.Invoke(info);
+    }
+    #endregion
+    #region Attacked While Recovery
+    [Header ("Attacked While in Recovery")]
+    [SerializeField] EnemyState State_AttackedWhileRecoveryTransitionState;
+    [SerializeField] float seconds_AttackedWhileRecoveryCooldown = 5;
+    public bool isInRecovery { get; set; }
+    bool isInCooldown;
+    public void OnAttackedWhileRecovery()
+    {
+        if (!isInCooldown)
+        {
+            isInRecovery = false;
+            enemyRefs.stateMachine.ChangeState(State_AttackedWhileRecoveryTransitionState);
+            StartCoroutine(AttackedWhileRecovery_Cooldown());
+        }
+    }
+    IEnumerator AttackedWhileRecovery_Cooldown()
+    {
+        isInCooldown = true;
+        yield return new WaitForSeconds(seconds_AttackedWhileRecoveryCooldown);
+        isInCooldown = false;
     }
     #endregion
     #region CHANGE STATE BY TYPE

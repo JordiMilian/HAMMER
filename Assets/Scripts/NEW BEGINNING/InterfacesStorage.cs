@@ -147,4 +147,11 @@ public interface IChangeStateByType
 {
     public void ChangeStateByType(StateTags stateTag);
 }
+public interface IAttackedWhileRecovery
+{
+    public bool isInRecovery { get; set; }
+    public void OnAttackedWhileRecovery();
+
+}
+
 #endregion

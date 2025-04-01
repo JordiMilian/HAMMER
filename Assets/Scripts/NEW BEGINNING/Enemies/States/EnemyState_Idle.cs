@@ -15,6 +15,9 @@ public class EnemyState_Idle : EnemyState
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Regular);
         EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.Regular);
 
+        EnemyRefs.moveToTarget.DoLook = false;
+        EnemyRefs.moveToTarget.DoMove = true;
+
         playerDetectionTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         playerDetectionTrigger.OnTriggerEntered += OnPlayerEntered;
 

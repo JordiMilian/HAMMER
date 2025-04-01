@@ -968,8 +968,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6412195249486219000}
   - component: {fileID: 6688792410331491047}
-  - component: {fileID: 6066249044990702576}
   - component: {fileID: 1682976843692370032}
+  - component: {fileID: 4873308557242800303}
   m_Layer: 0
   m_Name: Dead
   m_TagString: Untagged
@@ -1008,25 +1008,10 @@ MonoBehaviour:
   doesRequireStamina: 0
   StaminaCost: 0
   xpDropper: {fileID: 1682976843692370032}
-  deadPartsInstantiator: {fileID: 0}
+  deadPartsInstantiator: {fileID: 4873308557242800303}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   DeathUIRoot: {fileID: 1769096167277511253}
---- !u!114 &6066249044990702576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769096167277511253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94298c6955b9a2b48a54020fbd1fb64c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OrientationGuide: {fileID: 2036163816277594816}
-  deadPartsList:
-  - referenceBone_TF: {fileID: 1097975357195865740}
-    deadPart_GO: {fileID: 1522013482259629399, guid: 331cf5773a8541645b837a46d113a2c8, type: 3}
+  playerMainCollider: {fileID: 7653426975249963388}
 --- !u!114 &1682976843692370032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,9 +1024,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691ee612608efbf4ca5a847b999cbe38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs: {fileID: 0}
+  prefabs: {fileID: 11400000, guid: bdf4d07914d6bfd44bcfd76a2f33f4a4, type: 2}
   testingXpToDrop: 0
   triggerChoseXp: 0
+--- !u!114 &4873308557242800303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769096167277511253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e22bda6deeacb746b7d7a462c30d540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OrientationGuide: {fileID: 2036163816277594816}
+  deadPartsList:
+  - referenceBone_TF: {fileID: 1097975357195865740}
+    deadPart_GO: {fileID: 1522013482259629399, guid: 331cf5773a8541645b837a46d113a2c8, type: 3}
 --- !u!1 &2169018732571411553
 GameObject:
   m_ObjectHideFlags: 0
@@ -4779,7 +4780,7 @@ PolygonCollider2D:
     - - {x: -0.016509503, y: 0.71478814}
       - {x: -0.21094394, y: 0.47072187}
       - {x: -0.24378216, y: -0.25438413}
-      - {x: 0.036837008, y: -0.5854254}
+      - {x: 0.0010118335, y: -0.3735476}
       - {x: 0.28500372, y: -0.22678956}
       - {x: 0.22792304, y: 0.48842692}
 --- !u!114 &7631733328338548649
@@ -5850,7 +5851,6 @@ MonoBehaviour:
   SpriteObject: {fileID: 903519175663782563}
   FlipDelay: 0.2
   canFlip: 1
-  lookingVector: {x: 0, y: 0}
 --- !u!114 &6997831822276721509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7069,6 +7069,26 @@ PrefabInstance:
     - target: {fileID: 7447083368818760799, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: Damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: Knockback
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: StaminaCost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: AnimatorStateName
+      value: BasicWeapon_SpecialAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: doesRequireStamina
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e784db7f089ea17408fd1baae53b062c, type: 3}

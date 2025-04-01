@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyState_BasicAnimationAttack : EnemyState_Attack
 {
     Coroutine animationLenghtWaiterCoroutine;
+    [Header("Attacked while recovering")]
+    IAttackedWhileRecovery attackedWhileRecovery;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -12,6 +14,9 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
         EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Slow);
         animator.CrossFade(AnimatorStateName, 0.1f);
         animationLenghtWaiterCoroutine = StartCoroutine(animationLenghtWaiter());
+
+        if(attackedWhileRecovery == null) { attackedWhileRecovery = rootGameObject.GetComponent<IAttackedWhileRecovery>(); }
+        attackedWhileRecovery.isInRecovery = false;
     }
     IEnumerator animationLenghtWaiter()
     {
@@ -25,8 +30,9 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
         {
             StopCoroutine(animationLenghtWaiterCoroutine);
         }
+        EnemyRefs.basicAnimationEvents.EV_Enemy_HideAttackCollider();
 
-        //hide attack collider to do
+        attackedWhileRecovery.isInRecovery = false;
     }
     
 }

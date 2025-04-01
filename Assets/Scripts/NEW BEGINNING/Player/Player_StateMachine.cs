@@ -48,8 +48,6 @@ public class Player_StateMachine : MonoBehaviour
         currentState.InitializeState(this, animator);
         currentState.gameObject.SetActive(true);
 
-        
-
         OnStateChanged?.Invoke(currentState); //No use for this yet, but maybe some day
     }
     public void ForceChangeState(PlayerState forcedState)

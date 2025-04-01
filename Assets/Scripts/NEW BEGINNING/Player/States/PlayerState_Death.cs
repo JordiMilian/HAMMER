@@ -8,24 +8,28 @@ public class PlayerState_Death : PlayerState
     [SerializeField] DeadPart_Instantiator deadPartsInstantiator;
     [SerializeField] GameState gameState;
     [SerializeField] GameObject DeathUIRoot;
+    [SerializeField] Collider2D playerMainCollider;
     GameObject playerDeadHead;
     public override void OnEnable()
     {
+        TargetGroupSingleton.Instance.RemovePlayersTarget();
+
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
 
         playerRefs.followMouse.UnfocusCurrentEnemy();
 
         gameState.playerDeaths++;
 
-        // playerDeadHead = deadPartsInstantiator.InstantiateDeadParts(info)[0];
+        playerDeadHead = deadPartsInstantiator.InstantiateDeadParts()[0];
 
 
         playerRefs.hideSprites.HidePlayerSprites();
 
-        
+        playerMainCollider.enabled = false;
 
-        spawnPlayerXps(); //Aixo es questionable
+        spawnPlayerXps(); //Aixo es questionable, consultar amb diseny
 
+       
         StartCoroutine(delayAndShowUI());
 
         //Wait and show UI
@@ -47,6 +51,11 @@ public class PlayerState_Death : PlayerState
             xp.GetComponentInChildren<XP_MoveTowardsPlayer>().enabled = false;
         }
         playerRefs.currentStats.ExperiencePoints = 0;
+    }
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        playerMainCollider.enabled = true;
     }
     public void Button_RespawnPlayer()
     {

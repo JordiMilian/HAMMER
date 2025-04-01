@@ -3319,18 +3319,18 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.13333334
-    functionName: EV_SlowMovingSpeed
+    functionName: EV_SetMovementSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 3
     messageOptions: 0
   - time: 0.6166667
-    functionName: EV_SlowRotationSpeed
+    functionName: EV_SetRotationSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 2
     messageOptions: 0
   - time: 1.0833334
     functionName: EV_Enemy_ShowAttackCollider
@@ -3347,18 +3347,18 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.3333334
-    functionName: EV_ReturnRotationSpeed
+    functionName: EV_SetRotationSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.75
-    functionName: EV_SlowRotationSpeed
+    functionName: EV_SetRotationSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 2
     messageOptions: 0
   - time: 1.9666667
     functionName: EV_Enemy_ShowAttackCollider
@@ -3374,22 +3374,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.4833333
+  - time: 2.5
     functionName: EV_StartRecovery
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.6333334
-    functionName: EV_ReturnRotationSpeed
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 2.8833334
-    functionName: EV_ReturnMovingSpeed
+  - time: 2.7666667
+    functionName: EV_SetMovementAndRotationSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
