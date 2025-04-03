@@ -43,13 +43,13 @@ public class Player_AnimationEvents : MonoBehaviour
     {
         gameObject.layer = 15;
         playerRefs.damageDetectorCollider.enabled = false;
-        playerRefs.characterMover.ignoreRay = true;
+        //playerRefs.characterMover.ignoreRay = true;
     }
     public void EV_ShowPlayerCollider()
     {
         gameObject.layer = 20;
         playerRefs.damageDetectorCollider.enabled = true;
-        playerRefs.characterMover.ignoreRay = false;
+        //playerRefs.characterMover.ignoreRay = false;
     }
     #endregion
     #region STATE MACHINE CAN TRANSITION AND INPUT 

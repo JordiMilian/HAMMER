@@ -10,7 +10,6 @@ public class Generic_CharacterMover : MonoBehaviour
     //do not ROTATE square colliders
 
     //The circle collider of charactesr should not be offseted by anything
-
     
     public float RootMotionMultiplier = 1; //This could be useful to adapt attacks to distance of player
     [SerializeField] bool drawLines, stopMove;

@@ -8,10 +8,10 @@ public class ApplyMovementOvertime_test : MonoBehaviour
     [SerializeField] AnimationCurve curve;
     [SerializeField] bool testTrigger, debugCurveTrigger;
     [SerializeField] int samplePoints;
-    Generic_CharacterMover characterMover;
+    CharacterMover2 characterMover;
     private void Awake()
     {
-        characterMover = GetComponent<Generic_CharacterMover>();
+        characterMover = GetComponent<CharacterMover2>();
     }
     private void Update()
     {

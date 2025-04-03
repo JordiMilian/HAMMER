@@ -18,7 +18,7 @@ public class UsefullMethods : MonoBehaviour
 
     //This is framerate independent now
     //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
-    public static IEnumerator ApplyCurveMovementOverTime(Generic_CharacterMover mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
+    public static IEnumerator ApplyCurveMovementOverTime(CharacterMover2 mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
     {
         float timer = 0;
         float normalizedTime;

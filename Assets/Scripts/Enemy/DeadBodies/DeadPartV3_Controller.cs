@@ -152,7 +152,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
             ver_directionRandom
             ));
     }
-    [SerializeField] Generic_CharacterMover groundMover;
+    [SerializeField] CharacterMover2 groundMover;
      IEnumerator PushCoroutine( Vector2 direction, float intencity, float duration, float maxRotation, float verticalForce, float distance, float directionRandomness)
     {
         //Wait pa que se instancie tot be

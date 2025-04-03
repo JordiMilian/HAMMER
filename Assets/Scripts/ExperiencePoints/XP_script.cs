@@ -25,7 +25,7 @@ public class XP_script : MonoBehaviour
         xpAnimator.SetTrigger("spawn");
         float averageValueOfCurve = UsefullMethods.GetAverageValueOfCurve(spawnMovementCurve,10);
         StartCoroutine( UsefullMethods.ApplyCurveMovementOverTime(
-            GetComponent<Generic_CharacterMover>(),
+            GetComponent<CharacterMover2>(),
             Random.Range(minDistance, maxDistance),
             Random.Range(minTime, maxTime),
             UsefullMethods.angle2Vector(Random.Range((float)0, (float)1) * Mathf.PI * 2),
