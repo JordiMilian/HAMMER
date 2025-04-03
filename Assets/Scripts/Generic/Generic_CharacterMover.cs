@@ -109,9 +109,6 @@ public class Generic_CharacterMover : MonoBehaviour
 
        // ----  COLISIONS  ---- 
 
-
-
-
             foreach (var collider in collidersInside)
         {
             //Colliders outside
