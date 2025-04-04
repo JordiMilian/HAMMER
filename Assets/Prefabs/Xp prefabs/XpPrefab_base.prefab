@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8a684828608ad409cd714bdc01c903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpMover: {fileID: 8928248683288277509}
+  xpMover: {fileID: 2055192779845607761}
   speedPerSecond: 1.3
 --- !u!1 &6559089585063142610
 GameObject:
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7079548278218601983}
   - component: {fileID: 5799824789734915166}
-  - component: {fileID: 8928248683288277509}
+  - component: {fileID: 2055192779845607761}
   - component: {fileID: 7112210351531866551}
   - component: {fileID: 5360889567746419511}
   m_Layer: 21
@@ -280,7 +280,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   pickedAudio: {fileID: 8300000, guid: 18e7e93dd64a78f4685dffd665f63492, type: 3}
---- !u!114 &8928248683288277509
+--- !u!114 &2055192779845607761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,25 +289,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6559089585063142610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
+  m_Script: {fileID: 11500000, guid: 135da044b3b67e44b8b6791c9835e96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootMotionMultiplier: 1
-  drawLines: 0
-  stopMove: 0
-  animator: {fileID: 0}
+  currentVelocity: {x: 0, y: 0}
+  MovementVectorsPerSecond: []
+  circleCollider: {fileID: 7112210351531866551}
   ignoreCollisions: 1
-  collidersInside: []
-  velocityLimit: 10
-  collisionDampint: 0.77
-  collisioninsideDampint: 0.25
+  InvertedResistance: 0.5
+  animator: {fileID: 0}
+  RootMotionMultiplier: 1
   TestDirectionToMove: {x: 0, y: 0}
   speedMultiplier: 0.01
-  layersToHit:
-    serializedVersion: 2
-    m_Bits: 0
-  ignoreRay: 0
-  MovementVectorsPerSecond: []
 --- !u!58 &7112210351531866551
 CircleCollider2D:
   m_ObjectHideFlags: 0

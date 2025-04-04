@@ -45,6 +45,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
     public void OnDamageDealt(DealtDamageInfo info)
     {
+        
        addSpecialCharge(info.ChargeGiven);
 
         UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt);
@@ -55,6 +56,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         playerRefs.followMouse.AttemptFocusAttackedEnemy(info);
 
         OnDamageDealt_event?.Invoke(info);
+        
     }
     #endregion
     #region DAMAGE RECEIVED
@@ -124,6 +126,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         if (info.canChargeSpecialAttack) { addSpecialCharge(1.25f); }
 
         TimeScaleEditor.Instance.HitStop(IntensitiesEnum.Big);
+        TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.VerySmall);
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, info.ParryPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ParryDealt);

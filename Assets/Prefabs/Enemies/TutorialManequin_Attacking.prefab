@@ -894,7 +894,9 @@ GameObject:
   - component: {fileID: 410645690650635136}
   - component: {fileID: 1806415406420729988}
   - component: {fileID: 6512349958756673967}
-  m_Layer: 0
+  - component: {fileID: 1284376054181129675}
+  - component: {fileID: 7200130925072636281}
+  m_Layer: 20
   m_Name: TutorialManequin_Attacking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -975,6 +977,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1284376054181129675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774011554396385337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135da044b3b67e44b8b6791c9835e96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentVelocity: {x: 0, y: 0}
+  MovementVectorsPerSecond: []
+  circleCollider: {fileID: 7200130925072636281}
+  ignoreCollisions: 0
+  InvertedResistance: 0
+  animator: {fileID: 0}
+  RootMotionMultiplier: 1
+  TestDirectionToMove: {x: 0, y: 0}
+  speedMultiplier: 0
+--- !u!58 &7200130925072636281
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774011554396385337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.17
 --- !u!1 &6841346294531886967
 GameObject:
   m_ObjectHideFlags: 0

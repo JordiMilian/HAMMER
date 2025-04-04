@@ -7,6 +7,7 @@ public class CharacterMover2 : MonoBehaviour
     public Vector2 currentVelocity; 
     public List<Vector2> MovementVectorsPerSecond = new List<Vector2>();
     public CircleCollider2D circleCollider;
+    public bool ignoreCollisions;
     [Range(0f, 1f)]
     [Tooltip("Less Value means more Resistance/Strenght")]
     public float InvertedResistance = 0.5f; 
@@ -17,7 +18,7 @@ public class CharacterMover2 : MonoBehaviour
     [SerializeField] float RootMotionMultiplier = 1;
     [Header("Testing")]
     [SerializeField] Vector2 TestDirectionToMove;
-    [SerializeField] float speedMultiplier = 0.01f;
+    [SerializeField] float speedMultiplier;
   
     private void Start()
     {

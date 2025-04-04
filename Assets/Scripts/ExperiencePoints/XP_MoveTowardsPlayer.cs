@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class XP_MoveTowardsPlayer : MonoBehaviour
 {
-    [SerializeField] Generic_CharacterMover xpMover;
+    [SerializeField] CharacterMover2 xpMover;
     [SerializeField] float speedPerSecond;
     Transform Target;
 

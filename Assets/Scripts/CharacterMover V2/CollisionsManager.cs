@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using Pathfinding.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,9 +67,11 @@ public class CollisionsManager : MonoBehaviour
         for (int c = 0; c < CharacterMoversList.Count - 1; c++)
         {
             CharacterMover2 characterA = CharacterMoversList[c];
+            if (characterA.ignoreCollisions) { continue; }
             for (int d = c + 1; d < CharacterMoversList.Count; d++)
             {
                 CharacterMover2 characterB = CharacterMoversList[d];
+                if (characterB.ignoreCollisions) { continue; }
                 if (doCharactersCollide(characterA, characterB, out float depth, out Vector2 directionAtoB))
                 {
                     normalizeResistanceValues(characterA.InvertedResistance, characterB.InvertedResistance, out float normalizedA, out float normalizedB);
@@ -126,6 +129,7 @@ public class CollisionsManager : MonoBehaviour
             for (int c = 0; c < CharacterMoversList.Count; c++)
             {
                 CharacterMover2 character = CharacterMoversList[c];
+                if (character.ignoreCollisions) { continue; }
                 Vector2 futureCharaPos = (Vector2)character.transform.position + character.currentVelocity;
                 bool isInsideCollider = room.polygonCollider.OverlapPoint(character.transform.position);
 
@@ -172,6 +176,7 @@ public class CollisionsManager : MonoBehaviour
     {
         for (int c = 0; c < CharacterMoversList.Count; c++)
         {
+            if (CharacterMoversList[c].currentVelocity.IsNaN()) { return; } //Cutrisim
             CharacterMoversList[c].transform.position += (Vector3)CharacterMoversList[c].currentVelocity;
         }
     }
