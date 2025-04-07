@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Generic_DamageDetector : MonoBehaviour
+public class Generic_DamageDetector : MonoBehaviour 
 {
 
     public DamagersTeams EntityTeam;

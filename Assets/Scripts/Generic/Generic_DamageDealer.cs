@@ -106,6 +106,7 @@ public class Generic_DamageDealer : MonoBehaviour
     }
     void PublishDealtDamageEvent(Collider2D collision, bool isChargeable = false)
     {
+
         Generic_DamageDetector otherDetector = collision.GetComponent<Generic_DamageDetector>();
         float charge = 0;
 

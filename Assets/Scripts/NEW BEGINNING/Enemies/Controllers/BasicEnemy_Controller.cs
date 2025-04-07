@@ -105,6 +105,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     public virtual void OnDamageDealt(DealtDamageInfo info)
     {
         UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitPlayer, info.CollisionPosition);
         OnDamageDealt_event?.Invoke(info);
     }
     #endregion

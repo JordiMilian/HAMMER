@@ -1,5 +1,62 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &540738336327540666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6090985366472998197}
+  - component: {fileID: 5981523724775436599}
+  m_Layer: 0
+  m_Name: LongSingle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6090985366472998197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540738336327540666}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2055809557962834260}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5981523724775436599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540738336327540666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: Long Attack
+  ShortDescription: Attack01
+  rangeDetector: {fileID: 6507630011213787422}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  Hitstop: 0
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &900907593866143334
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,6 +520,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RealBoneReference: {fileID: 71415598695663451}
+--- !u!1 &3933829247215765289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7039975408889382749}
+  - component: {fileID: 5363772657883110267}
+  m_Layer: 0
+  m_Name: Doble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7039975408889382749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3933829247215765289}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2055809557962834260}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5363772657883110267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3933829247215765289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: Doble Attack
+  ShortDescription: Attack01
+  rangeDetector: {fileID: 6267965342770848507}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 0.7
+  Probability: 1
+  KnockBack: 1
+  Hitstop: 0
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &4593818171350031598
 GameObject:
   m_ObjectHideFlags: 0

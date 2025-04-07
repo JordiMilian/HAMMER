@@ -89,7 +89,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         {
             GroundBloodPlayer.Instance.PlayGroundBlood(transform.position, info.CollidersDirection, 0.9f);
         }
-        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitPlayer, info.CollisionPosition);
+
         SFX_PlayerSingleton.Instance.playSFX(SFX_ReceiveDamage, .1f);
 
         OnDamageReceived_event?.Invoke(info);
