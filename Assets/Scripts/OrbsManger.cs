@@ -8,7 +8,7 @@ public class OrbsManger : MonoBehaviour
     //KILL THIS SCRIPT NOW
 
     [SerializeField] List<OrbLogic> orbLogicList;
-    [SerializeField] Player_Respawner respawner;
+    [SerializeField] TiedEnemy_Controller respawner;
     bool IsCollected;
     private void OnEnable()
     {

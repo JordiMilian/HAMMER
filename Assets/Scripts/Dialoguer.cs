@@ -12,7 +12,7 @@ public class Dialoguer : MonoBehaviour
     public List<string> TextLines = new List<string>();
 
     public DialoguesContainer dialoguesContainer;
-    public int dialoguesIndex;
+    public int dialoguesContainerIndex;
 
     public Action<int> onFinishedReading;
     
@@ -21,7 +21,7 @@ public class Dialoguer : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents PlayerCloseTrigger;
     [SerializeField] Animator bubbleAnimator;
 
-    int CurrentLineToRead;
+    int CurrentLineToRead = 0;
     bool playerIsInside;
     bool currentlyReading;
     bool isDisplaying;
@@ -42,16 +42,17 @@ public class Dialoguer : MonoBehaviour
     private void Awake()
     {
         OnValidate();
-        TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
+        TrySetDialoguesFromContainer(dialoguesContainer, dialoguesContainerIndex);
     }
     public void UpdateDialogues()
     {
-        TrySetDialoguesFromContainer(dialoguesContainer, dialoguesIndex);
+        TrySetDialoguesFromContainer(dialoguesContainer, dialoguesContainerIndex);
     }
     public bool TrySetDialoguesFromContainer(DialoguesContainer container, int index)
     {
         if (container == null) { return false; }
         if (index < 0) { return false; }
+        Debug.LogError("dlksfjlksdjflkdsjflksdjlfkj lkHJLKjlkJ lkjLKJ lk");
 
         TextLines = container.AllDialoguesList[index].DialogueLines;
         return true;
@@ -152,7 +153,7 @@ public class Dialoguer : MonoBehaviour
         {
             HideDialogueBubble();
             CurrentLineToRead++;
-            onFinishedReading?.Invoke(dialoguesIndex);
+            onFinishedReading?.Invoke(dialoguesContainerIndex);
             return;
         }
         if(CurrentLineToRead >= TextLines.Count) //Si ho has llegit tot i vols tornar a llegir et torna al principi

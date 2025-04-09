@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RespawnRoom_Logic : BaseRoomWithDoorLogic
 {
-    [SerializeField] Player_Respawner respawner;
+    [SerializeField] TiedEnemy_Controller respawner;
     [SerializeField] DoorAnimationController ExitDoorGate;
     public override void OnEnable()
     {

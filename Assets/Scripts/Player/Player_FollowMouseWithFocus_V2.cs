@@ -134,10 +134,14 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         //
         void SubscribeToEnemy(FocusIcon newICon)
         {
-            focusedEnemy_StateMachine = newICon.RootGameObject.GetComponent<Generic_StateMachine>();
-
             newICon.ShowFocusIcon();
-            focusedEnemy_StateMachine.OnStateChanged += OnFocusedEnemyChangeState;
+
+            //IF they have a statemachine, subcribe to unfocus when killed. Should it be a IKillabble? Maybe, but I dont want to implement it into the TiedEnemy
+            focusedEnemy_StateMachine = newICon.RootGameObject.GetComponent<Generic_StateMachine>();
+            if(focusedEnemy_StateMachine != null)
+            {
+                focusedEnemy_StateMachine.OnStateChanged += OnFocusedEnemyChangeState;
+            }
         }
     }
    
@@ -159,7 +163,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         void UnsubscribeToEnemy(FocusIcon oldIcon)
         {
             oldIcon.HideFocusIcon();
-            focusedEnemy_StateMachine.OnStateChanged -= OnFocusedEnemyChangeState;
+            if (focusedEnemy_StateMachine != null) { focusedEnemy_StateMachine.OnStateChanged -= OnFocusedEnemyChangeState; }
         }
     }
     private void OnEnable()
@@ -235,6 +239,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     {
         if (newState.stateTag == StateTags.Dead)
         {
+            focusedEnemy_StateMachine.OnStateChanged -= OnFocusedEnemyChangeState;
             const float diedRadius = 5;
             FocusIcon newEnemy = GetClosestEnemyToCircle(newState.gameObject.transform.position,
                 diedRadius,

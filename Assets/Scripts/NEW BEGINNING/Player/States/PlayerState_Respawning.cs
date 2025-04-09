@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerState_Respawning : PlayerState
 {
-    [HideInInspector] Player_Respawner nextRespawner; //Before calling this state, we should fill this respawner 
     public override void OnEnable()
     {
         base.OnEnable();
-
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
+
         //Set up weapon rotation
         Transform weaponPivot = playerRefs.weaponPivot.transform;
         weaponPivot.eulerAngles = new Vector3(
@@ -18,11 +17,25 @@ public class PlayerState_Respawning : PlayerState
                     90
                     );
 
-        //Hide sprites
-        //move player to respawner position
-        //activate respawner animation
-        //respawner animation call EV_ from here
+        //Sprites are already hidden by death state
+
+        //Move player to respawner position
+        TiedEnemy_Controller furthestRespawner =  RespawnersManager.Instance.GetFurthestActiveRespawner();
+        furthestRespawner.MovePlayerHere(rootGameObject);
+
+        //play respawner animation
+        StartCoroutine(delayedPlayTiedAnimation());
+
+        //respawner animation will call the EV_ from there to activate the player
+
+        //
+        IEnumerator delayedPlayTiedAnimation()
+        {
+            yield return new WaitForSeconds(1);
+            furthestRespawner.PlayRespawningAnimation();
+        }
     }
+
     public override void OnDisable()
     {
         base.OnDisable();
@@ -31,10 +44,10 @@ public class PlayerState_Respawning : PlayerState
     Coroutine currentCorotine;
     public void EV_ActuallyRespawn()
     {
+        playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         playerRefs.hideSprites.ShowPlayerSprites();
         currentCorotine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
-        //Show sprites
-
+        GameEvents.OnPlayerRespawned?.Invoke();
     }
 }

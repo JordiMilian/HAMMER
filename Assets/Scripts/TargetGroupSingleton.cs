@@ -107,9 +107,17 @@ public class TargetGroupSingleton : MonoBehaviour
     {
         RemoveTarget(GlobalPlayerReferences.Instance.playerTf, MouseCameraTarget.Instance.transform);
     }
+    public void RemoveMouseTarget()
+    {
+        RemoveTarget(MouseCameraTarget.Instance.transform);
+    }
     public void ReturnPlayersTarget()
     {
         AddTarget(GlobalPlayerReferences.Instance.playerTf, DefaultPlayerStats.x, DefaultPlayerStats.y);
+        AddTarget(MouseCameraTarget.Instance.transform, DefaultMouseStats.x, DefaultMouseStats.y);
+    }
+    public void ReturnMouseTarget()
+    {
         AddTarget(MouseCameraTarget.Instance.transform, DefaultMouseStats.x, DefaultMouseStats.y);
     }
     void setTargetsStats(int index, Transform tf , float weight, float radius)

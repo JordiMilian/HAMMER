@@ -54,14 +54,16 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
 
         #endregion
 
+        
         enemyRefs.flasher.CallDefaultFlasher();
 
-        if(enemyRefs.stanceMeter.IsStanceBrokenAfterRemoval(info.Damage) && enemyStateMachine.currentState.stateTag != StateTags.Dead)
+        if(enemyRefs.stanceMeter.IsStanceBrokenAfterRemoval(info.Damage))
         {
             enemyStateMachine.ChangeState(enemyRefs.StanceBrokenState);
         }
+        else { enemyRefs.animator.SetTrigger("Hit"); }
 
-        if(isInRecovery)
+        if (isInRecovery)
         {
             OnAttackedWhileRecovery();
         }
@@ -154,13 +156,14 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     #endregion
     #region Attacked While Recovery
     [Header ("Attacked While in Recovery")]
+    [SerializeField] bool canAttackWhileRecovery = false;
     [SerializeField] EnemyState State_AttackedWhileRecoveryTransitionState;
     [SerializeField] float seconds_AttackedWhileRecoveryCooldown = 5;
     public bool isInRecovery { get; set; }
     bool isInCooldown;
     public void OnAttackedWhileRecovery()
     {
-        if (!isInCooldown)
+        if (!isInCooldown && canAttackWhileRecovery)
         {
             isInRecovery = false;
             enemyRefs.stateMachine.ChangeState(State_AttackedWhileRecoveryTransitionState);

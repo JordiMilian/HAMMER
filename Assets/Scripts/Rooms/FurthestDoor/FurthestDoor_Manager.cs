@@ -68,7 +68,7 @@ public class FurthestDoor_Manager : MonoBehaviour
             enterExitScene.playEnteringCutsceneOnLoad = false;
         }
         enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].playEnteringCutsceneOnLoad = true;
-        enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].tiedEnemyRespawner.ExternallyActivateRespawner();
+        enterExitScenesList[gameState.FurthestDoorsArray[roomGenerator.AreaIndex]].tiedEnemyRespawner.ActivateRespawner();
         //Player_RespawnerManager.Instance.Respawners[roomGenerator.AreaIndex].ExternallyActivateRespawner();
     }
     

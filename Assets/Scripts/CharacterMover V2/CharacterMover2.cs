@@ -6,7 +6,7 @@ public class CharacterMover2 : MonoBehaviour
 {
     public Vector2 currentVelocity; 
     public List<Vector2> MovementVectorsPerSecond = new List<Vector2>();
-    public CircleCollider2D circleCollider;
+    [HideInInspector]public CircleCollider2D circleCollider;
     public bool ignoreCollisions;
     [Range(0f, 1f)]
     [Tooltip("Less Value means more Resistance/Strenght")]
@@ -19,7 +19,11 @@ public class CharacterMover2 : MonoBehaviour
     [Header("Testing")]
     [SerializeField] Vector2 TestDirectionToMove;
     [SerializeField] float speedMultiplier;
-  
+
+    private void Awake()
+    {
+        circleCollider = GetComponent<CircleCollider2D>();
+    }
     private void Start()
     {
         CollisionsManager.instance.AddCharacterMover(this);
@@ -55,7 +59,7 @@ public class CharacterMover2 : MonoBehaviour
         if (calculatedDirection.magnitude > circleCollider.radius)
         {
             calculatedDirection = calculatedDirection.normalized * circleCollider.radius;
-            Debug.LogWarning("Movement had to be limited");
+            Debug.LogWarning(gameObject.name +  "'s movement had to be limited");
         }
 
         currentVelocity = calculatedDirection;

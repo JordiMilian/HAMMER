@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Enemy_AttacksProviderV2;
 
 public class EnemyState_Agroo : EnemyState
 {
     [SerializeField] bool showDebug;
     [SerializeField] Enemy_AgrooAlertIcon alertIconScript;
-    public bool PlayerIsInAnyRange;
     public bool isPlayerDetected = false;
+    [SerializeField] Enemy_AttacksInRangeDetector attacksInRangeDetector;
 
     [HideInInspector] public EnemyState_Attack currentAttack;
     EnemyState ForcedNextAttack;
     bool isNextAttackForced;
-    [SerializeField] Transform TF_AttackStatets;
+    Transform TF_AttackStatets;
 
 
     public void ForceNextAttack(EnemyState ForcedState)
@@ -28,7 +27,9 @@ public class EnemyState_Agroo : EnemyState
         base.OnEnable();
         if (List_EnemyAttacks.Count == 0)
         {
+            TF_AttackStatets = attacksInRangeDetector.transform;
             List_EnemyAttacks = TF_AttackStatets.GetComponentsInChildren<EnemyState_Attack>(true).ToList();
+            
         }
 
         if (!isPlayerDetected)
@@ -45,48 +46,16 @@ public class EnemyState_Agroo : EnemyState
         EnemyRefs.moveToTarget.DoLook = true;
         EnemyRefs.moveToTarget.DoMove = true;
 
-
- 
-
-        foreach (EnemyState_Attack attack in List_EnemyAttacks)
-        {
-            attack.rangeDetector.OnPlayerEntered += attack.isInRange;
-            attack.rangeDetector.OnPlayerExited += attack.isNotInRange;
-            attack.rangeDetector.OnPlayerEntered += RunChecker;
-            attack.rangeDetector.OnPlayerExited += RunChecker;
-        }
+        EnemyRefs.animator.CrossFade(AnimatorStateName, 0.1f);
     }
-    public override void OnDisable()
-    {
-        //Should we disable the following scripts? Maybe no
 
-        foreach (EnemyState_Attack attack in List_EnemyAttacks)
-        {
-            attack.rangeDetector.OnPlayerEntered -= attack.isInRange;
-            attack.rangeDetector.OnPlayerExited -= attack.isNotInRange;
-            attack.rangeDetector.OnPlayerEntered -= RunChecker;
-            attack.rangeDetector.OnPlayerExited -= RunChecker;
-        }
-    }
-    void RunChecker()
-    {
-        PlayerIsInAnyRange = CheckIfPlayerIsInAnyRange();
 
-        bool CheckIfPlayerIsInAnyRange()
-        {
-            foreach (EnemyState_Attack attack in List_EnemyAttacks)
-            {
-                if (attack.isActive) return true;
-            }
-            return false;
-        }
-    }
     
     void FixedUpdate()
     {
         //bastant guarro aixo
-
-        if (PlayerIsInAnyRange)
+        
+        if (attacksInRangeDetector.PlayerIsInAnyRange)
         {
             if (isNextAttackForced)
             {
@@ -96,11 +65,10 @@ public class EnemyState_Agroo : EnemyState
                 return;
             }
 
-            //ResetAllTriggers(enemyRefs.animator); //Aixo crec que es pot borrar pero per si de cas nose
             EnemyState_Attack randomAvailableAttack = GetRandomAvailableAttack();
             if (randomAvailableAttack != null) { stateMachine.ChangeState(randomAvailableAttack); }
         }
-
+        
     }
 
     public EnemyState_Attack GetRandomAvailableAttack()
@@ -120,6 +88,7 @@ public class EnemyState_Agroo : EnemyState
         float ActiveAttacksProbability = AddAttacksProbability(ActiveAttacks);
         Debuguer("All Active attacks combined make: " + ActiveAttacksProbability);
 
+        
         float randomFloat = UnityEngine.Random.Range(0, ActiveAttacksProbability);
         Debuguer("Random float is: " + randomFloat);
 
@@ -133,12 +102,12 @@ public class EnemyState_Agroo : EnemyState
             }
             if ((randomFloat > probabilitatMinima) && (randomFloat < probabilitatMinima + ActiveAttacks[i].Probability))
             {
-                Debuguer(i + " succede chance");
+                Debuguer(ActiveAttacks[i].name + " succede chance");
                 return ActiveAttacks[i];
             }
             else
             {
-                Debuguer(i + " failed chance");
+                Debuguer(ActiveAttacks[i].name + " failed chance");
             }
         }
         return null;
@@ -158,20 +127,6 @@ public class EnemyState_Agroo : EnemyState
                 Debug.Log(message);
             }
                 
-        }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        foreach (EnemyState_Attack attack in List_EnemyAttacks)
-        {
-            if (attack.isActive) Gizmos.color = Color.blue;
-            else Gizmos.color = Color.red;
-
-            BoxCollider2D boxCollider = attack.rangeDetector.ownCollider;
-
-            Matrix4x4 rotationMatrix = Matrix4x4.TRS(boxCollider.transform.position, boxCollider.transform.rotation, boxCollider.transform.lossyScale);
-            Gizmos.matrix = rotationMatrix;
-            Gizmos.DrawWireCube(boxCollider.offset, boxCollider.size);
         }
     }
 }

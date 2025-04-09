@@ -107,6 +107,7 @@ public class PlayerState_Rolling : PlayerState
         if(checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
 
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Regular);
+        playerRefs.spriteFliper.canFlip = true;
 
         base.OnDisable();  
     }

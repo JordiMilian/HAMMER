@@ -12,7 +12,7 @@ public class FinalDoor_DialoguesControler : MonoBehaviour
     }
     void SetNewContainerIndex()
     {
-        finalDoor_Dialoguer.dialoguesIndex = gameState.finalDoor_DialogueIndex; 
+        finalDoor_Dialoguer.dialoguesContainerIndex = gameState.finalDoor_DialogueIndex; 
 
 
         //Not read anything
@@ -46,7 +46,7 @@ public class FinalDoor_DialoguesControler : MonoBehaviour
     void SetStateDialoguer(int index)
     {
         gameState.finalDoor_DialogueIndex = index;
-        finalDoor_Dialoguer.dialoguesIndex = index;
+        finalDoor_Dialoguer.dialoguesContainerIndex = index;
         finalDoor_Dialoguer.UpdateDialogues();
     }
 }

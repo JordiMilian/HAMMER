@@ -9,7 +9,6 @@ public abstract class EnemyState_Attack : EnemyState
 
 
     //Revisa lo que sigue o no necesari aqui 
-    [SerializeField] string ShortDescription;
     public Enemy_AttackRangeDetector rangeDetector;
     [HideInInspector] public BoxCollider2D boxCollider;
     [HideInInspector] public bool isActive;
@@ -19,7 +18,6 @@ public abstract class EnemyState_Attack : EnemyState
     public float Damage;
     public int Probability;
     public float KnockBack;
-    [HideInInspector] public float Hitstop;
     [Header("Cooldown")]
     float lastAttackFinishedTime;
     public bool isInCooldown()
@@ -38,7 +36,8 @@ public abstract class EnemyState_Attack : EnemyState
     public override void OnEnable()
     {
         base.OnEnable();
-        foreach(Generic_DamageDealer dealer in EnemyRefs.DamageDealersList)
+        EnemyRefs.spriteFliper.canFlip = false;
+        foreach (Generic_DamageDealer dealer in EnemyRefs.DamageDealersList)
         {
             dealer.Damage = Damage;
             dealer.Knockback = KnockBack;
@@ -46,6 +45,8 @@ public abstract class EnemyState_Attack : EnemyState
     }
     public override void OnDisable()
     {
+        base.OnDisable();
+        EnemyRefs.spriteFliper.canFlip = true;
         lastAttackFinishedTime = Time.time;
     }
     public void OnAttackFinished()

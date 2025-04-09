@@ -931,14 +931,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Knockback: 0
-  HitStop: 0
   isParryable: 1
   isBloody: 0
   isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 1
   weaponIndex: 0
   EntityTeam: 1
-  eventSystem: {fileID: 1942342819547614402}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!1 &7786399717714064026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,7 +1423,7 @@ PrefabInstance:
     - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: stateController
       value: 
-      objectReference: {fileID: 1274321103965579122}
+      objectReference: {fileID: 0}
     - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: showHideAttackCollider
       value: 
@@ -1648,17 +1648,6 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 2267746090030100088, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1942342819547614402 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 627058440868749388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 1317114688664693902}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990783456134387076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1990783456134387076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 713815961661323530, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1697,61 +1686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRefs: {fileID: 8881099394174749735}
-  ResponseAttackIndex: 3
-  CooldownSeconds: 3
---- !u!114 &1274321103965579122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990783456134387076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccdb25b3fbf7ed0448c0028f00313d95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyRefs: {fileID: 8881099394174749735}
-  damagedMovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.0857438
-      outSlope: -0.0857438
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.09546539
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2.915279
-      outSlope: -2.915279
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.023866355
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  agrooTrigger: {fileID: 0}
-  currentAttack:
-    ShortDescription: 
-    rangeDetector: {fileID: 0}
-    boxCollider: {fileID: 0}
-    isActive: 0
-    notOvniInvertable: 0
-    Damage: 0
-    Probability: 0
-    KnockBack: 0
-    Hitstop: 0
-    animationClip: {fileID: 0}
-    isInCooldown: 0
-    HasCooldown: 0
-    CooldownTime: 0
 --- !u!96 &2087781961693099217 stripped
 TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 1062320051197155423, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}

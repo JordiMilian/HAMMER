@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTag: 4
   AnimatorStateName: Long Attack
-  ShortDescription: Attack01
   rangeDetector: {fileID: 6507630011213787422}
   boxCollider: {fileID: 0}
   isActive: 0
@@ -54,7 +53,6 @@ MonoBehaviour:
   Damage: 1
   Probability: 1
   KnockBack: 1
-  Hitstop: 0
   HasCooldown: 0
   CooldownTime: 0
 --- !u!1 &900907593866143334
@@ -103,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTag: 4
   AnimatorStateName: Move Away
-  ShortDescription: Attack02
   rangeDetector: {fileID: 3248277046507630191}
   boxCollider: {fileID: 0}
   isActive: 0
@@ -111,7 +108,6 @@ MonoBehaviour:
   Damage: 0
   Probability: 1
   KnockBack: 0
-  Hitstop: 0
   HasCooldown: 1
   CooldownTime: 1
 --- !u!1 &1609219042553520324
@@ -566,7 +562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTag: 4
   AnimatorStateName: Doble Attack
-  ShortDescription: Attack01
   rangeDetector: {fileID: 6267965342770848507}
   boxCollider: {fileID: 0}
   isActive: 0
@@ -574,7 +569,6 @@ MonoBehaviour:
   Damage: 0.7
   Probability: 1
   KnockBack: 1
-  Hitstop: 0
   HasCooldown: 0
   CooldownTime: 0
 --- !u!1 &4593818171350031598
@@ -2117,6 +2111,10 @@ PrefabInstance:
     - target: {fileID: 8775765544101597181, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Sources.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873142599045232630, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: canAttackWhileRecovery
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8873142599045232630, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: seconds_AttackedWhileRecoveryTime

@@ -4,12 +4,10 @@ using UnityEngine;
 public class RespawnersManager : MonoBehaviour
 {
 
-    public List<Player_Respawner> Respawners = new List<Player_Respawner>();
+    public List<TiedEnemy_Controller> Respawners = new List<TiedEnemy_Controller>();
     bool isSorted;
-     Player_Respawner CurrentFurthestRespawner;
-    //[SerializeField] GameObject PlayerGO;
-    [SerializeField] GameState gameState;
-    
+
+    #region SINGLETON 
     public static RespawnersManager Instance;
     private void Awake()
     {
@@ -22,25 +20,15 @@ public class RespawnersManager : MonoBehaviour
             Instance = this;
         }
     }
-    public void RespawnPlayer()
+    #endregion
+    public TiedEnemy_Controller GetRespawnerByIndexOfDistance(int indexByDistance)
     {
-        CheckFurthestRespawner();
-        //CurrentFurthestRespawner.gameObject.GetComponent<TiedEnemy_StateMachine>().ShowBodies();
-        CurrentFurthestRespawner.RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject); //Go to Player_Respawn
+        if (indexByDistance > Respawners.Count) { Debug.LogError("respawner out of range"); return null; }
+        if (!isSorted) { sortRespawners(); isSorted = true; }
+
+        return Respawners[indexByDistance];
     }
-    public void ForceSpawnInIndex(int indexByDistance)
-    {
-        if (indexByDistance > Respawners.Count) { Debug.LogError("respawner out of range"); return; }
-        sortRespawners();
-        Respawners[indexByDistance].ExternallyActivateRespawner();
-        Respawners[indexByDistance].RespawnFromHere(GlobalPlayerReferences.Instance.references.gameObject);
-    }
-    void CheckFurthestRespawner()
-    {
-        CurrentFurthestRespawner = GetFurthestActiveRespawner();
-    }
-    
-    public Player_Respawner GetFurthestActiveRespawner()
+    public TiedEnemy_Controller GetFurthestActiveRespawner()
     {
         if (!isSorted)
         {
@@ -60,7 +48,6 @@ public class RespawnersManager : MonoBehaviour
                     furthestIndex = i;
                 }
             }
-            //gameState.FurthestDoorsArray[roomGenerator.AreaIndex] = furthestIndex;
             return furthestIndex;
         }
     }
@@ -81,15 +68,14 @@ public class RespawnersManager : MonoBehaviour
                 }
             }
 
-            Player_Respawner tempRespawner = Respawners[closestIndex];
+            TiedEnemy_Controller tempRespawner = Respawners[closestIndex];
             Respawners[closestIndex] = Respawners[i];
             Respawners[i] = tempRespawner;
         }
     }
-    
     void setDistancesOfRespawners()
     {
-        foreach (Player_Respawner respawner in Respawners)
+        foreach (TiedEnemy_Controller respawner in Respawners)
         {
             respawner.distanceToManager = (respawner.transform.position - transform.position).sqrMagnitude;
         }

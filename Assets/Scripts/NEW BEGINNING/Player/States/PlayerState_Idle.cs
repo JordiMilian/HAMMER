@@ -11,7 +11,6 @@ public class PlayerState_Idle : PlayerState
     {
         stateMachine.EV_ReturnInput();
         stateMachine.EV_CanTransition();
-        Debug.Log("enter idle");
 
         animator.CrossFade(AnimatorStateName_Still, transitionTime_long);
         isAnimationWalking = false;

@@ -1010,8 +1010,8 @@ MonoBehaviour:
   xpDropper: {fileID: 1682976843692370032}
   deadPartsInstantiator: {fileID: 4873308557242800303}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  DeathUIRoot: {fileID: 1769096167277511253}
-  playerMainCollider: {fileID: 7653426975249963388}
+  DeathUIRoot: {fileID: 7224296030134221459}
+  playerSinglePointCollider: {fileID: 7653426975463659562}
 --- !u!114 &1682976843692370032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,9 +1506,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2867707374299224449}
-        m_TargetAssemblyTypeName: Player_DeathController, Assembly-CSharp
-        m_MethodName: SpawnAgain
+      - m_Target: {fileID: 942619299357612051}
+        m_TargetAssemblyTypeName: Player_DeathUI, Assembly-CSharp
+        m_MethodName: Button_SpawnAgain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1760,7 +1760,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 53183938296472220}
-  - component: {fileID: 2867707374299224449}
+  - component: {fileID: 942619299357612051}
   m_Layer: 0
   m_Name: DeathController
   m_TagString: Untagged
@@ -1784,7 +1784,7 @@ Transform:
   m_Father: {fileID: 7653426975249963376}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2867707374299224449
+--- !u!114 &942619299357612051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1793,12 +1793,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3806684859111800842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca89f771c6cda44b8f19b8c21732d5c, type: 3}
+  m_Script: {fileID: 11500000, guid: e46b6a464c50f7442a6c50368e5b4e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DeathUIRoot: {fileID: 4314132163254782058}
-  playerRefs: {fileID: 3175104005493510322}
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  playerDeathState: {fileID: 6688792410331491047}
 --- !u!1 &4111185810681694914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4314132163254782058
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3050,7 +3049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0276c7d9d87de8c49941cf82625cfb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimatorStateName: 
+  AnimatorStateName: Idle
   doesRequireStamina: 0
   StaminaCost: 0
 --- !u!1 &7476701271576577685
@@ -4466,6 +4465,7 @@ MonoBehaviour:
   currentVelocity: {x: 0, y: 0}
   MovementVectorsPerSecond: []
   circleCollider: {fileID: 7653426975249963388}
+  ignoreCollisions: 0
   InvertedResistance: 0.5
   animator: {fileID: 7653426975249963390}
   RootMotionMultiplier: 1
@@ -5162,8 +5162,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2867707374299224449}
-        m_TargetAssemblyTypeName: Player_DeathController, Assembly-CSharp
+      - m_Target: {fileID: 942619299357612051}
+        m_TargetAssemblyTypeName: Player_DeathUI, Assembly-CSharp
         m_MethodName: EndRun
         m_Mode: 1
         m_Arguments:
@@ -5320,7 +5320,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3.5
+  m_Radius: 3
 --- !u!1 &8864971179855829072
 GameObject:
   m_ObjectHideFlags: 0

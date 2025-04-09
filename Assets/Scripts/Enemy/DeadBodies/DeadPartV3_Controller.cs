@@ -77,6 +77,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     {
         DeadParts_Manager.Instance.GroundsList.Remove(groundCollider);
         DeadParts_Manager.Instance.OnDeadPartInstantiated -= IgnoreOtherGrounds;
+        GameEvents.OnPlayerRespawned -= DestroyItself;
     }
     private void Start()
     {
@@ -119,7 +120,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     }
     public void DestroyItself()
     {
-        Destroy(gameObject);
+        if(gameObject != null) { Destroy(gameObject); }
     }
 
     public void CallHorizontal(Vector2 direction, float intencity, float durationMultiplier)

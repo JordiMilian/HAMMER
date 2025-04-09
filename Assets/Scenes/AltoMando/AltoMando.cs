@@ -10,7 +10,7 @@ public class AltoMando : MonoBehaviour
     [SerializeField] EnterExitScene_controller[] EnterExitScene;
     [SerializeField] DoorAnimationController FinalDoor;
     [SerializeField] GameState gameState;
-    [SerializeField] Player_Respawner tutorialEndRespawner;
+    [SerializeField] TiedEnemy_Controller tutorialEndRespawner;
     [SerializeField] Cutscene_Death_ResetState ResetStateCutscene;
     int doorsCompleted;
     private void Awake()
@@ -22,8 +22,10 @@ public class AltoMando : MonoBehaviour
 
         if (gameState.isTutorialComplete && gameState.LastEnteredDoor < 0 || gameState.justDefeatedBoss )
         {
-            tutorialEndRespawner.ExternallyActivateRespawner();
+            tutorialEndRespawner.ActivateRespawner();
 
+            //Revisar tot aixo un altre dia
+            /*
             if (gameState.isSpawnWithouUpgrades)
             {
                 ResetStateCutscene.dontResetState = false;
@@ -33,6 +35,7 @@ public class AltoMando : MonoBehaviour
                 ResetStateCutscene.dontResetState = true;
             }
             CutscenesManager.Instance.AddCutscene(ResetStateCutscene);
+            */
         }
 
         gameState.isSpawnWithouUpgrades = false;

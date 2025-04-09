@@ -15,7 +15,6 @@ public class Generic_DamageDetector : MonoBehaviour
     public bool canChargeSpecialAttack;
     private void OnValidate()
     {
-        Debug.Log("validating "+ gameObject.name);
         if (rootGameObject != null)
         {
             IDamageReceiver tempDamageReceiver = rootGameObject.GetComponent<IDamageReceiver>();

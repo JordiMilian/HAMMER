@@ -16,7 +16,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI xpPointText;
     [SerializeField] TextMeshProUGUI levelUpCostText;
-    private Player_Respawner playerRespawner;
+    private TiedEnemy_Controller playerRespawner;
 
 
     public event Action OnLevelUpSystemActivated, OnLevelUpMenuActivated, OnLevelUpMenuClosed;
@@ -117,7 +117,7 @@ public class UI_LevelUpSystemMenu : MonoBehaviour
         go_UILevelUpSystem.SetActive(false);
         go_LevelUpMenu.SetActive(false);
  
-        playerRespawner = GetComponentInParent<Player_Respawner>();
+        playerRespawner = GetComponentInParent<TiedEnemy_Controller>();
         playerStatPointsManager = playerRefs.levelStatsManager;
         playerRespawner.OnRespawnerActivated += SetLevelUpSystemAvailable;
 

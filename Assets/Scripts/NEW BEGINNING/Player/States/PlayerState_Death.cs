@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerState_Death : PlayerState
 {
@@ -8,7 +9,7 @@ public class PlayerState_Death : PlayerState
     [SerializeField] DeadPart_Instantiator deadPartsInstantiator;
     [SerializeField] GameState gameState;
     [SerializeField] GameObject DeathUIRoot;
-    [SerializeField] Collider2D playerMainCollider;
+    [SerializeField] Collider2D playerSinglePointCollider;
     GameObject playerDeadHead;
     public override void OnEnable()
     {
@@ -25,7 +26,7 @@ public class PlayerState_Death : PlayerState
 
         playerRefs.hideSprites.HidePlayerSprites();
 
-        playerMainCollider.enabled = false;
+        playerSinglePointCollider.enabled = false;
 
         spawnPlayerXps(); //Aixo es questionable, consultar amb diseny
 
@@ -55,16 +56,26 @@ public class PlayerState_Death : PlayerState
     public override void OnDisable()
     {
         base.OnDisable();
-        playerMainCollider.enabled = true;
+        playerSinglePointCollider.enabled = true;
     }
     public void Button_RespawnPlayer()
     {
-        //deadHead go up
-        //delay
-        //Change state to respawn
+        StartCoroutine(respawnCoroutine());
+
+        //
+        IEnumerator respawnCoroutine()
+        {
+            yield return StartCoroutine(playerDeadHead.GetComponent<PlayerHead_RebornBegin>().FlyAwayCoroutine());
+            stateMachine.ForceChangeState(playerRefs.RespawningState);
+        }
     }
     public void Button_RestartRun()
     {
         //Load scene
+        //Restart everything
+        //DontDestroy needs to be tested
+        DontDestroyOnLoad(rootGameObject);
+        SceneManager.LoadScene("AltoMando");
+        //Respawn in altomando index? Or should the altomando initializer manage it?
     }
 }

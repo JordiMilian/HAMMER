@@ -165,15 +165,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4802207913274506029}
-  - component: {fileID: 6792726357816075657}
-  - component: {fileID: 1771262554875931710}
-  - component: {fileID: 2195041901401652145}
   - component: {fileID: 8873142599045232630}
   - component: {fileID: 5622157128156225732}
+  - component: {fileID: 3636471228802160383}
   - component: {fileID: 7568110113479188649}
+  - component: {fileID: 6792726357816075657}
+  - component: {fileID: 2195041901401652145}
   - component: {fileID: 6932147153519873058}
   - component: {fileID: 7666102949945393891}
-  - component: {fileID: 3636471228802160383}
   m_Layer: 16
   m_Name: BaseEnemy
   m_TagString: Enemy
@@ -202,63 +201,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &6792726357816075657
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!50 &1771262554875931710
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 20
-  m_AngularDrag: 20
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!95 &2195041901401652145
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e06733abdb460d849a9b0f1ed642c814, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &8873142599045232630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +239,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  canAttackWhileRecovery: 0
   State_AttackedWhileRecoveryTransitionState: {fileID: 0}
   seconds_AttackedWhileRecoveryCooldown: 5
 --- !u!114 &5622157128156225732
@@ -312,6 +255,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2195041901401652145}
+--- !u!114 &3636471228802160383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135da044b3b67e44b8b6791c9835e96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentVelocity: {x: 0, y: 0}
+  MovementVectorsPerSecond: []
+  circleCollider: {fileID: 6792726357816075657}
+  ignoreCollisions: 0
+  InvertedResistance: 0.5
+  animator: {fileID: 2195041901401652145}
+  RootMotionMultiplier: 1
+  TestDirectionToMove: {x: 0, y: 0}
+  speedMultiplier: 0
 --- !u!114 &7568110113479188649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +296,7 @@ MonoBehaviour:
   animator: {fileID: 2195041901401652145}
   damageDetectorCollider: {fileID: 7350678567647433300}
   positionCollider: {fileID: 6792726357816075657}
-  _rigidbody: {fileID: 1771262554875931710}
+  _rigidbody: {fileID: 0}
   characterMover: {fileID: 3636471228802160383}
   moveToTarget: {fileID: 6932147153519873058}
   stanceMeter: {fileID: 5639760252644540281}
@@ -341,7 +305,7 @@ MonoBehaviour:
   baseEnemyStats: {fileID: 0}
   currentEnemyStats: {fileID: 0}
   ownSinglePointCollider: {fileID: 1530135795851701840}
-  focusIcon: {fileID: 0}
+  focusIcon: {fileID: 8648635739619737511}
   groundDetector: {fileID: 8387963849232553166}
   basicAnimationEvents: {fileID: 7666102949945393891}
   stateMachine: {fileID: 5622157128156225732}
@@ -350,6 +314,42 @@ MonoBehaviour:
   ParriedState: {fileID: 3473498437535998235}
   StanceBrokenState: {fileID: 1037243609939012785}
   DeathState: {fileID: 5956665756705928250}
+--- !u!58 &6792726357816075657
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!95 &2195041901401652145
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713815961661323530}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e06733abdb460d849a9b0f1ed642c814, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6932147153519873058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,27 +386,6 @@ MonoBehaviour:
   enemyRefs: {fileID: 7568110113479188649}
   weaponTrail: {fileID: 0}
   SFX_Swing: {fileID: 8300000, guid: 090d72a3dfebdc541a1e0de05653c2ca, type: 3}
---- !u!114 &3636471228802160383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713815961661323530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 135da044b3b67e44b8b6791c9835e96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentVelocity: {x: 0, y: 0}
-  MovementVectorsPerSecond: []
-  circleCollider: {fileID: 6792726357816075657}
-  ignoreCollisions: 0
-  InvertedResistance: 0.5
-  animator: {fileID: 2195041901401652145}
-  RootMotionMultiplier: 1
-  TestDirectionToMove: {x: 0, y: 0}
-  speedMultiplier: 0
 --- !u!1 &848200506690117509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c5bb1f22af9c342bd34366fb99f015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1771262554875931710}
+  _rigidbody: {fileID: 0}
   animator: {fileID: 2195041901401652145}
   MovementReference: {fileID: 2341438317793130741}
   Pivot: {fileID: 8543705226525020148}
@@ -1294,6 +1273,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8244656171833337399}
+  - component: {fileID: 5766959306236291135}
   m_Layer: 0
   m_Name: AttackStates
   m_TagString: Untagged
@@ -1317,6 +1297,19 @@ Transform:
   m_Father: {fileID: 1528115628968044978}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5766959306236291135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937950462070581630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36eca3f94a5ca7b4195e617f6a0930e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIsInAnyRange: 0
 --- !u!1 &3100221687127867211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,10 +1565,9 @@ MonoBehaviour:
   AnimatorStateName: Agroo
   showDebug: 0
   alertIconScript: {fileID: 7671876023261719830}
-  PlayerIsInAnyRange: 0
   isPlayerDetected: 0
+  attacksInRangeDetector: {fileID: 5766959306236291135}
   currentAttack: {fileID: 0}
-  TF_AttackStatets: {fileID: 8244656171833337399}
 --- !u!1 &6002167493573330123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,7 +1647,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTag: 4
   AnimatorStateName: 
-  ShortDescription: Attack01
   rangeDetector: {fileID: 4898058486958885132}
   boxCollider: {fileID: 0}
   isActive: 0
@@ -1663,7 +1654,6 @@ MonoBehaviour:
   Damage: 1
   Probability: 1
   KnockBack: 1
-  Hitstop: 0
   HasCooldown: 0
   CooldownTime: 0
 --- !u!1 &6782905927890007597

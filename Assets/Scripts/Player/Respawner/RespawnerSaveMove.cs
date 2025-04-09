@@ -17,12 +17,12 @@ public class RespawnerSaveMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5)) { checkIfNullAndRespawn(respawnerManager.Respawners[4]); }
         if (Input.GetKeyDown(KeyCode.Alpha6)) { checkIfNullAndRespawn(respawnerManager.Respawners[5]); }
     }
-    void checkIfNullAndRespawn(Player_Respawner respawner)
+    void checkIfNullAndRespawn(TiedEnemy_Controller respawner)
     {
         if(respawner != null) 
         {
             GameObject playerGO = GlobalPlayerReferences.Instance.references.gameObject;
-            respawner.RespawnFromHere(playerGO); 
+            respawner.MovePlayerHere(playerGO); 
         }
     }
 }

@@ -28,9 +28,11 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         //Find the references
         CameraZoomController zoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
         Player_FollowMouseWithFocus_V2 followMouse = GlobalPlayerReferences.Instance.references.followMouse;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
-        //Player_EventSystem playerEvents = GlobalPlayerReferences.Instance.references.events;
-        //playerEvents.CallDisable();
+        //Disable player 
+        playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
+
 
         //Wait just in case for enemies to spawn
         yield return new WaitForSeconds(0.3f);
@@ -45,8 +47,8 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         //Activate the Agroo of the enemies
         foreach (GameObject enemy in enemyRoomLogic.CurrentlySpawnedEnemies)
         {
-            IChangeStateByType stateChanger = enemy.GetComponent<IChangeStateByType>();
-            stateChanger.ChangeStateByType(StateTags.Agroo);
+            Generic_StateMachine stateMachine = enemy.GetComponent<Generic_StateMachine>();
+            stateMachine.ChangeState(enemy.GetComponent<Enemy_References>().AgrooState);
         }
         
         followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0].GetComponent<Enemy_References>().focusIcon);
@@ -56,8 +58,10 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
             //Return to normal zoom
             zoomer.RemoveZoomInfoAndUpdate("enterCutscene");
             TargetGroupSingleton.Instance.RemoveTarget(CenterOfRoom);
-        
-        //playerEvents.CallEnable();
+
+
+        //Enable player
+        playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
 
         onCutsceneOver?.Invoke();
         yield return null;

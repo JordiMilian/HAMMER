@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class PlayerState_Disable : PlayerState
 {
-    //Finish whatever is doing?
-    //Dont subscribte
-    //movement to zero
-    //idle animation
+
     public override void OnEnable()
     {
         playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
+        //Set rotation speed to zero too
+        TargetGroupSingleton.Instance.RemoveMouseTarget();
+        playerRefs.animator.CrossFade(AnimatorStateName, transitionTime_instant);
+        playerRefs.spriteFliper.canFlip = false;
+    }
+    public override void OnDisable()
+    {
+        playerRefs.spriteFliper.canFlip = true;
+        TargetGroupSingleton.Instance.ReturnMouseTarget();
     }
 
 }
