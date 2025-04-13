@@ -25,7 +25,7 @@ public class PlayerState_Rolling : PlayerState
 
         playerRefs.spriteFliper.canFlip = false; //sprite can not flip during roll
 
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.VerySlow);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.VerySlow);
 
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
 
@@ -51,7 +51,7 @@ public class PlayerState_Rolling : PlayerState
         //If the player is not imputing a direction, rotate to the oposite of the sword
         if (direction.magnitude < 0.1f)
         {
-            Vector2 opositeDirectionToSword = -playerRefs.followMouse.SwordDirection;
+            Vector2 opositeDirectionToSword = -playerRefs.swordRotation.SwordDirection;
             direction = opositeDirectionToSword;
         }
 
@@ -106,7 +106,7 @@ public class PlayerState_Rolling : PlayerState
         if(rollAnimationCoroutine != null) { StopCoroutine(rollAnimationCoroutine); }
         if(checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
 
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Regular);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Regular);
         playerRefs.spriteFliper.canFlip = true;
 
         base.OnDisable();  

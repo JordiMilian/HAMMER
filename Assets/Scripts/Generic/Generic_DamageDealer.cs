@@ -10,7 +10,7 @@ public class Generic_DamageDealer : MonoBehaviour
     public float Knockback;
     public bool isParryable;
     public bool isBloody;
-    public bool isChargingSpecialAttack; // I think this is used by the player. For example de special attack shouldnt charge
+    public bool player_isChargingSpecialAttack; // I think this is used by the player. For example de special attack shouldnt charge
     public bool isCharginSpecialAttack_whenParried;
     [SerializeField] int weaponIndex = 0;
 
@@ -69,7 +69,7 @@ public class Generic_DamageDealer : MonoBehaviour
                 case DamagersTeams.Player:
                     if (otherDetector.EntityTeam == DamagersTeams.Enemy || otherDetector.EntityTeam == DamagersTeams.Neutral)
                     {
-                        PublishDealtDamageEvent(collision, otherDetector.canChargeSpecialAttack);
+                        PublishDealtDamageEvent(collision, otherDetector.enemy_canChargeSpecialAttack);
                     }
                     break;
                 case DamagersTeams.Enemy:
@@ -104,13 +104,13 @@ public class Generic_DamageDealer : MonoBehaviour
             }
         }
     }
-    void PublishDealtDamageEvent(Collider2D collision, bool isChargeable = false)
+    void PublishDealtDamageEvent(Collider2D collision, bool isReceiverChargeable = false)
     {
 
         Generic_DamageDetector otherDetector = collision.GetComponent<Generic_DamageDetector>();
         float charge = 0;
 
-        if (isChargeable && isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
+        if (isReceiverChargeable && player_isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
 
         thisDamageDealer.OnDamageDealt(new DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position), //collision point

@@ -10,8 +10,8 @@ public class EnemyState_Parried : EnemyState
     {
         base.OnEnable();
 
-        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.VerySlow);
-        EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.VerySlow);
+        EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.VerySlow);
+        EnemyRefs.moveToTarget.SetRotatinSpeed(SpeedsEnum.VerySlow);
         currentStateCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName,EnemyRefs.AgrooState,0.1f));
 
         animationEvents.EV_Enemy_HideAttackCollider();

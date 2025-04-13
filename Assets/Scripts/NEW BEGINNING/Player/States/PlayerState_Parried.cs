@@ -8,7 +8,7 @@ public class PlayerState_Parried : PlayerState
   public override void OnEnable()
     {
         base.OnEnable();
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Slow);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Slow);
 
 
         currentCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));

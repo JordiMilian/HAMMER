@@ -15,9 +15,9 @@ public class PlayerState_Death : PlayerState
     {
         TargetGroupSingleton.Instance.RemovePlayersTarget();
 
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Stopped);
 
-        playerRefs.followMouse.UnfocusCurrentEnemy();
+        playerRefs.swordRotation.UnfocusCurrentEnemy();
 
         gameState.playerDeaths++;
 

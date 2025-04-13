@@ -7,7 +7,7 @@ public class PlayerState_Disable : PlayerState
 
     public override void OnEnable()
     {
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Stopped);
         //Set rotation speed to zero too
         TargetGroupSingleton.Instance.RemoveMouseTarget();
         playerRefs.animator.CrossFade(AnimatorStateName, transitionTime_instant);

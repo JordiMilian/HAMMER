@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 {
     public bool isCurrentlyFocusing{ get; private set; }
-     public FocusIcon CurrentlyFocusedIcon { get; private set; }
+     public Focuseable CurrentFocuseable { get; private set; }
     public Vector2 SwordDirection { get; private set; }
 
     [SerializeField] Player_References playerRefs;
@@ -26,7 +26,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 
     Vector2 lastValidDirection; //This is for joystick, so the mouse looks at last looked direction
     InputDetector inputDetector;
-    List<FocusIcon> spawnedFocusIcons = new List<FocusIcon>();
+    List<Focuseable> spawnedFocuseables = new List<Focuseable>();
     bool attemptedJoystickRefocus;
     CameraZoomController zoomController;
 
@@ -48,9 +48,9 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
 
         if (isCurrentlyFocusing) //Look at enemy if focusing enemy
         {
-            if(CurrentlyFocusedIcon != null)
+            if(CurrentFocuseable != null)
             {
-                PosToLook = CurrentlyFocusedIcon.transform.position;
+                PosToLook = CurrentFocuseable.transform.position;
             }
             else { Debug.LogError("Focusing null enemy wtf"); }
         }
@@ -94,11 +94,11 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             {
                 if (!attemptedJoystickRefocus)
                 {
-                    FocusIcon oldEnemy = CurrentlyFocusedIcon;
+                    Focuseable oldEnemy = CurrentFocuseable;
 
-                    Vector2 center = (Vector2)CurrentlyFocusedIcon.transform.position + (inputDetector.LookingDirectionInput.normalized * JoystickJoystickRefocus_Radius);
+                    Vector2 center = (Vector2)CurrentFocuseable.transform.position + (inputDetector.LookingDirectionInput.normalized * JoystickJoystickRefocus_Radius);
 
-                    FocusIcon newEnemy = GetClosestEnemyToCircle(center, JoystickJoystickRefocus_Radius, false);
+                    Focuseable newEnemy = GetClosestFocuseableToCircle(center, JoystickJoystickRefocus_Radius, false);
                     if(newEnemy != null && newEnemy != oldEnemy) 
                     {
                         if (UsefullMethods.IsOutsideCameraView(newEnemy.transform.position, Camera.main))
@@ -121,18 +121,18 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         }
     }
     Generic_StateMachine focusedEnemy_StateMachine;
-    public void FocusNewEnemy(FocusIcon newIcon)
+    public void FocusNewEnemy(Focuseable newFocuseable)
     {
         UnfocusCurrentEnemy();
 
         isCurrentlyFocusing = true;
-        CurrentlyFocusedIcon = newIcon;
-        SubscribeToEnemy(newIcon);
-        TargetGroupSingleton.Instance.AddTarget(newIcon.transform, 3, 2);
+        CurrentFocuseable = newFocuseable;
+        SubscribeToEnemy(newFocuseable);
+        TargetGroupSingleton.Instance.AddTarget(newFocuseable.transform, 3, 2);
         zoomController.onFocusedEnemy();
 
         //
-        void SubscribeToEnemy(FocusIcon newICon)
+        void SubscribeToEnemy(Focuseable newICon)
         {
             newICon.ShowFocusIcon();
 
@@ -150,17 +150,17 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         if (!isCurrentlyFocusing) { return; }
 
         isCurrentlyFocusing = false;
-        if(CurrentlyFocusedIcon != null) 
+        if(CurrentFocuseable != null) 
         { 
-            UnsubscribeToEnemy(CurrentlyFocusedIcon);
-            TargetGroupSingleton.Instance.RemoveTarget(CurrentlyFocusedIcon.transform);
+            UnsubscribeToEnemy(CurrentFocuseable);
+            TargetGroupSingleton.Instance.RemoveTarget(CurrentFocuseable.transform);
         }
         TargetGroupSingleton.Instance.ReturnPlayersTarget();
         zoomController.onUnfocusedEnemy();
-        CurrentlyFocusedIcon = null;
+        CurrentFocuseable = null;
 
         //
-        void UnsubscribeToEnemy(FocusIcon oldIcon)
+        void UnsubscribeToEnemy(Focuseable oldIcon)
         {
             oldIcon.HideFocusIcon();
             if (focusedEnemy_StateMachine != null) { focusedEnemy_StateMachine.OnStateChanged -= OnFocusedEnemyChangeState; }
@@ -174,37 +174,37 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
     {
         inputDetector.OnFocusPressed -= OnFocusInputPressed;
     }
-    FocusIcon GetClosestEnemyToCircle(Vector2 circleCenter, float radius, bool ignoreCurrent)
+    Focuseable GetClosestFocuseableToCircle(Vector2 circleCenter, float radius, bool ignoreCurrent)
     {
-        spawnedFocusIcons.Clear();
+        spawnedFocuseables.Clear();
         GameObject[] allFocuseables = GameObject.FindGameObjectsWithTag(Tags.FocuseableObject);
-        foreach(GameObject focuseable in  allFocuseables)
+        foreach(GameObject focuseable in allFocuseables)
         {
-            FocusIcon thisFocus = focuseable.GetComponent<FocusIcon>();
-            if (thisFocus != null) { spawnedFocusIcons.Add(thisFocus); }
+            Focuseable thisFocus = focuseable.GetComponent<Focuseable>();
+            if (thisFocus != null) { spawnedFocuseables.Add(thisFocus); }
         }
 
         //Unfocus current enemy but keep a reference
-        FocusIcon lastFocusedEnemy = null;
-        if (CurrentlyFocusedIcon != null) { lastFocusedEnemy = CurrentlyFocusedIcon; }
+        Focuseable lastFocusedEnemy = null;
+        if (CurrentFocuseable != null) { lastFocusedEnemy = CurrentFocuseable; }
         UnfocusCurrentEnemy();
 
-        List<FocusIcon> InrangeEnemies = new List<FocusIcon>();
+        List<Focuseable> InrangeEnemies = new List<Focuseable>();
         List<float> InrangeDistances = new List<float>();
 
         StartCoroutine(DrawAttemptDebug(circleCenter, radius, 2f));
 
         //Add to a list every enemy within range and its distance
-        for (int i = 0; i < spawnedFocusIcons.Count; i++)
+        for (int i = 0; i < spawnedFocuseables.Count; i++)
         {
-            if (spawnedFocusIcons[i] == lastFocusedEnemy)
+            if (spawnedFocuseables[i] == lastFocusedEnemy)
             {
                 if (ignoreCurrent) { continue; }
             }
-            if (Vector2.Distance(circleCenter, spawnedFocusIcons[i].transform.position) < radius)
+            if (Vector2.Distance(circleCenter, spawnedFocuseables[i].transform.position) < radius)
             {
-                InrangeEnemies.Add(spawnedFocusIcons[i]);
-                InrangeDistances.Add(Vector2.Distance(circleCenter, spawnedFocusIcons[i].transform.position));
+                InrangeEnemies.Add(spawnedFocuseables[i]);
+                InrangeDistances.Add(Vector2.Distance(circleCenter, spawnedFocuseables[i].transform.position));
             }
         }
         if (InrangeEnemies.Count == 0)
@@ -241,7 +241,7 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
         {
             focusedEnemy_StateMachine.OnStateChanged -= OnFocusedEnemyChangeState;
             const float diedRadius = 5;
-            FocusIcon newEnemy = GetClosestEnemyToCircle(newState.gameObject.transform.position,
+            Focuseable newEnemy = GetClosestFocuseableToCircle(newState.gameObject.transform.position,
                 diedRadius,
                 true);
             if (newEnemy != null) { FocusNewEnemy(newEnemy); }
@@ -255,28 +255,30 @@ public class Player_FollowMouseWithFocus_V2 : MonoBehaviour
             if (isCurrentlyFocusing) { UnfocusCurrentEnemy(); }
             else
             {
-                FocusIcon newEnemy = GetClosestEnemyToCircle(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, true);
+                Focuseable newEnemy = GetClosestFocuseableToCircle(Camera.main.transform.position, JoystickRegularFocusAttempt_Radius, false);
                 if(newEnemy != null) { FocusNewEnemy(newEnemy); }
             }
         }
         else
         {
-            FocusIcon newEnemy = GetClosestEnemyToCircle(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, false);
+            Focuseable newEnemy = GetClosestFocuseableToCircle(MouseCameraTarget.Instance.transform.position, MouseRegularFocus_Radius, true);
             if (newEnemy != null) { FocusNewEnemy(newEnemy); }
         }
     }
     public void AttemptFocusAttackedEnemy(DealtDamageInfo info)
     {
-        FocusIcon maybeIcon = info.AttackedRoot.GetComponentInChildren<FocusIcon>();
+        Focuseable maybeIcon = info.AttackedRoot.GetComponentInChildren<Focuseable>();
         if (maybeIcon != null)
         {
-            playerRefs.followMouse.FocusNewEnemy(maybeIcon);
+            
 
             IHealth thisHealth = info.AttackedRoot.GetComponent<IHealth>();
             if (thisHealth != null && thisHealth.GetCurrentHealth() <= 0)
             {
-                UnfocusCurrentEnemy();
+               
             }
+            else { FocusNewEnemy(maybeIcon); }
+                
         }
     }
 }

@@ -54,7 +54,8 @@ public class MouseCameraTarget : MonoBehaviour
     void restartReturnToCenter()
     {
         if (currentReturnToCenter != null) { StopCoroutine(currentReturnToCenter); }
-        currentReturnToCenter = StartCoroutine(slowlyReturnToCenter(lastValidDirection, 15));
+        const float returnDuration = 15;
+        currentReturnToCenter = StartCoroutine(slowlyReturnToCenter(lastValidDirection, returnDuration));
         coroutineStarted = true;
     }
     void stopReturnToCenter()

@@ -12,7 +12,7 @@ public class Generic_DamageDetector : MonoBehaviour
     public Transform rootGameObject;
 
    
-    public bool canChargeSpecialAttack;
+    public bool enemy_canChargeSpecialAttack;
     private void OnValidate()
     {
         if (rootGameObject != null)

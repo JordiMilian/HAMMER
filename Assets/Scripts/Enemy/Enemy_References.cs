@@ -12,7 +12,7 @@ public class Enemy_References : Generic_References
     public EnemyStats baseEnemyStats;
     [HideInInspector] public EnemyStats currentEnemyStats;
     public Transform ownSinglePointCollider;
-    public FocusIcon focusIcon;
+    public Focuseable Focuseable;
     public Generic_TypeOFGroundDetector groundDetector;
     public BasicEnemy_AnimationEvents basicAnimationEvents;
 

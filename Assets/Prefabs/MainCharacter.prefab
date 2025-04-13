@@ -2465,7 +2465,7 @@ MonoBehaviour:
   Knockback: 1
   isParryable: 1
   isBloody: 1
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 1
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 0
@@ -3619,7 +3619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityTeam: 0
   rootGameObject: {fileID: 7653426975249963376}
-  canChargeSpecialAttack: 0
+  enemy_canChargeSpecialAttack: 0
 --- !u!1 &7653426974804122897
 GameObject:
   m_ObjectHideFlags: 0
@@ -4415,9 +4415,8 @@ MonoBehaviour:
   animator: {fileID: 7653426975249963390}
   damageDetectorCollider: {fileID: 7653426974398778621}
   positionCollider: {fileID: 7653426975249963388}
-  _rigidbody: {fileID: 7653426975249963380}
   characterMover: {fileID: 8478529271009582982}
-  followMouse: {fileID: 441638044159238565}
+  followMouse: {fileID: 0}
   proximityDetector: {fileID: 539228843836617613}
   playerStamina: {fileID: 7869705686411996582}
   upgradesManager: {fileID: 8836383671982987378}
@@ -4427,6 +4426,7 @@ MonoBehaviour:
   animationEvents: {fileID: 1439151477469121342}
   weaponSwitcher: {fileID: 3017718572642703395}
   hideSprites: {fileID: 6997831822276721509}
+  swordRotation: {fileID: 7862745803194502634}
   stateMachine: {fileID: 3464570301514220221}
   IdleState: {fileID: 1251543061657691909}
   RollingState: {fileID: 4500068552675241738}
@@ -4513,11 +4513,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
   SFX_SwordSwing: {fileID: 8300000, guid: 090d72a3dfebdc541a1e0de05653c2ca, type: 3}
-  minDistance: 0.2
-  maxDistance: 3
-  minForce: -0.6
-  maxForce: 1.25
-  defaulDistance: 2
   addForceTime: 0.25
   attackCurve:
     serializedVersion: 2
@@ -4552,7 +4547,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  forceMultiplier: 2
 --- !u!1 &7653426975463659567
 GameObject:
   m_ObjectHideFlags: 0
@@ -4664,7 +4658,7 @@ GameObject:
   - component: {fileID: 7653426975497917574}
   - component: {fileID: 5855810409125178880}
   - component: {fileID: 8904201443306655597}
-  - component: {fileID: 441638044159238565}
+  - component: {fileID: 7862745803194502634}
   m_Layer: 0
   m_Name: Weapons_Pivot
   m_TagString: Untagged
@@ -4718,7 +4712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpritesConstraint: {fileID: 5855810409125178880}
---- !u!114 &441638044159238565
+--- !u!114 &7862745803194502634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4727,19 +4721,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7653426975497917625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a6428d10d41d946855899d580a6948, type: 3}
+  m_Script: {fileID: 11500000, guid: 07e68a560534c49469d6870b8a9e7f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotatingTransform: {fileID: 7653426975497917574}
+  CurrentRadiantSpeedPerSecond: 4
+  lookablesDetector: {fileID: 539228843836617613}
   playerRefs: {fileID: 3175104005493510322}
-  followingSpeed_Mouse: 8
-  followingSpeed_Controller: 8
-  JoystickRegularFocusAttempt_Radius: 7
-  OnFocusedEnemyDied_Radius: 10
-  JoystickJoystickRefocus_Radius: 7
-  MouseRegularFocus_Radius: 3
-  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
-  isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
-  ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
 --- !u!1 &7653426975970030029
 GameObject:
   m_ObjectHideFlags: 0
@@ -4905,8 +4893,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8809921380203840554}
   - component: {fileID: 539228843836617613}
-  m_Layer: 0
-  m_Name: Proximity Detector
+  - component: {fileID: 2885176286024716502}
+  - component: {fileID: 220046164677318571}
+  m_Layer: 22
+  m_Name: Lookables Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4923,8 +4913,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1022069164156102680}
+  m_Children: []
   m_Father: {fileID: 6620460680117322819}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4940,11 +4929,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2ba1a99adef8849b41fc7a35336051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToEnemy: {fileID: 11400000, guid: 5d837591ea77dc741a20c583acf5fa48, type: 2}
-  isDistanceToMouse: {fileID: 11400000, guid: 8ec8a6501522355488d3a3fa756c8cbf, type: 2}
-  ClosestEnemy: {fileID: 11400000, guid: 7822757383a162241ad2f93282b6690b, type: 2}
-  proximityTrigger: {fileID: 285086702692713560}
-  followMouse: {fileID: 441638044159238565}
+--- !u!58 &2885176286024716502
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066733575488913677}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.5
+--- !u!50 &220046164677318571
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066733575488913677}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8456061081400141028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,69 +5279,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &8833568615544629894
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1022069164156102680}
-  - component: {fileID: 285086702692713560}
-  - component: {fileID: 8382717615291115365}
-  m_Layer: 18
-  m_Name: ProximityTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1022069164156102680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8833568615544629894}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8809921380203840554}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &285086702692713560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8833568615544629894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActivatorTags: []
-  ActivatorTagsTags: 
---- !u!58 &8382717615291115365
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8833568615544629894}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 3
 --- !u!1 &8864971179855829072
 GameObject:
   m_ObjectHideFlags: 0
@@ -5993,7 +5951,7 @@ MonoBehaviour:
   HeadBone: {fileID: 1097975357195865740}
   SpritesRoot: {fileID: 2036163816277594816}
   constraint: {fileID: 7852253558543688479}
-  followMouse: {fileID: 441638044159238565}
+  followMouse: {fileID: 7862745803194502634}
   ConstrainedBone: {fileID: 5747662590253632156}
   FlippingRoot: {fileID: 2036163816277594816}
 --- !u!1001 &1267035628588403748
@@ -7075,9 +7033,41 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1063394520105019839, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _offset
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063394520105019839, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _maxDistance
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063394520105019839, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _minDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063394520105019839, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _defaultDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1451215479473182451, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _offset
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _maxDistance
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _minDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _defaultDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5204031756510583580, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: m_Enabled
@@ -7096,12 +7086,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _offset
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: Knockback
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: StaminaCost
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _maxDistance
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _minDistance
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: _defaultDistance
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: AnimatorStateName

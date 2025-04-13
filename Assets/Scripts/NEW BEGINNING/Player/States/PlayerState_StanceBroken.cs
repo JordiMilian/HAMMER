@@ -7,7 +7,7 @@ public class PlayerState_StanceBroken : PlayerState
     Coroutine currentCoroutine;
     public override void OnEnable()
     {
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.VerySlow);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.VerySlow);
 
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.StanceBroken, transform.position);
 

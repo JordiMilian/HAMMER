@@ -6,7 +6,7 @@ public class Player_References : Generic_References
 {
     [Header("PLAYER SCRIPTS")]
     public Player_FollowMouseWithFocus_V2 followMouse;
-    public Player_ProximityDetector proximityDetector;
+    public Player_LookableDetector proximityDetector;
     public Player_Stamina playerStamina;
     public Player_UpgradesManager upgradesManager;
     public Generic_OnTriggerEnterEvents singlePointCollider;
@@ -15,6 +15,7 @@ public class Player_References : Generic_References
     public Player_AnimationEvents animationEvents;
     public Player_WeaponSwitcher weaponSwitcher;
     public Player_HideSprites hideSprites;
+    public Player_SwordRotationController swordRotation;
     [Header("STATES")]
     public Player_StateMachine stateMachine;
     public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState, RespawningState;

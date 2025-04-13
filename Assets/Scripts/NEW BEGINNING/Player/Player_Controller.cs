@@ -53,7 +53,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         SFX_PlayerSingleton.Instance.playSFX(SFX_DealtDamage, 0.1f);
 
         //Focus enemy on attacked
-        playerRefs.followMouse.AttemptFocusAttackedEnemy(info);
+        playerRefs.swordRotation.AttemptFocusAttackedEnemy(info);
 
         OnDamageDealt_event?.Invoke(info);
         

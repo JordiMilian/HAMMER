@@ -10,15 +10,15 @@ public class BasicEnemy_AnimationEvents : MonoBehaviour
     [SerializeField] Enemy_References enemyRefs;
     [SerializeField] TrailRenderer weaponTrail;
     [SerializeField] AudioClip SFX_Swing;
-   public void EV_SetMovementSpeed(MovementSpeeds speed)
+   public void EV_SetMovementSpeed(SpeedsEnum speed)
    {
        enemyRefs.moveToTarget.SetMovementSpeed(speed);
    }
-   public void EV_SetRotationSpeed(MovementSpeeds speed)
+   public void EV_SetRotationSpeed(SpeedsEnum speed)
    {
        enemyRefs.moveToTarget.SetRotatinSpeed(speed);
    }   
-    public void EV_SetMovementAndRotationSpeed(MovementSpeeds speed)
+    public void EV_SetMovementAndRotationSpeed(SpeedsEnum speed)
     {
         enemyRefs.moveToTarget.SetMovementSpeed(speed);
         enemyRefs.moveToTarget.SetRotatinSpeed(speed);

@@ -51,6 +51,10 @@ MonoBehaviour:
   Damage: 1
   Knockback: 1
   HitStop: 0.1
+  _minDistance: 0.25
+  _maxDistance: 3
+  _offset: 1
+  _defaultDistance: 2
 --- !u!1 &1451215479473182451
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,11 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c64e9016d0dfb45ab9bbcfe39a1367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimatorStateName: 
-  doesRequireStamina: 0
-  StaminaCost: 0
-  Damage: 0
-  Knockback: 0
+  AnimatorStateName: BasicWeapon_SpecialAttack
+  doesRequireStamina: 1
+  StaminaCost: 1.5
+  Damage: 5
+  Knockback: 2
+  _minDistance: 2
+  _maxDistance: 3.5
+  _offset: 0.6
+  _defaultDistance: 3
 --- !u!1 &7288545152001580545
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,3 +245,7 @@ MonoBehaviour:
   Damage: 1
   Knockback: 1
   HitStop: 0.1
+  _minDistance: 0.25
+  _maxDistance: 3
+  _offset: 1
+  _defaultDistance: 2

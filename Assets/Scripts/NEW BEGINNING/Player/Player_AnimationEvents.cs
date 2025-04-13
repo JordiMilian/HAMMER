@@ -63,7 +63,7 @@ public class Player_AnimationEvents : MonoBehaviour
     }
     #endregion
 
-    public void EV_SetMovementSpeed(MovementSpeeds speedType)
+    public void EV_SetMovementSpeed(SpeedsEnum speedType)
     {
         playerRefs.movement2.SetMovementSpeed(speedType);
     }
@@ -75,53 +75,42 @@ public class Player_AnimationEvents : MonoBehaviour
     }
     #region ADD FORCES
     [Header("Add Force Stats")]
-    [SerializeField] float minDistance;
-    [SerializeField] float maxDistance;
-    [SerializeField] float minForce, maxForce;
-    [SerializeField] float defaulDistance;
     [SerializeField] float addForceTime;
     [SerializeField] AnimationCurve attackCurve;
-    [SerializeField] float forceMultiplier;
 
-    public void EV_AddForce(float multiplier = 1)
+    public void EV_AddForce()
     {
-        //If(followMOuse.ItsFocusing){getDistanceToEnemy(followMouse.focusedEneny)
-        //else {proximityDetector.getAttackDistance()}
-
-        float AttackDistance = playerRefs.proximityDetector.GetAttackDistance();
+        float thisDistance = playerRefs.swordRotation.GetAddForceDistance();
+        Debug.Log("distance:: "+ thisDistance);
+        /*
         //Make equivalent between min and max distance to -0,5 and 1 (normalize)
         float equivalent;
-        if (AttackDistance > maxDistance * multiplier) { equivalent = CalculateEquivalent(defaulDistance); } //If the player is too far, behave with default. Estic multiplicant la max distance pel multiplier no se si va be aixo
-        else { equivalent = CalculateEquivalent(AttackDistance); } // Else calculate with distance
+        if (thisDistance > maxDistance * multiplier) { equivalent = CalculateEquivalent(defaulDistance); } //If the player is too far, behave with default. Estic multiplicant la max distance pel multiplier no se si va be aixo
+        else { equivalent = CalculateEquivalent(thisDistance); } // Else calculate with distance
+        */
+        Vector3 lookingDirection = (playerRefs.swordRotation.LookingPosition - (Vector2)transform.position).normalized;
 
-
-        Vector3 tempForceDirection = playerRefs.followMouse.SwordDirection;
-        //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, tempForceDirection * multiplier, 0.1f));
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
             playerRefs.characterMover,
-            forceMultiplier * equivalent,
+            thisDistance,
             addForceTime,
-            tempForceDirection,
+            lookingDirection,
             attackCurve
             ));
     }
-    float CalculateEquivalent(float distance)
+    public void EV_JustAddForce(float distance)
     {
-        float inverseF = Mathf.InverseLerp(minDistance, maxDistance, distance);
-        float lerpF = Mathf.Lerp(minForce, maxForce, inverseF);
-        return lerpF;
-    }
-    public void EV_JustAddForce(float multiplier)
-    {
-        Vector3 forceDirection = playerRefs.followMouse.gameObject.transform.up;
+        Vector3 forceDirection = playerRefs.swordRotation.LookingPosition;
         //StartCoroutine(UsefullMethods.ApplyForceOverTime(playerRefs._rigidbody, forceDirection, 0.1f));
         StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
             playerRefs.characterMover,
-            forceMultiplier * multiplier,
+            distance,
             addForceTime,
             forceDirection,
             attackCurve
             ));
     }
     #endregion
+    
+
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MovementSpeeds
+public enum SpeedsEnum
 {
     Regular,
     Fast,
@@ -18,23 +18,23 @@ public class Player_Movement2 : MonoBehaviour
     {
         currentStats = playerRefs.currentStats;
     }
-    public void SetMovementSpeed(MovementSpeeds speedType)
+    public void SetMovementSpeed(SpeedsEnum speedType)
     {
         switch(speedType)
         {
-            case MovementSpeeds.Regular:
+            case SpeedsEnum.Regular:
                 currentStats.Speed = currentStats.BaseSpeed;
                 break;
-            case MovementSpeeds.Fast:
+            case SpeedsEnum.Fast:
                 currentStats.Speed = currentStats.BaseSpeed * 2f;
                 break;
-            case MovementSpeeds.Slow:
+            case SpeedsEnum.Slow:
                 currentStats.Speed = currentStats.BaseSpeed * 0.5f;
                 break;
-            case MovementSpeeds.VerySlow:
+            case SpeedsEnum.VerySlow:
                 currentStats.Speed = currentStats.BaseSpeed * 0.25f;
                 break;
-            case MovementSpeeds.Stopped:
+            case SpeedsEnum.Stopped:
                 currentStats.Speed = 0;
                 break;
         }

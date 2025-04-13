@@ -27,7 +27,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
         
         //Find the references
         CameraZoomController zoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
-        Player_FollowMouseWithFocus_V2 followMouse = GlobalPlayerReferences.Instance.references.followMouse;
+        Player_SwordRotationController swordRotation = GlobalPlayerReferences.Instance.references.swordRotation;
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
         //Disable player 
@@ -51,7 +51,7 @@ public class RegularEnemyRoomCutscene : BaseCutsceneLogic
             stateMachine.ChangeState(enemy.GetComponent<Enemy_References>().AgrooState);
         }
         
-        followMouse.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0].GetComponent<Enemy_References>().focusIcon);
+        swordRotation.FocusNewEnemy(enemyRoomLogic.CurrentlySpawnedEnemies[0].GetComponent<Enemy_References>().Focuseable);
 
         yield return new WaitForSeconds(0.5f);
 

@@ -11,7 +11,7 @@ public class CameraZoomController : MonoBehaviour
     [SerializeField] float lerpingZoom, targetZoom, zoomSpeed;
 
     [SerializeField] CinemachineVirtualCamera virtualCamera;
-    Player_FollowMouseWithFocus_V2 followMouse;
+    Player_SwordRotationController swordRotation;
     [Header("Base Zoom info")]
     [SerializeField] float BaseZoom;
     [SerializeField] float BaseSpeed;
@@ -49,7 +49,7 @@ public class CameraZoomController : MonoBehaviour
         ZoomInfo BaseInfo = new ZoomInfo(BaseZoom, BaseSpeed, "Base");
         AddZoomInfoAndUpdate(BaseInfo);
         playerTf = GlobalPlayerReferences.Instance.playerTf;
-        followMouse = GlobalPlayerReferences.Instance.references.followMouse;
+        swordRotation = GlobalPlayerReferences.Instance.references.swordRotation;
         StartCoroutine(zoomUpdate());
     }
     IEnumerator zoomUpdate()
@@ -59,9 +59,9 @@ public class CameraZoomController : MonoBehaviour
             //Lerp the zoom towards targetZoom, whatever it is. If we are focusing, we calculate the proper zoom with the focused enemy
             if (isFocusingZoom)
             {
-                if (followMouse.CurrentlyFocusedIcon != null)
+                if (swordRotation.CurrentFocuseable != null)
                 {
-                    targetZoom = CalculateFocusZoom(followMouse.CurrentlyFocusedIcon.transform.position);
+                    targetZoom = CalculateFocusZoom(swordRotation.CurrentFocuseable.transform.position);
                 }
             }
             else if (!checkedLatestZoom)

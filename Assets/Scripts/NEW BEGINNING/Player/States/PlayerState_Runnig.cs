@@ -14,7 +14,7 @@ public class PlayerState_Runnig : PlayerState
 
         subscribeToRequests();
 
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Fast);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Fast);
 
         InputDetector.Instance.OnRollUnpressed += OnUnpressedRun;
     }

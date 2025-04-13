@@ -40,8 +40,8 @@ public class EnemyState_Agroo : EnemyState
 
         EnemyRefs.moveToTarget.SetTargets(GlobalPlayerReferences.Instance.playerTf);
 
-        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Regular);
-        EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.Regular);
+        EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.Regular);
+        EnemyRefs.moveToTarget.SetRotatinSpeed(SpeedsEnum.Regular);
 
         EnemyRefs.moveToTarget.DoLook = true;
         EnemyRefs.moveToTarget.DoMove = true;

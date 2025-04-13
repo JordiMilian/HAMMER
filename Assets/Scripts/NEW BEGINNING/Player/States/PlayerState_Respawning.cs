@@ -7,7 +7,7 @@ public class PlayerState_Respawning : PlayerState
     public override void OnEnable()
     {
         base.OnEnable();
-        playerRefs.movement2.SetMovementSpeed(MovementSpeeds.Stopped);
+        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Stopped);
 
         //Set up weapon rotation
         Transform weaponPivot = playerRefs.weaponPivot.transform;

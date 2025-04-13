@@ -153,5 +153,12 @@ public interface IAttackedWhileRecovery
     public void OnAttackedWhileRecovery();
 
 }
+public interface IAddForceStats
+{
+    public float DefaultOtherDistance { get; set; }
+    public float MinOtherDistance { get; set; }
+    public float MaxOtherDistance { get; set; }
+    public float Offset { get; set; }
+}
 
 #endregion

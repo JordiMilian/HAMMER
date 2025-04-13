@@ -3,11 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FocusIcon : MonoBehaviour
+public class Focuseable : MonoBehaviour
 {
+    //A GAMEOBJECT WITH THIS SCRIPT MUST USE THE TAG FOCUSEABLEOBJECT IN ORDER TO BE FOUND BY THE PLAYER
+
     [SerializeField] SpriteRenderer FocusSprite;
     public GameObject RootGameObject;
     public Action OnFocused;
+    private void OnEnable()
+    {
+        FocuseablesManager.Instance.FocusaeblesList.Add(this);
+    }
+    private void OnDisable()
+    {
+        FocuseablesManager.Instance.FocusaeblesList.Remove(this);
+    }
 
     public void ShowFocusIcon()
     {

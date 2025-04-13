@@ -11,7 +11,7 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
     {
         base.OnEnable();
 
-        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Slow);
+        EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.Slow);
         animator.CrossFade(AnimatorStateName, 0.1f);
         animationLenghtWaiterCoroutine = StartCoroutine(animationLenghtWaiter());
 

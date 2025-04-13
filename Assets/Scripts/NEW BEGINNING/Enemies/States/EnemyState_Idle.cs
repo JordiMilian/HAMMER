@@ -12,8 +12,8 @@ public class EnemyState_Idle : EnemyState
         EnemyState_Agroo agrooState = (EnemyState_Agroo)EnemyRefs.AgrooState;
         agrooState.isPlayerDetected = false;
 
-        EnemyRefs.moveToTarget.SetMovementSpeed(MovementSpeeds.Regular);
-        EnemyRefs.moveToTarget.SetRotatinSpeed(MovementSpeeds.Regular);
+        EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.Regular);
+        EnemyRefs.moveToTarget.SetRotatinSpeed(SpeedsEnum.Regular);
 
         EnemyRefs.moveToTarget.DoLook = false;
         EnemyRefs.moveToTarget.DoMove = true;

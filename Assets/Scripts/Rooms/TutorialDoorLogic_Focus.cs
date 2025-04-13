@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
 {
-    [SerializeField] FocusIcon TargetFocusMannequin;
-    [SerializeField] FocusIcon StartingFocusMannequin;
+    [SerializeField] Focuseable TargetFocusMannequin;
+    [SerializeField] Focuseable StartingFocusMannequin;
     [SerializeField] Generic_OnTriggerEnterEvents getCloseToMannequinTrigger;
 
     public override void OnEnable()
@@ -19,8 +19,8 @@ public class TutorialDoorLogic_Focus : BaseRoomWithDoorLogic
     }
     void AutoFocusMannequin(Collider2D collider)
     {
-        Player_FollowMouseWithFocus_V2 playerFocus = GlobalPlayerReferences.Instance.references.followMouse;
-        playerFocus.FocusNewEnemy(StartingFocusMannequin);
+        Player_SwordRotationController swordRotation = GlobalPlayerReferences.Instance.references.swordRotation;
+        swordRotation.FocusNewEnemy(StartingFocusMannequin);
     }
     void OnFocusedTarget()
     {
