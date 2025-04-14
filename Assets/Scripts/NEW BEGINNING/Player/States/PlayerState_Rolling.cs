@@ -25,7 +25,8 @@ public class PlayerState_Rolling : PlayerState
 
         playerRefs.spriteFliper.canFlip = false; //sprite can not flip during roll
 
-        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.VerySlow);
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.VerySlow);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Slow);
 
         Vector2 Axis = new Vector2(x: Input.GetAxisRaw("Horizontal"), y: Input.GetAxisRaw("Vertical")).normalized;
 
@@ -106,7 +107,7 @@ public class PlayerState_Rolling : PlayerState
         if(rollAnimationCoroutine != null) { StopCoroutine(rollAnimationCoroutine); }
         if(checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
 
-        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Regular);
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Regular);
         playerRefs.spriteFliper.canFlip = true;
 
         base.OnDisable();  

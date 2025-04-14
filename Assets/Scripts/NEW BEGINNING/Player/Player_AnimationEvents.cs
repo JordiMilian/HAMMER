@@ -65,7 +65,7 @@ public class Player_AnimationEvents : MonoBehaviour
 
     public void EV_SetMovementSpeed(SpeedsEnum speedType)
     {
-        playerRefs.movement2.SetMovementSpeed(speedType);
+        playerRefs.movement.SetMovementSpeed(speedType);
     }
     public void EV_ActuallyHeal()
     {

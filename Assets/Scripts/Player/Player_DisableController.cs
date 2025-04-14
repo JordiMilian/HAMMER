@@ -27,6 +27,7 @@ public class Player_DisableController : MonoBehaviour
         playerRefs.events.CallShowAndEnable -= ShowAndEnablePlayer;
     }
     */
+    /*
     public void HideAndDisablePlayer()
     {
         DisablePlayerScripts();
@@ -46,6 +47,7 @@ public class Player_DisableController : MonoBehaviour
         }
         GameEvents.OnPlayerRespawned?.Invoke();
     }
+    
     public void DisablePlayerScripts()
     {
         playerRefs.animator.SetBool("Walking", false);
@@ -65,4 +67,5 @@ public class Player_DisableController : MonoBehaviour
         playerRefs.positionCollider.enabled = true;
         isScriptDisabled = false;
     }
+    */
 }

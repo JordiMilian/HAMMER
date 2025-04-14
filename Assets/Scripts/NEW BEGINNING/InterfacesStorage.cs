@@ -160,5 +160,9 @@ public interface IAddForceStats
     public float MaxOtherDistance { get; set; }
     public float Offset { get; set; }
 }
-
+public interface ICutsceneable
+{
+    public IEnumerator ThisCutscene();
+    public void ForceEndCutscene();
+}
 #endregion

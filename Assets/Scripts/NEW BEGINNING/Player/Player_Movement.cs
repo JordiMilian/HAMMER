@@ -10,7 +10,7 @@ public enum SpeedsEnum
     VerySlow,
     Stopped
 }
-public class Player_Movement2 : MonoBehaviour
+public class Player_Movement : MonoBehaviour
 {
     [SerializeField] Player_References playerRefs;
     PlayerStats currentStats;

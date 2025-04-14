@@ -41,24 +41,35 @@ public class Player_SwordRotationController : MonoBehaviour
     {
         InputDetector.Instance.OnFocusPressed -= OnFocusInputPressed;
     }
+    #region SET ROTATION SPEED
+    const float ControllerBaseRadiantSpeed = 8; 
+    const float MouseBaseRadiantSpeed = 12; 
     public void SetRotationSpeed(SpeedsEnum speed)
     {
         switch (speed)
         {
             case SpeedsEnum.Regular:
-                //IF mouse => A 
-                //IF controller => B
+                if (InputDetector.Instance.isControllerDetected) { CurrentRadiantSpeedPerSecond = ControllerBaseRadiantSpeed; }
+                else { CurrentRadiantSpeedPerSecond = MouseBaseRadiantSpeed; }
                 break;
             case SpeedsEnum.Fast:
+                if (InputDetector.Instance.isControllerDetected) { CurrentRadiantSpeedPerSecond = ControllerBaseRadiantSpeed *2; }
+                else { CurrentRadiantSpeedPerSecond = MouseBaseRadiantSpeed*2; }
                 break;
             case SpeedsEnum.Slow:
+                if (InputDetector.Instance.isControllerDetected) { CurrentRadiantSpeedPerSecond = ControllerBaseRadiantSpeed/2; }
+                else { CurrentRadiantSpeedPerSecond = MouseBaseRadiantSpeed/2; }
                 break;
             case SpeedsEnum.VerySlow:
+                if (InputDetector.Instance.isControllerDetected) { CurrentRadiantSpeedPerSecond = ControllerBaseRadiantSpeed/4; }
+                else { CurrentRadiantSpeedPerSecond = MouseBaseRadiantSpeed/4; }
                 break;
             case SpeedsEnum.Stopped:
+                CurrentRadiantSpeedPerSecond = 0;
                 break;
         }
     }
+    #endregion
     #region CALCULATE WHAT TO LOOK THIS FRAME
     //This is called every frame to choose a direction to look
     Vector2 lastValidControllerDirection = Vector2.up;
@@ -102,7 +113,6 @@ public class Player_SwordRotationController : MonoBehaviour
                 return closestLookablePos;
             }
             //Look at current sword direction
-            Debug.Log("Im here looking default: " + lastValidControllerDirection);
             return inputDetector.PlayerPos + lastValidControllerDirection;
         }
         //MOUSE

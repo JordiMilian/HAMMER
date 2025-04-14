@@ -20,6 +20,9 @@ public class PlayerState_BasicComboAttack : PlayerState, IAddForceStats
     public override void OnEnable()
     {
         playerRefs.animator.speed = playerRefs.currentStats.AttackSpeed;
+
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Slow);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         subscribeToRequests();
 
         currentAttackCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_short));

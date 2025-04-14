@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookAtSideDoorAfterMainDoorDialogue : BaseCutsceneLogic
+public class LookAtSideDoorAfterMainDoorDialogue : MonoBehaviour, ICutsceneable
 {
     [SerializeField] Dialoguer mainDoorDialoguer;
     [SerializeField] Transform sideDoorTargetTf;
@@ -15,20 +15,15 @@ public class LookAtSideDoorAfterMainDoorDialogue : BaseCutsceneLogic
     {
         if(index == 0)
         {
-            CutscenesManager.Instance.AddCutscene(this);
+            CutscenesManager.Instance.AddCutsceneable(this);
         }
     }
-    public override void playThisCutscene()
-    {
-        StartCoroutine(cutsceneLookAtDoor());
-    }
-    IEnumerator cutsceneLookAtDoor()
+
+    public IEnumerator ThisCutscene()
     {
         TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         Player_StateMachine playerStateMachine = playerRefs.stateMachine;
-
-       
 
         yield return new WaitForSeconds(0.2f);
         playerStateMachine.ForceChangeState(playerRefs.DisabledState);
@@ -39,8 +34,16 @@ public class LookAtSideDoorAfterMainDoorDialogue : BaseCutsceneLogic
 
         yield return new WaitForSeconds(0.2f);
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
+    }
 
+    public void ForceEndCutscene()
+    {
+        TargetGroupSingleton targetGroup = TargetGroupSingleton.Instance;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
 
-
+        targetGroup.ReturnPlayersTarget();
+        targetGroup.RemoveTarget(sideDoorTargetTf);
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
     }
 }

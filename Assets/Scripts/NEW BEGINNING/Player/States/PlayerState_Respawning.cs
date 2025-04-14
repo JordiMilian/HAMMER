@@ -7,7 +7,8 @@ public class PlayerState_Respawning : PlayerState
     public override void OnEnable()
     {
         base.OnEnable();
-        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Stopped);
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Stopped);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Stopped);
 
         //Set up weapon rotation
         Transform weaponPivot = playerRefs.weaponPivot.transform;
@@ -44,6 +45,7 @@ public class PlayerState_Respawning : PlayerState
     Coroutine currentCorotine;
     public void EV_ActuallyRespawn()
     {
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         playerRefs.hideSprites.ShowPlayerSprites();
         currentCorotine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));

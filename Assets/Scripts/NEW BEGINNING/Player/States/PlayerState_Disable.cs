@@ -7,8 +7,9 @@ public class PlayerState_Disable : PlayerState
 
     public override void OnEnable()
     {
-        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Stopped);
-        //Set rotation speed to zero too
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Stopped);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Stopped);
+
         TargetGroupSingleton.Instance.RemoveMouseTarget();
         playerRefs.animator.CrossFade(AnimatorStateName, transitionTime_instant);
         playerRefs.spriteFliper.canFlip = false;

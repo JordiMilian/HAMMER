@@ -23,6 +23,9 @@ public class PlayerState_SpecialAttack : PlayerState, IAddForceStats
 
         playerRefs.currentStats.CurrentBloodFlow = 0;
 
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Slow);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
+
         currentAttackCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_short));
 
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)

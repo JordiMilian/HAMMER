@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room_LastUpgradeHolder : BaseCutsceneLogic
+public class Room_LastUpgradeHolder : MonoBehaviour
 {
     //SERIELIZEFIELD
     [SerializeField] BaseRoomWithDoorLogic roomLogic;
@@ -32,11 +32,25 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
         if(thisRoom.indexInCompleteList == gameState.IndexOfLostUpgradeRoom)
         {
             Debug.Log("I should in fact");
-            CutscenesManager.Instance.AddCutscene(this);
+            UpgradeContainer thisUpgrade = SpawnUpgrades();
 
             gameState.isLostUpgradeAvailable = false;
         }
     }
+    UpgradeContainer SpawnUpgrades()
+    {
+        Debug.Log("Spawned Upgrade");
+        GameObject newContainer = Instantiate(BaseUpgradeContainerPrefab, SpawnPosition.position, Quaternion.identity, SpawnPosition);
+        UpgradeContainer upgradeContainer = newContainer.GetComponent<UpgradeContainer>();
+
+        upgradeContainer.upgradeEffect = gameState.lastLostUpgrade;
+
+        upgradeContainer.OnSpawnContainer();
+
+        return upgradeContainer;
+    }
+
+    /* DEPRECATED CUTSCENE
     public override void playThisCutscene()
     {
         //currentCutscene = StartCoroutine(spawnCutscene()); //Una guarrada que este script sigue herencia de BaseCutscene pero fuck it
@@ -55,23 +69,14 @@ public class Room_LastUpgradeHolder : BaseCutsceneLogic
 
         onCutsceneOver?.Invoke();
     }
-    UpgradeContainer SpawnUpgrades()
-    {
-        Debug.Log("Spawned Upgrade");
-        GameObject newContainer = Instantiate(BaseUpgradeContainerPrefab, SpawnPosition.position, Quaternion.identity, SpawnPosition);
-        UpgradeContainer upgradeContainer = newContainer.GetComponent<UpgradeContainer>();
-
-        upgradeContainer.upgradeEffect = gameState.lastLostUpgrade;
-
-        upgradeContainer.OnSpawnContainer();
-
-        return upgradeContainer;
-    }
     IEnumerator spawnWithoutCutscene()
     {
         UpgradeContainer thisUpgrade = SpawnUpgrades();
         yield return new WaitForSeconds(0.1f);
         onCutsceneOver?.Invoke();
     }
-   
+    */
+
+
+
 }

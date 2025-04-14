@@ -18,7 +18,7 @@ public class SpawnUpgradesOnEnterRoom : MonoBehaviour
     }
     void spawnUpgrades(Collider2D colision)
     {
-        CutscenesManager.Instance.AddCutscene(spawnUpgradesGroup);
+        CutscenesManager.Instance.AddCutsceneable(spawnUpgradesGroup);
         onEnterRoomCollider.RemoveActivatorTag(Tags.Player_SinglePointCollider);
     }
 }

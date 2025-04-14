@@ -5,13 +5,12 @@ using UnityEngine;
 public class Player_References : Generic_References
 {
     [Header("PLAYER SCRIPTS")]
-    public Player_FollowMouseWithFocus_V2 followMouse;
-    public Player_LookableDetector proximityDetector;
+    public Player_LookableDetector lookablesDetector;
     public Player_Stamina playerStamina;
     public Player_UpgradesManager upgradesManager;
     public Generic_OnTriggerEnterEvents singlePointCollider;
     public Player_LevelStatsManager levelStatsManager;
-    public Player_Movement2 movement2;
+    public Player_Movement movement;
     public Player_AnimationEvents animationEvents;
     public Player_WeaponSwitcher weaponSwitcher;
     public Player_HideSprites hideSprites;

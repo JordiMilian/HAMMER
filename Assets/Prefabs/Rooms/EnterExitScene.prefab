@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3570658378452239907}
   - component: {fileID: 7419589994395979364}
-  - component: {fileID: 6261396986531102083}
   - component: {fileID: 5810005019285838934}
   m_Layer: 18
   m_Name: EnterExitScene
@@ -49,21 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: 
-  enterCutscene: {fileID: 6261396986531102083}
+  enterCutscene: {fileID: 0}
   playEnteringCutsceneOnLoad: 1
---- !u!114 &6261396986531102083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2152654719966627462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba83167b92aed34479826e8ff88f79f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enteringPos: {fileID: 3041553787420318610}
+  enterPosition: {fileID: 0}
 --- !u!61 &5810005019285838934
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
+public class Cutscene_SpawnUpgradesGroup : MonoBehaviour, ICutsceneable
 {
     [SerializeField] UpgradesGroup upgradesGroup;
     TargetGroupSingleton targetGroupSingleton;
-    public override void playThisCutscene()
+
+    public void ForceEndCutscene()
     {
-        currentCutscene = StartCoroutine(spawnCutscene());   
+
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        upgradesGroup.onSpawnNewContainers();
+
+        targetGroupSingleton.RemoveTarget(upgradesGroup.transform);
+        targetGroupSingleton.ReturnPlayersTarget();
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
     }
-    IEnumerator spawnCutscene()
+
+    public IEnumerator ThisCutscene()
     {
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         Player_StateMachine playerStateMachine = playerRefs.stateMachine;
@@ -18,7 +29,7 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
         playerStateMachine.ForceChangeState(playerRefs.DisabledState);
 
         targetGroupSingleton = TargetGroupSingleton.Instance;
-        
+
         targetGroupSingleton.AddTarget(upgradesGroup.transform, 10, 1);
         targetGroupSingleton.RemovePlayersTarget();
 
@@ -32,7 +43,5 @@ public class Cutscene_SpawnUpgradesGroup : BaseCutsceneLogic
         targetGroupSingleton.ReturnPlayersTarget();
 
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
-
-        onCutsceneOver?.Invoke();
     }
 }

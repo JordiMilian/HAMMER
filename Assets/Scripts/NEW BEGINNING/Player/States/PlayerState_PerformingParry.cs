@@ -10,7 +10,8 @@ public class PlayerState_PerformingParry : PlayerState
     {
         base.OnEnable();
 
-        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Slow);
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Slow);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         SFX_PlayerSingleton.Instance.playSFX(SFX_PerformParry, 0.1f, -0.5f, 0.5f);
         currentCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_short));
     }

@@ -20,7 +20,8 @@ public class PlayerState_Idle : PlayerState
         //Start recovering stamina
         playerRefs.playerStamina.StartRecovering();
 
-        playerRefs.movement2.SetMovementSpeed(SpeedsEnum.Regular);
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Regular);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Regular);
     }
     
     public override void Update()

@@ -4235,7 +4235,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7653426975249963376}
-  - component: {fileID: 7653426975249963380}
   - component: {fileID: 7653426975249963388}
   - component: {fileID: 7653426975249963390}
   - component: {fileID: 1686922545}
@@ -4244,7 +4243,6 @@ GameObject:
   - component: {fileID: 8297522652973576496}
   - component: {fileID: 3175104005493510322}
   - component: {fileID: 8478529271009582982}
-  - component: {fileID: 5563275663953165858}
   - component: {fileID: 1439151477469121342}
   m_Layer: 20
   m_Name: MainCharacter
@@ -4282,27 +4280,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &7653426975249963380
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 20
-  m_AngularDrag: 20
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!58 &7653426975249963388
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4416,13 +4393,12 @@ MonoBehaviour:
   damageDetectorCollider: {fileID: 7653426974398778621}
   positionCollider: {fileID: 7653426975249963388}
   characterMover: {fileID: 8478529271009582982}
-  followMouse: {fileID: 0}
-  proximityDetector: {fileID: 539228843836617613}
+  lookablesDetector: {fileID: 0}
   playerStamina: {fileID: 7869705686411996582}
   upgradesManager: {fileID: 8836383671982987378}
   singlePointCollider: {fileID: 9009123525477702090}
   levelStatsManager: {fileID: 2481365138470066936}
-  movement2: {fileID: 8297522652973576496}
+  movement: {fileID: 8297522652973576496}
   animationEvents: {fileID: 1439151477469121342}
   weaponSwitcher: {fileID: 3017718572642703395}
   hideSprites: {fileID: 6997831822276721509}
@@ -4470,35 +4446,7 @@ MonoBehaviour:
   animator: {fileID: 7653426975249963390}
   RootMotionMultiplier: 1
   TestDirectionToMove: {x: 0, y: 0}
-  speedMultiplier: 0.01
---- !u!114 &5563275663953165858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7653426975249963383}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a9f43740ffafd4b9c21ff95a606589, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RootMotionMultiplier: 1
-  drawLines: 0
-  stopMove: 0
-  animator: {fileID: 7653426975249963390}
-  ignoreCollisions: 0
-  collidersInside: []
-  velocityLimit: 3
-  collisionDampint: 0.77
-  collisioninsideDampint: 0.25
-  TestDirectionToMove: {x: 0, y: 0}
   speedMultiplier: 0
-  layersToHit:
-    serializedVersion: 2
-    m_Bits: 1114112
-  ignoreRay: 0
-  MovementVectorsPerSecond: []
 --- !u!114 &1439151477469121342
 MonoBehaviour:
   m_ObjectHideFlags: 0

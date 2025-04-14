@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static DialoguesContainer;
 
-public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver
+public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver, IKilleable
 {
     public event Action OnRespawnerActivated;
     public bool IsActivated = false;
@@ -56,6 +56,7 @@ public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver
         SFX_PlayerSingleton.Instance.playSFX(SFX_KilledSound);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, deadParts[0].transform.position);
         TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.Medium);
+        OnKilled_event?.Invoke(new DeadCharacterInfo(gameObject,gameObject,null));
     }
 
     #endregion
@@ -111,6 +112,11 @@ public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver
         SFX_PlayerSingleton.Instance.playSFX(SFX_KilledSound);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, playerRespawnState.transform.position);
 
+    }
+    public Action<DeadCharacterInfo> OnKilled_event { get; set; }
+    public void OnKilled(DeadCharacterInfo info)
+    {
+        OnKilled_event?.Invoke(info);
     }
     #endregion
 }

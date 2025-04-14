@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EnterExitScene_controller : MonoBehaviour
+public class EnterExitScene_controller : MonoBehaviour, ICutsceneable
 {
     //public Scene sceneToLoad;
     public string SceneName;
@@ -17,7 +17,7 @@ public class EnterExitScene_controller : MonoBehaviour
     }
     public void OnPlayerEnteredFromHere()
     {
-        CutscenesManager.Instance.AddCutscene(enterCutscene);
+        CutscenesManager.Instance.AddCutsceneable(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,4 +31,31 @@ public class EnterExitScene_controller : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
+    #region CUTSCENE
+    [SerializeField] Transform enteringPos;
+
+    public IEnumerator ThisCutscene()
+    {
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+        Transform playerTf = playerRefs.gameObject.transform;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
+        playerTf.position = enteringPos.position;
+
+        //playerRefs.animator.SetTrigger("EnterRoom Lo que sigue etc"); 
+
+        yield return new WaitForSeconds(.5f); // esperar a que acabe l'animacio
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+
+    }
+    public void ForceEndCutscene()
+    {
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        playerRefs.transform.position = enteringPos.position;
+        playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
+
+    }
+    #endregion
 }
