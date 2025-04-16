@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FinalDoor_Script : BaseCutsceneLogic
+public class FinalDoor_Script : MonoBehaviour, ICutsceneable
 {
     [SerializeField] GameState gameState;
     [SerializeField] Animator doorAnimator;
@@ -29,31 +29,11 @@ public class FinalDoor_Script : BaseCutsceneLogic
     {
         getNearDoor_collider.OnTriggerEntered += QueueCutscene;
     }
-    public override void playThisCutscene()
-    {
-        if(gameState.actuallyUnlockedSkulls == 0)
-        {
-            currentCutscene = StartCoroutine(UnlockSkull01Cutscene());
-        }
-        else if( gameState.actuallyUnlockedSkulls == 1)
-        {
-            currentCutscene = StartCoroutine(UnlockSkull02Cutscene());
-        }
-        else if(gameState.actuallyUnlockedSkulls == 2)
-        {
-            currentCutscene = StartCoroutine(UnlockSkull03Cutscene());
-        }
-        else
-        {
-            Debug.Log("No door cutscene to play");
-        }
-    }
     void QueueCutscene(Collider2D collider)
     {
-
         getNearDoor_collider.OnTriggerEntered -= QueueCutscene;
 
-        CutscenesManager.Instance.AddCutscene(this);
+        CutscenesManager.Instance.AddCutsceneable(this);
     }
     void IterativeCheck()
     {
@@ -65,6 +45,33 @@ public class FinalDoor_Script : BaseCutsceneLogic
         {
             QueueCutscene(new Collider2D());
         }
+    }
+    public IEnumerator ThisCutscene()
+    {
+        if (gameState.actuallyUnlockedSkulls == 0)
+        {
+            yield return StartCoroutine(UnlockSkull01Cutscene());
+        }
+        else if (gameState.actuallyUnlockedSkulls == 1)
+        {
+            yield return StartCoroutine(UnlockSkull02Cutscene());
+        }
+        else if (gameState.actuallyUnlockedSkulls == 2)
+        {
+            yield return StartCoroutine(UnlockSkull03Cutscene());
+        }
+        else
+        {
+            yield return null;
+            Debug.Log("No door cutscene to play");
+        }
+    }
+
+    public void ForceEndCutscene()
+    {
+        if (gameState.SkullsThatShouldBeUnlocked == 1) { InstaUnlock01(); }
+        else if (gameState.SkullsThatShouldBeUnlocked == 2) { InstaUnlock02(); }
+        else if (gameState.SkullsThatShouldBeUnlocked == 3) { InstaUnlock03(); }
     }
     void InstaUnlock01()
     {
@@ -104,9 +111,6 @@ public class FinalDoor_Script : BaseCutsceneLogic
 
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
         targetGroups.EditTarget(playerTf,basePlayerTargetStats.x, basePlayerTargetStats.y);
-
-
-        onCutsceneOver?.Invoke();
     }
     IEnumerator UnlockSkull02Cutscene()
     {
@@ -132,7 +136,6 @@ public class FinalDoor_Script : BaseCutsceneLogic
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
         targetGroups.EditTarget(playerTf, basePlayerTargetStats.x, basePlayerTargetStats.y);
 
-        onCutsceneOver?.Invoke();
     }
     IEnumerator UnlockSkull03Cutscene()
     { 
@@ -158,6 +161,7 @@ public class FinalDoor_Script : BaseCutsceneLogic
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
         targetGroups.EditTarget(playerTf, basePlayerTargetStats.x, basePlayerTargetStats.y);
 
-        onCutsceneOver?.Invoke(); ;
     }
+
+
 }

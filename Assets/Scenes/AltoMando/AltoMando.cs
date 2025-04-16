@@ -11,7 +11,6 @@ public class AltoMando : MonoBehaviour
     [SerializeField] DoorAnimationController FinalDoor;
     [SerializeField] GameState gameState;
     [SerializeField] TiedEnemy_Controller tutorialEndRespawner;
-    [SerializeField] Cutscene_Death_ResetState ResetStateCutscene;
     int doorsCompleted;
     private void Awake()
     {

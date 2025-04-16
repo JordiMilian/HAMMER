@@ -18,7 +18,7 @@ public class CutscenesManager : MonoBehaviour
         }
     }
 
-    
+    /*
     public Queue<BaseCutsceneLogic> cutscenesQueue = new Queue<BaseCutsceneLogic>();
     public bool isPlaying;
 
@@ -55,7 +55,7 @@ public class CutscenesManager : MonoBehaviour
             isPlaying = false;
         }
     }
-    
+    */
     Coroutine currentPlayingCutscene;
     Queue<ICutsceneable> CutsceneablesQueue = new Queue<ICutsceneable>();
     public void AddCutsceneable(ICutsceneable cutsceneable)
@@ -81,7 +81,7 @@ public class CutscenesManager : MonoBehaviour
         }
         AddCutsceneable(cutsceneable);
     }
-
+    
     //Go throw all the steps of the coroutine. If it catches an error, break the cutscene and try to force it (every cutscene needs a method to call in case of forcing)
     //Either way, if the cutscene is over, look at the queue and start the next cutscene if there is any
     public IEnumerator playCutsceneable(ICutsceneable cutscene)

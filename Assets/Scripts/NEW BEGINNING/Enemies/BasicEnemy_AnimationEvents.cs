@@ -7,21 +7,42 @@ public class BasicEnemy_AnimationEvents : MonoBehaviour
     //set rotation speed
     //set movement speed
     //hide and show weapon colliders
-    [SerializeField] Enemy_References enemyRefs;
+    [SerializeField] protected Enemy_References enemyRefs;
     [SerializeField] TrailRenderer weaponTrail;
-    [SerializeField] AudioClip SFX_Swing;
-   public void EV_SetMovementSpeed(SpeedsEnum speed)
-   {
-       enemyRefs.moveToTarget.SetMovementSpeed(speed);
-   }
-   public void EV_SetRotationSpeed(SpeedsEnum speed)
-   {
-       enemyRefs.moveToTarget.SetRotatinSpeed(speed);
-   }   
-    public void EV_SetMovementAndRotationSpeed(SpeedsEnum speed)
+    [SerializeField] protected AudioClip SFX_Swing;
+
+    SpeedsEnum StringToSpeedEnum(string speed)
     {
-        enemyRefs.moveToTarget.SetMovementSpeed(speed);
-        enemyRefs.moveToTarget.SetRotatinSpeed(speed);
+        switch (speed)
+        {
+            case "Regular":
+                return SpeedsEnum.Regular;
+            case "Fast":
+                return SpeedsEnum.Fast;
+            case "Slow":
+                return SpeedsEnum.Slow;
+            case "VerySlow":
+                return SpeedsEnum.VerySlow;
+            case "Stopped":
+                return SpeedsEnum.Stopped;
+            default:
+                Debug.LogError("Invalid speed string: " + speed);
+                return SpeedsEnum.Regular; 
+        }
+    }
+
+   public void EV_SetMovementSpeed(string speed)
+   {
+       enemyRefs.moveToTarget.SetMovementSpeed(StringToSpeedEnum(speed));
+   }
+   public void EV_SetRotationSpeed(string speed)
+   {
+       enemyRefs.moveToTarget.SetRotatinSpeed(StringToSpeedEnum(speed));
+   }   
+    public void EV_SetMovementAndRotationSpeed(string speed)
+    {
+        enemyRefs.moveToTarget.SetMovementSpeed(StringToSpeedEnum(speed));
+        enemyRefs.moveToTarget.SetRotatinSpeed(StringToSpeedEnum(speed));
     }
    public void EV_Enemy_ShowAttackCollider()
     {

@@ -47,15 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Knockback: 0
-  HitStop: 0
   isParryable: 1
   isBloody: 1
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 0
-  eventSystem: {fileID: 2536473922039732466}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!61 &6619682933492272302
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -269,15 +268,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Knockback: 0
-  HitStop: 0
   isParryable: 1
   isBloody: 1
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 0
-  eventSystem: {fileID: 2536473922039732466}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!61 &5675884400618382998
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -383,6 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!1 &8148727699648358722
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,15 +429,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Knockback: 0
-  HitStop: 0
   isParryable: 1
   isBloody: 1
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 0
-  eventSystem: {fileID: 2536473922039732466}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!61 &4732802011795393217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1347,6 +1345,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.19716549
       objectReference: {fileID: 0}
+    - target: {fileID: 1528115628968044978, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1530135795851701840, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1651,6 +1653,10 @@ PrefabInstance:
       propertyPath: DamageDealersList.Array.data[2]
       value: 
       objectReference: {fileID: 6373207849265724920}
+    - target: {fileID: 7580950504294679982, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7619558403456288951, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: SpriteObject
       value: 
@@ -1861,17 +1867,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2536473922039732466 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 627058440868749388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 3134681002737940670}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4794024420201715735 stripped
@@ -2882,6 +2877,10 @@ PrefabInstance:
     - target: {fileID: 2217058296641009663, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
       propertyPath: m_Name
       value: FocusIcon_Position
+      objectReference: {fileID: 0}
+    - target: {fileID: 2217058296641009663, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4813498974479614735, guid: ba37608b576394c41a3f608e13b948cd, type: 3}
       propertyPath: m_Enabled

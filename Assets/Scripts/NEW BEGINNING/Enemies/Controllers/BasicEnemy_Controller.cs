@@ -113,8 +113,6 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
     #endregion
     #region PARRY RECEIVED
     public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
-   
-
     public virtual void OnParryReceived(GettingParriedInfo info)
     {
         enemyStateMachine.ChangeState(enemyRefs.ParriedState);

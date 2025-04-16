@@ -933,7 +933,7 @@ MonoBehaviour:
   Knockback: 0
   isParryable: 1
   isBloody: 0
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 1
   weaponIndex: 0
   EntityTeam: 1
@@ -1417,6 +1417,10 @@ PrefabInstance:
       value: 0.3889935
       objectReference: {fileID: 0}
     - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: ParriedState
+      value: 
+      objectReference: {fileID: 321359782152045831}
+    - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: baseEnemyStats
       value: 
       objectReference: {fileID: 11400000, guid: 8c13bad328d32dc4e88aedf398c9cd43, type: 2}
@@ -1425,9 +1429,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: StanceBrokenState
+      value: 
+      objectReference: {fileID: 3757879624991031935}
+    - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: basicAnimationEvents
+      value: 
+      objectReference: {fileID: 5256267497139566307}
+    - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: showHideAttackCollider
       value: 
-      objectReference: {fileID: 3537564698974891954}
+      objectReference: {fileID: 0}
     - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: DamageDealersList.Array.size
       value: 2
@@ -1440,6 +1452,10 @@ PrefabInstance:
       propertyPath: SpriteObject
       value: 
       objectReference: {fileID: 3657287082783301103}
+    - target: {fileID: 7666102949945393891, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: weaponTrail
+      value: 
+      objectReference: {fileID: 2710532288267149016}
     - target: {fileID: 8393237760477941251, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Damage
       value: 1
@@ -1637,6 +1653,9 @@ PrefabInstance:
     - {fileID: 6661202020507442343, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
     - {fileID: 6835077263422726567, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
     - {fileID: 516590991064698706, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+    - {fileID: 3473498437535998235, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+    - {fileID: 1037243609939012785, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+    - {fileID: 7666102949945393891, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
 --- !u!61 &111470243167719699 stripped
 BoxCollider2D:
@@ -1648,12 +1667,31 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 2267746090030100088, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1305806449736430544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 24907067650924382, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 1317114688664693902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &321359782152045831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305806449736430544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4376956f63b2cea47941e9823e6d9b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 5
+  AnimatorStateName: Parried
 --- !u!1 &1990783456134387076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 713815961661323530, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3537564698974891954
+--- !u!114 &5256267497139566307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1662,35 +1700,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1990783456134387076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a61d20ae86224f548b18c04b69255a81, type: 3}
+  m_Script: {fileID: 11500000, guid: d30e0110f98883240bc5a14213dd40e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageDealer:
-  - {fileID: 7367204624498958989}
   enemyRefs: {fileID: 8881099394174749735}
-  trailrendered: {fileID: 2710532288267149016}
-  testTrailrendered: {fileID: 2087781961693099217}
-  isTesting: 0
-  damageDealer_W2: {fileID: 5151669253700312862}
-  trailrendered_W2: {fileID: 5607784162270495372}
-  testTrailrendered_W2: {fileID: 8282772538121673721}
---- !u!114 &5099378929800740321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990783456134387076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!96 &2087781961693099217 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1062320051197155423, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 1317114688664693902}
-  m_PrefabAsset: {fileID: 0}
+  weaponTrail: {fileID: 2710532288267149016}
+  SFX_Swing: {fileID: 8300000, guid: 090d72a3dfebdc541a1e0de05653c2ca, type: 3}
+  Weapon2_Collider: {fileID: 3504185589502122756}
+  Weapon2_TrailRenderer: {fileID: 5607784162270495372}
 --- !u!4 &2689723538710267585 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3968944070215854671, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1728,6 +1745,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2701670711092211608, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4125692972672553925 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3100221687127867211, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 1317114688664693902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3757879624991031935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125692972672553925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fcab14d360f8b44804b96af303c687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 6
+  AnimatorStateName: StanceBroken
 --- !u!114 &5890201345768252802 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4898058486958885132, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1749,17 +1785,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8543705226525020148, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7367204624498958989 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8393237760477941251, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 1317114688664693902}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &8819312641345150343 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7503888452882247945, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}

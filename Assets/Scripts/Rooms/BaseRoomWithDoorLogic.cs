@@ -14,7 +14,12 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
     public Action OnEnteredRoomFirstTime; //no estic segur si aixo esta ben ficat aqui 
     [SerializeField] Generic_OnTriggerEnterEvents combinedCollider;
 
-    [SerializeField] BaseCutsceneLogic openDoorCutscene;
+    [SerializeField] GameObject openDoorCutscene;
+    ICutsceneable openDoorCutsceneable;
+    private void OnValidate()
+    {
+        UsefullMethods.CheckIfGameobjectImplementsInterface<ICutsceneable>(ref openDoorCutscene, ref openDoorCutsceneable);
+    }
     public virtual void OnEnable()
     {
         //If the room is completed, complete, else dont let the door open
@@ -23,6 +28,7 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
         else { doorController.DisableAutoDoorOpener(); }
         combinedCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
         combinedCollider.OnTriggerEntered += FirstTimeEnteringRoom;
+        OnValidate();
     }
     public virtual void OnDisable()
     {
@@ -32,7 +38,7 @@ public class BaseRoomWithDoorLogic : MonoBehaviour
     {
         onRoomCompleted?.Invoke(this);
         //if (isRoomPermanentlyCompleted) { return; }
-        if (withAnimation) { CutscenesManager.Instance.AddCutscene(openDoorCutscene); }
+        if (withAnimation) { CutscenesManager.Instance.AddCutsceneable(openDoorCutsceneable); }
         if (isRoomPermanent) { isRoomPermanentlyCompleted = true; }
         else { return; }
 

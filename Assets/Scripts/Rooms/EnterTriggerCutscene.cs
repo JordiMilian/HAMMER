@@ -7,11 +7,17 @@ using UnityEngine;
 public class EnterTriggerCutscene : MonoBehaviour
 {
     [SerializeField] Generic_OnTriggerEnterEvents enterRoomTrigger;
-    [SerializeField] BaseCutsceneLogic thisCutsceneLogic;
+    [SerializeField] GameObject CutsceneableHolder;
+     ICutsceneable thisCutsceneable;
     public bool hasCutscenePlayed;
 
+    private void OnValidate()
+    {
+        UsefullMethods.CheckIfGameobjectImplementsInterface<ICutsceneable>(ref CutsceneableHolder, ref thisCutsceneable);
+    }
     private void OnEnable()
     {
+        OnValidate();
         enterRoomTrigger.AddActivatorTag(Tags.Player_SinglePointCollider);
         enterRoomTrigger.OnTriggerEntered += callEntered;
     }
@@ -22,7 +28,7 @@ public class EnterTriggerCutscene : MonoBehaviour
     void callEntered(Collider2D collision)
     {
         if (hasCutscenePlayed) { return; }
-        CutscenesManager.Instance.AddCutscene(thisCutsceneLogic);
+        CutscenesManager.Instance.AddCutsceneable(thisCutsceneable);
         hasCutscenePlayed = true;
     }
 }

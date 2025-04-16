@@ -1,10 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradesGroup : MonoBehaviour
+public class UpgradesGroup : MonoBehaviour, ICutsceneable
 {
-     Action CallSpawnUpgrades;
 
     [SerializeField] int amountOfContainers;
     int tempAmountOfContainers;
@@ -19,7 +19,6 @@ public class UpgradesGroup : MonoBehaviour
     [SerializeField] GameObject base_UpgradeContainer;
     [SerializeField] List<UpgradeContainer> spawnedUpgradesContainers = new List<UpgradeContainer>();
 
-    [SerializeField] BaseCutsceneLogic spawnCutscene;
     [SerializeField] AudioClip AppearSfx;
 
     private void Update()
@@ -32,7 +31,7 @@ public class UpgradesGroup : MonoBehaviour
     }
     public void StartSpawnCutscene()
     {
-        CutscenesManager.Instance.AddCutscene(spawnCutscene);
+        CutscenesManager.Instance.AddCutsceneable(this);
     }
     public void onSpawnNewContainers()
     {
@@ -115,5 +114,45 @@ public class UpgradesGroup : MonoBehaviour
         }
         spawnedUpgradesContainers.Clear();
     }
-  
+    #region CUTSCENE
+    TargetGroupSingleton targetGroupSingleton;
+    public IEnumerator ThisCutscene()
+    {
+        targetGroupSingleton = TargetGroupSingleton.Instance;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
+
+        targetGroupSingleton = TargetGroupSingleton.Instance;
+
+        targetGroupSingleton.AddTarget(transform, 10, 1);
+        targetGroupSingleton.RemovePlayersTarget();
+
+        yield return new WaitForSeconds(1);
+
+        onSpawnNewContainers();
+
+        yield return new WaitForSeconds(1);
+
+        targetGroupSingleton.RemoveTarget(transform);
+        targetGroupSingleton.ReturnPlayersTarget();
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+    }
+    public void ForceEndCutscene()
+    {
+
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        onSpawnNewContainers();
+
+        targetGroupSingleton.RemoveTarget(transform);
+        targetGroupSingleton.ReturnPlayersTarget();
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+    }
+    #endregion
+
 }

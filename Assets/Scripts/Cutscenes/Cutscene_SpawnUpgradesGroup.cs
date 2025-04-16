@@ -6,23 +6,9 @@ public class Cutscene_SpawnUpgradesGroup : MonoBehaviour, ICutsceneable
 {
     [SerializeField] UpgradesGroup upgradesGroup;
     TargetGroupSingleton targetGroupSingleton;
-
-    public void ForceEndCutscene()
-    {
-
-        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
-        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
-
-        upgradesGroup.onSpawnNewContainers();
-
-        targetGroupSingleton.RemoveTarget(upgradesGroup.transform);
-        targetGroupSingleton.ReturnPlayersTarget();
-
-        playerStateMachine.ForceChangeState(playerRefs.IdleState);
-    }
-
     public IEnumerator ThisCutscene()
     {
+        targetGroupSingleton = TargetGroupSingleton.Instance;
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         Player_StateMachine playerStateMachine = playerRefs.stateMachine;
 
@@ -44,4 +30,19 @@ public class Cutscene_SpawnUpgradesGroup : MonoBehaviour, ICutsceneable
 
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
     }
+    public void ForceEndCutscene()
+    {
+
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        upgradesGroup.onSpawnNewContainers();
+
+        targetGroupSingleton.RemoveTarget(upgradesGroup.transform);
+        targetGroupSingleton.ReturnPlayersTarget();
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+    }
+
+    
 }
