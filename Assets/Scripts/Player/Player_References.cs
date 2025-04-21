@@ -17,7 +17,7 @@ public class Player_References : Generic_References
     public Player_SwordRotationController swordRotation;
     [Header("STATES")]
     public Player_StateMachine stateMachine;
-    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState, RespawningState;
+    public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState, RespawningState, EnteringRoomState;
     public PlayerState StartingComboAttackState, RollingAttackState, ParryAttackState, SpecialAttackState; //Each weapon picked should changes these states
     public GameObject WeaponStatesHolder;
     public Transform StatesRoots;

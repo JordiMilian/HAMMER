@@ -16,6 +16,7 @@ public class SceneStarter_base : MonoBehaviour
     [Header("Already Instantiated")]
     [SerializeField] CinemachineVirtualCamera cinemachineCamera;
     [SerializeField] LoadingScreenController loadingScreenController;
+   
 
     public IEnumerator Start()
     {
