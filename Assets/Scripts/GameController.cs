@@ -113,6 +113,8 @@ public class GameController : MonoBehaviour
     }
     public void OnExitedRoom()
     {
+        //For testing now, this should be replaced with opening the MAP
+        //
         ChangeGameControllerState(GameControllerStates.Loading);
         indexOfTestingRoom++;
         roomsLoader.LoadNewRoom(TestingRoomsList[indexOfTestingRoom]);
