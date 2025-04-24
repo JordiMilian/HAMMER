@@ -80,12 +80,10 @@ public class CollisionsManager : MonoBehaviour
                     Vector2 characterBForce = directionAtoB * (depth * normalizedB);
                     characterA.currentVelocity += characterAForce;
                     characterB.currentVelocity += characterBForce;
-
                 }
                 colisionChecks++;
             }
         }
-
     }
     public static bool doCharactersCollide(CharacterMover2 charaA, CharacterMover2 charaB, out float depth, out Vector2 directionAtoB)
     {

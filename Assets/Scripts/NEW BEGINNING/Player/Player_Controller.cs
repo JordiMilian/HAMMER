@@ -9,7 +9,6 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     [SerializeField] AudioClip SFX_DealtDamage, SFX_ReceiveDamage, SFX_ParryDealt;
     private void Start()
     {
-        playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
         RestoreAllHealth();
     }
 

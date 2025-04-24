@@ -16,7 +16,6 @@ public class Player_SwordRotationController : MonoBehaviour
     CameraZoomController cameraZoomer;
     private void Start()
     {
-        SetRotationSpeed(SpeedsEnum.Regular);
         cameraZoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
     }
     private void Update()
@@ -68,6 +67,7 @@ public class Player_SwordRotationController : MonoBehaviour
                 CurrentRadiantSpeedPerSecond = 0;
                 break;
         }
+    Debug.Log($"Rotation speed set to {speed}");
     }
     #endregion
     #region CALCULATE WHAT TO LOOK THIS FRAME

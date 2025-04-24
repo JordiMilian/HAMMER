@@ -120,6 +120,14 @@ public class TargetGroupSingleton : MonoBehaviour
     {
         AddTarget(MouseCameraTarget.Instance.transform, DefaultMouseStats.x, DefaultMouseStats.y);
     }
+    public void SetOnlyPlayerAndMouseTarget()
+    {
+        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+        {
+            setTargetsStats(i, null, 0, 0);
+        }
+        ReturnPlayersTarget();
+    }
     void setTargetsStats(int index, Transform tf , float weight, float radius)
     {
         targetGroup.m_Targets[index].target = tf;

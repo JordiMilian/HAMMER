@@ -33,53 +33,59 @@ public class PauseGame : MonoBehaviour
         switch (isPaused)
         {
             case false:
-                Pause();
+                PauseGame_();
                 break;
 
             case true:
-                Unpause();
+                UnpauseGame();
                 break;
         }
     }
-    void Pause()
+    public void PauseGame_()
     {
         isPaused = true; //bool for switch
-
         Time.timeScale = 0; //stop time
-
         TargetGroupSingleton.Instance.RemovePlayersTarget(); //Remove mouse influence to TargetGroup
-
-        pauseCanvas.enabled = true; //show UIs
-
-        OnPauseMenu?.Invoke(); //event
-
-        controllerControls.RestartSelection(); //have the first button selected when opening menu
-        controllerControls.isReadingInput = true;
     }
-    public void Unpause()
+    public void UnpauseGame()
     {
         isPaused = false;
         Time.timeScale = 1;
         TargetGroupSingleton.Instance.ReturnPlayersTarget();
+        
+    }
+    public void Pause_andShowPauseUI()
+    {
+        PauseGame_();
+
+        pauseCanvas.enabled = true; //show UIs
+        OnPauseMenu?.Invoke(); //event
+        controllerControls.RestartSelection(); //have the first button selected when opening menu
+        controllerControls.isReadingInput = true;
+    }
+    public void Unpause_andHidePauseUI()
+    {
+        UnpauseGame();
+
         pauseCanvas.enabled = false;
         OnUnpauseMenu?.Invoke();
         controllerControls.isReadingInput = false;
     }
     public void exit()
     {
-        Unpause();
+        UnpauseGame();
         Application.Quit();
     }
     public void die()
     {
-        Unpause();
+        UnpauseGame();
         Player_StateMachine playerStateMachine = GlobalPlayerReferences.Instance.playerTf.GetComponent<Player_StateMachine>();
         PlayerState deathState = playerStateMachine.GetComponent<Player_References>().DeadState;
         playerStateMachine.ForceChangeState(deathState);
     }
     public void restartLevel()
     {
-        Unpause();
+        UnpauseGame();
         SceneManager.LoadScene("GutWhale");
     }
 

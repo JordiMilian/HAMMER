@@ -78,7 +78,7 @@ public class SceneStarter_base : MonoBehaviour
     public virtual IEnumerator Creation() //Crear els objectes necesaris (character, escenaris)
     {
         pauseCanvas = Instantiate(pauseCanvas);
-        pauseCanvas.GetComponent<PauseGame>().Unpause();
+        pauseCanvas.GetComponent<PauseGame>().UnpauseGame();
 
         yield return null;
     }

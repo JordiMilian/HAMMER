@@ -18,6 +18,7 @@ public class UsefullMethods : MonoBehaviour
 
     //This is framerate independent now
     //The average curve value should be calculated once and stored on each script so we dont have to calculate it every time this is used
+    //Test if this corotuine can be paused with TimeScale
     public static IEnumerator ApplyCurveMovementOverTime(CharacterMover2 mover, float totalDistance, float timeSeconds, Vector2 direction, AnimationCurve curve, float averageValueOfCurve = 0.5f)
     {
         float timer = 0;

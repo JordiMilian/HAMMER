@@ -1,244 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &743092020048209094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3419961203103509028}
-  m_Layer: 0
-  m_Name: Lost Upgrade Spawn Position
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3419961203103509028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743092020048209094}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 2.28, z: 0.022611022}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2131496921670176955}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1318185655168291987
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8536174739954448202}
-  - component: {fileID: 3477839892929856678}
-  - component: {fileID: 8772267433966631158}
-  - component: {fileID: 8923439032853480671}
-  - component: {fileID: 7327931914739642848}
-  m_Layer: 18
-  m_Name: CutsceneTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8536174739954448202
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318185655168291987}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 1.09, z: 0.045429755}
-  m_LocalScale: {x: 0.61993, y: 0.61993, z: 0.61993}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7801826205531633829}
-  m_Father: {fileID: 2131496921670176955}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3477839892929856678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318185655168291987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c710271dc26b48b42a229c4e3823a20d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enterRoomTrigger: {fileID: 7327931914739642848}
-  thisCutsceneLogic: {fileID: 8772267433966631158}
-  hasCutscenePlayed: 0
---- !u!114 &8772267433966631158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318185655168291987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72f0a7e8982f2843bd865caabe489c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CenterOfRoom: {fileID: 7063207106928669032}
-  enemyRoomLogic: {fileID: 8154110797072673202}
-  skipFocusCamera: 0
---- !u!61 &8923439032853480671
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318185655168291987}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.1820226, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &7327931914739642848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318185655168291987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActivatorTags: []
---- !u!1 &2969685402954493984
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2620542287807983305}
-  - component: {fileID: 975850065078147351}
-  - component: {fileID: 1677244194947688946}
-  m_Layer: 18
-  m_Name: Load Enemies Trigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2620542287807983305
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969685402954493984}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.73, z: 0.045429755}
-  m_LocalScale: {x: 0.61993, y: 0.61993, z: 0.61993}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2131496921670176955}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &975850065078147351
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969685402954493984}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.19352776}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 8.608953, y: 2.2842922}
-  m_EdgeRadius: 0
---- !u!114 &1677244194947688946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969685402954493984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActivatorTags: []
---- !u!1 &5786794317220836123
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7801826205531633829}
-  m_Layer: 18
-  m_Name: CenterOfRoom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7801826205531633829
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5786794317220836123}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.53, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8536174739954448202}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6954358700734778785
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +61,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2131496921670176955}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &6272392358212819005
 PolygonCollider2D:
@@ -341,7 +102,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1921477837141485897, guid: 3813c1e1d00804e4298b3da8b300d643, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1921477837141485897, guid: 3813c1e1d00804e4298b3da8b300d643, type: 3}
       propertyPath: m_LocalPosition.x
@@ -385,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4009489628127724798, guid: 3813c1e1d00804e4298b3da8b300d643, type: 3}
       propertyPath: m_Name
-      value: Door_01
+      value: ExitDoor
       objectReference: {fileID: 0}
     - target: {fileID: 7470082380131950533, guid: 3813c1e1d00804e4298b3da8b300d643, type: 3}
       propertyPath: m_ShapeTexture
@@ -480,15 +241,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1167689617352140041, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1425004327916212633, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2012529051862698792, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483325713575097498, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464178247512518821, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5899201009733240555, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Color.b
@@ -526,8 +295,20 @@ PrefabInstance:
       propertyPath: m_ShapeTexture
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5106350687280430317, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+--- !u!114 &1488570453023224671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 345266889391296787, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+  m_PrefabInstance: {fileID: 1180739804397576780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d29d76712971aa40b00039a07189659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2131496921670176955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
@@ -538,7 +319,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1075035394442379020, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
   m_PrefabInstance: {fileID: 1180739804397576780}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &38269896846705923
+--- !u!114 &6379848600064625642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -547,29 +328,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2200464055817051456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42e7a4a4289d8034b83d27ddd8e431df, type: 3}
+  m_Script: {fileID: 11500000, guid: dfe1a0210ee88744cb736e9e4358da99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomLogic: {fileID: 8154110797072673202}
-  thisRoom: {fileID: 6250911060315070113}
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  BaseUpgradeContainerPrefab: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
-  SpawnPosition: {fileID: 3419961203103509028}
-  roomWithEnemies: {fileID: 8154110797072673202}
---- !u!114 &6325403577021855596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2200464055817051456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f33261f7bb07f48b1f514f5c41f856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
-  doorController: {fileID: 3719525278984921642}
+  MaxWeight_T1: 0
+  MaxWeight_T2: 0
+  SpawneableEnemies: []
+  SpawnArea: {fileID: 6272392358212819005}
+  EnemiesContainer: {fileID: 6954358700734778785}
+  EnterDoorAnimationController: {fileID: 1488570453023224671}
+  ExitDoorAnimationController: {fileID: 3719525278984921642}
+  CenterOfRoom: {fileID: 7063207106928669032}
 --- !u!114 &8154110797072673202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +346,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2200464055817051456}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfeb6cb815ed0e84a974a136d58ee735, type: 3}
   m_Name: 
@@ -585,7 +354,7 @@ MonoBehaviour:
   doorController: {fileID: 3719525278984921642}
   isRoomPermanentlyCompleted: 0
   combinedCollider: {fileID: 3199630154080722158}
-  openDoorCutscene: {fileID: 6325403577021855596}
+  openDoorCutscene: {fileID: 2200464055817051456}
   MaxWeight_T1: 1
   MaxWeight_T2: 0
   SpawneableEnemies:
@@ -596,10 +365,10 @@ MonoBehaviour:
     maxInstances: 0
     currentInstances: 0
   CurrentlySpawnedEnemies: []
-  SpawnTrigger: {fileID: 1677244194947688946}
+  SpawnTrigger: {fileID: 0}
   SpawnArea: {fileID: 6272392358212819005}
   EnemiesContainer: {fileID: 6954358700734778785}
-  enterRoomCutscene: {fileID: 3477839892929856678}
+  enterRoomCutscene: {fileID: 0}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
 --- !u!114 &3199630154080722158 stripped
 MonoBehaviour:
@@ -610,16 +379,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6250911060315070113 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5106350687280430317, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
-  m_PrefabInstance: {fileID: 1180739804397576780}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2200464055817051456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876e46b7aa576dc4680d7329803bb682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

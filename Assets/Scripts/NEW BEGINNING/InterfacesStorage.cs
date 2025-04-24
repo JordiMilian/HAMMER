@@ -165,4 +165,19 @@ public interface ICutsceneable
     public IEnumerator ThisCutscene();
     public void ForceEndCutscene();
 }
+public interface IRoom
+{
+    public void OnRoomLoaded(); //called from the roomsLoader when created
+    public void OnRoomUnloaded();
+}
+public interface IMultipleRoom
+{
+    public Vector2 ExitPos { get; }
+    public Generic_OnTriggerEnterEvents combinedCollider { get; }
+}
+public interface IRoomWithEnemies
+{
+    public Action OnAllEnemiesKilled { get; set; } //This is currently used for environemental hazards to stop, maybe music too
+    public List<GameObject> CurrentlySpawnedEnemies { get; set; }
+}
 #endregion

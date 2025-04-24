@@ -1,9 +1,10 @@
+using Pathfinding.Examples;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorAnimationController : MonoBehaviour
+public class DoorAnimationController : MonoBehaviour, ICutsceneable
 {
     bool isDoorOpen;
     [SerializeField] Animator doorAnimator;
@@ -14,6 +15,7 @@ public class DoorAnimationController : MonoBehaviour
 
     [SerializeField] Transform AutoDoorOpenerCollider;
     [SerializeField] Transform AutoDoorCloserCollider;
+    [SerializeField] AnimationClip openDoorAnimation;
     /*
     // HOW TO MAKE A NEW DOOR
 
@@ -22,8 +24,8 @@ public class DoorAnimationController : MonoBehaviour
         - Add the events EV_OpenCollider and EV_CloseCollider to the animations
         - Recreate the Door_01 Animator with the same exact parameter names and transitions
 
-     */  
-    private void OnTriggerEnter2D(Collider2D collision)
+     */
+    private void OnTriggerEnter2D(Collider2D collision) //AutoDoorCloser
     {
         if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
@@ -50,11 +52,6 @@ public class DoorAnimationController : MonoBehaviour
             EV_CloseCollider();
         }
     }
-    public void EV_CloseCollider()
-    {
-        blockingCollider.enabled = true;
-    }
-
     public void OpenDoor()
     {
         if (!isDoorOpen)
@@ -75,11 +72,15 @@ public class DoorAnimationController : MonoBehaviour
             EV_OpenCollider();
         }
     }
+    public void EV_CloseCollider()
+    {
+        blockingCollider.enabled = true;
+    }
     public void EV_OpenCollider()
     {
         blockingCollider.enabled = false;
     }
-
+    #region automatic Opener and Closer
     public void DisableAutoDoorOpener()
     {
         Collider2D[] colliders = AutoDoorOpenerCollider.GetComponents<Collider2D>();
@@ -112,4 +113,40 @@ public class DoorAnimationController : MonoBehaviour
             collider.enabled = true;
         }
     }
+    #endregion
+    #region OPEN WITH CUTSCENE
+    public void OpenWithCutscene()
+    {
+        CutscenesManager.Instance.AddCutsceneable(this);
+    }
+    public IEnumerator ThisCutscene()
+    {
+        Transform doorTransform = transform;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        playerStateMachine.ForceChangeState(playerRefs.DisabledState);
+
+        yield return new WaitForSeconds(0.5f); //Wait after killing the last dude
+
+        TargetGroupSingleton.Instance.AddTarget(doorTransform, 10, 5); //Look at door
+        yield return new WaitForSeconds(0.2f); //Wait 
+        OpenDoor(); //Open door
+        yield return new WaitForSeconds(openDoorAnimation.length + 0.3f); //wait for door animation
+        TargetGroupSingleton.Instance.RemoveTarget(doorTransform); // Stop looking at camera
+
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+    }
+    public void ForceEndCutscene()
+    {
+        Transform doorTransform = transform;
+        Player_References playerRefs = GlobalPlayerReferences.Instance.references;
+        Player_StateMachine playerStateMachine = playerRefs.stateMachine;
+
+        OpenDoor();
+        TargetGroupSingleton.Instance.SetOnlyPlayerAndMouseTarget();
+        playerStateMachine.ForceChangeState(playerRefs.IdleState);
+    }
+    #endregion
+
 }

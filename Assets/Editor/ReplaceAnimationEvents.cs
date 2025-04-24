@@ -125,7 +125,7 @@ public class ReplaceAnimationEvents : EditorWindow
 
                 if (animEvent.functionName == eventToReplace) //the event needs to be replaced
                 {
-                    if (oldEvent_hasStringParam) //Ignore for now
+                    if (oldEvent_hasStringParam) //If we check the string parameter of the old event
                     {
                         if (animEvent.stringParameter != eventToReplace_stringParam) { continue; }
                     }
@@ -145,13 +145,15 @@ public class ReplaceAnimationEvents : EditorWindow
                 {
                     newEventsList.Add(animEvent);
                 }
-                AnimationUtility.SetAnimationEvents(animClip, newEventsList.ToArray());
             }
-            if (isDirty) { DirtyAnimationIndexes.Add(a); }
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(animClip);
-#endif
+            if (isDirty) 
+            {
+                AnimationUtility.SetAnimationEvents(animClip, newEventsList.ToArray());
+                DirtyAnimationIndexes.Add(a); 
+            }
         }
+
+//Clean up to make it persistent. I dont quite understand it ITS NOT WORKING THE STRING PARAMETERS ARE NOT STAYING
 #if UNITY_EDITOR
         for (int d = 0; d < DirtyAnimationIndexes.Count; d++)
         {

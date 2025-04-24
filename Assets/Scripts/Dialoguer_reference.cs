@@ -12,6 +12,5 @@ public class Dialoguer_reference : MonoBehaviour
     private void Start()
     {
         Dialoguer.TrySetDialoguesFromContainer(container, indexInContainer);
-
     }
 }

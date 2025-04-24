@@ -47,6 +47,7 @@ public class Player_StateMachine : MonoBehaviour
 
         currentState.InitializeState(this, animator);
         currentState.gameObject.SetActive(true);
+        Debug.Log($"Changed player state to: {currentState.name}");
 
         OnStateChanged?.Invoke(currentState); //No use for this yet, but maybe some day
     }

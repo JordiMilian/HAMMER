@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
 {
     [Header("References")]
     public GameObject mainCharacter;
-    [SerializeField] GameObject pauseCanvas;
+    
 
     [SerializeField] GlobalPlayerReferences globalPlayerReference;
     Player_References playerRefs;
@@ -16,17 +16,34 @@ public class GameController : MonoBehaviour
 
     [Header("Already Instantiated")]
     [SerializeField] Cinemachine.CinemachineVirtualCamera cinemachineCamera;
-    [SerializeField] LoadingScreenController loadingScreenController;
+    
     [SerializeField] RoomsLoader roomsLoader;
 
     GameControllerStates currentState = GameControllerStates.None;
     [SerializeField] PlayModes playMode;
-    [SerializeField] GameObject GO_TestingRoom;
+
+    [Header("Menus")]
+    [SerializeField] LoadingScreenController loadingScreenController;
+    [SerializeField] PauseGame pauseGame;
 
     [Header("Testing rooms")]
     [SerializeField] int indexOfTestingRoom = 0;
     [SerializeField] List<GameObject> TestingRoomsList = new List<GameObject>();
 
+    #region Singleton Logic
+    public static GameController Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    #endregion
     public enum PlayModes
     {
         RoomTestingMode, GameMode
@@ -36,7 +53,7 @@ public class GameController : MonoBehaviour
         None, MainMenu, Playing, Loading, Paused, ChoosingRoomMenu
     }
     #region AWAKE
-    private void Awake()
+    private void Start()
     {
         GetReferencesOnAwake();
 
@@ -47,9 +64,9 @@ public class GameController : MonoBehaviour
                 break;
             case PlayModes.RoomTestingMode:
                 //load testing room
-                roomsLoader.LoadNewRoom(GO_TestingRoom);
+                roomsLoader.LoadNewRoom(TestingRoomsList[indexOfTestingRoom]);
                 ChangeGameControllerState(GameControllerStates.Playing);
-                globalPlayerReference.references.stateMachine.ForceChangeState(globalPlayerReference.references.EnteringRoomState);
+                playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
                 break;
             default:
                 //ERROR PLS ADD A VALID MODE
@@ -70,7 +87,9 @@ public class GameController : MonoBehaviour
             cameraZoomController.SetBaseZoomAndReferences();
             playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
 
-            pauseCanvas = Instantiate(pauseCanvas);
+            pauseGame = Instantiate(pauseGame);
+
+            cinemachineCamera.Follow = targetGroupSingleton.transform;
         }
     }
     #endregion
@@ -85,12 +104,15 @@ public class GameController : MonoBehaviour
                 break;
             case GameControllerStates.Playing:
                 //stop playing logic (pause game, remove input)
+                pauseGame.PauseGame_();
                 break;
             case GameControllerStates.Loading:
                 //close loading UI
+                loadingScreenController.HideLoadingScreen();
                 break;
             case GameControllerStates.Paused:
                 //close paused UI
+                pauseGame.Unpause_andHidePauseUI();
                 break;
         }
 
@@ -101,12 +123,15 @@ public class GameController : MonoBehaviour
                 break;
             case GameControllerStates.Playing:
                 //return control to player
+                pauseGame.UnpauseGame();
                 break;
             case GameControllerStates.Loading:
                 //open loading screen
+                loadingScreenController.ShowLoadingScreen();
                 break;
             case GameControllerStates.Paused:
                 //open pause UI
+                pauseGame.Pause_andShowPauseUI();
                 break;
         }
         currentState = newState;
