@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorAnimationController_ToRoll : DoorAnimationController
+public class DoorAnimationController_ToRoll : MonoBehaviour
 {
-    [SerializeField] Collider2D DamageCollider;
-    private void OnEnable()
+    [SerializeField] GameObject DamageCollidersRoot;
+    [SerializeField] RoomCollider blockingCollider;
+    private void OnTriggerEnter2D(Collider2D collision) //AutoDoorCloser
     {
-        OnDoorClose += HideDamageCollider;
-        OnDoorOpen += ShowDamageColldier;
-        OnDoorInstaOpen += ShowDamageColldier;
-        OnDoorInstaClose += HideDamageCollider;
-        OpenDoor();
-        
+        if (collision.CompareTag(Tags.Player_SinglePointCollider))
+        {
+            CloseDoor();
+        }
+    }
+    void CloseDoor()
+    {
+        GetComponent<Animator>().SetTrigger("Close");
+        blockingCollider.collisionLayer = CollisionLayers.AllCollision;
+        HideDamageCollider();
     }
     void HideDamageCollider()
     {
-        DamageCollider.enabled = false;
-    }
-    void ShowDamageColldier()
-    {
-        DamageCollider.enabled = true;
+        DamageCollidersRoot.GetComponent<Collider2D>().enabled = false;
     }
 }

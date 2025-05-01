@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class RoomsLoader : MonoBehaviour
 {
+    [SerializeField] LoadingScreenController loadingScreenController;
     public GameObject CurrentLoadedRoom;
     IRoom currentRoomInterface;
-    public void  LoadNewRoom(GameObject newRoom)
+    bool isLoading;
+    public IEnumerator LoadNewRoom(GameObject newRoom)
     {
+        while (isLoading) { yield return null; } //if we are currently loading a room, wait until we are done
+
+        isLoading = true;
+        yield return StartCoroutine(loadingScreenController.FadeInScreen()); //Fade loading screen
+
         //unload current if there is one
-        if(CurrentLoadedRoom != null)
+        if (CurrentLoadedRoom != null)
         {
             currentRoomInterface.OnRoomUnloaded();
             Destroy(CurrentLoadedRoom);
@@ -19,5 +26,9 @@ public class RoomsLoader : MonoBehaviour
         CurrentLoadedRoom = GameObject.Instantiate(newRoom, transform.position, Quaternion.identity);
         currentRoomInterface = CurrentLoadedRoom.GetComponent<IRoom>();
         currentRoomInterface.OnRoomLoaded();
+
+        StartCoroutine( loadingScreenController.FadeOutScreen()); //Fade out loading screen
+        isLoading = false;
+        GameEvents.OnLoadNewRoom?.Invoke();
     }
 }

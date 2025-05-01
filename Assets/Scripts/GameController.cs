@@ -50,10 +50,10 @@ public class GameController : MonoBehaviour
     }
     public enum GameControllerStates
     {
-        None, MainMenu, Playing, Loading, Paused, ChoosingRoomMenu
+        None, MainMenu, Playing, Paused, ChoosingRoomMenu
     }
     #region AWAKE
-    private void Start()
+    private IEnumerator Start()
     {
         GetReferencesOnAwake();
 
@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
                 break;
             case PlayModes.RoomTestingMode:
                 //load testing room
-                roomsLoader.LoadNewRoom(TestingRoomsList[indexOfTestingRoom]);
+                yield return StartCoroutine(roomsLoader.LoadNewRoom(TestingRoomsList[indexOfTestingRoom]));
                 ChangeGameControllerState(GameControllerStates.Playing);
                 playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
                 break;
@@ -106,10 +106,6 @@ public class GameController : MonoBehaviour
                 //stop playing logic (pause game, remove input)
                 pauseGame.PauseGame_();
                 break;
-            case GameControllerStates.Loading:
-                //close loading UI
-                loadingScreenController.HideLoadingScreen();
-                break;
             case GameControllerStates.Paused:
                 //close paused UI
                 pauseGame.Unpause_andHidePauseUI();
@@ -125,10 +121,6 @@ public class GameController : MonoBehaviour
                 //return control to player
                 pauseGame.UnpauseGame();
                 break;
-            case GameControllerStates.Loading:
-                //open loading screen
-                loadingScreenController.ShowLoadingScreen();
-                break;
             case GameControllerStates.Paused:
                 //open pause UI
                 pauseGame.Pause_andShowPauseUI();
@@ -139,12 +131,16 @@ public class GameController : MonoBehaviour
     public void OnExitedRoom()
     {
         //For testing now, this should be replaced with opening the MAP
-        //
-        ChangeGameControllerState(GameControllerStates.Loading);
         indexOfTestingRoom++;
-        roomsLoader.LoadNewRoom(TestingRoomsList[indexOfTestingRoom]);
-        ChangeGameControllerState(GameControllerStates.Playing);
-        playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
+        StartCoroutine(exitRoomCoroutine());
+        //
+        IEnumerator exitRoomCoroutine()
+        {
+            playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
+            yield return StartCoroutine(roomsLoader.LoadNewRoom(TestingRoomsList[indexOfTestingRoom]));
+            ChangeGameControllerState(GameControllerStates.Playing);
+            playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
+        }
     }
     public void RespawnToLastCheckpoint()
     {

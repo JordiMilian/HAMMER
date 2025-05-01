@@ -41,15 +41,15 @@ public class Player_AnimationEvents : MonoBehaviour
     #region HIDE COLLIDER FOR ROLL
     public void EV_HidePlayerCollider()
     {
-        gameObject.layer = 15;
+        playerRefs.characterMover.collisionLayer = CollisionLayers.JumpingPlayer;
         playerRefs.damageDetectorCollider.enabled = false;
-        //playerRefs.characterMover.ignoreRay = true;
+        
     }
     public void EV_ShowPlayerCollider()
     {
-        gameObject.layer = 20;
+        playerRefs.characterMover.collisionLayer = CollisionLayers.AllCollision;
         playerRefs.damageDetectorCollider.enabled = true;
-        //playerRefs.characterMover.ignoreRay = false;
+       
     }
     #endregion
     #region STATE MACHINE CAN TRANSITION AND INPUT 

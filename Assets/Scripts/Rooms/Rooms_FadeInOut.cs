@@ -6,7 +6,7 @@ using UnityEngine.U2D;
 using static Generic_OnTriggerEnterEvents;
 
 
-public class Rooms_FadInOut : MonoBehaviour
+public class Rooms_FadeInOut : MonoBehaviour
 {
     public GameObject[] RoomSpritesRoots;
     List<SpriteRenderer> AllRoomSprites = new List<SpriteRenderer>();
@@ -37,8 +37,6 @@ public class Rooms_FadInOut : MonoBehaviour
                 AllRoomShapes.Add(thisShape);
             }
         }
-
-        
     }
 
     public void checkCurrentRoom()
@@ -70,12 +68,12 @@ public class Rooms_FadInOut : MonoBehaviour
 
         Rooms_FadeInOut_StartingRoomsCheck.Instance.roomsFades.Remove(this);
     }
-    void playerEnteredRoom(Collider2D collision)
+    public void playerEnteredRoom(Collider2D collision)
     {
         FadeIn();
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnColor(); }
     }
-    void playerExitedRoom(Collider2D collision)
+    public void playerExitedRoom(Collider2D collision)
     {
         FadeOut();
         if (DoorForegrounder != null) { DoorForegrounder.CallTurnBlack(); }

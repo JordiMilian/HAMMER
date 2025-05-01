@@ -16,6 +16,7 @@ public struct wallInfo
         Lenght = lenght;
     }
 }
+
 public class RoomCollider : MonoBehaviour
 {
     public PolygonCollider2D polygonCollider;
@@ -23,7 +24,8 @@ public class RoomCollider : MonoBehaviour
     public bool ignoreInnerWalls;
     public bool ignoreOuterWalls;
     public int[] IgnoreCollisionsIndexes;
-    private void Start()
+    public CollisionLayers collisionLayer;
+    private void OnEnable()
     {
         SetUpWallInfos();
         CollisionsManager.instance.AddRoomCollider(this);
@@ -34,6 +36,7 @@ public class RoomCollider : MonoBehaviour
     }
     public void SetUpWallInfos()
     {
+        wallInfosList.Clear();
         for (int p = 0; p < polygonCollider.points.Length; p++)
         {
             Vector2 pos1 = polygonCollider.points[p] + (Vector2)transform.position;

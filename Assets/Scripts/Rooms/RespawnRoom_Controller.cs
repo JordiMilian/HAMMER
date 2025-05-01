@@ -19,6 +19,7 @@ public class RespawnRoom_Controller : MonoBehaviour, IRoom
         //else subscibe to respawner activated, close enter door with animation
 
         enterDoorController.CloseDoor();
+        exitDoorController.DisableAutoDoorOpener();
         respawner.OnRespawnerActivated += respawnerActivated;
     }
 

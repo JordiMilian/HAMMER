@@ -11,7 +11,6 @@ public class PlayerState_Disable : PlayerState
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Stopped);
 
         TargetGroupSingleton.Instance.RemoveMouseTarget();
-        playerRefs.animator.CrossFade(AnimatorStateName, transitionTime_instant);
         playerRefs.spriteFliper.canFlip = false;
     }
     public override void OnDisable()

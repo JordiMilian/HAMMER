@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MultipleRooms_Controler : MonoBehaviour, IRoom
 {
+    //This script must be placed into an empty Prefab to be placed into the Game Controller
     //Rooms that are part of MultipleRooms should follow some rules
     //- The controller script of each of these rooms must implement the interface IMultipleRoom in addition to the IRoom interface 
     //- On the OnRoomLoaded we should not place cutscenes or anything that interrupts the player. Meaning NO BASIC ENEMY ROOMS should be placed as anything but the first room
@@ -12,19 +13,22 @@ public class MultipleRooms_Controler : MonoBehaviour, IRoom
     //- Make sure to disable the ExitColliders on the intermidiate rooms. Only the LAST room should have it on the exit position.
 
     //This is a simplified version of the script RoomsGroup_script. THis script only spawns rooms in the given order.
-    private void OnValidate()
-    {
-        //there should be a check if the roomsToLoads implements IMultipleRoom
-    }
 
-    public GameObject[] RoomsToLoad; 
+    public GameObject[] RoomsToLoad;
 
     public List<GameObject> currentlySpawnedRooms = new List<GameObject>();
     Vector2 LastExitPosition = Vector2.zero;
+
     public void OnRoomLoaded()
     {
         SpawnRooms(transform.position);
-        //Fade out all the rooms except the first?
+        
+        for (int f = 0; f < currentlySpawnedRooms.Count; f++)//Fade out all the rooms except the first
+        {
+            Rooms_FadeInOut thisFader = currentlySpawnedRooms[f].GetComponentInChildren<Rooms_FadeInOut>();
+            if(f == 0) { thisFader.playerEnteredRoom(new Collider2D()); }
+            else { thisFader.playerExitedRoom(new Collider2D()); }
+        }
     }
 
     public void OnRoomUnloaded()

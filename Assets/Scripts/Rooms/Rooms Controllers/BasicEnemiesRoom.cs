@@ -39,7 +39,6 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     public void OnRoomUnloaded()
     {
         //destroy remaining enemies if there are?
-        //also destroy the deadHeads
     }
     void SpawnEnemies()
     {

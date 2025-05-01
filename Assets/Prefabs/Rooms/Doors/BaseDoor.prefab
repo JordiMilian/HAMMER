@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!114 &3144264360532915604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,7 +340,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8709287113319620958}
-  - component: {fileID: 6358248010266653297}
+  - component: {fileID: 5406039298201026301}
+  - component: {fileID: 7577887663419042730}
   m_Layer: 20
   m_Name: BlockingCollider
   m_TagString: Untagged
@@ -362,8 +364,8 @@ Transform:
   m_Father: {fileID: 7169319268242600366}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &6358248010266653297
-BoxCollider2D:
+--- !u!60 &5406039298201026301
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -385,9 +387,28 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.1630154, y: 0.347518}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.9880574, y: 0.19720677}
+      - {x: -1.9924418, y: -0.16890419}
+      - {x: 1.9895746, y: -0.16854906}
+      - {x: 1.985947, y: 0.19836706}
+--- !u!114 &7577887663419042730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168098405068458713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4c38c48c0d54a4a8f7162ffcd505dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  polygonCollider: {fileID: 5406039298201026301}
+  ignoreInnerWalls: 1
+  ignoreOuterWalls: 0
+  IgnoreCollisionsIndexes: 0000000002000000
 --- !u!1 &5620523026693704990
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!114 &1422885099308710819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,9 +548,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorAnimator: {fileID: 1042874851638948191}
-  blockingCollider: {fileID: 6358248010266653297}
+  blockingCollider: {fileID: 7577887663419042730}
   AutoDoorOpenerCollider: {fileID: 3777616728132808769}
   AutoDoorCloserCollider: {fileID: 6570561232439989702}
+  openDoorAnimation: {fileID: 0}
 --- !u!95 &1042874851638948191
 Animator:
   serializedVersion: 4

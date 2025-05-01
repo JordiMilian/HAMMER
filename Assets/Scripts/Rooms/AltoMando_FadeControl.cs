@@ -5,8 +5,8 @@ using UnityEngine;
 public class AltoMando_FadeControl : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    [SerializeField] Rooms_FadInOut mainFader;
-    [SerializeField] Rooms_FadInOut backFader;
+    [SerializeField] Rooms_FadeInOut mainFader;
+    [SerializeField] Rooms_FadeInOut backFader;
 
     private void Awake()
     {

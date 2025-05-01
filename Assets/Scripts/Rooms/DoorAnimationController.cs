@@ -8,7 +8,7 @@ public class DoorAnimationController : MonoBehaviour, ICutsceneable
 {
     bool isDoorOpen;
     [SerializeField] Animator doorAnimator;
-    [SerializeField] Collider2D blockingCollider;
+    [SerializeField] RoomCollider blockingCollider;
     public Action OnDoorOpen;
     public Action OnDoorClose;
     public Action OnDoorInstaOpen, OnDoorInstaClose;

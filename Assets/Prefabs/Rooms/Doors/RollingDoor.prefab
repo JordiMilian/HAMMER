@@ -128,16 +128,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
+  Damage: 0
   Knockback: 500
-  HitStop: 0
   isParryable: 0
   isBloody: 0
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 0
-  typeOfDamage: 0
-  eventSystem: {fileID: 0}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!61 &3331267218601453193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,64 +163,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 4.546593, y: 0.3324095}
-  m_EdgeRadius: 0
---- !u!1 &2270977264632972233
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4812465546832245168}
-  - component: {fileID: 7640656507884402591}
-  m_Layer: 16
-  m_Name: JumpableCollidewr
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4812465546832245168
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2270977264632972233}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.096, z: 0}
-  m_LocalScale: {x: 1.0909337, y: 0.575, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5889714038794283743}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7640656507884402591
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2270977264632972233}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.1630154, y: 0.347518}
   m_EdgeRadius: 0
 --- !u!1 &5787743321739735353
 GameObject:
@@ -432,10 +374,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 79a7a63531b5be94c80ba8615a75638b, type: 2}
+    - target: {fileID: 1177794156676731124, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1422885099308710819, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: doorAnimationController
       value: 
-      objectReference: {fileID: 7283132956873897115}
+      objectReference: {fileID: 0}
     - target: {fileID: 2197734984016938786, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -455,14 +401,26 @@ PrefabInstance:
     - target: {fileID: 3144264360532915604, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: doorAnimationController
       value: 
-      objectReference: {fileID: 7283132956873897115}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543234150371500527, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5168098405068458713, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620523026693704990, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5652138034255535129, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: m_Name
       value: RollingDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5652138034255535129, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7169319268242600366, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: m_RootOrder
@@ -508,18 +466,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7577887663419042730, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+      propertyPath: collisionLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9100749002250254927, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6505407867932872728, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+    - {fileID: 3144264360532915604, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
---- !u!4 &481379604224650032 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3777616728132808769, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
-  m_PrefabInstance: {fileID: 3657765489981021041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1161067485122646325 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2512462052065118788, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
@@ -541,31 +499,60 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &4376363539084929582 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1042874851638948191, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
-  m_PrefabInstance: {fileID: 3657765489981021041}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5889714038794283743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7169319268242600366, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
   m_PrefabInstance: {fileID: 3657765489981021041}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7632947114758737591 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6570561232439989702, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
+--- !u!114 &6622806015662911707 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7577887663419042730, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
   m_PrefabInstance: {fileID: 3657765489981021041}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &7710152348152588544 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 6358248010266653297, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
-  m_PrefabInstance: {fileID: 3657765489981021041}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4c38c48c0d54a4a8f7162ffcd505dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8985406718846879592 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5652138034255535129, guid: c1bfff64a865f6641ab7c4ab70a7dfda, type: 3}
   m_PrefabInstance: {fileID: 3657765489981021041}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &646928256532214487
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8985406718846879592}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -2.7458751, y: 0.7185704}
+      - {x: -2.7920744, y: 0.03257528}
+      - {x: -2.3639696, y: 0.031977877}
+      - {x: -1.9707088, y: 0.5059932}
+      - {x: 2.0188484, y: 0.4769397}
+      - {x: 2.4305212, y: 0.11034179}
+      - {x: 2.925293, y: 0.1363005}
+      - {x: 2.8208816, y: 0.68597484}
 --- !u!114 &7283132956873897115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,10 +565,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c38e1209b17053438256b18db1049e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorAnimator: {fileID: 4376363539084929582}
-  blockingCollider: {fileID: 7710152348152588544}
-  OpenAudio: {fileID: 0}
-  CloseAudio: {fileID: 0}
-  AutoDoorOpenerCollider: {fileID: 481379604224650032}
-  AutoDoorCloserCollider: {fileID: 7632947114758737591}
-  DamageCollider: {fileID: 3331267218601453193}
+  DamageCollidersRoot: {fileID: 556429095005990986}
+  blockingCollider: {fileID: 6622806015662911707}

@@ -58,7 +58,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
         }
 
         // Destroy when player respawns
-        GameEvents.OnPlayerRespawned += DestroyItself;
+        GameEvents.OnLoadNewRoom += DestroyItself;
 
         //Subscribe and Invoke the Event that calls everyone to revisit what colliders to ignore 
         DeadParts_Manager.Instance.OnDeadPartInstantiated += IgnoreOtherGrounds;
@@ -77,7 +77,7 @@ public class DeadPartV3_Controller : MonoBehaviour, IDamageReceiver
     {
         DeadParts_Manager.Instance.GroundsList.Remove(groundCollider);
         DeadParts_Manager.Instance.OnDeadPartInstantiated -= IgnoreOtherGrounds;
-        GameEvents.OnPlayerRespawned -= DestroyItself;
+        GameEvents.OnLoadNewRoom -= DestroyItself;
     }
     private void Start()
     {

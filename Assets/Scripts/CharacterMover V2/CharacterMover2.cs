@@ -8,6 +8,7 @@ public class CharacterMover2 : MonoBehaviour
     public List<Vector2> MovementVectorsPerSecond = new List<Vector2>();
     [HideInInspector]public CircleCollider2D circleCollider;
     public bool ignoreCollisions;
+    public CollisionLayers collisionLayer = CollisionLayers.AllCollision;
     [Range(0f, 1f)]
     [Tooltip("Less Value means more Resistance/Strenght")]
     public float InvertedResistance = 0.5f; 

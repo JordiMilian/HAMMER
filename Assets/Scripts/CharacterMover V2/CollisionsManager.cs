@@ -9,6 +9,10 @@ using UnityEngine.Assertions.Must;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
+public enum CollisionLayers
+{
+    AllCollision, Jumpable, JumpingPlayer
+}
 public class CollisionsManager : MonoBehaviour
 {
     List<CharacterMover2> CharacterMoversList = new List<CharacterMover2>();
@@ -85,7 +89,7 @@ public class CollisionsManager : MonoBehaviour
             }
         }
     }
-    public static bool doCharactersCollide(CharacterMover2 charaA, CharacterMover2 charaB, out float depth, out Vector2 directionAtoB)
+    static bool doCharactersCollide(CharacterMover2 charaA, CharacterMover2 charaB, out float depth, out Vector2 directionAtoB)
     {
         directionAtoB = Vector2.zero;
         depth = 0;
@@ -127,12 +131,11 @@ public class CollisionsManager : MonoBehaviour
             for (int c = 0; c < CharacterMoversList.Count; c++)
             {
                 CharacterMover2 character = CharacterMoversList[c];
-                if (character.ignoreCollisions) { continue; }
-                Vector2 futureCharaPos = (Vector2)character.transform.position + character.currentVelocity;
-                bool isInsideCollider = room.polygonCollider.OverlapPoint(character.transform.position);
 
-                if (isInsideCollider && room.ignoreInnerWalls) { continue; }
-                if (!isInsideCollider && room.ignoreOuterWalls) { continue; }
+
+                if (ShouldCharacterColliderWithRoom(character, room) == false) { continue; } //If there is no need to calculate the collision with this chara, continue
+
+                Vector2 futureCharaPos = (Vector2)character.transform.position + character.currentVelocity;
 
                 for (int w = 0; w < room.wallInfosList.Count; w++)
                 {
@@ -162,8 +165,20 @@ public class CollisionsManager : MonoBehaviour
                 }
             }
         }
+        //
+        static bool ShouldCharacterColliderWithRoom(CharacterMover2 character, RoomCollider room)
+        {
+            if (character.ignoreCollisions) { return false; }
+            if (room.collisionLayer == CollisionLayers.Jumpable && character.collisionLayer == CollisionLayers.JumpingPlayer) { return false; } //If its jumping
+
+            bool isInsideCollider = room.polygonCollider.OverlapPoint(character.transform.position);
+            if (isInsideCollider && room.ignoreInnerWalls) { return false; }
+            if (!isInsideCollider && room.ignoreOuterWalls) { return false; }
+
+            return true;
+        }
     }
-    public static bool doCharacterAndWallCollide(wallInfo wall, CharacterMover2 character, out float depth, out Vector2 VectorWallToPlayer)
+     static bool doCharacterAndWallCollide(wallInfo wall, CharacterMover2 character, out float depth, out Vector2 VectorWallToPlayer)
     {
         depth = 0;
         VectorWallToPlayer = Vector2.zero;
