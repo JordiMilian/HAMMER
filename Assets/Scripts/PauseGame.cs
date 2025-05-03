@@ -17,8 +17,6 @@ public class PauseGame : MonoBehaviour
     public Action CallPauseGame;
     public Action CallUnpauseGame;
 
-    [Header("Buttons references")]
-    [SerializeField] Player_EventSystem playerEventSystem;
 
     private void OnEnable()
     {
