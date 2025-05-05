@@ -3,28 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+public struct ArcData
+{
+    public Vector2 arcDirection;
+    public bool isClockwise;
+    public float angle;
+    public int startPos; //this should be the oldest input valid. Index is smallest
+    public int endPos; //this should be the latest player input. index is largest
+}
 public class GesturesDetector : MonoBehaviour
 {
-    const float secondsOfInputStored = .3f;
+    public Action<ArcData> OnArcDetected;
+    public Action<Vector2> OnTapDetected;
+
+    const float secondsOfInputStored = 1f;
     [Serializable]
     public struct InputValue
     {
         public Vector2 Input;
         public float time;
     }
-    List<InputValue> lastInputValues = new List<InputValue>();
+    List<InputValue> InputsList = new List<InputValue>();
     private void Update()
     {
         FillAndDrawInput();
 
-        if (CheckForArc(out Vector2 arcDirection, out bool isClockWise))
+        if (CheckForArc(out ArcData arcData))
         {
-            StartCoroutine(DrawArc(arcDirection, isClockWise, 1));
-            Debug.Log("Arc detected");
+            DrawArc(arcData, 1);
+            OnArcDetected?.Invoke(arcData);
+            if (arcData.isClockwise) { Debug.Log($"Clockwise arc detected with{arcData.angle} degrees"); }
+            else { Debug.Log($"Not clockwise arc detected with{arcData.angle} degrees"); }
         }
         else if (CheckForTap(out Vector2 tapDirection))
         { 
+            OnTapDetected?.Invoke(tapDirection);
             StartCoroutine(DrawTap(tapDirection, 1));
             Debug.Log("Tap detected");
         }
@@ -33,87 +46,114 @@ public class GesturesDetector : MonoBehaviour
     #region GET INPUTS
     void FillAndDrawInput()
     {
-        Vector2 thisFrameInput = Input.GetAxis("Horizontal") * Vector2.right + Input.GetAxis("Vertical") * Vector2.up; //I dont like this, its not normalized input
+        Vector2 thisFrameInput = Input.GetAxisRaw("RightJoystickHorizontal") * Vector2.right + Input.GetAxisRaw("RightJoystickVertical") * Vector2.up; //I dont like this, its not normalized input
+        if(thisFrameInput.sqrMagnitude > 1) { thisFrameInput.Normalize(); }
 
         InputValue inputValue = new InputValue();
         inputValue.Input = thisFrameInput;
         inputValue.time = Time.time;
-        lastInputValues.Add(inputValue);
+        InputsList.Add(inputValue);
 
-        for (int i = lastInputValues.Count - 1; i >= 0; i--)
+        for (int i = InputsList.Count - 1; i >= 0; i--)
         {
-            if (happenedBeforeSeconds(lastInputValues[i], secondsOfInputStored))
+            if (happenedBeforeSeconds(InputsList[i], secondsOfInputStored))
             {
-                lastInputValues.RemoveAt(i);
+                InputsList.RemoveAt(i);
             }
         }
-        for (int i = 0; i < lastInputValues.Count; i++)
+        for (int i = 0; i < InputsList.Count; i++)
         {
-            if (i == lastInputValues.Count - 1) { Debug.DrawLine(transform.position, (Vector2)transform.position + lastInputValues[i].Input, Color.green); }
+            if (i == InputsList.Count - 1) { Debug.DrawLine(transform.position, (Vector2)transform.position + InputsList[i].Input, Color.green); }
             else
             {
-                Debug.DrawLine((Vector2)transform.position + lastInputValues[i].Input, (Vector2)transform.position + lastInputValues[i + 1].Input, Color.red);
+                Debug.DrawLine((Vector2)transform.position + InputsList[i].Input, (Vector2)transform.position + InputsList[i + 1].Input, Color.red);
             }
         }
     }
     #endregion
     #region ARC CHECK
+   
     const int minInputsToCheckForArc = 5; //if there are not this many inputs stored in the list, do not check. This is for the beggining of play
     const float minAngleDegForArc = 45f;
-    const float secondsToCheckForArc = 0.2f; //check values that happenend this many seconds before
+    const float secondsToCheckForArc = 0.5f; //check values that happenend this many seconds before
     const float delayAfterArc = 0.3f; //after a true arc, delay the checks so we have new values
-    const float thresholdForArc = 0.2f; //If an input vector below this magnitude is found, stop the check
+    const float thresholdForArc = 0.5f; //If an input vector below this magnitude is found, stop the check
     bool isDelayingArc;
-     bool CheckForArc(out Vector2 arcDirection, out bool isClockWise)
+     bool CheckForArc(out ArcData arcData)
     {
-        arcDirection = Vector2.zero;
-        isClockWise = false;
+        arcData = new ArcData();
 
         if (isDelayingArc) { return false; }
-        if (lastInputValues.Count < minInputsToCheckForArc) { return false; } //if we dont have enough inputs, return false
+        if (InputsList.Count < minInputsToCheckForArc) { return false; } //if we dont have enough inputs, return false
 
-
-        float totalAngleDeg = 0;
-        for (int i = lastInputValues.Count -1; i > 0; i--) //Go throw all the values and add up all their angles. If the add up to a minim, return true
+        for (int i = InputsList.Count -1; i > 0; i--) 
         {
-            InputValue thisInputValue = lastInputValues[i];
-            InputValue previousValue = lastInputValues[i - 1];
+            InputValue newInputValue = InputsList[i];
 
-            if (isBelowThreshold(thisInputValue,thresholdForArc)) { return false; }
-            if (happenedBeforeSeconds(thisInputValue, secondsToCheckForArc)) { return false; }
-
-            float DegBetweenValues = UsefullMethods.AngleBetweenDirectionsDeg(thisInputValue.Input, previousValue.Input);
-            totalAngleDeg += DegBetweenValues;
-
-            if(Mathf.Abs(totalAngleDeg) >= minAngleDegForArc)
+            if (happenedBeforeSeconds(newInputValue, secondsToCheckForArc)) { break; }
+            if (isValidEndArcPoint(i)) //once we found a starting point, try to find an end point
             {
-                isClockWise = totalAngleDeg > 0;
-                arcDirection = lastInputValues[lastInputValues.Count - 2].Input.normalized; //this needs a better calculation, check for medians somehow doesnt work
-                StartCoroutine(ArcDelay(arcDirection));
-                return true;
+                for (int j = i - 1; j >= 0; j--) 
+                {
+                    InputValue oldInputValue = InputsList[j];
+                    
+                    if (happenedBeforeSeconds(oldInputValue, secondsToCheckForArc)) { return false; }
+
+                    if (isValidEndArcPoint(j))
+                    {
+                        arcData.startPos = j;
+                        arcData.endPos = i;
+                        goto ArcFinished;
+                    }
+                }
             }
+            //if (Mathf.Abs(DegBetweenValues) < 0.01f) { goto ArcFinished; } //If the diference between the two inputs is too small, check angle
         }
+        return false;
+
+    ArcFinished:
+        
+        float angleBetweenValues = UsefullMethods.SmallAngleBetweenDirectionsDeg(InputsList[arcData.startPos].Input.normalized, InputsList[arcData.endPos].Input.normalized);
+        if (Mathf.Abs(angleBetweenValues) >= minAngleDegForArc)
+        {
+            arcData.isClockwise = angleBetweenValues < 0;
+            arcData.arcDirection = InputsList[InputsList.Count - 2].Input.normalized; //this needs a better calculation, check for medians somehow doesnt work
+
+            arcData.angle = angleBetweenValues;
+            StartCoroutine(ArcDelay(arcData.arcDirection));
+            return true;
+        }
+        return false;
+    } 
+    bool isValidEndArcPoint(int index)
+    {
+
+        if (InputsList[index].Input.sqrMagnitude < thresholdForArc) { return true; }
+        return false;
+        //finish this after the prototype
+        float dotBetweenInputs = Vector2.Dot(InputsList[index].Input.normalized, InputsList[index - 1].Input.normalized);
+        if (dotBetweenInputs > 0.98f) { return true; } 
         return false;
     }
     Vector2 GetMedianVectorOfInputs(int lastInputIndex)
     {
         Vector2 medianVector = Vector2.zero;
-        for (int i = lastInputValues.Count -1; i >= lastInputIndex; i--)
+        for (int i = InputsList.Count -1; i >= lastInputIndex; i--)
         {
-            medianVector += lastInputValues[i].Input;
+            medianVector += InputsList[i].Input;
         }
         return medianVector.normalized;
     }
-    IEnumerator DrawArc(Vector2 arcDirection, bool isClockWise, float duration)
+    void DrawArc(ArcData arcData, float duration)
     {
-        float timer = 0;
-        Color directionColor = isClockWise ? Color.red : Color.green;
-        while (timer < duration)
+        Color startColor = Color.cyan;
+        Color endColor = Color.blue;
+        for (int i = arcData.endPos; i >= arcData.startPos; i--)
         {
-            timer += Time.deltaTime;
-            //Handles.DrawWireArc(transform.position, Vector3.forward, arcDirection, minAngleDegForArc, 1.5f);
-            Debug.DrawLine(transform.position, (Vector2)transform.position + arcDirection, directionColor);
-            yield return null;
+            Vector2 thisLine = InputsList[i].Input;
+            float normalizedValue = (i - arcData.startPos) / (float)(arcData.endPos - arcData.startPos);
+            Color thisColor = Color.Lerp(startColor, endColor, normalizedValue);
+            Debug.DrawLine(transform.position, (Vector2)transform.position + thisLine, thisColor, duration);
         }
     }
     IEnumerator ArcDelay(Vector2 arcDirection)
@@ -133,13 +173,13 @@ public class GesturesDetector : MonoBehaviour
     {
         tapDirection = Vector2.zero;
         if (isDelayingTapCheck) { return false; }
-        if(lastInputValues.Count < 4) { return false; }
+        if(InputsList.Count < 4) { return false; }
 
-        if (!isBelowThreshold(lastInputValues[lastInputValues.Count - 1],thresholdForTap)) { return false; } //if last input is active, return false
+        if (!isBelowThreshold(InputsList[InputsList.Count - 1],thresholdForTap)) { return false; } //if last input is active, return false
 
-        for (int i = lastInputValues.Count -1; i >= 0; i--) //go thorw all the inputs to check for a positive input, if we do, check for a negative input right after
+        for (int i = InputsList.Count -1; i >= 0; i--) //go thorw all the inputs to check for a positive input, if we do, check for a negative input right after
         {
-            InputValue inputValue = lastInputValues[i];
+            InputValue inputValue = InputsList[i];
             tapDirection = inputValue.Input.normalized;
             if (happenedBeforeSeconds(inputValue,secondsToCheckForTaps)) { return false; } //if the input is too old, break
 
@@ -147,7 +187,7 @@ public class GesturesDetector : MonoBehaviour
             {
                 for (int j = i; j >= 0; j--)
                 {
-                    if (isBelowThreshold(lastInputValues[j], thresholdForTap)) { StartCoroutine(TapDelay(tapDirection)); return true; }
+                    if (isBelowThreshold(InputsList[j], thresholdForTap)) { StartCoroutine(TapDelay(tapDirection)); return true; }
                 }
             }
         }
@@ -165,7 +205,7 @@ public class GesturesDetector : MonoBehaviour
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            Debug.DrawLine(transform.position, (Vector2)transform.position + tapDirection, Color.blue);
+            Debug.DrawLine(transform.position, (Vector2)transform.position + tapDirection, Color.yellow);
             yield return null;
         }
     }

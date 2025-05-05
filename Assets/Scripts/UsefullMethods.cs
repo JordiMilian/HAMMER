@@ -114,7 +114,7 @@ public class UsefullMethods : MonoBehaviour
         Vector2 normalized = vector.normalized;
         return Mathf.Atan2(normalized.y, normalized.x);
     }
-    public static float AngleBetweenDirectionsDeg(Vector2 dir1, Vector2 dir2)
+    public static float SmallAngleBetweenDirectionsDeg(Vector2 dir1, Vector2 dir2)
     {
         return Vector2.SignedAngle(dir1, dir2);
         return Mathf.Acos(Vector2.Dot(dir1.normalized, dir2.normalized)) * Mathf.Rad2Deg;

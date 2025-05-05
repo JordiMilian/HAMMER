@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, IHealth, IStats, IParryDealer, IParryReceiver, IKilleable
 {
-   [SerializeField] Player_References playerRefs;
+   [SerializeField] protected Player_References playerRefs;
     [SerializeField] AudioClip SFX_DealtDamage, SFX_ReceiveDamage, SFX_ParryDealt;
     private void Start()
     {
