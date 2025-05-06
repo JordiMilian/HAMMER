@@ -22,28 +22,38 @@ public class GesturesDetector : MonoBehaviour
     {
         public Vector2 Input;
         public float time;
+        public float magnitude;
+        public bool isArquingInput; //Ugly, but this is to diferentiate inputs that are part of an arc
     }
     List<InputValue> InputsList = new List<InputValue>();
-    private void Update()
+    private void FixedUpdate()
     {
         FillAndDrawInput();
 
-        if (CheckForArc(out ArcData arcData))
+        if(!isDelayingArc)
         {
-            DrawArc(arcData, 1);
-            OnArcDetected?.Invoke(arcData);
-            if (arcData.isClockwise) { Debug.Log($"Clockwise arc detected with{arcData.angle} degrees"); }
-            else { Debug.Log($"Not clockwise arc detected with{arcData.angle} degrees"); }
+            if (CheckForArc(out ArcData arcData))
+            {
+                DrawArc(arcData, 1);
+                
+                if (arcData.isClockwise) { Debug.Log($"Clockwise arc detected with{arcData.angle} degrees"); }
+                else { Debug.Log($"Not clockwise arc detected with{arcData.angle} degrees"); }
+
+                StartCoroutine(ArcDelay());
+                OnArcDetected?.Invoke(arcData);
+            }
         }
-        else if (CheckForTap(out Vector2 tapDirection))
+        
+
+        if (CheckForTap(out Vector2 tapDirection))
         { 
             OnTapDetected?.Invoke(tapDirection);
             StartCoroutine(DrawTap(tapDirection, 1));
             Debug.Log("Tap detected");
         }
-       
     }
     #region GET INPUTS
+    [SerializeField] float DotThreshold = 0.95f;
     void FillAndDrawInput()
     {
         Vector2 thisFrameInput = Input.GetAxisRaw("RightJoystickHorizontal") * Vector2.right + Input.GetAxisRaw("RightJoystickVertical") * Vector2.up; //I dont like this, its not normalized input
@@ -52,7 +62,17 @@ public class GesturesDetector : MonoBehaviour
         InputValue inputValue = new InputValue();
         inputValue.Input = thisFrameInput;
         inputValue.time = Time.time;
+        inputValue.magnitude = thisFrameInput.magnitude;
+
+        if(inputValue.magnitude < 0.8f) { inputValue.isArquingInput = false; }
+        else
+        {
+            float dotBetweenInputs = Vector2.Dot(thisFrameInput, InputsList[InputsList.Count - 1].Input.normalized);
+            inputValue.isArquingInput = dotBetweenInputs < DotThreshold;
+        }
+
         InputsList.Add(inputValue);
+        
 
         for (int i = InputsList.Count - 1; i >= 0; i--)
         {
@@ -61,48 +81,49 @@ public class GesturesDetector : MonoBehaviour
                 InputsList.RemoveAt(i);
             }
         }
-        for (int i = 0; i < InputsList.Count; i++)
+        for (int i = InputsList.Count -1; i >= 0; i--)
         {
             if (i == InputsList.Count - 1) { Debug.DrawLine(transform.position, (Vector2)transform.position + InputsList[i].Input, Color.green); }
-            else
-            {
-                Debug.DrawLine((Vector2)transform.position + InputsList[i].Input, (Vector2)transform.position + InputsList[i + 1].Input, Color.red);
-            }
+            if(i == 0) { return; }
+
+            Color DotColor = InputsList[i].isArquingInput ? Color.red : Color.yellow; 
+            //Debug.DrawLine((Vector2)transform.position, (Vector2)transform.position + InputsList[i].Input, DotColor);
+            Debug.DrawLine((Vector2)transform.position + InputsList[i].Input, (Vector2)transform.position + InputsList[i-1].Input, DotColor);
         }
     }
     #endregion
     #region ARC CHECK
    
-    const int minInputsToCheckForArc = 5; //if there are not this many inputs stored in the list, do not check. This is for the beggining of play
+    const int minInputsToCheckForArc = 10; //if there are not this many inputs stored in the list, do not check. This is for the beggining of play
     const float minAngleDegForArc = 45f;
     const float secondsToCheckForArc = 0.5f; //check values that happenend this many seconds before
-    const float delayAfterArc = 0.3f; //after a true arc, delay the checks so we have new values
+    const float delayAfterArc = 0.5f; //after a true arc, delay the checks so we have new values
     const float thresholdForArc = 0.5f; //If an input vector below this magnitude is found, stop the check
     bool isDelayingArc;
-     bool CheckForArc(out ArcData arcData)
+    public bool CheckForArc(out ArcData arcData)
     {
         arcData = new ArcData();
 
-        if (isDelayingArc) { return false; }
         if (InputsList.Count < minInputsToCheckForArc) { return false; } //if we dont have enough inputs, return false
 
-        for (int i = InputsList.Count -1; i > 0; i--) 
+        for (int i = InputsList.Count -1; i > 0; i--) //Go from the newest input to the oldest
         {
             InputValue newInputValue = InputsList[i];
-
             if (happenedBeforeSeconds(newInputValue, secondsToCheckForArc)) { break; }
-            if (isValidEndArcPoint(i)) //once we found a starting point, try to find an end point
+
+            if (!InputsList[i].isArquingInput) //once we found a starting point, try to find an end point
             {
+                if(i == 0 || !InputsList[i - 1].isArquingInput) { continue; } //if its the last input or the one before is not arquing, continue
+
+                
                 for (int j = i - 1; j >= 0; j--) 
                 {
                     InputValue oldInputValue = InputsList[j];
                     
-                    if (happenedBeforeSeconds(oldInputValue, secondsToCheckForArc)) { return false; }
-
-                    if (isValidEndArcPoint(j))
+                    if (!oldInputValue.isArquingInput)
                     {
-                        arcData.startPos = j;
-                        arcData.endPos = i;
+                        arcData.startPos = j +1;
+                        arcData.endPos = i-1;
                         goto ArcFinished;
                     }
                 }
@@ -113,14 +134,13 @@ public class GesturesDetector : MonoBehaviour
 
     ArcFinished:
         
-        float angleBetweenValues = UsefullMethods.SmallAngleBetweenDirectionsDeg(InputsList[arcData.startPos].Input.normalized, InputsList[arcData.endPos].Input.normalized);
+        float angleBetweenValues = UsefullMethods.AngleBetweenDirectionsDeg(InputsList[arcData.startPos].Input.normalized, InputsList[arcData.endPos].Input.normalized);
         if (Mathf.Abs(angleBetweenValues) >= minAngleDegForArc)
         {
             arcData.isClockwise = angleBetweenValues < 0;
             arcData.arcDirection = InputsList[InputsList.Count - 2].Input.normalized; //this needs a better calculation, check for medians somehow doesnt work
 
             arcData.angle = angleBetweenValues;
-            StartCoroutine(ArcDelay(arcData.arcDirection));
             return true;
         }
         return false;
@@ -156,7 +176,7 @@ public class GesturesDetector : MonoBehaviour
             Debug.DrawLine(transform.position, (Vector2)transform.position + thisLine, thisColor, duration);
         }
     }
-    IEnumerator ArcDelay(Vector2 arcDirection)
+    IEnumerator ArcDelay()
     {
         isDelayingArc = true;
         yield return new WaitForSeconds(delayAfterArc);
