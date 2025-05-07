@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 public struct ArcData
 {
@@ -11,10 +12,16 @@ public struct ArcData
     public int startPos; //this should be the oldest input valid. Index is smallest
     public int endPos; //this should be the latest player input. index is largest
 }
+public struct TapData
+{
+    public Vector2 endDirection;
+    public Vector2 startPosition;
+    public float tapLenght;
+}
 public class GesturesDetector : MonoBehaviour
 {
     public Action<ArcData> OnArcDetected;
-    public Action<Vector2> OnTapDetected;
+    public Action<TapData> OnTapDetected;
 
     const float secondsOfInputStored = 1f;
     [Serializable]
@@ -23,13 +30,12 @@ public class GesturesDetector : MonoBehaviour
         public Vector2 Input;
         public float time;
         public float magnitude;
-        public bool isArquingInput; //Ugly, but this is to diferentiate inputs that are part of an arc
+        public bool isMovingInput; 
     }
     List<InputValue> InputsList = new List<InputValue>();
     private void FixedUpdate()
     {
         FillAndDrawInput();
-
         if(!isDelayingArc)
         {
             if (CheckForArc(out ArcData arcData))
@@ -41,16 +47,22 @@ public class GesturesDetector : MonoBehaviour
 
                 StartCoroutine(ArcDelay());
                 OnArcDetected?.Invoke(arcData);
+                return;
             }
         }
         
+        if(!isDelayingTapCheck)
+        {
+            if (CheckForTap(out TapData tapData))
+            {
+                DrawTap(tapData, 1);
+                Debug.Log("Tap detected");
 
-        if (CheckForTap(out Vector2 tapDirection))
-        { 
-            OnTapDetected?.Invoke(tapDirection);
-            StartCoroutine(DrawTap(tapDirection, 1));
-            Debug.Log("Tap detected");
+                StartCoroutine(TapDelay());
+                OnTapDetected?.Invoke(tapData);
+            }
         }
+        
     }
     #region GET INPUTS
     [SerializeField] float DotThreshold = 0.95f;
@@ -64,12 +76,12 @@ public class GesturesDetector : MonoBehaviour
         inputValue.time = Time.time;
         inputValue.magnitude = thisFrameInput.magnitude;
 
-        if(inputValue.magnitude < 0.8f) { inputValue.isArquingInput = false; }
-        else
+        if(InputsList.Count > 2)
         {
             float dotBetweenInputs = Vector2.Dot(thisFrameInput, InputsList[InputsList.Count - 1].Input.normalized);
-            inputValue.isArquingInput = dotBetweenInputs < DotThreshold;
+            inputValue.isMovingInput = dotBetweenInputs < DotThreshold;
         }
+        
 
         InputsList.Add(inputValue);
         
@@ -86,7 +98,8 @@ public class GesturesDetector : MonoBehaviour
             if (i == InputsList.Count - 1) { Debug.DrawLine(transform.position, (Vector2)transform.position + InputsList[i].Input, Color.green); }
             if(i == 0) { return; }
 
-            Color DotColor = InputsList[i].isArquingInput ? Color.red : Color.yellow; 
+            Color DotColor = InputsList[i].isMovingInput ? Color.red : Color.yellow;
+            if (InputsList[i].magnitude < 0.8f) { DotColor = Color.white; }
             //Debug.DrawLine((Vector2)transform.position, (Vector2)transform.position + InputsList[i].Input, DotColor);
             Debug.DrawLine((Vector2)transform.position + InputsList[i].Input, (Vector2)transform.position + InputsList[i-1].Input, DotColor);
         }
@@ -111,16 +124,16 @@ public class GesturesDetector : MonoBehaviour
             InputValue newInputValue = InputsList[i];
             if (happenedBeforeSeconds(newInputValue, secondsToCheckForArc)) { break; }
 
-            if (!InputsList[i].isArquingInput) //once we found a starting point, try to find an end point
+            if (!InputsList[i].isMovingInput || InputsList[i].magnitude < 0.8f) //once we found a starting point, try to find an end point
             {
-                if(i == 0 || !InputsList[i - 1].isArquingInput) { continue; } //if its the last input or the one before is not arquing, continue
+                if(i == 0 || !InputsList[i - 1].isMovingInput || InputsList[i-1].magnitude < 0.8f) { continue; } //if its the last input or the one before is not arquing, continue
 
                 
                 for (int j = i - 1; j >= 0; j--) 
                 {
                     InputValue oldInputValue = InputsList[j];
                     
-                    if (!oldInputValue.isArquingInput)
+                    if (!oldInputValue.isMovingInput || InputsList[i].magnitude < 0.8f)
                     {
                         arcData.startPos = j +1;
                         arcData.endPos = i-1;
@@ -128,7 +141,6 @@ public class GesturesDetector : MonoBehaviour
                     }
                 }
             }
-            //if (Mathf.Abs(DegBetweenValues) < 0.01f) { goto ArcFinished; } //If the diference between the two inputs is too small, check angle
         }
         return false;
 
@@ -189,45 +201,53 @@ public class GesturesDetector : MonoBehaviour
     const float secondsToCheckForTaps = 0.1f; //Check inputs that happened this many seconds before this frame
     const float delayAfterTap = 0.2f; //After an active Tap, delay so we have new values
     bool isDelayingTapCheck;
-    public bool CheckForTap(out Vector2 tapDirection)
+    public bool CheckForTap(out TapData tapData)
     {
-        tapDirection = Vector2.zero;
-        if (isDelayingTapCheck) { return false; }
-        if(InputsList.Count < 4) { return false; }
+        tapData = new TapData();
+        if (InputsList.Count < 4) { return false; }
 
         if (!isBelowThreshold(InputsList[InputsList.Count - 1],thresholdForTap)) { return false; } //if last input is active, return false
 
-        for (int i = InputsList.Count -1; i >= 0; i--) //go thorw all the inputs to check for a positive input, if we do, check for a negative input right after
+        for (int i = InputsList.Count -1; i > 0; i--) //go thorw all the inputs to check for a positive input, if we do, check for a negative input right after
         {
             InputValue inputValue = InputsList[i];
-            tapDirection = inputValue.Input.normalized;
             if (happenedBeforeSeconds(inputValue,secondsToCheckForTaps)) { return false; } //if the input is too old, break
 
-            if (!isBelowThreshold(inputValue,thresholdForTap))
+            if (!isBelowThreshold(inputValue, thresholdForTap))
             {
-                for (int j = i; j >= 0; j--)
+                for (int j = i; j > 0; j--)
                 {
-                    if (isBelowThreshold(InputsList[j], thresholdForTap)) { StartCoroutine(TapDelay(tapDirection)); return true; }
+                    if (isBelowThreshold(InputsList[j], thresholdForTap)) 
+                    {
+                        Vector2 startVector = InputsList[i-1].Input;
+                        Vector2 endVector = InputsList[j].Input;
+                        tapData.endDirection = endVector.normalized;
+                        return true; 
+
+                        float dotBetweenVectors = Vector2.Dot(startVector.normalized, endVector.normalized);
+                        if(Mathf.Abs(dotBetweenVectors) < 0.9f)
+                        {
+                            tapData.endDirection = endVector.normalized;
+                            tapData.startPosition = startVector;
+                            tapData.tapLenght = (startVector - endVector).magnitude;
+                            return true;
+                        }
+                        
+                    }
                 }
             }
         }
         return false;
     }
-    IEnumerator TapDelay(Vector2 tapDirection)
+    IEnumerator TapDelay()
     {
         isDelayingTapCheck = true;
         yield return new WaitForSeconds(delayAfterTap);
         isDelayingTapCheck = false;
     }
-    IEnumerator DrawTap(Vector2 tapDirection, float duration)
+    void DrawTap(TapData tapData, float duration)
     {
-        float timer = 0;
-        while (timer < duration)
-        {
-            timer += Time.deltaTime;
-            Debug.DrawLine(transform.position, (Vector2)transform.position + tapDirection, Color.yellow);
-            yield return null;
-        }
+        Debug.DrawLine((Vector2)transform.position + tapData.startPosition, (Vector2)transform.position + tapData.endDirection, Color.grey, duration);
     }
     bool isBelowThreshold(InputValue inputValue, float threshold)
     {

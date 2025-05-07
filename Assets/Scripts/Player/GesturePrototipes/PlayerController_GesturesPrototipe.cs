@@ -20,7 +20,7 @@ public class PlayerController_GesturesPrototipe : MonoBehaviour
         gesturesDetector.OnTapDetected -= OnTapDetected;
     }
     
-    void OnTapDetected(Vector2 direction)
+    void OnTapDetected(TapData data)
     {
         playerRefs.stateMachine.RequestChangeState(StartingTapAttack);
     }

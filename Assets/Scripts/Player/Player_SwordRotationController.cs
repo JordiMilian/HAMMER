@@ -20,7 +20,7 @@ public class Player_SwordRotationController : MonoBehaviour
     }
     private void Update()
     {
-        ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update
+        //ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update
         Vector2 PosToLookThisFrame = GetThisFramePosToLook();
 
         RotateTowardsTarget(PosToLookThisFrame);
@@ -387,6 +387,7 @@ public class Player_SwordRotationController : MonoBehaviour
     //Attacked enemy
     public void AttemptFocusAttackedEnemy(DealtDamageInfo info)
     {
+        /*
         Focuseable maybeIcon = info.AttackedRoot.GetComponentInChildren<Focuseable>();
         if (maybeIcon != null)
         {
@@ -396,6 +397,7 @@ public class Player_SwordRotationController : MonoBehaviour
             else { FocusNewEnemy(maybeIcon); }
 
         }
+        */
     }
 
     //FOcuse enemy killed

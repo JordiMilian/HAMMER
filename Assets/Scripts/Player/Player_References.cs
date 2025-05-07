@@ -15,6 +15,7 @@ public class Player_References : Generic_References
     public Player_WeaponSwitcher weaponSwitcher;
     public Player_HideSprites hideSprites;
     public Player_SwordRotationController swordRotation;
+    public GesturesDetector gesturesDetector;
     [Header("STATES")]
     public Player_StateMachine stateMachine;
     public PlayerState IdleState, RollingState, ParryingState, SpecialHealState, RunningState, ParriedState, DeadState, DisabledState, RespawningState, EnteringRoomState;

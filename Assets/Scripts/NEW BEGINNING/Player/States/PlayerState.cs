@@ -47,6 +47,9 @@ public class PlayerState : MonoBehaviour
         InputDetector.Instance.OnSpecialHealPressed += RequestSpecialHeal;
         InputDetector.Instance.OnSpecialAttackPressed += RequestSpecialAttack;
         InputDetector.Instance.OnAttackPressed += RequestAttack;
+        playerRefs.gesturesDetector.OnTapDetected += OnTapDetected;
+        playerRefs.gesturesDetector.OnArcDetected += OnArcDetected;
+
     }
     protected virtual void unsubscribeToRequests()
     {
@@ -55,6 +58,17 @@ public class PlayerState : MonoBehaviour
         InputDetector.Instance.OnSpecialHealPressed -= RequestSpecialHeal;
         InputDetector.Instance.OnSpecialAttackPressed -= RequestSpecialAttack;
         InputDetector.Instance.OnAttackPressed -= RequestAttack;
+        playerRefs.gesturesDetector.OnTapDetected -= OnTapDetected;
+        playerRefs.gesturesDetector.OnArcDetected -= OnArcDetected;
+
+    }
+    void OnArcDetected( ArcData data)
+    {
+        RequestParry();
+    }
+    void OnTapDetected(TapData data)
+    {
+        RequestAttack();
     }
     protected virtual void RequestParry() { stateMachine.RequestChangeState(playerRefs.ParryingState); }
     protected virtual void RequestRoll() { stateMachine.RequestChangeState(playerRefs.RollingState); }
