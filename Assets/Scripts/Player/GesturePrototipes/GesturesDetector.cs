@@ -81,10 +81,13 @@ public class GesturesDetector : MonoBehaviour
             float dotBetweenInputs = Vector2.Dot(thisFrameInput, InputsList[InputsList.Count - 1].Input.normalized);
             inputValue.isMovingInput = dotBetweenInputs < DotThreshold;
         }
-        
 
         InputsList.Add(inputValue);
-        
+
+        ColorUtility.TryParseHtmlString("#827f7f", out Color shortColor);
+        ColorUtility.TryParseHtmlString("#ff3c3c", out Color movingColor);
+        ColorUtility.TryParseHtmlString("#ffc1c1", out Color notMovingColor);
+
 
         for (int i = InputsList.Count - 1; i >= 0; i--)
         {
@@ -98,8 +101,8 @@ public class GesturesDetector : MonoBehaviour
             if (i == InputsList.Count - 1) { Debug.DrawLine(transform.position, (Vector2)transform.position + InputsList[i].Input, Color.green); }
             if(i == 0) { return; }
 
-            Color DotColor = InputsList[i].isMovingInput ? Color.red : Color.yellow;
-            if (InputsList[i].magnitude < 0.8f) { DotColor = Color.white; }
+            Color DotColor = InputsList[i].isMovingInput ? movingColor : notMovingColor;
+            if (InputsList[i].magnitude < 0.8f) { DotColor = shortColor; }
             //Debug.DrawLine((Vector2)transform.position, (Vector2)transform.position + InputsList[i].Input, DotColor);
             Debug.DrawLine((Vector2)transform.position + InputsList[i].Input, (Vector2)transform.position + InputsList[i-1].Input, DotColor);
         }
@@ -124,16 +127,16 @@ public class GesturesDetector : MonoBehaviour
             InputValue newInputValue = InputsList[i];
             if (happenedBeforeSeconds(newInputValue, secondsToCheckForArc)) { break; }
 
-            if (!InputsList[i].isMovingInput || InputsList[i].magnitude < 0.8f) //once we found a starting point, try to find an end point
+            if (!InputsList[i].isMovingInput || InputsList[i].magnitude < 0.9f) //once we found a starting point, try to find an end point
             {
-                if(i == 0 || !InputsList[i - 1].isMovingInput || InputsList[i-1].magnitude < 0.8f) { continue; } //if its the last input or the one before is not arquing, continue
+                if(i == 0 || !InputsList[i - 1].isMovingInput) { continue; } //if its the last input or the one before is not arquing, continue
 
                 
                 for (int j = i - 1; j >= 0; j--) 
                 {
                     InputValue oldInputValue = InputsList[j];
                     
-                    if (!oldInputValue.isMovingInput || InputsList[i].magnitude < 0.8f)
+                    if (!oldInputValue.isMovingInput || oldInputValue.magnitude < 0.9f)
                     {
                         arcData.startPos = j +1;
                         arcData.endPos = i-1;
@@ -247,7 +250,7 @@ public class GesturesDetector : MonoBehaviour
     }
     void DrawTap(TapData tapData, float duration)
     {
-        Debug.DrawLine((Vector2)transform.position + tapData.startPosition, (Vector2)transform.position + tapData.endDirection, Color.grey, duration);
+        Debug.DrawLine((Vector2)transform.position + tapData.startPosition, (Vector2)transform.position + tapData.endDirection, Color.yellow, duration);
     }
     bool isBelowThreshold(InputValue inputValue, float threshold)
     {

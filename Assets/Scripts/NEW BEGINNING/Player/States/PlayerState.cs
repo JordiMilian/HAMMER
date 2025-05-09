@@ -64,7 +64,7 @@ public class PlayerState : MonoBehaviour
     }
     void OnArcDetected( ArcData data)
     {
-        RequestParry();
+        //RequestParry();
     }
     void OnTapDetected(TapData data)
     {
