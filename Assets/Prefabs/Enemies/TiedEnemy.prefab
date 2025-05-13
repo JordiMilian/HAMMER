@@ -727,7 +727,12 @@ MonoBehaviour:
   RespawnPosition: {fileID: 0}
   TiedEnemyAnimator: {fileID: 501452738626919972}
   distanceToManager: 0
-  managerIndex: 0
+  HeadSpriteTf: {fileID: 0}
+  bodySprites: []
+  deadPartInstantiator: {fileID: 0}
+  SFX_KilledSound: {fileID: 0}
+  flasher: {fileID: 0}
+  dialoguerReference: {fileID: 0}
 --- !u!4 &3123867087818708931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3736275689294426710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1230,19 +1235,19 @@ PrefabInstance:
       objectReference: {fileID: 1253168055240236191}
     - target: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: TextLines.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: TextLines.Array.data[0]
-      value: Slay me, so we shall press forth upon this quest
+      value: default text
       objectReference: {fileID: 0}
     - target: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: TextLines.Array.data[1]
-      value: Thank thee for thine chastisement
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3143310112689085146, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: TextLines.Array.data[2]
-      value: GLORIA
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3143310112689085149, guid: 18bb5484348f51f4fac109e68a255132, type: 3}
       propertyPath: m_Enabled

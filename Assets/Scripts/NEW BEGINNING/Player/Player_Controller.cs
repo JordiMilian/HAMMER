@@ -90,9 +90,12 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         }
 
         SFX_PlayerSingleton.Instance.playSFX(SFX_ReceiveDamage, .1f);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitPlayer, info.CollisionPosition);
+
 
         OnDamageReceived_event?.Invoke(info);
 
+       
         // STANCE?
 
     }

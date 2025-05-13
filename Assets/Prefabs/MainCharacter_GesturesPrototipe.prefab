@@ -561,6 +561,7 @@ Transform:
   - {fileID: 5703659491524321099}
   - {fileID: 682252614254410781}
   - {fileID: 1823951972614052281}
+  - {fileID: 6709391188276677140}
   m_Father: {fileID: 7653426975249963376}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2061,6 +2062,60 @@ Transform:
   m_Father: {fileID: 7653426974895600711}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4853860353982874561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6709391188276677140}
+  - component: {fileID: 4944979368252327319}
+  m_Layer: 0
+  m_Name: StrongAttackTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6709391188276677140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853860353982874561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3487887569468735037}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4944979368252327319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853860353982874561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9aea8c43f6bdf4583676287689b162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimatorStateName: StrongAttack
+  doesRequireStamina: 1
+  StaminaCost: 0.5
+  Damage: 3
+  Knockback: 2
+  HitStop: 0.2
+  _minDistance: 1
+  _maxDistance: 3
+  _offset: 0.6
+  _defaultDistance: 2.5
 --- !u!1 &4869387417754326931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3671,6 +3726,7 @@ GameObject:
   - component: {fileID: 7653426974398778623}
   - component: {fileID: 7653426974398778621}
   - component: {fileID: 7653426974398778620}
+  - component: {fileID: 5110257563410836825}
   m_Layer: 13
   m_Name: P_DamageCollider
   m_TagString: PlayerDamageCollider
@@ -3737,6 +3793,27 @@ MonoBehaviour:
   EntityTeam: 0
   rootGameObject: {fileID: 7653426975249963376}
   enemy_canChargeSpecialAttack: 0
+--- !u!50 &5110257563410836825
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426974398778622}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7653426974804122897
 GameObject:
   m_ObjectHideFlags: 0
@@ -4537,6 +4614,7 @@ MonoBehaviour:
   RollingAttackState: {fileID: 898519739106155966}
   ParryAttackState: {fileID: 898519739106155966}
   SpecialAttackState: {fileID: 4440942617907585274}
+  StrongAttack: {fileID: 4944979368252327319}
   WeaponStatesHolder: {fileID: 3088451774977303920}
   StatesRoots: {fileID: 3487887569468735037}
   weaponTrail: {fileID: 7653426974077638565}
@@ -4836,6 +4914,7 @@ GameObject:
   - component: {fileID: 7653426975970030026}
   - component: {fileID: 7653426975970030027}
   - component: {fileID: 7631733328338548649}
+  - component: {fileID: 592974611521429390}
   m_Layer: 14
   m_Name: ParryCollider
   m_TagString: ParryCollider
@@ -4904,6 +4983,27 @@ MonoBehaviour:
   VFXPositionTransform: {fileID: 8094939585006820728}
   rootGameObject: {fileID: 7653426975249963383}
   EntityTeam: 0
+--- !u!50 &592974611521429390
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975970030029}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8015289354975398362
 GameObject:
   m_ObjectHideFlags: 0

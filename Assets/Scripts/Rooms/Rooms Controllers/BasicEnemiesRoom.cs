@@ -32,6 +32,7 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     public void OnRoomLoaded()
     {
         EnterDoorAnimationController.CloseDoor();
+        ExitDoorAnimationController.DisableAutoDoorOpener();
         SpawnEnemies();
         CutscenesManager.Instance.AddCutsceneable(this);
     }

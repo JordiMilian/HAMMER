@@ -16,6 +16,7 @@ public class PlayerState_EnteringRoom : PlayerState
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Stopped);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Stopped);
         TargetGroupSingleton.Instance.RemoveMouseTarget();
+        playerRefs.hideSprites.ShowPlayerSprites();
 
         playerRefs.transform.position = Vector2.zero;
         animator.CrossFade(AnimatorStateName, transitionTime_instant);

@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &93706287419787195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6171210782352595733}
+  - component: {fileID: 8273076086642856547}
+  m_Layer: 0
+  m_Name: Tornado
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6171210782352595733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93706287419787195}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6930393105566091961}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8273076086642856547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93706287419787195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: Tornado
+  rangeDetector: {fileID: 5890201345768252802}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 1
+  CooldownTime: 2
 --- !u!1 &139900524869297352
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,6 +848,61 @@ TrailRenderer:
   m_MinVertexDistance: 0.2
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!1 &3870140441597986034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4010465223742355064}
+  - component: {fileID: 8941227137101078545}
+  m_Layer: 0
+  m_Name: MoveAway
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4010465223742355064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3870140441597986034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6930393105566091961}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8941227137101078545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3870140441597986034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: MoveAway
+  rangeDetector: {fileID: 2802856544096402163}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 0.3
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 1
+  CooldownTime: 3
 --- !u!1 &4132487547611222038
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,6 +965,61 @@ Transform:
   m_Father: {fileID: 1324417713377192948}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5286348277175304165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4329096016771294632}
+  - component: {fileID: 2902972143212660787}
+  m_Layer: 0
+  m_Name: Combo02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4329096016771294632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286348277175304165}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6930393105566091961}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2902972143212660787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286348277175304165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: Combo02_Long
+  rangeDetector: {fileID: 3050706526860732694}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 1
+  CooldownTime: 1
 --- !u!1 &5566572195340802672
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,8 +1102,8 @@ MonoBehaviour:
   isCharginSpecialAttack_whenParried: 1
   weaponIndex: 0
   EntityTeam: 1
-  rootGameObject_DamageDealerTf: {fileID: 0}
-  rootGameObject_ParryReceiver: {fileID: 0}
+  rootGameObject_DamageDealerTf: {fileID: 5828654572796975011}
+  rootGameObject_ParryReceiver: {fileID: 5828654572796975011}
 --- !u!1 &7786399717714064026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,6 +1333,22 @@ PrefabInstance:
       propertyPath: FocusSprite
       value: 
       objectReference: {fileID: 2629917100128677849}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: Damage
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: HasCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: CooldownTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: AnimatorStateName
+      value: Combo01
+      objectReference: {fileID: 0}
     - target: {fileID: 3736275689294426710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -1303,6 +1484,22 @@ PrefabInstance:
     - target: {fileID: 6661202020507442343, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734490808590445432, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734490808590445432, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[0].deadPart_GO
+      value: 
+      objectReference: {fileID: 4030259453350096970, guid: 0f8b263670be02f47bc713e5b81c0e81, type: 3}
+    - target: {fileID: 6734490808590445432, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: deadPartsList.Array.data[0].referenceBone_TF
+      value: 
+      objectReference: {fileID: 8062954565562505425}
+    - target: {fileID: 6754073259599786910, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_Name
+      value: Combo01
       objectReference: {fileID: 0}
     - target: {fileID: 7332707543437145030, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -1764,6 +1961,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTag: 6
   AnimatorStateName: StanceBroken
+--- !u!4 &5828654572796975011 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4802207913274506029, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 1317114688664693902}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5890201345768252802 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4898058486958885132, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -1778,6 +1980,11 @@ MonoBehaviour:
 --- !u!4 &6203442623778569334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4922534337889980664, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 1317114688664693902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6930393105566091961 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8244656171833337399, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 1317114688664693902}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7265997761867342714 stripped

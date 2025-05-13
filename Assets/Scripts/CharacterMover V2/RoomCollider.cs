@@ -69,6 +69,7 @@ public class RoomCollider : MonoBehaviour
     }
     public static void DrawString(string text, Vector3 worldPos, Color? textColor = null, Color? backColor = null)
     {
+#if UNITY_EDITOR
         UnityEditor.Handles.BeginGUI();
         var restoreTextColor = GUI.color;
         var restoreBackColor = GUI.backgroundColor;
@@ -94,5 +95,6 @@ public class RoomCollider : MonoBehaviour
             GUI.backgroundColor = restoreBackColor;
         }
         UnityEditor.Handles.EndGUI();
+#endif
     }
 }

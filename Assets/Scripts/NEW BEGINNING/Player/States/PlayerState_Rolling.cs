@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.Animations;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine.VFX;
-using UnityEditor.ShaderGraph.Internal;
 
 public class PlayerState_Rolling : PlayerState
 {
@@ -35,7 +32,7 @@ public class PlayerState_Rolling : PlayerState
         string stateName;
         if (DotProductWithFacingDirection >= 0) { stateName = AnimatorStateName_frontRoll; }
         else { stateName = AnimatorStateName_backRoll;}
-        rollAnimationCoroutine = StartCoroutine(RollAutoTransition(stateName));
+        rollAnimationCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName,playerRefs.IdleState,transitionTime_short));
 
         PerformRollMovement(Axis);
 
@@ -48,7 +45,6 @@ public class PlayerState_Rolling : PlayerState
     void PerformRollMovement(Vector2 direction)
     {
         //Maybe InputDetector should be involced in this??
-
         //If the player is not imputing a direction, rotate to the oposite of the sword
         if (direction.magnitude < 0.1f)
         {
@@ -65,16 +61,6 @@ public class PlayerState_Rolling : PlayerState
             RollCurve,
             rollCurve_averageValue
             ));
-    }
-    IEnumerator RollAutoTransition(string animationStateName)
-    {
-       
-        animator.CrossFadeInFixedTime(animationStateName, transitionTime_short);
-        AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(animationStateName, animator);
-        yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(thisClip));
-
-        stateMachine.ForceChangeState(playerRefs.IdleState); 
-
     }
     IEnumerator checkForRunning()
     {

@@ -68,6 +68,7 @@ public class UsefullMethods : MonoBehaviour
             yield return null;
         }
     }
+    /*
     public static AnimationClip GetAnimationClipByStateName(string stateName, Animator animator, int layer = 0)
     {
         UnityEditor.Animations.AnimatorController animControl = (UnityEditor.Animations.AnimatorController)animator.runtimeAnimatorController;
@@ -80,6 +81,7 @@ public class UsefullMethods : MonoBehaviour
         }
         return null;
     }
+    */
     public static IEnumerator AddTorkeOverTime(Rigidbody2D rigidbody, Vector3 forceVector, float duration)
     {
         float startTime = Time.time;

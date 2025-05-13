@@ -41,6 +41,9 @@ public class PlayerState_Death : PlayerState
     IEnumerator delayAndShowUI()
     {
         yield return new WaitForSeconds(3);
+        GameController.Instance.OnExitedRoom();
+        playerRefs.GetComponent<IHealth>().RestoreAllHealth();
+        yield break;
         DeathUIRoot.SetActive(true);
     }
     void spawnPlayerXps()

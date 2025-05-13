@@ -952,6 +952,8 @@ MonoBehaviour:
   respawner: {fileID: 7849562928011581400}
   exitDoorController: {fileID: 3739899009331490986}
   enterDoorController: {fileID: 1186138063555911927}
+  _tf_ExitPos: {fileID: 0}
+  _combinedCollider: {fileID: 0}
 --- !u!1001 &5662726391907422333
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1025,11 +1027,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6171033008212768137, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.0055217147
+      value: -0.005521655
       objectReference: {fileID: 0}
     - target: {fileID: 6171033008212768137, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.0151844025
+      value: 0.015180528
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171033008212768137, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
+      propertyPath: m_Bounds.m_Extent.x
+      value: 0.59481585
       objectReference: {fileID: 0}
     - target: {fileID: 6171033008212768137, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
       propertyPath: m_Bounds.m_Extent.y
@@ -1073,11 +1079,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169054557428996247, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 9169054557428996247, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169054558239304565, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
+      propertyPath: TextLines.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169054558239304565, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}
+      propertyPath: TextLines.Array.data[0]
+      value: ...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a02e65e5a11419c4f8d4da8686d229bc, type: 3}

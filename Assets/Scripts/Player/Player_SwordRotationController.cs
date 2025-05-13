@@ -387,7 +387,7 @@ public class Player_SwordRotationController : MonoBehaviour
     //Attacked enemy
     public void AttemptFocusAttackedEnemy(DealtDamageInfo info)
     {
-        /*
+        
         Focuseable maybeIcon = info.AttackedRoot.GetComponentInChildren<Focuseable>();
         if (maybeIcon != null)
         {
@@ -397,7 +397,7 @@ public class Player_SwordRotationController : MonoBehaviour
             else { FocusNewEnemy(maybeIcon); }
 
         }
-        */
+        
     }
 
     //FOcuse enemy killed

@@ -132,6 +132,7 @@ public class GameController : MonoBehaviour
     {
         //For testing now, this should be replaced with opening the MAP
         indexOfTestingRoom++;
+        if (indexOfTestingRoom == TestingRoomsList.Count) { indexOfTestingRoom = 0; }
         StartCoroutine(exitRoomCoroutine());
         //
         IEnumerator exitRoomCoroutine()
@@ -141,6 +142,10 @@ public class GameController : MonoBehaviour
             ChangeGameControllerState(GameControllerStates.Playing);
             playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
         }
+    }
+    public void LoadNextTestingRoom()
+    {
+        OnExitedRoom(); //Ugly 
     }
     public void RespawnToLastCheckpoint()
     {

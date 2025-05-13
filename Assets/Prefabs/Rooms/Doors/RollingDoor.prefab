@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6043615420697066689}
   - component: {fileID: 7351144561228941406}
   - component: {fileID: 3331267218601453193}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: DamageDealer
   m_TagString: Enemy_Attack_hitbox
   m_Icon: {fileID: 0}
@@ -129,14 +129,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
-  Knockback: 500
+  Knockback: 0.3
   isParryable: 0
   isBloody: 0
   player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
-  EntityTeam: 0
-  rootGameObject_DamageDealerTf: {fileID: 0}
+  EntityTeam: 1
+  rootGameObject_DamageDealerTf: {fileID: 5889714038794283743}
   rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!61 &3331267218601453193
 BoxCollider2D:

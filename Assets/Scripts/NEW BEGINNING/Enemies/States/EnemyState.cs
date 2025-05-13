@@ -16,8 +16,14 @@ public class EnemyState : State
     protected IEnumerator AutoTransitionToStateOnAnimationOver(string thisAnimatorStateName, State stateToChange, float normalizedTransitionDuration)
     {
         animator.CrossFade(thisAnimatorStateName, normalizedTransitionDuration);
-        AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(thisAnimatorStateName, animator);
-        yield return new WaitForSeconds(thisClip.length);
+        yield return null; //wait one frame so the transition can start
+        AnimatorClipInfo[] nextClips = animator.GetNextAnimatorClipInfo(0);
+        if (nextClips.Length > 0)
+        {
+            AnimationClip nextClip = nextClips[0].clip;
+            yield return new WaitForSeconds(nextClip.length);
+        }
+
         stateMachine.ChangeState(stateToChange);
     }
 }

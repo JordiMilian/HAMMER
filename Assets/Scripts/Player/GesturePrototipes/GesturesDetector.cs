@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 public struct ArcData
 {
@@ -33,9 +31,12 @@ public class GesturesDetector : MonoBehaviour
         public bool isMovingInput; 
     }
     List<InputValue> InputsList = new List<InputValue>();
+    Coroutine delayAfterTapCoroutine;
     private void FixedUpdate()
     {
         FillAndDrawInput();
+        
+        /*
         if(!isDelayingArc)
         {
             if (CheckForArc(out ArcData arcData))
@@ -45,24 +46,48 @@ public class GesturesDetector : MonoBehaviour
                 if (arcData.isClockwise) { Debug.Log($"Clockwise arc detected with{arcData.angle} degrees"); }
                 else { Debug.Log($"Not clockwise arc detected with{arcData.angle} degrees"); }
 
+                if(delayAfterTapCoroutine != null) { StopCoroutine(delayAfterTapCoroutine); isDelayingTapCheck = false; }
                 StartCoroutine(ArcDelay());
                 OnArcDetected?.Invoke(arcData);
                 return;
             }
         }
+        */
         
         if(!isDelayingTapCheck)
         {
             if (CheckForTap(out TapData tapData))
             {
-                DrawTap(tapData, 1);
-                Debug.Log("Tap detected");
-
-                StartCoroutine(TapDelay());
-                OnTapDetected?.Invoke(tapData);
+                delayAfterTapCoroutine = StartCoroutine(delayForLongerTap(tapData));
+                isDelayingTapCheck = true;
             }
         }
-        
+       
+    }
+    IEnumerator delayForLongerTap(TapData oldTap)
+    {
+        yield return null;
+        float timer = 0;
+        while(timer < 0.2f)
+        {
+            timer += Time.deltaTime;
+
+            if(CheckForTap(out TapData newTap))
+            {
+                if(newTap.tapLenght > oldTap.tapLenght)
+                {
+                    DrawTap(newTap,1);
+                    OnTapDetected?.Invoke(newTap);
+                    isDelayingTapCheck = false;
+                    yield break;
+                }
+            }
+            yield return null;
+        }
+        DrawTap(oldTap, 1);
+        OnTapDetected?.Invoke(oldTap);
+        isDelayingTapCheck = false;
+
     }
     #region GET INPUTS
     [SerializeField] float DotThreshold = 0.95f;
@@ -200,7 +225,7 @@ public class GesturesDetector : MonoBehaviour
 
     #endregion
     #region TAP CHECK
-    const float thresholdForTap = 0.5f; //The active input value needs to be above this magnitude to be considered a tap
+    const float thresholdForTap = 0.9f; //The active input value needs to be above this magnitude to be considered a tap
     const float secondsToCheckForTaps = 0.1f; //Check inputs that happened this many seconds before this frame
     const float delayAfterTap = 0.2f; //After an active Tap, delay so we have new values
     bool isDelayingTapCheck;
@@ -209,18 +234,59 @@ public class GesturesDetector : MonoBehaviour
         tapData = new TapData();
         if (InputsList.Count < 4) { return false; }
 
-        if (!isBelowThreshold(InputsList[InputsList.Count - 1],thresholdForTap)) { return false; } //if last input is active, return false
+        InputValue lastInput = InputsList[InputsList.Count - 1];
+        if (!isBelowThreshold(lastInput, thresholdForTap)) //If the last input is active, make the checks, else return false
+        {
+            if (!isBelowThreshold(InputsList[InputsList.Count - 2], thresholdForTap)) { return false; } //if the input right after this one is also active, return false
 
+            int furthestInactiveInput = InputsList.Count - 1;
+            float furthestDistance = 0;
+            for (int i = InputsList.Count - 2; i > 0; i--)
+            {
+                InputValue thisInput = InputsList[i];
+
+                if (happenedBeforeSeconds(thisInput, secondsToCheckForTaps)) //if we run out of time, return true with the furthest input
+                {
+                    tapData.startPosition = InputsList[furthestInactiveInput].Input;
+                    Vector2 endPosition = lastInput.Input;
+                    tapData.endDirection = endPosition.normalized;
+                    tapData.tapLenght = (tapData.startPosition - endPosition).magnitude;
+                    return true;
+                }
+
+                else if (isBelowThreshold(thisInput, thresholdForTap) ) //save the data if its the furthest inactive
+                {
+                    float thisDistance = (lastInput.Input - thisInput.Input).sqrMagnitude;
+                    if(thisDistance > furthestDistance)
+                    {
+                        furthestDistance = thisDistance;
+                        furthestInactiveInput = i;
+                    }
+                    continue; 
+                }
+                else //if we find an active input, return true with it
+                {
+                    tapData.startPosition = thisInput.Input;
+                    Vector2 endPosition = lastInput.Input;
+                    tapData.endDirection = endPosition.normalized;
+                    tapData.tapLenght = (tapData.startPosition - endPosition).magnitude;
+                    return true;
+                }
+            }
+        }
+
+        return false; 
+        /*
         for (int i = InputsList.Count -1; i > 0; i--) //go thorw all the inputs to check for a positive input, if we do, check for a negative input right after
         {
             InputValue inputValue = InputsList[i];
             if (happenedBeforeSeconds(inputValue,secondsToCheckForTaps)) { return false; } //if the input is too old, break
 
-            if (!isBelowThreshold(inputValue, thresholdForTap))
+            if (!isBelowThreshold(inputValue, thresholdForTap) && !inputValue.isMovingInput)
             {
                 for (int j = i; j > 0; j--)
                 {
-                    if (isBelowThreshold(InputsList[j], thresholdForTap)) 
+                    if (isBelowThreshold(InputsList[j], thresholdForTap) && InputsList[j].isMovingInput) 
                     {
                         Vector2 startVector = InputsList[i-1].Input;
                         Vector2 endVector = InputsList[j].Input;
@@ -241,6 +307,7 @@ public class GesturesDetector : MonoBehaviour
             }
         }
         return false;
+        */
     }
     IEnumerator TapDelay()
     {

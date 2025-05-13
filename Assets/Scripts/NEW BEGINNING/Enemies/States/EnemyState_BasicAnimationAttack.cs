@@ -20,7 +20,13 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
     }
     IEnumerator animationLenghtWaiter()
     {
-        yield return new WaitForSeconds(UsefullMethods.GetAnimationClipByStateName(AnimatorStateName, animator).length);
+        yield return null; //wait one frame so the transition can start
+        AnimatorClipInfo[] nextClips = animator.GetNextAnimatorClipInfo(0);
+        if (nextClips.Length > 0)
+        {
+            AnimationClip nextClip = nextClips[0].clip;
+            yield return new WaitForSeconds(nextClip.length);
+        }
         OnAttackFinished();
     }
     public override void OnDisable()
