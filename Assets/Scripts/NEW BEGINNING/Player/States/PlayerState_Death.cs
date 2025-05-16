@@ -24,12 +24,11 @@ public class PlayerState_Death : PlayerState
 
         playerDeadHead = deadPartsInstantiator.InstantiateDeadParts()[0];
 
-
         playerRefs.hideSprites.HidePlayerSprites();
 
-        playerSinglePointCollider.enabled = false;
+        //playerSinglePointCollider.enabled = false;
 
-        spawnPlayerXps(); //Aixo es questionable, consultar amb diseny
+        //spawnPlayerXps();
 
        
         StartCoroutine(delayAndShowUI());
@@ -41,7 +40,7 @@ public class PlayerState_Death : PlayerState
     IEnumerator delayAndShowUI()
     {
         yield return new WaitForSeconds(3);
-        GameController.Instance.OnExitedRoom();
+        GameController.Instance.ReloadCurrentRoom();
         playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         yield break;
         DeathUIRoot.SetActive(true);
@@ -62,24 +61,24 @@ public class PlayerState_Death : PlayerState
         base.OnDisable();
         playerSinglePointCollider.enabled = true;
     }
-    public void Button_RespawnPlayer()
+    public void Button_RespawnPlayer() //Try again. reload respawn room and respawning state
     {
         StartCoroutine(respawnCoroutine());
 
         //
         IEnumerator respawnCoroutine()
         {
-            yield return StartCoroutine(playerDeadHead.GetComponent<PlayerHead_RebornBegin>().FlyAwayCoroutine());
+            yield return playerDeadHead.GetComponent<PlayerHead_RebornBegin>().FlyAwayCoroutine();
+            yield return GameController.Instance.LoadCheckPointRoom();
             stateMachine.ForceChangeState(playerRefs.RespawningState);
         }
     }
-    public void Button_RestartRun()
+    public void Button_RestartRun()//Return to main menu
     {
         //Load scene
         //Restart everything
         //DontDestroy needs to be tested
         DontDestroyOnLoad(rootGameObject);
-        SceneManager.LoadScene("AltoMando");
         //Respawn in altomando index? Or should the altomando initializer manage it?
     }
 }

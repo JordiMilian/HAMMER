@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2861294270407902046}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7448831037043449186
 MonoBehaviour:
@@ -53,7 +53,6 @@ MonoBehaviour:
   availableUpgrades: {fileID: 11400000, guid: 2e9fc6e2a2c4c6741ac403180e7f9895, type: 2}
   base_UpgradeContainer: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
   spawnedUpgradesContainers: []
-  spawnCutscene: {fileID: 6883731831432065899}
   AppearSfx: {fileID: 8300000, guid: a19c0aff162bb5145aedb3caeaeb545e, type: 3}
 --- !u!114 &6883731831432065899
 MonoBehaviour:
@@ -67,7 +66,205 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d19e97688acc894cb2a551568d07738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradesGroup: {fileID: 7448831037043449186}
+--- !u!1 &6925809016443793608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876272961027941696}
+  - component: {fileID: 7002676363800525650}
+  m_Layer: 0
+  m_Name: BossDefeated_Cutsceneable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &876272961027941696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6925809016443793608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2861294270407902046}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7002676363800525650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6925809016443793608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ecf6206fa2b9e44fabe1d0c77ca2c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossDefeatedUI_animator: {fileID: 8820283324898642310}
+  BossDefeatedUiClip: {fileID: 7400000, guid: d9b2e296eb24a8e4f97b12b8c5498b5a, type: 2}
+  openDoorAnimation: {fileID: 7400000, guid: 438a725f1151b93478c76a080da3f9d3, type: 2}
+  doorController: {fileID: 702467371834552783}
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
+  delayBeforeUI: 1
+  delayBeforeDoor: 0.3
+  upgradeGroup: {fileID: 7448831037043449186}
+  skipUpgrades: 0
+--- !u!1 &8918358801488895296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8764427811373747817}
+  - component: {fileID: 7626113939769374951}
+  - component: {fileID: 5414813267928268988}
+  m_Layer: 0
+  m_Name: AudioArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8764427811373747817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918358801488895296}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.45647568, y: 5.316698, z: 0.00843421}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2861294270407902046}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7626113939769374951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918358801488895296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86b9e4eb2bdfa742a73013ed7f0abd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 5414813267928268988}
+  BaseVolume: 0
+  FadesSeconds: 0.5
+  isStartingArea: 0
+  audioTriggerCollider: {fileID: 1605142384950595339}
+--- !u!82 &5414813267928268988
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918358801488895296}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &4131851021683444282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7754505710487085983, guid: c60a9a3852003134dac047312c254644, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7754505710487085983, guid: c60a9a3852003134dac047312c254644, type: 3}
       propertyPath: m_LocalPosition.x
@@ -152,14 +349,18 @@ PrefabInstance:
     - target: {fileID: 38269896846705923, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: roomWithEnemies
       value: 
-      objectReference: {fileID: 5626894771440541730}
+      objectReference: {fileID: 0}
     - target: {fileID: 500236012714548863, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.97
+      value: 10.26
       objectReference: {fileID: 0}
     - target: {fileID: 767644478875255708, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 9.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280281343901926474, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2131496921670176955, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_RootOrder
@@ -209,6 +410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseBossRoomV2
       objectReference: {fileID: 0}
+    - target: {fileID: 2320927068976092886, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3419961203103509028, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -216,7 +421,7 @@ PrefabInstance:
     - target: {fileID: 3477839892929856678, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: thisCutsceneLogic
       value: 
-      objectReference: {fileID: 2624967482039839556}
+      objectReference: {fileID: 0}
     - target: {fileID: 4409939373165131227, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -405,6 +610,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6.47
       objectReference: {fileID: 0}
+    - target: {fileID: 7489566454992292023, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: m_Name
+      value: SpawningPoint
+      objectReference: {fileID: 0}
     - target: {fileID: 7919420330011648064, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -468,10 +677,12 @@ PrefabInstance:
     - target: {fileID: 8772267433966631158, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: enemyRoomLogic
       value: 
-      objectReference: {fileID: 5626894771440541730}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8154110797072673202, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
     - {fileID: 6325403577021855596, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+    - {fileID: 6379848600064625642, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+    - {fileID: 6272392358212819005, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
 --- !u!114 &702467371834552783 stripped
 MonoBehaviour:
@@ -482,17 +693,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d29d76712971aa40b00039a07189659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &748167249814034243 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3477839892929856678, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
-  m_PrefabInstance: {fileID: 4188843338289075173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2912386451497355126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c710271dc26b48b42a229c4e3823a20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1605142384950595339 stripped
@@ -511,7 +711,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2200464055817051456, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1244319242316601287
+--- !u!114 &7489064001341033917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,113 +720,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 2641463113601699493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ecf6206fa2b9e44fabe1d0c77ca2c72, type: 3}
+  m_Script: {fileID: 11500000, guid: a33cbb9a46768194588aaf9b86008aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossDefeatedUI_animator: {fileID: 8820283324898642310}
-  BossDefeatedUiClip: {fileID: 7400000, guid: d9b2e296eb24a8e4f97b12b8c5498b5a, type: 2}
-  openDoorAnimation: {fileID: 7400000, guid: f38d7ea1327f7d84f8f5794e152ea277, type: 2}
-  doorController: {fileID: 702467371834552783}
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  delayBeforeUI: 2
-  delayBeforeDoor: 1
-  upgradeGroup: {fileID: 7448831037043449186}
-  skipUpgrades: 0
---- !u!114 &5626894771440541730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641463113601699493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cd0a29b1c7916a4aa726c1676b60ac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorController: {fileID: 702467371834552783}
-  isRoomPermanentlyCompleted: 0
-  combinedCollider: {fileID: 1605142384950595339}
-  openDoorCutscene: {fileID: 1244319242316601287}
-  MaxWeight_T1: 1
-  MaxWeight_T2: 0
-  SpawneableEnemies:
-  - PrefabEnemy: {fileID: 7424939523629538921, guid: d7689fa69a36a4f4fa31f9486f333543, type: 3}
-    Tier: 1
-    Weight: 1
-    minInstances: 1
-    maxInstances: 0
-    currentInstances: 0
-  CurrentlySpawnedEnemies: []
-  SpawnTrigger: {fileID: 3271590697635559959}
-  SpawnArea: {fileID: 7867156658887920600}
-  EnemiesContainer: {fileID: 6531093257421250116}
-  enterRoomCutscene: {fileID: 748167249814034243}
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  dontEffectSkulls: 0
-  BossIndex: 0
+  BossPrefab: {fileID: 0}
+  Tf_bossSpawnPoint: {fileID: 6351288933464416909}
+  healthBar: {fileID: 4424330670833719739}
+  Tf_EndingCutseneableHolder: {fileID: 876272961027941696}
+  audioArea: {fileID: 7626113939769374951}
+  _tf_ExitPos: {fileID: 4382267223504194970}
+  _combinedCollider: {fileID: 1605142384950595339}
 --- !u!4 &2861294270407902046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2131496921670176955, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2912386451497355126 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1318185655168291987, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+--- !u!4 &4382267223504194970 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 500236012714548863, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2624967482039839556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2912386451497355126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aff98fcccf02df428b0976c57fb3063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyRoomLogic: {fileID: 5626894771440541730}
-  zoomToBoss: 5
-  bossEnterAnimationClip: {fileID: 7400000, guid: 4ea363b542aa78840b51c0835e7df24e, type: 2}
-  healthBar: {fileID: 4424330670833719739}
---- !u!114 &3271590697635559959 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1677244194947688946, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
-  m_PrefabInstance: {fileID: 4188843338289075173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &3489793366741088035 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 743092020048209094, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
-  m_PrefabInstance: {fileID: 4188843338289075173}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1065942452891519487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489793366741088035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27ecc1d42113eb046a239f9e65cbe9e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6531093257421250116 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6954358700734778785, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
-  m_PrefabInstance: {fileID: 4188843338289075173}
-  m_PrefabAsset: {fileID: 0}
---- !u!60 &7867156658887920600 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 6272392358212819005, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+--- !u!4 &6351288933464416909 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7063207106928669032, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
   m_PrefabInstance: {fileID: 4188843338289075173}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6143863648158392283
@@ -639,7 +755,11 @@ PrefabInstance:
     - target: {fileID: 7504406700930254432, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
       propertyPath: roomWithEnemies
       value: 
-      objectReference: {fileID: 5626894771440541730}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504406700930254432, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
+      propertyPath: RoomWithEnemies_InterfaceHolder
+      value: 
+      objectReference: {fileID: 2641463113601699493}
     - target: {fileID: 9116581630682111325, guid: 1f19c8d21c9c2bf4e9ac96aa0e29f8b2, type: 3}
       propertyPath: m_RootOrder
       value: 12

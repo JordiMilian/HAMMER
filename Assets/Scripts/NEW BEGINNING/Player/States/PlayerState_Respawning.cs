@@ -21,7 +21,9 @@ public class PlayerState_Respawning : PlayerState
         //Sprites are already hidden by death state
 
         //Move player to respawner position
-        TiedEnemy_Controller furthestRespawner =  RespawnersManager.Instance.GetFurthestActiveRespawner();
+        //TiedEnemy_Controller furthestRespawner =  RespawnersManager.Instance.GetFurthestActiveRespawner();
+
+        TiedEnemy_Controller furthestRespawner =  FindObjectOfType<TiedEnemy_Controller>(); //FATALITY
         furthestRespawner.MovePlayerHere(rootGameObject);
 
         //play respawner animation

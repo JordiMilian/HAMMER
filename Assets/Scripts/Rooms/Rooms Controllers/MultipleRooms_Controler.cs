@@ -19,6 +19,9 @@ public class MultipleRooms_Controler : MonoBehaviour, IRoom
     public List<GameObject> currentlySpawnedRooms = new List<GameObject>();
     Vector2 LastExitPosition = Vector2.zero;
 
+    [SerializeField] bool useCombinedArea;
+    [SerializeField] Generic_OnTriggerEnterEvents combinedCollider;
+
     public void OnRoomLoaded()
     {
         SpawnRooms(transform.position);
@@ -46,6 +49,7 @@ public class MultipleRooms_Controler : MonoBehaviour, IRoom
         GameObject[] chosenRooms = RoomsToLoad;
 
         transform.position = InitialPosition; //Put parent in Initial position
+        Bounds combinedBounds = new Bounds();
 
         for (int i = 0; i < chosenRooms.Length; i++)
         {
@@ -56,19 +60,21 @@ public class MultipleRooms_Controler : MonoBehaviour, IRoom
             newRoom_IRoom.OnRoomLoaded();
             if(newRoom_IMultipleRoom == null) { Debug.LogError($"Error: {chosenRooms[i].name} is not implementing IMultipleRoom"); }
             LastExitPosition = newRoom_IMultipleRoom.ExitPos;
+            combinedBounds.Encapsulate(newRoom_IMultipleRoom.combinedCollider.GetComponent<Collider2D>().bounds);
 
             currentlySpawnedRooms.Add(newRoom);
         }
-        CreateCombinedCollider();
+        if (useCombinedArea) { CreateCombinedCollider(combinedBounds); }
+        
     }
-    void CreateCombinedCollider()
+    void CreateCombinedCollider(Bounds combinedBounds)
     {
-        Bounds combinedBounds = new Bounds(transform.position, Vector2.zero);
         foreach (GameObject room in currentlySpawnedRooms)
         {
             IMultipleRoom room_IMultipleRoom = room.GetComponent<IMultipleRoom>();
             combinedBounds.Encapsulate(room_IMultipleRoom.combinedCollider.GetComponent<BoxCollider2D>().bounds);
         }
-        UsefullMethods.BoundsToBoxCollider(combinedBounds, transform.position, transform.gameObject);
+
+        UsefullMethods.BoundsToBoxCollider(combinedBounds, transform.position, combinedCollider.gameObject);
     }
 }

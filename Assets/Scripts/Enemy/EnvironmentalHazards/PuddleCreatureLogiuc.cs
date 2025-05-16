@@ -18,12 +18,18 @@ public class PuddleCreatureLogiuc : MonoBehaviour
     VisualEffect BigStepVFX;
     [SerializeField] AudioClip CreatureSFX;
 
-    [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
+    [SerializeField] GameObject EnemyRoom_InterfaceHolder;
+    IRoomWithEnemies EnemyRoomsInterface;
     private void Awake()
     {
+        OnValidate();
         playerTf = GlobalPlayerReferences.Instance.playerTf;
         puddleCreatureAnimator = GetComponent<Animator>();
         BigStepVFX = GetComponent<VisualEffect>();
+    }
+    private void OnValidate()
+    {
+        UsefullMethods.CheckIfGameobjectImplementsInterface<IRoomWithEnemies>(ref EnemyRoom_InterfaceHolder, ref EnemyRoomsInterface);
     }
     private void OnEnable()
     {
@@ -33,8 +39,9 @@ public class PuddleCreatureLogiuc : MonoBehaviour
             ontrigger.OnTriggerEntered += onPlayerEnteredPuddle;
             ontrigger.OnTriggerExited += onPLayerExitedPuddle;
         }
-        if(roomWithEnemies != null) { roomWithEnemies.onRoomCompleted += (BaseRoomWithDoorLogic doorLogic) => DeactivatePuddle(); }
-        
+        EnemyRoomsInterface.OnAllEnemiesKilled += DeactivatePuddle;
+
+
     }
     void onPlayerEnteredPuddle(Collider2D collision)
     {

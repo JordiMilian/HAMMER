@@ -385,8 +385,8 @@ GameObject:
   - component: {fileID: 8224379752563159281}
   - component: {fileID: 8224379752563159280}
   - component: {fileID: 8224379752563159285}
-  - component: {fileID: 8224379752563159284}
   - component: {fileID: 8224379752563159286}
+  - component: {fileID: 7154562471283605373}
   m_Layer: 14
   m_Name: Espinas_Shape
   m_TagString: Neutral_Hitbox
@@ -561,27 +561,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0.5
   Knockback: 0.3
-  HitStop: 0.1
   isParryable: 0
   isBloody: 0
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 2
-  typeOfDamage: 0
-  eventSystem: {fileID: 8224379752563159284}
---- !u!114 &8224379752563159284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8224379752563159279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  rootGameObject_DamageDealerTf: {fileID: 8224379752563159283}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!114 &8224379752563159286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,3 +584,15 @@ MonoBehaviour:
   obstaclePrefab: {fileID: 1479569059560643381, guid: 2f2240f500665ec4e896426e67a93c81, type: 3}
   espinaSplineController: {fileID: 8224379752563159281}
   IA_Container: {fileID: 5864885558243276834}
+--- !u!114 &7154562471283605373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8224379752563159279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7931ff6e61f9e604ca7b39f1eed824a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

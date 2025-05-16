@@ -8,7 +8,7 @@ public class ExitRoom_RegularRoom : MonoBehaviour
     {
         if(collision.CompareTag(Tags.Player_SinglePointCollider))
         {
-            GameController.Instance.OnExitedRoom();
+            GameController.Instance.OnExitedRegularRoom();
         }
     }
 }

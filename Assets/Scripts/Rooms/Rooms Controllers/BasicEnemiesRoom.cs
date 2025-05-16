@@ -27,6 +27,7 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     [SerializeField] DoorAnimationController ExitDoorAnimationController;
 
     public Action OnAllEnemiesKilled { get; set; }
+    public Action OnEnemiesSpawned { get; set; }
     public List<GameObject> CurrentlySpawnedEnemies { get; set; }
 
     public void OnRoomLoaded()
@@ -97,6 +98,7 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
                 ActuallySpawn(thisSpawn);
                 weightReference += thisSpawn.Weight;
             }
+            OnEnemiesSpawned?.Invoke();
         }
         void ActuallySpawn(EnemySpawn spawn)
         {

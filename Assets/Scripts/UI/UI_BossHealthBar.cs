@@ -5,26 +5,32 @@ using UnityEngine;
 
 public class UI_BossHealthBar : MonoBehaviour
 {
-    [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
+    [SerializeField] GameObject RoomWithEnemies_InterfaceHolder;
+    IRoomWithEnemies roomWithEnemies_interface;
     [SerializeField] Transform size1HealthBar;
     [SerializeField] string displayText;
     [SerializeField] Canvas displayCanvas;
     [SerializeField] TextMeshProUGUI textMeshPro;
 
-    List<EnemyStats> currentStatsList = new List<EnemyStats>();
+    List<IHealth> currentStatsList = new List<IHealth>();
 
     float MaxHealth;
 
+    private void OnValidate()
+    {
+        UsefullMethods.CheckIfGameobjectImplementsInterface<IRoomWithEnemies>(ref RoomWithEnemies_InterfaceHolder, ref roomWithEnemies_interface);
+    }
     private void OnEnable()
     {
-        roomWithEnemies.onEnemiesSpawned += RefillHealthBar;
+        OnValidate();
+        roomWithEnemies_interface.OnEnemiesSpawned += SetHealthBar;
         HideCanvas();
         textMeshPro.text = displayText;
         GameEvents.OnPlayerDeath += HideCanvas;
     }
     private void OnDisable()
     {
-        roomWithEnemies.onEnemiesSpawned -= RefillHealthBar;
+        roomWithEnemies_interface.OnEnemiesSpawned -= SetHealthBar;
         GameEvents.OnPlayerDeath -= HideCanvas;
     }
     public void HideCanvas()
@@ -35,39 +41,31 @@ public class UI_BossHealthBar : MonoBehaviour
     {
         displayCanvas.enabled = true;
     }
-    void RefillHealthBar()
+    void SetHealthBar()
     {
-        //Unsubscribe from old health and remove them
-        foreach (EnemyStats thisCurrentStat in currentStatsList)
-        {
-            thisCurrentStat.OnCurrentHpChange -= UpdateHealthBarSize;
-        }
-        currentStatsList.Clear();
-
         MaxHealth = 0;
         size1HealthBar.localScale = Vector3.one;
 
-        foreach (GameObject enemy in roomWithEnemies.CurrentlySpawnedEnemies)
+        foreach (GameObject enemy in roomWithEnemies_interface.CurrentlySpawnedEnemies)
         {
             enemy.transform.Find("Sprites").Find("BasicHealthbarLogic").gameObject.SetActive(false);
 
-            EnemyStats thisCurrentStats = enemy.GetComponent<Enemy_References>().currentEnemyStats;
-            currentStatsList.Add(thisCurrentStats);
+            IHealth thisCurrentHealth = enemy.GetComponent<IHealth>();
+            currentStatsList.Add(thisCurrentHealth);
             
-            MaxHealth += thisCurrentStats.MaxHp;
+            MaxHealth += thisCurrentHealth.GetMaxHealth();
 
-            thisCurrentStats.OnCurrentHpChange += UpdateHealthBarSize;
+            thisCurrentHealth.OnHealthUpdated += UpdateHealthBarSize;
         }
     }
 
-    void UpdateHealthBarSize(float notUsed)
+    void UpdateHealthBarSize()
     {
-        
         float CurrentHealth = 0;
 
-        foreach (EnemyStats thisCurrentStats in currentStatsList)
+        foreach (IHealth helath in currentStatsList)
         {
-            CurrentHealth += thisCurrentStats.CurrentHp;
+            CurrentHealth += helath.GetCurrentHealth();
         }
         float normalizedSize = Mathf.InverseLerp(0, MaxHealth, CurrentHealth);
 

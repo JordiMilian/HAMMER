@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player_SwordRotationController : MonoBehaviour
 {
+
+    //FOCUSEABLE is a Prefab
+    //LOOKABLE is any  gameobject in the layer LOOKABLE with a trigger collider 
+
     public Transform RotatingTransform;
     public float CurrentRadiantSpeedPerSecond;
     public Vector2 LookingPosition { get; private set; } 

@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class KILLENEMIESAROUND : MonoBehaviour
+public class KILLENEMIESAROUND : MonoBehaviour, IDamageDealer
 {
-    [SerializeField] GameState gameState;
-    List<IHealth> enemiesHealth = new List<IHealth>();
+    List<IDamageReceiver> enemiesReceivers = new List<IDamageReceiver>();
     [SerializeField] float InstaKillEnemiesOnDistance;
+    [SerializeField] Generic_DamageDealer damageDealer;
      Room_script currentRoom;
+
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha0))
@@ -21,55 +25,54 @@ public class KILLENEMIESAROUND : MonoBehaviour
     {
         InvokeRepeating("CheckEnemiesDistanceAndKill", 1, 5);
     }
-    List<IHealth> GetEnemiesHealths()
+    List<IDamageReceiver> GetEnemiesDamageReceivers()
     {
-        if (gameState.currentPlayerRooms_index.Count == 0) { return new List<IHealth>(); }
-
-        RoomGenerator_Manager roomsGenerator = RoomGenerator_Manager.Instance;
-        Vector3Int currentRoomsIndex = gameState.currentPlayerRooms_index[gameState.currentPlayerRooms_index.Count - 1];
-        currentRoom = roomsGenerator.CompleteList_spawnedRooms[currentRoomsIndex.x].list[currentRoomsIndex.y];
-
-        RoomWithEnemiesLogic currentRoomWithEnemies = currentRoom.GetComponent<RoomWithEnemiesLogic>();
-        if(currentRoomWithEnemies == null) { return new List<IHealth>(); }
-        GameObject[] enemiesGO = currentRoomWithEnemies.CurrentlySpawnedEnemies.ToArray();
-
-        List<IHealth> enemiesHealthListTemp = new List<IHealth>();
-        foreach (GameObject enem in enemiesGO)
+        IRoomWithEnemies tempRoomWithEnemies = GameController.Instance.roomsLoader.CurrentLoadedRoom.GetComponentInChildren<IRoomWithEnemies>();
+        enemiesReceivers = new();
+        if (tempRoomWithEnemies != null)
         {
-            IHealth enemieHealth = enem.GetComponent<IHealth>();
-
-            if (enemieHealth == null) { continue; }
-
-            enemiesHealthListTemp.Add(enemieHealth);
+            List<IDamageReceiver> receiver = new();
+            foreach(GameObject enemy in tempRoomWithEnemies.CurrentlySpawnedEnemies)
+            {
+                receiver.Add(enemy.GetComponent<IDamageReceiver>());
+            }
+            enemiesReceivers = receiver;
+            return receiver;
         }
-        return enemiesHealthListTemp;
+        Debug.LogWarning("No Room with enemies detected");
+        return null;
     }
     void KILLEMALL()
     {
-        GetEnemiesHealths();
-        StartCoroutine(KillEmSlowly(enemiesHealth.ToArray()));
+        GetEnemiesDamageReceivers();
+        StartCoroutine(KillEmSlowly(enemiesReceivers.ToArray()));
     }
     void CheckEnemiesDistanceAndKill()
     {
-        enemiesHealth = GetEnemiesHealths();
-        if(enemiesHealth.Count == 0) { return; };
-        Vector2 roomPos = currentRoom.transform.position;
-        foreach(IHealth health in enemiesHealth)
+        GetEnemiesDamageReceivers();
+        if(enemiesReceivers.Count == 0) { return; };
+        Vector2 referencePoint = GlobalPlayerReferences.Instance.transform.position;
+        foreach(IDamageReceiver receiver in enemiesReceivers)
         {
-            Vector2 enemyPos = (health as MonoBehaviour).transform.position;
-            if((enemyPos - roomPos).magnitude > InstaKillEnemiesOnDistance)
+            Vector2 enemyPos = (receiver as MonoBehaviour).transform.position;
+            if((enemyPos - referencePoint).magnitude > InstaKillEnemiesOnDistance)
             {
-                health.RemoveHealth(50);
-                Debug.Log("Killed: " + (health as MonoBehaviour).gameObject.name + "because he got too far");
+                receiver.OnDamageReceived(new ReceivedAttackInfo(Vector2.zero, Vector2.zero, Vector2.zero,gameObject, damageDealer, 100,0,false));
+                Debug.Log("Killed: " + (receiver as MonoBehaviour).gameObject.name + "because he got too far");
             }
         }
     }
-    IEnumerator KillEmSlowly(IHealth[] healthsArray)
+    IEnumerator KillEmSlowly(IDamageReceiver[] receiversList)
     {
-        foreach(IHealth health in healthsArray)
+        foreach(IDamageReceiver receiver in receiversList)
         {
-            health.RemoveHealth(50);
+            receiver.OnDamageReceived(new ReceivedAttackInfo(Vector2.zero, Vector2.zero, Vector2.zero, gameObject, damageDealer, 100, 0, false));
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public void OnDamageDealt(DealtDamageInfo info)
+    {
+        OnDamageDealt_event?.Invoke(info);
     }
 }

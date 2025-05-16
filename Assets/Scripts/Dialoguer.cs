@@ -52,7 +52,6 @@ public class Dialoguer : MonoBehaviour
     {
         if (container == null) { return false; }
         if (index < 0) { return false; }
-        Debug.LogError("dlksfjlksdjflkdsjflksdjlfkj lkHJLKjlkJ lkjLKJ lk");
 
         TextLines = container.AllDialoguesList[index].DialogueLines;
         return true;

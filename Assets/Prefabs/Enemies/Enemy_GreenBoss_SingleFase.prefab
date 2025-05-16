@@ -729,7 +729,7 @@ PrefabInstance:
     - target: {fileID: 692158624107169364, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 1546432013608665945}
+      objectReference: {fileID: 0}
     - target: {fileID: 695697341023069215, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: MaxStance
       value: 5
@@ -840,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2558135753159906450, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2804378631093290336, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
@@ -1253,11 +1253,11 @@ PrefabInstance:
     - target: {fileID: 8393237760477941251, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 1546432013608665945}
+      objectReference: {fileID: 0}
     - target: {fileID: 8503966058725397229, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 1546432013608665945}
+      objectReference: {fileID: 0}
     - target: {fileID: 8543705226525020148, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.391
@@ -1297,7 +1297,7 @@ PrefabInstance:
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 1546432013608665945}
+      objectReference: {fileID: 0}
     - target: {fileID: 9036491661720074360, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: trailrendered
       value: 
@@ -1806,7 +1806,6 @@ MonoBehaviour:
   SpriteObject: {fileID: 765705041393972623}
   FlipDelay: 0.2
   canFlip: 1
-  lookingDirection: 0
   animator: {fileID: 266731727252035748}
 --- !u!114 &3562585380609456546
 MonoBehaviour:
@@ -1834,7 +1833,6 @@ MonoBehaviour:
   DestinationPrefab: {fileID: 1449027988912000722, guid: 14d63b14ed9d78643ac0095847deb9e8, type: 3}
   BigDestinationPrefab: {fileID: 9050276905064435868, guid: bb0df4f092d98a241bcb4e72cf0dc95e, type: 3}
   ThrowingOrigin: {fileID: 1075626917648776945}
-  enemyEvents: {fileID: 1546432013608665945}
   pointsAround: 8
   minimDistance: 1.5
   delayBetweenThrows_polygon: 0.1
@@ -1853,6 +1851,7 @@ MonoBehaviour:
   delayBetweenThrows_tornado: 0.04
   testTornado: 0
   testOffset: 0
+  ThrowGreenProjectileSFX: {fileID: 0}
 --- !u!114 &4250912610719736622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,9 +1878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRefs: {fileID: 8413447451783742396}
-  ResponseAttackIndex: 0
-  CooldownSeconds: 2
 --- !u!114 &7008334047452619768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1894,33 +1890,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed2f29b28ba2254b882e9fcb3b414a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refs: {fileID: 8413447451783742396}
-  SpecialAttack:
-    ShortDescription: 
-    rangeDetector: {fileID: 0}
-    boxCollider: {fileID: 0}
-    isActive: 0
-    notOvniInvertable: 1
-    Damage: 1
-    Probability: 1
-    KnockBack: 2000
-    Hitstop: 0
-    animationClip: {fileID: 7400000, guid: 952b83c66fd61ee4c813fe7ce02fc345, type: 2}
-    isInCooldown: 0
-    HasCooldown: 0
-    CooldownTime: 0
-  PercentOfHealthToActivate: 55
---- !u!114 &1546432013608665945 stripped
+--- !u!114 &6306595400288346814
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 627058440868749388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2145338421307745045}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450790443172764191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
+  m_Script: {fileID: 11500000, guid: bbf6ebb4d5952924e8ad3db6a0cb50a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyStateMachine: {fileID: 0}
+  enemyRefs: {fileID: 0}
+  damagedMovementCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  canAttackWhileRecovery: 0
+  State_AttackedWhileRecoveryTransitionState: {fileID: 0}
+  seconds_AttackedWhileRecoveryCooldown: 5
+  PercentOfHealthToChangePhase: 50
+  BossChangePhaseState: {fileID: 0}
+  BossIntroAnimationState: {fileID: 0}
 --- !u!114 &2726041538214405773 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4040043019073815960, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}

@@ -14,15 +14,15 @@ public class Audio_Area : MonoBehaviour
     private void OnEnable()
     {
         audioTriggerCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
-        audioTriggerCollider.OnTriggerEntered += onFadeInAudio;
-        audioTriggerCollider.OnTriggerExited += onFadeOutAudio;
+        audioTriggerCollider.OnTriggerEntered += FadeInAudio;
+        audioTriggerCollider.OnTriggerExited += FadeOutAudio;
         MusicManager.Instance.AddMusicSource(audioSource);
         BaseVolume = audioSource.volume;
     }
     private void OnDisable()
     {
-        audioTriggerCollider.OnTriggerEntered -= onFadeInAudio;
-        audioTriggerCollider.OnTriggerExited -= onFadeOutAudio;
+        audioTriggerCollider.OnTriggerEntered -= FadeInAudio;
+        audioTriggerCollider.OnTriggerExited -= FadeOutAudio;
         MusicManager.Instance.RemoveMusicSource(audioSource);
     }
     private void Start()
@@ -31,12 +31,12 @@ public class Audio_Area : MonoBehaviour
         else { FadeOut(0); }
     }
 
-    public void onFadeInAudio(Collider2D collision)
+    public void FadeInAudio(Collider2D collision)
     {
         if (CurrentFade != null) { StopCoroutine(CurrentFade); }
         CurrentFade = StartCoroutine(FadeIn(FadesSeconds));
     }
-    public void onFadeOutAudio(Collider2D collision)
+    public void FadeOutAudio(Collider2D collision)
     {
         if (CurrentFade != null) { StopCoroutine(CurrentFade); }
         CurrentFade = StartCoroutine(FadeOut(FadesSeconds));

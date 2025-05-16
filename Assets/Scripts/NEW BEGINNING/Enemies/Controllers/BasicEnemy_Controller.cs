@@ -86,8 +86,9 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         {
             enemyRefs.currentEnemyStats.CurrentHp = enemyRefs.currentEnemyStats.MaxHp;
         }
+        OnHealthUpdated?.Invoke();
     }
-
+    public Action OnHealthUpdated { get; set; }
 
     public void RestoreAllHealth()
     {

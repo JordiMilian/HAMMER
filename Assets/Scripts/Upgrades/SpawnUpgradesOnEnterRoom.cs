@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnUpgradesOnEnterRoom : MonoBehaviour
 {
     [SerializeField] Generic_OnTriggerEnterEvents onEnterRoomCollider;
-    [SerializeField] Cutscene_SpawnUpgradesGroup spawnUpgradesGroup;
+    [SerializeField] UpgradesGroup spawnUpgradesGroup;
 
     private void OnEnable()
     {

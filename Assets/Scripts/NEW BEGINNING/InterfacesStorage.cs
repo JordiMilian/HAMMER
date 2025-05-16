@@ -130,7 +130,9 @@ public interface IKilleable
 }
 public interface IHealth
 {
+
     public void RemoveHealth(float health);
+    public Action OnHealthUpdated {  get; set; }
     public float GetCurrentHealth();
     public float GetMaxHealth();
     public void RestoreAllHealth();
@@ -178,6 +180,7 @@ public interface IMultipleRoom
 public interface IRoomWithEnemies
 {
     public Action OnAllEnemiesKilled { get; set; } //This is currently used for environemental hazards to stop, maybe music too
+    public Action OnEnemiesSpawned { get; set; }
     public List<GameObject> CurrentlySpawnedEnemies { get; set; }
 }
 #endregion

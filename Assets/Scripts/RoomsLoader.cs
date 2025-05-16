@@ -13,7 +13,7 @@ public class RoomsLoader : MonoBehaviour
         while (isLoading) { yield return null; } //if we are currently loading a room, wait until we are done
 
         isLoading = true;
-        yield return StartCoroutine(loadingScreenController.FadeInScreen()); //Fade loading screen
+        yield return loadingScreenController.FadeInScreen(); //Fade loading screen
 
         //unload current if there is one
         if (CurrentLoadedRoom != null)

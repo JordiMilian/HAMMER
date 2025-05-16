@@ -380,11 +380,11 @@ MonoBehaviour:
   playMode: 0
   loadingScreenController: {fileID: 457608737}
   pauseGame: {fileID: 261301171}
-  indexOfTestingRoom: 0
-  TestingRoomsList:
-  - {fileID: 4124969895771453517, guid: 79a69b55bc4ecc94cbc333f729a577cc, type: 3}
-  - {fileID: 4505934227836759265, guid: 8d012c44dc6827e4faf668b5f82a4a47, type: 3}
-  - {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
+  indexOfLastEnteredRoom: 0
+  CurrentRoomsToLoadList:
+  - {fileID: 8585270082463449182, guid: 953992bdc08fd76499b55013865ecfdd, type: 3}
+  RespawnRoom: {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
+  AltoMandoRoom: {fileID: 8585270082463449182, guid: 953992bdc08fd76499b55013865ecfdd, type: 3}
 --- !u!4 &538173062
 Transform:
   m_ObjectHideFlags: 0
@@ -476,6 +476,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5656587271581618439, guid: 1e65690350ab70f438f2c2f25e4513ea, type: 3}
   m_PrefabInstance: {fileID: 570604043}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &615899309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 615899311}
+  - component: {fileID: 615899310}
+  - component: {fileID: 615899312}
+  m_Layer: 0
+  m_Name: KILLER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &615899310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615899309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001136267b81140419488b4872abd443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InstaKillEnemiesOnDistance: 500
+  damageDealer: {fileID: 615899312}
+--- !u!4 &615899311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615899309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8838065, y: 41.358658, z: 5.470414}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &615899312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615899309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  Knockback: 0
+  isParryable: 0
+  isBloody: 0
+  player_isChargingSpecialAttack: 0
+  isCharginSpecialAttack_whenParried: 0
+  weaponIndex: 0
+  EntityTeam: 0
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!1001 &748923741
 PrefabInstance:
   m_ObjectHideFlags: 0

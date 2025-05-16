@@ -7,35 +7,37 @@ public class HalfHealth_PuddleCreature : MonoBehaviour
 {
     [SerializeField] SpriteShapeRenderer puddleShape;
     [SerializeField] PuddleCreatureLogiuc puddleCreature;
-    [SerializeField] RoomWithEnemiesLogic roomWithEnemies;
+    [SerializeField] GameObject roomWithEnemies_interfaceHolder;
+    [SerializeField] IRoomWithEnemies roomWithEnemies;
     [SerializeField] float timeToAppearPuddle;
     [SerializeField] float delayBeforeAppearPuddle;
     [SerializeField] float delayBeforeAppearCreature;
-    Enemy_HalfHealthSpecialAttack halfHealthAttack;
     PolygonCollider2D puddleCollider;
 
+    private void OnValidate()
+    {
+        UsefullMethods.CheckIfGameobjectImplementsInterface<IRoomWithEnemies>(ref roomWithEnemies_interfaceHolder, ref roomWithEnemies);
+    }
     private void OnEnable()
     {
-        roomWithEnemies.onEnemiesSpawned += subscribeToHalfHealth;
-        GameEvents.OnPlayerRespawned += restartState;
         puddleCollider = puddleShape.gameObject.GetComponent<PolygonCollider2D>();
         restartState();
     }
-    private void OnDisable()
+
+    private void Start()
     {
-        roomWithEnemies.onEnemiesSpawned -= subscribeToHalfHealth;
-        GameEvents.OnPlayerRespawned -= restartState;
+        restartState();
     }
     void subscribeToHalfHealth()
     {
-        halfHealthAttack = roomWithEnemies.CurrentlySpawnedEnemies[0].GetComponent<Enemy_HalfHealthSpecialAttack>();
+
         //this should look for the boss_controller and get a reference when phase changing instead of this. HalfHealthAttack should be DELETED
     }
     void startSecondPhase()
     {
         StartCoroutine(appearPuddle());
     }
-    IEnumerator appearPuddle()
+    public IEnumerator appearPuddle()
     {
         yield return new WaitForSeconds(delayBeforeAppearPuddle);
         float timer = 0;

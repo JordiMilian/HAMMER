@@ -21,6 +21,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     {
         return playerRefs.currentStats.MaxHp;
     }
+    public Action OnHealthUpdated {  get; set; }
 
     public void RemoveHealth(float health)
     {
@@ -32,6 +33,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         {
             playerRefs.currentStats.CurrentHp = playerRefs.currentStats.MaxHp;
         }
+        OnHealthUpdated?.Invoke();
     }
     public void RestoreAllHealth()
     {

@@ -324,7 +324,7 @@ Transform:
   m_Children:
   - {fileID: 2703978601786979499}
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 23
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3712047158287761931
 MonoBehaviour:
@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!58 &6067895489106475608
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1126,7 +1127,7 @@ Transform:
   - {fileID: 1113247106996483438}
   - {fileID: 1913528972429803690}
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 19
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3771937919233295282
 GameObject:
@@ -1158,7 +1159,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 21
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!114 &546269304818866650
 MonoBehaviour:
@@ -1457,7 +1458,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &9200538114627001096
 BoxCollider2D:
@@ -1613,7 +1614,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &9100574892731846782
 BoxCollider2D:
@@ -1654,6 +1655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!1 &5203438734021333171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!61 &9185241081963241711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1936,7 +1939,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 22
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!114 &4665108998484958647
 MonoBehaviour:
@@ -2047,7 +2050,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 20
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!114 &8661320370467538344
 MonoBehaviour:
@@ -2192,6 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!58 &3517395315240420857
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2509,6 +2513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!1 &7973263289063883902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,7 +2547,7 @@ Transform:
   - {fileID: 4326985309706832700}
   - {fileID: 4762565791745803411}
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8485001411173815222
 GameObject:
@@ -2608,6 +2613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!58 &850102301598986811
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2717,7 +2723,7 @@ Transform:
   - {fileID: 5775240317666734011}
   - {fileID: 2638810919386451737}
   m_Father: {fileID: 3067738325916631057}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &429725906049325027
 MonoBehaviour:
@@ -3708,7 +3714,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 615882249613548982, guid: 616e1d13f57c1594cbe94126de6c8928, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 616e1d13f57c1594cbe94126de6c8928, type: 3}
 --- !u!1 &6699040102226457400 stripped
 GameObject:
@@ -4242,6 +4249,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3483325713575097498, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464178247512518821, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4970726253850967413, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 24
@@ -4478,6 +4493,10 @@ PrefabInstance:
       propertyPath: RoomSpritesRoots.Array.data[2]
       value: 
       objectReference: {fileID: 3700096162176767476}
+    - target: {fileID: 8561017001919560728, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9086798772921237321, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 24
@@ -4681,20 +4700,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1075035394442379020, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
   m_PrefabInstance: {fileID: 2838541482601329382}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &813901193440333096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2994837190570937834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530adf25c75a76c4b9b85e76e711a2b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  dontResetState: 1
 --- !u!114 &5114888588419547002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4720,7 +4725,6 @@ MonoBehaviour:
   FinalDoor: {fileID: 5377664264493757333}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   tutorialEndRespawner: {fileID: 5787046839350262438}
-  ResetStateCutscene: {fileID: 813901193440333096}
 --- !u!4 &3067738325916631057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1006076987534832375, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}

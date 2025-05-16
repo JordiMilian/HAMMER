@@ -7,6 +7,8 @@ public class Boss_Controller : BasicEnemy_Controller
 {
     [SerializeField] float PercentOfHealthToChangePhase = 50;
     [SerializeField] EnemyState BossChangePhaseState;
+    public Action OnPhaseChange;
+    public EnemyState BossIntroAnimationState;
     public override void OnDamageReceived(ReceivedAttackInfo info)
     {
         base.OnDamageReceived(info);

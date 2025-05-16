@@ -9,11 +9,7 @@ public class FinalDoor_Script : MonoBehaviour, ICutsceneable
     [SerializeField] Animator doorAnimator;
     [SerializeField] Generic_OnTriggerEnterEvents getNearDoor_collider;
     [SerializeField] AnimationClip skull01Clip, skull02Clip, skull03Clip;
-    private void Awake()
-    {
-        CheckStateAndUpdateDoor();
-    }
-    void CheckStateAndUpdateDoor()
+    public void CheckStateAndUpdateDoor() //Called from AltoMando_Section01
     {   
         if(gameState.actuallyUnlockedSkulls == 1) { InstaUnlock01(); }
         else if(gameState.actuallyUnlockedSkulls == 2) { InstaUnlock02(); }
