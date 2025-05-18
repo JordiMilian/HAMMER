@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boss_Controller : BasicEnemy_Controller
 {
+    [Header("Boss phase transition")]
     [SerializeField] float PercentOfHealthToChangePhase = 50;
     [SerializeField] EnemyState BossChangePhaseState;
     public Action OnPhaseChange;

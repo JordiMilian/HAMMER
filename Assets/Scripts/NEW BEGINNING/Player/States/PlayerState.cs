@@ -12,7 +12,7 @@ public class PlayerState : MonoBehaviour
 
     protected const float transitionTime_short = 0.25f;
     protected const float transitionTime_long = 0.5f;
-    protected const float transitionTime_instant = 0.1f;
+    protected const float transitionTime_instant = 0.15f;
 
     [Header("STAMINA")]
     public bool doesRequireStamina;

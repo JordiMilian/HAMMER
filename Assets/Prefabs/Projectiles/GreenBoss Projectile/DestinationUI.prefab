@@ -93,13 +93,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3223237532765421925}
+  - component: {fileID: 903378140178652082}
   - component: {fileID: 5742276620658245018}
   - component: {fileID: 412032795418955265}
   - component: {fileID: 6476284241555231533}
   - component: {fileID: 7697261271829785414}
-  - component: {fileID: 3365757155640488515}
-  - component: {fileID: 7777218522609488509}
-  - component: {fileID: 882536811301976611}
   m_Layer: 14
   m_Name: DestinationUI
   m_TagString: Enemy_Attack_hitbox
@@ -124,6 +122,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &903378140178652082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449027988912000722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec6392c10122f4428dba2322b175f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFX_Landed: {fileID: 8300000, guid: 12efb01f9265e2a4ebc9f18a9191c2aa, type: 3}
+  VFX_Landed: {fileID: 2919348739846012970}
 --- !u!95 &5742276620658245018
 Animator:
   serializedVersion: 4
@@ -203,52 +215,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 1
   Knockback: 0.3
-  HitStop: 0.01
   isParryable: 0
   isBloody: 0
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  eventSystem: {fileID: 3365757155640488515}
---- !u!114 &3365757155640488515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449027988912000722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7777218522609488509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449027988912000722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95351a3692b4bc54d825c841e8c66041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TomatoSplash: {fileID: 2919348739846012970}
---- !u!114 &882536811301976611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449027988912000722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f731b003e34a8194ca614fc22b477ccc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageCollider: {fileID: 6476284241555231533}
+  rootGameObject_DamageDealerTf: {fileID: 3223237532765421925}
+  rootGameObject_ParryReceiver: {fileID: 0}
 --- !u!1 &4428403622017256713
 GameObject:
   m_ObjectHideFlags: 0

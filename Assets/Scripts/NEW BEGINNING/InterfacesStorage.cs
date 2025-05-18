@@ -181,6 +181,6 @@ public interface IRoomWithEnemies
 {
     public Action OnAllEnemiesKilled { get; set; } //This is currently used for environemental hazards to stop, maybe music too
     public Action OnEnemiesSpawned { get; set; }
-    public List<GameObject> CurrentlySpawnedEnemies { get; set; }
+    public List<GameObject> CurrentlySpawnedEnemies { get; set; } //Remember to remove the enemies from this list whenever they die (if you destroy them)
 }
 #endregion

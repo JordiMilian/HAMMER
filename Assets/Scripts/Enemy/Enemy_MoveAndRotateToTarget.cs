@@ -70,7 +70,7 @@ public class Enemy_MoveAndRotateToTarget : MonoBehaviour
                 enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed * 0.5f;
                 break;
             case SpeedsEnum.VerySlow:
-                enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed * 0.25f;
+                enemyRefs.currentEnemyStats.Speed = enemyRefs.currentEnemyStats.BaseSpeed * 0.2f;
                 break;
             case SpeedsEnum.Stopped:
                 enemyRefs.currentEnemyStats.Speed = 0;

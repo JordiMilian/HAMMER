@@ -135,68 +135,40 @@ public class GameController : MonoBehaviour
     {
         if(indexOfLastEnteredRoom == CurrentRoomsToLoadList.Count - 1)
         {
-            StartCoroutine(loadAltoMando_Coroutine());
-
+            StartCoroutine(respawneInNewRoom(AltoMandoRoom));
             return;
         }
         indexOfLastEnteredRoom++;
-        StartCoroutine(loadNextRoomCoroutine());
-
-        //
-        IEnumerator loadNextRoomCoroutine()
-        {
-            playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
-            yield return roomsLoader.LoadNewRoom(CurrentRoomsToLoadList[indexOfLastEnteredRoom]);
-            ChangeGameControllerState(GameControllerStates.Playing);
-            playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
-        }
-
-        IEnumerator loadAltoMando_Coroutine()
-        {
-            playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
-            yield return roomsLoader.LoadNewRoom(AltoMandoRoom);
-            playerRefs.stateMachine.ForceChangeState(playerRefs.RespawningState);
-        }
+        StartCoroutine(enterNewRoom(CurrentRoomsToLoadList[indexOfLastEnteredRoom]));
     }
     public void ReloadCurrentRoom()
     {
-        StartCoroutine(reloadCurrentRoom_Coroutine());
-        //
-        IEnumerator reloadCurrentRoom_Coroutine()
-        {
-            playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
-            yield return roomsLoader.LoadNewRoom(CurrentRoomsToLoadList[indexOfLastEnteredRoom]);
-            playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
-        }
+        StartCoroutine(enterNewRoom(CurrentRoomsToLoadList[indexOfLastEnteredRoom]));
     }
-    public IEnumerator LoadCheckPointRoom()
+    public void RespawnAfterDeath()
     {
         indexOfLastEnteredRoom--;
-        yield return roomsLoader.LoadNewRoom(RespawnRoom);
+        StartCoroutine(respawneInNewRoom(RespawnRoom));
     }
-    public void OnExitedArea()//Called when you leave an area throw the last door
-    {
-        StartCoroutine(exitedArea_coroutine());
-        IEnumerator exitedArea_coroutine()
-        {
-            playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
-            yield return roomsLoader.LoadNewRoom(AltoMandoRoom);
-            playerRefs.stateMachine.ForceChangeState(playerRefs.RespawningState);
-        }
-    }
-    internal void OnEnteredNewAreaDoor(List<GameObject> newRooms)
+    internal void OnEnteredNewAreaDoor(List<GameObject> newRooms) //WHen entering one of the 3 doors in Alto Mando
     {
         CurrentRoomsToLoadList = new() { RespawnRoom};
         CurrentRoomsToLoadList.AddRange(newRooms);
         indexOfLastEnteredRoom = 0;
-        StartCoroutine(enteredNewArea_Coroutine());
-        
-        IEnumerator enteredNewArea_Coroutine()
-        {
-            playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
-            yield return roomsLoader.LoadNewRoom(RespawnRoom);
-            playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
-        }
+        StartCoroutine(enterNewRoom(RespawnRoom));
     }
+    IEnumerator enterNewRoom(GameObject room)
+    {
+        playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
+        yield return roomsLoader.LoadNewRoom(room);
+        playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
+    }
+    IEnumerator respawneInNewRoom(GameObject room)
+    {
+        playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
+        yield return roomsLoader.LoadNewRoom(room);
+        playerRefs.stateMachine.ForceChangeState(playerRefs.RespawningState);
+    }
+
 }
 

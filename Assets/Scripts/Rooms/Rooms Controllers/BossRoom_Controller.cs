@@ -13,6 +13,7 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     [SerializeField] UI_BossHealthBar healthBar;
     [SerializeField] Transform Tf_EndingCutseneableHolder;
     [SerializeField] Audio_Area audioArea;
+    [SerializeField] DoorAnimationController ExitDoor;
     #region MULTIPLE ROOMS INFO
 
     [SerializeField] Transform _tf_ExitPos;
@@ -25,12 +26,13 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     {
         CurrentlySpawnedEnemies = new();
         GameObject instantiatedBoss = Instantiate(BossPrefab, Tf_bossSpawnPoint.position, Quaternion.identity, transform);
-        OnEnemiesSpawned?.Invoke();
 
         CurrentlySpawnedEnemies.Add(instantiatedBoss);
+        OnEnemiesSpawned?.Invoke();
 
         CutscenesManager.Instance.AddCutsceneable(this);
         instantiatedBoss.GetComponent<IKilleable>().OnKilled_event += onBossKilled;
+        ExitDoor.DisableAutoDoorOpener();
         //Subscribe to Boss death to finish room
     }
     public void OnRoomUnloaded()
@@ -45,7 +47,7 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         }
         else { Debug.LogError("Missing boss defeated cutscene"); }
 
-
+        CurrentlySpawnedEnemies = new();
         audioArea.FadeOutAudio(new Collider2D());
         OnAllEnemiesKilled?.Invoke();
     }
@@ -60,15 +62,16 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         Generic_StateMachine bossStateMachine = bossTf.GetComponent<Generic_StateMachine>();
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
-
+        yield return null; //wait one frame so the game controller can set player into entering
         //disable player
 
         Player_StateMachine playerStateMachine = playerRefs.stateMachine;
-
         playerStateMachine.ForceChangeState(playerRefs.DisabledState);
+        yield return new WaitForSeconds(0.4f);
+
 
         //Zoom and target the Boss
-        float zoomToBoss = 2;
+        float zoomToBoss = 4;
         zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(zoomToBoss, 3, "enterCutscene"));
         targetGroup.SetOnlyOneTarget(bossTf, 50, 1);
 
@@ -82,12 +85,8 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
             yield return null;
         }
 
-        yield return new WaitForSeconds(1f);
 
         healthBar.ShowCanvas();
-
-
-        bossStateMachine.ChangeState(bossRefs.AgrooState);
 
         yield return new WaitForSeconds(.3f);
 

@@ -40,8 +40,8 @@ public class PlayerState_Death : PlayerState
     IEnumerator delayAndShowUI()
     {
         yield return new WaitForSeconds(3);
-        GameController.Instance.ReloadCurrentRoom();
-        playerRefs.GetComponent<IHealth>().RestoreAllHealth();
+        yield return playerDeadHead.GetComponent<PlayerHead_RebornBegin>().FlyAwayCoroutine();
+        GameController.Instance.RespawnAfterDeath();
         yield break;
         DeathUIRoot.SetActive(true);
     }
@@ -63,15 +63,8 @@ public class PlayerState_Death : PlayerState
     }
     public void Button_RespawnPlayer() //Try again. reload respawn room and respawning state
     {
-        StartCoroutine(respawnCoroutine());
+      //no buttons for now
 
-        //
-        IEnumerator respawnCoroutine()
-        {
-            yield return playerDeadHead.GetComponent<PlayerHead_RebornBegin>().FlyAwayCoroutine();
-            yield return GameController.Instance.LoadCheckPointRoom();
-            stateMachine.ForceChangeState(playerRefs.RespawningState);
-        }
     }
     public void Button_RestartRun()//Return to main menu
     {

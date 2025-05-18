@@ -129,8 +129,8 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     {
         if (info.canChargeSpecialAttack) { addSpecialCharge(1.25f); }
 
-        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.Big);
-        TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.VerySmall);
+        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VeryBig);
+        //TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.VerySmall);
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, info.ParryPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ParryDealt);

@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class PuddleCreatureLogiuc : MonoBehaviour
+public class PuddleCreatureLogiuc : MonoBehaviour, IDamageDealer
 {
     Transform playerTf;
     [SerializeField] float maxChasingSpeed;
@@ -20,6 +21,9 @@ public class PuddleCreatureLogiuc : MonoBehaviour
 
     [SerializeField] GameObject EnemyRoom_InterfaceHolder;
     IRoomWithEnemies EnemyRoomsInterface;
+
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set ; }
+
     private void Awake()
     {
         OnValidate();
@@ -110,5 +114,10 @@ public class PuddleCreatureLogiuc : MonoBehaviour
         {
             StopCoroutine(currentChasingbeforeAttack);
         }
+    }
+
+    public void OnDamageDealt(DealtDamageInfo info)
+    {
+        OnDamageDealt_event?.Invoke(info);
     }
 }

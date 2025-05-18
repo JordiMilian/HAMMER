@@ -8,7 +8,7 @@ public class EnemyState_BossIntroAnimation : EnemyState
     public override void OnEnable()
     {
         base.OnEnable();
-        currentCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver( AnimatorStateName,EnemyRefs.IdleState,0.1f));
+        currentCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver( AnimatorStateName,EnemyRefs.AgrooState,0.02f));
     }
     public override void OnDisable()
     {

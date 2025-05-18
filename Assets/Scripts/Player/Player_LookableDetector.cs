@@ -47,6 +47,7 @@ public class Player_LookableDetector : MonoBehaviour
             if (indexesToRemove.Contains(i))
             {
                 LookablesDetectedList.RemoveAt(i);
+                if(closestIndex > i) { closestIndex--; }
             }
         }
         return closestIndex;
