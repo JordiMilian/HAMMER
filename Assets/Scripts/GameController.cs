@@ -67,9 +67,8 @@ public class GameController : MonoBehaviour
                 break;
             case PlayModes.RoomTestingMode:
                 //load testing room
-                yield return StartCoroutine(roomsLoader.LoadNewRoom(CurrentRoomsToLoadList[indexOfLastEnteredRoom]));
+                yield return StartCoroutine(justLoadinNewRoom(CurrentRoomsToLoadList[indexOfLastEnteredRoom]));
                 ChangeGameControllerState(GameControllerStates.Playing);
-                playerRefs.stateMachine.ForceChangeState(playerRefs.EnteringRoomState);
                 break;
             default:
                 //ERROR PLS ADD A VALID MODE
@@ -168,6 +167,11 @@ public class GameController : MonoBehaviour
         playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
         yield return roomsLoader.LoadNewRoom(room);
         playerRefs.stateMachine.ForceChangeState(playerRefs.RespawningState);
+    }
+    IEnumerator justLoadinNewRoom(GameObject room)
+    {
+        playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
+        yield return roomsLoader.LoadNewRoom(room);
     }
 
 }

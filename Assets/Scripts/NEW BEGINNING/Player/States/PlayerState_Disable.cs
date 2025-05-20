@@ -13,6 +13,10 @@ public class PlayerState_Disable : PlayerState
         TargetGroupSingleton.Instance.RemoveMouseTarget();
         playerRefs.spriteFliper.canFlip = false;
     }
+    public override void Update()
+    {
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Stopped);
+    }
     public override void OnDisable()
     {
         playerRefs.spriteFliper.canFlip = true;

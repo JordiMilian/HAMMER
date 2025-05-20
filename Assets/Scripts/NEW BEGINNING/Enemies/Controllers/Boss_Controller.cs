@@ -10,14 +10,17 @@ public class Boss_Controller : BasicEnemy_Controller
     [SerializeField] EnemyState BossChangePhaseState;
     public Action OnPhaseChange;
     public EnemyState BossIntroAnimationState;
+    bool transitioned = false;
     public override void OnDamageReceived(ReceivedAttackInfo info)
     {
         base.OnDamageReceived(info);
+        if (transitioned) { return; }
 
         if (GetCurrentHealth() < (GetMaxHealth() * (PercentOfHealthToChangePhase / 100)))
         {
             EnemyState_Agroo agrooState = (EnemyState_Agroo)enemyRefs.AgrooState;
             agrooState.ForceNextAttack(BossChangePhaseState);
+            transitioned = true;
         }
     }
 }

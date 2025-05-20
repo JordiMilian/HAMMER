@@ -81,7 +81,6 @@ public class Player_AnimationEvents : MonoBehaviour
     public void EV_AddForce()
     {
         float thisDistance = playerRefs.swordRotation.GetAddForceDistance();
-        Debug.Log("distance:: "+ thisDistance);
         /*
         //Make equivalent between min and max distance to -0,5 and 1 (normalize)
         float equivalent;

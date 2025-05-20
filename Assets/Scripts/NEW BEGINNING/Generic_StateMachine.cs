@@ -16,15 +16,18 @@ public class Generic_StateMachine : MonoBehaviour
     }
     void SetNewState(State newState)
     {
+        Debug.Log($"{gameObject.name} changed state from {currentState} to {newState}:");
         if (currentState != null)
         {
             currentState.gameObject.SetActive(false);
         }
+        
         currentState = newState;
 
         currentState.InitializeState(this, animator);
         currentState.gameObject.SetActive(true);
 
+        
         OnStateChanged?.Invoke(currentState); //No use for this yet, but maybe some day
     }
     public void ChangeState(State newState)

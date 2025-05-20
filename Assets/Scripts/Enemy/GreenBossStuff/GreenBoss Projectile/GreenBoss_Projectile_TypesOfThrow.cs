@@ -100,6 +100,7 @@ public class GreenBoss_Projectile_TypesOfThrow : Enemy_BaseProjectileCreator
     }
     public IEnumerator EV_TornadoPolygon(float offset)
     {
+        Debug.Log("Tornado animation ev?");
         UpdateVectorData();
         int thisPolygonSides = firstPolygonSides;
         float addedDistancePerPolygon = (maxDistanceTornado - minDistanceTornado) / amountOfPolygons;

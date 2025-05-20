@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static DialoguesContainer;
 
 public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver, IKilleable
 {
@@ -32,6 +31,7 @@ public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver, IKilleable
         if (IsActivated) { Debug.Log("Activated already active respawner"); return; }
 
         IsActivated = true;
+        HideHead();
         if (withFeedback) { KilledFeedback(); }
 
         dialoguer.enabled = false;
@@ -51,7 +51,6 @@ public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver, IKilleable
     [SerializeField] Generic_Flash flasher;
     void KilledFeedback()
     {
-        HideHead();
         GameObject[] deadParts = deadPartInstantiator.InstantiateDeadParts();
         SFX_PlayerSingleton.Instance.playSFX(SFX_KilledSound);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, deadParts[0].transform.position);

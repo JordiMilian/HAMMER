@@ -18,12 +18,13 @@ public class PlayerState_Respawning : PlayerState
                     90
                     );
 
-        //Sprites are already hidden by death state
+        playerRefs.hideSprites.HidePlayerSprites();
 
         //Move player to respawner position
         //TiedEnemy_Controller furthestRespawner =  RespawnersManager.Instance.GetFurthestActiveRespawner();
 
         TiedEnemy_Controller furthestRespawner =  FindObjectOfType<TiedEnemy_Controller>(); //FATALITY
+        furthestRespawner.ActivateRespawner(false);
         furthestRespawner.MovePlayerHere(rootGameObject);
 
         //play respawner animation

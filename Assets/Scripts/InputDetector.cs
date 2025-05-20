@@ -80,11 +80,13 @@ public class InputDetector : MonoBehaviour
             //Parry with LB
             if(Input.GetKeyDown(KeyCode.JoystickButton4)) { OnParryPressed?.Invoke(); }
 
+            //Roll with left trigger TEST
+            TriggerInputs(OnRollPressed, OnRollPressing, OnRollUnpressed, "LeftTrigger", ref leftTriggerPressed);
+
             //Pause with Start
             if (Input.GetKeyDown(KeyCode.JoystickButton7)) { OnPausePressed?.Invoke(); }
 
-            //Parry with left trigger TEST
-            TriggerInputs(OnParryPressed, OnFocusPressing, OnFocusUnpressed, "LeftTrigger", ref leftTriggerPressed);
+           
 
             //Special attack with right trigger
             TriggerInputs(OnSpecialAttackPressed,OnFocusPressing,OnFocusUnpressed, "RightTrigger", ref rightTriggerPressed);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyState_PhaseTransition_GreenBoss : EnemyState
 {
+    Coroutine currentCoroutine;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -12,11 +13,12 @@ public class EnemyState_PhaseTransition_GreenBoss : EnemyState
 
         //move to position?
         EnemyRefs.stanceMeter.MakeStanceUnbreakeable();
-        AutoTransitionToStateOnAnimationOver(AnimatorStateName, EnemyRefs.AgrooState, 0.1f);
+        currentCoroutine = StartCoroutine( AutoTransitionToStateOnAnimationOver(AnimatorStateName, EnemyRefs.AgrooState, 0.1f));
     }
     public override void OnDisable()
     {
         base.OnDisable();
+        if(currentCoroutine != null) { StopCoroutine(currentCoroutine); }
         EnemyRefs.stanceMeter.ReturnToRegularStance();
     }
 }

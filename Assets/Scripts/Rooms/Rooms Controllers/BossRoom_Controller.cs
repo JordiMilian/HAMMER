@@ -14,6 +14,8 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     [SerializeField] Transform Tf_EndingCutseneableHolder;
     [SerializeField] Audio_Area audioArea;
     [SerializeField] DoorAnimationController ExitDoor;
+    [SerializeField] GameState gameState;
+    [SerializeField] int IndexInGameState;
     #region MULTIPLE ROOMS INFO
 
     [SerializeField] Transform _tf_ExitPos;
@@ -49,6 +51,8 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
 
         CurrentlySpawnedEnemies = new();
         audioArea.FadeOutAudio(new Collider2D());
+
+        gameState.FourDoors[IndexInGameState].isCompleted = true;
         OnAllEnemiesKilled?.Invoke();
     }
     #region ENTER ROOM CUTSCENE
@@ -84,8 +88,6 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         {
             yield return null;
         }
-
-
         healthBar.ShowCanvas();
 
         yield return new WaitForSeconds(.3f);

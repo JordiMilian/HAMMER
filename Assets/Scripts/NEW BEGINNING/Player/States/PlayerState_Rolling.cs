@@ -62,25 +62,30 @@ public class PlayerState_Rolling : PlayerState
             rollCurve_averageValue
             ));
     }
-    IEnumerator checkForRunning()
+    IEnumerator checkForRunning(string thisAnimatorStateName, float normalizedTransitionDuration)
     {
         bool isPressingRun = false;
 
         InputDetector.Instance.OnRollPressing += pressing;
         InputDetector.Instance.OnRollUnpressed += unpressed;
 
-        yield return new WaitForSeconds(0.1f);
-        while(stateMachine.CanTransition == false)
+        //the same as the AutoTransitionToState
+        animator.CrossFadeInFixedTime(thisAnimatorStateName, normalizedTransitionDuration);
+
+        yield return null; //wait one frame so the transition can start
+        AnimatorClipInfo[] nextClips = animator.GetNextAnimatorClipInfo(0);
+        if (nextClips.Length > 0)
         {
-            yield return null;
+            AnimationClip nextClip = nextClips[0].clip;
+            yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(nextClip));
         }
-        if(isPressingRun)
-        {
-            stateMachine.RequestChangeState(playerRefs.RunningState);
-        }
+        else { Debug.LogError("ERROR: No transition clip found"); }
 
         InputDetector.Instance.OnRollPressing -= pressing;
         InputDetector.Instance.OnRollUnpressed -= unpressed;
+        if (isPressingRun) { stateMachine.ForceChangeState(playerRefs.RunningState); }
+        else { stateMachine.ForceChangeState(playerRefs.IdleState); }
+
 
         //
         void pressing() { isPressingRun = true; }

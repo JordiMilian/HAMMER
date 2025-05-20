@@ -8,9 +8,14 @@ public class Dialoguer_reference : MonoBehaviour
     [SerializeField] DialoguesContainer container;
     [SerializeField] int indexInContainer;
     [SerializeField] List<string> newTextLines = new List<string>();
+    [SerializeField] bool useReferenceLines;
 
     private void Start()
     {
+        if (useReferenceLines)
+        {
+            Dialoguer.TextLines = newTextLines;
+        }
         Dialoguer.TrySetDialoguesFromContainer(container, indexInContainer);
     }
 }

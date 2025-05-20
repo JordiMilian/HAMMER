@@ -15,7 +15,6 @@ public class EnemyState_Agroo : EnemyState
     bool isNextAttackForced;
     Transform TF_AttackStatets;
 
-
     public void ForceNextAttack(EnemyState ForcedState)
     {
         ForcedNextAttack = ForcedState;
@@ -29,7 +28,6 @@ public class EnemyState_Agroo : EnemyState
         {
             TF_AttackStatets = attacksInRangeDetector.transform;
             List_EnemyAttacks = TF_AttackStatets.GetComponentsInChildren<EnemyState_Attack>(true).ToList();
-            
         }
 
         if (!isPlayerDetected)
@@ -48,10 +46,7 @@ public class EnemyState_Agroo : EnemyState
 
         EnemyRefs.animator.CrossFade(AnimatorStateName, 0.1f);
     }
-
-
-    
-    void FixedUpdate()
+    void Update()
     {
         //bastant guarro aixo
         
@@ -65,8 +60,10 @@ public class EnemyState_Agroo : EnemyState
                 return;
             }
 
-            EnemyState_Attack randomAvailableAttack = GetRandomAvailableAttack();
-            if (randomAvailableAttack != null) { stateMachine.ChangeState(randomAvailableAttack); }
+
+                EnemyState_Attack randomAvailableAttack = GetRandomAvailableAttack();
+                if (randomAvailableAttack != null) { stateMachine.ChangeState(randomAvailableAttack); }
+
         }
         
     }

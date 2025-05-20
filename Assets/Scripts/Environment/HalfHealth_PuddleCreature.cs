@@ -39,6 +39,7 @@ public class HalfHealth_PuddleCreature : MonoBehaviour
     }
     public IEnumerator appearPuddle()
     {
+        Debug.Log("start cutscene");
         yield return new WaitForSeconds(delayBeforeAppearPuddle);
         float timer = 0;
         Color baseColor = puddleShape.color;

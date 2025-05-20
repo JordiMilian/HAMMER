@@ -71,7 +71,6 @@ public class Player_SwordRotationController : MonoBehaviour
                 CurrentRadiantSpeedPerSecond = 0;
                 break;
         }
-    Debug.Log($"Rotation speed set to {speed}");
     }
     #endregion
     #region CALCULATE WHAT TO LOOK THIS FRAME

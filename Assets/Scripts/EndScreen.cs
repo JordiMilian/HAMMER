@@ -2,52 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EndScreen : MonoBehaviour
+public class EndScreen : MonoBehaviour, IRoom
 {
-    [SerializeField] Generic_OnTriggerEnterEvents EndCollider;
     List<MaskableGraphic> images = new List<MaskableGraphic>();
-    [SerializeField] UI_BaseAction UI_Action;
-    [SerializeField] GameObject EndScreenRootImage;
+    GameObject EndScreenRootImage;
     bool isDisplaying;
 
-    private void OnEnable()
+    public void OnRoomLoaded()
     {
-        images = GetComponentsInChildren<MaskableGraphic>().ToList<MaskableGraphic>();
-        EndCollider.AddActivatorTag(Tags.Player_SinglePointCollider);
-        isDisplaying = false;
-        EndCollider.OnTriggerEntered += playerEnteredEndCollider;
         InputDetector.Instance.OnPausePressed += onPausePressed;
-    }
-    private void OnDisable()
-    {
-        EndCollider.OnTriggerEntered -= playerEnteredEndCollider;
-        InputDetector.Instance.OnPausePressed -= onPausePressed;
-    }
-    private void Start()
-    {
-        FadeOut(0);
-    }
-   void onPausePressed()
-    {
-        if(isDisplaying)
-        {
-            UI_Action.Action(new UI_Button());
-        }
-    }
-    
-    void playerEnteredEndCollider(Collider2D collision)
-    {
-        EndScreenRootImage.SetActive(true);//not used perque si no estan actius no busca be les imatges crec
-
-        FadeIn(1f);
-
+       // images = GetComponentsInChildren<MaskableGraphic>().ToList();
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         Player_StateMachine playerStateMachine = playerRefs.stateMachine;
 
         playerStateMachine.ForceChangeState(playerRefs.DisabledState);
     }
+
+    public void OnRoomUnloaded()
+    {
+        InputDetector.Instance.OnPausePressed -= onPausePressed;
+    }
+    void onPausePressed()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+    
+    /*
     void FadeOut(float time)
     {
         foreach (MaskableGraphic i in images) 
@@ -96,4 +79,6 @@ public class EndScreen : MonoBehaviour
         }
         im.color = new Color(baseColor.r, baseColor.g, baseColor.b, 1);
     }
+    */
+
 }
