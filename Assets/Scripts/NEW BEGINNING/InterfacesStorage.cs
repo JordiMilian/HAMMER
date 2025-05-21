@@ -177,6 +177,10 @@ public interface IMultipleRoom
     public Vector2 ExitPos { get; }
     public Generic_OnTriggerEnterEvents combinedCollider { get; }
 }
+public interface IGestureAttack
+{
+    public Vector2 gestureDirection { get; set; }
+}
 public interface IRoomWithEnemies
 {
     public Action OnAllEnemiesKilled { get; set; } //This is currently used for environemental hazards to stop, maybe music too

@@ -76,16 +76,26 @@ public class PlayerState : MonoBehaviour
     {
         //RequestParry();
     }
-    void OnTapDetected(TapData data)
+    protected virtual void OnTapDetected(TapData data)
     {
         //we can make more attacks depending on lenght
-        if(data.tapLenght <= 1.1f) { RequestAttack(); }//regular attack
-        else { RequestStrongAttack(); }//strong attack
+        //regular attack
+        if (data.tapLenght <= 1.1f)
+        {
+            playerRefs.GestureAttack_Quick01.GetComponent<IGestureAttack>().gestureDirection = data.endDirection;
+            stateMachine.RequestChangeState(playerRefs.GestureAttack_Quick01);
+        }
+        //strong attack
+        else
+        {
+            playerRefs.GestureAttack_Strong.GetComponent<IGestureAttack>().gestureDirection = data.endDirection;
+            stateMachine.RequestChangeState(playerRefs.GestureAttack_Strong);
+        }
     }
     protected virtual void RequestParry() { stateMachine.RequestChangeState(playerRefs.ParryingState); }
     protected virtual void RequestRoll() { stateMachine.RequestChangeState(playerRefs.RollingState); }
     protected virtual void RequestAttack() { stateMachine.RequestChangeState(playerRefs.StartingComboAttackState); }
-    protected virtual void RequestStrongAttack() { stateMachine.RequestChangeState(playerRefs.StrongAttack); }
+    protected virtual void RequestStrongAttack() { stateMachine.RequestChangeState(playerRefs.GestureAttack_Strong); }
     protected virtual void RequestSpecialHeal()
     {
         if (Mathf.Approximately(playerRefs.currentStats.CurrentBloodFlow, playerRefs.currentStats.MaxBloodFlow))

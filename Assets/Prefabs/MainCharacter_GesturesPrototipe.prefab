@@ -562,6 +562,8 @@ Transform:
   - {fileID: 682252614254410781}
   - {fileID: 1823951972614052281}
   - {fileID: 6709391188276677140}
+  - {fileID: 7294924866137933910}
+  - {fileID: 5858310069520126225}
   m_Father: {fileID: 7653426975249963376}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2073,7 +2075,7 @@ GameObject:
   - component: {fileID: 6709391188276677140}
   - component: {fileID: 4944979368252327319}
   m_Layer: 0
-  m_Name: StrongAttackTest
+  m_Name: StrongGestureAttackTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2116,6 +2118,7 @@ MonoBehaviour:
   _maxDistance: 3
   _offset: 0.6
   _defaultDistance: 2.5
+  nextComboState: {fileID: 4944979368252327319}
 --- !u!1 &4869387417754326931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,6 +2710,61 @@ MonoBehaviour:
   _maxDistance: 2.5
   _offset: 0.7
   _defaultDistance: 2
+--- !u!1 &6643740771144486519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7294924866137933910}
+  - component: {fileID: 4313766728610040193}
+  m_Layer: 0
+  m_Name: QuickGestureAttackTest (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7294924866137933910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643740771144486519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3487887569468735037}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4313766728610040193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643740771144486519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9aea8c43f6bdf4583676287689b162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimatorStateName: BasicWeapon_Combo01
+  doesRequireStamina: 0
+  StaminaCost: 0
+  Damage: 0
+  Knockback: 0
+  HitStop: 0
+  _minDistance: 0
+  _maxDistance: 0
+  _offset: 0
+  _defaultDistance: 0
+  nextComboState: {fileID: 5500723018762169868}
 --- !u!1 &6850400280213929898
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,7 +4672,9 @@ MonoBehaviour:
   RollingAttackState: {fileID: 898519739106155966}
   ParryAttackState: {fileID: 898519739106155966}
   SpecialAttackState: {fileID: 4440942617907585274}
-  StrongAttack: {fileID: 4944979368252327319}
+  GestureAttack_Strong: {fileID: 4944979368252327319}
+  GestureAttack_Quick01: {fileID: 4313766728610040193}
+  GestureAttack_Quick02: {fileID: 5500723018762169868}
   WeaponStatesHolder: {fileID: 3088451774977303920}
   StatesRoots: {fileID: 3487887569468735037}
   weaponTrail: {fileID: 7653426974077638565}
@@ -5512,6 +5572,61 @@ Transform:
   m_Father: {fileID: 7653426975249963376}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9056889533242145939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5858310069520126225}
+  - component: {fileID: 5500723018762169868}
+  m_Layer: 0
+  m_Name: QuickGestureAttackTest (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5858310069520126225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9056889533242145939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3487887569468735037}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5500723018762169868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9056889533242145939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9aea8c43f6bdf4583676287689b162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimatorStateName: BasicWeapon_Combo02
+  doesRequireStamina: 0
+  StaminaCost: 0
+  Damage: 0
+  Knockback: 0
+  HitStop: 0
+  _minDistance: 0
+  _maxDistance: 0
+  _offset: 0
+  _defaultDistance: 0
+  nextComboState: {fileID: 4313766728610040193}
 --- !u!1001 &823664196182813470
 PrefabInstance:
   m_ObjectHideFlags: 0

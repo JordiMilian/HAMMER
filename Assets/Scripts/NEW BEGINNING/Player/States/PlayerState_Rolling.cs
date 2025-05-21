@@ -32,14 +32,14 @@ public class PlayerState_Rolling : PlayerState
         string stateName;
         if (DotProductWithFacingDirection >= 0) { stateName = AnimatorStateName_frontRoll; }
         else { stateName = AnimatorStateName_backRoll;}
-        rollAnimationCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName,playerRefs.IdleState,transitionTime_short));
+        //rollAnimationCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName,playerRefs.IdleState,transitionTime_short));
 
         PerformRollMovement(Axis);
 
         VFX_RollDust.Play();
         SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
-        checkForRunning_Coroutine = StartCoroutine(checkForRunning());
+        checkForRunning_Coroutine = StartCoroutine(checkForRunning(stateName,transitionTime_short));
     }
     
     void PerformRollMovement(Vector2 direction)
@@ -80,6 +80,7 @@ public class PlayerState_Rolling : PlayerState
             yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(nextClip));
         }
         else { Debug.LogError("ERROR: No transition clip found"); }
+
 
         InputDetector.Instance.OnRollPressing -= pressing;
         InputDetector.Instance.OnRollUnpressed -= unpressed;

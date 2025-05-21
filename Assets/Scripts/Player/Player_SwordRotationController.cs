@@ -18,13 +18,35 @@ public class Player_SwordRotationController : MonoBehaviour
     [SerializeField] Player_LookableDetector lookablesDetector;
     [SerializeField] Player_References playerRefs;
     CameraZoomController cameraZoomer;
+
     private void Start()
     {
         cameraZoomer = GameObject.Find(Tags.CMvcam1).GetComponent<CameraZoomController>();
     }
+    bool isForcingDirection;
+    Vector2 forcedDirection;
+    public void ForceDirection(Vector2 lookingDirection, float seconds)
+    {
+        isForcingDirection = true;
+        forcedDirection = lookingDirection;
+        StartCoroutine(forcingDirectionCoroutine());
+
+        IEnumerator forcingDirectionCoroutine()
+        {
+            yield return new WaitForSeconds(seconds);
+            isForcingDirection=  false;
+        }
+    }
     private void Update()
     {
-        //ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update
+        if (isForcingDirection) 
+        {
+            RotateTowardsTarget(forcedDirection);
+            LookingPosition = forcedDirection;
+            return;
+        }
+
+        //ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update //Canceled for gestures
         Vector2 PosToLookThisFrame = GetThisFramePosToLook();
 
         RotateTowardsTarget(PosToLookThisFrame);
