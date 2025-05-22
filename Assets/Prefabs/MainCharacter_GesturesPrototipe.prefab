@@ -559,8 +559,6 @@ Transform:
   - {fileID: 4346193915107148637}
   - {fileID: 1564242421465065531}
   - {fileID: 5703659491524321099}
-  - {fileID: 682252614254410781}
-  - {fileID: 1823951972614052281}
   - {fileID: 6709391188276677140}
   - {fileID: 7294924866137933910}
   - {fileID: 5858310069520126225}
@@ -2094,7 +2092,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3487887569468735037}
-  m_RootOrder: 13
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4944979368252327319
 MonoBehaviour:
@@ -2110,11 +2108,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimatorStateName: StrongAttack
   doesRequireStamina: 1
-  StaminaCost: 0.5
-  Damage: 3
+  StaminaCost: 1.2
+  Damage: 2.2
   Knockback: 2
   HitStop: 0.2
-  _minDistance: 1
+  _minDistance: 1.5
   _maxDistance: 3
   _offset: 0.6
   _defaultDistance: 2.5
@@ -2423,61 +2421,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &5469510671984759863
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 682252614254410781}
-  - component: {fileID: 4066837717434468814}
-  m_Layer: 0
-  m_Name: TapAttackState
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &682252614254410781
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5469510671984759863}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3487887569468735037}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4066837717434468814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5469510671984759863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AnimatorStateName: Player_TapAttackTest 1
-  doesRequireStamina: 0
-  StaminaCost: 1
-  nextComboAttack: {fileID: 7289012655754903175}
-  Damage: 0
-  Knockback: 0
-  HitStop: 0
-  _minDistance: 0.2
-  _maxDistance: 2.5
-  _offset: 0.7
-  _defaultDistance: 2
 --- !u!1 &5612325635424186014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2655,61 +2598,6 @@ MonoBehaviour:
   weaponPickerDetector: {fileID: 9009123525477702090}
   playerRefs: {fileID: 3175104005493510322}
   SFX_FoundWeapon: {fileID: 0}
---- !u!1 &6187658323362276100
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1823951972614052281}
-  - component: {fileID: 7289012655754903175}
-  m_Layer: 0
-  m_Name: TapAttackState 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1823951972614052281
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6187658323362276100}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3487887569468735037}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7289012655754903175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6187658323362276100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AnimatorStateName: Player_TapAttackTest 2
-  doesRequireStamina: 0
-  StaminaCost: 1
-  nextComboAttack: {fileID: 4066837717434468814}
-  Damage: 0
-  Knockback: 0
-  HitStop: 0
-  _minDistance: 0.2
-  _maxDistance: 2.5
-  _offset: 0.7
-  _defaultDistance: 2
 --- !u!1 &6643740771144486519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2628,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3487887569468735037}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4313766728610040193
 MonoBehaviour:
@@ -2756,14 +2644,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimatorStateName: BasicWeapon_Combo01
   doesRequireStamina: 0
-  StaminaCost: 0
-  Damage: 0
-  Knockback: 0
-  HitStop: 0
-  _minDistance: 0
-  _maxDistance: 0
-  _offset: 0
-  _defaultDistance: 0
+  StaminaCost: 0.7
+  Damage: 1
+  Knockback: 0.6
+  HitStop: 0.2
+  _minDistance: -1
+  _maxDistance: 2.5
+  _offset: 0.6
+  _defaultDistance: 1.5
   nextComboState: {fileID: 5500723018762169868}
 --- !u!1 &6850400280213929898
 GameObject:
@@ -4768,7 +4656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRefs: {fileID: 3175104005493510322}
   gesturesDetector: {fileID: 3336122419762549216}
-  StartingTapAttack: {fileID: 4066837717434468814}
+  StartingTapAttack: {fileID: 0}
 --- !u!114 &3336122419762549216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5602,7 +5490,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3487887569468735037}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5500723018762169868
 MonoBehaviour:
@@ -5618,14 +5506,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimatorStateName: BasicWeapon_Combo02
   doesRequireStamina: 0
-  StaminaCost: 0
-  Damage: 0
-  Knockback: 0
-  HitStop: 0
-  _minDistance: 0
-  _maxDistance: 0
-  _offset: 0
-  _defaultDistance: 0
+  StaminaCost: 0.7
+  Damage: 1
+  Knockback: 0.6
+  HitStop: 0.2
+  _minDistance: -1
+  _maxDistance: 2.5
+  _offset: 0.6
+  _defaultDistance: 1.5
   nextComboState: {fileID: 4313766728610040193}
 --- !u!1001 &823664196182813470
 PrefabInstance:

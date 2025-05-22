@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Player_SwordRotationController : MonoBehaviour
@@ -25,11 +26,15 @@ public class Player_SwordRotationController : MonoBehaviour
     }
     bool isForcingDirection;
     Vector2 forcedDirection;
-    public void ForceDirection(Vector2 lookingDirection, float seconds)
+    Coroutine currentForcingCoroutine;
+    Vector2 foundTargetPos;
+    bool isAttackTargetFound;
+    public void ForceDirection(Vector2 direction, float seconds)
     {
         isForcingDirection = true;
-        forcedDirection = lookingDirection;
-        StartCoroutine(forcingDirectionCoroutine());
+        forcedDirection = direction;
+        if(currentForcingCoroutine != null) { StopCoroutine(currentForcingCoroutine); }
+        currentForcingCoroutine = StartCoroutine(forcingDirectionCoroutine());
 
         IEnumerator forcingDirectionCoroutine()
         {
@@ -39,15 +44,9 @@ public class Player_SwordRotationController : MonoBehaviour
     }
     private void Update()
     {
-        if (isForcingDirection) 
-        {
-            RotateTowardsTarget(forcedDirection);
-            LookingPosition = forcedDirection;
-            return;
-        }
-
         //ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update //Canceled for gestures
         Vector2 PosToLookThisFrame = GetThisFramePosToLook();
+        Debug.DrawLine(playerRefs.transform.position, PosToLookThisFrame, Color.cyan);
 
         RotateTowardsTarget(PosToLookThisFrame);
         LookingPosition = PosToLookThisFrame;
@@ -99,15 +98,21 @@ public class Player_SwordRotationController : MonoBehaviour
     //This is called every frame to choose a direction to look
     Vector2 lastValidControllerDirection = Vector2.up;
     Vector2 GetThisFramePosToLook()
-    { 
-            //If CONTROLLER
+    {
+        //If CONTROLLER
+        //If is forcing direction look at direction but check if there is any lookable near
+        //IF input is long enough, look there (playerpos + input)
+        //If not forcing and we are focusing, look at focused
+        //If no focus, look at closest lookable
+        //look at last valid
+
         //IF input is long enough, look there (playerpos + input)
         //If no input and focusing, look at the focusable
         //If no input and no focusable, look at closest lookable (ignore MouseLookable)
         //if nothing, look at last valid pos 
 
 
-            //If MOUSE
+        //If MOUSE
         //If focusing, look at focusable
         //If no focusing, look at closest lookable (mouse pos can be a lookable)
         //If nothing, look at mouse pos
@@ -116,6 +121,21 @@ public class Player_SwordRotationController : MonoBehaviour
         //CONTROLLER
         if (inputDetector.isControllerDetected)
         {
+            if(isForcingDirection)
+            {
+                const float minDistanceToChangeForce = 1;
+
+                Vector2 forcedPos = (Vector2)playerRefs.transform.position + forcedDirection;
+                int closestForcedLookableIndex = lookablesDetector.GetCLosestLookableIndexToPosition(true, forcedPos, out float distance);
+                if (closestForcedLookableIndex < 0 || distance > minDistanceToChangeForce) { isAttackTargetFound = false;  return forcedPos; }
+                
+                Vector2 closestForcedLookablePos = lookablesDetector.LookablesDetectedList[closestForcedLookableIndex].Transform.position;
+                foundTargetPos = closestForcedLookablePos;
+                isAttackTargetFound = true;
+                lastValidControllerDirection = (closestForcedLookablePos - inputDetector.PlayerPos).normalized;
+                return closestForcedLookablePos;
+            }
+
             //Player is inputing a direction
             if(inputDetector.LookingDirectionInput.sqrMagnitude > .6f)
             {
@@ -126,6 +146,7 @@ public class Player_SwordRotationController : MonoBehaviour
             //Is Focusing
             if (isFocusing)
             {
+                if(CurrentFocuseable == null) { UnfocusCurrentEnemy(); }
                 lastValidControllerDirection = ((Vector2)CurrentFocuseable.transform.position - inputDetector.PlayerPos).normalized;
                 return CurrentFocuseable.transform.position;
             }
@@ -173,11 +194,31 @@ public class Player_SwordRotationController : MonoBehaviour
 
         InputDetector inputDetector = InputDetector.Instance;
         IAddForceStats addForceStats = playerRefs.stateMachine.currentState.GetComponent<IAddForceStats>();
-        if (addForceStats == null) { Debug.LogError("Missing IAddForceStats in " + playerRefs.stateMachine.currentState.name); return 1; }
+        if (addForceStats == null) { Debug.LogError("ERROR: Missing IAddForceStats in " + playerRefs.stateMachine.currentState.name); return 1; }
 
         //CONTROLLER
         if (inputDetector.isControllerDetected)
         {
+            if(isForcingDirection)
+            {
+                if(isAttackTargetFound)
+                {
+                    Debug.Log("go kill that target;");
+                    float distanceToFoundTarget = (foundTargetPos - inputDetector.PlayerPos).magnitude;
+                    return GetEquivalentAddForceDistance(addForceStats, distanceToFoundTarget);
+                    
+                }
+
+                Debug.Log("default killing distance;");
+                Vector2 movingDirection = InputDetector.Instance.MovementDirectionInput;
+                if(movingDirection.magnitude < 0.1f) { return addForceStats.DefaultOtherDistance; }
+
+                float DotOfSwordNMovement = Vector2.Dot(forcedDirection, movingDirection); // Gives a value from -1 to 1
+                float normalizedDot = Mathf.InverseLerp(-1, 1, DotOfSwordNMovement); //Gives a value from 0 to 1
+                float equivalenDistance = Mathf.Lerp(addForceStats.MinOtherDistance, addForceStats.MaxOtherDistance, normalizedDot);
+
+                return equivalenDistance - addForceStats.Offset;
+            }
             //If it's giving input, make an equivalence between the movement and rotation input
             if(inputDetector.LookingDirectionInput.sqrMagnitude > .6f)
             {

@@ -41,7 +41,6 @@ public class LoadingScreenController : MonoBehaviour
        
         while (timer < fadeTime) //fade in
         {
-            Debug.Log("fading in");
             timer += Time.deltaTime;
             BlackScreenImage.color = new Color(0, 0, 0, Mathf.Lerp(0, 1, timer / fadeTime));
             yield return null;

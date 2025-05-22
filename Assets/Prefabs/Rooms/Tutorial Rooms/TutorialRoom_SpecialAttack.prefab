@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ed555422912374f836bf521ae41818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FocuseTarget: {fileID: 2310101412237720411}
+  FocuseTarget: {fileID: 0}
 --- !u!58 &8932790955576765393
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -211,17 +211,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 191df0b0fd0d38141be62b136d8b0b96, type: 3}
---- !u!114 &2310101412237720411 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3716796297308684841, guid: 191df0b0fd0d38141be62b136d8b0b96, type: 3}
+--- !u!1 &5852918218665659964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4801444582403766094, guid: 191df0b0fd0d38141be62b136d8b0b96, type: 3}
   m_PrefabInstance: {fileID: 1412888335421864306}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86f5dc5abb5354143810a4fa62c7cb0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1561236095099162234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -417,6 +411,18 @@ PrefabInstance:
       propertyPath: DoorForegrounder
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6256568804196409403, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: RoomSpritesRoots.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256568804196409403, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: RoomSpritesRoots.Array.data[1]
+      value: 
+      objectReference: {fileID: 6558630225285627850}
+    - target: {fileID: 6256568804196409403, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
+      propertyPath: RoomSpritesRoots.Array.data[2]
+      value: 
+      objectReference: {fileID: 5852918218665659964}
     - target: {fileID: 6862259509104711363, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -1138,6 +1144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+--- !u!1 &6558630225285627850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+  m_PrefabInstance: {fileID: 8099661801148562128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8312167290921380846
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class TutorialRoom_Attack_Controller : MonoBehaviour, IRoom, IMultipleRoo
     {
         playerRefs = GlobalPlayerReferences.Instance.references;
         playerRefs.stateMachine.OnStateChanged += OnStateChanged;
+        exitDoorController.DisableAutoDoorOpener();
     }
     void OnStateChanged(PlayerState newState)
     {
@@ -26,7 +27,7 @@ public class TutorialRoom_Attack_Controller : MonoBehaviour, IRoom, IMultipleRoo
         {
              performedStrong = true;
         }
-        if(newState == playerRefs.StartingComboAttackState)
+        if(newState == playerRefs.GestureAttack_Quick01)
         {
             performedQuick = true;
         }

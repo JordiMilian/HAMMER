@@ -22,7 +22,7 @@ public class PlayerState_BasicGestureAttack : PlayerState, IAddForceStats, IGest
     public override void OnEnable()
     {
         playerRefs.animator.speed = playerRefs.currentStats.AttackSpeed;
-        playerRefs.swordRotation.ForceDirection((Vector2)playerRefs.transform.position+ gestureDirection, 1);
+        playerRefs.swordRotation.ForceDirection(gestureDirection, 1);
 
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Slow);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Fast);

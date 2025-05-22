@@ -12,6 +12,6 @@ public class UI_NewGame_AltoMando : UI_BaseAction
     {
         gameState.NewGameResetState();
         currentStats.CopyData(baseStats);
-        SceneManager.LoadScene("AltoMando_generated", LoadSceneMode.Single);
+        SceneManager.LoadScene("GameControllerScene", LoadSceneMode.Single);
     }
 }
