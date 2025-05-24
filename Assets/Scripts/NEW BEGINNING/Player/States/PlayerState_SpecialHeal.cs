@@ -12,8 +12,8 @@ public class PlayerState_SpecialHeal : PlayerState
     {
         base.OnEnable();
 
-        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Slow);
-        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Slow);
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.VerySlow);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         amountToHeal = playerRefs.currentStats.MaxHp - playerRefs.currentStats.CurrentHp;
         currentCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_long));
     }

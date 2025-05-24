@@ -49,7 +49,8 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         
        addSpecialCharge(info.ChargeGiven);
 
-        UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt);
+
+        if(info.AttackedRoot.GetComponent<IHealth>() != null) { UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt); }
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemy, info.CollisionPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_DealtDamage, 0.1f);
 
