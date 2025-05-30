@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class MultipleRooms_Controler : MonoBehaviour, IRoom
 {
-    //This script must be placed into an empty Prefab to be placed into the Game Controller
-    //Rooms that are part of MultipleRooms should follow some rules
-    //- The controller script of each of these rooms must implement the interface IMultipleRoom in addition to the IRoom interface 
-    //- On the OnRoomLoaded we should not place cutscenes or anything that interrupts the player. Meaning NO BASIC ENEMY ROOMS should be placed as anything but the first room
-    //- All rooms except the first one should not have an entering door to aboid two doors overlapping
-    //- Make sure to disable the ExitColliders on the intermidiate rooms. Only the LAST room should have it on the exit position.
+    /// <summary>
+    /// This script must be placed into an empty Prefab to be placed into the Game Controller
+    /// Rooms that are part of MultipleRooms should follow some rules
+    ///- The controller script of each of these rooms must implement the interface IMultipleRoom in addition to the IRoom interface 
+    ///- On the OnRoomLoaded we should not place cutscenes or anything that interrupts the player. Meaning NO BASIC ENEMY ROOMS should be placed as anything but the first room
+    ///- All rooms except the first one should not have an entering door to aboid two doors overlapping
+    ///- Make sure to disable the ExitColliders on the intermidiate rooms. Only the LAST room should have it on the exit position.
 
-    //This is a simplified version of the script RoomsGroup_script. THis script only spawns rooms in the given order.
+    ///This is a simplified version of the script RoomsGroup_script. THis script only spawns rooms in the given order.
+    /// </summary>
+    
 
     public GameObject[] RoomsToLoad;
 
