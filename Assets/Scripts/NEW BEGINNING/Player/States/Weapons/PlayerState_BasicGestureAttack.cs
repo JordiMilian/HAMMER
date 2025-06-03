@@ -42,6 +42,7 @@ public class PlayerState_BasicGestureAttack : PlayerState, IAddForceStats, IGest
         unsubscribeToRequests();
         playerRefs.animator.speed = 1;
     }
+    /*
     protected override void OnTapDetected(TapData data)
     {
         if (data.tapLenght <= 1.1f)
@@ -55,4 +56,5 @@ public class PlayerState_BasicGestureAttack : PlayerState, IAddForceStats, IGest
             stateMachine.RequestChangeState(playerRefs.GestureAttack_Strong); 
         }
     }
+    */
 }

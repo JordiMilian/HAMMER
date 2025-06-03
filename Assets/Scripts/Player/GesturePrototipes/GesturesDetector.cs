@@ -2,6 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// GESTURES BACK UP INFO
+/// aniticipacio als atacs animacions
+/// move sword faster in attack state
+///change focus with joystick
+///playerRefs remove references to gesture attacks
+///remove states from player prefab (PlayerState_BasicGestureAttack)
+///playerState_Base => remove subscription
+/// Tutorial gesture room controller recover script
+/// 
+/// 
+/// </summary>
 public struct ArcData
 {
     public Vector2 arcDirection;

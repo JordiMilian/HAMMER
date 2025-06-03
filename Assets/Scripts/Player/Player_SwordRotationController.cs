@@ -44,7 +44,7 @@ public class Player_SwordRotationController : MonoBehaviour
     }
     private void Update()
     {
-        //ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update //Canceled for gestures
+        ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update //Canceled for gestures
         Vector2 PosToLookThisFrame = GetThisFramePosToLook();
         Debug.DrawLine(playerRefs.transform.position, PosToLookThisFrame, Color.cyan);
 

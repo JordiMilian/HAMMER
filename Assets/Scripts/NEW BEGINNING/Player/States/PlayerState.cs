@@ -57,9 +57,6 @@ public class PlayerState : MonoBehaviour
         InputDetector.Instance.OnSpecialHealPressed += RequestSpecialHeal;
         InputDetector.Instance.OnSpecialAttackPressed += RequestSpecialAttack;
         InputDetector.Instance.OnAttackPressed += RequestAttack;
-        playerRefs.gesturesDetector.OnTapDetected += OnTapDetected;
-        playerRefs.gesturesDetector.OnArcDetected += OnArcDetected;
-
     }
     protected virtual void unsubscribeToRequests()
     {
@@ -68,10 +65,10 @@ public class PlayerState : MonoBehaviour
         InputDetector.Instance.OnSpecialHealPressed -= RequestSpecialHeal;
         InputDetector.Instance.OnSpecialAttackPressed -= RequestSpecialAttack;
         InputDetector.Instance.OnAttackPressed -= RequestAttack;
-        playerRefs.gesturesDetector.OnTapDetected -= OnTapDetected;
-        playerRefs.gesturesDetector.OnArcDetected -= OnArcDetected;
+
 
     }
+    /*
     void OnArcDetected( ArcData data)
     {
         //RequestParry();
@@ -92,10 +89,12 @@ public class PlayerState : MonoBehaviour
             stateMachine.RequestChangeState(playerRefs.GestureAttack_Strong);
         }
     }
+     protected virtual void RequestStrongAttack() { stateMachine.RequestChangeState(playerRefs.GestureAttack_Strong); }
+    */ //GESTURES STUFF
     protected virtual void RequestParry() { stateMachine.RequestChangeState(playerRefs.ParryingState); }
     protected virtual void RequestRoll() { stateMachine.RequestChangeState(playerRefs.RollingState); }
     protected virtual void RequestAttack() { stateMachine.RequestChangeState(playerRefs.StartingComboAttackState); }
-    protected virtual void RequestStrongAttack() { stateMachine.RequestChangeState(playerRefs.GestureAttack_Strong); }
+   
     protected virtual void RequestSpecialHeal()
     {
         if (Mathf.Approximately(playerRefs.currentStats.CurrentBloodFlow, playerRefs.currentStats.MaxBloodFlow))

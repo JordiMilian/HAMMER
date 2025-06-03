@@ -22,7 +22,7 @@ public class PlayerState_BasicComboAttack : PlayerState, IAddForceStats
         playerRefs.animator.speed = playerRefs.currentStats.AttackSpeed;
 
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Slow);
-        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Fast);
+        playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Slow);
         subscribeToRequests();
 
         currentAttackCoroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_short));
