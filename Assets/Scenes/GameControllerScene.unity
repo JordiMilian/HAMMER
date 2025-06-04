@@ -444,12 +444,12 @@ GameObject:
   - component: {fileID: 538173061}
   - component: {fileID: 538173063}
   m_Layer: 0
-  m_Name: Game Controller
+  m_Name: GAMECONTROLLER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &538173061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1772,4 +1772,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2028665277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028665280}
+  - component: {fileID: 2028665279}
+  - component: {fileID: 2028665278}
+  m_Layer: 0
+  m_Name: GAMECONTROLLER (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2028665278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028665277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac2b0acffb5d784090d78c67f3b98c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreenController: {fileID: 457608737}
+  CurrentLoadedRoom: {fileID: 0}
+--- !u!114 &2028665279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028665277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9b20c505b05654e9ed851d4edd824d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCharacter: {fileID: 7653426975249963383, guid: 3521e3ddc19ca5d489dd266b56bec981, type: 3}
+  globalPlayerReference: {fileID: 478903634884320152, guid: 78cdc1d1bc6896844b282a195d7b2b1e, type: 3}
+  targetGroupSingleton: {fileID: 6412540055385677793, guid: 41fca294b296c3b4c8b74a740dadf3ce, type: 3}
+  cinemachineCamera: {fileID: 748923742}
+  roomsLoader: {fileID: 2028665278}
+  playMode: 0
+  loadingScreenController: {fileID: 457608737}
+  pauseGame: {fileID: 261301171}
+  indexOfLastEnteredRoom: 0
+  CurrentRoomsToLoadList:
+  - {fileID: 3009831256263818386, guid: 1aa628be2b989c9479a4e151050d8f86, type: 3}
+  RespawnRoom: {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
+  AltoMandoRoom: {fileID: 8585270082463449182, guid: 953992bdc08fd76499b55013865ecfdd, type: 3}
+--- !u!4 &2028665280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028665277}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

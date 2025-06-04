@@ -42,7 +42,7 @@ public class Generic_FlipSpriteWithFocus : MonoBehaviour
     }
     void flipSprite(GameObject objecto)
     {
-        objecto.transform.localEulerAngles = new Vector3(objecto.transform.eulerAngles.x, objecto.transform.eulerAngles.y +180, objecto.transform.eulerAngles.z);
+        objecto.transform.localEulerAngles = new Vector3(objecto.transform.localEulerAngles.x, objecto.transform.localEulerAngles.y +180, objecto.transform.localEulerAngles.z);
         FlipOnce = !FlipOnce;
     }
     IEnumerator FlipCooldown()

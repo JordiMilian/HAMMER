@@ -10,7 +10,7 @@ using UnityEngine;
 ///playerRefs remove references to gesture attacks
 ///remove states from player prefab (PlayerState_BasicGestureAttack)
 ///playerState_Base => remove subscription
-/// Tutorial gesture room controller recover script
+/// Tutorial gesture room controller recover script and add tutorial room to multiple
 /// 
 /// 
 /// </summary>

@@ -31,7 +31,7 @@ public class SceneStarter_OutOfRunWorld : SceneStarter_base
     {
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
 
-        playerRefs.flasher.CallCustomFlash(spawnOutOfRunAnimation.length);
+        playerRefs.flasher.CallCustomFlash(spawnOutOfRunAnimation.length, Color.white);
         playerRefs.animator.SetTrigger("SpawnOutOfRun");
         yield return new WaitForSeconds(spawnOutOfRunAnimation.length);
         playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);

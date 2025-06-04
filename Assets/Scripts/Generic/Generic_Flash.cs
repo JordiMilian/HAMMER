@@ -22,13 +22,13 @@ public class Generic_Flash : MonoBehaviour
     }
     public void CallDefaultFlasher()
     {
-        StartCoroutine(Flasher(flashTime));
+        StartCoroutine(Flasher(flashTime, flashColor));
     }
-    public void CallCustomFlash(float time)
+    public void CallCustomFlash(float time, Color color)
     {
-        StartCoroutine(Flasher(time));
+        StartCoroutine(Flasher(time,color));
     }
-    private IEnumerator Flasher(float time)
+    private IEnumerator Flasher(float time, Color color)
     {
         SetFlashColors();
         float CurrentFlashAmount = 0;
