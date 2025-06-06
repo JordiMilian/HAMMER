@@ -27,7 +27,7 @@ public class EnemyState_ChargingAttack : EnemyState_Attack
         float startingDamage = EnemyRefs.DamageDealersList[0].Damage;
         float startingKnockBack = EnemyRefs.DamageDealersList[0].Knockback;
 
-        float timer = 0;
+        float timer = minChargingTime;
         while (timer < maxChargingTime)
         {
             timer += Time.deltaTime;
