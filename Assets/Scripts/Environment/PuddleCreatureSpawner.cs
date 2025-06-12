@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class HalfHealth_PuddleCreature : MonoBehaviour
+public class PuddleCreatureSpawner : MonoBehaviour
 {
     [SerializeField] SpriteShapeRenderer puddleShape;
     [SerializeField] PuddleCreatureLogiuc puddleCreature;
@@ -21,23 +21,17 @@ public class HalfHealth_PuddleCreature : MonoBehaviour
     private void OnEnable()
     {
         puddleCollider = puddleShape.gameObject.GetComponent<PolygonCollider2D>();
-        restartState();
+        GameEvents.OnPlayerRespawned += restartState;
     }
-
     private void Start()
     {
         restartState();
     }
-    void subscribeToHalfHealth()
-    {
-
-        //this should look for the boss_controller and get a reference when phase changing instead of this. HalfHealthAttack should be DELETED
-    }
-    void startSecondPhase()
+    public void AppearPuddleAndCreature()
     {
         StartCoroutine(appearPuddle());
     }
-    public IEnumerator appearPuddle()
+     IEnumerator appearPuddle()
     {
         Debug.Log("start cutscene");
         yield return new WaitForSeconds(delayBeforeAppearPuddle);

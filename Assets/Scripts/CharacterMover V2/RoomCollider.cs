@@ -39,10 +39,11 @@ public class RoomCollider : MonoBehaviour
         wallInfosList.Clear();
         for (int p = 0; p < polygonCollider.points.Length; p++)
         {
-            Vector2 pos1 = polygonCollider.points[p] + (Vector2)transform.position;
+           
+            Vector2 pos1 = transform.TransformPoint(polygonCollider.points[p]);
             Vector2 pos2;
-            if (p == polygonCollider.points.Length - 1) { pos2 = polygonCollider.points[0] + (Vector2)transform.position; }
-            else { pos2 = polygonCollider.points[p + 1] + (Vector2)transform.position; }
+            if (p == polygonCollider.points.Length - 1) { pos2 = transform.TransformPoint(polygonCollider.points[0]); }
+            else { pos2 = transform.TransformPoint(polygonCollider.points[p + 1]);}
 
             Vector2 diferenceVector = pos2 - pos1;
             float lenght = diferenceVector.magnitude;
@@ -63,8 +64,6 @@ public class RoomCollider : MonoBehaviour
             Vector2 midPoint = pos1 + (pos2 - pos1) / 2;
 
             DrawString(w.ToString(), midPoint);
-
-
         }
     }
     public static void DrawString(string text, Vector3 worldPos, Color? textColor = null, Color? backColor = null)

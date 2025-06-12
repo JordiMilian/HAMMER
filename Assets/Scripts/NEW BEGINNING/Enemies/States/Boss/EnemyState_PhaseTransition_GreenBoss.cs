@@ -9,7 +9,7 @@ public class EnemyState_PhaseTransition_GreenBoss : EnemyState
     {
         base.OnEnable();
         GameObject puddleController = GameObject.Find("HalfHealth_PuddleCreatureController");
-        StartCoroutine(puddleController.GetComponent<HalfHealth_PuddleCreature>().appearPuddle());
+        puddleController.GetComponent<PuddleCreatureSpawner>().AppearPuddleAndCreature();
 
         //move to position?
         EnemyRefs.stanceMeter.MakeStanceUnbreakeable();
