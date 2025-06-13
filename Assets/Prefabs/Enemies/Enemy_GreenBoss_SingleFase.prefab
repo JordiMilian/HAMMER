@@ -46,15 +46,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateTag: 4
   AnimatorStateName: Atk_MoveAway_NoAttack
-  rangeDetector: {fileID: 6790482466165369369}
+  rangeDetector: {fileID: 2088108294211234891}
   boxCollider: {fileID: 0}
   isActive: 0
   notOvniInvertable: 0
   Damage: 0
   Probability: 1
   KnockBack: 3
-  HasCooldown: 0
-  CooldownTime: 0
+  HasCooldown: 1
+  CooldownTime: 3
 --- !u!1 &1972670314214204630
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,10 +560,10 @@ MonoBehaviour:
   isActive: 0
   notOvniInvertable: 0
   Damage: 0.8
-  Probability: 1
+  Probability: 3
   KnockBack: 1
-  HasCooldown: 0
-  CooldownTime: 0
+  HasCooldown: 1
+  CooldownTime: 2
 --- !u!1 &3084810076177921834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,7 +1455,15 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: HasCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: Probability
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: CooldownTime
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
