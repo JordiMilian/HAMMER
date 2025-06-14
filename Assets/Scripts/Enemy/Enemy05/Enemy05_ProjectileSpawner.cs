@@ -10,6 +10,5 @@ public class Enemy05_ProjectileSpawner : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(ProjectilePrefab, WeaponRootTf.position, WeaponRootTf.rotation);
         newProjectile.transform.position = WeaponRootTf.position;
-        Debug.Log(WeaponRootTf.position);
     }
 }

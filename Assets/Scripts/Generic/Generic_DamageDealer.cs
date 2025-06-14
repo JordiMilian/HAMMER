@@ -78,6 +78,10 @@ public class Generic_DamageDealer : MonoBehaviour
                         PublishDealtDamageEvent(collision);
                     }
                     break;
+                case DamagersTeams.Neutral:
+                    PublishDealtDamageEvent(collision);
+                    break;
+
             }
         }
         if(otherParryDealer != null)

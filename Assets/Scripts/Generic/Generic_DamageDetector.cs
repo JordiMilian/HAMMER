@@ -35,24 +35,21 @@ public class Generic_DamageDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("damage 00");
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
 
         if (otherDealer != null)
         {
-            Debug.Log("damage 01");
             switch (EntityTeam)
             {
                 case DamagersTeams.Player:
-                    Debug.Log("damage 02");
                     if (otherDealer.EntityTeam == DamagersTeams.Enemy || otherDealer.EntityTeam == DamagersTeams.Neutral)
                     {
-                        Debug.Log("damage 03");
                         PublishAttackedEvent(collision);
                     }
                     break;
                 case DamagersTeams.Enemy:
-                    if(otherDealer.EntityTeam == DamagersTeams.Player || otherDealer.EntityTeam == DamagersTeams.Neutral)
+                    Debug.Log($"Enemy received attack from {otherDealer} {otherDealer.EntityTeam}");
+                    if (otherDealer.EntityTeam == DamagersTeams.Player || otherDealer.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishAttackedEvent(collision);
                     }
