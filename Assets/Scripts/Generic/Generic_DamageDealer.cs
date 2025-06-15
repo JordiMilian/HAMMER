@@ -114,7 +114,7 @@ public class Generic_DamageDealer : MonoBehaviour
         Generic_DamageDetector otherDetector = collision.GetComponent<Generic_DamageDetector>();
         float charge = 0;
 
-        if (isReceiverChargeable && player_isChargingSpecialAttack) { charge = Damage; } //If the Dealer is charger and the detector is chargeable, then charge
+        if (isReceiverChargeable && player_isChargingSpecialAttack) { charge = Damage; Debug.Log($"Add {charge} charge player"); } //If the Dealer is charger and the detector is chargeable, then charge
 
         thisDamageDealer.OnDamageDealt(new DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position), //collision point

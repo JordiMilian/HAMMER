@@ -29,6 +29,7 @@ public class PlayerState_BasicComboAttack : PlayerState, IAddForceStats
        
         foreach(Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
+            dealer.player_isChargingSpecialAttack = true;
             dealer.Damage = Damage * playerRefs.currentStats.DamageMultiplicator;
             dealer.Knockback = Knockback;
         }

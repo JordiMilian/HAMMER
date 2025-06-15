@@ -30,7 +30,7 @@ public class PlayerState_SpecialAttack : PlayerState, IAddForceStats
 
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
-            dealer.Damage = Damage;
+            dealer.Damage = Damage * playerRefs.currentStats.DamageMultiplicator;
             dealer.Knockback = Knockback;
         }
     }
