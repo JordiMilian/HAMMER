@@ -15,7 +15,7 @@ public class PlayerState_Rolling : PlayerState
     float rollCurve_averageValue = -1;
 
     [SerializeField] AnimationCurve RollCurve;
-    Coroutine rollCoroutine, rollAnimationCoroutine, checkForRunning_Coroutine;
+    Coroutine rollMovementCoroutine, rollAnimationCoroutine, checkForRunning_Coroutine;
     public override void OnEnable()
     {
         base.OnEnable();
@@ -40,6 +40,7 @@ public class PlayerState_Rolling : PlayerState
         SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
         checkForRunning_Coroutine = StartCoroutine(checkForRunning(stateName,transitionTime_short));
+        //checkForRunning_Coroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName, playerRefs.IdleState, transitionTime_short));
     }
     
     void PerformRollMovement(Vector2 direction)
@@ -53,7 +54,7 @@ public class PlayerState_Rolling : PlayerState
         }
 
         if (rollCurve_averageValue < 0) { rollCurve_averageValue = UsefullMethods.GetAverageValueOfCurve(RollCurve, 10); }
-        rollCoroutine = StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
+        rollMovementCoroutine = StartCoroutine(UsefullMethods.ApplyCurveMovementOverTime(
             playerRefs.characterMover,
             RollDistance,
             RollTime,
@@ -95,7 +96,7 @@ public class PlayerState_Rolling : PlayerState
 
     public override void OnDisable()
     {
-        if(rollCoroutine != null) { StopCoroutine(rollCoroutine); }
+        if(rollMovementCoroutine != null) { StopCoroutine(rollMovementCoroutine); }
         if(rollAnimationCoroutine != null) { StopCoroutine(rollAnimationCoroutine); }
         if(checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
 

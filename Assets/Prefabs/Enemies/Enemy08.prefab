@@ -1447,7 +1447,7 @@ MonoBehaviour:
   isActive: 0
   notOvniInvertable: 0
   Damage: 0.5
-  Probability: 3
+  Probability: 30
   KnockBack: 1
   HasCooldown: 1
   CooldownTime: 8
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   teleportAttacks:
   - AnimatorStateName: TornadoTeleport
     RadiusToTeleport: 2
-  - AnimatorStateName: TeleportCombo01
+  - AnimatorStateName: EndTeleport
     RadiusToTeleport: 0
 --- !u!2083052967 &7984548329287607058
 VisualEffect:
@@ -2932,6 +2932,14 @@ PrefabInstance:
     - target: {fileID: 6736957807164001479, guid: ab742260de4ad7d4cb8dee04baf1b121, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.73881567
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736957807164001479, guid: ab742260de4ad7d4cb8dee04baf1b121, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736957807164001479, guid: ab742260de4ad7d4cb8dee04baf1b121, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6736957807164001479, guid: ab742260de4ad7d4cb8dee04baf1b121, type: 3}
       propertyPath: m_LocalRotation.z
