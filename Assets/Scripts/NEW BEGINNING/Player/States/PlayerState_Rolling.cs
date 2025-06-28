@@ -39,8 +39,8 @@ public class PlayerState_Rolling : PlayerState
         VFX_RollDust.Play();
         SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
-        checkForRunning_Coroutine = StartCoroutine(checkForRunning(stateName,transitionTime_short));
-        //checkForRunning_Coroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName, playerRefs.IdleState, transitionTime_short));
+        //checkForRunning_Coroutine = StartCoroutine(checkForRunning(stateName,transitionTime_short));
+        checkForRunning_Coroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName, playerRefs.IdleState, transitionTime_short));
     }
     
     void PerformRollMovement(Vector2 direction)

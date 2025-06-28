@@ -28,6 +28,43 @@ public class Generic_Flash : MonoBehaviour
     {
         StartCoroutine(Flasher(time,color));
     }
+    Coroutine controlledFlash;
+    public void StartFlashing(float time)
+    {
+        if (controlledFlash != null) { StopCoroutine(controlledFlash); }
+
+        controlledFlash = StartCoroutine(startFlash());
+
+        IEnumerator startFlash()
+        {
+            float timer = 0;
+            while(timer < time)
+            {
+                timer += Time.deltaTime;
+                SetFlashAmount(timer / time);
+                yield return null;
+            }
+            SetFlashAmount(1);
+        }
+    }
+    public void EndFlashing(float time)
+    {
+        if (controlledFlash != null) { StopCoroutine(controlledFlash); }
+
+        controlledFlash = StartCoroutine(endFlash());
+
+        IEnumerator endFlash()
+        {
+            float timer = 0;
+            while (timer < time)
+            {
+                timer += Time.deltaTime;
+                SetFlashAmount(1 - (timer / time));
+                yield return null;
+            }
+            SetFlashAmount(0);
+        }
+    }
     private IEnumerator Flasher(float time, Color color)
     {
         SetFlashColors();
@@ -37,7 +74,7 @@ public class Generic_Flash : MonoBehaviour
         while (elapsedTime < time)
         {
             elapsedTime += Time.deltaTime * Time.timeScale;
-            CurrentFlashAmount = Mathf.Lerp(1f,0f,elapsedTime/time);
+            CurrentFlashAmount = 1- (elapsedTime/time);
             SetFlashAmount(CurrentFlashAmount);
             yield return null;
         }

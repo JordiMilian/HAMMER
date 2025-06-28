@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemyState_ChargingAttack : EnemyState_Attack
 {
@@ -9,6 +10,8 @@ public class EnemyState_ChargingAttack : EnemyState_Attack
     [SerializeField] float maxDamage = 10;
     [SerializeField] float maxKnockBack = 3;
     [SerializeField] float distanceToReleaseCharge = 2;
+    [SerializeField] VisualEffect chargeEffect;
+    [SerializeField] Generic_Flash weaponFlasher;
 
     Coroutine chargingCoroutine;
     public override void OnEnable()
@@ -18,6 +21,9 @@ public class EnemyState_ChargingAttack : EnemyState_Attack
     }
     IEnumerator chargeCoroutine()
     {
+        chargeEffect.Play();
+        weaponFlasher.StartFlashing(minChargingTime);
+
         EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.Fast);
         animator.SetTrigger("StartCharge");
         yield return new WaitForSeconds(minChargingTime);
@@ -52,6 +58,8 @@ public class EnemyState_ChargingAttack : EnemyState_Attack
         //
         IEnumerator release()
         {
+            chargeEffect.Stop();
+            weaponFlasher.EndFlashing(0.1f);
             animator.SetTrigger("ReleaseCharge");
             yield return WaitForNextAnimationToFinish();
             OnAttackFinished();
