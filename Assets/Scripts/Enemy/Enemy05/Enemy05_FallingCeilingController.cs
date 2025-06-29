@@ -21,7 +21,7 @@ public class Enemy05_FallingCeilingController : MonoBehaviour, IDamageDealer
     public void EV_OnRockLanded()
     {
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.VerySmall);
-        SFX_PlayerSingleton.Instance.playSFX(fallenSFX, .1f);
+        SFX_PlayerSingleton.Instance.playSFX(fallenSFX, .2f,-.1f);
         fallenVFX.Play();
     }
 }

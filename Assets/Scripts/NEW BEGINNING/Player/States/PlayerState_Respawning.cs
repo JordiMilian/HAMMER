@@ -48,6 +48,7 @@ public class PlayerState_Respawning : PlayerState
     Coroutine currentCorotine;
     public void EV_ActuallyRespawn()
     {
+        playerRefs.flasher.EndFlashing(0);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         playerRefs.hideSprites.ShowPlayerSprites();

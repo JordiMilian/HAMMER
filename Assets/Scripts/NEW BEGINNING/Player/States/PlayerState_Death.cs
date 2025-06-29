@@ -11,9 +11,13 @@ public class PlayerState_Death : PlayerState
     [SerializeField] GameObject DeathUIRoot;
     [SerializeField] Collider2D playerSinglePointCollider;
     GameObject playerDeadHead;
+    [SerializeField] AudioClip playerDeathSFX;
     public override void OnEnable()
     {
         TargetGroupSingleton.Instance.RemovePlayersTarget();
+
+        SFX_PlayerSingleton.Instance.playSFX(playerDeathSFX);
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
 
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Stopped);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Stopped);
@@ -30,7 +34,8 @@ public class PlayerState_Death : PlayerState
 
         //spawnPlayerXps();
 
-       
+
+        TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.Big);
         StartCoroutine(delayAndShowUI());
 
         //Wait and show UI

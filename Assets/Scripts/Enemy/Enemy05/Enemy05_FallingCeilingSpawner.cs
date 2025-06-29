@@ -44,7 +44,7 @@ public class Enemy05_FallingCeilingSpawner : MonoBehaviour
         void SpawnPrefab()
         {
             Vector2 randomPoint = UsefullMethods.RandomPointInCollider(spawnArea);
-            GameObject fallingCeiling = Instantiate(fallingCeilingPrefab, randomPoint, Quaternion.identity);
+            GameObject fallingCeiling = Instantiate(fallingCeilingPrefab, randomPoint, Quaternion.identity, transform);
         }
     }
    
