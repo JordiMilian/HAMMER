@@ -45,7 +45,7 @@ public class Room_LastUpgradeHolder : MonoBehaviour
 
         upgradeContainer.upgradeEffect = gameState.lastLostUpgrade;
 
-        upgradeContainer.OnSpawnContainer();
+        upgradeContainer.Initialize();
 
         return upgradeContainer;
     }

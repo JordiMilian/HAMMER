@@ -8,6 +8,7 @@ public class GroundBloodPlayer : MonoBehaviour
     [SerializeField] Transform vfxPlayerTF;
     [SerializeField] VisualEffect groundBloodVFX;
     public static GroundBloodPlayer Instance;
+    float baseLifetime;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,5 +26,15 @@ public class GroundBloodPlayer : MonoBehaviour
         vfxPlayerTF.up = direction;
         groundBloodVFX.SetFloat("Intensity", intensity);
         groundBloodVFX.Play();
+    }
+    public void ResetGroundBloods()
+    {
+        baseLifetime = groundBloodVFX.GetFloat("MaxLifetime");
+        groundBloodVFX.SetFloat("MaxLifetime", 0);
+        Invoke("ReturnLifetime", 0.1f);
+    }
+    void ReturnLifetime()
+    {
+        groundBloodVFX.SetFloat("MaxLifetime", baseLifetime);
     }
 }

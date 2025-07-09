@@ -26,6 +26,9 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     [SerializeField] DoorAnimationController EnterDoorAnimationController;
     [SerializeField] DoorAnimationController ExitDoorAnimationController;
 
+    [SerializeField] bool SpawnUpgrades;
+    [SerializeField] UpgradesGroup upgradesGroup;
+
     public Action OnAllEnemiesKilled { get; set; }
     public Action OnEnemiesSpawned { get; set; }
     public List<GameObject> CurrentlySpawnedEnemies { get; set; }
@@ -138,9 +141,17 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     {
         CurrentlySpawnedEnemies.Remove(info.DeadGameObject);
         //Maybe add slowMo checks in here
+
         if (CurrentlySpawnedEnemies.Count <= 0)
         {
+            if(SpawnUpgrades)
+            {
+                Vector2 lastKilledEnemyPosition = info.DeadGameObject.transform.position;
+                upgradesGroup.transform.position = lastKilledEnemyPosition;
+                CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
+            }
             ExitDoorAnimationController.OpenWithCutscene();
+           
             OnAllEnemiesKilled?.Invoke();
         }
     }

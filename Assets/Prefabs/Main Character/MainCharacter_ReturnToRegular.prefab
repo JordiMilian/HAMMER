@@ -5153,6 +5153,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5753308015201608817}
   - component: {fileID: 8836383671982987378}
+  - component: {fileID: 6728345740218385610}
+  - component: {fileID: 1086651439928825981}
   m_Layer: 0
   m_Name: Upgrades Manager
   m_TagString: Untagged
@@ -5189,9 +5191,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger_DeleteRandomUpgrade: 0
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
-  playerRefs: {fileID: 0}
+  playerRefs: {fileID: 3175104005493510322}
   UpgradeColliderDetector: {fileID: 3030397079455606687}
-  SFX_PickedUpgrade: {fileID: 0}
+  nearbyUpgradesCollider: {fileID: 6728345740218385610}
+  SFX_PickedUpgrade: {fileID: 8300000, guid: cdd0676bee739394ea85f231ed9d5147, type: 3}
+--- !u!114 &6728345740218385610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542131951449927823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6048b358fd5cb9444bf6580cc946bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivatorTags: []
+  ActivatorTagsTags: 
+--- !u!58 &1086651439928825981
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542131951449927823}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &8651147925345805427
 GameObject:
   m_ObjectHideFlags: 0

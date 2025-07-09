@@ -31,6 +31,59 @@ Transform:
   m_Father: {fileID: 2131496921670176955}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7188213753819699307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917567653786257556}
+  - component: {fileID: 228597673776232209}
+  m_Layer: 0
+  m_Name: UpgradesGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &917567653786257556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7188213753819699307}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.82144946, y: 3.2695708, z: 0.08854875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2131496921670176955}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &228597673776232209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7188213753819699307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476fa6cee9c4b984c93544009349a520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfContainers: 3
+  radiusToSpawn: 1
+  polygonOffset: 0
+  trigger_TestSpawnContainers: 0
+  avoidUpgradesRepetition: 1
+  availableUpgrades: {fileID: 11400000, guid: 2e9fc6e2a2c4c6741ac403180e7f9895, type: 2}
+  base_UpgradeContainer: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
+  spawnedUpgradesContainers: []
+  AppearSfx: {fileID: 8300000, guid: 76eaa72a654c9a64d8d1d58dc0f48b25, type: 3}
 --- !u!1 &7489566454992292023
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1425004327916212633, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2012529051862698792, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -257,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4464178247512518821, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5899201009733240555, guid: 47b047007722ee94ebca6ff86db33fc7, type: 3}
       propertyPath: m_Color.b
@@ -338,6 +391,8 @@ MonoBehaviour:
   EnemiesContainer: {fileID: 6954358700734778785}
   EnterDoorAnimationController: {fileID: 1488570453023224671}
   ExitDoorAnimationController: {fileID: 3719525278984921642}
+  SpawnUpgrades: 1
+  upgradesGroup: {fileID: 228597673776232209}
   CenterOfRoom: {fileID: 7063207106928669032}
 --- !u!114 &8154110797072673202
 MonoBehaviour:

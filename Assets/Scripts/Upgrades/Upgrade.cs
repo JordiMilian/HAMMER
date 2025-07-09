@@ -10,4 +10,9 @@ public abstract class Upgrade : ScriptableObject
 
     public abstract string shortDescription();
 
+    public virtual string title()
+    {
+        return "NO TITLE FOUND";
+    }
+
 }

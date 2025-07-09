@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeContainer : MonoBehaviour
+public class UpgradeContainer : MonoBehaviour, IDamageReceiver
 {
     public Upgrade upgradeEffect; //this should be set when instantiated
     public SpriteRenderer iconRenderer;
@@ -16,16 +16,19 @@ public class UpgradeContainer : MonoBehaviour
     [SerializeField] Animator containerAnimator;
     [SerializeField] Dialoguer dialoguer;
     CircleCollider2D ownCollider;
-    
+
+   
+
     private void Start()
     {
-        if (isSoloUpgrade) { OnSpawnContainer(); }
+        if (isSoloUpgrade) { Initialize(); }
     }
-     public void OnSpawnContainer()
+     public void Initialize()
     {
         ownCollider = GetComponent<CircleCollider2D>();
         iconRenderer.sprite = upgradeEffect.iconSprite;
-        dialoguer.TextLines[0] = upgradeEffect.shortDescription();
+        dialoguer.TextLines[0] = upgradeEffect.title();
+        dialoguer.TextLines[1] = upgradeEffect.shortDescription();
         ownCollider.enabled = true;
         containerAnimator.SetTrigger("Spawn");
     }
@@ -43,5 +46,9 @@ public class UpgradeContainer : MonoBehaviour
         containerAnimator.SetTrigger("Despawn");
     }
 
-    
+    public Action<ReceivedAttackInfo> OnDamageReceived_event { get; set; }
+    public void OnDamageReceived(ReceivedAttackInfo info)
+    {
+        OnDamageReceived_event?.Invoke(info);
+    }
 }

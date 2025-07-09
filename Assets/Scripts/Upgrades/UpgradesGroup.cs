@@ -25,7 +25,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
     {
         if(trigger_TestSpawnContainers)
         {
-            onSpawnNewContainers();
+            SpawnNewContainers();
             trigger_TestSpawnContainers = false;
         }
     }
@@ -33,7 +33,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
     {
         CutscenesManager.Instance.AddCutsceneable(this);
     }
-    public void onSpawnNewContainers()
+    public void SpawnNewContainers()
     {
         RemoveSpawnedContainers();
 
@@ -55,7 +55,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
             containerScript.isSoloUpgrade = false;
             containerScript.upgradeEffect = SelectedUpgrades[i]; //Add upgrade effect 
             containerScript.IndexInGroup = i; //save index in script
-            containerScript.OnSpawnContainer(); //Call on spawn on the upgrade
+            containerScript.Initialize(); //Call on spawn on the upgrade
             spawnedUpgradesContainers.Add(containerScript); //add to list
             containerScript.OnPickedUp += OnPickedOneUpgrade; //subscribe to picked up (desubscribed in DispawnCurrentContaoiners())
 
@@ -124,14 +124,21 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
 
         playerStateMachine.ForceChangeState(playerRefs.DisabledState);
 
-        targetGroupSingleton = TargetGroupSingleton.Instance;
-
         targetGroupSingleton.AddTarget(transform, 10, 1);
         targetGroupSingleton.RemovePlayersTarget();
 
         yield return new WaitForSeconds(1);
 
-        onSpawnNewContainers();
+        SpawnNewContainers();
+        simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
+        for (int i = 0; i < 10; i++)
+        {
+            Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
+            GroundBloodPlayer.Instance.PlayGroundBlood(transform.position, randomDirection, .6f);
+            yield return null;
+           
+        }
+
 
         yield return new WaitForSeconds(1);
 
@@ -146,7 +153,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
         Player_References playerRefs = GlobalPlayerReferences.Instance.references;
         Player_StateMachine playerStateMachine = playerRefs.stateMachine;
 
-        onSpawnNewContainers();
+        SpawnNewContainers();
 
         targetGroupSingleton.RemoveTarget(transform);
         targetGroupSingleton.ReturnPlayersTarget();

@@ -130,10 +130,12 @@ public class DoorAnimationController : MonoBehaviour, ICutsceneable
         yield return new WaitForSeconds(0.5f); //Wait after killing the last dude
 
         TargetGroupSingleton.Instance.AddTarget(doorTransform, 10, 5); //Look at door
+        TargetGroupSingleton.Instance.RemovePlayersTarget();
         yield return new WaitForSeconds(0.2f); //Wait 
         OpenDoor(); //Open door
         yield return new WaitForSeconds(openDoorAnimation.length + 0.3f); //wait for door animation
         TargetGroupSingleton.Instance.RemoveTarget(doorTransform); // Stop looking at camera
+        TargetGroupSingleton.Instance.ReturnPlayersTarget();
 
         playerStateMachine.ForceChangeState(playerRefs.IdleState);
     }
