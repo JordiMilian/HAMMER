@@ -12,6 +12,7 @@ public class simpleVfxPlayer : MonoBehaviour
     [SerializeField] VisualEffect BloodExplosionVFX;
     [SerializeField] VisualEffect StanceBrokenVFX;
     [SerializeField] VisualEffect BigPuddleStepVFX;
+    [SerializeField] VisualEffect CenteredGroundSplashVFX;
     [SerializeField] Dictionary<simpleVFXkeys,VisualEffect> vfxDictionary = new Dictionary<simpleVFXkeys, VisualEffect>();
 
     public static simpleVfxPlayer Instance;

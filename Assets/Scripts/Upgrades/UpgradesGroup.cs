@@ -131,13 +131,20 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
 
         SpawnNewContainers();
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
-        for (int i = 0; i < 10; i++)
+        
+        for (int i = 0; i < 2; i++)
         {
             Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
-            GroundBloodPlayer.Instance.PlayGroundBlood(transform.position, randomDirection, .6f);
+            GroundBloodPlayer.Instance.PlayConcentratedGroundBlood(transform.position, randomDirection, 1f);
             yield return null;
-           
         }
+        for (int i = 0; i < 4; i++)
+        {
+            Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
+            GroundBloodPlayer.Instance.PlayGroundBlood(transform.position, randomDirection, .8f);
+            yield return null;
+        }
+        GroundBloodPlayer.Instance.PlayCenteredGroundBlood(transform.position);
 
 
         yield return new WaitForSeconds(1);
