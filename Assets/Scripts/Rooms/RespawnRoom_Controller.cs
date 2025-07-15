@@ -21,6 +21,8 @@ public class RespawnRoom_Controller : MonoBehaviour, IRoom
         enterDoorController.CloseDoor();
         exitDoorController.DisableAutoDoorOpener();
         respawner.OnRespawnerActivated += respawnerActivated;
+        GlobalPlayerReferences.Instance.references.stateMachine.ForceChangeState(GlobalPlayerReferences.Instance.references.IdleState);
+
     }
 
     public void OnRoomUnloaded()
