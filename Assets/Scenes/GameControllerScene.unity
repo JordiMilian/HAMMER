@@ -1299,6 +1299,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3229106950368211265, guid: b6b5183afcb7f154cbc5444814fc9db8, type: 3}
   m_PrefabInstance: {fileID: 1123284678}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1142728037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1142728038}
+  - component: {fileID: 1142728039}
+  m_Layer: 0
+  m_Name: CoroutinesRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1142728038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142728037}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1180573257}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1142728039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142728037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ea8c60867514d42bbd6d405404f962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1180573256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1382,7 @@ Transform:
   - {fileID: 1272142980}
   - {fileID: 1552203694}
   - {fileID: 443141978}
+  - {fileID: 1142728038}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1827,8 +1872,10 @@ MonoBehaviour:
   pauseGame: {fileID: 261301171}
   indexOfLastEnteredRoom: 0
   CurrentRoomsToLoadList:
-  - {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
+  - {fileID: 3948743883328649601, guid: fe34332ef1a34b140865a6ed1cab61d8, type: 3}
+  - {fileID: 3948743883328649601, guid: ee7f9f5c1b0f54b4ea7cd4cc6a620a04, type: 3}
   - {fileID: 3948743883328649601, guid: 5a0d32b3b51ba954cac70afc3426b55a, type: 3}
+  - {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
   RespawnRoom: {fileID: 1898244007377178344, guid: 07d6c9bc3e4c55d49accd22fcb6bb12e, type: 3}
   AltoMandoRoom: {fileID: 8585270082463449182, guid: 953992bdc08fd76499b55013865ecfdd, type: 3}
 --- !u!4 &2028665280

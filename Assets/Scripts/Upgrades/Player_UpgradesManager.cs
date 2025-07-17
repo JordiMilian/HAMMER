@@ -19,10 +19,14 @@ public class Player_UpgradesManager : MonoBehaviour
         nearbyUpgradesCollider.AddActivatorTag(Tags.UpgradeContainer);
         nearbyUpgradesCollider.OnTriggerEntered += onEnteredNearUpgrade;
         nearbyUpgradesCollider.OnTriggerExited += onExitedNearUpgrade;
-
+        Invoke(nameof(addCurrentUpgrades), .5f);
+        
+    }
+    void addCurrentUpgrades()
+    {
         foreach (Upgrade upgrade in gameState.playerUpgrades)
         {
-            upgrade.onAdded(gameObject);
+            upgrade.onAdded(playerRefs.gameObject);
         }
     }
     private void OnDisable()
@@ -33,7 +37,7 @@ public class Player_UpgradesManager : MonoBehaviour
 
         foreach (Upgrade upgrade in gameState.playerUpgrades)
         {
-            upgrade.onRemoved(gameObject);
+            upgrade.onRemoved(playerRefs.gameObject);
         }
     }
     [SerializeField] List<UpgradeContainer> upgradesNear = new();
@@ -103,9 +107,9 @@ public class Player_UpgradesManager : MonoBehaviour
     void AddNewUpgrade(Upgrade upgrade)
     {
         upgrade.onAdded(playerRefs.gameObject);
-        OnUpdatedUpgrades?.Invoke();
         gameState.playerUpgrades.Add(upgrade);
-        
+        OnUpdatedUpgrades?.Invoke();
+
     }
     void deleteUpgrade(int i)
     {

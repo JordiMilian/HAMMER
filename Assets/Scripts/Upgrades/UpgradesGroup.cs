@@ -21,6 +21,8 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
 
     [SerializeField] AudioClip AppearSfx;
 
+    [SerializeField] upgradeRarity rarity = upgradeRarity.Common;
+
     private void Update()
     {
         if(trigger_TestSpawnContainers)
@@ -67,7 +69,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
 
         List<Upgrade> selected = new List<Upgrade>();
 
-        int availableUpgradesCount = availableUpgrades.AvailableUpgrades.Count;
+        int availableUpgradesCount = availableUpgrades.CommonUpgrades.Count;
         if (amount > availableUpgradesCount)
         {
             amount = availableUpgradesCount; //this should go to the temp amount BUG
@@ -76,7 +78,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
         int attempts = 0;
         for (int i = 0; i < amount; i++)
         {
-            Upgrade maybeUpdate = availableUpgrades.GetRandomUpgrade();
+            Upgrade maybeUpdate = availableUpgrades.GetRandomUpgrade(rarity);
 
             if (!selected.Contains(maybeUpdate)) { selected.Add(maybeUpdate); continue; } //if that upgrade is not contained continue from here
 
@@ -93,7 +95,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
 
         for (int i = 0; i < amount; i++)
         {
-            Upgrade maybeUpdate = availableUpgrades.GetRandomUpgrade();
+            Upgrade maybeUpdate = availableUpgrades.GetRandomUpgrade(rarity);
             selected.Add(maybeUpdate);
         }
         return selected;
@@ -127,7 +129,7 @@ public class UpgradesGroup : MonoBehaviour, ICutsceneable
         targetGroupSingleton.AddTarget(transform, 10, 1);
         targetGroupSingleton.RemovePlayersTarget();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.2f);
 
         SpawnNewContainers();
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);

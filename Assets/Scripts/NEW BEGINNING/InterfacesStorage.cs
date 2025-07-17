@@ -130,7 +130,6 @@ public interface IKilleable
 }
 public interface IHealth
 {
-
     public void RemoveHealth(float health);
     public Action OnHealthUpdated {  get; set; }
     public float GetCurrentHealth();

@@ -628,7 +628,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 742265b8730dcb34082c4ec52e81c9ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04a07e20ae280554aaf961aa6a45fc91, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5155,6 +5155,7 @@ GameObject:
   - component: {fileID: 8836383671982987378}
   - component: {fileID: 6728345740218385610}
   - component: {fileID: 1086651439928825981}
+  - component: {fileID: 6556956088316007625}
   m_Layer: 0
   m_Name: Upgrades Manager
   m_TagString: Untagged
@@ -5194,7 +5195,8 @@ MonoBehaviour:
   playerRefs: {fileID: 3175104005493510322}
   UpgradeColliderDetector: {fileID: 3030397079455606687}
   nearbyUpgradesCollider: {fileID: 6728345740218385610}
-  SFX_PickedUpgrade: {fileID: 8300000, guid: cdd0676bee739394ea85f231ed9d5147, type: 3}
+  SFX_PickedUpgrade: {fileID: 8300000, guid: d0e6042f92cadd045882a2bcd80b08a7, type: 3}
+  upgradesNear: []
 --- !u!114 &6728345740218385610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5225,6 +5227,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &6556956088316007625
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542131951449927823}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8651147925345805427
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     [SerializeField] Transform Tf_bossSpawnPoint;
     [SerializeField] UI_BossHealthBar healthBar;
     [SerializeField] Transform Tf_EndingCutseneableHolder;
+    [SerializeField] UpgradesGroup upgradesGroup;
     [SerializeField] Audio_Area audioArea;
     [SerializeField] DoorAnimationController ExitDoor;
     [SerializeField] GameState gameState;
@@ -43,11 +44,15 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     }
     void onBossKilled(DeadCharacterInfo info)
     {
+
         if(Tf_EndingCutseneableHolder.TryGetComponent(out ICutsceneable endCutsce))
         {
             CutscenesManager.Instance.AddCutsceneable(endCutsce);
         }
         else { Debug.LogError("Missing boss defeated cutscene"); }
+
+        upgradesGroup.transform.position = info.DeadGameObject.transform.position;
+        CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
 
         CurrentlySpawnedEnemies = new();
         audioArea.FadeOutAudio(new Collider2D());

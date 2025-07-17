@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UpgradeContainer : MonoBehaviour, IDamageReceiver
@@ -14,10 +15,33 @@ public class UpgradeContainer : MonoBehaviour, IDamageReceiver
     public bool isSoloUpgrade;
 
     [SerializeField] Animator containerAnimator;
-    [SerializeField] Dialoguer dialoguer;
+    [Header("UI Elements")]
+    [SerializeField] TextMeshProUGUI titleTMP, descriptionTMP;
+    [SerializeField] GameObject panelRoot;
+    [SerializeField] Generic_OnTriggerEnterEvents UIPlayerDetector;
     CircleCollider2D ownCollider;
 
-   
+    private void OnEnable()
+    {
+        UIPlayerDetector.AddActivatorTag(Tags.Player_SinglePointCollider);
+        UIPlayerDetector.OnTriggerEntered += ShowPanel;
+        UIPlayerDetector.OnTriggerExited += HidePanel;
+        HidePanel(null);
+    }
+    private void OnDisable()
+    {
+        UIPlayerDetector.OnTriggerEntered -= ShowPanel;
+        UIPlayerDetector.OnTriggerExited -= HidePanel;
+    }
+    void ShowPanel(Collider2D col)
+    {
+        panelRoot.SetActive(true);
+    }
+    void HidePanel(Collider2D col)
+    {
+        panelRoot.SetActive(false);
+    }
+
 
     private void Start()
     {
@@ -27,8 +51,8 @@ public class UpgradeContainer : MonoBehaviour, IDamageReceiver
     {
         ownCollider = GetComponent<CircleCollider2D>();
         iconRenderer.sprite = upgradeEffect.iconSprite;
-        dialoguer.TextLines[0] = upgradeEffect.title();
-        dialoguer.TextLines[1] = upgradeEffect.shortDescription();
+        titleTMP.text = upgradeEffect.Title;
+        descriptionTMP.text = upgradeEffect.shortDescription();
         ownCollider.enabled = true;
         containerAnimator.SetTrigger("Spawn");
     }

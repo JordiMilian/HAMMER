@@ -23,7 +23,7 @@ public class RoomsLoader : MonoBehaviour
         }
 
         //load new room
-        CurrentLoadedRoom = GameObject.Instantiate(newRoom, transform.position, Quaternion.identity);
+        CurrentLoadedRoom = Instantiate(newRoom, transform.position, Quaternion.identity);
         currentRoomInterface = CurrentLoadedRoom.GetComponent<IRoom>();
         currentRoomInterface.OnRoomLoaded();
 

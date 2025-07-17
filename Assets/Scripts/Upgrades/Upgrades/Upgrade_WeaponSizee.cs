@@ -43,8 +43,4 @@ public class Upgrade_WeaponSizee : Upgrade
         return UsefullMethods.highlightString(Percent.ToString() + "%")
             + " bigger Weapon ";
     }
-    public override string title()
-    {
-        return "WRIST";
-    }
 }
