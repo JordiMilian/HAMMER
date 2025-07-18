@@ -345,5 +345,33 @@ public class UsefullMethods : MonoBehaviour
         return false;
     }
 
-    
+    public static IEnumerator FadeOut(AudioSource audioSource, float time)
+    {
+        float timer = 0;
+        float startingVolume = audioSource.volume;
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+            float newVolume = Mathf.Lerp(startingVolume, 0, timer / time);
+            audioSource.volume = newVolume;
+            yield return null;
+        }
+        audioSource.volume = 0;
+        audioSource.Stop();
+    }
+
+    public static IEnumerator FadeIn(AudioSource audioSource, float time, float finalVolume)
+    {
+        audioSource.Play();
+        float timer = 0;
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+            float newVolume = Mathf.Lerp(0, finalVolume, timer / time);
+            audioSource.volume = newVolume;
+            yield return null;
+        }
+        audioSource.volume = finalVolume;
+
+    }
 }

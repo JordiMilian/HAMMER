@@ -29,6 +29,10 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     [SerializeField] bool SpawnUpgrades;
     [SerializeField] UpgradesGroup upgradesGroup;
 
+    [Header("Music")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip BattleMusic;
+
     public Action OnAllEnemiesKilled { get; set; }
     public Action OnEnemiesSpawned { get; set; }
     public List<GameObject> CurrentlySpawnedEnemies { get; set; }
@@ -39,11 +43,13 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
         ExitDoorAnimationController.DisableAutoDoorOpener();
         SpawnEnemies();
         CutscenesManager.Instance.AddCutsceneable(this);
+
     }
 
     public void OnRoomUnloaded()
     {
         //destroy remaining enemies if there are?
+        audioSource.Stop();
     }
     void SpawnEnemies()
     {
@@ -150,6 +156,9 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
                 upgradesGroup.transform.position = lastKilledEnemyPosition;
                 CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
             }
+
+            StartCoroutine(UsefullMethods.FadeOut(audioSource, 3f));
+
             ExitDoorAnimationController.OpenWithCutscene();
            
             OnAllEnemiesKilled?.Invoke();
@@ -185,6 +194,10 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
             Generic_StateMachine stateMachine = enemy.GetComponent<Generic_StateMachine>();
             stateMachine.ChangeState(enemy.GetComponent<Enemy_References>().AgrooState);
         }
+        audioSource.clip = BattleMusic;
+        MusicManager.Instance.AddMusicSource(audioSource);
+        StartCoroutine( UsefullMethods.FadeIn(audioSource, 1.5f, 1));
+
 
         swordRotation.FocusNewEnemy(CurrentlySpawnedEnemies[0].GetComponent<Enemy_References>().Focuseable);
 
