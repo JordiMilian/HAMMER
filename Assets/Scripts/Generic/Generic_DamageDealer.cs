@@ -20,6 +20,10 @@ public class Generic_DamageDealer : MonoBehaviour
     public IParryReceiver thisParryReceiver;
     public Transform rootGameObject_DamageDealerTf;
     public Transform rootGameObject_ParryReceiver;
+
+    //We have so, when a single swipe of an attack doesnt hit the same receiver multiple times. We usually reset them in the EV_ShowAttackCollider
+    [HideInInspector] public List<Generic_DamageDetector> damagedReceivers = new();
+    public void ResetDetectedReceivers() { damagedReceivers.Clear(); }
     private void OnValidate()
     {
         if (rootGameObject_DamageDealerTf != null)
@@ -60,10 +64,9 @@ public class Generic_DamageDealer : MonoBehaviour
 
         if(otherDetector != null) //
         {
-            if (otherDetector.EntityTeam == DamagersTeams.Neutral)
-            {
-                PublishHitObject(collision);
-            }
+            if (damagedReceivers.Contains(otherDetector)) { return; }
+            damagedReceivers.Add(otherDetector);
+
             switch (EntityTeam)
             {
                 case DamagersTeams.Player:
@@ -84,6 +87,7 @@ public class Generic_DamageDealer : MonoBehaviour
 
             }
         }
+        /*
         if(otherParryDealer != null)
         {
             if (!isParryable) { return; }
@@ -107,11 +111,12 @@ public class Generic_DamageDealer : MonoBehaviour
                     break;
             }
         }
+        */
     }
     void PublishDealtDamageEvent(Collider2D collision, bool isReceiverChargeable = false)
     {
-
         Generic_DamageDetector otherDetector = collision.GetComponent<Generic_DamageDetector>();
+        otherDetector.PublishAttackedEvent(GetComponent<Collider2D>());
         float charge = 0;
 
         if (isReceiverChargeable && player_isChargingSpecialAttack) { charge = Damage; Debug.Log($"Add {charge} charge player"); } //If the Dealer is charger and the detector is chargeable, then charge
@@ -124,17 +129,7 @@ public class Generic_DamageDealer : MonoBehaviour
             charge //charge
             ));
     }
-    void PublishHitObject(Collider2D collision)
-    {
-        /*
-        eventSystem.OnHitObject?.Invoke(this, new Generic_EventSystem.DealtDamageInfo(
-            collision.ClosestPoint(gameObject.transform.position),
-            collision.GetComponent<Generic_DamageDetector>().eventSystem.gameObject,
-            Damage
-            ));
-        */
-    }
-    void PublishGettingParriedEvent(GameObject parrier)
+    public void PublishGettingParriedEvent(GameObject parrier)
     {
         Vector2 ParrierDirection = (gameObject.transform.position - parrier.transform.position).normalized;
         thisParryReceiver.OnParryReceived(new GettingParriedInfo(parrier, weaponIndex, ParrierDirection));

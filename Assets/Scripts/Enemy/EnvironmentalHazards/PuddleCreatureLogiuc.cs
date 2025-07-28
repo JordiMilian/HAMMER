@@ -18,6 +18,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour, IDamageDealer
     [SerializeField] List<Generic_OnTriggerEnterEvents> puddleTriggers = new List<Generic_OnTriggerEnterEvents>();
     VisualEffect BigStepVFX;
     [SerializeField] AudioClip CreatureSFX;
+    [SerializeField] Generic_DamageDealer damageDealer;
 
     [SerializeField] GameObject EnemyRoom_InterfaceHolder;
     IRoomWithEnemies EnemyRoomsInterface;
@@ -96,6 +97,7 @@ public class PuddleCreatureLogiuc : MonoBehaviour, IDamageDealer
 
     void AttemptAttack()
     {
+        damageDealer.ResetDetectedReceivers();
         puddleCreatureAnimator.SetTrigger("Attack");
         puddleCreatureAnimator.SetBool("Chasing", false);
         currentDelayBeforeChase = StartCoroutine(DelayToStartChase(delayBetweenAttacks));

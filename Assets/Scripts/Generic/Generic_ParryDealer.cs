@@ -6,7 +6,7 @@ public class Generic_ParryDealer : MonoBehaviour
 {
     
     [SerializeField] Transform VFXPositionTransform;
-
+    [SerializeField] Generic_DamageDetector ownDamageDetector;
 
     IParryDealer thisParryDealer;
     public GameObject rootGameObject;
@@ -28,22 +28,27 @@ public class Generic_ParryDealer : MonoBehaviour
     {
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
 
-        if(otherDealer != null && otherDealer.isParryable)
+        if(otherDealer != null && otherDealer.isParryable && !otherDealer.damagedReceivers.Contains(ownDamageDetector))
         {
             switch(EntityTeam)
             {
                 case DamagersTeams.Enemy:
-                    if(otherDealer.EntityTeam == DamagersTeams.Player)
+                    if(otherDealer.EntityTeam == DamagersTeams.Player || otherDealer.EntityTeam == DamagersTeams.Neutral )
                     {
                         PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
                     }
                     break;
                 case DamagersTeams.Player:
-                    if(otherDealer.EntityTeam == DamagersTeams.Enemy)
+                    if(otherDealer.EntityTeam == DamagersTeams.Enemy || otherDealer.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
                     }
                     break;
+                case DamagersTeams.Neutral:
+                    {
+                        PublishSuccesfullParry(collision.ClosestPoint(VFXPositionTransform.position), otherDealer, otherDealer.isCharginSpecialAttack_whenParried);
+                        break;
+                    }
             }
         }
         return;
@@ -51,6 +56,7 @@ public class Generic_ParryDealer : MonoBehaviour
     void PublishSuccesfullParry(Vector3 collisionPoint, Generic_DamageDealer dealer, bool canCharge)
     {
         thisParryDealer.OnParryDealt(new SuccesfulParryInfo(collisionPoint,dealer, canCharge, dealer.rootGameObject_ParryReceiver.gameObject));
+        dealer.PublishGettingParriedEvent(gameObject);
         
     }
 }

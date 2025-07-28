@@ -13,6 +13,7 @@ public class Player_AnimationEvents : MonoBehaviour
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
             dealer.GetComponent<Collider2D>().enabled = true;
+            dealer.ResetDetectedReceivers();
         }
         playerRefs.weaponTrail.emitting = true;
         SFX_PlayerSingleton.Instance.playSFX(SFX_SwordSwing,0.1f);

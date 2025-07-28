@@ -2222,6 +2222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VFXPositionTransform: {fileID: 3073895403683566036}
+  ownDamageDetector: {fileID: 7653426974398778620}
   rootGameObject: {fileID: 7653426975249963383}
   EntityTeam: 0
 --- !u!1 &4869387417754326931
@@ -2689,6 +2690,7 @@ MonoBehaviour:
   EntityTeam: 0
   rootGameObject_DamageDealerTf: {fileID: 7653426975249963376}
   rootGameObject_ParryReceiver: {fileID: 7653426975249963376}
+  damagedReceivers: []
 --- !u!114 &3030397079455606687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4937,7 +4939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7653426975970030026
 Transform:
   m_ObjectHideFlags: 0
@@ -4991,12 +4993,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7653426975970030029}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3169442d79b07b4baa7408de1b796e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   VFXPositionTransform: {fileID: 8094939585006820728}
+  ownDamageDetector: {fileID: 0}
   rootGameObject: {fileID: 7653426975249963383}
   EntityTeam: 0
 --- !u!50 &592974611521429390

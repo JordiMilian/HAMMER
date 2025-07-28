@@ -32,10 +32,14 @@ public class Generic_DamageDetector : MonoBehaviour
     {
         OnValidate();
     }
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Generic_DamageDealer otherDealer = collision.GetComponent<Generic_DamageDealer>();
+        if(otherDealer.damagedReceivers.Contains(this))
+        {
+            return; 
+        }
 
         if (otherDealer != null)
         {
@@ -48,7 +52,6 @@ public class Generic_DamageDetector : MonoBehaviour
                     }
                     break;
                 case DamagersTeams.Enemy:
-                    Debug.Log($"Enemy received attack from {otherDealer} {otherDealer.EntityTeam}");
                     if (otherDealer.EntityTeam == DamagersTeams.Player || otherDealer.EntityTeam == DamagersTeams.Neutral)
                     {
                         PublishAttackedEvent(collision);
@@ -61,10 +64,14 @@ public class Generic_DamageDetector : MonoBehaviour
         }
         return;
     }
-    void PublishAttackedEvent(Collider2D attackerCollider)
+    */
+    
+    //Called from DamageDealer of course
+    public void PublishAttackedEvent(Collider2D attackerCollider)
     {
         Generic_DamageDealer damageDealer = attackerCollider.gameObject.GetComponent<Generic_DamageDealer>();
 
+        Debug.Log($"{rootGameObject.name} received attack from {attackerCollider.GetComponent<Generic_DamageDealer>().rootGameObject_DamageDealerTf.name}");
 
         thisIDamageReceiver.OnDamageReceived(new ReceivedAttackInfo
             (
@@ -77,38 +84,7 @@ public class Generic_DamageDetector : MonoBehaviour
             damageDealer.Knockback,
             damageDealer.isBloody
             ));
-        //CooldownCall();
-    }
-    //What is this????
-    void PublishBeingTouched(Collider2D collider)
-    {
-        //Vector2 direction = (transform.position - collider.transform.root.position).normalized;
-        //eventSystem.OnBeingTouchedObject?.Invoke(this, new Generic_EventSystem.ObjectDirectionArgs(direction));
-        //CooldownCall();
     }
 
-    //LETS TRY WITHOUT COOLDOWN
-    /* 
-    bool isInCooldown;
-    float CooldownTime = 0.2f;
-    Coroutine cooldownRoutine;
-    void CooldownCall()
-    {
-        if(gameObject.activeInHierarchy == false) { return; }
-        if (cooldownRoutine != null) { StopCoroutine(cooldownRoutine); }
-        cooldownRoutine = StartCoroutine(Cooldown());
-    }
-    IEnumerator Cooldown()
-    {
-        isInCooldown = true;
-        float timer = 0;
-        while (timer < CooldownTime)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        isInCooldown = false;
-    }
-    */
 }
 

@@ -49,6 +49,7 @@ public class BasicEnemy_AnimationEvents : MonoBehaviour
         foreach(Generic_DamageDealer dealer in enemyRefs.DamageDealersList)
         {
             dealer.GetComponent<Collider2D>().enabled = true;
+            dealer.ResetDetectedReceivers();
         }
         if (weaponTrail != null) { weaponTrail.emitting = true; }
         SFX_PlayerSingleton.Instance.playSFX(SFX_Swing, 0.2f);

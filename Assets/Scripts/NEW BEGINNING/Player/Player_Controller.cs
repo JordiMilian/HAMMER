@@ -46,8 +46,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
     public void OnDamageDealt(DealtDamageInfo info)
     {
-        
-       addSpecialCharge(info.ChargeGiven);
+        addSpecialCharge(info.ChargeGiven);
 
 
         if(info.AttackedRoot.GetComponent<IHealth>() != null) { UsefullMethods.CameraShakeAndHitstopFromDamage(info.DamageDealt); }
