@@ -13,7 +13,6 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     [SerializeField] UI_BossHealthBar healthBar;
     [SerializeField] Transform Tf_EndingCutseneableHolder;
     [SerializeField] UpgradesGroup upgradesGroup;
-    [SerializeField] Audio_Area audioArea;
     [SerializeField] DoorAnimationController ExitDoor;
     [SerializeField] GameState gameState;
     [SerializeField] int IndexInGameState;
@@ -36,11 +35,13 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         CutscenesManager.Instance.AddCutsceneable(this);
         instantiatedBoss.GetComponent<IKilleable>().OnKilled_event += onBossKilled;
         ExitDoor.DisableAutoDoorOpener();
+        GameEvents.OnPlayerDeath += CutMusic;
         //Subscribe to Boss death to finish room
     }
     public void OnRoomUnloaded()
     {
-        
+        CutMusic();
+        GameEvents.OnPlayerDeath -= CutMusic;
     }
     void onBossKilled(DeadCharacterInfo info)
     {
@@ -55,7 +56,7 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
 
         CurrentlySpawnedEnemies = new();
-        audioArea.FadeOutAudio(new Collider2D());
+        CutMusic();
 
         gameState.FourDoors[IndexInGameState].isCompleted = true;
         OnAllEnemiesKilled?.Invoke();
@@ -94,6 +95,7 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
             yield return null;
         }
         healthBar.ShowCanvas();
+        PlayMusic();
 
         yield return new WaitForSeconds(.3f);
 
@@ -129,8 +131,22 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         //enable player again
         playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
     }
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip BattleMusic;
+    private void PlayMusic()
+    {
+        audioSource.clip = BattleMusic;
+        audioSource.loop = true;
+        MusicManager.Instance.AddMusicSource(audioSource);
+        StartCoroutine(UsefullMethods.FadeIn(audioSource, 1.5f, MusicManager.Instance.GetMusicVolume()));
+    }
+    void CutMusic()
+    {
+        MusicManager.Instance.RemoveMusicSource(audioSource);
+        StartCoroutine(UsefullMethods.FadeOut(audioSource, 1f));
+    }
 
     #endregion
 
-    
+
 }

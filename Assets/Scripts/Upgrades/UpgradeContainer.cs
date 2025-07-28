@@ -62,6 +62,7 @@ public class UpgradeContainer : MonoBehaviour, IDamageReceiver
         ownCollider.enabled = false;
         StartCoroutine(UsefullMethods.destroyWithDelay(1.5f,gameObject));
         containerAnimator.SetTrigger("PickedUp");
+        HidePanel(null);
     }
     public void OnDispawnContainer()
     {

@@ -364,6 +364,7 @@ public class UsefullMethods : MonoBehaviour
     {
         audioSource.Play();
         float timer = 0;
+        audioSource.volume = 0;
         while (timer < time)
         {
             timer += Time.deltaTime;

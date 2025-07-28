@@ -46,6 +46,7 @@ public class Player_SwordRotationController : MonoBehaviour
     {
         ChangeFocusWithJoystick();//Input detector should have an event to subscribe to this instead of calling it on Update //Canceled for gestures
         Vector2 PosToLookThisFrame = GetThisFramePosToLook();
+        playerRefs.spriteFliper.FocusVector = PosToLookThisFrame;
         Debug.DrawLine(playerRefs.transform.position, PosToLookThisFrame, Color.cyan);
 
         RotateTowardsTarget(PosToLookThisFrame);

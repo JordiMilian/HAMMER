@@ -53,7 +53,8 @@ MonoBehaviour:
   availableUpgrades: {fileID: 11400000, guid: 2e9fc6e2a2c4c6741ac403180e7f9895, type: 2}
   base_UpgradeContainer: {fileID: 4754920689746722368, guid: afddda6f368c2f442b7156274e090937, type: 3}
   spawnedUpgradesContainers: []
-  AppearSfx: {fileID: 8300000, guid: a19c0aff162bb5145aedb3caeaeb545e, type: 3}
+  AppearSfx: {fileID: 8300000, guid: 3872e606382b64849a7ada2c906251ab, type: 3}
+  rarity: 0
 --- !u!114 &6883731831432065899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,7 +97,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2861294270407902046}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7002676363800525650
 MonoBehaviour:
@@ -128,10 +129,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8764427811373747817}
-  - component: {fileID: 7626113939769374951}
   - component: {fileID: 5414813267928268988}
   m_Layer: 0
-  m_Name: AudioArea
+  m_Name: AudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,25 +150,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2861294270407902046}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7626113939769374951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8918358801488895296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a86b9e4eb2bdfa742a73013ed7f0abd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 5414813267928268988}
-  BaseVolume: 0
-  FadesSeconds: 0.5
-  isStartingArea: 0
-  audioTriggerCollider: {fileID: 1605142384950595339}
 --- !u!82 &5414813267928268988
 AudioSource:
   m_ObjectHideFlags: 0
@@ -486,6 +469,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5183449656916512424, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5277813877092264036, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -732,12 +719,13 @@ MonoBehaviour:
   healthBar: {fileID: 4424330670833719739}
   Tf_EndingCutseneableHolder: {fileID: 876272961027941696}
   upgradesGroup: {fileID: 7448831037043449186}
-  audioArea: {fileID: 7626113939769374951}
   ExitDoor: {fileID: 702467371834552783}
-  gameState: {fileID: 0}
+  gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   IndexInGameState: 0
   _tf_ExitPos: {fileID: 4382267223504194970}
   _combinedCollider: {fileID: 1605142384950595339}
+  audioSource: {fileID: 5414813267928268988}
+  BattleMusic: {fileID: 8300000, guid: 54e90d66e1db6eb4680a2718e7d26cf2, type: 3}
 --- !u!4 &2861294270407902046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2131496921670176955, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}

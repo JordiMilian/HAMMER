@@ -11,7 +11,7 @@ public class Upgrade_HealOnLoadRoom : Upgrade
     {
         
         playerrefs = entity.GetComponent<Player_References>();
-        playerrefs.stateMachine.OnStateChanged += OnStateChanged;
+        playerrefs.stateMachine.OnStateEntered += OnStateChanged;
         //GameEvents.OnLoadNewRoom += HealWithDelay;
     }
     void OnStateChanged(PlayerState newState)
@@ -36,7 +36,7 @@ public class Upgrade_HealOnLoadRoom : Upgrade
 
     public override void onRemoved(GameObject entity)
     {
-        playerrefs.stateMachine.OnStateChanged -= OnStateChanged;
+        playerrefs.stateMachine.OnStateEntered -= OnStateChanged;
     }
 
     public override string shortDescription()

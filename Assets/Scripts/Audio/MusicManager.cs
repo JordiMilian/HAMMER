@@ -5,7 +5,7 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
     [SerializeField] bool setVolumeTrigger;
-    [SerializeField] GameState gameState;
+    public GameState gameState;
 
     public List<musicSource> musicSources = new List<musicSource>();
     public class musicSource
@@ -104,4 +104,5 @@ public class MusicManager : MonoBehaviour
         //mSource.audioSource.gameObject.GetComponent<Audio_Area>().BaseVolume = equivalentVolume;
         Debug.Log("Settet new music volume to: " + gameState.MusicVolum);   
     }
+    public float GetMusicVolume() { return gameState.MusicVolum; }
 }

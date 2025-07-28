@@ -73,6 +73,11 @@ public class Player_AnimationEvents : MonoBehaviour
         specialHeal.ActuallyHeal();
         
     }
+    public void EV_ActuallyGetUpgrade()
+    {
+        Player_UpgradesManager upgradesManger = playerRefs.upgradesManager;
+        upgradesManger.EV_OnEatUpgrade();
+    }
     #region ADD FORCES
     [Header("Add Force Stats")]
     [SerializeField] float addForceTime;

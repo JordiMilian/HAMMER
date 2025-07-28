@@ -15,6 +15,10 @@ public class AltoMando_Section01_Controller : MonoBehaviour, IRoom, IMultipleRoo
     public Generic_OnTriggerEnterEvents combinedCollider => _combinedCollider;
     [SerializeField] FinalDoor_Script FinalDoor;
 
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip altoMandoMusic;
+
+
     public void OnRoomLoaded()
     {
         //Check weapons to display
@@ -22,10 +26,19 @@ public class AltoMando_Section01_Controller : MonoBehaviour, IRoom, IMultipleRoo
         EnterDoor.InstaOpen();
         EnterDoor.CloseDoor();
         EnterDoor.DisableAutoDoorCloser();
+
+        MusicManager musicManager = MusicManager.Instance;
+        musicManager.AddMusicSource(audioSource);
+        audioSource.clip = altoMandoMusic;
+        audioSource.loop = true;
+        StartCoroutine(UsefullMethods.FadeIn(audioSource,3,musicManager.GetMusicVolume()));
     }
 
     public void OnRoomUnloaded()
     {
+        MusicManager.Instance.RemoveMusicSource(audioSource);
+        StartCoroutine(UsefullMethods.FadeOut(audioSource, 2));
+
     }
 
 

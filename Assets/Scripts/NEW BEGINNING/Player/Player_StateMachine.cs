@@ -10,7 +10,8 @@ public class Player_StateMachine : MonoBehaviour
 
     [SerializeField] Player_References playerRefs;
     [SerializeField] Animator animator;
-    public Action<PlayerState> OnStateChanged;
+    public Action<PlayerState> OnStateExited;
+    public Action<PlayerState> OnStateEntered;
     PlayerState NextRequestedState;
     
     public bool CanTransition { get; private set; }
@@ -38,6 +39,7 @@ public class Player_StateMachine : MonoBehaviour
         if (currentState != null)
         {
             currentState.gameObject.SetActive(false);
+            OnStateExited?.Invoke(currentState);
         }
         currentState = newState;
 
@@ -49,7 +51,7 @@ public class Player_StateMachine : MonoBehaviour
         currentState.gameObject.SetActive(true);
         Debug.Log($"Changed player state to: {currentState.name}");
 
-        OnStateChanged?.Invoke(currentState); //No use for this yet, but maybe some day
+        OnStateEntered?.Invoke(currentState); 
     }
     public void ForceChangeState(PlayerState forcedState)
     {

@@ -38,6 +38,7 @@ public class PlayerState_Death : PlayerState
         TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.Big);
         StartCoroutine(delayAndShowUI());
 
+        GameEvents.OnPlayerDeath?.Invoke();
         //Wait and show UI
             //Change state to respawning?
             //Or load new scene?

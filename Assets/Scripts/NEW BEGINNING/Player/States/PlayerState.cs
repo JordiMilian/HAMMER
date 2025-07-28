@@ -12,7 +12,7 @@ public class PlayerState : MonoBehaviour
 
     protected const float transitionTime_short = 0.25f;
     protected const float transitionTime_long = 0.5f;
-    protected const float transitionTime_instant = 0.15f;
+    protected const float transitionTime_instant = 0.1f;
 
     [Header("STAMINA")]
     public bool doesRequireStamina;
@@ -41,7 +41,10 @@ public class PlayerState : MonoBehaviour
             AnimationClip nextClip = nextClips[0].clip;
             yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(nextClip));
         }
-        else { Debug.LogError("ERROR: No transition clip found"); }
+        else
+        {
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        }
         //AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(thisAnimatorStateName, animator);
         
         stateMachine.ForceChangeState(stateToChange);

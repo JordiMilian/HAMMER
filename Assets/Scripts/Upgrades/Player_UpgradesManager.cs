@@ -12,6 +12,7 @@ public class Player_UpgradesManager : MonoBehaviour
     [SerializeField] Generic_OnTriggerEnterEvents nearbyUpgradesCollider;
     public Action OnUpdatedUpgrades;
     [SerializeField] AudioClip SFX_PickedUpgrade;
+    [SerializeField] PlayerState EatUpgradeState;
 
     private void OnEnable()
     {
@@ -72,16 +73,12 @@ public class Player_UpgradesManager : MonoBehaviour
         }
         UpgradeContainer upgradeContainer = upgradesNear[nearestIndex];
         upgradeContainer.OnPickedUpContainer();
-        AddNewUpgrade(upgradeContainer.upgradeEffect);
+        pickedUpgrade = upgradeContainer.upgradeEffect; //save the upgrade to be added later
+        playerRefs.stateMachine.ForceChangeState(EatUpgradeState);
 
-        //Audio and Visual feedback (should we make a new state?)
-        SFX_PlayerSingleton.Instance.playSFX(SFX_PickedUpgrade);
-        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
-        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VerySmall);
-        playerRefs.flasher.CallDefaultFlasher();
     }
 
-   
+    public Upgrade pickedUpgrade;
     private void onSingleTriggerEnter(Collider2D collision)
     {
         if(collision.CompareTag(Tags.UpgradeContainer))
@@ -92,24 +89,31 @@ public class Player_UpgradesManager : MonoBehaviour
             {
                 Debug.Log("upgrade:" + collision.name);
                 upgradeContainer.OnPickedUpContainer();
-                AddNewUpgrade(upgradeContainer.upgradeEffect);
+                pickedUpgrade = upgradeContainer.upgradeEffect; //save the upgrade to be added later
 
-                //Audio and Visual feedback (should we make a new state?)
-                SFX_PlayerSingleton.Instance.playSFX(SFX_PickedUpgrade);
-                CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
-                TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VerySmall);
-                playerRefs.flasher.CallDefaultFlasher();
-                
+                playerRefs.stateMachine.ForceChangeState(EatUpgradeState);
+
             }
-           
         }
+    }
+    public void EV_OnEatUpgrade()
+    {
+        AddNewUpgrade(pickedUpgrade);
+        pickedUpgrade = null; 
+
+        //Audio and Visual feedback (should we make a new state?)
+        SFX_PlayerSingleton.Instance.playSFX(SFX_PickedUpgrade);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
+        TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VerySmall);
+        playerRefs.flasher.CallDefaultFlasher();
     }
     void AddNewUpgrade(Upgrade upgrade)
     {
         upgrade.onAdded(playerRefs.gameObject);
         gameState.playerUpgrades.Add(upgrade);
-        OnUpdatedUpgrades?.Invoke();
 
+
+        OnUpdatedUpgrades?.Invoke();
     }
     void deleteUpgrade(int i)
     {

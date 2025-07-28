@@ -43,13 +43,28 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
         ExitDoorAnimationController.DisableAutoDoorOpener();
         SpawnEnemies();
         CutscenesManager.Instance.AddCutsceneable(this);
+        GameEvents.OnPlayerDeath += CutMusic;
 
     }
 
     public void OnRoomUnloaded()
     {
         //destroy remaining enemies if there are?
-        audioSource.Stop();
+        GameEvents.OnPlayerDeath -= CutMusic;
+
+    }
+    private void PlayMusic()
+    {
+        audioSource.clip = BattleMusic;
+        audioSource.loop = true;
+        MusicManager.Instance.AddMusicSource(audioSource);
+        StartCoroutine(UsefullMethods.FadeIn(audioSource, 1.5f, MusicManager.Instance.GetMusicVolume()));
+    }
+
+    void CutMusic()
+    {
+        MusicManager.Instance.RemoveMusicSource(audioSource);
+       StartCoroutine(UsefullMethods.FadeOut(audioSource, 1f));
     }
     void SpawnEnemies()
     {
@@ -194,10 +209,7 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
             Generic_StateMachine stateMachine = enemy.GetComponent<Generic_StateMachine>();
             stateMachine.ChangeState(enemy.GetComponent<Enemy_References>().AgrooState);
         }
-        audioSource.clip = BattleMusic;
-        MusicManager.Instance.AddMusicSource(audioSource);
-        StartCoroutine( UsefullMethods.FadeIn(audioSource, 1.5f, 1));
-
+        PlayMusic();
 
         swordRotation.FocusNewEnemy(CurrentlySpawnedEnemies[0].GetComponent<Enemy_References>().Focuseable);
 
@@ -211,6 +223,8 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
         //Enable player
         playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
     }
+
+  
     public void ForceEndCutscene()
     {
         //Find the references

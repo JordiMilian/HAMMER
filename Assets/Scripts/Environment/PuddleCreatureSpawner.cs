@@ -21,7 +21,6 @@ public class PuddleCreatureSpawner : MonoBehaviour
     private void OnEnable()
     {
         puddleCollider = puddleShape.gameObject.GetComponent<PolygonCollider2D>();
-        GameEvents.OnPlayerRespawned += restartState;
     }
     private void Start()
     {

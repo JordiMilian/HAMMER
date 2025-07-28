@@ -10,6 +10,7 @@ public class PlayerState_Respawning : PlayerState
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Stopped);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Stopped);
 
+
         //Set up weapon rotation
         Transform weaponPivot = playerRefs.weaponPivot.transform;
         weaponPivot.eulerAngles = new Vector3(
@@ -48,10 +49,10 @@ public class PlayerState_Respawning : PlayerState
     Coroutine currentCorotine;
     public void EV_ActuallyRespawn()
     {
-        playerRefs.flasher.EndFlashing(0);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         playerRefs.hideSprites.ShowPlayerSprites();
+        playerRefs.flasher.EndFlashing(0);
         currentCorotine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         GameEvents.OnPlayerRespawned?.Invoke();
