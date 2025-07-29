@@ -131,19 +131,15 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         //enable player again
         playerRefs.stateMachine.ForceChangeState(playerRefs.IdleState);
     }
-    [SerializeField] AudioSource audioSource;
+    AudioSource musicSource;
     [SerializeField] AudioClip BattleMusic;
     private void PlayMusic()
     {
-        audioSource.clip = BattleMusic;
-        audioSource.loop = true;
-        MusicManager.Instance.AddMusicSource(audioSource);
-        StartCoroutine(UsefullMethods.FadeIn(audioSource, 1.5f, MusicManager.Instance.GetMusicVolume()));
+        musicSource = SFX_PlayerSingleton.Instance.FadeInMusic(BattleMusic);
     }
     void CutMusic()
     {
-        MusicManager.Instance.RemoveMusicSource(audioSource);
-        StartCoroutine(UsefullMethods.FadeOut(audioSource, 1f));
+       SFX_PlayerSingleton.Instance.FadeOutMusic(musicSource);
     }
 
     #endregion

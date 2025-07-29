@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +13,7 @@ public class Player_StateMachine : MonoBehaviour
     public Action<PlayerState> OnStateExited;
     public Action<PlayerState> OnStateEntered;
     PlayerState NextRequestedState;
-    
+    [SerializeField] Generic_StaminaBarController staminaBarController;
     public bool CanTransition { get; private set; }
     bool isReadingInput;
 
@@ -29,7 +29,7 @@ public class Player_StateMachine : MonoBehaviour
         {
             if(playerRefs.playerStamina.isEmpty)
             {
-                Debug.Log("Not enough stamina for: " + newState.name);
+                staminaBarController.NotEnoughStaminaFeedback();
                 return;
             }
         }

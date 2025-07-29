@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,6 @@ public class Generic_StaminaBarController : MonoBehaviour
     Vector3 Bar_BaseScale;
     Vector3 Bg_BaseScale;
     [SerializeField] float Bg_HorizontalOffset;
-
 
     private void Update()
     {
@@ -48,6 +48,17 @@ public class Generic_StaminaBarController : MonoBehaviour
     {
         Bg_Tf.localScale = new Vector3((newMaxStamina * HorizontalSizePerUnit) + Bg_HorizontalOffset, Bg_BaseScale.y, Bg_BaseScale.z);
     }
-
-
+    [SerializeField] SpriteRenderer flashSprite;
+    Sequence seq;
+    public void NotEnoughStaminaFeedback()
+    {
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
+        if (seq == null)
+        {
+            seq = DOTween.Sequence();
+            seq.Append(DOTween.To(() => flashSprite.color.a, x => flashSprite.color = new Color(1, 1, 1, x), .35f, .1f));
+            seq.Append(DOTween.To(() => flashSprite.color.a, x => flashSprite.color = new Color(1, 1, 1, x), 0, .25f));
+            seq.onComplete += () => seq = null;
+        }
+    }
 }

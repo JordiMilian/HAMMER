@@ -38,6 +38,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     public void RestoreAllHealth()
     {
         playerRefs.currentStats.CurrentHp = playerRefs.currentStats.MaxHp;
+        OnHealthUpdated?.Invoke();
         //Update UI??
     }
 

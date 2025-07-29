@@ -102,6 +102,7 @@ public class PlayerState_Rolling : PlayerState
 
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Regular);
         playerRefs.spriteFliper.canFlip = true;
+        playerRefs.animationEvents.EV_ShowPlayerCollider();
 
         base.OnDisable();  
     }

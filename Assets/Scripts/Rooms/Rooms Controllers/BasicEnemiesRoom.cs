@@ -30,7 +30,6 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
     [SerializeField] UpgradesGroup upgradesGroup;
 
     [Header("Music")]
-    [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip BattleMusic;
 
     public Action OnAllEnemiesKilled { get; set; }
@@ -53,18 +52,15 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
         GameEvents.OnPlayerDeath -= CutMusic;
 
     }
+    AudioSource musicSource;
     private void PlayMusic()
     {
-        audioSource.clip = BattleMusic;
-        audioSource.loop = true;
-        MusicManager.Instance.AddMusicSource(audioSource);
-        StartCoroutine(UsefullMethods.FadeIn(audioSource, 1.5f, MusicManager.Instance.GetMusicVolume()));
+        musicSource = SFX_PlayerSingleton.Instance.FadeInMusic(BattleMusic);
     }
 
     void CutMusic()
     {
-        MusicManager.Instance.RemoveMusicSource(audioSource);
-       StartCoroutine(UsefullMethods.FadeOut(audioSource, 1f));
+        SFX_PlayerSingleton.Instance.FadeOutMusic(musicSource);
     }
     void SpawnEnemies()
     {
@@ -172,7 +168,7 @@ public class BasicEnemiesRoom : MonoBehaviour, IRoom, IRoomWithEnemies, ICutscen
                 CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
             }
 
-            StartCoroutine(UsefullMethods.FadeOut(audioSource, 3f));
+            CutMusic();
 
             ExitDoorAnimationController.OpenWithCutscene();
            

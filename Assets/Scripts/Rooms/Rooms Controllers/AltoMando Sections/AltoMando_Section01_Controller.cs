@@ -15,7 +15,7 @@ public class AltoMando_Section01_Controller : MonoBehaviour, IRoom, IMultipleRoo
     public Generic_OnTriggerEnterEvents combinedCollider => _combinedCollider;
     [SerializeField] FinalDoor_Script FinalDoor;
 
-    [SerializeField] AudioSource audioSource;
+     AudioSource musicSource;
     [SerializeField] AudioClip altoMandoMusic;
 
 
@@ -27,18 +27,12 @@ public class AltoMando_Section01_Controller : MonoBehaviour, IRoom, IMultipleRoo
         EnterDoor.CloseDoor();
         EnterDoor.DisableAutoDoorCloser();
 
-        MusicManager musicManager = MusicManager.Instance;
-        musicManager.AddMusicSource(audioSource);
-        audioSource.clip = altoMandoMusic;
-        audioSource.loop = true;
-        StartCoroutine(UsefullMethods.FadeIn(audioSource,3,musicManager.GetMusicVolume()));
+        musicSource = SFX_PlayerSingleton.Instance.FadeInMusic(altoMandoMusic,3);
     }
 
     public void OnRoomUnloaded()
     {
-        MusicManager.Instance.RemoveMusicSource(audioSource);
-        StartCoroutine(UsefullMethods.FadeOut(audioSource, 2));
-
+        SFX_PlayerSingleton.Instance.FadeOutMusic(musicSource, 2);
     }
 
 

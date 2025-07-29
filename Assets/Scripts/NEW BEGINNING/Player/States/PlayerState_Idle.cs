@@ -6,7 +6,9 @@ public class PlayerState_Idle : PlayerState
 {
     [SerializeField] string AnimatorStateName_Still;
     [SerializeField] string AnimatorStateName_Walking;
+    [SerializeField] float delayBeforeRecoveringStamina = 0.5f;
     bool isAnimationWalking = false;
+    Coroutine delayStartRecovery;
     public override void OnEnable()
     {
         stateMachine.EV_ReturnInput();
@@ -18,10 +20,21 @@ public class PlayerState_Idle : PlayerState
         subscribeToRequests();
 
         //Start recovering stamina
-        playerRefs.playerStamina.StartRecovering();
+        if(delayStartRecovery != null)
+        {
+            StopCoroutine(delayStartRecovery);
+        }
+        delayStartRecovery = StartCoroutine(delayAndRecoverStamina());
 
         playerRefs.movement.SetMovementSpeed(SpeedsEnum.Regular);
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.Regular);
+
+        //
+        IEnumerator delayAndRecoverStamina()
+        {
+            yield return new WaitForSeconds(delayBeforeRecoveringStamina);
+            playerRefs.playerStamina.StartRecovering();
+        }
     }
     
     public override void Update()
@@ -44,6 +57,11 @@ public class PlayerState_Idle : PlayerState
     public override void OnDisable()
     {
        unsubscribeToRequests();
+        if(delayStartRecovery != null)
+        {
+            StopCoroutine(delayStartRecovery);
+            delayStartRecovery = null;
+        }
 
         playerRefs.playerStamina.StopRecovering();
     }
