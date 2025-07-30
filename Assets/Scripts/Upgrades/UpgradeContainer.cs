@@ -19,6 +19,7 @@ public class UpgradeContainer : MonoBehaviour, IDamageReceiver
     [SerializeField] TextMeshProUGUI titleTMP, descriptionTMP;
     [SerializeField] GameObject panelRoot;
     [SerializeField] Generic_OnTriggerEnterEvents UIPlayerDetector;
+    [SerializeField] TextMeshProUGUI TMP_PressA;
     CircleCollider2D ownCollider;
 
     private void OnEnable()
@@ -36,6 +37,8 @@ public class UpgradeContainer : MonoBehaviour, IDamageReceiver
     void ShowPanel(Collider2D col)
     {
         panelRoot.SetActive(true);
+        TMP_PressA.text = $"Press {InputDetector.Instance.Select_String()} to cannibalize";
+
     }
     void HidePanel(Collider2D col)
     {

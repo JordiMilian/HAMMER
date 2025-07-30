@@ -41,4 +41,18 @@ public class TutorialRoom_Parry_Controller : MonoBehaviour, IRoom, IMultipleRoom
 
     [SerializeField] Generic_OnTriggerEnterEvents _combinedCollider;
     public Generic_OnTriggerEnterEvents combinedCollider => _combinedCollider;
+
+    [SerializeField] Dialoguer dialoguer;
+    private void Start()
+    {
+        SetPoleText();
+    }
+    void SetPoleText()
+    {
+        dialoguer.TextLines = new List<string>()
+        {
+            $"Press <color=red>{InputDetector.Instance.Parry_String()}<color=black> to Parry",
+            "<color=red>Parry<color=black> the enemy to continue"
+        };
+    }
 }

@@ -25,5 +25,4 @@ public class TutorialPole_Controller : MonoBehaviour, IDamageReceiver
         VFX_HitEffect.Play();
         OnDamageReceived_event?.Invoke(info);
     }
-
 }

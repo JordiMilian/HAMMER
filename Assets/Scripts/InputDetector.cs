@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class InputDetector : MonoBehaviour
@@ -216,20 +217,9 @@ public class InputDetector : MonoBehaviour
                 break;
         }
     }
-    void OnRollPressedDebug()
-    {
-        //Debug.Log(nameof(OnRollPressed));
-    }
-    void OnFocusPressedDebug()
-    {
-        //Debug.Log(nameof(OnFocusPressed));
-    }
-    void OnPausePressedDebug()
-    {
-        //Debug.Log(nameof(OnPausePressed));
-    }
-    void OnAttackPresedDebug()
-    {
-        //Debug.Log(nameof(OnAttackPressed));
-    }
+
+    public string Roll_string() { return isControllerDetected ? "LT/B" : "Space"; }
+    public string Select_String() { return isControllerDetected ? "A" : "Enter"; }
+    public string Parry_String() { return isControllerDetected ? "LB" : "RMB"; }
+    public string Attack_String() { return isControllerDetected ? "RB" : "LMB"; }
 }

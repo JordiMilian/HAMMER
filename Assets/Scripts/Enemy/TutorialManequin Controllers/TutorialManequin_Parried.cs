@@ -11,6 +11,7 @@ public class TutorialManequin_Parried : State
     {
         base.OnEnable();
         animator.SetTrigger(ParriedTriggerString);
+        
         controller.EV_HideAttackCollider();
         currentCoroutine = StartCoroutine(returnToAttackingCoroutine());
     }
@@ -20,7 +21,9 @@ public class TutorialManequin_Parried : State
     }
     public override void OnDisable()
     {
+
         base.OnDisable();
-        if(currentCoroutine != null) {StopCoroutine(currentCoroutine);}
+        animator.SetInteger("ParriesCount", animator.GetInteger("ParriesCount") + 1);
+        if (currentCoroutine != null) {StopCoroutine(currentCoroutine);}
     }
 }

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UI_TutorialPopUp_Script : MonoBehaviour
 {
     [SerializeField] Transform PopUpRoot;
     [SerializeField] Transform BG_Root;
+    [SerializeField] TextMeshProUGUI TMP_PressA;
     public bool hasShown;
     public Action OnShownPopUp, OnHiddenPopUp;
     private void Start()
@@ -16,6 +18,8 @@ public class UI_TutorialPopUp_Script : MonoBehaviour
     public void ShowPopUp()
     {
         if(hasShown) { return; }
+
+        TMP_PressA.text = $"Press {InputDetector.Instance.Select_String()} to continue";
 
         PopUpRoot.gameObject.SetActive(true);
         BG_Root.gameObject.SetActive(true);

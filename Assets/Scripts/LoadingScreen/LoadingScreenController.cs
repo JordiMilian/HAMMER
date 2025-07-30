@@ -36,13 +36,13 @@ public class LoadingScreenController : MonoBehaviour
         float timer = 0;
 
         //Set loading screen
-        BlackScreenImage.color = new Color(0, 0, 0, 0);
+        Color startColor = BlackScreenImage.color;
         LoadingScreenRoot.SetActive(true);
        
         while (timer < fadeTime) //fade in
         {
             timer += Time.deltaTime;
-            BlackScreenImage.color = new Color(0, 0, 0, Mathf.Lerp(0, 1, timer / fadeTime));
+            BlackScreenImage.color = new Color(0, 0, 0, Mathf.Lerp(startColor.a, 1, timer / fadeTime));
             yield return null;
         }
         BlackScreenImage.color = new Color(0, 0, 0, 1);

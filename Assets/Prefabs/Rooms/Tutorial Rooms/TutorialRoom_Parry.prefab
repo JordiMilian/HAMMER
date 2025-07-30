@@ -640,6 +640,7 @@ MonoBehaviour:
   exitDoorController: {fileID: 8759509481261797382}
   _tf_ExitPos: {fileID: 3657917306939341993}
   _combinedCollider: {fileID: 1753559168632372792}
+  dialoguer: {fileID: 3929003157710253786}
 --- !u!114 &8881404804933095469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,7 +720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929367494909031959, guid: 8420ed0794a2a6d43bf27ff832a0052e, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0
+      value: -0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 8929367494909031959, guid: 8420ed0794a2a6d43bf27ff832a0052e, type: 3}
       propertyPath: m_Bounds.m_Center.y
@@ -727,11 +728,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929367494909031959, guid: 8420ed0794a2a6d43bf27ff832a0052e, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.7850002
+      value: 0.7850001
       objectReference: {fileID: 0}
     - target: {fileID: 8929367494909031959, guid: 8420ed0794a2a6d43bf27ff832a0052e, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.88000023
+      value: 0.8800001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8420ed0794a2a6d43bf27ff832a0052e, type: 3}
@@ -891,15 +892,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.0007299781
+      value: -0.0007300079
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.01442337
+      value: -0.014422178
       objectReference: {fileID: 0}
     - target: {fileID: 867952622792919449, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.29927003
+      value: 0.29926997
       objectReference: {fileID: 0}
     - target: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Name
@@ -911,11 +912,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.00000047683716
+      value: 0.00000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.29988
+      value: 0.29987997
       objectReference: {fileID: 0}
     - target: {fileID: 5676023546694433465, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
       propertyPath: m_Bounds.m_Extent.y
@@ -941,8 +942,20 @@ PrefabInstance:
       propertyPath: newTextLines.Array.data[2]
       value: 'Yes parry etc '
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7408653523327847293, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+--- !u!114 &3929003157710253786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7500345709738653767, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}
+  m_PrefabInstance: {fileID: 6813958472995821213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c2af6724efa4468ace74bf793f1d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8499175607691989895 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3126386608480748826, guid: d0bebe89e5c07fa498750f644ed16ad3, type: 3}

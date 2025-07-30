@@ -40,6 +40,7 @@ public class TutorialManequin_Attacker_Controller : MonoBehaviour, IDamageReceiv
         damageDealer.enabled = true;
         weaponTrail.emitting = true;
         SFX_PlayerSingleton.Instance.playSFX(SFX_Swing, 0.1f);
+        damageDealer.GetComponent<Generic_DamageDealer>().ResetDetectedReceivers();
     }
     public void EV_HideAttackCollider()
     {

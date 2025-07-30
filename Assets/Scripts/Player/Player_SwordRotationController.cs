@@ -108,14 +108,15 @@ public class Player_SwordRotationController : MonoBehaviour
         //look at last valid
 
         //IF input is long enough, look there (playerpos + input)
-        //If no input and focusing, look at the focusable
-        //If no input and no focusable, look at closest lookable (ignore MouseLookable)
+        //Else Look at closest lookable (ignore MouseLookable)
+        //If focusing, look at the focusable
         //if nothing, look at last valid pos 
 
 
         //If MOUSE
+        //If lookable near (ignoring mouse), look at lookable
         //If focusing, look at focusable
-        //If no focusing, look at closest lookable (mouse pos can be a lookable)
+        //Look at closest lookable (not ignoring mouse)
         //If nothing, look at mouse pos
 
         InputDetector inputDetector = InputDetector.Instance;
@@ -144,13 +145,6 @@ public class Player_SwordRotationController : MonoBehaviour
                 lastValidControllerDirection = (ValidInputPos - inputDetector.PlayerPos).normalized;
                 return ValidInputPos;
             }
-            //Is Focusing
-            if (isFocusing)
-            {
-                if(CurrentFocuseable == null) { UnfocusCurrentEnemy(); }
-                lastValidControllerDirection = ((Vector2)CurrentFocuseable.transform.position - inputDetector.PlayerPos).normalized;
-                return CurrentFocuseable.transform.position;
-            }
             //There is a Lookable near (Ignore mouse lookable)
             int closestLookableIndex = lookablesDetector.GetClosestLookableIndex(true);
             if (closestLookableIndex >= 0)
@@ -159,20 +153,40 @@ public class Player_SwordRotationController : MonoBehaviour
                 lastValidControllerDirection = (closestLookablePos - inputDetector.PlayerPos).normalized;
                 return closestLookablePos;
             }
+            //Is Focusing
+            if (isFocusing)
+            {
+                if(CurrentFocuseable == null) { UnfocusCurrentEnemy(); }
+                lastValidControllerDirection = ((Vector2)CurrentFocuseable.transform.position - inputDetector.PlayerPos).normalized;
+                return CurrentFocuseable.transform.position;
+            }
+            
             //Look at current sword direction
             return inputDetector.PlayerPos + lastValidControllerDirection;
         }
         //MOUSE
         else
         {
-            //Is Focusing
-            if (isFocusing) { return CurrentFocuseable.transform.position; }
-            //Look at closest lookable (mouse pos can be a lookable)
-            int closestLookableIndex = lookablesDetector.GetClosestLookableIndex(false);
-            if(closestLookableIndex >= 0)
+            //Closest lookable ignoring mouse
+            int closestLookableIndex = lookablesDetector.GetClosestLookableIndex(true);
+            if (closestLookableIndex >= 0)
             {
                 return lookablesDetector.LookablesDetectedList[closestLookableIndex].Transform.position;
             }
+
+            //Is Focusing
+            if (isFocusing) 
+            {
+                return CurrentFocuseable.transform.position; 
+            }
+
+            //Look at closest lookable (mouse pos can be a lookable)
+            closestLookableIndex = lookablesDetector.GetClosestLookableIndex(false);
+            if (closestLookableIndex >= 0)
+            {
+                return lookablesDetector.LookablesDetectedList[closestLookableIndex].Transform.position;
+            }
+            
             //Look at mouse pos
             return inputDetector.MousePosition;
         }

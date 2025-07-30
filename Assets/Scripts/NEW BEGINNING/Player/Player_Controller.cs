@@ -135,6 +135,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, info.ParryPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ParryDealt);
+        playerRefs.playerStamina.RemoveStamina(-.2f);
 
         OnParryDealt_event?.Invoke(info);
     }
@@ -158,7 +159,7 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     {
         return playerRefs.currentStats.CurrentBloodFlow! < playerRefs.currentStats.MaxBloodFlow;
     }
-     void addSpecialCharge(float amount)
+    public void addSpecialCharge(float amount)
     {
         float temporalValue = playerRefs.currentStats.CurrentBloodFlow + (amount * playerRefs.currentStats.BloodflowMultiplier);
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpecialAttackUI : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class SpecialAttackUI : MonoBehaviour
     [SerializeField] SpriteRenderer BarSprite;
     [SerializeField] Animator animator;
     [SerializeField] PlayerStats currentStats;
+
+    [SerializeField] Sprite Sprite_Keyboard_Heal, Sprite_Keyboard_Attack, Sprite_Xbox_Heal, Sprite_Xbox_Attack;
+    [SerializeField] Image Image_Heal, Image_Attack;
 
     private void OnEnable()
     {
@@ -32,6 +36,7 @@ public class SpecialAttackUI : MonoBehaviour
     void OnFullyCharged()
     {
         BarSprite.color = FullColor;
+        SetTutorialImages();
         TutorialsRoot.gameObject.SetActive(true);
         StarRoot.gameObject.SetActive(true);
         animator.SetBool("Star", true);
@@ -42,5 +47,18 @@ public class SpecialAttackUI : MonoBehaviour
         TutorialsRoot.gameObject.SetActive(false);
         StarRoot.gameObject.SetActive(false);
         animator.SetBool("Star", false);
+    }
+    void SetTutorialImages()
+    {
+        if (InputDetector.Instance.isControllerDetected)
+        {
+            Image_Heal.sprite = Sprite_Xbox_Heal;
+            Image_Attack.sprite = Sprite_Xbox_Attack;
+        }
+        else
+        {
+            Image_Heal.sprite = Sprite_Keyboard_Heal;
+            Image_Attack.sprite = Sprite_Keyboard_Attack;
+        }
     }
 }

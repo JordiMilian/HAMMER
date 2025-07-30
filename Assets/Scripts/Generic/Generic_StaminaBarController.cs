@@ -52,7 +52,7 @@ public class Generic_StaminaBarController : MonoBehaviour
     Sequence seq;
     public void NotEnoughStaminaFeedback()
     {
-        CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
+        CameraShake.Instance.ShakeCamera(IntensitiesEnum.VerySmall);
         if (seq == null)
         {
             seq = DOTween.Sequence();
