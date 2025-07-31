@@ -24,6 +24,7 @@ public class RoomsLoader : MonoBehaviour
 
         //load new room
         CurrentLoadedRoom = Instantiate(newRoom, transform.position, Quaternion.identity);
+        //CurrentLoadedRoom.GetComponentInChildren<Rooms_FadeInOut>().checkCurrentRoom();
         currentRoomInterface = CurrentLoadedRoom.GetComponent<IRoom>();
         currentRoomInterface.OnRoomLoaded();
 
