@@ -40,7 +40,7 @@ public class Upgrade_WeaponSizee : Upgrade
     }
     public override string shortDescription()
     {
-        return UsefullMethods.highlightString(Percent.ToString() + "%")
-            + " bigger Weapon ";
+        //return UsefullMethods.highlightString(Percent.ToString() + "%")+ " bigger Weapon ";
+        return $"Bigger weapon size";
     }
 }

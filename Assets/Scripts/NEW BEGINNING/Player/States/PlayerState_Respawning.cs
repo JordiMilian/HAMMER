@@ -53,9 +53,11 @@ public class PlayerState_Respawning : PlayerState
         playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         playerRefs.hideSprites.ShowPlayerSprites();
         playerRefs.playerStamina.FillStamina();
+        playerRefs.currentStats.CurrentBloodFlow = 0;
         playerRefs.flasher.EndFlashing(0);
         currentCorotine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         GameEvents.OnPlayerRespawned?.Invoke();
+        
     }
 }

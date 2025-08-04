@@ -24,7 +24,7 @@ public class Upgrade_MaxStamina : Upgrade
     }
     public override string shortDescription()
     {
-        return UsefullMethods.highlightString(Percent.ToString() + "%")
-            + " more Stamina";
+        //return UsefullMethods.highlightString(Percent.ToString() + "%") + " more Stamina";
+        return $"More {UsefullMethods.highlightString("Max Stamina")}";
     }
 }

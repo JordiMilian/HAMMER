@@ -30,7 +30,6 @@ public class PlayerState_Death : PlayerState
 
         playerRefs.hideSprites.HidePlayerSprites();
 
-        playerRefs.currentStats.CurrentBloodFlow = 0;
 
         //spawnPlayerXps();
 

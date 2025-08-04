@@ -21,6 +21,7 @@ public class Upgrade_FasterStamina : Upgrade
     }
     public override string shortDescription()
     {
-        return "Recover Stamina <color=red>" + Percent + "%<color=black> faster";
+        //return "Recover Stamina <color=red>" + Percent + "%<color=black> faster";
+        return $"Recover {UsefullMethods.highlightString("Stamina")} faster";
     }
 }

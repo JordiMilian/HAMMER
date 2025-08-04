@@ -10,7 +10,6 @@ public class Enemy_StanceMeter : MonoBehaviour
     [SerializeField] float CurrentStance;
     [SerializeField] float CooldownAfterDamage;
     [SerializeField] float RecoveryPerSecond;
-    [SerializeField] Animator animator;
     bool isRecovering;
 
     //Each enemy has some Stance, whenever its damaged, the amount of damage is removed from the Stance meter.

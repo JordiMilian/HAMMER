@@ -128,14 +128,14 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
     public Action<SuccesfulParryInfo> OnParryDealt_event { get; set; }
     public void OnParryDealt(SuccesfulParryInfo info)
     {
-        if (info.canChargeSpecialAttack) { addSpecialCharge(1.25f); }
+        if (info.canChargeSpecialAttack) { addSpecialCharge(1.75f); }
 
         TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VeryBig);
         //TimeScaleEditor.Instance.SlowMotion(IntensitiesEnum.VerySmall);
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);
         simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.HitEnemyParry, info.ParryPosition);
         SFX_PlayerSingleton.Instance.playSFX(SFX_ParryDealt);
-        playerRefs.playerStamina.RemoveStamina(-.2f);
+        playerRefs.playerStamina.RemoveStamina(-2f);
 
         OnParryDealt_event?.Invoke(info);
     }

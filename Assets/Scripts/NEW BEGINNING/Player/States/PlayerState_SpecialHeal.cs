@@ -23,6 +23,11 @@ public class PlayerState_SpecialHeal : PlayerState
 
         if (currentCoroutine != null) { StopCoroutine(currentCoroutine); }
     }
+    public override void Update()
+    {
+        base.Update();
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.VerySlow);
+    }
 
     public void ActuallyHeal()
     {

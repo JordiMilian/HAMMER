@@ -18,6 +18,9 @@ public class PlayerState_EnteringRoom : PlayerState
         TargetGroupSingleton.Instance.RemoveMouseTarget();
         playerRefs.hideSprites.ShowPlayerSprites();
 
+        playerRefs.GetComponent<IHealth>().RestoreAllHealth()
+;       playerRefs.playerStamina.FillStamina();
+
         playerRefs.transform.position = Vector2.zero;
         animator.CrossFade(AnimatorStateName, transitionTime_instant);
         currentCoroutine = StartCoroutine(EnterRoomCoroutine());

@@ -31,6 +31,7 @@ public class Player_References : Generic_References
 
     public GameObject weaponScalingRoot;
     public GameObject weaponPivot;
+    public Generic_Flash weaponFlasher;
 
     public GameState gameState;
     [Header("Stats")]

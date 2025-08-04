@@ -21,6 +21,7 @@ public class Upgrade_FasterMovement : Upgrade
     }
     public override string shortDescription()
     {
-        return "<color=red>" + Percent + "%<color=black> faster movement";
+        //return "<color=red>" + Percent + "%<color=black> faster movement";
+        return "Faster movement";
     }
 }

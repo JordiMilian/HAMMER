@@ -22,7 +22,7 @@ public class EnemyState_ChargingAttack : EnemyState_Attack
     IEnumerator chargeCoroutine()
     {
         chargeEffect.Play();
-        weaponFlasher.StartFlashing(minChargingTime);
+        weaponFlasher.StartFlashing(minChargingTime, Color.white);
 
         EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.Fast);
         animator.SetTrigger("StartCharge");

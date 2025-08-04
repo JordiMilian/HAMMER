@@ -1829,7 +1829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimatorStateName: Parrying
   doesRequireStamina: 1
-  StaminaCost: 0.5
+  StaminaCost: 0
   SFX_PerformParry: {fileID: 8300000, guid: 090d72a3dfebdc541a1e0de05653c2ca, type: 3}
 --- !u!1 &3559181925014312131
 GameObject:
@@ -4188,7 +4188,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4825,6 +4825,7 @@ MonoBehaviour:
   parryCollider: {fileID: 716731460178388863}
   weaponScalingRoot: {fileID: 7653426974895600710}
   weaponPivot: {fileID: 7653426975497917625}
+  weaponFlasher: {fileID: 7213650940494433265}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
   currentStats: {fileID: 11400000, guid: 083d58047c9af53449d810104949114f, type: 2}
   baseStats: {fileID: 11400000, guid: fe59c03127f5c2843936fdf01df141b7, type: 2}
@@ -5010,6 +5011,7 @@ GameObject:
   - component: {fileID: 5855810409125178880}
   - component: {fileID: 8904201443306655597}
   - component: {fileID: 7862745803194502634}
+  - component: {fileID: 7213650940494433265}
   m_Layer: 0
   m_Name: Weapons_Pivot
   m_TagString: Untagged
@@ -5079,6 +5081,21 @@ MonoBehaviour:
   CurrentRadiantSpeedPerSecond: 4
   lookablesDetector: {fileID: 539228843836617613}
   playerRefs: {fileID: 3175104005493510322}
+--- !u!114 &7213650940494433265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653426975497917625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashTime: 0.25
+  SpritesRoot: {fileID: 7653426974887384896}
 --- !u!1 &7653426975970030029
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,7 +6446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultFlashColor: {r: 1, g: 1, b: 1, a: 1}
   flashTime: 0.25
   SpritesRoot: {fileID: 903519175663782563}
 --- !u!4 &1097975357195865740 stripped

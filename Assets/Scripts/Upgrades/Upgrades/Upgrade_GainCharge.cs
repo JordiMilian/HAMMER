@@ -20,6 +20,7 @@ public class Upgrade_GainCharge : Upgrade
     }
     public override string shortDescription()
     {
-        return "Gain BloodFlow <color=red>" + Percent + "%<color=black> faster";
+        //return "Gain BloodFlow <color=red>" + Percent + "%<color=black> faster";
+        return $"Gain {UsefullMethods.highlightString("Bloodflow")} faster";
     }
 }

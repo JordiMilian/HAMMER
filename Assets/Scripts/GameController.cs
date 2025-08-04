@@ -173,6 +173,12 @@ public class GameController : MonoBehaviour
         playerRefs.stateMachine.ForceChangeState(playerRefs.DisabledState);
         yield return roomsLoader.LoadNewRoom(room);
     }
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            OnExitedRegularRoom();
+        }
+    }
 }
 

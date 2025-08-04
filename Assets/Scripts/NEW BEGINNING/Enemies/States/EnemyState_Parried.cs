@@ -16,6 +16,11 @@ public class EnemyState_Parried : EnemyState
 
         animationEvents.EV_Enemy_HideAttackCollider();
     }
+    public override void Update()
+    {
+        base.Update();
+        animationEvents.EV_Enemy_HideAttackCollider();
+    }
     public override void OnDisable()
     {
         base.OnDisable();

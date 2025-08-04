@@ -13,6 +13,7 @@ public class simpleVfxPlayer : MonoBehaviour
     [SerializeField] VisualEffect StanceBrokenVFX;
     [SerializeField] VisualEffect BigPuddleStepVFX;
     [SerializeField] VisualEffect CenteredGroundSplashVFX;
+    [SerializeField] VisualEffect CustomEffect;
     [SerializeField] Dictionary<simpleVFXkeys,VisualEffect> vfxDictionary = new Dictionary<simpleVFXkeys, VisualEffect>();
 
     public static simpleVfxPlayer Instance;
@@ -55,5 +56,11 @@ public class simpleVfxPlayer : MonoBehaviour
             Debug.LogWarning("Dictionary does not contain effect: "+ vfxKey);
         }
     }
-    
+    public void playCustomVFX(VisualEffectAsset effect, Vector2 position)
+    {
+        CustomEffect.visualEffectAsset = effect;
+        EffectorTF.position = position;
+        CustomEffect.Play();
+    }
+
 }

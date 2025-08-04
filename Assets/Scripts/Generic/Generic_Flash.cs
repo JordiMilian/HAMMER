@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Generic_Flash : MonoBehaviour
 {
-    [SerializeField] Color flashColor = Color.white;
+    [SerializeField] Color defaultFlashColor = Color.white;
     [SerializeField] float flashTime = 0.25f;
     [SerializeField] GameObject SpritesRoot;
 
@@ -22,18 +22,19 @@ public class Generic_Flash : MonoBehaviour
     }
     public void CallDefaultFlasher()
     {
-        StartCoroutine(Flasher(flashTime, flashColor));
+        StartCoroutine(Flasher(flashTime, defaultFlashColor));
     }
     public void CallCustomFlash(float time, Color color)
     {
         StartCoroutine(Flasher(time,color));
     }
     Coroutine controlledFlash;
-    public void StartFlashing(float time)
+    public void StartFlashing(float time, Color color)
     {
         if (controlledFlash != null) { StopCoroutine(controlledFlash); }
 
         controlledFlash = StartCoroutine(startFlash());
+        SetFlashColors(color);
 
         IEnumerator startFlash()
         {
@@ -67,7 +68,7 @@ public class Generic_Flash : MonoBehaviour
     }
     private IEnumerator Flasher(float time, Color color)
     {
-        SetFlashColors();
+        SetFlashColors(defaultFlashColor);
         float CurrentFlashAmount = 0;
         float elapsedTime = 0;
 
@@ -80,11 +81,11 @@ public class Generic_Flash : MonoBehaviour
         }
         
     }
-    private void SetFlashColors()
+    private void SetFlashColors(Color color)
     {
         for(int i = 0;i < materials.Length;i++)
         {
-            materials[i].SetColor("_FlashColor", flashColor);
+            materials[i].SetColor("_FlashColor", color);
         }
     }
 

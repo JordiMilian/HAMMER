@@ -25,6 +25,7 @@ public class Upgrade_MaxHP : Upgrade
     }
     public override string shortDescription()
     {
-        return "<color=red>" + Percent + "%<color=black> more HP";
+        //return "<color=red>" + Percent + "%<color=black> more HP";
+        return $"More {UsefullMethods.highlightString("Max HP")}";
     }
 }
