@@ -30,7 +30,7 @@ public class PlayerState_Death : PlayerState
 
         playerRefs.hideSprites.HidePlayerSprites();
 
-        //playerSinglePointCollider.enabled = false;
+        playerRefs.currentStats.CurrentBloodFlow = 0;
 
         //spawnPlayerXps();
 

@@ -52,6 +52,7 @@ public class PlayerState_Respawning : PlayerState
         playerRefs.swordRotation.SetRotationSpeed(SpeedsEnum.VerySlow);
         playerRefs.GetComponent<IHealth>().RestoreAllHealth();
         playerRefs.hideSprites.ShowPlayerSprites();
+        playerRefs.playerStamina.FillStamina();
         playerRefs.flasher.EndFlashing(0);
         currentCorotine = StartCoroutine(AutoTransitionToStateOnAnimationOver(AnimatorStateName, playerRefs.IdleState, transitionTime_instant));
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Medium);

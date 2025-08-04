@@ -49,6 +49,13 @@ public class Player_Stamina : MonoBehaviour
     {
         isRecovering = false;
     }
+    public void FillStamina()
+    {
+        playerRefs.currentStats.CurrentStamina = playerRefs.currentStats.MaxStamina;
+
+        isFilled = true;
+        isRecovering = false;
+    }
     void onMaxStaminaUpdated(float newValue)
     {
         if(playerRefs.currentStats.MaxStamina > playerRefs.currentStats.CurrentStamina)

@@ -94,6 +94,8 @@ public class TiedEnemy_Controller : MonoBehaviour, IDamageReceiver, IKilleable
     void OnFinishedReading(int nose)
     {
         ActivateRespawner(true);
+        GlobalPlayerReferences.Instance.references.GetComponent<IHealth>().RestoreAllHealth();
+        GlobalPlayerReferences.Instance.references.playerStamina.FillStamina();
         dialoguer.onFinishedReading -= OnFinishedReading;
     }
     #endregion
