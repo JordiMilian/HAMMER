@@ -28,8 +28,7 @@ public class Upgrades_AvailableUpgrades : ScriptableObject
             case upgradeRarity.Legendary:
                 return GetRandomUpgradeFromList(LegendaryUpgrades);
         }
-        int randomIndex = Random.Range(0, CommonUpgrades.Count);
-        return CommonUpgrades[randomIndex];
+        return CommonUpgrades[0];
     }
     Upgrade GetRandomUpgradeFromList(List<Upgrade> list)
     {

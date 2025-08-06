@@ -19,7 +19,6 @@ public class Upgrade_MaxHP : Upgrade
     public override void onRemoved(GameObject entity)
     {
         float removedValue = (playerRefs.baseStats.MaxHp * UsefullMethods.normalizePercentage(Percent,false, true));
-        //float newValue = playerHealth.MaxHP.GetValue() / (1 + (Percent / 100));
         playerRefs.currentStats.MaxHp -= removedValue;
         playerRefs.currentStats.CurrentHp = playerRefs.currentStats.CurrentHp - removedValue;
     }

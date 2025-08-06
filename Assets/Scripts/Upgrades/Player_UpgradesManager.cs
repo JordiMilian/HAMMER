@@ -33,7 +33,7 @@ public class Player_UpgradesManager : MonoBehaviour
     private void OnDisable()
     {
         InputDetector.Instance.OnSelectPressed -= PickUpNearestUpgrade;
-        UpgradeColliderDetector.OnTriggerEntered -= onSingleTriggerEnter;
+        UpgradeColliderDetector.OnTriggerEntered -= onWeaponTriggerEnter;
         nearbyUpgradesCollider.OnTriggerExited -= onExitedNearUpgrade;
 
         foreach (Upgrade upgrade in gameState.playerUpgrades)
@@ -79,11 +79,10 @@ public class Player_UpgradesManager : MonoBehaviour
     }
 
     public Upgrade pickedUpgrade;
-    private void onSingleTriggerEnter(Collider2D collision)
+    private void onWeaponTriggerEnter(Collider2D collision)
     {
         if(collision.CompareTag(Tags.UpgradeContainer))
         {
-            
             UpgradeContainer upgradeContainer = collision.GetComponent<UpgradeContainer>(); //CREA UN TAG O ALGUNA COSA PERFA
             if(upgradeContainer != null)
             {
@@ -112,13 +111,11 @@ public class Player_UpgradesManager : MonoBehaviour
         upgrade.onAdded(playerRefs.gameObject);
         gameState.playerUpgrades.Add(upgrade);
 
-
         OnUpdatedUpgrades?.Invoke();
     }
     void deleteUpgrade(int i)
     {
         gameState.lastLostUpgrade = gameState.playerUpgrades[i];
-
 
         gameState.playerUpgrades[i].onRemoved(gameObject); //remove effect
         gameState.playerUpgrades.RemoveAt(i); //remove from list

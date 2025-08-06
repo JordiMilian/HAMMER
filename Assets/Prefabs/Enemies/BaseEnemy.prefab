@@ -966,7 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d08308f0c620bf4fbfadf2ba64e6cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultFlashColor: {r: 1, g: 1, b: 1, a: 1}
   flashTime: 0.25
   SpritesRoot: {fileID: 1685913343309174426}
 --- !u!114 &7619558403456288951
@@ -1117,7 +1117,6 @@ MonoBehaviour:
   EntityTeam: 1
   rootGameObject_DamageDealerTf: {fileID: 4802207913274506029}
   rootGameObject_ParryReceiver: {fileID: 4802207913274506029}
-  avoidRepeatingDamages: 1
   damagedReceivers: []
 --- !u!1 &2343595759810818401
 GameObject:
@@ -1789,7 +1788,6 @@ MonoBehaviour:
   CurrentStance: 3
   CooldownAfterDamage: 3
   RecoveryPerSecond: 0.5
-  animator: {fileID: 2195041901401652145}
 --- !u!1 &8186222616927864388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,7 +2270,7 @@ PrefabInstance:
       objectReference: {fileID: 4802207913274506029}
     - target: {fileID: 5226282638270171183, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: HorizontalSizePerUnit
-      value: 0.25
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 5309733073026282580, guid: ac5e8bc9f55049946af3304f56b3e41e, type: 3}
       propertyPath: m_Name

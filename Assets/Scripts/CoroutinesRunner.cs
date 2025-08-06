@@ -24,7 +24,7 @@ public class CoroutinesRunner : MonoBehaviour
             StartCoroutine(coroutine);
             return;
         }
-
+        
         runningCoroutines.Add(identifier, StartCoroutine(coroutine));
     }
     public void EndCoroutine(string identifier)

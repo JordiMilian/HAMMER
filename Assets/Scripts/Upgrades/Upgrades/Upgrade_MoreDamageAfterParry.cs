@@ -39,7 +39,7 @@ public class Upgrade_MoreDamageAfterParry : Upgrade
     private void OnParryDealt(SuccesfulParryInfo info)
     {
         CoroutinesRunner.instance.EndCoroutine(CoroutineID);
-        CoroutinesRunner.instance.RunCoroutine(EffectCoroutine(), CoroutineID);
+        CoroutinesRunner.instance.RunCoroutine(CoEffectCoroutine(), CoroutineID);
     }
     private void OnDamageDealt(DealtDamageInfo info)
     {
@@ -51,7 +51,7 @@ public class Upgrade_MoreDamageAfterParry : Upgrade
         RemoveEffect();
     }
 
-    IEnumerator EffectCoroutine()
+    IEnumerator CoEffectCoroutine()
     {
         AddEffect();
         float timer = 0;

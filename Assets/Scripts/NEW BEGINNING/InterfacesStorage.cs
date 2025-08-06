@@ -10,6 +10,7 @@ public enum DamagersTeams
 {
     Player,Enemy,Neutral
 }
+
 #region INFO STRUCTS
 public struct ReceivedAttackInfo
 {

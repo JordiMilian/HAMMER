@@ -69,12 +69,12 @@ public class Player_Controller : MonoBehaviour, IDamageReceiver, IDamageDealer, 
         RemoveHealth(info.Damage);
         if(GetCurrentHealth() <= 0)
         {
-            OnKilled(new DeadCharacterInfo(gameObject, info.AttackerRoot_Go, info.OtherDamageDealer));
             OnDamageReceived_event?.Invoke(info);
+            OnKilled(new DeadCharacterInfo(gameObject, info.AttackerRoot_Go, info.OtherDamageDealer));
             return;
         }
 
-        playerRefs.playerStamina.RemoveStamina(0.1f * info.Damage); //make it depend on damage
+        playerRefs.playerStamina.RemoveStamina(0.1f * info.Damage); 
 
         playerRefs.flasher.CallDefaultFlasher();
         UsefullMethods.CameraShakeAndHitstopFromDamage(info.Damage);
