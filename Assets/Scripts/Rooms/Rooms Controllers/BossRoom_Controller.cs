@@ -84,9 +84,10 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
         float zoomToBoss = 4;
         zoomer.AddZoomInfoAndUpdate(new CameraZoomController.ZoomInfo(zoomToBoss, 3, "enterCutscene"));
         targetGroup.SetOnlyOneTarget(bossTf, 50, 1);
+        PlayMusic();
 
         //Boss intro and wait for it to end
-        
+
         EnemyState BossIntroState = bossTf.GetComponent<Boss_Controller>().BossIntroAnimationState;
         bossStateMachine.ChangeState(BossIntroState); //this state auto transition to Idle when over
         yield return null; //Wait one frame in case of transition or whatever
@@ -95,7 +96,7 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
             yield return null;
         }
         healthBar.ShowCanvas();
-        PlayMusic();
+        
 
         yield return new WaitForSeconds(.3f);
 

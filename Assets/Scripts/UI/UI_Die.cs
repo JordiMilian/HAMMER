@@ -16,7 +16,8 @@ public class UI_Die : UI_BaseAction
             null,
             100,
             0,
-            false
+            false,
+            10
             ));
 
         //find the pauseGame script in root and unpause

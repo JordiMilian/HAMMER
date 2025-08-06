@@ -40,6 +40,7 @@ public abstract class EnemyState_Attack : EnemyState
         foreach (Generic_DamageDealer dealer in EnemyRefs.DamageDealersList)
         {
             dealer.Damage = Damage;
+            dealer.Stagger = Damage;
             dealer.Knockback = KnockBack;
         }
     }

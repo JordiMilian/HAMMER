@@ -82,7 +82,8 @@ public class Generic_DamageDetector : MonoBehaviour
             damageDealer,
             damageDealer.Damage,
             damageDealer.Knockback,
-            damageDealer.isBloody
+            damageDealer.isBloody,
+            damageDealer.Stagger
             ));
     }
 

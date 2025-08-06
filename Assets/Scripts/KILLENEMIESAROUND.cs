@@ -57,7 +57,7 @@ public class KILLENEMIESAROUND : MonoBehaviour, IDamageDealer
             Vector2 enemyPos = (receiver as MonoBehaviour).transform.position;
             if((enemyPos - referencePoint).magnitude > InstaKillEnemiesOnDistance)
             {
-                receiver.OnDamageReceived(new ReceivedAttackInfo(Vector2.zero, Vector2.zero, Vector2.zero,gameObject, damageDealer, 100,0,false));
+                receiver.OnDamageReceived(new ReceivedAttackInfo(Vector2.zero, Vector2.zero, Vector2.zero,gameObject, damageDealer, 100,0,false,10));
                 Debug.Log("Killed: " + (receiver as MonoBehaviour).gameObject.name + "because he got too far");
             }
         }
@@ -66,7 +66,7 @@ public class KILLENEMIESAROUND : MonoBehaviour, IDamageDealer
     {
         foreach(IDamageReceiver receiver in receiversList)
         {
-            receiver.OnDamageReceived(new ReceivedAttackInfo(Vector2.zero, Vector2.zero, Vector2.zero, gameObject, damageDealer, 100, 0, false));
+            receiver.OnDamageReceived(new ReceivedAttackInfo(Vector2.zero, Vector2.zero, Vector2.zero, gameObject, damageDealer, 100, 0, false,10));
             yield return new WaitForSeconds(0.1f);
         }
     }

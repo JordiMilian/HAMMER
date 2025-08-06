@@ -31,12 +31,18 @@ public class PlayerState_SpecialAttack : PlayerState, IAddForceStats
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
         {
             dealer.Damage = Damage * playerRefs.currentStats.DamageMultiplicator;
+            dealer.Stagger = Damage;
             dealer.Knockback = Knockback;
+            dealer.player_isChargingSpecialAttack = false;
         }
     }
     public override void OnDisable()
     {
         unsubscribeToRequests();
         if (currentAttackCoroutine != null) { StopCoroutine(currentAttackCoroutine); }
+        foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
+        {
+            dealer.player_isChargingSpecialAttack = true;
+        }
     }
 }

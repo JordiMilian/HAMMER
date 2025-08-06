@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class Generic_DamageDealer : MonoBehaviour
 {
     public float Damage;
+    [HideInInspector]public float Stagger = 1f;
     public float Knockback;
     public bool isParryable;
     public bool isBloody;
@@ -119,12 +120,13 @@ public class Generic_DamageDealer : MonoBehaviour
         otherDetector.PublishAttackedEvent(GetComponent<Collider2D>());
         float charge = 0;
 
-        if (isReceiverChargeable && player_isChargingSpecialAttack) { charge = Damage; Debug.Log($"Add {charge} charge player"); } //If the Dealer is charger and the detector is chargeable, then charge
+        if (isReceiverChargeable && player_isChargingSpecialAttack) { charge = Stagger; Debug.Log($"Add {charge} charge player"); } //If the Dealer is charger and the detector is chargeable, then charge
 
         thisDamageDealer.OnDamageDealt(new DealtDamageInfo(
             collision.ClosestPoint(gameObject.transform.position), //collision point
             otherDetector.rootGameObject.gameObject, //root of detector
             Damage, //Damage
+            Stagger,
             otherDetector, //damage detector
             charge //charge
             ));

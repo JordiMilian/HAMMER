@@ -32,7 +32,7 @@ public class GroundBloodPlayer : MonoBehaviour
     {
         vfxPlayerTF.position = position;
         vfxPlayerTF.up = direction;
-        groundBloodVFX.SetFloat("Intensity", intensity);
+        //groundBloodVFX.SetFloat("Intensity", intensity);
         groundBloodVFX.Play();
     }
     public void PlayConcentratedGroundBlood(Vector2 position, Vector2 direction, float intensity = 1)

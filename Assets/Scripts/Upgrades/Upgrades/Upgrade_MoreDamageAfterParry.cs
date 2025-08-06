@@ -50,7 +50,6 @@ public class Upgrade_MoreDamageAfterParry : Upgrade
         CoroutinesRunner.instance.EndCoroutine(CoroutineID);
         RemoveEffect();
     }
-
     IEnumerator CoEffectCoroutine()
     {
         AddEffect();
@@ -68,6 +67,7 @@ public class Upgrade_MoreDamageAfterParry : Upgrade
         isUnderEffect = true;
         playerRefs.weaponTrail.colorGradient = SwordTrailGradiant;
         playerRefs.weaponFlasher.StartFlashing(.1f, SwordColor);
+
         playerRefs.currentStats.DamageMultiplicator += DamageMultiplierAdded;
         
     }
@@ -77,6 +77,7 @@ public class Upgrade_MoreDamageAfterParry : Upgrade
         isUnderEffect = false;
         playerRefs.weaponTrail.colorGradient = defaultGradiant;
         playerRefs.weaponFlasher.EndFlashing(.1f);
+
         playerRefs.currentStats.DamageMultiplicator -= DamageMultiplierAdded;
     }
     public override string shortDescription()

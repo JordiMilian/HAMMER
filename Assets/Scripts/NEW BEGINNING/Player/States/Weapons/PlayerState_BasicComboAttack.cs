@@ -31,6 +31,7 @@ public class PlayerState_BasicComboAttack : PlayerState, IAddForceStats
         {
             dealer.player_isChargingSpecialAttack = true;
             dealer.Damage = Damage * playerRefs.currentStats.DamageMultiplicator;
+            dealer.Stagger = Damage;
             dealer.Knockback = Knockback;
         }
     }

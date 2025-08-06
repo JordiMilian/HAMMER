@@ -21,10 +21,11 @@ public struct ReceivedAttackInfo
     public Generic_DamageDealer OtherDamageDealer;
 
     public float Damage;
+    public float StaggerReceived; 
     public float KnockBack;
     public bool IsBloody;
     public ReceivedAttackInfo(Vector2 collisionPosition,Vector2 rootsDirection, Vector2 colldiersDirection, 
-        GameObject attackerRoot, Generic_DamageDealer dealer, float damage, float knockBack, bool isBloody)
+        GameObject attackerRoot, Generic_DamageDealer dealer, float damage, float knockBack, bool isBloody, float stagger)
     {
         CollisionPosition = collisionPosition;
         RootsDirection = rootsDirection;
@@ -35,6 +36,7 @@ public struct ReceivedAttackInfo
         Damage = damage;
         KnockBack = knockBack;
         IsBloody = isBloody;
+        StaggerReceived = stagger;
     }
 }
 public struct DealtDamageInfo
@@ -42,13 +44,15 @@ public struct DealtDamageInfo
     public Vector3 CollisionPosition;
     public float DamageDealt;
     public float ChargeGiven;
+    public float StaggerDealt;
     public GameObject AttackedRoot;
     public Generic_DamageDetector OtherDamageDetector;
-    public DealtDamageInfo(Vector3 collisionPosition, GameObject attackerRoot, float damageDealt, Generic_DamageDetector otherDetector, float chargeGiven = 0)
+    public DealtDamageInfo(Vector3 collisionPosition, GameObject attackerRoot, float damageDealt, float stagger, Generic_DamageDetector otherDetector, float chargeGiven = 0)
     {
         CollisionPosition = collisionPosition;
         DamageDealt = damageDealt;
         ChargeGiven = chargeGiven;
+        StaggerDealt = stagger;
         AttackedRoot = attackerRoot;
         OtherDamageDetector = otherDetector;
     }

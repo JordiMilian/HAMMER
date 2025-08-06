@@ -57,7 +57,7 @@ public class BasicEnemy_Controller : MonoBehaviour, IDamageDealer, IDamageReceiv
         
         enemyRefs.flasher.CallDefaultFlasher();
 
-        if(enemyRefs.stanceMeter.IsStanceBrokenAfterRemoval(info.Damage))
+        if(enemyRefs.stanceMeter.IsStanceBrokenAfterRemoval(info.StaggerReceived))
         {
             enemyStateMachine.ChangeState(enemyRefs.StanceBrokenState);
         }

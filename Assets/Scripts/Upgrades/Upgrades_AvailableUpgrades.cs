@@ -36,7 +36,7 @@ public class Upgrades_AvailableUpgrades : ScriptableObject
         Upgrade randomUpgrade;
         do 
         { 
-            randomUpgrade = list[Random.Range(0, list.Count - 1)];
+            randomUpgrade = list[Random.Range(0, list.Count)];
 
             attempts++;
             if(attempts > 30) { Debug.LogError($"No available upgrades found"); return null; }
