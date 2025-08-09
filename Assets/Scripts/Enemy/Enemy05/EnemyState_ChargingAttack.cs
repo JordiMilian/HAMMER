@@ -24,7 +24,6 @@ public class EnemyState_ChargingAttack : EnemyState_Attack
         chargeEffect.Play();
         weaponFlasher.StartFlashing(minChargingTime, Color.white);
 
-        EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.Fast);
         animator.SetTrigger("StartCharge");
         yield return new WaitForSeconds(minChargingTime);
 

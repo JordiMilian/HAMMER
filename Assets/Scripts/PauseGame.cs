@@ -41,6 +41,7 @@ public class PauseGame : MonoBehaviour
     }
     public void PauseGame_()
     {
+        Debug.Log("paused?");
         isPaused = true; //bool for switch
         Time.timeScale = 0; //stop time
         TargetGroupSingleton.Instance.RemovePlayersTarget(); //Remove mouse influence to TargetGroup

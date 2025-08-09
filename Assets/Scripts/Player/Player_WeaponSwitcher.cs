@@ -87,6 +87,7 @@ public class Player_WeaponSwitcher : MonoBehaviour
         playerRefs.RollingAttackState = thisInfoHolder.RollAttack;
         playerRefs.ParryAttackState = thisInfoHolder.ParryAttack;
         playerRefs.SpecialAttackState = thisInfoHolder.SpecialAttack;
+        playerRefs.RunningAttackState = thisInfoHolder.RunningAttack;
         playerRefs.StartingComboAttackState = thisInfoHolder.ComboAttacksList[0];
         //Collider and sprite
         playersWeaponSpriteRenderer.sprite = thisInfoHolder.WeaponSprite;

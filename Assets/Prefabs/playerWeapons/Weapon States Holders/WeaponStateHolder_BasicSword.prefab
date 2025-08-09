@@ -1,5 +1,115 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2936804925157340448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1338918940925047181}
+  - component: {fileID: 8431132797628037865}
+  m_Layer: 0
+  m_Name: RunningAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1338918940925047181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936804925157340448}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4521825749988040329}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8431132797628037865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936804925157340448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimatorStateName: BasicWeapon_RunningAttack
+  doesRequireStamina: 1
+  StaminaCost: 2
+  nextComboAttack: {fileID: 9052119151426837628}
+  Damage: 1.5
+  Knockback: 2
+  HitStop: 0.1
+  _minDistance: 0.5
+  _maxDistance: 3.5
+  _offset: 1
+  _defaultDistance: 2.5
+--- !u!1 &7748006774495978820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4947930635067528987}
+  - component: {fileID: 6683212221463169485}
+  m_Layer: 0
+  m_Name: RollAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4947930635067528987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748006774495978820}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4521825749988040329}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6683212221463169485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748006774495978820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimatorStateName: BasicWeapon_RollAttack
+  doesRequireStamina: 1
+  StaminaCost: 2
+  nextComboAttack: {fileID: 9052119151426837628}
+  Damage: 1.2
+  Knockback: 1.5
+  HitStop: 0.1
+  _minDistance: 0.25
+  _maxDistance: 3
+  _offset: 1
+  _defaultDistance: 2
 --- !u!1001 &4475952600349850291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -164,6 +274,14 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: RollAttack
+      value: 
+      objectReference: {fileID: 6683212221463169485}
+    - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: RunningAttack
+      value: 
+      objectReference: {fileID: 8431132797628037865}
+    - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: SpecialAttack
       value: 
       objectReference: {fileID: 5496323737027453240}
@@ -173,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: StaminaCost
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: AnimatorStateName
@@ -237,6 +355,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+--- !u!4 &4521825749988040329 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 62214367505474618, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+  m_PrefabInstance: {fileID: 4475952600349850291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5496323737027453240 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
@@ -246,5 +369,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09c64e9016d0dfb45ab9bbcfe39a1367, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9052119151426837628 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4864539902464239311, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+  m_PrefabInstance: {fileID: 4475952600349850291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

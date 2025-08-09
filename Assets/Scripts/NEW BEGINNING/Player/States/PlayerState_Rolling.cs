@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 
 public class PlayerState_Rolling : PlayerState
 {
+    
     [SerializeField] string AnimatorStateName_frontRoll;
     [SerializeField] string AnimatorStateName_backRoll;
     [SerializeField] float RollTime; //This should depend on the animation I think?
@@ -13,6 +14,8 @@ public class PlayerState_Rolling : PlayerState
     [SerializeField] VisualEffect VFX_RollDust;
     [SerializeField] AudioClip SFX_RollSound;
     float rollCurve_averageValue = -1;
+
+    public bool isRollAttackUnlocked = false;
 
     [SerializeField] AnimationCurve RollCurve;
     Coroutine rollMovementCoroutine, rollAnimationCoroutine, checkForRunning_Coroutine;
@@ -91,7 +94,17 @@ public class PlayerState_Rolling : PlayerState
 
     #region ACTION REQUESTS
 
-    protected override void RequestAttack() { stateMachine.RequestChangeState(playerRefs.RollingAttackState); }
+    protected override void RequestAttack() 
+    { 
+        if(isRollAttackUnlocked)
+        {
+            stateMachine.RequestChangeState(playerRefs.RollingAttackState);
+        }
+        else
+        {
+            stateMachine.RequestChangeState(playerRefs.StartingComboAttackState);
+        }
+    }
 
     #endregion
 

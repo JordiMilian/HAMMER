@@ -10,9 +10,9 @@ public class PlayerState : MonoBehaviour
     protected Player_References playerRefs;
     [SerializeField] protected string AnimatorStateName;
 
-    protected const float transitionTime_short = 0.25f;
-    protected const float transitionTime_long = 0.5f;
-    protected const float transitionTime_instant = 0.1f;
+    protected const float transitionTime_short = 0.1f;
+    protected const float transitionTime_long = 0.25f;
+    protected const float transitionTime_instant = 0.025f;
 
     [Header("STAMINA")]
     public bool doesRequireStamina;

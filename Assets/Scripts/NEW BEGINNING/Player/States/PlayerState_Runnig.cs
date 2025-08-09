@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerState_Runnig : PlayerState
 {
     [SerializeField] float StaminaCostPerSecond;
+    public bool isRunningAttackUnlocked = false;
     public override void OnEnable()
     {
         stateMachine.EV_ReturnInput();
@@ -36,5 +37,18 @@ public class PlayerState_Runnig : PlayerState
     void OnUnpressedRun()
     {
         stateMachine.ForceChangeState(playerRefs.IdleState);
+    }
+    protected override void RequestAttack()
+    { 
+        if(isRunningAttackUnlocked)
+        {
+            stateMachine.RequestChangeState(playerRefs.RunningAttackState);
+        }
+        else
+        {
+            stateMachine.RequestChangeState(playerRefs.StartingComboAttackState);
+        }
+
+        
     }
 }
