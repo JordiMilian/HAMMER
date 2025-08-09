@@ -46,7 +46,7 @@ public class PlayerState : MonoBehaviour
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         }
         //AnimationClip thisClip = UsefullMethods.GetAnimationClipByStateName(thisAnimatorStateName, animator);
-        
+
         stateMachine.ForceChangeState(stateToChange);
     }
 

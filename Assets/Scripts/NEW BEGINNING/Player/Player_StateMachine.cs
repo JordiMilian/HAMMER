@@ -67,6 +67,10 @@ public class Player_StateMachine : MonoBehaviour
             NextRequestedState = requestedState;
         }
     }
+    public void CancelRequest(PlayerState canceledState)
+    {
+        if(NextRequestedState == canceledState) { NextRequestedState = null; }
+    }
     private void Update()
     {
         if(CanTransition && NextRequestedState != null)

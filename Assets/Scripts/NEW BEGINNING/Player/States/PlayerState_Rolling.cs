@@ -39,10 +39,27 @@ public class PlayerState_Rolling : PlayerState
         VFX_RollDust.Play();
         SFX_PlayerSingleton.Instance.playSFX(SFX_RollSound, 0.1f);
 
-        //checkForRunning_Coroutine = StartCoroutine(checkForRunning(stateName,transitionTime_short));
         checkForRunning_Coroutine = StartCoroutine(AutoTransitionToStateOnAnimationOver(stateName, playerRefs.IdleState, transitionTime_short));
+
+        InputDetector.Instance.OnRollPressing += pressing;
+        InputDetector.Instance.OnRollUnpressed += unpressed;
     }
-    
+    public override void OnDisable()
+    {
+        if (rollMovementCoroutine != null) { StopCoroutine(rollMovementCoroutine); }
+        if (rollAnimationCoroutine != null) { StopCoroutine(rollAnimationCoroutine); }
+        if (checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
+
+        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Regular);
+        playerRefs.spriteFliper.canFlip = true;
+        playerRefs.animationEvents.EV_ShowPlayerCollider();
+
+
+        InputDetector.Instance.OnRollPressing -= pressing;
+        InputDetector.Instance.OnRollUnpressed -= unpressed;
+
+        base.OnDisable();
+    }
     void PerformRollMovement(Vector2 direction)
     {
         //Maybe InputDetector should be involced in this??
@@ -63,49 +80,15 @@ public class PlayerState_Rolling : PlayerState
             rollCurve_averageValue
             ));
     }
-    IEnumerator checkForRunning(string thisAnimatorStateName, float normalizedTransitionDuration)
+    void pressing()
     {
-        bool isPressingRun = false;
-
-        InputDetector.Instance.OnRollPressing += pressing;
-        InputDetector.Instance.OnRollUnpressed += unpressed;
-
-        //the same as the AutoTransitionToState
-        animator.CrossFadeInFixedTime(thisAnimatorStateName, normalizedTransitionDuration);
-
-        yield return null; //wait one frame so the transition can start
-        AnimatorClipInfo[] nextClips = animator.GetNextAnimatorClipInfo(0);
-        if (nextClips.Length > 0)
-        {
-            AnimationClip nextClip = nextClips[0].clip;
-            yield return StartCoroutine(UsefullMethods.WaitForAnimationTime(nextClip));
-        }
-        else { Debug.LogError("ERROR: No transition clip found"); }
-
-
-        InputDetector.Instance.OnRollPressing -= pressing;
-        InputDetector.Instance.OnRollUnpressed -= unpressed;
-        if (isPressingRun) { stateMachine.ForceChangeState(playerRefs.RunningState); }
-        else { stateMachine.ForceChangeState(playerRefs.IdleState); }
-
-
-        //
-        void pressing() { isPressingRun = true; }
-        void unpressed() { isPressingRun = false; }
+        stateMachine.RequestChangeState(playerRefs.RunningState);
+    }
+    void unpressed()
+    {
+        stateMachine.CancelRequest(playerRefs.RunningState);
     }
 
-    public override void OnDisable()
-    {
-        if(rollMovementCoroutine != null) { StopCoroutine(rollMovementCoroutine); }
-        if(rollAnimationCoroutine != null) { StopCoroutine(rollAnimationCoroutine); }
-        if(checkForRunning_Coroutine != null) { StopCoroutine(checkForRunning_Coroutine); }
-
-        playerRefs.movement.SetMovementSpeed(SpeedsEnum.Regular);
-        playerRefs.spriteFliper.canFlip = true;
-        playerRefs.animationEvents.EV_ShowPlayerCollider();
-
-        base.OnDisable();  
-    }
     #region ACTION REQUESTS
 
     protected override void RequestAttack() { stateMachine.RequestChangeState(playerRefs.RollingAttackState); }
