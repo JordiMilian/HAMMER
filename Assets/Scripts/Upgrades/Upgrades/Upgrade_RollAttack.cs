@@ -6,7 +6,7 @@ public class Upgrade_RollAttack : Upgrade
     PlayerState_Rolling rollingState;
     public override void onAdded(GameObject entity)
     {
-        rollingState = entity.GetComponent<Player_References>().RunningState as PlayerState_Rolling;
+        rollingState = entity.GetComponent<Player_References>().RollingState as PlayerState_Rolling;
 
         rollingState.isRollAttackUnlocked = true;
     }

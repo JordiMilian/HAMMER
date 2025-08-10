@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 public enum upgradeRarity
@@ -20,7 +20,10 @@ public class Upgrades_AvailableUpgrades : ScriptableObject
         switch (rarity)
         {
             case upgradeRarity.Common:
-                return GetRandomUpgradeFromList(CommonUpgrades);
+                List<Upgrade> CommonUpgradesTemp = new();
+                CommonUpgradesTemp.AddRange(CommonUpgrades);
+                CommonUpgradesTemp.Add(GetRandomUpgradeFromList(UncommonUpgrades));
+                return GetRandomUpgradeFromList(CommonUpgradesTemp);
             case upgradeRarity.Uncommon:
                 return GetRandomUpgradeFromList(UncommonUpgrades);
             case upgradeRarity.Rare:

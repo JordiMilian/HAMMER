@@ -325,7 +325,7 @@ public class UsefullMethods : MonoBehaviour
 
     public static string highlightString (string text)
     {
-        return "<color=red>" + text + "<color=black>";
+        return "<color=#7E0000>" + text + "<color=black>";
     }
 
     public static float getCurrentAnimationLenght(Animator animator, int layer = 0)

@@ -98,9 +98,9 @@ public class Player_UpgradesManager : MonoBehaviour
     public void EV_OnEatUpgrade()
     {
         AddNewUpgrade(pickedUpgrade);
-        pickedUpgrade = null; 
+        pickedUpgrade = null;
 
-        //Audio and Visual feedback (should we make a new state?)
+       //simpleVfxPlayer.Instance.playSimpleVFX(simpleVfxPlayer.simpleVFXkeys.BloodExplosion, transform.position);
         SFX_PlayerSingleton.Instance.playSFX(SFX_PickedUpgrade);
         CameraShake.Instance.ShakeCamera(IntensitiesEnum.Small);
         TimeScaleEditor.Instance.HitStop(IntensitiesEnum.VerySmall);

@@ -8,7 +8,6 @@ using UnityEngine.VFX;
 public class PauseGame : MonoBehaviour
 {
     [HideInInspector] public static bool isPaused;
-    Transform MouseTarget;
     [SerializeField] Canvas pauseCanvas;
     [SerializeField] UI_ControllerControl controllerControls;
 
@@ -21,6 +20,7 @@ public class PauseGame : MonoBehaviour
     private void OnEnable()
     {
         InputDetector.Instance.OnPausePressed += onPausePresed;
+        Unpause_andHidePauseUI();
     }
     private void OnDisable()
     {
@@ -31,17 +31,16 @@ public class PauseGame : MonoBehaviour
         switch (isPaused)
         {
             case false:
-                PauseGame_();
+                Pause_andShowPauseUI();
                 break;
 
             case true:
-                UnpauseGame();
+                Unpause_andHidePauseUI();
                 break;
         }
     }
     public void PauseGame_()
     {
-        Debug.Log("paused?");
         isPaused = true; //bool for switch
         Time.timeScale = 0; //stop time
         TargetGroupSingleton.Instance.RemovePlayersTarget(); //Remove mouse influence to TargetGroup

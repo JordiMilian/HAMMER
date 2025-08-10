@@ -28,6 +28,6 @@ public class Upgrade_LessHPMoreAttack : Upgrade
 
     public override string shortDescription()
     {
-        return "Half HP, Doble Attack";
+        return "Half HP, Doble Attacks damage";
     }
 }

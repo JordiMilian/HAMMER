@@ -45,15 +45,17 @@ public class BossRoom_Controller : MonoBehaviour, IRoom, IRoomWithEnemies, IMult
     }
     void onBossKilled(DeadCharacterInfo info)
     {
+        upgradesGroup.transform.position = info.DeadGameObject.transform.position;
+        CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
 
-        if(Tf_EndingCutseneableHolder.TryGetComponent(out ICutsceneable endCutsce))
+        if (Tf_EndingCutseneableHolder.TryGetComponent(out ICutsceneable endCutsce))
         {
             CutscenesManager.Instance.AddCutsceneable(endCutsce);
         }
         else { Debug.LogError("Missing boss defeated cutscene"); }
 
-        upgradesGroup.transform.position = info.DeadGameObject.transform.position;
-        CutscenesManager.Instance.AddCutsceneable(upgradesGroup);
+        
+       
 
         CurrentlySpawnedEnemies = new();
         CutMusic();

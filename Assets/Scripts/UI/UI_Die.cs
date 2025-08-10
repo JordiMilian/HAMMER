@@ -21,6 +21,6 @@ public class UI_Die : UI_BaseAction
             ));
 
         //find the pauseGame script in root and unpause
-        button.transform.root.GetComponent<PauseGame>().UnpauseGame();
+        button.transform.root.GetComponent<PauseGame>().Unpause_andHidePauseUI();
     }
 }

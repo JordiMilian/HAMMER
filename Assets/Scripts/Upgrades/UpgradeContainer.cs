@@ -55,7 +55,7 @@ public class UpgradeContainer : MonoBehaviour, IDamageReceiver
         ownCollider = GetComponent<CircleCollider2D>();
         iconRenderer.sprite = upgradeEffect.iconSprite;
         titleTMP.text = upgradeEffect.Title;
-        descriptionTMP.text = upgradeEffect.shortDescription();
+        descriptionTMP.text = upgradeEffect.shortDescription() + $"\n<color=#574C4C>{upgradeEffect.rarity}";
         ownCollider.enabled = true;
         containerAnimator.SetTrigger("Spawn");
     }

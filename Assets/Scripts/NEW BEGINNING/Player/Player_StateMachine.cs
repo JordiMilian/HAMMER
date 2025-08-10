@@ -59,6 +59,7 @@ public class Player_StateMachine : MonoBehaviour
     }
     public void RequestChangeState(PlayerState requestedState)
     {
+        if (PauseGame.isPaused) { return; }
         if (!isReadingInput) { Debug.Log("Currently not reading input for: " + requestedState.name); return; }
 
         if (CanTransition) { SetNewState(requestedState);}

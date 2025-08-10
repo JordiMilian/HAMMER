@@ -27,12 +27,14 @@ public class UI_ControllerControl : MonoBehaviour
         inputDetector.OnDownPressed += selectLowerButton;
         inputDetector.OnUpPressed += selectUpperButton;
         inputDetector.OnSelectPressed += SelectCurrentHighlight;
+        inputDetector.OnRollPressed += SelectCurrentHighlight;
     }
     private void OnDisable()
     {
         inputDetector.OnDownPressed -= selectLowerButton;
         inputDetector.OnUpPressed -= selectUpperButton;
         inputDetector.OnSelectPressed -= SelectCurrentHighlight;
+        inputDetector.OnRollPressed -= SelectCurrentHighlight;
     }
     public void RestartSelection()
     {

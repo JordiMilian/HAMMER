@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6925809016443793608
+--- !u!1 &8584552594439422494
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 876272961027941696}
-  - component: {fileID: 7002676363800525650}
+  - component: {fileID: 3634756714018074333}
+  - component: {fileID: 2624834844920432451}
   m_Layer: 0
   m_Name: BossDefeated_Cutsceneable
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &876272961027941696
+--- !u!4 &3634756714018074333
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6925809016443793608}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 8584552594439422494}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.620849, y: 5.2772584, z: 0.023282528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2861294270407902046}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7002676363800525650
+--- !u!114 &2624834844920432451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6925809016443793608}
+  m_GameObject: {fileID: 8584552594439422494}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ecf6206fa2b9e44fabe1d0c77ca2c72, type: 3}
@@ -83,7 +83,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2861294270407902046}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &5414813267928268988
 AudioSource:
@@ -269,6 +269,10 @@ PrefabInstance:
     - target: {fileID: 228597673776232209, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: rarity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 228597673776232209, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
+      propertyPath: radiusToSpawn
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 500236012714548863, guid: 21601bb78d3d0d54793b76dffb6058c5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -654,7 +658,7 @@ MonoBehaviour:
   BossPrefab: {fileID: 0}
   Tf_bossSpawnPoint: {fileID: 6351288933464416909}
   healthBar: {fileID: 4424330670833719739}
-  Tf_EndingCutseneableHolder: {fileID: 876272961027941696}
+  Tf_EndingCutseneableHolder: {fileID: 3634756714018074333}
   upgradesGroup: {fileID: 4111195528586519796}
   ExitDoor: {fileID: 702467371834552783}
   gameState: {fileID: 11400000, guid: c67095fb818f4d143a53c49670fe2a5c, type: 2}
