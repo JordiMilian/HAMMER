@@ -2,36 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialRoom_Roll_Controller : MonoBehaviour, IRoom, IMultipleRoom
+public class NarrativeIntroRoom_Controller : MonoBehaviour, IRoom, IMultipleRoom
 {
+    #region MULTIPLE ROOM
     [SerializeField] Transform _tf_ExitPos;
     public Vector2 ExitPos => _tf_ExitPos.position;
 
     [SerializeField] Generic_OnTriggerEnterEvents _combinedCollider;
     public Generic_OnTriggerEnterEvents combinedCollider => _combinedCollider;
 
+    #endregion
     public void OnRoomLoaded()
     {
+        SetPoleText();
     }
 
     public void OnRoomUnloaded()
     {
+       
     }
-    [SerializeField] Dialoguer dialoguer_Roll, dialoguer_Attack;
-    private void Start()
-    {
-        SetPoleText();
-    }
+    [SerializeField] Dialoguer dialoguer_Attack;
     void SetPoleText()
     {
-        dialoguer_Roll.TextLines = new List<string>()
-        {
-            $"Press <color=red>{InputDetector.Instance.Roll_string()}<color=black> to Roll",
-            $"Hold <color=red>{InputDetector.Instance.Roll_string()}<color=black> to Run",
-            //"<color=red>Hold LT<color=black> to Sprint",
-            "<color=red>Roll<color=black> over the spikes to continue"
-        };
-        /*
         dialoguer_Attack.TextLines = new List<string>()
         {
             $"Press <color=red>{InputDetector.Instance.Attack_String()}<color=black> to Attack",
@@ -39,6 +31,6 @@ public class TutorialRoom_Roll_Controller : MonoBehaviour, IRoom, IMultipleRoom
             "Awesome, you can continue"
 
         };
-        */
     }
+
 }
