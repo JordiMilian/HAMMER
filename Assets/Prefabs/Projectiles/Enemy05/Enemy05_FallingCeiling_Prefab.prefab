@@ -424,15 +424,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0.5
+  Stagger: 1
   Knockback: 1
   isParryable: 0
   isBloody: 0
   player_isChargingSpecialAttack: 0
-  isCharginSpecialAttack_whenParried: 0
+  isCharginSpecialAttack_whenParried: 1
   weaponIndex: 0
   EntityTeam: 2
   rootGameObject_DamageDealerTf: {fileID: 1205396173552098265}
   rootGameObject_ParryReceiver: {fileID: 0}
+  damagedReceivers: []
 --- !u!95 &6946438376565020793
 Animator:
   serializedVersion: 4

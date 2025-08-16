@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1338918940925047181}
-  - component: {fileID: 8431132797628037865}
+  - component: {fileID: 5309833098671515032}
   m_Layer: 0
   m_Name: RunningAttack
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 4521825749988040329}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8431132797628037865
+--- !u!114 &5309833098671515032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2936804925157340448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
+  m_Script: {fileID: 11500000, guid: 18c7f8f921d9c07468d8761f3f0909be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AnimatorStateName: BasicWeapon_RunningAttack
@@ -51,10 +51,40 @@ MonoBehaviour:
   Damage: 1.5
   Knockback: 2
   HitStop: 0.1
-  _minDistance: 0.5
+  _minDistance: 1
   _maxDistance: 3.5
   _offset: 1
-  _defaultDistance: 2.5
+  _defaultDistance: 3
+  SFX_ExtraComboAttack: {fileID: 8300000, guid: 5e41b63a42266074ba0da239210f22dd, type: 3}
+  weaponTrailGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 0.75686276}
+    key1: {r: 1, g: 0.4116228, b: 0, a: 0.43137255}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!1 &7748006774495978820
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4947930635067528987}
-  - component: {fileID: 6683212221463169485}
+  - component: {fileID: 6057245673549797171}
   m_Layer: 0
   m_Name: RollAttack
   m_TagString: Untagged
@@ -87,7 +117,7 @@ Transform:
   m_Father: {fileID: 4521825749988040329}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6683212221463169485
+--- !u!114 &6057245673549797171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,20 +126,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 7748006774495978820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c8ffe7ae4d8ef4eb624ff6fb7f647c, type: 3}
+  m_Script: {fileID: 11500000, guid: 18c7f8f921d9c07468d8761f3f0909be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AnimatorStateName: BasicWeapon_RollAttack
   doesRequireStamina: 1
   StaminaCost: 2
   nextComboAttack: {fileID: 9052119151426837628}
-  Damage: 1.2
+  Damage: 1.5
   Knockback: 1.5
   HitStop: 0.1
-  _minDistance: 0.25
-  _maxDistance: 3
+  _minDistance: 2
+  _maxDistance: 4
   _offset: 1
-  _defaultDistance: 2
+  _defaultDistance: 3
+  SFX_ExtraComboAttack: {fileID: 8300000, guid: 5e41b63a42266074ba0da239210f22dd, type: 3}
+  weaponTrailGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 0.75686276}
+    key1: {r: 1, g: 0.4116228, b: 0, a: 0.43137255}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!1001 &4475952600349850291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -276,11 +336,15 @@ PrefabInstance:
     - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: RollAttack
       value: 
-      objectReference: {fileID: 6683212221463169485}
+      objectReference: {fileID: 6057245673549797171}
+    - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: ParryAttack
+      value: 
+      objectReference: {fileID: 5309833098671515032}
     - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: RunningAttack
       value: 
-      objectReference: {fileID: 8431132797628037865}
+      objectReference: {fileID: 5309833098671515032}
     - target: {fileID: 4486973320311297674, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: SpecialAttack
       value: 
@@ -350,7 +414,23 @@ PrefabInstance:
       value: BasicWeapon_SpecialAttack
       objectReference: {fileID: 0}
     - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: SFX_SpecialAttack
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e41b63a42266074ba0da239210f22dd, type: 3}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
       propertyPath: doesRequireStamina
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: weaponTrailGradient.key1.b
+      value: 0.63320255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: weaponTrailGradient.key1.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240209069714381707, guid: e784db7f089ea17408fd1baae53b062c, type: 3}
+      propertyPath: weaponTrailGradient.key1.r
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

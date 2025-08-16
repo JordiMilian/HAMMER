@@ -25,6 +25,7 @@ public class Player_References : Generic_References
     public Transform StatesRoots;
     [Header("OTHERS")]
     public TrailRenderer weaponTrail;
+    public Gradient baseWeaponGradient;
 
 
     public Collider2D parryCollider;

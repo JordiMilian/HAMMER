@@ -31,7 +31,9 @@ public class Player_Stamina : MonoBehaviour
 
         //Set to max or min in case of overflow
         if (playerRefs.currentStats.CurrentStamina <= 0) { playerRefs.currentStats.CurrentStamina = 0; isEmpty = true; }
-        else if (playerRefs.currentStats.CurrentStamina > playerRefs.currentStats.MaxStamina)
+        else { isEmpty = false; }
+
+        if (playerRefs.currentStats.CurrentStamina > playerRefs.currentStats.MaxStamina)
         {
             playerRefs.currentStats.CurrentStamina = playerRefs.currentStats.MaxStamina;
             isFilled = true;

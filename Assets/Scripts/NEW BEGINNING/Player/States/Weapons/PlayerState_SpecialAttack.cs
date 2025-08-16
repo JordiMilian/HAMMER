@@ -6,6 +6,9 @@ public class PlayerState_SpecialAttack : PlayerState, IAddForceStats
 {
     [SerializeField] float Damage, Knockback;
     Coroutine currentAttackCoroutine;
+    [SerializeField] Gradient weaponTrailGradient;
+    [SerializeField] AudioClip SFX_SpecialAttack;
+
 
     #region ADD FORCE STATS
     [Header("Add Force Stats")]
@@ -35,6 +38,8 @@ public class PlayerState_SpecialAttack : PlayerState, IAddForceStats
             dealer.Knockback = Knockback;
             dealer.player_isChargingSpecialAttack = false;
         }
+        playerRefs.weaponTrail.colorGradient = weaponTrailGradient;
+        playerRefs.animationEvents.OnShowAttackCollider += OnShowAttackCollider;
     }
     public override void OnDisable()
     {
@@ -44,5 +49,8 @@ public class PlayerState_SpecialAttack : PlayerState, IAddForceStats
         {
             dealer.player_isChargingSpecialAttack = true;
         }
+        playerRefs.animationEvents.OnShowAttackCollider -= OnShowAttackCollider;
+        playerRefs.weaponTrail.colorGradient = playerRefs.baseWeaponGradient;
     }
+    void OnShowAttackCollider() { SFX_PlayerSingleton.Instance.playSFX(SFX_SpecialAttack); }
 }

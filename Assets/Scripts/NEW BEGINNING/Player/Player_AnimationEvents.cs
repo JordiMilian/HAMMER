@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 public class Player_AnimationEvents : MonoBehaviour
@@ -8,6 +6,7 @@ public class Player_AnimationEvents : MonoBehaviour
     [SerializeField] Player_References playerRefs;
     #region DAMAGE COLLIDERS
     [SerializeField] AudioClip SFX_SwordSwing;
+    public Action OnShowAttackCollider, OnHideAttackCollider;
     public void EV_Enemy_ShowAttackCollider()
     {
         foreach (Generic_DamageDealer dealer in playerRefs.DamageDealersList)
@@ -17,6 +16,7 @@ public class Player_AnimationEvents : MonoBehaviour
         }
         playerRefs.weaponTrail.emitting = true;
         SFX_PlayerSingleton.Instance.playSFX(SFX_SwordSwing,0.1f);
+        OnShowAttackCollider?.Invoke();
     }
     public void EV_Enemy_HideAttackCollider()
     {
@@ -25,6 +25,7 @@ public class Player_AnimationEvents : MonoBehaviour
             dealer.GetComponent<Collider2D>().enabled = false;
         }
         playerRefs.weaponTrail.emitting = false;
+        OnHideAttackCollider?.Invoke();
     }
     #endregion
     #region PARRY COLLIDERS

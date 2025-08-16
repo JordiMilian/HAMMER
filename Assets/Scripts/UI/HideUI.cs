@@ -8,7 +8,7 @@ public class HideUI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Alpha9))
+        if(Input.GetKeyUp(KeyCode.Alpha8))
         {
             CanvasRoot.SetActive(!CanvasRoot.activeSelf);
         }

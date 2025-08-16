@@ -1,5 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &83940208066258485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3438813386478427889}
+  - component: {fileID: 9053465836896622201}
+  - component: {fileID: 9039206941988011931}
+  m_Layer: 0
+  m_Name: HideUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3438813386478427889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83940208066258485}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6620460680117322819}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9053465836896622201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83940208066258485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065281936bc85b148b0d0b7761a37df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasRoot: {fileID: 4216416041170904585}
+--- !u!114 &9039206941988011931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83940208066258485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065281936bc85b148b0d0b7761a37df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasRoot: {fileID: 6592665229149572185}
 --- !u!1 &220824513501660030
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +832,7 @@ MonoBehaviour:
   StaminaCost: 0
   AnimatorStateName_Still: Idle
   AnimatorStateName_Walking: Walking
-  delayBeforeRecoveringStamina: 0.5
+  delayBeforeRecoveringStamina: 0.25
 --- !u!1 &1655432678466414714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,7 +2965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d043c99c15539e489511514810a0326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PercentageToActivate: 27
+  PercentageToActivate: 26.7
   masterMixer: {fileID: 24100000, guid: fbd1172c5de549142a64f8c0ed0d94a7, type: 2}
   lowPassON_Value: 1200
   lowPassOFF_Value: 22000
@@ -3442,7 +3501,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3743134093748283234}
   - component: {fileID: 2816248262323164294}
-  - component: {fileID: 7571122762221070247}
   m_Layer: 0
   m_Name: UI upgrades Icons
   m_TagString: Untagged
@@ -3494,19 +3552,6 @@ MonoBehaviour:
   distanceBetweenIcons: 55
   triggerUpdateUI: 0
   upgradesManger: {fileID: 8836383671982987378}
---- !u!114 &7571122762221070247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7476701271576577685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 065281936bc85b148b0d0b7761a37df0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CanvasRoot: {fileID: 4216416041170904585}
 --- !u!1 &7480114709439872473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,8 +3932,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0.34317875, a: 1}
-      key1: {r: 0.98039216, g: 0.38823527, b: 0.5692372, a: 0.7411765}
+      key0: {r: 1, g: 0, b: 0.03997326, a: 0.46666667}
+      key1: {r: 0.98039216, g: 0.38823527, b: 0.5692372, a: 0}
       key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3896,7 +3941,7 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 11180
+      ctime1: 46646
       ctime2: 65535
       ctime3: 0
       ctime4: 0
@@ -3904,7 +3949,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 34310
+      atime1: 65535
       atime2: 0
       atime3: 0
       atime4: 0
@@ -4826,6 +4871,35 @@ MonoBehaviour:
   WeaponStatesHolder: {fileID: 3088451774977303920}
   StatesRoots: {fileID: 3487887569468735037}
   weaponTrail: {fileID: 7653426974077638565}
+  baseWeaponGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0.03997326, a: 0.46666667}
+    key1: {r: 0.98039216, g: 0.38823527, b: 0.5692372, a: 0}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 46646
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
   parryCollider: {fileID: 716731460178388863}
   weaponScalingRoot: {fileID: 7653426974895600710}
   weaponPivot: {fileID: 7653426975497917625}
@@ -5850,6 +5924,7 @@ Transform:
   - {fileID: 8809921380203840554}
   - {fileID: 8081917214686694744}
   - {fileID: 1533919923902441893}
+  - {fileID: 3438813386478427889}
   m_Father: {fileID: 7653426975249963376}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7601,7 +7676,8 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: f94f191e4099cc341851323ea08ef727, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8490980319056039140, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
 --- !u!114 &3417959884117674321 stripped
 MonoBehaviour:
@@ -7628,6 +7704,11 @@ MonoBehaviour:
 --- !u!224 &6592665229149572162 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2279695838598030728, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
+  m_PrefabInstance: {fileID: 4962616396754577866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6592665229149572185 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2279695838598030739, guid: 6fa2311e79f276245b1d0716eed251b6, type: 3}
   m_PrefabInstance: {fileID: 4962616396754577866}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5763059091274562417

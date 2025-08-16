@@ -22,6 +22,9 @@ public class GreenBoss_DestinationUI_Controller : MonoBehaviour, IDamageDealer, 
     }
     public void OnParryReceived(GettingParriedInfo info)
     {
+        Destroy(GetComponent<PolygonCollider2D>());
+        
         OnParryReceived_event?.Invoke(info);
+        
     }
 }
