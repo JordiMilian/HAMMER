@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &203151200298054228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7462530996146370504}
+  - component: {fileID: 1269028626921130405}
+  m_Layer: 0
+  m_Name: Attack06
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7462530996146370504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203151200298054228}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269028626921130405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203151200298054228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack06
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &472727102674641096
 GameObject:
   m_ObjectHideFlags: 0
@@ -23,7 +78,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472727102674641096}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0000002980232, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000017881391, w: 1}
   m_LocalPosition: {x: 1.075, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -145,7 +200,7 @@ MonoBehaviour:
   enemyRefs: {fileID: 5642692438399491078}
   enterEvents: {fileID: 1828833203514914890}
   InvertedStreght: 50
-  enemyOvniMaker: {fileID: 7340602134435700865}
+  enemyOvniMaker: {fileID: 0}
 --- !u!114 &1828833203514914890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActivatorTags: []
+  ActivatorTagsTags: 
 --- !u!58 &9145869019247069725
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -315,6 +371,61 @@ TrailRenderer:
   m_MinVertexDistance: 1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!1 &3406740231914234553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8192361521011279126}
+  - component: {fileID: 7909535788526626191}
+  m_Layer: 0
+  m_Name: Attack04
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8192361521011279126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3406740231914234553}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7909535788526626191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3406740231914234553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack04
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &3873641820603230925
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,16 +644,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+  Stagger: 1
   Knockback: 0
-  HitStop: 0
   isParryable: 1
   isBloody: 1
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 1
   weaponIndex: 1
   EntityTeam: 1
-  typeOfDamage: 0
-  eventSystem: {fileID: 3457155622494412003}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
+  damagedReceivers: []
 --- !u!1 &4742279788501391087
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +801,281 @@ Transform:
   m_Father: {fileID: 5117211683153108440}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6664516509315640472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5652034177903917439}
+  - component: {fileID: 3237624961943649110}
+  m_Layer: 0
+  m_Name: Attack05
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5652034177903917439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664516509315640472}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3237624961943649110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664516509315640472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack05
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
+--- !u!1 &6718781276763340517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8188687374426744804}
+  - component: {fileID: 2584652905820945303}
+  m_Layer: 0
+  m_Name: MoveCloser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8188687374426744804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718781276763340517}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2584652905820945303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718781276763340517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_MoveCloser
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
+--- !u!1 &6914059234094865158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447108669637866983}
+  - component: {fileID: 1698957837978497849}
+  m_Layer: 0
+  m_Name: Attack08_veryLong
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &447108669637866983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914059234094865158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1698957837978497849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914059234094865158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack08_veryLong
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
+--- !u!1 &7080779218187313568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6764551567570823117}
+  - component: {fileID: 8951438979118338197}
+  m_Layer: 0
+  m_Name: Attack02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6764551567570823117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7080779218187313568}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8951438979118338197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7080779218187313568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack02
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
+--- !u!1 &7204350293051756267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2615535987045418898}
+  - component: {fileID: 7577979261717928869}
+  m_Layer: 0
+  m_Name: Attack07
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2615535987045418898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204350293051756267}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7577979261717928869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204350293051756267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack07
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &7712673486361808573
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,8 +1246,63 @@ Transform:
   m_Children:
   - {fileID: 3990851361311408868}
   m_Father: {fileID: 5897705947086615387}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &8390749279824784713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4480732770256165170}
+  - component: {fileID: 858200529146133636}
+  m_Layer: 0
+  m_Name: MoveAway
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4480732770256165170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390749279824784713}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858200529146133636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390749279824784713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_MoveAway
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &8673389740606737106
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +1326,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8673389740606737106}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0000013113022, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000026524067, w: 1}
   m_LocalPosition: {x: 1.144, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -892,6 +1334,61 @@ Transform:
   m_Father: {fileID: 8544985827419573298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8919398838408470983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4496287058537988512}
+  - component: {fileID: 6893721470430964044}
+  m_Layer: 0
+  m_Name: Attack03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4496287058537988512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919398838408470983}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6134868027587025560}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6893721470430964044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919398838408470983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: PinkBoss_Attack03
+  rangeDetector: {fileID: 7255559388615144867}
+  boxCollider: {fileID: 0}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1 &9037142730391088106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,6 +1682,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.12489891
       objectReference: {fileID: 0}
+    - target: {fileID: 1528115628968044978, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1530135795851701840, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1253,6 +1754,10 @@ PrefabInstance:
       propertyPath: FocusSprite
       value: 
       objectReference: {fileID: 7721259675710297833}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: AnimatorStateName
+      value: PinkBoss_Attack01
+      objectReference: {fileID: 0}
     - target: {fileID: 3736275689294426710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -1444,6 +1949,10 @@ PrefabInstance:
     - target: {fileID: 6661202020507442343, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754073259599786910, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_Name
+      value: Attack01
       objectReference: {fileID: 0}
     - target: {fileID: 6792726357816075657, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Radius
@@ -1641,6 +2150,10 @@ PrefabInstance:
       propertyPath: DamageDealersList.Array.data[1]
       value: 
       objectReference: {fileID: 7109863379444197109}
+    - target: {fileID: 7580950504294679982, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7619558403456288951, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: SpriteObject
       value: 
@@ -2178,9 +2691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a5b19840fb224f9d97128f36c3aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRefs: {fileID: 5642692438399491078}
-  ResponseAttackIndex: 6
-  CooldownSeconds: 3
 --- !u!114 &6006978709597058115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2207,22 +2717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed2f29b28ba2254b882e9fcb3b414a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refs: {fileID: 5642692438399491078}
-  SpecialAttack:
-    ShortDescription: half health attack
-    rangeDetector: {fileID: 0}
-    boxCollider: {fileID: 0}
-    isActive: 0
-    notOvniInvertable: 0
-    Damage: 1
-    Probability: 1
-    KnockBack: 1
-    Hitstop: 0
-    animationClip: {fileID: 7400000, guid: 494d2356926693242a3d9bc8cdcee5cf, type: 2}
-    isInCooldown: 0
-    HasCooldown: 0
-    CooldownTime: 0
-  PercentOfHealthToActivate: 55
 --- !u!114 &8727871250198749306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2244,7 +2738,6 @@ MonoBehaviour:
   distanceToPlayer: 0
   directionToPlayer: {x: 0, y: 0}
   weaponDirection: {x: 0, y: 0}
-  events: {fileID: 3457155622494412003}
   PinkProjectile_General: {fileID: 5671861329474703452, guid: 70d20404298f740449b847370f7b84d3, type: 3}
   PinkProjectile_General_Big: {fileID: 5671861329474703452, guid: 21938f31772fe234bb1582edda5c7874, type: 3}
   PinkProjectile_Directional: {fileID: 4485915165747632120, guid: 9ca38ab98c04aaa4c9ed77e93d4f1c84, type: 3}
@@ -2258,6 +2751,7 @@ MonoBehaviour:
   sfxEach: 4
   spreadAngleDeg: 120
   delayBetweenSaws_spread: 0.02
+  ThrowSingleSawSFX: {fileID: 0}
 --- !u!114 &9000282857321611850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2272,24 +2766,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageDealer:
   - {fileID: 5995223123573387948}
-  eventSystem: {fileID: 3457155622494412003}
+  enemyRefs: {fileID: 0}
   trailrendered: {fileID: 5855567137486718330}
   testTrailrendered: {fileID: 3024049063411836144}
   isTesting: 0
   damageDealer_W2: {fileID: 7109863379444197109}
   trailrendered_W2: {fileID: 3069852585535727278}
   testTrailrendered_W2: {fileID: 66272001865765274}
---- !u!114 &3457155622494412003 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 627058440868749388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2830946589837786287}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3363750463008785829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9046f0648e5af3246a6420f3dc472064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5642692438399491078 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2317,6 +2800,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25aabb8cb300dde4d96bf01a74bca3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6134868027587025560 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8244656171833337399, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+  m_PrefabInstance: {fileID: 2830946589837786287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6256279386084047595 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8186222616927864388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
@@ -2341,17 +2829,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7340602134435700865 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4798167946870512686, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
-  m_PrefabInstance: {fileID: 2830946589837786287}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c5bb1f22af9c342bd34366fb99f015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &7344619251651151746 stripped
@@ -2586,23 +3063,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5509836203722088870, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.45691505
+      value: 0.45691526
       objectReference: {fileID: 0}
     - target: {fileID: -5509836203722088870, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.13788003
+      value: 0.13788141
       objectReference: {fileID: 0}
     - target: {fileID: -4896543524392730453, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.0000038146973
+      value: 0.000005066395
       objectReference: {fileID: 0}
     - target: {fileID: -4896543524392730453, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.010595202
+      value: -0.010593474
       objectReference: {fileID: 0}
     - target: {fileID: -4896543524392730453, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.9600001
+      value: 0.96000016
       objectReference: {fileID: 0}
     - target: {fileID: -4896543524392730453, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
@@ -2614,19 +3091,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
     - target: {fileID: -4194377109704117819, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.000000059604645
+      value: 0.0000036656857
       objectReference: {fileID: 0}
     - target: {fileID: -4194377109704117819, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.0000009834766
+      value: -0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: -4194377109704117819, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.37500006
+      value: 0.37500167
       objectReference: {fileID: 0}
     - target: {fileID: -4194377109704117819, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.47500098
+      value: 0.47500134
       objectReference: {fileID: 0}
     - target: {fileID: -4008252929617929694, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_IsActive
@@ -2634,19 +3111,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3693960381355882801, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.0017738342
+      value: 0.0017737746
       objectReference: {fileID: 0}
     - target: {fileID: -3693960381355882801, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.0012369156
+      value: 0.0012389123
       objectReference: {fileID: 0}
     - target: {fileID: -3693960381355882801, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.5607201
+      value: 0.56072044
       objectReference: {fileID: 0}
     - target: {fileID: -3693960381355882801, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.21376505
+      value: 0.21376649
       objectReference: {fileID: 0}
     - target: {fileID: -3650908719105651111, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2654,23 +3131,23 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
     - target: {fileID: -3206261518742856525, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.0000002682209
+      value: 0.0000021457672
       objectReference: {fileID: 0}
     - target: {fileID: -3206261518742856525, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.002950132
+      value: -0.0029491782
       objectReference: {fileID: 0}
     - target: {fileID: -3206261518742856525, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.26000005
+      value: 0.2599995
       objectReference: {fileID: 0}
     - target: {fileID: -3206261518742856525, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.59704995
+      value: 0.5970503
       objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.13705412
+      value: 0.13705736
       objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2682,7 +3159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.99056363
+      value: -0.99056315
       objectReference: {fileID: 0}
     - target: {fileID: -1819529356487467196, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2714,19 +3191,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -187946156997404733, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.000000059604645
+      value: 0.0000036656857
       objectReference: {fileID: 0}
     - target: {fileID: -187946156997404733, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.0000019669533
+      value: 0.0000024735928
       objectReference: {fileID: 0}
     - target: {fileID: -187946156997404733, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.43500006
+      value: 0.43500125
       objectReference: {fileID: 0}
     - target: {fileID: -187946156997404733, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.36000007
+      value: 0.35999888
       objectReference: {fileID: 0}
     - target: {fileID: 39088679915580448, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2770,7 +3247,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
     - target: {fileID: 1770433945857213737, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.14448932
+      value: 0.14448532
       objectReference: {fileID: 0}
     - target: {fileID: 1770433945857213737, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2782,7 +3259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1770433945857213737, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.98950636
+      value: 0.989507
       objectReference: {fileID: 0}
     - target: {fileID: 4257508509235537429, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2854,31 +3331,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5729602602107144855, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.001835227
+      value: 0.0018378943
       objectReference: {fileID: 0}
     - target: {fileID: 5729602602107144855, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.0031199455
+      value: 0.003122151
       objectReference: {fileID: 0}
     - target: {fileID: 5729602602107144855, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.15816504
+      value: 0.15816516
       objectReference: {fileID: 0}
     - target: {fileID: 5729602602107144855, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.50812
+      value: 0.5081198
       objectReference: {fileID: 0}
     - target: {fileID: 5955128525357028693, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0
+      value: 0.00000500679
       objectReference: {fileID: 0}
     - target: {fileID: 5955128525357028693, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.019078672
+      value: 0.019080162
       objectReference: {fileID: 0}
     - target: {fileID: 5955128525357028693, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.84500015
+      value: 0.8450002
       objectReference: {fileID: 0}
     - target: {fileID: 5955128525357028693, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
@@ -2894,15 +3371,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc4c4c77ed52f8f43ae37bd9c16373e2, type: 2}
     - target: {fileID: 8010859436506496488, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.0006953329
+      value: 0.0007032752
       objectReference: {fileID: 0}
     - target: {fileID: 8010859436506496488, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.00000333786
+      value: 0.0000028014183
       objectReference: {fileID: 0}
     - target: {fileID: 8010859436506496488, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.23930386
+      value: 0.23930264
       objectReference: {fileID: 0}
     - target: {fileID: 8010859436506496488, guid: 69dc7ed2f20a9224c88f06ff52acd92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y

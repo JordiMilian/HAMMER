@@ -19,6 +19,7 @@ public class Enemy_References : Generic_References
     [Header("STATES")]
     public Generic_StateMachine stateMachine;
     public EnemyState IdleState, AgrooState, ParriedState, StanceBrokenState, DeathState;
+    public Transform AttackStatesParent;
     private void Awake()
     {
         currentEnemyStats = new EnemyStats();

@@ -357,16 +357,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0.5
+  Stagger: 1
   Knockback: 0.4
-  HitStop: 0.1
   isParryable: 0
   isBloody: 1
-  isChargingSpecialAttack: 0
+  player_isChargingSpecialAttack: 0
   isCharginSpecialAttack_whenParried: 0
   weaponIndex: 0
   EntityTeam: 1
-  typeOfDamage: 0
-  eventSystem: {fileID: 4374704308372774889}
+  rootGameObject_DamageDealerTf: {fileID: 0}
+  rootGameObject_ParryReceiver: {fileID: 0}
+  damagedReceivers: []
 --- !u!1 &4374704308372774901
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,8 +378,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4374704308372774890}
   - component: {fileID: 4374704308372774888}
-  - component: {fileID: 4374704308372774894}
-  - component: {fileID: 4374704308372774889}
   - component: {fileID: 8878536516036572417}
   m_Layer: 0
   m_Name: PinkSaw_Projectile
@@ -423,36 +422,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4374704308372774894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4374704308372774901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a68558d992f754dbf74f2a30f334d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageDealer:
-  - {fileID: 4374704308039895708}
-  eventSystem: {fileID: 4374704308372774889}
-  trailrendered: {fileID: 0}
-  testTrailrendered: {fileID: 0}
-  isTesting: 0
---- !u!114 &4374704308372774889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4374704308372774901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2085ee9771e87194a87d59369fa75115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8878536516036572417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +443,7 @@ MonoBehaviour:
   spriteMask: {fileID: 0}
   sawSprite: {fileID: 0}
   orientationSetter: {fileID: 9160954866211699279}
+  damageCollider: {fileID: 4374704308039895711}
 --- !u!1 &4374704308720275008
 GameObject:
   m_ObjectHideFlags: 0

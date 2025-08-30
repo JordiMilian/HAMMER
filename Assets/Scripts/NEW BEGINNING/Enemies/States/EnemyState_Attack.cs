@@ -10,7 +10,6 @@ public abstract class EnemyState_Attack : EnemyState
 
     //Revisa lo que sigue o no necesari aqui 
     public Enemy_AttackRangeDetector rangeDetector;
-    [HideInInspector] public BoxCollider2D boxCollider;
     [HideInInspector] public bool isActive;
     public bool notOvniInvertable = false;
 

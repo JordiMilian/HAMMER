@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackTesting : MonoBehaviour
 {
-    [SerializeField] GameObject Enemy;
+    public GameObject Enemy;
     Enemy_AttacksProviderV2 AttackProviderV2;
     Enemy_References enemyRefs;
     [SerializeField] string AttackName;
@@ -15,6 +15,7 @@ public class AttackTesting : MonoBehaviour
     
     [Range(0,10)]
     [SerializeField] int AttackToTest;
+    /*
     private void Awake()
     {
         Enemy.GetComponent<Enemy_ShowHideAttackCollider>().isTesting = true;
@@ -65,5 +66,5 @@ public class AttackTesting : MonoBehaviour
         Vector2 PivotOffset = new Vector2(WeaponPivot.localPosition.x, WeaponPivot.localPosition.y);
         Gizmos.DrawWireCube(boxCollider.offset + PivotOffset, boxCollider.size);
     }
-
+    */
 }

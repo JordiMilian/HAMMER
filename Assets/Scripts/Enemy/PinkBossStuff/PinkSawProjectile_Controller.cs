@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PinkSaw_Projectile : MonoBehaviour
+public class PinkSawProjectile_Controller : MonoBehaviour, IDamageDealer, IParryReceiver
 {
     [SerializeField] Animator sawAnimator;
     [SerializeField] Transform sawTf;
@@ -12,6 +13,10 @@ public class PinkSaw_Projectile : MonoBehaviour
     [SerializeField] SpriteMask spriteMask;
     [SerializeField] SpriteRenderer sawSprite;
     [SerializeField] PinkSaw_OrientationSetter_Projectile orientationSetter;
+    [SerializeField] Collider2D damageCollider;
+
+   
+
     public void startSawing(Vector2 initialPos, Vector2 directionToTarget)
     {
         InitialPos = initialPos;
@@ -49,17 +54,32 @@ public class PinkSaw_Projectile : MonoBehaviour
     public void EV_SawIsHidden()
     {
         Destroy(gameObject);
-        if (!sawAnimator.GetBool("isSawing"))
-        {
-            hideSprites();
-        }
     }
-    void hideSprites()
+    public void EV_ShowDamageCollider()
     {
-        Destroy(gameObject);
+        damageCollider.enabled = true;
     }
+    public void EV_HideDamageCollider()
+    {
+        damageCollider.enabled = false;
+    }
+
     float BezierBlend(float t)
     {
         return t * t * (3.0f - 2.0f * t);
+    }
+    public Action<DealtDamageInfo> OnDamageDealt_event { get; set; }
+    public Action<GettingParriedInfo> OnParryReceived_event { get; set; }
+
+    public void OnDamageDealt(DealtDamageInfo info)
+    {
+        OnDamageDealt_event?.Invoke(info);
+    }
+
+    public void OnParryReceived(GettingParriedInfo info)
+    {
+        OnParryReceived_event?.Invoke(info);
+        EV_HideDamageCollider();
+        //TO DO: Stop moving
     }
 }

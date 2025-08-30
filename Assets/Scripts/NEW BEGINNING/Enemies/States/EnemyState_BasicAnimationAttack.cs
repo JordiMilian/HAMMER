@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyState_BasicAnimationAttack : EnemyState_Attack
@@ -12,7 +11,7 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
         base.OnEnable();
 
         EnemyRefs.moveToTarget.SetMovementSpeed(SpeedsEnum.VerySlow);
-        animator.CrossFade(AnimatorStateName, 0.1f);
+        animator.CrossFade(AnimatorStateName, 0f);
         animationLenghtWaiterCoroutine = StartCoroutine(animationLenghtWaiter());
 
         if(attackedWhileRecovery == null) { attackedWhileRecovery = rootGameObject.GetComponent<IAttackedWhileRecovery>(); }
@@ -20,14 +19,10 @@ public class EnemyState_BasicAnimationAttack : EnemyState_Attack
     }
     IEnumerator animationLenghtWaiter()
     {
-        yield return null; //wait one frame so the transition can start
-        AnimatorClipInfo[] nextClips = animator.GetNextAnimatorClipInfo(0);
-        if (nextClips.Length > 0)
-        {
-            AnimationClip nextClip = nextClips[0].clip;
-            yield return new WaitForSeconds(nextClip.length);
-        }
+        yield return WaitUntilAnimatorStateFinishes(AnimatorStateName,.9f);
+
         OnAttackFinished();
+
     }
     public override void OnDisable()
     {

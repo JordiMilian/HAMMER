@@ -89,7 +89,7 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
         for (int i = 0; i < amountOfSaws_polygon; i++)
         {
             GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity);
-            PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
+            PinkSawProjectile_Controller projectile = newSaw.GetComponent<PinkSawProjectile_Controller>();
             projectile.startSawing(originPosition, sawDirections[i]);
 
             sawsCount++;
@@ -108,7 +108,7 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
         for (int i = 0; i < amountOfSaws; i++)
         {
             GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity);
-            PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
+            PinkSawProjectile_Controller projectile = newSaw.GetComponent<PinkSawProjectile_Controller>();
             projectile.startSawing(originPosition, spreadDirections[i]);
 
             yield return new WaitForSeconds(delayBetweenSaws_spread);
@@ -118,7 +118,7 @@ public class PinkBossProjectilesCreator : Enemy_BaseProjectileCreator
     {
         UpdateVectorData();
         GameObject newSaw = Instantiate(PinkSawProjectile_Prefab, originPosition, Quaternion.identity);
-        PinkSaw_Projectile projectile = newSaw.GetComponent<PinkSaw_Projectile>();
+        PinkSawProjectile_Controller projectile = newSaw.GetComponent<PinkSawProjectile_Controller>();
         projectile.startSawing(originPosition, -directionToPlayer);
     }
 

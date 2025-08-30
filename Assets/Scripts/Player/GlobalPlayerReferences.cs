@@ -5,7 +5,7 @@ using UnityEngine;
 public class GlobalPlayerReferences : MonoBehaviour
 {
      public Player_References references;
-    [HideInInspector] public Transform playerTf;
+    public Transform playerTf;
     [HideInInspector] public static GlobalPlayerReferences Instance;
     private void Awake()
     {

@@ -40,7 +40,7 @@ public class EnemyState_MultipleTeleportAttacj : EnemyState_Attack
             teleportAttackInfo info = teleportAttacks[i];
 
             animator.CrossFade(info.AnimatorStateName, 0.1f);
-            yield return WaitForNextAnimationToFinish();
+            yield return WaitUntilAnimatorStateFinishes(info.AnimatorStateName);
 
             if(i == teleportAttacks.Length -1)
             {

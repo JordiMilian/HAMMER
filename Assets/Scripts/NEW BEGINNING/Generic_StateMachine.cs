@@ -9,6 +9,7 @@ public class Generic_StateMachine : MonoBehaviour
 {
     [SerializeField] Animator animator;
     public Action<State> OnStateChanged;
+    [SerializeField] bool debugChangeState;
     public State currentState
     {
         get;
@@ -28,10 +29,14 @@ public class Generic_StateMachine : MonoBehaviour
         currentState.gameObject.SetActive(true);
 
         
-        OnStateChanged?.Invoke(currentState); //No use for this yet, but maybe some day
+        OnStateChanged?.Invoke(currentState); 
     }
     public void ChangeState(State newState)
     {
+        if(debugChangeState)
+        {
+            Debug.Log($"Changing state from {currentState} => {newState}");
+        }
         SetNewState(newState);
     }
 }

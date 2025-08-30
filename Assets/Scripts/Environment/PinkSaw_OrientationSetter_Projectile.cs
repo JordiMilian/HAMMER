@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 
 public class PinkSaw_OrientationSetter_Projectile : MonoBehaviour
 {
-    [SerializeField] PinkSaw_Projectile projectile;
+    [SerializeField] PinkSawProjectile_Controller projectile;
 
     [SerializeField] Transform sawRoot;
     [SerializeField] Transform colliderTf;
