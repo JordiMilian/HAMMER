@@ -11,6 +11,7 @@ public class TwoWeaponEnemy_AnimationEvents : BasicEnemy_AnimationEvents
         Weapon2_Collider.enabled = true;
         Weapon2_Collider.GetComponent<Generic_DamageDealer>().ResetDetectedReceivers();
 
+
         if (Weapon2_TrailRenderer != null) { Weapon2_TrailRenderer.emitting = true; }
         SFX_PlayerSingleton.Instance.playSFX(SFX_Swing, 0.2f);
     }
