@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2773730794092229864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8620322748831877953}
+  - component: {fileID: 5320554808798547726}
+  m_Layer: 0
+  m_Name: JumpAttack_Short
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8620322748831877953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773730794092229864}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3256151227634490575}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5320554808798547726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773730794092229864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788453eff02069f41be9b8f64d08b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateTag: 4
+  AnimatorStateName: JumpAttack_Short
+  rangeDetector: {fileID: 2063683747441882100}
+  isActive: 0
+  notOvniInvertable: 0
+  Damage: 1
+  Probability: 1
+  KnockBack: 1
+  HasCooldown: 0
+  CooldownTime: 0
 --- !u!1001 &2544831742398566955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -445,7 +499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1426323097296256413, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Size.y
-      value: 1.27
+      value: 1.6303477
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426323097296256413, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.18017387
       objectReference: {fileID: 0}
     - target: {fileID: 2195041901401652145, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Controller
@@ -455,6 +513,14 @@ PrefabInstance:
       propertyPath: FocusSprite
       value: 
       objectReference: {fileID: 2023835172547032827}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: rangeDetector
+      value: 
+      objectReference: {fileID: 7443279108033855328}
+    - target: {fileID: 3733529145921165597, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: AnimatorStateName
+      value: JumpAttack_Long
+      objectReference: {fileID: 0}
     - target: {fileID: 3736275689294426710, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -535,6 +601,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6754073259599786910, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+      propertyPath: m_Name
+      value: JumpAttack_Long
+      objectReference: {fileID: 0}
     - target: {fileID: 6792726357816075657, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Radius
       value: 0.25929627
@@ -613,11 +683,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7503888452882247945, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Size.y
-      value: 0.945981
+      value: 1.0949788
       objectReference: {fileID: 0}
     - target: {fileID: 7503888452882247945, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: m_Offset.y
-      value: 0.0021393895
+      value: 0.07663822
       objectReference: {fileID: 0}
     - target: {fileID: 7568110113479188649, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
       propertyPath: baseEnemyStats
@@ -718,9 +788,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dd22c1990282c4e87dfcb2b978bd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3369120548671044796 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8186222616927864388, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
+--- !u!4 &3256151227634490575 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8244656171833337399, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
   m_PrefabInstance: {fileID: 6871027730717129464}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6250205204953891826 stripped
@@ -741,41 +811,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PinkCircleSpikes_Prefab: {fileID: 1267060634439002229, guid: e9381739508a36041b44df7ebb9ca213, type: 3}
---- !u!114 &6169037731003094312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6250205204953891826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c451c9b41514d43bcff864c261068f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponFollowPlayer: {fileID: 3369120548671044796}
-  originPosition: {x: 0, y: 0}
-  player: {fileID: 0}
-  playerPosition: {x: 0, y: 0}
-  VectorToPlayer: {x: 0, y: 0}
-  angleToPlayerRad: 0
-  distanceToPlayer: 0
-  directionToPlayer: {x: 0, y: 0}
-  weaponDirection: {x: 0, y: 0}
-  events: {fileID: 0}
-  PinkProjectile_General: {fileID: 5671861329474703452, guid: 70d20404298f740449b847370f7b84d3, type: 3}
-  PinkProjectile_General_Big: {fileID: 0}
-  PinkProjectile_Directional: {fileID: 0}
-  PinkProjectile_StarDirectional: {fileID: 0}
-  maxDistance_around: 0
-  delayBetweenThrows_around: 0
-  Radius: 0
-  PinkSawProjectile_Prefab: {fileID: 0}
-  delayBetweenSaws_polygon: 0
-  amountOfSaws_polygon: 0
-  sfxEach: 3
-  spreadAngleDeg: 0
-  delayBetweenSaws_spread: 0
 --- !u!114 &7443279108033855328 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4040043019073815960, guid: a3b832a85c77dab4e88a9ad86e8be34d, type: 3}
