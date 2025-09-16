@@ -78,7 +78,7 @@ public class Generic_DamageDetector : MonoBehaviour
             attackerCollider.ClosestPoint(gameObject.transform.position), //position
             (rootGameObject.transform.position - damageDealer.rootGameObject_DamageDealerTf.position).normalized, //roots direction
             (transform.position - attackerCollider.transform.position).normalized, //colliders direction
-            rootGameObject.gameObject, //attacker Root
+            attackerCollider.GetComponent<Generic_DamageDealer>().rootGameObject_DamageDealerTf.gameObject,//attacker Root
             damageDealer,
             damageDealer.Damage,
             damageDealer.Knockback,
